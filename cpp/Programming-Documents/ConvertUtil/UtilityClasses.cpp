@@ -1,0 +1,51 @@
+#include "../../examples.h"
+
+#include <system/string.h>
+#include <system/shared_ptr.h>
+#include <system/object.h>
+#include <Model/Text/ControlChar.h>
+#include <Model/Sections/PageSetup.h>
+#include <Model/Document/DocumentBuilder.h>
+#include <Model/Document/Document.h>
+#include <Model/Document/ConvertUtil.h>
+
+using namespace Aspose::Words;
+
+namespace
+{
+
+void ConvertBetweenMeasurementUnits()
+{
+    // ExStart:ConvertBetweenMeasurementUnits
+    System::SharedPtr<Document> doc = System::MakeObject<Document>();
+    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+    
+    System::SharedPtr<PageSetup> pageSetup = builder->get_PageSetup();
+    pageSetup->set_TopMargin(ConvertUtil::InchToPoint(1.0));
+    pageSetup->set_BottomMargin(ConvertUtil::InchToPoint(1.0));
+    pageSetup->set_LeftMargin(ConvertUtil::InchToPoint(1.5));
+    pageSetup->set_RightMargin(ConvertUtil::InchToPoint(1.5));
+    pageSetup->set_HeaderDistance(ConvertUtil::InchToPoint(0.2));
+    pageSetup->set_FooterDistance(ConvertUtil::InchToPoint(0.2));
+    // ExEnd:ConvertBetweenMeasurementUnits
+    std::cout << "\nPage properties specified in inches.\n";
+}
+
+void UseControlCharacters()
+{
+    // ExStart:UseControlCharacters
+    System::String text = u"test\r";
+    // Replace "\r" control character with "\r\n"
+    text = text.Replace(ControlChar::Cr(), ControlChar::CrLf());
+    // ExEnd:UseControlCharacters
+    std::cout << "\nControl characters used successfully.\n";
+    
+}
+
+}
+
+void UtilityClasses()
+{
+    ConvertBetweenMeasurementUnits();
+    UseControlCharacters();
+}

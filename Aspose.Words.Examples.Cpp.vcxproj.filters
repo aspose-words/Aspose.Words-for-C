@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="cpp">
+      <UniqueIdentifier>{37f89927-2dad-4ec1-8d7e-dd583412ced8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Quick-Start">
+      <UniqueIdentifier>{3abfb563-bbc9-43c4-884c-8137b3213937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Loading-and-Saving">
+      <UniqueIdentifier>{8d7388cd-c9cf-41dc-b67e-5c36b9c800a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents">
+      <UniqueIdentifier>{bfa5a298-b540-4946-9e49-edf65a145291}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Joining-Appending">
+      <UniqueIdentifier>{ba2131a9-cd87-485b-a41c-75a4ba329f22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Find-Replace">
+      <UniqueIdentifier>{28f44306-b4e6-40c6-b1e3-31859248c9ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Bookmarks">
+      <UniqueIdentifier>{517851f9-b6f6-44c3-a212-448a02d6ca0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Sections">
+      <UniqueIdentifier>{0862bafe-e271-4000-acda-bc04bc65099a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Document">
+      <UniqueIdentifier>{976257a4-765d-4423-9eb3-038ccf455f01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Comments">
+      <UniqueIdentifier>{f13b0be0-4be6-47f8-96c7-7a1ca0b38e7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Tables">
+      <UniqueIdentifier>{306865de-3457-43c4-9eb0-8f11c1de65eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\ConvertUtil">
+      <UniqueIdentifier>{3bf1f7b7-07cc-46ba-bcfd-3ca666bc6269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Fields">
+      <UniqueIdentifier>{25402d6d-5e63-4371-a3da-a14ecb309c65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Images">
+      <UniqueIdentifier>{546ed341-9ac0-4e1d-aac1-cd2714f82290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Ranges">
+      <UniqueIdentifier>{b580beb6-5dff-409b-9407-22a0703d0557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Node">
+      <UniqueIdentifier>{c3086316-7354-45f9-b482-bee74e7515bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Hyperlink">
+      <UniqueIdentifier>{74ca480e-a8c2-465a-a753-d5edd3a1c6c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Styles">
+      <UniqueIdentifier>{373ee074-b3f1-42cd-bfa2-9c711790e43d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cpp\main.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\RunExamples.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Quick-Start\ApplyLicense.cpp">
+      <Filter>cpp\Quick-Start</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Quick-Start\AppendDocuments.cpp">
+      <Filter>cpp\Quick-Start</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Quick-Start\FindAndReplace.cpp">
+      <Filter>cpp\Quick-Start</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Quick-Start\HelloWorld.cpp">
+      <Filter>cpp\Quick-Start</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Quick-Start\WorkingWithNodes.cpp">
+      <Filter>cpp\Quick-Start</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveToDisk.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveToStream.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\CreateDocument.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\CheckFormat.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToByte.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\SimpleAppendDocument.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\KeepSourceFormatting.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\UseDestinationStyles.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\JoinContinuous.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\JoinNewPage.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\RestartPageNumbering.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\LinkHeadersFooters.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\UnlinkHeadersFooters.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\RemoveSourceHeadersFooters.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\DifferentPageSetup.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\ListUseDestinationStyles.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\ListKeepSourceFormatting.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\KeepSourceTogether.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\BaseDocument.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\AppendDocumentManually.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\PrependDocument.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\FindAndHighlight.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithString.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithRegex.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithEvaluator.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\FindReplaceUsingMetaCharacters.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\CopyBookmarkedText.cpp">
+      <Filter>cpp\Programming-Documents\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\UntangleRowBookmarks.cpp">
+      <Filter>cpp\Programming-Documents\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\BookmarkTable.cpp">
+      <Filter>cpp\Programming-Documents\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\BookmarkNameAndText.cpp">
+      <Filter>cpp\Programming-Documents\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\AccessBookmarks.cpp">
+      <Filter>cpp\Programming-Documents\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\CreateBookmark.cpp">
+      <Filter>cpp\Programming-Documents\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Sections\AddDeleteSection.cpp">
+      <Filter>cpp\Programming-Documents\Sections</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithFootnote.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Sections\AppendSectionContent.cpp">
+      <Filter>cpp\Programming-Documents\Sections</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Sections\CloneSection.cpp">
+      <Filter>cpp\Programming-Documents\Sections</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Sections\CopySection.cpp">
+      <Filter>cpp\Programming-Documents\Sections</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Sections\DeleteHeaderFooterContent.cpp">
+      <Filter>cpp\Programming-Documents\Sections</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Sections\DeleteSectionContent.cpp">
+      <Filter>cpp\Programming-Documents\Sections</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Sections\SectionsAccessByIndex.cpp">
+      <Filter>cpp\Programming-Documents\Sections</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Comments\ProcessComments.cpp">
+      <Filter>cpp\Programming-Documents\Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Comments\AddComments.cpp">
+      <Filter>cpp\Programming-Documents\Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Comments\AnchorComment.cpp">
+      <Filter>cpp\Programming-Documents\Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Comments\CommentReply.cpp">
+      <Filter>cpp\Programming-Documents\Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\AddRemoveColumn.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\ApplyFormatting.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\ConvertUtil\UtilityClasses.cpp">
+      <Filter>cpp\Programming-Documents\ConvertUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenParagraphs.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\Common.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenBlockLevelNodes.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenParagraphStyles.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenBookmark.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\ApplyStyle.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\AutoFitTableToContents.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\AutoFitTableToFixedColumnWidths.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\AutoFitTableToWindow.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\CloneTable.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\FindingIndex.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\ExtractOrReplaceText.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\InsertTableDirectly.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\InsertTableUsingDocumentBuilder.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\JoiningAndSplittingTable.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\KeepTablesAndRowsBreaking.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\MergedCells.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\RepeatRowsOnSubsequentPages.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenCommentRange.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\RemoveBreaks.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\CloningDocument.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ProtectDocument.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\AccessStyles.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\GetVariables.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\SetViewOption.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\CreateHeaderFooterUsingDocBuilder.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\RemoveFooters.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\AddGroupShapeToDocument.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocProperties.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WriteAndFont.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertParagraph.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderBuildTable.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertBreak.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertImage.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertBookmark.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertElements.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderSetFormatting.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderMovingCursor.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\InsertDoc.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertTCFieldsAtText.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\RemoveTOCFromDocument.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\SetCompatibilityOptions.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\Setuplanguagepreferences.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenRuns.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\SpecifyHeightAndWidth.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClInclude Include="cpp\examples.h">
+      <Filter>cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="cpp\RunExamples.h">
+      <Filter>cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="cpp\Programming-Documents\Document\Common.h">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClInclude>
+    <ClCompile Include="cpp\Programming-Documents\Tables\TablePosition.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\RemoveField.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\SpecifylocaleAtFieldlevel.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertFormFields.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsGetFormFieldsCollection.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsGetByName.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsWorkWithProperties.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\RenameMergeFields.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Styles\ChangeStyleOfTOCLevel.cpp">
+      <Filter>cpp\Programming-Documents\Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Styles\ChangeTOCTabStops.cpp">
+      <Filter>cpp\Programming-Documents\Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Styles\ExtractContentBasedOnStyles.cpp">
+      <Filter>cpp\Programming-Documents\Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Styles\InsertStyleSeparator.cpp">
+      <Filter>cpp\Programming-Documents\Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Hyperlink\ReplaceHyperlinks.cpp">
+      <Filter>cpp\Programming-Documents\Hyperlink</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Node\ExNode.cpp">
+      <Filter>cpp\Programming-Documents\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Ranges\RangesDeleteText.cpp">
+      <Filter>cpp\Programming-Documents\Ranges</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Ranges\RangesGetText.cpp">
+      <Filter>cpp\Programming-Documents\Ranges</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Images\AddWatermark.cpp">
+      <Filter>cpp\Programming-Documents\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Images\RemoveWatermark.cpp">
+      <Filter>cpp\Programming-Documents\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Images\CompressImages.cpp">
+      <Filter>cpp\Programming-Documents\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Images\ExtractImagesToFiles.cpp">
+      <Filter>cpp\Programming-Documents\Images</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

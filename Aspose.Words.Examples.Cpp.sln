@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Aspose.Words.Examples.Cpp", "Aspose.Words.Examples.Cpp.vcxproj", "{A79C6233-6486-458B-85A3-F786DB595075}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A79C6233-6486-458B-85A3-F786DB595075}.Debug|x64.ActiveCfg = Debug|x64
+		{A79C6233-6486-458B-85A3-F786DB595075}.Debug|x64.Build.0 = Debug|x64
+		{A79C6233-6486-458B-85A3-F786DB595075}.Debug|x86.ActiveCfg = Debug|Win32
+		{A79C6233-6486-458B-85A3-F786DB595075}.Debug|x86.Build.0 = Debug|Win32
+		{A79C6233-6486-458B-85A3-F786DB595075}.Release|x64.ActiveCfg = Release|x64
+		{A79C6233-6486-458B-85A3-F786DB595075}.Release|x64.Build.0 = Release|x64
+		{A79C6233-6486-458B-85A3-F786DB595075}.Release|x86.ActiveCfg = Release|Win32
+		{A79C6233-6486-458B-85A3-F786DB595075}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14984E63-CD97-4390-B996-037ED560A456}
+	EndGlobalSection
+EndGlobal

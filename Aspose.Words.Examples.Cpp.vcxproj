@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{A79C6233-6486-458B-85A3-F786DB595075}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>AsposeWordsExamplesCpp</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <PrecompiledHeaderOutputFile />
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="cpp\Loading-and-Saving\CheckFormat.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToByte.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\CreateDocument.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveToDisk.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveToStream.cpp" />
+    <ClCompile Include="cpp\main.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\AccessBookmarks.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\BookmarkNameAndText.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\BookmarkTable.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\CopyBookmarkedText.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\CreateBookmark.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\UntangleRowBookmarks.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Comments\AddComments.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Comments\AnchorComment.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Comments\CommentReply.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Comments\ProcessComments.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\ConvertUtil\UtilityClasses.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\AccessStyles.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\AddGroupShapeToDocument.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\CloningDocument.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\Common.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\CreateHeaderFooterUsingDocBuilder.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocProperties.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderBuildTable.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertBookmark.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertBreak.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertElements.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertImage.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertParagraph.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertTCFieldsAtText.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderMovingCursor.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderSetFormatting.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenBlockLevelNodes.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenBookmark.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenCommentRange.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenParagraphs.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenParagraphStyles.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenRuns.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\GetVariables.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\InsertDoc.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\ProtectDocument.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\RemoveBreaks.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\RemoveFooters.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\RemoveTOCFromDocument.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\SetCompatibilityOptions.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\Setuplanguagepreferences.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\SetViewOption.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithFootnote.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\WriteAndFont.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsGetByName.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsGetFormFieldsCollection.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsWorkWithProperties.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertFormFields.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\RemoveField.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\RenameMergeFields.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\SpecifylocaleAtFieldlevel.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\FindAndHighlight.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\FindReplaceUsingMetaCharacters.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithEvaluator.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithRegex.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithString.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Hyperlink\ReplaceHyperlinks.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Images\AddWatermark.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Images\CompressImages.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Images\ExtractImagesToFiles.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Images\RemoveWatermark.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\AppendDocumentManually.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\BaseDocument.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\DifferentPageSetup.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\JoinContinuous.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\JoinNewPage.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\KeepSourceFormatting.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\KeepSourceTogether.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\LinkHeadersFooters.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\ListKeepSourceFormatting.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\ListUseDestinationStyles.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\PrependDocument.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\RemoveSourceHeadersFooters.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\RestartPageNumbering.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\SimpleAppendDocument.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\UnlinkHeadersFooters.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\UseDestinationStyles.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Node\ExNode.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Ranges\RangesDeleteText.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Ranges\RangesGetText.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Sections\AddDeleteSection.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Sections\AppendSectionContent.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Sections\CloneSection.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Sections\CopySection.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Sections\DeleteHeaderFooterContent.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Sections\DeleteSectionContent.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Sections\SectionsAccessByIndex.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Styles\ChangeStyleOfTOCLevel.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Styles\ChangeTOCTabStops.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Styles\ExtractContentBasedOnStyles.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Styles\InsertStyleSeparator.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\AddRemoveColumn.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\ApplyFormatting.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\ApplyStyle.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\AutoFitTableToContents.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\AutoFitTableToFixedColumnWidths.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\AutoFitTableToWindow.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\CloneTable.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\ExtractOrReplaceText.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\FindingIndex.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\InsertTableDirectly.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\InsertTableUsingDocumentBuilder.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\JoiningAndSplittingTable.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\KeepTablesAndRowsBreaking.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\MergedCells.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\RepeatRowsOnSubsequentPages.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\SpecifyHeightAndWidth.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Tables\TablePosition.cpp" />
+    <ClCompile Include="cpp\Quick-Start\AppendDocuments.cpp" />
+    <ClCompile Include="cpp\Quick-Start\ApplyLicense.cpp" />
+    <ClCompile Include="cpp\Quick-Start\FindAndReplace.cpp" />
+    <ClCompile Include="cpp\Quick-Start\HelloWorld.cpp" />
+    <ClCompile Include="cpp\Quick-Start\WorkingWithNodes.cpp" />
+    <ClCompile Include="cpp\RunExamples.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cpp\examples.h" />
+    <ClInclude Include="cpp\Programming-Documents\Document\Common.h" />
+    <ClInclude Include="cpp\RunExamples.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
