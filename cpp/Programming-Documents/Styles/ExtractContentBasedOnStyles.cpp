@@ -23,6 +23,7 @@ namespace
 
     TParagraphListP ParagraphsByStyleName(System::SharedPtr<Document> doc, System::String const &styleName)
     {
+	    // ExStart:ParagraphsByStyleName
         // Create an array to collect paragraphs of the specified style.
         auto paragraphsWithStyle = System::MakeObject<TParagraphList>();
         // Get all paragraphs from the document.
@@ -38,6 +39,7 @@ namespace
             }
         }
         return paragraphsWithStyle;
+		// ExEnd:ParagraphsByStyleName
     }
 
     typedef System::Collections::Generic::List<System::SharedPtr<Run>> TRunList;
@@ -45,6 +47,7 @@ namespace
 
     TRunListP RunsByStyleName(System::SharedPtr<Document> doc, System::String const &styleName)
     {
+		// ExStart:RunsByStyleName
         // Create an array to collect runs of the specified style.
         auto runsWithStyle = System::MakeObject<TRunList>();
         // Get all runs from the document.
@@ -60,6 +63,7 @@ namespace
             }
         }
         return runsWithStyle;
+		// ExEnd:RunsByStyleName
     }
 }
 

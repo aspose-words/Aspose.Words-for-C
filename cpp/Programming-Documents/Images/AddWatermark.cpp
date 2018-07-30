@@ -32,7 +32,7 @@ using namespace Aspose::Words::Drawing;
 
 namespace
 {
-
+// ExStart:AddWatermark
 void InsertWatermarkIntoHeader(const System::SharedPtr<Paragraph>& watermarkPara, const System::SharedPtr<Section>& sect, HeaderFooterType headerType)
 {
     System::SharedPtr<HeaderFooter> header = sect->get_HeadersFooters()->idx_get(headerType);
@@ -105,3 +105,4 @@ void AddWatermark()
     
     std::cout << "\nAdded watermark to the document successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
 }
+// ExEnd:AddWatermark
