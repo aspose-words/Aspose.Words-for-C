@@ -106,16 +106,6 @@ namespace
     }    
 
 	// ExStart:RecurseAllNodes
-    void RecurseAllNodes()
-    {
-        // The path to the documents directory.
-        System::String dataDir = GetDataDir_WorkingWithNode();
-        // Open a document.
-        auto doc = System::MakeObject<Document>(dataDir + u"Node.RecurseAllNodes.doc");
-        // Invoke the recursive function that will walk the tree.
-        TraverseAllNodes(doc);
-    }
-
 	void TraverseAllNodes(System::SharedPtr<CompositeNode> parentNode)
 	{
 		// This is the most efficient way to loop through immediate children of a node.
@@ -130,6 +120,16 @@ namespace
 			}
 		}
 	}
+
+    void RecurseAllNodes()
+    {
+        // The path to the documents directory.
+        System::String dataDir = GetDataDir_WorkingWithNode();
+        // Open a document.
+        auto doc = System::MakeObject<Document>(dataDir + u"Node.RecurseAllNodes.doc");
+        // Invoke the recursive function that will walk the tree.
+        TraverseAllNodes(doc);
+    }
 	// ExEnd:RecurseAllNodes
 
     void TypedAccess()
