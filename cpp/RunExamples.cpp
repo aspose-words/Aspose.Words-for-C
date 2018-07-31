@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "RunExamples.h"
 
 #include <system/io/path.h>

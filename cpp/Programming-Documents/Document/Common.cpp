@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "Common.h"
 
 #include <system/string.h>

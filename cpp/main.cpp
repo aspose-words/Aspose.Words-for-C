@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include <iostream>
 
 #include "examples.h"

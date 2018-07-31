@@ -1,4 +1,5 @@
-#include "../../examples.h"
+#include "stdafx.h"
+#include "examples.h"
 
 #include <system/text/regularexpressions/regex.h>
 #include <system/text/regularexpressions/match.h>

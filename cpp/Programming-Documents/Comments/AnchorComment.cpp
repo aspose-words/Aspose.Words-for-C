@@ -1,4 +1,5 @@
-#include "../../examples.h"
+#include "stdafx.h"
+#include "examples.h"
 
 #include <system/string.h>
 #include <system/shared_ptr.h>
