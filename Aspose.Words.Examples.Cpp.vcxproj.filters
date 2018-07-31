@@ -423,8 +423,14 @@
     <ClCompile Include="cpp\Programming-Documents\Images\ExtractImagesToFiles.cpp">
       <Filter>cpp\Programming-Documents\Images</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cpp\stdafx.h" />
+    <ClInclude Include="cpp\pch\aspose_pch.h" />
+    <ClInclude Include="cpp\pch\pch.h" />
   </ItemGroup>
 </Project>
