@@ -1,4 +1,5 @@
-#include "../examples.h"
+#include "stdafx.h"
+#include "examples.h"
 
 #include "Model/Text/Paragraph.h"
 #include "Model/Sections/Section.h"
