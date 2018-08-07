@@ -117,6 +117,7 @@ namespace
 
 void FindAndHighlight()
 {
+    std::cout << "FindAndHighlight example started." << std::endl;
     using namespace System::Text::RegularExpressions;
     // ExStart:FindAndHighlight
     // The path to the documents directory.
@@ -132,9 +133,10 @@ void FindAndHighlight()
     auto regex = System::MakeObject<Regex>(u"your document", RegexOptions::IgnoreCase);
     doc->get_Range()->Replace(regex, u"", options);
     
-    dataDir = dataDir + GetOutputFilePath(u"FindAndHighlight.doc");
+    System::String outputPath = dataDir + GetOutputFilePath(u"FindAndHighlight.doc");
     // Save the output document.
-    doc->Save(dataDir);
+    doc->Save(outputPath);
     // ExEnd:FindAndHighlight
-    std::cout << "\nText highlighted successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Text highlighted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "FindAndHighlight example finished." << std::endl << std::endl;
 }

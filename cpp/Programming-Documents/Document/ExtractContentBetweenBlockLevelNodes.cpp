@@ -26,27 +26,29 @@ using namespace Aspose::Words::Tables;
 
 void ExtractContentBetweenBlockLevelNodes()
 {
+    std::cout << "ExtractContentBetweenBlockLevelNodes example started." << std::endl;
     // ExStart:ExtractContentBetweenBlockLevelNodes
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
-    
+
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-    
+
     System::SharedPtr<Paragraph> startPara = System::DynamicCast<Paragraph>(doc->get_LastSection()->GetChild(Aspose::Words::NodeType::Paragraph, 2, true));
     System::SharedPtr<Table> endTable = System::DynamicCast<Table>(doc->get_LastSection()->GetChild(Aspose::Words::NodeType::Table, 0, true));
-    
+
     // Extract the content between these nodes in the document. Include these markers in the extraction.
     auto extractedNodes = ExtractContent(startPara, endTable, true);
-    
+
     // Lets reverse the array to make inserting the content back into the document easier.
     for (auto it = extractedNodes.rbegin(); it != extractedNodes.rend(); ++it)
     {
         endTable->get_ParentNode()->InsertAfter(*it, endTable);
     }
 
-    dataDir = dataDir + GetOutputFilePath(u"ExtractContentBetweenBlockLevelNodes.doc");
+    System::String outputPath = dataDir + GetOutputFilePath(u"ExtractContentBetweenBlockLevelNodes.doc");
     // Save the generated document to disk.
-    doc->Save(dataDir);
+    doc->Save(outputPath);
     // ExEnd:ExtractContentBetweenBlockLevelNodes
-    std::cout << "\nExtracted content betweenn the block level nodes successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Extracted content betweenn the block level nodes successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "ExtractContentBetweenBlockLevelNodes example finished." << std::endl << std::endl;
 }

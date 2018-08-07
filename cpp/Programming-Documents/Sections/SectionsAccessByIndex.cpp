@@ -13,6 +13,7 @@ using namespace Aspose::Words;
 
 void SectionsAccessByIndex()
 {
+    std::cout << "SectionsAccessByIndex example started." << std::endl;
     // ExStart:SectionsAccessByIndex
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithSections();
@@ -33,5 +34,6 @@ void SectionsAccessByIndex()
     section->get_PageSetup()->get_TextColumns()->set_Spacing(35.4);
     // 1.25 cm
     // ExEnd:SectionsAccessByIndex
-    std::cout << "\nSection at 0 index have text \"" << section->GetText().ToUtf8String() << "\"" << std::endl;
+    std::cout << "Section at 0 index have text \"" << section->GetText().ToUtf8String() << "\"" << std::endl;
+    std::cout << "SectionsAccessByIndex example finished." << std::endl << std::endl;
 }

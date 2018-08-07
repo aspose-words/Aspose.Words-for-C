@@ -16,6 +16,7 @@ using namespace Aspose::Words;
 
 void InsertStyleSeparator()
 {
+    std::cout << "InsertStyleSeparator example started." << std::endl;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithStyles();
     // ExStart:ParagraphInsertStyleSeparator
@@ -36,5 +37,6 @@ void InsertStyleSeparator()
     // Save the document to disk.
     doc->Save(outputPath);
     // ExEnd:ParagraphInsertStyleSeparator
-    std::cout << "\nApplied different paragraph styles to two different parts of a text line successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "Applied different paragraph styles to two different parts of a text line successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "InsertStyleSeparator example finished." << std::endl << std::endl;
 }

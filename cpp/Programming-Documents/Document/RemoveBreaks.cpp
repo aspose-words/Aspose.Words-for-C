@@ -24,14 +24,13 @@ using namespace Aspose::Words;
 
 namespace
 {
+    // ExStart:RemovePageBreaks
+    void RemovePageBreaks(const System::SharedPtr<Document>& doc)
+    {
+        // Retrieve all paragraphs in the document.
+        System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true);
 
-// ExStart:RemovePageBreaks
-void RemovePageBreaks(const System::SharedPtr<Document>& doc)
-{
-    // Retrieve all paragraphs in the document.
-    System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true);
-    
-    // Iterate through all paragraphs
+        // Iterate through all paragraphs
         auto para_enumerator = paragraphs->GetEnumerator();
         System::SharedPtr<Paragraph> para;
         while (para_enumerator->MoveNext() && (para = System::DynamicCast<Paragraph>(para_enumerator->get_Current()), true))
@@ -41,62 +40,58 @@ void RemovePageBreaks(const System::SharedPtr<Document>& doc)
             {
                 para->get_ParagraphFormat()->set_PageBreakBefore(false);
             }
-            
+
             // Check all runs in the paragraph for page breaks and remove them.
-            
+            auto run_enumerator = para->get_Runs()->GetEnumerator();
+            System::SharedPtr<Run> run;
+            while (run_enumerator->MoveNext() && (run = System::DynamicCast<Run>(run_enumerator->get_Current()), true))
             {
-                auto run_enumerator = para->get_Runs()->GetEnumerator();
-                System::SharedPtr<Run> run;
-                while (run_enumerator->MoveNext() && (run = System::DynamicCast<Run>(run_enumerator->get_Current()), true))
+                if (run->get_Text().Contains(ControlChar::PageBreak()))
                 {
-                    if (run->get_Text().Contains(ControlChar::PageBreak()))
-                    {
-                        run->set_Text(run->get_Text().Replace(ControlChar::PageBreak(), System::String::Empty));
-                    }
+                    run->set_Text(run->get_Text().Replace(ControlChar::PageBreak(), System::String::Empty));
                 }
             }
         }
-}
-// ExEnd:RemovePageBreaks
-
-
-// ExStart:RemoveSectionBreaks
-void RemoveSectionBreaks(const System::SharedPtr<Document>& doc)
-{
-    // Loop through all sections starting from the section that precedes the last one 
-    // And moving to the first section.
-    for (int32_t i = doc->get_Sections()->get_Count() - 2; i >= 0; i--)
-    {
-        // Copy the content of the current section to the beginning of the last section.
-        doc->get_LastSection()->PrependContent(doc->get_Sections()->idx_get(i));
-        // Remove the copied section.
-        doc->get_Sections()->idx_get(i)->Remove();
     }
-}
-// ExEnd:RemoveSectionBreaks
+    // ExEnd:RemovePageBreaks
 
+    // ExStart:RemoveSectionBreaks
+    void RemoveSectionBreaks(const System::SharedPtr<Document>& doc)
+    {
+        // Loop through all sections starting from the section that precedes the last one 
+        // And moving to the first section.
+        for (int32_t i = doc->get_Sections()->get_Count() - 2; i >= 0; i--)
+        {
+            // Copy the content of the current section to the beginning of the last section.
+            doc->get_LastSection()->PrependContent(doc->get_Sections()->idx_get(i));
+            // Remove the copied section.
+            doc->get_Sections()->idx_get(i)->Remove();
+        }
+    }
+    // ExEnd:RemoveSectionBreaks
 }
 
 void RemoveBreaks()
 {
-    
+    std::cout << "RemoveBreaks example started." << std::endl;
+    // ExStart:RemoveBreaks
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     // ExStart:OpenFromFile
-    
     // Open the document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
     // ExEnd:OpenFromFile
-    
+
     // Remove the page and section breaks from the document.
     // In Aspose.Words section breaks are represented as separate Section nodes in the document.
     // To remove these separate sections the sections are combined.
     RemovePageBreaks(doc);
     RemoveSectionBreaks(doc);
-    
-    dataDir = dataDir + GetOutputFilePath(u"RemoveBreaks.doc");
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveBreaks.doc");
     // Save the document.
-    doc->Save(dataDir);
-    
-    std::cout << "\nRemoved breaks from the document successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    doc->Save(outputPath);
+    // ExEnd:RemoveBreaks
+    std::cout << "Removed breaks from the document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "RemoveBreaks example finished." << std::endl << std::endl;
 }

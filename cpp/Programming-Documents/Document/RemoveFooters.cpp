@@ -18,12 +18,13 @@ using namespace Aspose::Words;
 
 void RemoveFooters()
 {
+    std::cout << "RemoveFooters example started." << std::endl;
     // ExStart:RemoveFooters
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
-    
+
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"HeaderFooter.RemoveFooters.doc");
-    
+
     auto section_enumerator = doc->GetEnumerator();
     System::SharedPtr<Section> section;
     while (section_enumerator->MoveNext() && (section = System::DynamicCast<Section>(section_enumerator->get_Current()), true))
@@ -51,10 +52,11 @@ void RemoveFooters()
             footer->Remove();
         }
     }
-    dataDir = dataDir + GetOutputFilePath(u"RemoveFooters.doc");
-    
+    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveFooters.doc");
+
     // Save the document.
-    doc->Save(dataDir);
+    doc->Save(outputPath);
     // ExEnd:RemoveFooters
-    std::cout << "\nAll footers from all sections deleted successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "All footers from all sections deleted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "RemoveFooters example finished." << std::endl << std::endl;
 }

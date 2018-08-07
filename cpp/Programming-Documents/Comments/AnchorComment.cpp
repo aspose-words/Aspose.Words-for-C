@@ -25,39 +25,41 @@ using namespace Aspose::Words;
 
 void AnchorComment()
 {
+    std::cout << "AnchorComment example started." << std::endl;
     // ExStart:AnchorComment
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithComments();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    
+
     System::SharedPtr<Paragraph> para1 = System::MakeObject<Paragraph>(doc);
     System::SharedPtr<Aspose::Words::Run> run1 = System::MakeObject<Aspose::Words::Run>(doc, u"Some ");
     System::SharedPtr<Aspose::Words::Run> run2 = System::MakeObject<Aspose::Words::Run>(doc, u"text ");
     para1->AppendChild(run1);
     para1->AppendChild(run2);
     doc->get_FirstSection()->get_Body()->AppendChild(para1);
-    
+
     System::SharedPtr<Paragraph> para2 = System::MakeObject<Paragraph>(doc);
     System::SharedPtr<Aspose::Words::Run> run3 = System::MakeObject<Aspose::Words::Run>(doc, u"is ");
     System::SharedPtr<Aspose::Words::Run> run4 = System::MakeObject<Aspose::Words::Run>(doc, u"added ");
     para2->AppendChild(run3);
     para2->AppendChild(run4);
     doc->get_FirstSection()->get_Body()->AppendChild(para2);
-    
+
     System::SharedPtr<Comment> comment = System::MakeObject<Comment>(doc, u"Awais Hafeez", u"AH", System::DateTime::get_Today());
     comment->get_Paragraphs()->Add(System::MakeObject<Paragraph>(doc));
     comment->get_FirstParagraph()->get_Runs()->Add(System::MakeObject<Aspose::Words::Run>(doc, u"Comment text."));
     
     System::SharedPtr<CommentRangeStart> commentRangeStart = System::MakeObject<CommentRangeStart>(doc, comment->get_Id());
     System::SharedPtr<CommentRangeEnd> commentRangeEnd = System::MakeObject<CommentRangeEnd>(doc, comment->get_Id());
-    
+
     run1->get_ParentNode()->InsertAfter(commentRangeStart, run1);
     run3->get_ParentNode()->InsertAfter(commentRangeEnd, run3);
     commentRangeEnd->get_ParentNode()->InsertAfter(comment, commentRangeEnd);
-    
-    dataDir = dataDir + GetOutputFilePath(u"AnchorComment.doc");
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"AnchorComment.doc");
     // Save the document.
-    doc->Save(dataDir);
+    doc->Save(outputPath);
     // ExEnd:AnchorComment
-    std::cout << "\nComment anchored successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Comment anchored successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "AnchorComment example finished." << std::endl;
 }

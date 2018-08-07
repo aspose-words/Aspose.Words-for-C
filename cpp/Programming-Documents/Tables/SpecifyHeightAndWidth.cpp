@@ -38,7 +38,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:AutoFitToPageWidth
-        std::cout << "\nTable autofit successfully to 50% of the page width.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table autofit successfully to 50% of the page width." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void SetPreferredWidthSettings(System::String const &dataDir)
@@ -68,7 +68,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetPreferredWidthSettings
-        std::cout << "\nDifferent preferred width settings set successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Different preferred width settings set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void RetrievePreferredWidthType(System::String const &dataDir)
@@ -84,15 +84,19 @@ namespace
         Aspose::Words::Tables::PreferredWidthType type = firstCell->get_CellFormat()->get_PreferredWidth()->get_Type();
         double value = firstCell->get_CellFormat()->get_PreferredWidth()->get_Value();
         // ExEnd:RetrievePreferredWidthType
-        std::cout << "\nTable preferred width type value is " << value << std::endl;
+        std::cout << "Table preferred width type value is " << value << std::endl;
     }
 }
 
 void SpecifyHeightAndWidth()
 {
+    std::cout << "SpecifyHeightAndWidth example started." << std::endl;
+    // ExStart:SpecifyHeightAndWidth
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     AutoFitToPageWidth(dataDir);
     SetPreferredWidthSettings(dataDir);
     RetrievePreferredWidthType(dataDir);
+    // ExEnd:SpecifyHeightAndWidth
+    std::cout << "SpecifyHeightAndWidth example finished." << std::endl << std::endl;
 }

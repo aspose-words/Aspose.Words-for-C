@@ -35,7 +35,7 @@ namespace
         System::String outputPath = dataDir + GetOutputFilePath(u"KeepTablesAndRowsBreaking.RowFormatDisableBreakAcrossPages.doc");
         doc->Save(outputPath);
         // ExEnd:RowFormatDisableBreakAcrossPages
-        std::cout << "\nTable rows breaking across pages for every row in a table disabled successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table rows breaking across pages for every row in a table disabled successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void KeepTableTogether(System::String const &dataDir)
@@ -67,16 +67,20 @@ namespace
         System::String outputPath = dataDir + GetOutputFilePath(u"KeepTablesAndRowsBreaking.KeepTableTogether.doc");
         doc->Save(outputPath);
         // ExEnd:KeepTableTogether
-        std::cout << "\nTable setup successfully to stay together on the same page.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table setup successfully to stay together on the same page." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
 void KeepTablesAndRowsBreaking()
 {
+    std::cout << "KeepTablesAndRowsBreaking example started." << std::endl;
+    // ExStart:KeepTablesAndRowsBreaking
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     // The below method shows how to disable rows breaking across pages for every row in a table.
     RowFormatDisableBreakAcrossPages(dataDir);
     // The below method shows how to set a table to stay together on the same page.
     KeepTableTogether(dataDir);
+    // ExEnd:KeepTablesAndRowsBreaking
+    std::cout << "KeepTablesAndRowsBreaking example finished." << std::endl << std::endl;
 }

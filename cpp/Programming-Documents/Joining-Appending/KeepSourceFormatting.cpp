@@ -14,6 +14,7 @@ using namespace Aspose::Words;
 
 void KeepSourceFormatting()
 {
+    std::cout << "KeepSourceFormatting example started." << std::endl;
     // ExStart:KeepSourceFormatting
     // The path to the documents directory.
     System::String dataDir = GetDataDir_JoiningAndAppending();
@@ -25,8 +26,9 @@ void KeepSourceFormatting()
     dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
     
     // Save the joined document to disk.
-    dataDir = dataDir + GetOutputFilePath(u"KeepSourceFormatting.doc");
-    dstDoc->Save(dataDir);
+    System::String outputPath = dataDir + GetOutputFilePath(u"KeepSourceFormatting.doc");
+    dstDoc->Save(outputPath);
     // ExEnd:KeepSourceFormatting
-    std::cout << "\nDocument appended successfully with keep source formatting option.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Document appended successfully with keep source formatting option." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "KeepSourceFormatting example finished." << std::endl << std::endl;
 }

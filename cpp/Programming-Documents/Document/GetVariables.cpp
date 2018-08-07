@@ -14,6 +14,7 @@ using namespace Aspose::Words;
 
 void GetVariables()
 {
+    std::cout << "GetVariables example started." << std::endl;
     // ExStart:GetVariables
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
@@ -38,5 +39,6 @@ void GetVariables()
         }
     }
     // ExEnd:GetVariables
-    std::cout << "\nDocument have following variables " << variables.ToUtf8String() << '\n';
+    std::cout << "Document have following variables " << variables.ToUtf8String() << std::endl;
+    std::cout << "GetVariables example finished." << std::endl << std::endl;
 }

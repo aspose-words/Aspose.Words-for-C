@@ -14,18 +14,20 @@ using namespace Aspose::Words;
 
 void AccessBookmarks()
 {
+    std::cout << "AccessBookmarks example started." << std::endl;
     // ExStart:AccessBookmarks
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithBookmarks();
-    
+
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Bookmarks.doc");
-    
+
     // By index.
     System::SharedPtr<Bookmark> bookmark1 = doc->get_Range()->get_Bookmarks()->idx_get(0);
-    
+
     // By name.
     System::SharedPtr<Bookmark> bookmark2 = doc->get_Range()->get_Bookmarks()->idx_get(u"Bookmark2");
     // ExEnd:AccessBookmarks
-    std::cout << "\nBookmark by name is" << bookmark1->get_Name().ToUtf8String() 
-              << "and bookmark by index is " << bookmark2->get_Name().ToUtf8String() << '\n';
+    std::cout << "Bookmark by name is" << bookmark1->get_Name().ToUtf8String()
+              << " and bookmark by index is " << bookmark2->get_Name().ToUtf8String() << std::endl;
+    std::cout << "AccessBookmarks example finished." << std::endl << std::endl;
 }

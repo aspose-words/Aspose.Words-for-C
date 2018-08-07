@@ -18,6 +18,7 @@ using namespace Aspose::Words;
 
 void ChangeTOCTabStops()
 {
+    std::cout << "ChangeTOCTabStops example started." << std::endl;
     // ExStart:ChangeTOCTabStops
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithStyles();
@@ -43,5 +44,6 @@ void ChangeTOCTabStops()
     System::String outputPath = dataDir + GetOutputFilePath(u"ChangeTOCTabStops.doc");
     doc->Save(outputPath);
     // ExEnd:ChangeTOCTabStops
-    std::cout << "\nPosition of the right tab stop in TOC related paragraphs modified successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "Position of the right tab stop in TOC related paragraphs modified successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "ChangeTOCTabStops example finished." << std::endl << std::endl;
 }
