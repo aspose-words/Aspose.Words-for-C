@@ -21,6 +21,7 @@ using namespace Aspose::Words;
 
 void InsertTableDirectly()
 {
+    std::cout << "InsertTableDirectly example started." << std::endl;
     // ExStart:InsertTableDirectly
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
@@ -59,6 +60,7 @@ void InsertTableDirectly()
     // Save the document to disk.
     doc->Save(outputPath);
     // ExEnd:InsertTableDirectly
-    std::cout << "\nTable using notes inserted successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "Table using notes inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "InsertTableDirectly example finished." << std::endl << std::endl;
 
 }

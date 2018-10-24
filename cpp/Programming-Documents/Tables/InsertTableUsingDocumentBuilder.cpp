@@ -49,7 +49,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SimpleTable
-        std::cout << "\nSimple table created successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Simple table created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void FormattedTable(System::String const &dataDir)
@@ -114,7 +114,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:FormattedTable
-        std::cout << "\nFormatted table created successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Formatted table created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void NestedTable(System::String dataDir)
@@ -142,15 +142,19 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:NestedTable
-        std::cout << "\nNested table created successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Nested table created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
 void InsertTableUsingDocumentBuilder()
 {
+    std::cout << "InsertTableUsingDocumentBuilder example started." << std::endl;
+    // ExStart:InsertTableUsingDocumentBuilder
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     SimpleTable(dataDir);
     FormattedTable(dataDir);
     NestedTable(dataDir);
+    // ExEnd:InsertTableUsingDocumentBuilder
+    std::cout << "InsertTableUsingDocumentBuilder example finished." << std::endl << std::endl;
 }

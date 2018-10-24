@@ -18,6 +18,7 @@ using namespace Aspose::Words;
 
 void AutoFitTableToWindow()
 {
+    std::cout << "AutoFitTableToWindow example started." << std::endl;
     // ExStart:AutoFitTableToPageWidth
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
@@ -32,5 +33,6 @@ void AutoFitTableToWindow()
     System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_PreferredWidth()->get_Type() == Aspose::Words::Tables::PreferredWidthType::Percent, u"PreferredWidth type is not percent");
     System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_PreferredWidth()->get_Value() == 100, u"PreferredWidth value is different than 100");
     // ExEnd:AutoFitTableToPageWidth
-    std::cout << "\nAuto fit tables to window successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "Auto fit tables to window successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "AutoFitTableToWindow example finished." << std::endl << std::endl;
 }

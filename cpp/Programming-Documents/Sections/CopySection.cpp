@@ -11,6 +11,7 @@ using namespace Aspose::Words;
 
 void CopySection()
 {
+    std::cout << "CopySection example started." << std::endl;
     // ExStart:CopySection
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithSections();
@@ -22,5 +23,6 @@ void CopySection()
     System::String outputPath = dataDir + GetOutputFilePath(u"CopySection.doc");
     dstDoc->Save(outputPath);
     // ExEnd:CopySection
-    std::cout << "\nSection copied successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "Section copied successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "CopySection example finished." << std::endl << std::endl;
 }

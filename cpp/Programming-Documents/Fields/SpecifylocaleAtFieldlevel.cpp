@@ -12,9 +12,11 @@ using namespace Aspose::Words::Fields;
 
 void SpecifylocaleAtFieldlevel()
 {
+    std::cout << "SpecifylocaleAtFieldlevel example started." << std::endl;
     // ExStart:SpecifylocaleAtFieldlevel
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>();
     System::SharedPtr<Field> field = builder->InsertField(u"=1", nullptr);
     field->set_LocaleId(1027);
     // ExEnd:SpecifylocaleAtFieldlevel
+    std::cout << "SpecifylocaleAtFieldlevel example finished." << std::endl << std::endl;
 }

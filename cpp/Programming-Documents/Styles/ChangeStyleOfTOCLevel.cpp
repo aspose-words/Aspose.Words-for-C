@@ -12,10 +12,12 @@ using namespace Aspose::Words;
 
 void ChangeStyleOfTOCLevel()
 {
+    std::cout << "ChangeStyleOfTOCLevel example started." << std::endl;
     // ExStart:ChangeStyleOfTOCLevel
     auto doc = System::MakeObject<Document>();
     // Retrieve the style used for the first level of the TOC and change the formatting of the style.
     doc->get_Styles()->idx_get(Aspose::Words::StyleIdentifier::Toc1)->get_Font()->set_Bold(true);
     // ExEnd:ChangeStyleOfTOCLevel
-    std::cout << "\nTOC level style changed successfully." << std::endl;
+    std::cout << "TOC level style changed successfully." << std::endl;
+    std::cout << "ChangeStyleOfTOCLevel example finished." << std::endl << std::endl;
 }

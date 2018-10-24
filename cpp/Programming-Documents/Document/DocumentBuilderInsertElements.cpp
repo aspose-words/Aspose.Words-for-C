@@ -29,106 +29,105 @@ using namespace Aspose::Words::Fields;
 
 namespace
 {
+    void InsertTextInputFormField(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderInsertTextInputFormField
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
-void InsertTextInputFormField(System::String dataDir)
-{
-    // ExStart:DocumentBuilderInsertTextInputFormField
-    System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    
-    builder->InsertTextInput(u"TextInput", Aspose::Words::Fields::TextFormFieldType::Regular, u"", u"Hello", 0);
-    dataDir = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertTextInputFormField.doc");
-    doc->Save(dataDir);
-    // ExEnd:DocumentBuilderInsertTextInputFormField
-    std::cout << "\nText input form field using DocumentBuilder inserted successfully into a document.\nFile saved at " << dataDir.ToUtf8String() << '\n';
-}
+        builder->InsertTextInput(u"TextInput", Aspose::Words::Fields::TextFormFieldType::Regular, u"", u"Hello", 0);
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertTextInputFormField.doc");
+        doc->Save(outputPath);
+        // ExEnd:DocumentBuilderInsertTextInputFormField
+        std::cout << "Text input form field using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 
-void InsertCheckBoxFormField(System::String dataDir)
-{
-    // ExStart:DocumentBuilderInsertCheckBoxFormField
-    System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    
-    builder->InsertCheckBox(u"CheckBox", true, true, 0);
-    dataDir = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertCheckBoxFormField.doc");
-    doc->Save(dataDir);
-    // ExEnd:DocumentBuilderInsertCheckBoxFormField
-    std::cout << "\nCheckbox form field using DocumentBuilder inserted successfully into a document.\nFile saved at " << dataDir.ToUtf8String() << '\n';
-}
+    void InsertCheckBoxFormField(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderInsertCheckBoxFormField
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
-void InsertComboBoxFormField(System::String dataDir)
-{
-    // ExStart:DocumentBuilderInsertComboBoxFormField
-    System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    
-    System::ArrayPtr<System::String> items = System::MakeArray<System::String>({u"One", u"Two", u"Three"});
-    builder->InsertComboBox(u"DropDown", items, 0);
-    dataDir = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertComboBoxFormField.doc");
-    doc->Save(dataDir);
-    // ExEnd:DocumentBuilderInsertComboBoxFormField
-    std::cout << "\nCombobox form field using DocumentBuilder inserted successfully into a document.\nFile saved at " << dataDir.ToUtf8String() << '\n';
-}
+        builder->InsertCheckBox(u"CheckBox", true, true, 0);
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertCheckBoxFormField.doc");
+        doc->Save(outputPath);
+        // ExEnd:DocumentBuilderInsertCheckBoxFormField
+        std::cout << "Checkbox form field using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 
-void InsertHyperlink(System::String dataDir)
-{
-    // ExStart:DocumentBuilderInsertHyperlink
-    System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    
-    builder->Write(u"Please make sure to visit ");
-    
-    // Specify font formatting for the hyperlink.
-    builder->get_Font()->set_Color(System::Drawing::Color::get_Blue());
-    builder->get_Font()->set_Underline(Aspose::Words::Underline::Single);
-    // Insert the link.
-    builder->InsertHyperlink(u"Aspose Website", u"http://www.aspose.com", false);
-    
-    // Revert to default formatting.
-    builder->get_Font()->ClearFormatting();
-    
-    builder->Write(u" for more information.");
-    dataDir = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertHyperlink.doc");
-    doc->Save(dataDir);
-    // ExEnd:DocumentBuilderInsertHyperlink
-    std::cout << "\nHyperlink using DocumentBuilder inserted successfully into a document.\nFile saved at " << dataDir.ToUtf8String() << '\n';
-}
+    void InsertComboBoxFormField(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderInsertComboBoxFormField
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
-void InsertOleObject(System::String dataDir)
-{
-    // ExStart:DocumentBuilderInsertOleObject
-    System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    builder->InsertOleObject(u"http://www.aspose.com", u"htmlfile", true, true, nullptr);
-    dataDir = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertOleObject.doc");
-    doc->Save(dataDir);
-    // ExEnd:DocumentBuilderInsertOleObject
-    std::cout << "\nOleObject using DocumentBuilder inserted successfully into a document.\nFile saved at " << dataDir.ToUtf8String() << '\n';
-}
+        System::ArrayPtr<System::String> items = System::MakeArray<System::String>({u"One", u"Two", u"Three"});
+        builder->InsertComboBox(u"DropDown", items, 0);
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertComboBoxFormField.doc");
+        doc->Save(outputPath);
+        // ExEnd:DocumentBuilderInsertComboBoxFormField
+        std::cout << "Combobox form field using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 
-void InsertOleObjectwithOlePackage(System::String dataDir)
-{
-    // ExStart:InsertOleObjectwithOlePackage
-    System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    System::ArrayPtr<uint8_t> bs = System::IO::File::ReadAllBytes(dataDir + u"input.zip");
+    void InsertHyperlink(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderInsertHyperlink
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
-    System::SharedPtr<System::IO::Stream> stream = System::MakeObject<System::IO::MemoryStream>(bs);
-    System::SharedPtr<Shape> shape = builder->InsertOleObject(stream, u"Package", true, nullptr);
-    System::SharedPtr<OlePackage> olePackage = shape->get_OleFormat()->get_OlePackage();
-    olePackage->set_FileName(u"filename.zip");
-    olePackage->set_DisplayName(u"displayname.zip");
-    dataDir = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertOleObjectwithOlePackage.doc");
-    doc->Save(dataDir);
+        builder->Write(u"Please make sure to visit ");
 
-    // ExEnd:InsertOleObjectwithOlePackage
-    std::cout << "\nOleObject using DocumentBuilder inserted successfully into a document.\nFile saved at " << dataDir.ToUtf8String() << '\n';
-}
+        // Specify font formatting for the hyperlink.
+        builder->get_Font()->set_Color(System::Drawing::Color::get_Blue());
+        builder->get_Font()->set_Underline(Aspose::Words::Underline::Single);
+        // Insert the link.
+        builder->InsertHyperlink(u"Aspose Website", u"http://www.aspose.com", false);
 
+        // Revert to default formatting.
+        builder->get_Font()->ClearFormatting();
+
+        builder->Write(u" for more information.");
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertHyperlink.doc");
+        doc->Save(outputPath);
+        // ExEnd:DocumentBuilderInsertHyperlink
+        std::cout << "Hyperlink using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
+
+    void InsertOleObject(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderInsertOleObject
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        builder->InsertOleObject(u"http://www.aspose.com", u"htmlfile", true, true, nullptr);
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertOleObject.doc");
+        doc->Save(outputPath);
+        // ExEnd:DocumentBuilderInsertOleObject
+        std::cout << "OleObject using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
+
+    void InsertOleObjectwithOlePackage(System::String const &dataDir)
+    {
+        // ExStart:InsertOleObjectwithOlePackage
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        System::ArrayPtr<uint8_t> bs = System::IO::File::ReadAllBytes(dataDir + u"input.zip");
+
+        System::SharedPtr<System::IO::Stream> stream = System::MakeObject<System::IO::MemoryStream>(bs);
+        System::SharedPtr<Shape> shape = builder->InsertOleObject(stream, u"Package", true, nullptr);
+        System::SharedPtr<OlePackage> olePackage = shape->get_OleFormat()->get_OlePackage();
+        olePackage->set_FileName(u"filename.zip");
+        olePackage->set_DisplayName(u"displayname.zip");
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertOleObjectwithOlePackage.doc");
+        doc->Save(outputPath);
+        // ExEnd:InsertOleObjectwithOlePackage
+        std::cout << "OleObject using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void DocumentBuilderInsertElements()
 {
+    std::cout << "DocumentBuilderInsertElements example started." << std::endl;
+    // ExStart:DocumentBuilderInsertElements
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     InsertTextInputFormField(dataDir);
@@ -137,4 +136,6 @@ void DocumentBuilderInsertElements()
     InsertHyperlink(dataDir);
     InsertOleObject(dataDir);
     InsertOleObjectwithOlePackage(dataDir);
+    // ExEnd:DocumentBuilderInsertElements
+    std::cout << "DocumentBuilderInsertElements example finished." << std::endl << std::endl;
 }

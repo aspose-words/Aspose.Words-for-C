@@ -24,7 +24,6 @@ namespace
 
     TParagraphListP ParagraphsByStyleName(System::SharedPtr<Document> doc, System::String const &styleName)
     {
-	    // ExStart:ParagraphsByStyleName
         // Create an array to collect paragraphs of the specified style.
         auto paragraphsWithStyle = System::MakeObject<TParagraphList>();
         // Get all paragraphs from the document.
@@ -40,7 +39,6 @@ namespace
             }
         }
         return paragraphsWithStyle;
-		// ExEnd:ParagraphsByStyleName
     }
 
     typedef System::Collections::Generic::List<System::SharedPtr<Run>> TRunList;
@@ -48,7 +46,6 @@ namespace
 
     TRunListP RunsByStyleName(System::SharedPtr<Document> doc, System::String const &styleName)
     {
-		// ExStart:RunsByStyleName
         // Create an array to collect runs of the specified style.
         auto runsWithStyle = System::MakeObject<TRunList>();
         // Get all runs from the document.
@@ -64,12 +61,12 @@ namespace
             }
         }
         return runsWithStyle;
-		// ExEnd:RunsByStyleName
     }
 }
 
 void ExtractContentBasedOnStyles()
 {
+    std::cout << "ExtractContentBasedOnStyles example started." << std::endl;
     // ExStart:ExtractContentBasedOnStyles
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithStyles();
@@ -88,10 +85,11 @@ void ExtractContentBasedOnStyles()
     {
         std::cout << paragraph->GetText().ToUtf8String();
     }
+    std::cout << std::endl;
     // Collect runs with defined styles.
     // Show the number of collected runs and display the text of this runs.
     auto runs = RunsByStyleName(doc, runStyle);
-    std::cout << "\nRuns with \"" << runStyle.ToUtf8String() << "\" styles (" << runs->get_Count() << "):" << std::endl;
+    std::cout << "Runs with \"" << runStyle.ToUtf8String() << "\" styles (" << runs->get_Count() << "):" << std::endl;
     auto run_enumerator = (runs)->GetEnumerator();
     decltype(run_enumerator->get_Current()) run;
     while (run_enumerator->MoveNext() && (run = run_enumerator->get_Current(), true))
@@ -99,5 +97,6 @@ void ExtractContentBasedOnStyles()
         std::cout << run->get_Range()->get_Text().ToUtf8String() << std::endl;
     }
     // ExEnd:ExtractContentBasedOnStyles
-    std::cout << "\nExtracted contents based on styles successfully." << std::endl;
+    std::cout << "Extracted contents based on styles successfully." << std::endl;
+    std::cout << "ExtractContentBasedOnStyles example finished." << std::endl << std::endl;
 }

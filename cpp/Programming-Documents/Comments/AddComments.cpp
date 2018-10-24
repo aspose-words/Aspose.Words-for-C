@@ -20,6 +20,7 @@ using namespace Aspose::Words;
 
 void AddComments()
 {
+    std::cout << "AddComments example started." << std::endl;
     // ExStart:AddComments
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithComments();
@@ -32,10 +33,11 @@ void AddComments()
     builder->get_CurrentParagraph()->AppendChild(comment);
     comment->get_Paragraphs()->Add(System::MakeObject<Paragraph>(doc));
     comment->get_FirstParagraph()->get_Runs()->Add(System::MakeObject<Aspose::Words::Run>(doc, u"Comment text."));
-    
-    dataDir = dataDir + GetOutputFilePath(u"AddComments.doc");
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"AddComments.doc");
     // Save the document.
-    doc->Save(dataDir);
+    doc->Save(outputPath);
     // ExEnd:AddComments
-    std::cout << "\nComments added successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Comments added successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "AddComments example finished." << std::endl << std::endl;
 }

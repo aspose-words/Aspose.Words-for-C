@@ -3,6 +3,8 @@
 
 #include <system/shared_ptr.h>
 #include <system/special_casts.h>
+#include <system/object.h>
+#include <system/object_ext.h>
 
 #include "Model/Document/Document.h"
 #include <Model/Tables/Table.h>
@@ -38,7 +40,7 @@ namespace
         }
 
         // ExEnd:GetTablePosition
-        std::cout << "\nGet the Table position successfully." << std::endl;
+        std::cout << "Get the Table position successfully." << std::endl;
     }
 
     void GetFloatingTablePosition(System::String const &dataDir)
@@ -61,14 +63,18 @@ namespace
             }
         }
         // ExEnd:GetFloatingTablePosition
-        std::cout << "\nGet the Table position successfully." << std::endl;
+        std::cout << "Get the Table position successfully." << std::endl;
     }
 }
 
 void TablePosition()
 {
+    std::cout << "TablePosition example started." << std::endl;
+    // ExStart:TablePosition
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     GetTablePosition(dataDir);
     GetFloatingTablePosition(dataDir);
+    // ExEnd:TablePosition
+    std::cout << "TablePosition example finished." << std::endl << std::endl;
 }

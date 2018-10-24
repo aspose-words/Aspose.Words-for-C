@@ -11,6 +11,7 @@ using namespace Aspose::Words;
 
 void AppendSectionContent()
 {
+    std::cout << "AppendSectionContent example started." << std::endl;
     // ExStart:AppendSectionContent
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithSections();
@@ -24,5 +25,6 @@ void AppendSectionContent()
     auto sectionToAppend = doc->get_Sections()->idx_get(1);
     section->AppendContent(sectionToAppend);
     // ExEnd:AppendSectionContent
-    std::cout << "\nSection content appended successfully." << std::endl;
+    std::cout << "Section content appended successfully." << std::endl;
+    std::cout << "AppendSectionContent example finished." << std::endl << std::endl;
 }

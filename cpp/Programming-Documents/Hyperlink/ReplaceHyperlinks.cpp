@@ -13,6 +13,7 @@ using namespace Aspose::Words;
 
 void ReplaceHyperlinks()
 {
+    std::cout << "ReplaceHyperlinks example started." << std::endl;
     // ExStart:ReplaceHyperlinks
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithHyperlink();
@@ -39,5 +40,6 @@ void ReplaceHyperlinks()
     System::String outputPath = dataDir + GetOutputFilePath(u"ReplaceHyperlinks.doc");
     doc->Save(outputPath);
     // ExEnd:ReplaceHyperlinks
-    std::cout << "\nHyperlinks replaced successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "Hyperlinks replaced successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "ReplaceHyperlinks example finished." << std::endl << std::endl;
 }

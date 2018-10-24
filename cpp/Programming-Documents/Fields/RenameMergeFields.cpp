@@ -130,16 +130,17 @@ namespace
 
 void RenameMergeFields()
 {
+    std::cout << "RenameMergeFields example started." << std::endl;
     // ExStart:RenameMergeFields
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithFields();
-    
+
     // Specify your document name here.
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"RenameMergeFields.doc");
-    
+
     // Select all field start nodes so we can find the merge fields.
     System::SharedPtr<NodeCollection> fieldStarts = doc->GetChildNodes(Aspose::Words::NodeType::FieldStart, true);
-    
+
     auto fieldStart_enumerator = fieldStarts->GetEnumerator();
     System::SharedPtr<FieldStart> fieldStart;
     while (fieldStart_enumerator->MoveNext() && (fieldStart = System::DynamicCast<FieldStart>(fieldStart_enumerator->get_Current()), true))
@@ -150,9 +151,10 @@ void RenameMergeFields()
             mergeField.set_Name(mergeField.get_Name() + u"_Renamed");
         }
     }
-    
-    dataDir = dataDir + GetOutputFilePath(u"RenameMergeFields.doc");
-    doc->Save(dataDir);
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"RenameMergeFields.doc");
+    doc->Save(outputPath);
     // ExEnd:RenameMergeFields
-    std::cout << "\nMerge fields rename successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Merge fields rename successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "RenameMergeFields example finished." << std::endl << std::endl;
 }

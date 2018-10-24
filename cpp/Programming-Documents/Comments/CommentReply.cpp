@@ -18,23 +18,24 @@ using namespace Aspose::Words;
 
 void CommentReply()
 {
+    std::cout << "CommentReply example started." << std::endl;
+    // ExStart:AddRemoveCommentReply
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithComments();
-
-    // ExStart:AddRemoveCommentReply
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
     System::SharedPtr<Comment> comment = System::DynamicCast<Comment>(doc->GetChild(Aspose::Words::NodeType::Comment, 0, true));
-    
+
     //Remove the reply
     comment->RemoveReply(comment->get_Replies()->idx_get(0));
-    
+
     //Add a reply to comment
     comment->AddReply(u"John Doe", u"JD", System::DateTime(2017, 9, 25, 12, 15, 0), u"New reply");
-    
-    dataDir = dataDir + GetOutputFilePath(u"CommentReply.doc");
-    
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"CommentReply.doc");
+
     // Save the document to disk.
-    doc->Save(dataDir);
+    doc->Save(outputPath);
     // ExEnd:AddRemoveCommentReply
-    std::cout << "\nComment's reply is removed successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Comment's reply is removed successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "CommentReply example started." << std::endl << std::endl;
 }

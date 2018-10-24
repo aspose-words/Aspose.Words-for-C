@@ -18,6 +18,7 @@ using namespace Aspose::Words;
 
 void DifferentPageSetup()
 {
+    std::cout << "DifferentPageSetup example started." << std::endl;
     // ExStart:DifferentPageSetup
     // The path to the documents directory.
     System::String dataDir = ::GetDataDir_JoiningAndAppending();
@@ -39,8 +40,9 @@ void DifferentPageSetup()
     srcDoc->get_FirstSection()->get_PageSetup()->set_Orientation(dstDoc->get_LastSection()->get_PageSetup()->get_Orientation());
     
     dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
-    dataDir = dataDir + GetOutputFilePath(u"DifferentPageSetup.doc");
-    dstDoc->Save(dataDir);
+    System::String outputPath = dataDir + GetOutputFilePath(u"DifferentPageSetup.doc");
+    dstDoc->Save(outputPath);
     // ExEnd:DifferentPageSetup
-    std::cout << "\nDocument appended successfully with different page setup.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Document appended successfully with different page setup." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "DifferentPageSetup example finished." << std::endl << std::endl;
 }

@@ -18,14 +18,15 @@ using namespace Aspose::Words;
 
 void AppendDocumentManually()
 {
+    std::cout << "AppendDocumentManually example started." << std::endl;
     // ExStart:AppendDocumentManually
     // The path to the documents directory.
     System::String dataDir = GetDataDir_JoiningAndAppending();
-    
+
     System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.Destination.doc");
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
     ImportFormatMode mode = Aspose::Words::ImportFormatMode::KeepSourceFormatting;
-    
+
     // Loop through all sections in the source document. 
     // Section nodes are immediate children of the Document node so we can just enumerate the Document.
     auto srcSection_enumerator = srcDoc->GetEnumerator();
@@ -42,10 +43,11 @@ void AppendDocumentManually()
         // Now the new section node can be appended to the destination document.
         dstDoc->AppendChild(dstSection);
     }
-    
-    dataDir = dataDir + GetOutputFilePath(u"AppendDocumentManually.doc");
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"AppendDocumentManually.doc");
     // Save the joined document
-    dstDoc->Save(dataDir);
+    dstDoc->Save(outputPath);
     // ExEnd:AppendDocumentManually
-    std::cout << "\nDocument appended successfully with manual append operation.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Document appended successfully with manual append operation." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "AppendDocumentManually example finished." << std::endl << std::endl;
 }

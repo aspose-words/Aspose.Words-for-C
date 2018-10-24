@@ -18,15 +18,17 @@ using namespace Aspose::Words::Replacing;
 
 void ReplaceWithString()
 {
+    std::cout << "ReplaceWithString example started." << std::endl;
     // ExStart:ReplaceWithString
     // The path to the documents directory.
     System::String dataDir = GetDataDir_FindAndReplace();
-    
+
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.doc");
     doc->get_Range()->Replace(u"sad", u"bad", System::MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));
-    
-    dataDir = dataDir + GetOutputFilePath(u"ReplaceWithString.doc");
-    doc->Save(dataDir);
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"ReplaceWithString.doc");
+    doc->Save(outputPath);
     // ExEnd:ReplaceWithString
-    std::cout << "\nText replaced with string successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Text replaced with string successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "ReplaceWithString example finished." << std::endl << std::endl;
 }

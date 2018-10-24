@@ -16,13 +16,14 @@ using namespace Aspose::Words;
 
 void WriteAndFont()
 {
+    std::cout << "WriteAndFont example started." << std::endl;
     // ExStart:WriteAndFont
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     // Initialize document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    
+
     // Specify font formatting before adding text.
     System::SharedPtr<Font> font = builder->get_Font();
     font->set_Size(16);
@@ -30,10 +31,11 @@ void WriteAndFont()
     font->set_Color(System::Drawing::Color::get_Blue());
     font->set_Name(u"Arial");
     font->set_Underline(Aspose::Words::Underline::Dash);
-    
+
     builder->Write(u"Sample text.");
-    dataDir = dataDir + GetOutputFilePath(u"WriteAndFont.doc");
-    doc->Save(dataDir);
+    System::String outputPath = dataDir + GetOutputFilePath(u"WriteAndFont.doc");
+    doc->Save(outputPath);
     // ExEnd:WriteAndFont
-    std::cout << "\nFormatted text using DocumentBuilder inserted successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Formatted text using DocumentBuilder inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "WriteAndFont example started." << std::endl << std::endl;
 }

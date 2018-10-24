@@ -18,7 +18,7 @@ namespace
         auto sectionToAdd = System::MakeObject<Section>(doc);
         doc->get_Sections()->Add(sectionToAdd);
         // ExEnd:AddSection
-        std::cout << "\nSection added successfully to the end of the document." << std::endl;
+        std::cout << "Section added successfully to the end of the document." << std::endl;
     }
 
     void DeleteSection(System::String const &documentPath)
@@ -27,7 +27,7 @@ namespace
         auto doc = System::MakeObject<Document>(documentPath);
         doc->get_Sections()->RemoveAt(0);
         // ExEnd:DeleteSection
-        std::cout << "\nSection deleted successfully at 0 index." << std::endl;
+        std::cout << "Section deleted successfully at 0 index." << std::endl;
     }
 
     void DeleteAllSections(System::String const &documentPath)
@@ -36,12 +36,14 @@ namespace
         auto doc = System::MakeObject<Document>(documentPath);
         doc->get_Sections()->Clear();
         // ExEnd:DeleteAllSections
-        std::cout << "\nAll sections deleted successfully form the document." << std::endl;
+        std::cout << "All sections deleted successfully form the document." << std::endl;
     }
 }
 
 void AddDeleteSection()
 {
+    std::cout << "AddDeleteSection example started." << std::endl;
+    // ExStart:AddDeleteSection
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithSections();
     // The path to the document
@@ -49,4 +51,6 @@ void AddDeleteSection()
     AddSection(documentPath);
     DeleteSection(documentPath);
     DeleteAllSections(documentPath);
+    // ExEnd:AddDeleteSection
+    std::cout << "AddDeleteSection example finished." << std::endl << std::endl;
 }

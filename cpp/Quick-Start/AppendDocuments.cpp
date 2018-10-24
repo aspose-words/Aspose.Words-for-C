@@ -10,6 +10,8 @@ using namespace Aspose::Words;
 
 void AppendDocuments()
 {
+    std::cout << "AppendDocuments example started." << std::endl;
+    // ExStart:AppendDocuments
     // The path to the documents directory.
     System::String dataDir = GetDataDir_QuickStart();
     // Load the destination and source documents from disk.
@@ -19,8 +21,9 @@ void AppendDocuments()
     // Append the source document to the destination document while keeping the original formatting of the source document.
     dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
 
-    dataDir = dataDir + GetOutputFilePath(u"AppendDocuments.doc");
-    dstDoc->Save(dataDir);
-
-    std::cout << "\nDocument appended successfully.\nFile saved at" << dataDir.ToUtf8String() << '\n';
+    System::String outputPath = dataDir + GetOutputFilePath(u"AppendDocuments.doc");
+    dstDoc->Save(outputPath);
+    // ExEnd:AppendDocuments
+    std::cout << "Document appended successfully." << std::endl << "File saved at" << outputPath.ToUtf8String() << '\n';
+    std::cout << "AppendDocuments example finished." << std::endl;
 }

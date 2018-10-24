@@ -59,7 +59,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:BuildTableWithStyle
-        std::cout << "\nTable created successfully with table style.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table created successfully with table style." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void ExpandFormattingOnCellsAndRowFromStyle(System::String const &dataDir)
@@ -85,8 +85,12 @@ namespace
 
 void ApplyStyle()
 {
+    std::cout << "ApplyStyle example started." << std::endl;
+    // ExStart:ApplyStyle
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     BuildTableWithStyle(dataDir);
     ExpandFormattingOnCellsAndRowFromStyle(dataDir);
+    // ExEnd:ApplyStyle
+    std::cout << "ApplyStyle example finished." << std::endl << std::endl;
 }

@@ -13,6 +13,7 @@ using namespace Aspose::Words;
 
 void CheckFormat()
 {
+    std::cout << "CheckFormat example started." << std::endl;
     // ExStart:CheckFormatCompatibility
     // The path to the documents directory.
     System::String dataDir = GetDataDir_LoadingAndSaving();
@@ -21,7 +22,7 @@ void CheckFormat()
     System::String unknownDir = dataDir + u"OutUnknown";
     System::String encryptedDir = dataDir + u"OutEncrypted";
     System::String pre97Dir = dataDir + u"OutPre97";
-    
+
     // Create the directories if they do not already exist
     if (!System::IO::Directory::Exists(supportedDir))
     {
@@ -39,7 +40,7 @@ void CheckFormat()
     {
         System::IO::Directory::CreateDirectory_(pre97Dir);
     }
-    
+
     // ExStart:GetListOfFilesInFolder
     auto fileList = System::IO::Directory::GetFiles(dataDir);
     // ExEnd:GetListOfFilesInFolder
@@ -58,64 +59,64 @@ void CheckFormat()
         switch (info->get_LoadFormat())
         {
         case Aspose::Words::LoadFormat::Doc:
-            std::cout << "\tMicrosoft Word 97-2003 document.\n";
+            std::cout << "\tMicrosoft Word 97-2003 document." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Dot:
-            std::cout << "\tMicrosoft Word 97-2003 template.\n";
+            std::cout << "\tMicrosoft Word 97-2003 template." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Docx:
-            std::cout << "\tOffice Open XML WordprocessingML Macro-Free Document.\n";
+            std::cout << "\tOffice Open XML WordprocessingML Macro-Free Document." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Docm:
-            std::cout << "\tOffice Open XML WordprocessingML Macro-Enabled Document.\n";
+            std::cout << "\tOffice Open XML WordprocessingML Macro-Enabled Document." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Dotx:
-            std::cout << "\tOffice Open XML WordprocessingML Macro-Free Template.\n";
+            std::cout << "\tOffice Open XML WordprocessingML Macro-Free Template." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Dotm:
-            std::cout << "\tOffice Open XML WordprocessingML Macro-Enabled Template.\n";
+            std::cout << "\tOffice Open XML WordprocessingML Macro-Enabled Template." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::FlatOpc:
-            std::cout << "\tFlat OPC document.\n";
+            std::cout << "\tFlat OPC document." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Rtf:
-            std::cout << "\tRTF format.\n";
+            std::cout << "\tRTF format." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::WordML:
-            std::cout << "\tMicrosoft Word 2003 WordprocessingML format.\n";
+            std::cout << "\tMicrosoft Word 2003 WordprocessingML format." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Html:
-            std::cout << "\tHTML format.\n";
+            std::cout << "\tHTML format." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Mhtml:
-            std::cout << "\tMHTML (Web archive) format.\n";
+            std::cout << "\tMHTML (Web archive) format." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Odt:
-            std::cout << "\tOpenDocument Text.\n";
+            std::cout << "\tOpenDocument Text." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Ott:
-            std::cout << "\tOpenDocument Text Template.\n";
+            std::cout << "\tOpenDocument Text Template." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::DocPreWord60:
-            std::cout << "\tMS Word 6 or Word 95 format.\n";
+            std::cout << "\tMS Word 6 or Word 95 format." << std::endl;
             break;
 
         case Aspose::Words::LoadFormat::Unknown:
         default:
-            std::cout << "\tUnknown format.\n";
+            std::cout << "\tUnknown format." << std::endl;
             break;
 
         }
@@ -124,7 +125,7 @@ void CheckFormat()
         // Now copy the document into the appropriate folder.
         if (info->get_IsEncrypted())
         {
-            std::cout << "\tAn encrypted document.\n";
+            std::cout << "\tAn encrypted document." << std::endl;
             System::IO::File::Copy(fileName, System::IO::Path::Combine(encryptedDir, nameOnly), true);
         }
         else
@@ -146,7 +147,8 @@ void CheckFormat()
             }
         }
     }
-                
+
     // ExEnd:CheckFormatCompatibility
-    std::cout << "\nChecked the format of all documents successfully.\n";
+    std::cout << "Checked the format of all documents successfully." << std::endl;
+    std::cout << "CheckFormat example finished." << std::endl << std::endl;
 }

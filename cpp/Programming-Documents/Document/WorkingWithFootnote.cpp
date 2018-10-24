@@ -26,7 +26,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetFootNoteColumns
-        std::cout << "\nFootnote number of columns set successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Footnote number of columns set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void SetFootnoteAndEndNotePosition(System::String const &dataDir)
@@ -40,7 +40,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetFootnoteAndEndNotePosition
-        std::cout << "\nFootnote number of columns set successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Footnote number of columns set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void SetEndnoteOptions(System::String const &dataDir)
@@ -57,15 +57,19 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetEndnoteOptions
-        std::cout << "\nEootnote is inserted at the end of section successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Endnote is inserted at the end of section successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
 void WorkingWithFootnote()
 {
+    std::cout << "WorkingWithFootnote example started." << std::endl;
+    // ExStart:WorkingWithFootnote
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     SetFootNoteColumns(dataDir);
     SetFootnoteAndEndNotePosition(dataDir);
     SetEndnoteOptions(dataDir);
+    // ExEnd:WorkingWithFootnote
+    std::cout << "WorkingWithFootnote example finished." << std::endl << std::endl;
 }
