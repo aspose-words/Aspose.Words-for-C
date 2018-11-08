@@ -25,7 +25,7 @@ using namespace Aspose::Words;
 
 namespace
 {
-	// ExStart:ColumnClass
+    // ExStart:ColumnClass
     class Column : public System::Object
     {
         typedef Column ThisType;
@@ -135,7 +135,7 @@ namespace
         result.Add("Column::mTable", this->mTable);
         return std::move(result);
     }
-	// ExEnd:ColumnClass
+    // ExEnd:ColumnClass
 
     void RemoveColumn(System::SharedPtr<Document> doc)
     {
@@ -146,7 +146,7 @@ namespace
         auto column = System::MakeObject<Column>(table, 2);
         column->Remove();
         // ExEnd:RemoveColumn
-        std::cout << "\nThird column removed successfully." << std::endl;
+        std::cout << "Third column removed successfully." << std::endl;
     }
 
     void InsertBlankColumn(System::SharedPtr<Document> doc)
@@ -169,16 +169,20 @@ namespace
             cell->get_FirstParagraph()->AppendChild(System::MakeObject<Aspose::Words::Run>(doc, System::String(u"Column Text ") + newColumn->IndexOf(cell)));
         }
         // ExEnd:InsertBlankColumn
-        std::cout << "\nColumn added successfully." << std::endl;
+        std::cout << "Column added successfully." << std::endl;
     }
 
 }
 
 void AddRemoveColumn()
 {
+    std::cout << "AddRemoveColumn example started." << std::endl;
+    // ExStart:AddRemoveColumn
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables() + u"Table.Document.doc";
     auto doc = System::MakeObject<Document>(dataDir);
     InsertBlankColumn(doc);
     RemoveColumn(doc);
+    // ExEnd:AddRemoveColumn
+    std::cout << "AddRemoveColumn example finished." << std::endl;
 }

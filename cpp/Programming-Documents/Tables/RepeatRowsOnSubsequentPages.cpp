@@ -15,6 +15,7 @@ using namespace Aspose::Words;
 
 void RepeatRowsOnSubsequentPages()
 {
+    std::cout << "RepeatRowsOnSubsequentPages example started." << std::endl;
     // ExStart:RepeatRowsOnSubsequentPages
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
@@ -46,6 +47,7 @@ void RepeatRowsOnSubsequentPages()
     // Save the document to disk.
     doc->Save(outputPath);
     // ExEnd:RepeatRowsOnSubsequentPages
-    std::cout << "\nTable build successfully which include heading rows that repeat on subsequent pages.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "Table build successfully which include heading rows that repeat on subsequent pages." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "RepeatRowsOnSubsequentPages example finished." << std::endl << std::endl;
 
 }

@@ -3,3 +3,4 @@ Debug/
 Release/
 x64/
 packages/
+Data/**/*_out.*

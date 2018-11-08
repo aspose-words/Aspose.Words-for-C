@@ -13,26 +13,28 @@ using namespace Aspose::Words;
 
 namespace
 {
+    void OptimizeFor(System::String const &dataDir)
+    {
+        // ExStart:OptimizeFor
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"OtherTestFile.doc");
+        doc->get_CompatibilityOptions()->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2016);
 
-void OptimizeFor(System::String dataDir)
-{
-    // ExStart:OptimizeFor
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"OtherTestFile.doc");
-    doc->get_CompatibilityOptions()->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2016);
-    
-    dataDir = dataDir + GetOutputFilePath(u"SetCompatibilityOptions.doc");
-    
-    // Save the document to disk.
-    doc->Save(dataDir);
-    // ExEnd:OptimizeFor
-    std::cout << "\nDocument is optimized for MS Word 2016 successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
-}
+        System::String outputPath = dataDir + GetOutputFilePath(u"SetCompatibilityOptions.doc");
 
+        // Save the document to disk.
+        doc->Save(outputPath);
+        // ExEnd:OptimizeFor
+        std::cout << "Document is optimized for MS Word 2016 successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void SetCompatibilityOptions()
 {
+    std::cout << "SetCompatibilityOptions example started." << std::endl;
+    // ExStart:SetCompatibilityOptions
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     OptimizeFor(dataDir);
+    // ExEnd:SetCompatibilityOptions
+    std::cout << "SetCompatibilityOptions example finished." << std::endl << std::endl;
 }

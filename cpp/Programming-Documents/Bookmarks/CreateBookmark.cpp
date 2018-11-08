@@ -17,6 +17,7 @@ using namespace Aspose::Words::Saving;
 
 void CreateBookmark()
 {
+    std::cout << "CreateBookmark example started." << std::endl;
     // ExStart:CreateBookmark
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithBookmarks();
@@ -35,8 +36,9 @@ void CreateBookmark()
     builder->EndBookmark(u"My Bookmark");
     
     System::SharedPtr<DocSaveOptions> options = System::MakeObject<DocSaveOptions>();
-    dataDir = dataDir + GetOutputFilePath(u"CreateBookmark.doc");
-    doc->Save(dataDir, options);
+    System::String outputPath = dataDir + GetOutputFilePath(u"CreateBookmark.doc");
+    doc->Save(outputPath, options);
     // ExEnd:CreateBookmark
-    std::cout << "\nBookmark created successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Bookmark created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "CreateBookmark example finished." << std::endl << std::endl;
 }

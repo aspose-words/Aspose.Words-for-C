@@ -95,7 +95,7 @@ namespace
     {
         typedef InsertDocumentAtReplaceHandler ThisType;
         typedef Aspose::Words::Replacing::IReplacingCallback BaseType;
-        
+
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
     public:
@@ -117,7 +117,7 @@ namespace
     };
     // ExEnd:InsertDocumentAtReplaceHandler
 
-    void InsertDocumentAtReplace(System::String dataDir)
+    void InsertDocumentAtReplace(System::String const &dataDir)
     {
         // ExStart:InsertDocumentAtReplace
         System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(dataDir + u"InsertDocument1.doc");
@@ -126,13 +126,13 @@ namespace
         options->set_ReplacingCallback(System::MakeObject<InsertDocumentAtReplaceHandler>());
 
         mainDoc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"\\[MY_DOCUMENT\\]"), u"", options);
-        dataDir = dataDir + GetOutputFilePath(u"InsertDoc.InsertDocumentAtReplace.doc");
-        mainDoc->Save(dataDir);
+        System::String outputPath = dataDir + GetOutputFilePath(u"InsertDoc.InsertDocumentAtReplace.doc");
+        mainDoc->Save(outputPath);
         // ExEnd:InsertDocumentAtReplace
-        std::cout << "\nDocument inserted successfully at a replace.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+        std::cout << "Document inserted successfully at a replace." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void InsertDocumentAtBookmark(System::String dataDir)
+    void InsertDocumentAtBookmark(System::String const &dataDir)
     {
         // ExStart:InsertDocumentAtBookmark
         System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(dataDir + u"InsertDocument1.doc");
@@ -140,18 +140,22 @@ namespace
 
         System::SharedPtr<Bookmark> bookmark = mainDoc->get_Range()->get_Bookmarks()->idx_get(u"insertionPlace");
         InsertDocument(bookmark->get_BookmarkStart()->get_ParentNode(), subDoc);
-        dataDir = dataDir + GetOutputFilePath(u"InsertDoc.InsertDocumentAtBookmark.doc");
-        mainDoc->Save(dataDir);
+        System::String outputPath = dataDir + GetOutputFilePath(u"InsertDoc.InsertDocumentAtBookmark.doc");
+        mainDoc->Save(outputPath);
         // ExEnd:InsertDocumentAtBookmark
-        std::cout << "\nDocument inserted successfully at a bookmark.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+        std::cout << "Document inserted successfully at a bookmark." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
 void InsertDoc()
 {
+    std::cout << "InsertDoc example started." << std::endl;
+    // ExStart:InsertDoc
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     // Invokes the InsertDocument method shown above to insert a document at a bookmark.
     InsertDocumentAtBookmark(dataDir);
     InsertDocumentAtReplace(dataDir);
+    // ExEnd:InsertDoc
+    std::cout << "InsertDoc example finished." << std::endl << std::endl;
 }

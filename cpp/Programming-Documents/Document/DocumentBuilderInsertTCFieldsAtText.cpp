@@ -26,7 +26,6 @@ using namespace Aspose::Words::Replacing;
 
 namespace
 {
-	// ExStart:InsertTCFieldHandler
     class InsertTCFieldHandler : public IReplacingCallback
     {
         typedef InsertTCFieldHandler ThisType;
@@ -73,21 +72,22 @@ namespace
         System::String mFieldText;
         System::String mFieldSwitches;
     };
-	// ExEnd:InsertTCFieldHandler
 }
 
 void DocumentBuilderInsertTCFieldsAtText()
 {
+    std::cout << "DocumentBuilderInsertTCFieldsAtText example started." << std::endl;
     // ExStart:DocumentBuilderInsertTCFieldsAtText
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    
+
     System::SharedPtr<FindReplaceOptions> options = System::MakeObject<FindReplaceOptions>();
     
     // Highlight newly inserted content.
     options->get_ApplyFont()->set_HighlightColor(System::Drawing::Color::get_DarkOrange());
     options->set_ReplacingCallback(System::MakeObject<InsertTCFieldHandler>(u"Chapter 1", u"\\l 1"));
-    
+
     // Insert a TC field which displays "Chapter 1" just before the text "The Beginning" in the document.
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"The Beginning"), u"", options);
     // ExEnd:DocumentBuilderInsertTCFieldsAtText
+    std::cout << "DocumentBuilderInsertTCFieldsAtText example finished." << std::endl << std::endl;
 }

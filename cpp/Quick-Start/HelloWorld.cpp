@@ -8,6 +8,8 @@ using namespace Aspose::Words;
 
 void HelloWorld()
 {
+    std::cout << "HelloWorld example started." << std::endl;
+    // ExStart:HelloWorld
     // The path to the documents directory.
     System::String dataDir = GetDataDir_QuickStart();
 
@@ -22,8 +24,9 @@ void HelloWorld()
 
     // Save the document in DOC format. The format to save as is inferred from the extension of the file name.
     // Aspose.Words supports saving any document in many more formats.
-    dataDir = dataDir + GetOutputFilePath(u"HelloWorld.doc");
-    doc->Save(dataDir);
-
-    std::cout << "\nNew document created successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    System::String outputPath = dataDir + GetOutputFilePath(u"HelloWorld.doc");
+    doc->Save(outputPath);
+    // ExEnd:HelloWorld
+    std::cout << "New document created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "HelloWorld example finished." << std::endl << std::endl;
 }

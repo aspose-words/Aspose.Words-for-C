@@ -17,6 +17,7 @@ using namespace Aspose::Words::Settings;
 
 void SetViewOption()
 {
+    std::cout << "SetViewOption example started." << std::endl;
     // ExStart:SetViewOption
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
@@ -25,11 +26,11 @@ void SetViewOption()
     // Set view option.
     doc->get_ViewOptions()->set_ViewType(Aspose::Words::Settings::ViewType::PageLayout);
     doc->get_ViewOptions()->set_ZoomPercent(50);
-    
-    dataDir = dataDir + GetOutputFilePath(u"SetViewOption.doc");
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"SetViewOption.doc");
     // Save the finished document.
-    doc->Save(dataDir);
+    doc->Save(outputPath);
     // ExEnd:SetViewOption
-    
-    std::cout << "\nView option setup successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "View option setup successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "SetViewOption example finished." << std::endl << std::endl;
 }

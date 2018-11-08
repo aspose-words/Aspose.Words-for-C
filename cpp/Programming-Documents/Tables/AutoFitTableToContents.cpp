@@ -21,6 +21,7 @@ using namespace Aspose::Words;
 
 void AutoFitTableToContents()
 {
+    std::cout << "AutoFitTableToContents example started." << std::endl;
     // ExStart:AutoFitTableToContents
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
@@ -35,5 +36,6 @@ void AutoFitTableToContents()
     System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_PreferredWidth()->get_Type() == Aspose::Words::Tables::PreferredWidthType::Auto, u"PrefferedWidth on cell is not auto");
     System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_PreferredWidth()->get_Value() == 0, u"PreferredWidth value is not 0");
     // ExEnd:AutoFitTableToContents
-    std::cout << "\nAuto fit tables to contents successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "Auto fit tables to contents successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "AutoFitTableToContents example finished." << std::endl << std::endl;
 }

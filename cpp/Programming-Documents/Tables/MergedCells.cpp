@@ -206,7 +206,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:HorizontalMerge
-        std::cout << "\nTable created successfully with cells in the first row horizontally merged.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table created successfully with cells in the first row horizontally merged." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void VerticalMerge(System::String const &dataDir)
@@ -233,12 +233,11 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:VerticalMerge
-        std::cout << "\nTable created successfully with two columns with cells merged vertically in the first column.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table created successfully with two columns with cells merged vertically in the first column." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void MergeCells(System::SharedPtr<Aspose::Words::Tables::Cell> startCell, System::SharedPtr<Aspose::Words::Tables::Cell> endCell)
     {
-		// ExStart:MergeCells
         auto parentTable = startCell->get_ParentRow()->get_ParentTable();
         // Find the row and cell indices for the start and end cell.
         System::Drawing::Point startCellPos(startCell->get_ParentRow()->IndexOf(startCell), parentTable->IndexOf(startCell->get_ParentRow()));
@@ -276,7 +275,6 @@ namespace
                 }
             }
         }
-		// ExEnd:MergeCells
     }
 
     void MergeCellRange(System::String const &dataDir)
@@ -295,12 +293,14 @@ namespace
         // Save the document.
         doc->Save(outputPath);
         // ExEnd:MergeCellRange
-        std::cout << "\nCells merged successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Cells merged successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
 void MergedCells()
 {
+    std::cout << "MergedCells example started." << std::endl;
+    // ExStart:MergedCells
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     CheckCellsMerged(dataDir);
@@ -310,4 +310,6 @@ void MergedCells()
     VerticalMerge(dataDir);
     // The below method shows how to merges the range of cells between the two specified cells.
     MergeCellRange(dataDir);
+    // ExEnd:MergedCells
+    std::cout << "MergedCells example finished." << std::endl << std::endl;
 }

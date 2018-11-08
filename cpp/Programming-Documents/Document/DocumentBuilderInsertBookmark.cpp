@@ -15,19 +15,21 @@ using namespace Aspose::Words;
 
 void DocumentBuilderInsertBookmark()
 {
+    std::cout << "DocumentBuilderInsertBookmark example started." << std::endl;
     // ExStart:DocumentBuilderInsertBookmark
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     // Initialize document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    
+
     builder->StartBookmark(u"FineBookmark");
     builder->Writeln(u"This is just a fine bookmark.");
     builder->EndBookmark(u"FineBookmark");
-    
-    dataDir = dataDir + GetOutputFilePath(u"DocumentBuilderInsertBookmark.doc");
-    doc->Save(dataDir);
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertBookmark.doc");
+    doc->Save(outputPath);
     // ExEnd:DocumentBuilderInsertBookmark
-    std::cout << "\nBookmark using DocumentBuilder inserted successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Bookmark using DocumentBuilder inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "DocumentBuilderInsertBookmark example finished." << std::endl << std::endl;
 }

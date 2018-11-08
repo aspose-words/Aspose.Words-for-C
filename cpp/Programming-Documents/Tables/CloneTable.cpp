@@ -34,7 +34,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:CloneCompleteTable
-        std::cout << "\nTable cloned successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table cloned successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void CloneLastRow(System::String const &dataDir)
@@ -59,14 +59,18 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:CloneLastRow
-        std::cout << "\nTable last row cloned successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table last row cloned successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
 void CloneTable()
 {
+    std::cout << "CloneTable example started." << std::endl;
+    // ExStart:CloneTable
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     CloneCompleteTable(dataDir);
     CloneLastRow(dataDir);
+    // ExEnd:CloneTable
+    std::cout << "CloneTable example finished." << std::endl << std::endl;
 }

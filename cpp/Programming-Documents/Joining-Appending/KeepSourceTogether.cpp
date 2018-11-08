@@ -23,16 +23,17 @@ using namespace Aspose::Words;
 
 void KeepSourceTogether()
 {
+    std::cout << "KeepSourceTogether example started." << std::endl;
     // ExStart:KeepSourceTogether
     // The path to the documents directory.
     System::String dataDir = GetDataDir_JoiningAndAppending();
-    
+
     System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.DestinationList.doc");
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
-    
+
     // Set the source document to appear straight after the destination document's content.
     srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(Aspose::Words::SectionStart::Continuous);
-    
+
     // Iterate through all sections in the source document.
     auto para_enumerator = srcDoc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)->GetEnumerator();
     System::SharedPtr<Paragraph> para;
@@ -40,10 +41,11 @@ void KeepSourceTogether()
     {
         para->get_ParagraphFormat()->set_KeepWithNext(true);
     }
-    
+
     dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
-    dataDir = dataDir + GetOutputFilePath(u"KeepSourceTogether.doc");
-    dstDoc->Save(dataDir);
+    System::String outputPath = dataDir + GetOutputFilePath(u"KeepSourceTogether.doc");
+    dstDoc->Save(outputPath);
     // ExEnd:KeepSourceTogether
-    std::cout << "\nDocument appended successfully while keeping the content from splitting across two pages.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Document appended successfully while keeping the content from splitting across two pages." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "KeepSourceTogether example finished." << std::endl << std::endl;
 }

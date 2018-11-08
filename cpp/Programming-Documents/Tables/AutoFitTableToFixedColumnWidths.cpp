@@ -21,6 +21,7 @@ using namespace Aspose::Words;
 
 void AutoFitTableToFixedColumnWidths()
 {
+    std::cout << "AutoFitTableToFixedColumnWidths example started." << std::endl;
     // ExStart:AutoFitTableToFixedColumnWidths
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
@@ -35,5 +36,6 @@ void AutoFitTableToFixedColumnWidths()
     System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_PreferredWidth()->get_Value() == 0, u"PreferredWidth value is not 0");
     System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Width() == 69.2, u"Cell width is not correct.");
     // ExEnd:AutoFitTableToFixedColumnWidths
-    std::cout << "\nAuto fit tables to fixed column widths successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "Auto fit tables to fixed column widths successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "AutoFitTableToFixedColumnWidths example finished." << std::endl << std::endl;
 }

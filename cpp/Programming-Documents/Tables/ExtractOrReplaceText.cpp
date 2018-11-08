@@ -30,9 +30,9 @@ namespace
         // ExEnd:ExtractText
         // ExStart:PrintTextRangeOFRowAndTable
         // Print the contents of the second row to the screen.
-        std::cout << "\nContents of the row: " << std::endl << table->get_Rows()->idx_get(1)->get_Range()->get_Text().ToUtf8String() << std::endl;
+        std::cout << "Contents of the row: " << std::endl << table->get_Rows()->idx_get(1)->get_Range()->get_Text().ToUtf8String() << std::endl;
         // Print the contents of the last cell in the table to the screen.
-        std::cout << "\nContents of the cell: " << std::endl << table->get_LastRow()->get_LastCell()->get_Range()->get_Text().ToUtf8String() << std::endl;
+        std::cout << "Contents of the cell: " << std::endl << table->get_LastRow()->get_LastCell()->get_Range()->get_Text().ToUtf8String() << std::endl;
         // ExEnd:PrintTextRangeOFRowAndTable
     }
 
@@ -49,14 +49,18 @@ namespace
         System::String outputPath = GetDataDir_WorkingWithTables() + GetOutputFilePath(u"ExtractText.ReplaceText.doc");
         doc->Save(outputPath);
         // ExEnd:ReplaceText
-        std::cout << "\nText replaced successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Text replaced successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
 void ExtractOrReplaceText()
 {
+    std::cout << "ExtractOrReplaceText example started." << std::endl;
+    // ExStart:ExtractOrReplaceText
     // The path to the documents directory.
     System::String documentPath = GetDataDir_WorkingWithTables() + u"Table.SimpleTable.doc";
     ExtractPrintText(documentPath);
     ReplaceText(documentPath);
+    // ExEnd:ExtractOrReplaceText
+    std::cout << "ExtractOrReplaceText example finished." << std::endl << std::endl;
 }

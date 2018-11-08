@@ -11,26 +11,29 @@ using namespace Aspose::Words;
 
 void FindAndReplace()
 {
+    std::cout << "FindAndReplace example started." << std::endl;
+    // ExStart:FindAndReplace
     // The path to the documents directory.
     System::String dataDir = GetDataDir_QuickStart();
 
     // Open the document.
-    std::cout << (dataDir + u"ReplaceSimple.doc").ToUtf8String() << '\n';
+    std::cout << (dataDir + u"ReplaceSimple.doc").ToUtf8String() << std::endl;
 
     auto doc = System::MakeObject<Document>(dataDir + u"ReplaceSimple.doc");
 
     // Check the text of the document
-    std::cout << "Original document text: " << doc->get_Range()->get_Text().ToUtf8String() << '\n';
+    std::cout << "Original document text: " << doc->get_Range()->get_Text().ToUtf8String() << std::endl;
     
     // Replace the text in the document.
     doc->get_Range()->Replace(u"_CustomerName_", u"James Bond", System::MakeObject<Replacing::FindReplaceOptions>(FindReplaceDirection::Forward));
 
     // Check the replacement was made.
-    std::cout << "Document text after replace: " << doc->get_Range()->get_Text().ToUtf8String() << '\n';
+    std::cout << "Document text after replace: " << doc->get_Range()->get_Text().ToUtf8String() << std::endl;
 
-    dataDir = dataDir + GetOutputFilePath(u"FindAndReplace.doc");
+    System::String outputPath = dataDir + GetOutputFilePath(u"FindAndReplace.doc");
     // Save the modified document.
-    doc->Save(dataDir);
-
-    std::cout << "\nText found and replaced successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    doc->Save(outputPath);
+    // ExEnd:FindAndReplace
+    std::cout << "Text found and replaced successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "FindAndReplace example finished." << std::endl << std::endl;
 }

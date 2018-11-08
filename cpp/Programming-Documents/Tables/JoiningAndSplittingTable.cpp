@@ -36,7 +36,7 @@ namespace
         // Save the finished document.
         doc->Save(outputPath);
         // ExEnd:CombineRows
-        std::cout << "\nRows combine successfully from two tables into one.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Rows combine successfully from two tables into one." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void SplitTable(System::String const &dataDir)
@@ -65,14 +65,18 @@ namespace
         // Save the finished document.
         doc->Save(outputPath);
         // ExEnd:SplitTable
-        std::cout << "\nTable splitted successfully into two tables.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table splitted successfully into two tables." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
 void JoiningAndSplittingTable()
 {
+    std::cout << "JoiningAndSplittingTable example started." << std::endl;
+    // ExStart:JoiningAndSplittingTable
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     CombineRows(dataDir);
     SplitTable(dataDir);
+    // ExEnd:JoiningAndSplittingTable
+    std::cout << "JoiningAndSplittingTable example finished." << std::endl << std::endl;
 }

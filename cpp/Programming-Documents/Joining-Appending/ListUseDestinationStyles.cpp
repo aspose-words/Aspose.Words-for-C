@@ -29,19 +29,20 @@ using namespace Aspose::Words::Lists;
 
 void ListUseDestinationStyles()
 {
+    std::cout << "ListUseDestinationStyles example started." << std::endl;
     // ExStart:ListUseDestinationStyles
     // The path to the documents directory.
     System::String dataDir = GetDataDir_JoiningAndAppending();
-    
+
     System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.DestinationList.doc");
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.SourceList.doc");
-    
+
     // Set the source document to continue straight after the end of the destination document.
     srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(Aspose::Words::SectionStart::Continuous);
-    
+
     // Keep track of the lists that are created.
     System::SharedPtr<System::Collections::Generic::IDictionary<int32_t, System::SharedPtr<List>>> newLists = System::MakeObject<System::Collections::Generic::Dictionary<int32_t, System::SharedPtr<List>>>();
-    
+
     // Iterate through all paragraphs in the document.
     auto para_enumerator = srcDoc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)->GetEnumerator();
     System::SharedPtr<Paragraph> para;
@@ -74,13 +75,14 @@ void ListUseDestinationStyles()
             }
         }
     }
-    
+
     // Append the source document to end of the destination document.
     dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::UseDestinationStyles);
-    
-    dataDir = dataDir + GetOutputFilePath(u"ListUseDestinationStyles.doc");
+
+    System::String outputPath = dataDir + GetOutputFilePath(u"ListUseDestinationStyles.doc");
     // Save the combined document to disk.
-    dstDoc->Save(dataDir);
+    dstDoc->Save(outputPath);
     // ExEnd:ListUseDestinationStyles
-    std::cout << "\nDocument appended successfully without continuing any list numberings.\nFile saved at " << dataDir.ToUtf8String() << '\n';
+    std::cout << "Document appended successfully without continuing any list numberings." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    std::cout << "ListUseDestinationStyles example finished." << std::endl << std::endl;
 }

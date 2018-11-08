@@ -12,45 +12,46 @@
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
 
-
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 
 namespace
 {
+    void InsertInlineImage(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderInsertInlineImage
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
-void InsertInlineImage(System::String dataDir)
-{
-    // ExStart:DocumentBuilderInsertInlineImage
-    System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    
-    builder->InsertImage(dataDir + u"Watermark.png");
-    dataDir = dataDir + GetOutputFilePath(u"DocumentBuilderInsertImage.InsertInlineImage.doc");
-    doc->Save(dataDir);
-    // ExEnd:DocumentBuilderInsertInlineImage
-    std::cout << "\nInline image using DocumentBuilder inserted successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
-}
+        builder->InsertImage(dataDir + u"Watermark.png");
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertImage.InsertInlineImage.doc");
+        doc->Save(outputPath);
+        // ExEnd:DocumentBuilderInsertInlineImage
+        std::cout << "Inline image using DocumentBuilder inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 
-void InsertFloatingImage(System::String dataDir)
-{
-    // ExStart:DocumentBuilderInsertFloatingImage
-    System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-    
-    builder->InsertImage(dataDir + u"Watermark.png", Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, 100, Aspose::Words::Drawing::RelativeVerticalPosition::Margin, 100, 200, 100, Aspose::Words::Drawing::WrapType::Square);
-    dataDir = dataDir + GetOutputFilePath(u"DocumentBuilderInsertImage.InsertFloatingImage.doc");
-    doc->Save(dataDir);
-    // ExEnd:DocumentBuilderInsertFloatingImage
-    std::cout << "\nInline image using DocumentBuilder inserted successfully.\nFile saved at " << dataDir.ToUtf8String() << '\n';
-}
+    void InsertFloatingImage(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderInsertFloatingImage
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+
+        builder->InsertImage(dataDir + u"Watermark.png", Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, 100, Aspose::Words::Drawing::RelativeVerticalPosition::Margin, 100, 200, 100, Aspose::Words::Drawing::WrapType::Square);
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertImage.InsertFloatingImage.doc");
+        doc->Save(outputPath);
+        // ExEnd:DocumentBuilderInsertFloatingImage
+        std::cout << "Inline image using DocumentBuilder inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void DocumentBuilderInsertImage()
 {
-    
-    // The path to the documents directory.
+    std::cout << "DocumentBuilderInsertImage example started." << std::endl;
+    // ExStart:DocumentBuilderInsertImage
+     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     InsertInlineImage(dataDir);
     InsertFloatingImage(dataDir);
+    // ExEnd:DocumentBuilderInsertImage
+    std::cout << "DocumentBuilderInsertImage example finished." << std::endl << std::endl;
 }

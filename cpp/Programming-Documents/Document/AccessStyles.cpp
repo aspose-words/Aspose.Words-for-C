@@ -13,6 +13,7 @@ using namespace Aspose::Words;
 
 void AccessStyles()
 {
+    std::cout << "AccessStyles example started." << std::endl;
     // ExStart:AccessStyles
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
@@ -36,5 +37,6 @@ void AccessStyles()
         }
     }
     // ExEnd:AccessStyles
-    std::cout << "\nDocument have following styles " << styleName.ToUtf8String() << '\n';
+    std::cout << "Document have following styles " << styleName.ToUtf8String() << std::endl;
+    std::cout << "AccessStyles example finished." << std::endl << std::endl;
 }

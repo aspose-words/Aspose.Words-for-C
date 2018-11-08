@@ -47,7 +47,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:ApplyOutlineBorder
-        std::cout << "\nOutline border applied successfully to a table.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Outline border applied successfully to a table." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void BuildTableWithBordersEnabled(System::String const &dataDir)
@@ -63,7 +63,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:BuildTableWithBordersEnabled
-        std::cout << "\nTable build successfully with all borders enabled.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Table build successfully with all borders enabled." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
 
     }
 
@@ -79,7 +79,7 @@ namespace
         firstRow->get_RowFormat()->set_HeightRule(Aspose::Words::HeightRule::Auto);
         firstRow->get_RowFormat()->set_AllowBreakAcrossPages(true);
         // ExEnd:ModifyRowFormatting
-        std::cout << "\nSome row level properties modified successfully." << std::endl;
+        std::cout << "Some row level properties modified successfully." << std::endl;
     }
 
     void ApplyRowFormatting(System::String const &dataDir)
@@ -105,7 +105,7 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:ApplyRowFormatting
-        std::cout << "\nRow formatting applied successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Row formatting applied successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void ModifyCellFormatting(System::String const &dataDir)
@@ -121,7 +121,7 @@ namespace
         firstCell->get_CellFormat()->set_Orientation(Aspose::Words::TextOrientation::Downward);
         firstCell->get_CellFormat()->get_Shading()->set_ForegroundPatternColor(System::Drawing::Color::get_LightGreen());
         // ExEnd:ModifyCellFormatting
-        std::cout << "\nSome cell level properties modified successfully." << std::endl;
+        std::cout << "Some cell level properties modified successfully." << std::endl;
     }
 
     void FormatTableAndCellWithDifferentBorders(System::String const &dataDir)
@@ -161,7 +161,7 @@ namespace
         System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.FormatTableAndCellWithDifferentBorders.doc");
         doc->Save(outputPath);
         // ExEnd:FormatTableAndCellWithDifferentBorders
-        std::cout << "\nformat table and cell with different borders and shadings successfully.\nFile saved at " << outputPath.ToUtf8String() << std::endl;
+        std::cout << "Format table and cell with different borders and shadings successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void SetCellPadding(System::String const &dataDir)
@@ -180,14 +180,14 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetCellPadding
-        std::cout << "\nCell padding is set successfully." << std::endl;
+        std::cout << "Cell padding is set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void GetDistancebetweenTableSurroundingText(System::String const &dataDir)
     {
         // ExStart:GetDistancebetweenTableSurroundingText
         auto doc = System::MakeObject<Document>(dataDir + u"Table.EmptyTable.doc");
-        std::cout << "\nGet distance between table left, right, bottom, top and the surrounding text." << std::endl;
+        std::cout << "Get distance between table left, right, bottom, top and the surrounding text." << std::endl;
         auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
         std::cout << table->get_DistanceTop() << std::endl;
         std::cout << table->get_DistanceBottom() << std::endl;
@@ -208,12 +208,14 @@ namespace
         // Save the document to disk.
         doc->Save(outputPath, options);
         // ExEnd:SetTableTitleandDescription
-        std::cout << "\nTable's title and description is set successfully." << std::endl;
+        std::cout << "Table's title and description is set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
 void ApplyFormatting()
 {
+    std::cout << "ApplyFormatting example started." << std::endl;
+    // ExStart:ApplyFormatting
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     ApplyOutlineBorder(dataDir);
@@ -226,4 +228,6 @@ void ApplyFormatting()
     //Get DistanceLeft, DistanceRight, DistanceTop, and DistanceBottom properties
     GetDistancebetweenTableSurroundingText(dataDir);
     SetTableTitleandDescription(dataDir);
+    // ExEnd:ApplyFormatting
+    std::cout << "ApplyFormatting example finished." << std::endl << std::endl;
 }

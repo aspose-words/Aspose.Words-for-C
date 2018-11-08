@@ -20,14 +20,15 @@ using namespace Aspose::Words::Drawing;
 
 void ExtractImagesToFiles()
 {
+    std::cout << "ExtractImagesToFiles example started." << std::endl;
     // ExStart:ExtractImagesToFiles
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithImages();
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Image.SampleImages.doc");
-    
+
     System::SharedPtr<NodeCollection> shapes = doc->GetChildNodes(Aspose::Words::NodeType::Shape, true);
     int32_t imageIndex = 0;
-    
+
     auto shape_enumerator = shapes->GetEnumerator();
     System::SharedPtr<Shape> shape;
     while (shape_enumerator->MoveNext() && (shape = System::DynamicCast<Shape>(shape_enumerator->get_Current()), true))
@@ -35,10 +36,13 @@ void ExtractImagesToFiles()
         if (shape->get_HasImage())
         {
             System::String imageFileName = System::String::Format(u"Image.ExportImages.{0}_out{1}", imageIndex, FileFormatUtil::ImageTypeToExtension(shape->get_ImageData()->get_ImageType()));
-            shape->get_ImageData()->Save(dataDir + imageFileName);
+            System::String imagePath = dataDir + imageFileName;
+            shape->get_ImageData()->Save(imagePath);
+            std::cout << "Image saved at " << imagePath.ToUtf8String() << std::endl;
             imageIndex++;
         }
     }
     // ExEnd:ExtractImagesToFiles
-    std::cout << "\nAll images extracted from document.\n";
+    std::cout << "All images extracted from document." << std::endl;
+    std::cout << "ExtractImagesToFiles example finished." << std::endl << std::endl;
 }

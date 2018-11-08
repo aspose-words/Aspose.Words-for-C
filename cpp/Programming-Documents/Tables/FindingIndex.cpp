@@ -17,6 +17,8 @@ using namespace Aspose::Words;
 
 void FindingIndex()
 {
+    std::cout << "FindingIndex example started." << std::endl;
+    // ExStart:FindingIndex
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables() + u"Table.SimpleTable.doc";
     auto doc = System::MakeObject<Document>(dataDir);
@@ -26,14 +28,16 @@ void FindingIndex()
     auto allTables = doc->GetChildNodes(Aspose::Words::NodeType::Table, true);
     int32_t tableIndex = allTables->IndexOf(table);
     // ExEnd:RetrieveTableIndex
-    std::cout << "\nTable index is " << tableIndex << std::endl;
+    std::cout << "Table index is " << tableIndex << std::endl;
     // ExStart:RetrieveRowIndex
     int32_t rowIndex = table->IndexOf(table->get_LastRow());
     // ExEnd:RetrieveRowIndex
-    std::cout << "\nRow index is " << rowIndex << std::endl;
+    std::cout << "Row index is " << rowIndex << std::endl;
     auto row = table->get_LastRow();
     // ExStart:RetrieveCellIndex
     int32_t cellIndex = row->IndexOf(row->get_Cells()->idx_get(4));
     // ExEnd:RetrieveCellIndex
-    std::cout << "\nCell index is " << cellIndex << std::endl;
+    std::cout << "Cell index is " << cellIndex << std::endl;
+    // ExEnd:FindingIndex
+    std::cout << "FindingIndex example finished." << std::endl << std::endl;
 }
