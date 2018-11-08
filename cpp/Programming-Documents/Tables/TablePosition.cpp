@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/shared_ptr.h>
 #include <system/special_casts.h>
 #include <system/object.h>
@@ -20,6 +21,8 @@
 #include <Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Drawing;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -28,15 +31,15 @@ namespace
         // ExStart:GetTablePosition
         auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
-        if (table->get_TextWrapping() == Aspose::Words::Tables::TextWrapping::Around)
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        if (table->get_TextWrapping() == TextWrapping::Around)
         {
-            std::cout << System::ObjectExt::Box<Drawing::HorizontalAlignment>(table->get_RelativeHorizontalAlignment())->ToString().ToUtf8String() << std::endl;
-            std::cout << System::ObjectExt::Box<Drawing::VerticalAlignment>(table->get_RelativeVerticalAlignment())->ToString().ToUtf8String() << std::endl;
+            std::cout << System::ObjectExt::Box<HorizontalAlignment>(table->get_RelativeHorizontalAlignment())->ToString().ToUtf8String() << std::endl;
+            std::cout << System::ObjectExt::Box<VerticalAlignment>(table->get_RelativeVerticalAlignment())->ToString().ToUtf8String() << std::endl;
         }
         else
         {
-            std::cout << System::ObjectExt::Box<Aspose::Words::Tables::TableAlignment>(table->get_Alignment())->ToString().ToUtf8String() << std::endl;
+            std::cout << System::ObjectExt::Box<TableAlignment>(table->get_Alignment())->ToString().ToUtf8String() << std::endl;
         }
 
         // ExEnd:GetTablePosition
@@ -47,15 +50,13 @@ namespace
     {
         // ExStart:GetFloatingTablePosition
         auto doc = System::MakeObject<Document>(dataDir + u"FloatingTablePosition.doc");
-        auto table_enumerator = (System::DynamicCastEnumerableTo<System::SharedPtr<Aspose::Words::Tables::Table>>(doc->get_FirstSection()->get_Body()->get_Tables()))->GetEnumerator();
-        decltype(table_enumerator->get_Current()) table;
-        while (table_enumerator->MoveNext() && (table = table_enumerator->get_Current(), true))
+        for (System::SharedPtr<Table> table : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Table>>(doc->get_FirstSection()->get_Body()->get_Tables())))
         {
             // If table is floating type then print its positioning properties.
-            if (table->get_TextWrapping() == Aspose::Words::Tables::TextWrapping::Around)
+            if (table->get_TextWrapping() == TextWrapping::Around)
             {
-                std::cout << System::ObjectExt::Box<Drawing::RelativeHorizontalPosition>(table->get_HorizontalAnchor())->ToString().ToUtf8String() << std::endl;
-                std::cout << System::ObjectExt::Box<Drawing::RelativeVerticalPosition>(table->get_VerticalAnchor())->ToString().ToUtf8String() << std::endl;
+                std::cout << System::ObjectExt::Box<RelativeHorizontalPosition>(table->get_HorizontalAnchor())->ToString().ToUtf8String() << std::endl;
+                std::cout << System::ObjectExt::Box<RelativeVerticalPosition>(table->get_VerticalAnchor())->ToString().ToUtf8String() << std::endl;
                 std::cout << table->get_AbsoluteHorizontalDistance() << std::endl;
                 std::cout << table->get_AbsoluteVerticalDistance() << std::endl;
                 std::cout << table->get_AllowOverlap() << std::endl;

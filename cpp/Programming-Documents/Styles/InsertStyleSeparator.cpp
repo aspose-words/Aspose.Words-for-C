@@ -22,12 +22,12 @@ void InsertStyleSeparator()
     // ExStart:ParagraphInsertStyleSeparator
     auto doc = System::MakeObject<Document>();
     auto builder = System::MakeObject<DocumentBuilder>(doc);
-    auto paraStyle = builder->get_Document()->get_Styles()->Add(Aspose::Words::StyleType::Paragraph, u"MyParaStyle");
+    auto paraStyle = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"MyParaStyle");
     paraStyle->get_Font()->set_Bold(false);
     paraStyle->get_Font()->set_Size(8);
     paraStyle->get_Font()->set_Name(u"Arial");
     // Append text with "Heading 1" style.
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading1);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading1);
     builder->Write(u"Heading 1");
     builder->InsertStyleSeparator();
     // Append text with another style.

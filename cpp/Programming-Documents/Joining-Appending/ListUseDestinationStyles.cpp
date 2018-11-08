@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -15,7 +16,6 @@
 #include <Model/Sections/SectionStart.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/PageSetup.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Lists/ListCollection.h>
@@ -26,6 +26,9 @@
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Lists;
+
+typedef System::Collections::Generic::Dictionary<int32_t, System::SharedPtr<List>> TListDictionary;
+typedef System::Collections::Generic::IDictionary<int32_t, System::SharedPtr<List>> TListIDictionary;
 
 void ListUseDestinationStyles()
 {
@@ -38,15 +41,13 @@ void ListUseDestinationStyles()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.SourceList.doc");
 
     // Set the source document to continue straight after the end of the destination document.
-    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(Aspose::Words::SectionStart::Continuous);
+    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::Continuous);
 
     // Keep track of the lists that are created.
-    System::SharedPtr<System::Collections::Generic::IDictionary<int32_t, System::SharedPtr<List>>> newLists = System::MakeObject<System::Collections::Generic::Dictionary<int32_t, System::SharedPtr<List>>>();
+    System::SharedPtr<TListIDictionary> newLists = System::MakeObject<TListDictionary>();
 
     // Iterate through all paragraphs in the document.
-    auto para_enumerator = srcDoc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)->GetEnumerator();
-    System::SharedPtr<Paragraph> para;
-    while (para_enumerator->MoveNext() && (para = System::DynamicCast<Paragraph>(para_enumerator->get_Current()), true))
+    for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(srcDoc->GetChildNodes(NodeType::Paragraph, true))))
     {
         if (para->get_IsListItem())
         {
@@ -77,7 +78,7 @@ void ListUseDestinationStyles()
     }
 
     // Append the source document to end of the destination document.
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::UseDestinationStyles);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::UseDestinationStyles);
 
     System::String outputPath = dataDir + GetOutputFilePath(u"ListUseDestinationStyles.doc");
     // Save the combined document to disk.

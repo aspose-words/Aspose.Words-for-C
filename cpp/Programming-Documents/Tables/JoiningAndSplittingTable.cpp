@@ -12,6 +12,7 @@
 #include <Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -22,8 +23,8 @@ namespace
         auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
         // Get the first and second table in the document.
         // The rows from the second table will be appended to the end of the first table.
-        auto firstTable = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
-        auto secondTable = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 1, true));
+        auto firstTable = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto secondTable = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
         // Append all rows from the current table to the next.
         // Due to the design of tables even tables with different cell count and widths can be joined into one table.
         while (secondTable->get_HasChildNodes())
@@ -45,16 +46,16 @@ namespace
         // Load the document.
         auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
         // Get the first table in the document.
-        auto firstTable = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto firstTable = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // We will split the table at the third row (inclusive).
         auto row = firstTable->get_Rows()->idx_get(2);
         // Create a new container for the split table.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>((System::StaticCast<Aspose::Words::Node>(firstTable))->Clone(false));
+        auto table = System::DynamicCast<Table>((System::StaticCast<Node>(firstTable))->Clone(false));
         // Insert the container after the original.
         firstTable->get_ParentNode()->InsertAfter(table, firstTable);
         // Add a buffer paragraph to ensure the tables stay apart.
         firstTable->get_ParentNode()->InsertAfter(System::MakeObject<Paragraph>(doc), firstTable);
-        System::SharedPtr<Aspose::Words::Tables::Row> currentRow;
+        System::SharedPtr<Row> currentRow;
         do
         {
             currentRow = firstTable->get_LastRow();

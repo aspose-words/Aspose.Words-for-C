@@ -5,7 +5,6 @@
 #include <system/shared_ptr.h>
 #include <system/object_ext.h>
 #include <system/object.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Saving/DocSaveOptions.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>

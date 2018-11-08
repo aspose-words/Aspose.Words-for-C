@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -26,12 +27,10 @@ void ExtractImagesToFiles()
     System::String dataDir = GetDataDir_WorkingWithImages();
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Image.SampleImages.doc");
 
-    System::SharedPtr<NodeCollection> shapes = doc->GetChildNodes(Aspose::Words::NodeType::Shape, true);
+    System::SharedPtr<NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
     int32_t imageIndex = 0;
 
-    auto shape_enumerator = shapes->GetEnumerator();
-    System::SharedPtr<Shape> shape;
-    while (shape_enumerator->MoveNext() && (shape = System::DynamicCast<Shape>(shape_enumerator->get_Current()), true))
+    for (System::SharedPtr<Shape> shape : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Shape>>(shapes)))
     {
         if (shape->get_HasImage())
         {

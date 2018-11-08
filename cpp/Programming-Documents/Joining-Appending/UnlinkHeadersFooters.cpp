@@ -8,7 +8,6 @@
 #include <system/console.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/HeaderFooterCollection.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 
@@ -28,7 +27,7 @@ void UnlinkHeadersFooters()
     // From the destination document.
     srcDoc->get_FirstSection()->get_HeadersFooters()->LinkToPrevious(false);
 
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
     System::String outputPath = dataDir + GetOutputFilePath(u"UnlinkHeadersFooters.doc");
     dstDoc->Save(outputPath);
     // ExEnd:UnlinkHeadersFooters

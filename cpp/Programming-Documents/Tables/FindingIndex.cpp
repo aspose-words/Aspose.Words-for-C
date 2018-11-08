@@ -12,8 +12,8 @@
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Nodes/Node.h>
 
-
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 void FindingIndex()
 {
@@ -24,8 +24,8 @@ void FindingIndex()
     auto doc = System::MakeObject<Document>(dataDir);
     // ExStart:RetrieveTableIndex
     // Get the first table in the document.
-    auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
-    auto allTables = doc->GetChildNodes(Aspose::Words::NodeType::Table, true);
+    auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+    auto allTables = doc->GetChildNodes(NodeType::Table, true);
     int32_t tableIndex = allTables->IndexOf(table);
     // ExEnd:RetrieveTableIndex
     std::cout << "Table index is " << tableIndex << std::endl;

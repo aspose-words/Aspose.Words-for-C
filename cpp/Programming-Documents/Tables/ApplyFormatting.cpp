@@ -22,8 +22,13 @@
 #include <Model/Text/TextOrientation.h>
 #include <Model/Text/HeightRule.h>
 #include <Model/Saving/DocSaveOptions.h>
+#include <Model/Settings/MsWordVersion.h>
+#include <Model/Settings/CompatibilityOptions.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Saving;
+using namespace Aspose::Words::Settings;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -31,18 +36,18 @@ namespace
     {
         // ExStart:ApplyOutlineBorder
         auto doc = System::MakeObject<Document>(dataDir + u"Table.EmptyTable.doc");
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Align the table to the center of the page.
-        table->set_Alignment(Aspose::Words::Tables::TableAlignment::Center);
+        table->set_Alignment(TableAlignment::Center);
         // Clear any existing borders from the table.
         table->ClearBorders();
         // Set a green border around the table but not inside.
-        table->SetBorder(Aspose::Words::BorderType::Left, Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
-        table->SetBorder(Aspose::Words::BorderType::Right, Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
-        table->SetBorder(Aspose::Words::BorderType::Top, Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
-        table->SetBorder(Aspose::Words::BorderType::Bottom, Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
+        table->SetBorder(BorderType::Left, LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
+        table->SetBorder(BorderType::Right, LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
+        table->SetBorder(BorderType::Top, LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
+        table->SetBorder(BorderType::Bottom, LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
         // Fill the cells with a light green solid color.
-        table->SetShading(Aspose::Words::TextureIndex::TextureSolid, System::Drawing::Color::get_LightGreen(), System::Drawing::Color::Empty);
+        table->SetShading(TextureIndex::TextureSolid, System::Drawing::Color::get_LightGreen(), System::Drawing::Color::Empty);
         System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.ApplyOutlineBorder.doc");
         // Save the document to disk.
         doc->Save(outputPath);
@@ -54,11 +59,11 @@ namespace
     {
         // ExStart:BuildTableWithBordersEnabled
         auto doc = System::MakeObject<Document>(dataDir + u"Table.EmptyTable.doc");
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Clear any existing borders from the table.
         table->ClearBorders();
         // Set a green border around and inside the table.
-        table->SetBorders(Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green());
+        table->SetBorders(LineStyle::Single, 1.5, System::Drawing::Color::get_Green());
         System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.BuildTableWithBordersEnabled.doc");
         // Save the document to disk.
         doc->Save(outputPath);
@@ -71,12 +76,12 @@ namespace
     {
         // ExStart:ModifyRowFormatting
         auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Retrieve the first row in the table.
         auto firstRow = table->get_FirstRow();
         // Modify some row level properties.
-        firstRow->get_RowFormat()->get_Borders()->set_LineStyle(Aspose::Words::LineStyle::None);
-        firstRow->get_RowFormat()->set_HeightRule(Aspose::Words::HeightRule::Auto);
+        firstRow->get_RowFormat()->get_Borders()->set_LineStyle(LineStyle::None);
+        firstRow->get_RowFormat()->set_HeightRule(HeightRule::Auto);
         firstRow->get_RowFormat()->set_AllowBreakAcrossPages(true);
         // ExEnd:ModifyRowFormatting
         std::cout << "Some row level properties modified successfully." << std::endl;
@@ -92,7 +97,7 @@ namespace
         // Set the row formatting
         auto rowFormat = builder->get_RowFormat();
         rowFormat->set_Height(100);
-        rowFormat->set_HeightRule(Aspose::Words::HeightRule::Exactly);
+        rowFormat->set_HeightRule(HeightRule::Exactly);
         // These formatting properties are set on the table and are applied to all rows in the table.
         table->set_LeftPadding(30);
         table->set_RightPadding(30);
@@ -112,13 +117,13 @@ namespace
     {
         // ExStart:ModifyCellFormatting
         auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Retrieve the first cell in the table.
         auto firstCell = table->get_FirstRow()->get_FirstCell();
         // Modify some cell level properties.
         firstCell->get_CellFormat()->set_Width(30);
         // In points
-        firstCell->get_CellFormat()->set_Orientation(Aspose::Words::TextOrientation::Downward);
+        firstCell->get_CellFormat()->set_Orientation(TextOrientation::Downward);
         firstCell->get_CellFormat()->get_Shading()->set_ForegroundPatternColor(System::Drawing::Color::get_LightGreen());
         // ExEnd:ModifyCellFormatting
         std::cout << "Some cell level properties modified successfully." << std::endl;
@@ -132,7 +137,7 @@ namespace
         auto table = builder->StartTable();
         builder->InsertCell();
         // Set the borders for the entire table.
-        table->SetBorders(Aspose::Words::LineStyle::Single, 2.0, System::Drawing::Color::get_Black());
+        table->SetBorders(LineStyle::Single, 2.0, System::Drawing::Color::get_Black());
         // Set the cell shading for this cell.
         builder->get_CellFormat()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_Red());
         builder->Writeln(u"Cell #1");
@@ -188,7 +193,7 @@ namespace
         // ExStart:GetDistancebetweenTableSurroundingText
         auto doc = System::MakeObject<Document>(dataDir + u"Table.EmptyTable.doc");
         std::cout << "Get distance between table left, right, bottom, top and the surrounding text." << std::endl;
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         std::cout << table->get_DistanceTop() << std::endl;
         std::cout << table->get_DistanceBottom() << std::endl;
         std::cout << table->get_DistanceRight() << std::endl;
@@ -200,11 +205,12 @@ namespace
     {
         // ExStart:SetTableTitleandDescription
         auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         table->set_Title(u"Test title");
         table->set_Description(u"Test description");
-        auto options = System::MakeObject<Aspose::Words::Saving::DocSaveOptions>();
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.SetTableTitleandDescription.doc");
+        auto options = System::MakeObject<DocSaveOptions>();
+        doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2016);
+        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.SetTableTitleandDescription.docx");
         // Save the document to disk.
         doc->Save(outputPath, options);
         // ExEnd:SetTableTitleandDescription

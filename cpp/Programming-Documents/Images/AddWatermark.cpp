@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -13,7 +14,6 @@
 #include <Model/Sections/HeaderFooterType.h>
 #include <Model/Sections/HeaderFooterCollection.h>
 #include <Model/Sections/HeaderFooter.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Drawing/WrapType.h>
 #include <Model/Drawing/VerticalAlignment.h>
@@ -45,7 +45,7 @@ namespace
         }
 
         // Insert a clone of the watermark into the header.
-        header->AppendChild((System::StaticCast<Aspose::Words::Node>(watermarkPara))->Clone(true));
+        header->AppendChild((System::StaticCast<Node>(watermarkPara))->Clone(true));
     }
 
     void InsertWatermarkText(const System::SharedPtr<Document>& doc, const System::String& watermarkText)
@@ -79,10 +79,9 @@ namespace
         watermarkPara->AppendChild(watermark);
 
         // Insert the watermark into all headers of each document section.
-        auto sect_enumerator = doc->get_Sections()->GetEnumerator();
-        System::SharedPtr<Section> sect;
-        while (sect_enumerator->MoveNext() && (sect = System::DynamicCast<Section>(sect_enumerator->get_Current()), true))
+        for (System::SharedPtr<Node> sectionNode : System::IterateOver(doc->get_Sections()))
         {
+            System::SharedPtr<Section> sect = System::DynamicCast<Section>(sectionNode);
             // There could be up to three different headers in each section, since we want
             // The watermark to appear on all pages, insert into all headers.
             InsertWatermarkIntoHeader(watermarkPara, sect, HeaderFooterType::HeaderPrimary);

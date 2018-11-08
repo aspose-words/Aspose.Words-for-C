@@ -23,7 +23,7 @@ void RepeatRowsOnSubsequentPages()
     auto builder = System::MakeObject<DocumentBuilder>(doc);
     auto table = builder->StartTable();
     builder->get_RowFormat()->set_HeadingFormat(true);
-    builder->get_ParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Center);
+    builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
     builder->get_CellFormat()->set_Width(100);
     builder->InsertCell();
     builder->Writeln(u"Heading row 1");

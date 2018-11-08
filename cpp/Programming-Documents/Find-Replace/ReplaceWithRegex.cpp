@@ -6,7 +6,6 @@
 #include <system/shared_ptr.h>
 #include <system/object.h>
 #include <Model/Text/Range.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/FindReplace/FindReplaceOptions.h>
 #include <Model/Document/Document.h>
 

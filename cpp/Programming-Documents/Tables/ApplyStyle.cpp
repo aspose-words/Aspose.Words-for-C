@@ -17,6 +17,7 @@
 #include <Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -30,10 +31,10 @@ namespace
         builder->InsertCell();
         // Set the table style used based of the unique style identifier.
         // Note that not all table styles are available when saving as .doc format.
-        table->set_StyleIdentifier(Aspose::Words::StyleIdentifier::MediumShading1Accent1);
+        table->set_StyleIdentifier(StyleIdentifier::MediumShading1Accent1);
         // Apply which features should be formatted by the style.
-        table->set_StyleOptions(Aspose::Words::Tables::TableStyleOptions::FirstColumn | Aspose::Words::Tables::TableStyleOptions::RowBands | Aspose::Words::Tables::TableStyleOptions::FirstRow);
-        table->AutoFit(Aspose::Words::Tables::AutoFitBehavior::AutoFitToContents);
+        table->set_StyleOptions(TableStyleOptions::FirstColumn | TableStyleOptions::RowBands | TableStyleOptions::FirstRow);
+        table->AutoFit(AutoFitBehavior::AutoFitToContents);
         // Continue with building the table as normal.
         builder->Writeln(u"Item");
         builder->get_CellFormat()->set_RightPadding(40);
@@ -55,7 +56,7 @@ namespace
         builder->InsertCell();
         builder->Writeln(u"50");
         builder->EndRow();
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyStyle.BuildTableWithStyle.doc");
+        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyStyle.BuildTableWithStyle.docx");
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:BuildTableWithStyle
@@ -65,9 +66,9 @@ namespace
     void ExpandFormattingOnCellsAndRowFromStyle(System::String const &dataDir)
     {
         // ExStart:ExpandFormattingOnCellsAndRowFromStyle
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.TableStyle.doc");
+        auto doc = System::MakeObject<Document>(dataDir + u"Table.TableStyle.docx");
         // Get the first cell of the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         auto firstCell = table->get_FirstRow()->get_FirstCell();
         // First print the color of the cell shading. This should be empty as the current shading
         // Is stored in the table style.

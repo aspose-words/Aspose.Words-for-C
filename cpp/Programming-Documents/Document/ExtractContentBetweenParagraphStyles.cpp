@@ -8,7 +8,6 @@
 #include <system/collections/list.h>
 #include <system/collections/ilist.h>
 #include <Model/Text/Paragraph.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Document/Document.h>
 

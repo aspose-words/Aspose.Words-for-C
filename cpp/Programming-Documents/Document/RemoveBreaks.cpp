@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -14,7 +15,6 @@
 #include <Model/Text/ControlChar.h>
 #include <Model/Sections/SectionCollection.h>
 #include <Model/Sections/Section.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Document/Document.h>
@@ -28,23 +28,18 @@ namespace
     void RemovePageBreaks(const System::SharedPtr<Document>& doc)
     {
         // Retrieve all paragraphs in the document.
-        System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true);
+        System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
 
         // Iterate through all paragraphs
-        auto para_enumerator = paragraphs->GetEnumerator();
-        System::SharedPtr<Paragraph> para;
-        while (para_enumerator->MoveNext() && (para = System::DynamicCast<Paragraph>(para_enumerator->get_Current()), true))
+        for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(paragraphs)))
         {
             // If the paragraph has a page break before set then clear it.
             if (para->get_ParagraphFormat()->get_PageBreakBefore())
             {
                 para->get_ParagraphFormat()->set_PageBreakBefore(false);
             }
-
             // Check all runs in the paragraph for page breaks and remove them.
-            auto run_enumerator = para->get_Runs()->GetEnumerator();
-            System::SharedPtr<Run> run;
-            while (run_enumerator->MoveNext() && (run = System::DynamicCast<Run>(run_enumerator->get_Current()), true))
+            for (System::SharedPtr<Run> run : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Run>>(para->get_Runs())))
             {
                 if (run->get_Text().Contains(ControlChar::PageBreak()))
                 {

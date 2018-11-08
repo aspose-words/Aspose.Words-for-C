@@ -7,7 +7,6 @@
 #include <system/shared_ptr.h>
 #include <system/object.h>
 #include <Model/Text/Range.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/FindReplace/ReplacingArgs.h>
 #include <Model/FindReplace/ReplaceAction.h>
 #include <Model/FindReplace/IReplacingCallback.h>
@@ -25,7 +24,6 @@ namespace
     {
         typedef MyReplaceEvaluator ThisType;
         typedef IReplacingCallback BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO(ThisType, ThisTypeBaseTypesInfo)
 
@@ -34,16 +32,18 @@ namespace
         /// This is called during a replace operation each time a match is found.
         /// This method appends a number to the match string and returns it as a replacement string.
         /// </summary>
-        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e) override
-        {
-            e->set_Replacement(e->get_Match()->ToString() + System::Convert::ToString(mMatchNumber));
-            mMatchNumber++;
-            return ReplaceAction::Replace;
-        }
+        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e) override;
 
     private:
         int32_t mMatchNumber = 0;
     };
+
+    ReplaceAction MyReplaceEvaluator::Replacing(System::SharedPtr<ReplacingArgs> e)
+    {
+        e->set_Replacement(e->get_Match()->ToString() + System::Convert::ToString(mMatchNumber));
+        mMatchNumber++;
+        return ReplaceAction::Replace;
+    }
     // ExEnd:MyReplaceEvaluator
 }
 

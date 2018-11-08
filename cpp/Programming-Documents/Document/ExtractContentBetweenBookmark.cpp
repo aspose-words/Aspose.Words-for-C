@@ -11,7 +11,6 @@
 #include <Model/Sections/SectionCollection.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/PageSetup.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Document/Document.h>
 #include <Model/Bookmarks/BookmarkStart.h>
@@ -22,7 +21,6 @@
 #include "Common.h"
 
 using namespace Aspose::Words;
-
 
 void ExtractContentBetweenBookmark()
 {

@@ -2,6 +2,7 @@
 #include "examples.h"
 
 #include <system/array.h>
+#include <system/enumerator_adapter.h>
 #include <system/shared_ptr.h>
 #include <system/special_casts.h>
 #include <system/collections/list.h>
@@ -9,8 +10,8 @@
 #include <system/object.h>
 #include <system/string.h>
 #include <system/text/string_builder.h>
-
 #include "Model/Document/Document.h"
+#include <Model/Document/SaveFormat.h>
 #include <Model/Text/Run.h>
 #include <Model/Text/Paragraph.h>
 #include <Model/Tables/Table.h>
@@ -22,6 +23,10 @@
 #include <Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
+
+typedef System::Collections::Generic::List<System::SharedPtr<Cell>> TCellList;
+typedef System::ArrayPtr<System::SharedPtr<Cell>> TCellArrayPtr;
 
 namespace
 {
@@ -30,43 +35,37 @@ namespace
     {
         typedef Column ThisType;
         typedef System::Object BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
     public:
-
-        Column(System::SharedPtr<Aspose::Words::Tables::Table> table, int32_t columnIndex);
-        System::ArrayPtr<System::SharedPtr<Aspose::Words::Tables::Cell>> GetColumnCells();
-        int32_t IndexOf(System::SharedPtr<Aspose::Words::Tables::Cell> cell);
+        Column(System::SharedPtr<Table> table, int32_t columnIndex);
+        TCellArrayPtr GetColumnCells();
+        int32_t IndexOf(System::SharedPtr<Cell> cell);
         System::SharedPtr<Column> InsertColumnBefore();
         void Remove();
         System::String ToTxt();
 
     protected:
-
         System::Object::shared_members_type GetSharedMembers() override;
 
     private:
-
         int32_t mColumnIndex;
-        System::SharedPtr<Aspose::Words::Tables::Table> mTable;
+        System::SharedPtr<Table> mTable;
     };
 
     RTTI_INFO_IMPL_HASH(3744029511u, Column, ThisTypeBaseTypesInfo);
 
-    Column::Column(System::SharedPtr<Aspose::Words::Tables::Table> table, int32_t columnIndex) : mColumnIndex(0)
+    Column::Column(System::SharedPtr<Table> table, int32_t columnIndex) : mColumnIndex(0)
     {
         mTable = table;
         mColumnIndex = columnIndex;
     }
 
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Tables::Cell>> Column::GetColumnCells()
+    TCellArrayPtr Column::GetColumnCells()
     {
-        auto columnCells = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Tables::Cell>>>();
-        auto row_enumerator = (System::DynamicCastEnumerableTo<System::SharedPtr<Aspose::Words::Tables::Row>>(mTable->get_Rows()))->GetEnumerator();
-        decltype(row_enumerator->get_Current()) row;
-        while (row_enumerator->MoveNext() && (row = row_enumerator->get_Current(), true))
+        auto columnCells = System::MakeObject<TCellList>();
+        for (System::SharedPtr<Row> row : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Row>>(mTable->get_Rows())))
         {
             auto cell = row->get_Cells()->idx_get(mColumnIndex);
             if (cell != nullptr)
@@ -77,7 +76,7 @@ namespace
         return columnCells->ToArray();
     }
 
-    int32_t Column::IndexOf(System::SharedPtr<Aspose::Words::Tables::Cell> cell)
+    int32_t Column::IndexOf(System::SharedPtr<Cell> cell)
     {
         return GetColumnCells()->IndexOf(cell);
     }
@@ -90,18 +89,16 @@ namespace
             throw System::ArgumentException(u"Column must not be empty");
         }
         // Create a clone of this column.
-        for (int index = 0; index < columnCells->Count(); ++index)
+        for (System::SharedPtr<Cell> cell : columnCells)
         {
-            auto cell = columnCells[index];
             cell->get_ParentRow()->InsertBefore((System::StaticCast<Node>(cell))->Clone(false), cell);
         }
         // This is the new column.
         auto column = System::MakeObject<Column>(columnCells[0]->get_ParentRow()->get_ParentTable(), mColumnIndex);
         // We want to make sure that the cells are all valid to work with (have at least one paragraph).
         columnCells = column->GetColumnCells();
-        for (int index = 0; index < columnCells->Count(); ++index)
+        for (System::SharedPtr<Cell> cell : columnCells)
         {
-            auto cell = columnCells[index];
             cell->EnsureMinimum();
         }
         // Increase the index which this column represents since there is now one extra column infront.
@@ -111,9 +108,8 @@ namespace
 
     void Column::Remove()
     {
-        for (int index = 0; index < GetColumnCells()->Count(); ++index)
+        for (System::SharedPtr<Cell> cell : GetColumnCells())
         {
-            auto cell = GetColumnCells()[index];
             cell->Remove();
         }
     }
@@ -121,10 +117,9 @@ namespace
     System::String Column::ToTxt()
     {
         auto builder = System::MakeObject<System::Text::StringBuilder>();
-        for (int index = 0; index < GetColumnCells()->Count(); ++index)
+        for (System::SharedPtr<Cell> cell : GetColumnCells())
         {
-            auto cell = GetColumnCells()[index];
-            builder->AppendLine(cell->GetText());
+            builder->Append(cell->ToString(SaveFormat::Text));
         }
         return builder->ToString();
     }
@@ -133,7 +128,7 @@ namespace
     {
         auto result = System::Object::GetSharedMembers();
         result.Add("Column::mTable", this->mTable);
-        return std::move(result);
+        return result;
     }
     // ExEnd:ColumnClass
 
@@ -141,7 +136,7 @@ namespace
     {
         // ExStart:RemoveColumn
         // Get the second table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 1, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
         // Get the third column from the table and remove it.
         auto column = System::MakeObject<Column>(table, 2);
         column->Remove();
@@ -153,7 +148,7 @@ namespace
     {
         // ExStart:InsertBlankColumn
         // Get the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Get the second column in the table.
         auto column = System::MakeObject<Column>(table, 0);
         // Print the plain text of the column to the screen.
@@ -163,15 +158,13 @@ namespace
         auto newColumn = column->InsertColumnBefore();
         // Add some text to each of the column cells.
         auto columnCells = newColumn->GetColumnCells();
-        for (int index = 0; index < columnCells->Count(); ++index)
+        for (System::SharedPtr<Cell> cell : newColumn->GetColumnCells())
         {
-            auto cell = columnCells[index];
-            cell->get_FirstParagraph()->AppendChild(System::MakeObject<Aspose::Words::Run>(doc, System::String(u"Column Text ") + newColumn->IndexOf(cell)));
+            cell->get_FirstParagraph()->AppendChild(System::MakeObject<Run>(doc, System::String(u"Column Text ") + newColumn->IndexOf(cell)));
         }
         // ExEnd:InsertBlankColumn
         std::cout << "Column added successfully." << std::endl;
     }
-
 }
 
 void AddRemoveColumn()

@@ -55,6 +55,21 @@
     <Filter Include="cpp\Programming-Documents\Styles">
       <UniqueIdentifier>{373ee074-b3f1-42cd-bfa2-9c711790e43d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cpp\Programming-Documents\Shapes">
+      <UniqueIdentifier>{d333f5e8-11c9-4e11-9100-b75dfaf053b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Theme">
+      <UniqueIdentifier>{df82c38e-aa45-4c9f-816a-e5a4e7805e8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\StructuredDocumentTag">
+      <UniqueIdentifier>{41d226da-45da-4cfa-9922-b416356cbebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\List">
+      <UniqueIdentifier>{eb5488aa-db8a-473d-bf13-c857da5fc609}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Mail-Merge">
+      <UniqueIdentifier>{ab3d2d95-d9fe-4628-a64a-33c944cb8f87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cpp\main.cpp">
@@ -423,7 +438,162 @@
     <ClCompile Include="cpp\Programming-Documents\Images\ExtractImagesToFiles.cpp">
       <Filter>cpp\Programming-Documents\Images</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRevisions.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Quick-Start\UpdateFields.cpp">
+      <Filter>cpp\Quick-Start</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Quick-Start\ApplyLicenseFromFile.cpp">
+      <Filter>cpp\Quick-Start</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Quick-Start\ApplyLicenseFromStream.cpp">
+      <Filter>cpp\Quick-Start</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\LoadTxt.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\DetectDocumentSignatures.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\WorkingWithTxt.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\WorkingWithRTF.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\Load_Options.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceTextWithField.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Shapes\WorkingWithShapes.cpp">
+      <Filter>cpp\Programming-Documents\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentUsingField.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractTextOnly.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertTOC.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertTCField.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\CheckBoxTypeContentControl.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\RichTextBoxContentControl.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ComboBoxContentControl.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\UpdateContentControls.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\CleansUnusedStylesandLists.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentPageSetup.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertNestedFields.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\ChangeLocale.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\UpdateDocFields.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\UseOfficeMathProperties.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertField.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertMergeFieldUsingDOM.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertMailMergeAddressBlockFieldUsingDOM.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertAuthorField.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\ChangeFieldUpdateCultureSource.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\GetFieldNames.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertTOAFieldWithoutDocumentBuilder.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertIncludeTextFieldWithoutDocumentBuilder.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\EvaluateIFCondition.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertAdvanceFieldWithoutDocumentBuilder.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertASKFieldWithoutDocumentBuilder.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\ConvertFieldsInDocument.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\ConvertFieldsInBody.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\ConvertFieldsInParagraph.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\FieldsHelper.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Images\InsertBarcodeImage.cpp">
+      <Filter>cpp\Programming-Documents\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Theme\ManipulateThemeProperties.cpp">
+      <Filter>cpp\Programming-Documents\Theme</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\StructuredDocumentTag\WorkingWithSDT.cpp">
+      <Filter>cpp\Programming-Documents\StructuredDocumentTag</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\List\WorkingWithList.cpp">
+      <Filter>cpp\Programming-Documents\List</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\SimpleMailMerge.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\MailMergeFormFields.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\ExecuteArray.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\NestedMailMergeCustom.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\HandleMailMergeSwitches.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\MailMergeAndConditionalField.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
     <ClCompile Include="cpp\stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

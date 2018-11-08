@@ -19,10 +19,10 @@ namespace
     void SetFootNoteColumns(System::String const &dataDir)
     {
         // ExStart:SetFootNoteColumns
-        auto doc = System::MakeObject<Document>(dataDir + u"OtherTestFile.doc");
+        auto doc = System::MakeObject<Document>(dataDir + u"TestFile.docx");
         //Specify the number of columns with which the footnotes area is formatted.
         doc->get_FootnoteOptions()->set_Columns(3);
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithFootnote.SetFootNoteColumns.doc");
+        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithFootnote.SetFootNoteColumns.docx");
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetFootNoteColumns
@@ -32,11 +32,11 @@ namespace
     void SetFootnoteAndEndNotePosition(System::String const &dataDir)
     {
         // ExStart:SetFootnoteAndEndNotePosition
-        auto doc = System::MakeObject<Document>(dataDir + u"OtherTestFile.doc");
+        auto doc = System::MakeObject<Document>(dataDir + u"TestFile.docx");
         //Set footnote and endnode position.
-        doc->get_FootnoteOptions()->set_Position(Aspose::Words::FootnotePosition::BeneathText);
-        doc->get_EndnoteOptions()->set_Position(Aspose::Words::EndnotePosition::EndOfSection);
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithFootnote.SetFootnoteAndEndNotePosition.doc");
+        doc->get_FootnoteOptions()->set_Position(FootnotePosition::BeneathText);
+        doc->get_EndnoteOptions()->set_Position(EndnotePosition::EndOfSection);
+        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithFootnote.SetFootnoteAndEndNotePosition.docx");
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetFootnoteAndEndNotePosition
@@ -46,14 +46,14 @@ namespace
     void SetEndnoteOptions(System::String const &dataDir)
     {
         // ExStart:SetEndnoteOptions
-        auto doc = System::MakeObject<Document>(dataDir + u"OtherTestFile.doc");
+        auto doc = System::MakeObject<Document>(dataDir + u"TestFile.docx");
         auto builder = System::MakeObject<DocumentBuilder>(doc);
         builder->Write(u"Some text");
-        builder->InsertFootnote(Aspose::Words::FootnoteType::Endnote, u"Eootnote text.");
+        builder->InsertFootnote(FootnoteType::Endnote, u"Eootnote text.");
         auto option = doc->get_EndnoteOptions();
-        option->set_RestartRule(Aspose::Words::FootnoteNumberingRule::RestartPage);
-        option->set_Position(Aspose::Words::EndnotePosition::EndOfSection);
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithFootnote.SetEndnoteOptions.doc");
+        option->set_RestartRule(FootnoteNumberingRule::RestartPage);
+        option->set_Position(EndnotePosition::EndOfSection);
+        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithFootnote.SetEndnoteOptions.docx");
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetEndnoteOptions

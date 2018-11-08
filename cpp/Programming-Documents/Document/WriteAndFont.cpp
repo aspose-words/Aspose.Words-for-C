@@ -7,7 +7,6 @@
 #include <system/object.h>
 #include <Model/Text/Underline.h>
 #include <Model/Text/Font.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
 #include <drawing/color.h>
@@ -30,7 +29,7 @@ void WriteAndFont()
     font->set_Bold(true);
     font->set_Color(System::Drawing::Color::get_Blue());
     font->set_Name(u"Arial");
-    font->set_Underline(Aspose::Words::Underline::Dash);
+    font->set_Underline(Underline::Dash);
 
     builder->Write(u"Sample text.");
     System::String outputPath = dataDir + GetOutputFilePath(u"WriteAndFont.doc");

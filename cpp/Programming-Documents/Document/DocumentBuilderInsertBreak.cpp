@@ -4,7 +4,6 @@
 #include <system/string.h>
 #include <system/shared_ptr.h>
 #include <system/object.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/BreakType.h>
@@ -22,10 +21,10 @@ void DocumentBuilderInsertBreak()
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
     builder->Writeln(u"This is page 1.");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
 
     builder->Writeln(u"This is page 2.");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
 
     builder->Writeln(u"This is page 3.");
     System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertBreak.doc");
