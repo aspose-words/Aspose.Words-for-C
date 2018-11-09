@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -9,7 +10,6 @@
 #include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <Model/Sections/Section.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
@@ -25,13 +25,11 @@ void AppendDocumentManually()
 
     System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.Destination.doc");
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
-    ImportFormatMode mode = Aspose::Words::ImportFormatMode::KeepSourceFormatting;
+    ImportFormatMode mode = ImportFormatMode::KeepSourceFormatting;
 
     // Loop through all sections in the source document. 
     // Section nodes are immediate children of the Document node so we can just enumerate the Document.
-    auto srcSection_enumerator = srcDoc->GetEnumerator();
-    System::SharedPtr<Section> srcSection;
-    while (srcSection_enumerator->MoveNext() && (srcSection = System::DynamicCast<Section>(srcSection_enumerator->get_Current()), true))
+    for (System::SharedPtr<Section> srcSection : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Section>>(srcDoc)))
     {
         // Because we are copying a section from one document to another, 
         // It is required to import the Section node into the destination document.

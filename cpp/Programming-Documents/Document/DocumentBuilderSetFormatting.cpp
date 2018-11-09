@@ -23,7 +23,6 @@
 #include <Model/Sections/PageSetup.h>
 #include <Model/Sections/Orientation.h>
 #include <Model/Sections/Body.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
 #include <Model/Borders/TextureIndex.h>
@@ -62,14 +61,14 @@ namespace
     void SetAsianTypographyLinebreakGroupProp(System::String const &dataDir)
     {
         // ExStart:SetAsianTypographyLinebreakGroupProp
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Input.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Input.docx");
 
         System::SharedPtr<ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
         format->set_FarEastLineBreakControl(false);
         format->set_WordWrap(true);
         format->set_HangingPunctuation(false);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetAsianTypographyLinebreakGroupProp.doc");
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetAsianTypographyLinebreakGroupProp.docx");
         doc->Save(outputPath);
         // ExEnd:SetAsianTypographyLinebreakGroupProp
         std::cout << "ParagraphFormat properties for Asian Typography line break group are set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -90,7 +89,7 @@ namespace
         font->set_Name(u"Arial");
         font->set_Size(24);
         font->set_Spacing(5);
-        font->set_Underline(Aspose::Words::Underline::Double);
+        font->set_Underline(Underline::Double);
 
         // Output formatted text
         builder->Writeln(u"I'm a very nice formatted string.");
@@ -108,7 +107,7 @@ namespace
 
         // Set paragraph formatting properties
         System::SharedPtr<ParagraphFormat> paragraphFormat = builder->get_ParagraphFormat();
-        paragraphFormat->set_Alignment(Aspose::Words::ParagraphAlignment::Center);
+        paragraphFormat->set_Alignment(ParagraphAlignment::Center);
         paragraphFormat->set_LeftIndent(50);
         paragraphFormat->set_RightIndent(50);
         paragraphFormat->set_SpaceAfter(25);
@@ -163,7 +162,7 @@ namespace
         // Set the row formatting
         System::SharedPtr<RowFormat> rowFormat = builder->get_RowFormat();
         rowFormat->set_Height(100);
-        rowFormat->set_HeightRule(Aspose::Words::HeightRule::Exactly);
+        rowFormat->set_HeightRule(HeightRule::Exactly);
         // These formatting properties are set on the table and are applied to all rows in the table.
         table->set_LeftPadding(30);
         table->set_RightPadding(30);
@@ -224,9 +223,9 @@ namespace
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         // Set page properties
-        builder->get_PageSetup()->set_Orientation(Aspose::Words::Orientation::Landscape);
+        builder->get_PageSetup()->set_Orientation(Orientation::Landscape);
         builder->get_PageSetup()->set_LeftMargin(50);
-        builder->get_PageSetup()->set_PaperSize(Aspose::Words::PaperSize::Paper10x14);
+        builder->get_PageSetup()->set_PaperSize(PaperSize::Paper10x14);
 
         System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetPageSetupAndSectionFormatting.doc");
         doc->Save(outputPath);
@@ -241,7 +240,7 @@ namespace
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         // Set paragraph style
-        builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Title);
+        builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Title);
 
         builder->Write(u"Hello");
         System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.ApplyParagraphStyle.doc");
@@ -259,14 +258,14 @@ namespace
         // Set paragraph borders
         System::SharedPtr<BorderCollection> borders = builder->get_ParagraphFormat()->get_Borders();
         borders->set_DistanceFromText(20);
-        borders->idx_get(Aspose::Words::BorderType::Left)->set_LineStyle(Aspose::Words::LineStyle::Double);
-        borders->idx_get(Aspose::Words::BorderType::Right)->set_LineStyle(Aspose::Words::LineStyle::Double);
-        borders->idx_get(Aspose::Words::BorderType::Top)->set_LineStyle(Aspose::Words::LineStyle::Double);
-        borders->idx_get(Aspose::Words::BorderType::Bottom)->set_LineStyle(Aspose::Words::LineStyle::Double);
+        borders->idx_get(BorderType::Left)->set_LineStyle(LineStyle::Double);
+        borders->idx_get(BorderType::Right)->set_LineStyle(LineStyle::Double);
+        borders->idx_get(BorderType::Top)->set_LineStyle(LineStyle::Double);
+        borders->idx_get(BorderType::Bottom)->set_LineStyle(LineStyle::Double);
 
         // Set paragraph shading
         System::SharedPtr<Shading> shading = builder->get_ParagraphFormat()->get_Shading();
-        shading->set_Texture(Aspose::Words::TextureIndex::TextureDiagonalCross);
+        shading->set_Texture(TextureIndex::TextureDiagonalCross);
         shading->set_BackgroundPatternColor(System::Drawing::Color::get_LightCoral());
         shading->set_ForegroundPatternColor(System::Drawing::Color::get_LightSalmon());
 
@@ -284,9 +283,11 @@ void DocumentBuilderSetFormatting()
     // ExStart:DocumentBuilderSetFormatting
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
+    SetSpacebetweenAsianandLatintext(dataDir);
     SetFontFormatting(dataDir);
     SetParagraphFormatting(dataDir);
     SetTableCellFormatting(dataDir);
+    SetTableRowFormatting(dataDir);
     SetMultilevelListFormatting(dataDir);
     SetPageSetupAndSectionFormatting(dataDir);
     ApplyParagraphStyle(dataDir);

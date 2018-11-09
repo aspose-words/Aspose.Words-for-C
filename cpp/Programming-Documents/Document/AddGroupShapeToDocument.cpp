@@ -4,7 +4,6 @@
 #include <system/string.h>
 #include <system/shared_ptr.h>
 #include <system/object.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Drawing/ShapeType.h>
 #include <Model/Drawing/Shape.h>
@@ -27,12 +26,12 @@ void AddGroupShapeToDocument()
     doc->EnsureMinimum();
     System::SharedPtr<GroupShape> gs = System::MakeObject<GroupShape>(doc);
 
-    System::SharedPtr<Shape> shape = System::MakeObject<Shape>(doc, Aspose::Words::Drawing::ShapeType::AccentBorderCallout1);
+    System::SharedPtr<Shape> shape = System::MakeObject<Shape>(doc, ShapeType::AccentBorderCallout1);
     shape->set_Width(100);
     shape->set_Height(100);
     gs->AppendChild(shape);
 
-    System::SharedPtr<Shape> shape1 = System::MakeObject<Shape>(doc, Aspose::Words::Drawing::ShapeType::ActionButtonBeginning);
+    System::SharedPtr<Shape> shape1 = System::MakeObject<Shape>(doc, ShapeType::ActionButtonBeginning);
     shape1->set_Left(100);
     shape1->set_Width(100);
     shape1->set_Height(200);

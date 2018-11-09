@@ -13,7 +13,6 @@
 #include <Model/Tables/CellFormat.h>
 #include <Model/Tables/Cell.h>
 #include <Model/Tables/AutoFitBehavior.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
 
@@ -35,9 +34,9 @@ void DocumentBuilderBuildTable()
     // Insert a cell
     builder->InsertCell();
     // Use fixed column widths.
-    table->AutoFit(Aspose::Words::Tables::AutoFitBehavior::FixedColumnWidths);
+    table->AutoFit(AutoFitBehavior::FixedColumnWidths);
 
-    builder->get_CellFormat()->set_VerticalAlignment(Aspose::Words::Tables::CellVerticalAlignment::Center);
+    builder->get_CellFormat()->set_VerticalAlignment(CellVerticalAlignment::Center);
     builder->Write(u"This is row 1 cell 1");
 
     // Insert a cell
@@ -51,14 +50,14 @@ void DocumentBuilderBuildTable()
 
     // Apply new row formatting
     builder->get_RowFormat()->set_Height(100);
-    builder->get_RowFormat()->set_HeightRule(Aspose::Words::HeightRule::Exactly);
+    builder->get_RowFormat()->set_HeightRule(HeightRule::Exactly);
     
-    builder->get_CellFormat()->set_Orientation(Aspose::Words::TextOrientation::Upward);
+    builder->get_CellFormat()->set_Orientation(TextOrientation::Upward);
     builder->Writeln(u"This is row 2 cell 1");
 
     // Insert a cell
     builder->InsertCell();
-    builder->get_CellFormat()->set_Orientation(Aspose::Words::TextOrientation::Downward);
+    builder->get_CellFormat()->set_Orientation(TextOrientation::Downward);
     builder->Writeln(u"This is row 2 cell 2");
 
     builder->EndRow();

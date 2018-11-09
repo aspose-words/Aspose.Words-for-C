@@ -13,12 +13,11 @@ using namespace Aspose::Words;
 
 namespace
 {
-    
     void Protect(const System::String& inputFileName)
     {
         // ExStart:ProtectDocument
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputFileName);
-        doc->Protect(Aspose::Words::ProtectionType::AllowOnlyFormFields, u"password");
+        doc->Protect(ProtectionType::AllowOnlyFormFields, u"password");
         // ExEnd:ProtectDocument
         std::cout << "Document protected successfully." << std::endl;
     }

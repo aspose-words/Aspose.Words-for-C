@@ -9,7 +9,6 @@
 #include <Model/Sections/SectionStart.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/PageSetup.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 
@@ -26,10 +25,10 @@ void JoinNewPage()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
 
     // Set the appended document to start on a new page.
-    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(Aspose::Words::SectionStart::NewPage);
+    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::NewPage);
 
     // Append the source document using the original styles found in the source document.
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
     System::String outputPath = dataDir + GetOutputFilePath(u"JoinNewPage.doc");
     dstDoc->Save(outputPath);
     // ExEnd:JoinNewPage

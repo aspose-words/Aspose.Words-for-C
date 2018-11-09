@@ -33,7 +33,7 @@ void LoadAndSaveToStream()
 
     // Convert the document to a different format and save to stream.
     System::SharedPtr<System::IO::MemoryStream> dstStream = System::MakeObject<System::IO::MemoryStream>();
-    doc->Save(dstStream, Aspose::Words::SaveFormat::Doc);
+    doc->Save(dstStream, SaveFormat::Doc);
 
     // Rewind the stream position back to zero so it is ready for the next reader.
     dstStream->set_Position(0);

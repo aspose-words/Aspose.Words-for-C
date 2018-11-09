@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/shared_ptr.h>
 #include <system/object_ext.h>
 #include <system/special_casts.h>
@@ -20,6 +21,7 @@
 #include <Model/Nodes/CompositeNode.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -69,17 +71,14 @@ namespace
     {
         // ExStart:EnumerateChildNodes
         auto doc = System::MakeObject<Document>();
-        auto paragraph = System::DynamicCast<Aspose::Words::Paragraph>(doc->GetChild(Aspose::Words::NodeType::Paragraph, 0, true));
+        auto paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
         auto children = paragraph->get_ChildNodes();
-        auto child_enumerator = (children)->GetEnumerator();
-        decltype(child_enumerator->get_Current()) child;
-        while (child_enumerator->MoveNext() && (child = child_enumerator->get_Current(), true))
+        for (System::SharedPtr<Node> child : System::IterateOver(children))
         {
-            // Paragraph may contain children of various types such as runs, shapes and so on.
-            if (System::ObjectExt::Equals(child->get_NodeType(), Aspose::Words::NodeType::Run))
+            if (System::ObjectExt::Equals(child->get_NodeType(), NodeType::Run))
             {
                 // Say we found the node that we want, do something useful.
-                auto run = System::DynamicCast<Aspose::Words::Run>(child);
+                auto run = System::DynamicCast<Run>(child);
                 std::cout << run->get_Text().ToUtf8String() << std::endl;
             }
         }
@@ -90,16 +89,16 @@ namespace
     {
         // ExStart:IndexChildNodes
         auto doc = System::MakeObject<Document>();
-        auto paragraph = System::DynamicCast<Aspose::Words::Paragraph>(doc->GetChild(Aspose::Words::NodeType::Paragraph, 0, true));
+        auto paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
         auto children = paragraph->get_ChildNodes();
         for (int32_t i = 0; i < children->get_Count(); i++)
         {
             auto child = children->idx_get(i);
             // Paragraph may contain children of various types such as runs, shapes and so on.
-            if (System::ObjectExt::Equals(child->get_NodeType(), Aspose::Words::NodeType::Run))
+            if (System::ObjectExt::Equals(child->get_NodeType(), NodeType::Run))
             {
                 // Say we found the node that we want, do something useful.
-                auto run = System::DynamicCast<Aspose::Words::Run>(child);
+                auto run = System::DynamicCast<Run>(child);
                 std::cout << run->get_Text().ToUtf8String() << std::endl;
             }
         }
@@ -108,6 +107,7 @@ namespace
 
     void TraverseAllNodes(System::SharedPtr<CompositeNode> parentNode)
     {
+        // ExStart:RecurseAllNodes
         // This is the most efficient way to loop through immediate children of a node.
         for (auto childNode = parentNode->get_FirstChild(); childNode != nullptr; childNode = childNode->get_NextSibling())
         {
@@ -116,21 +116,20 @@ namespace
             // Recurse into the node if it is a composite node.
             if (childNode->get_IsComposite())
             {
-                TraverseAllNodes(System::DynamicCast<Aspose::Words::CompositeNode>(childNode));
+                TraverseAllNodes(System::DynamicCast<CompositeNode>(childNode));
             }
         }
+        // ExEnd:RecurseAllNodes
     }
 
     void RecurseAllNodes()
     {
-        // ExStart:RecurseAllNodes
         // The path to the documents directory.
         System::String dataDir = GetDataDir_WorkingWithNode();
         // Open a document.
         auto doc = System::MakeObject<Document>(dataDir + u"Node.RecurseAllNodes.doc");
         // Invoke the recursive function that will walk the tree.
         TraverseAllNodes(doc);
-        // ExEnd:RecurseAllNodes
     }
 
     void TypedAccess()
@@ -142,9 +141,7 @@ namespace
         auto body = section->get_Body();
         // Quick typed access to all Table child nodes contained in the Body.
         auto tables = body->get_Tables();
-        auto table_enumerator = (System::DynamicCastEnumerableTo<System::SharedPtr<Aspose::Words::Tables::Table>>(tables))->GetEnumerator();
-        decltype(table_enumerator->get_Current()) table;
-        while (table_enumerator->MoveNext() && (table = table_enumerator->get_Current(), true))
+        for (System::SharedPtr<Table> table : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Table>>(tables)))
         {
             // Quick typed access to the first row of the table.
             if (table->get_FirstRow() != nullptr)

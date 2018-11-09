@@ -6,7 +6,6 @@
 #include <system/object_ext.h>
 #include <system/object.h>
 #include <system/console.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 
@@ -24,7 +23,7 @@ void UseDestinationStyles()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
 
     // Append the source document using the styles of the destination document.
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::UseDestinationStyles);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::UseDestinationStyles);
 
     // Save the joined document to disk.
     System::String outputPath = dataDir + GetOutputFilePath(u"UseDestinationStyles.doc");

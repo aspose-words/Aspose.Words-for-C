@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/SaveFormat.h>
 #include <Model/Document/Document.h>
 
@@ -20,7 +19,7 @@ void ConvertDocumentToByte()
     // Create a new memory stream.
     System::SharedPtr<System::IO::MemoryStream> outStream = System::MakeObject<System::IO::MemoryStream>();
     // Save the document to stream.
-    doc->Save(outStream, Aspose::Words::SaveFormat::Doc);
+    doc->Save(outStream, SaveFormat::Doc);
 
     // Convert the document to byte form.
     System::ArrayPtr<uint8_t> docBytes = outStream->ToArray();

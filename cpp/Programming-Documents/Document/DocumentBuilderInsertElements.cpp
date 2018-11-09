@@ -7,19 +7,20 @@
 #include <system/io/stream.h>
 #include <system/io/memory_stream.h>
 #include <system/io/file.h>
-#include <system/details/dispose_guard.h>
 #include <system/array.h>
-#include <Model/Text/Underline.h>
-#include <Model/Text/Font.h>
-#include <Model/Saving/SaveOutputParameters.h>
-#include <Model/Fields/FormFields/TextFormFieldType.h>
-#include <Model/Fields/FormFields/FormField.h>
-#include <Model/Fields/Field.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Drawing/Ole/OlePackage.h>
-#include <Model/Drawing/Ole/OleFormat.h>
+#include <Model/Document/BreakType.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
+#include <Model/Drawing/Ole/OleFormat.h>
+#include <Model/Drawing/Ole/OlePackage.h>
+#include <Model/Drawing/Shape.h>
+#include <Model/Fields/FormFields/FormField.h>
+#include <Model/Fields/FormFields/TextFormFieldType.h>
+#include <Model/Fields/Field.h>
+#include <Model/Text/Font.h>
+#include <Model/Text/ParagraphFormat.h>
+#include <Model/Text/Underline.h>
+#include <Model/Styles/StyleIdentifier.h>
 #include <drawing/color.h>
 #include <cstdint>
 
@@ -35,7 +36,7 @@ namespace
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
-        builder->InsertTextInput(u"TextInput", Aspose::Words::Fields::TextFormFieldType::Regular, u"", u"Hello", 0);
+        builder->InsertTextInput(u"TextInput", TextFormFieldType::Regular, u"", u"Hello", 0);
         System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertTextInputFormField.doc");
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderInsertTextInputFormField
@@ -79,7 +80,7 @@ namespace
 
         // Specify font formatting for the hyperlink.
         builder->get_Font()->set_Color(System::Drawing::Color::get_Blue());
-        builder->get_Font()->set_Underline(Aspose::Words::Underline::Single);
+        builder->get_Font()->set_Underline(Underline::Single);
         // Insert the link.
         builder->InsertHyperlink(u"Aspose Website", u"http://www.aspose.com", false);
 
@@ -91,6 +92,55 @@ namespace
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderInsertHyperlink
         std::cout << "Hyperlink using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
+
+    void InsertTableOfContents(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderInsertTableOfContents
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+
+        // Insert a table of contents at the beginning of the document.
+        builder->InsertTableOfContents(u"\\o \"1-3\" \\h \\z \\u");
+
+        // Start the actual document content on the second page.
+        builder->InsertBreak(BreakType::PageBreak);
+
+        // Build a document with complex structure by applying different heading styles thus creating TOC entries.
+        builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading1);
+
+        builder->Writeln(u"Heading 1");
+
+        builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading2);
+
+        builder->Writeln(u"Heading 1.1");
+        builder->Writeln(u"Heading 1.2");
+
+        builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading1);
+
+        builder->Writeln(u"Heading 2");
+        builder->Writeln(u"Heading 3");
+
+        builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading2);
+
+        builder->Writeln(u"Heading 3.1");
+
+        builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading3);
+
+        builder->Writeln(u"Heading 3.1.1");
+        builder->Writeln(u"Heading 3.1.2");
+        builder->Writeln(u"Heading 3.1.3");
+
+        builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading2);
+
+        builder->Writeln(u"Heading 3.2");
+        builder->Writeln(u"Heading 3.3");
+
+        doc->UpdateFields();
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertTableOfContents.doc");
+        doc->Save(outputPath);
+        // ExEnd:DocumentBuilderInsertTableOfContents
+        std::cout << "Table of contents using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void InsertOleObject(System::String const &dataDir)
@@ -134,6 +184,7 @@ void DocumentBuilderInsertElements()
     InsertCheckBoxFormField(dataDir);
     InsertComboBoxFormField(dataDir);
     InsertHyperlink(dataDir);
+    InsertTableOfContents(dataDir);
     InsertOleObject(dataDir);
     InsertOleObjectwithOlePackage(dataDir);
     // ExEnd:DocumentBuilderInsertElements

@@ -8,7 +8,6 @@
 #include <Model/Text/ParagraphFormat.h>
 #include <Model/Text/ParagraphAlignment.h>
 #include <Model/Text/Font.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
 #include <drawing/color.h>
@@ -31,12 +30,12 @@ void DocumentBuilderInsertParagraph()
     font->set_Bold(true);
     font->set_Color(System::Drawing::Color::get_Blue());
     font->set_Name(u"Arial");
-    font->set_Underline(Aspose::Words::Underline::Dash);
+    font->set_Underline(Underline::Dash);
 
     // Specify paragraph formatting
     System::SharedPtr<ParagraphFormat> paragraphFormat = builder->get_ParagraphFormat();
     paragraphFormat->set_FirstLineIndent(8);
-    paragraphFormat->set_Alignment(Aspose::Words::ParagraphAlignment::Justify);
+    paragraphFormat->set_Alignment(ParagraphAlignment::Justify);
     paragraphFormat->set_KeepTogether(true);
 
     builder->Writeln(u"A whole paragraph.");

@@ -9,7 +9,6 @@
 #include <system/date_time.h>
 #include <Model/Text/CommentCollection.h>
 #include <Model/Text/Comment.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Document/Document.h>
@@ -23,7 +22,7 @@ void CommentReply()
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithComments();
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-    System::SharedPtr<Comment> comment = System::DynamicCast<Comment>(doc->GetChild(Aspose::Words::NodeType::Comment, 0, true));
+    System::SharedPtr<Comment> comment = System::DynamicCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
 
     //Remove the reply
     comment->RemoveReply(comment->get_Replies()->idx_get(0));

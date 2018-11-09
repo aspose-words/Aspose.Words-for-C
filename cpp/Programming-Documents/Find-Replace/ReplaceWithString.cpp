@@ -7,7 +7,6 @@
 #include <system/object.h>
 #include <system/console.h>
 #include <Model/Text/Range.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/FindReplace/FindReplaceOptions.h>
 #include <Model/FindReplace/FindReplaceDirection.h>
 #include <Model/Document/Document.h>

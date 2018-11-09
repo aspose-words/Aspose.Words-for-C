@@ -6,7 +6,6 @@
 #include <system/object_ext.h>
 #include <system/object.h>
 #include <system/console.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 
@@ -23,7 +22,7 @@ void KeepSourceFormatting()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
     
     // Keep the formatting from the source document when appending it to the destination document.
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
     
     // Save the joined document to disk.
     System::String outputPath = dataDir + GetOutputFilePath(u"KeepSourceFormatting.doc");

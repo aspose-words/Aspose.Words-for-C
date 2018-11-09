@@ -6,20 +6,20 @@
 #include <system/object.h>
 #include <Model/Settings/MsWordVersion.h>
 #include <Model/Settings/CompatibilityOptions.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/Document.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Settings;
 
 namespace
 {
     void OptimizeFor(System::String const &dataDir)
     {
         // ExStart:OptimizeFor
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"OtherTestFile.doc");
-        doc->get_CompatibilityOptions()->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2016);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.docx");
+        doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2016);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"SetCompatibilityOptions.doc");
+        System::String outputPath = dataDir + GetOutputFilePath(u"SetCompatibilityOptions.docx");
 
         // Save the document to disk.
         doc->Save(outputPath);

@@ -10,7 +10,6 @@
 #include <Model/Sections/Section.h>
 #include <Model/Sections/PageSetup.h>
 #include <Model/Sections/Orientation.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 
@@ -29,7 +28,7 @@ void DifferentPageSetup()
     // Set the source document to continue straight after the end of the destination document.
     // If some page setup settings are different then this may not work and the source document will appear 
     // On a new page.
-    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(Aspose::Words::SectionStart::Continuous);
+    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::Continuous);
     
     // To ensure this does not happen when the source document has different page setup settings make sure the
     // Settings are identical between the last section of the destination document.
@@ -39,7 +38,7 @@ void DifferentPageSetup()
     srcDoc->get_FirstSection()->get_PageSetup()->set_PageHeight(dstDoc->get_LastSection()->get_PageSetup()->get_PageHeight());
     srcDoc->get_FirstSection()->get_PageSetup()->set_Orientation(dstDoc->get_LastSection()->get_PageSetup()->get_Orientation());
     
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
     System::String outputPath = dataDir + GetOutputFilePath(u"DifferentPageSetup.doc");
     dstDoc->Save(outputPath);
     // ExEnd:DifferentPageSetup

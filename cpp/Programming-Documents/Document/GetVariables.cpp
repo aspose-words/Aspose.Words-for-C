@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/shared_ptr.h>
 #include <system/object.h>
@@ -21,10 +22,8 @@ void GetVariables()
     // Load the template document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
     System::String variables = u"";
-    
-    auto entry_enumerator = doc->get_Variables()->GetEnumerator();
-    System::Collections::Generic::KeyValuePair<System::String, System::String> entry;
-    while (entry_enumerator->MoveNext() && (entry = entry_enumerator->get_Current(), true))
+
+    for (System::Collections::Generic::KeyValuePair<System::String, System::String> entry : System::IterateOver(doc->get_Variables()))
     {
         System::String name = entry.get_Key();
         System::String value = entry.get_Value();

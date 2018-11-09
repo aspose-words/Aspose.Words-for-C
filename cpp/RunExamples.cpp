@@ -1,5 +1,4 @@
 #include "stdafx.h"
-
 #include "RunExamples.h"
 
 #include <system/io/path.h>
@@ -141,7 +140,6 @@ String GetDataDir_MailMergeAndReporting()
 {
     return Path::GetFullPath(u"Data/Mail-Merge/");
 }
-
 
 String GetDataDir_RenderingAndPrinting()
 {

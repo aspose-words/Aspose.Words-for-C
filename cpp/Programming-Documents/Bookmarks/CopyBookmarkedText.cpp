@@ -10,7 +10,6 @@
 #include <Model/Text/Paragraph.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/Body.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Nodes/CompositeNode.h>
 #include <Model/Importing/NodeImporter.h>
@@ -28,10 +27,10 @@ namespace
     void AppendBookmarkedText(const System::SharedPtr<NodeImporter>& importer, const System::SharedPtr<Bookmark>& srcBookmark, const System::SharedPtr<CompositeNode>& dstNode)
     {
         // This is the paragraph that contains the beginning of the bookmark.
-        System::SharedPtr<Paragraph> startPara = System::DynamicCast<Aspose::Words::Paragraph>(srcBookmark->get_BookmarkStart()->get_ParentNode());
+        System::SharedPtr<Paragraph> startPara = System::DynamicCast<Paragraph>(srcBookmark->get_BookmarkStart()->get_ParentNode());
 
         // This is the paragraph that contains the end of the bookmark.
-        System::SharedPtr<Paragraph> endPara = System::DynamicCast<Aspose::Words::Paragraph>(srcBookmark->get_BookmarkEnd()->get_ParentNode());
+        System::SharedPtr<Paragraph> endPara = System::DynamicCast<Paragraph>(srcBookmark->get_BookmarkEnd()->get_ParentNode());
 
         if ((startPara == nullptr) || (endPara == nullptr))
         {
@@ -82,7 +81,7 @@ void CopyBookmarkedText()
 
     // It is a good idea to use this import context object because multiple nodes are being imported.
     // If you import multiple times without a single context, it will result in many styles created.
-    auto importer = System::MakeObject<NodeImporter>(srcDoc, dstDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    auto importer = System::MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
 
     // Do it once.
     AppendBookmarkedText(importer, srcBookmark, dstNode);

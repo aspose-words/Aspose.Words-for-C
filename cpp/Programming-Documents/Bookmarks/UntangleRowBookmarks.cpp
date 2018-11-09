@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/shared_ptr.h>
 #include <system/object_ext.h>
@@ -10,7 +11,6 @@
 #include <Model/Text/Paragraph.h>
 #include <Model/Tables/Row.h>
 #include <Model/Tables/Cell.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Nodes/CompositeNode.h>
@@ -28,13 +28,11 @@ namespace
 {
     void Untangle(const System::SharedPtr<Document>& doc)
     {
-        auto bookmark_enumerator = doc->get_Range()->get_Bookmarks()->GetEnumerator();
-        System::SharedPtr<Bookmark> bookmark;
-        while (bookmark_enumerator->MoveNext() && (bookmark = bookmark_enumerator->get_Current(), true))
+        for(System::SharedPtr<Bookmark>  bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
         {
             // Get the parent row of both the bookmark and bookmark end node.
-            System::SharedPtr<Row> row1 = System::DynamicCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(Aspose::Words::NodeType::Row));
-            System::SharedPtr<Row> row2 = System::DynamicCast<Row>(bookmark->get_BookmarkEnd()->GetAncestor(Aspose::Words::NodeType::Row));
+            System::SharedPtr<Row> row1 = System::DynamicCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
+            System::SharedPtr<Row> row2 = System::DynamicCast<Row>(bookmark->get_BookmarkEnd()->GetAncestor(NodeType::Row));
 
             // If both rows are found okay and the bookmark start and end are contained
             // In adjacent rows, then just move the bookmark end node to the end
@@ -56,7 +54,7 @@ namespace
         }
 
         // Get the parent row of the bookmark. Exit if the bookmark is not in a row.
-        auto row = System::DynamicCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(Aspose::Words::NodeType::Row));
+        auto row = System::DynamicCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
         if (row == nullptr)
         {
             return;

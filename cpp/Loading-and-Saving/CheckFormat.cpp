@@ -58,63 +58,63 @@ void CheckFormat()
         // Display the document type.
         switch (info->get_LoadFormat())
         {
-        case Aspose::Words::LoadFormat::Doc:
+        case LoadFormat::Doc:
             std::cout << "\tMicrosoft Word 97-2003 document." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Dot:
+        case LoadFormat::Dot:
             std::cout << "\tMicrosoft Word 97-2003 template." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Docx:
+        case LoadFormat::Docx:
             std::cout << "\tOffice Open XML WordprocessingML Macro-Free Document." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Docm:
+        case LoadFormat::Docm:
             std::cout << "\tOffice Open XML WordprocessingML Macro-Enabled Document." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Dotx:
+        case LoadFormat::Dotx:
             std::cout << "\tOffice Open XML WordprocessingML Macro-Free Template." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Dotm:
+        case LoadFormat::Dotm:
             std::cout << "\tOffice Open XML WordprocessingML Macro-Enabled Template." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::FlatOpc:
+        case LoadFormat::FlatOpc:
             std::cout << "\tFlat OPC document." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Rtf:
+        case LoadFormat::Rtf:
             std::cout << "\tRTF format." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::WordML:
+        case LoadFormat::WordML:
             std::cout << "\tMicrosoft Word 2003 WordprocessingML format." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Html:
+        case LoadFormat::Html:
             std::cout << "\tHTML format." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Mhtml:
+        case LoadFormat::Mhtml:
             std::cout << "\tMHTML (Web archive) format." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Odt:
+        case LoadFormat::Odt:
             std::cout << "\tOpenDocument Text." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Ott:
+        case LoadFormat::Ott:
             std::cout << "\tOpenDocument Text Template." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::DocPreWord60:
+        case LoadFormat::DocPreWord60:
             std::cout << "\tMS Word 6 or Word 95 format." << std::endl;
             break;
 
-        case Aspose::Words::LoadFormat::Unknown:
+        case LoadFormat::Unknown:
         default:
             std::cout << "\tUnknown format." << std::endl;
             break;
@@ -132,11 +132,11 @@ void CheckFormat()
         {
             switch (info->get_LoadFormat())
             {
-            case Aspose::Words::LoadFormat::DocPreWord60:
+            case LoadFormat::DocPreWord60:
                 System::IO::File::Copy(fileName, System::IO::Path::Combine(pre97Dir, nameOnly), true);
                 break;
 
-            case Aspose::Words::LoadFormat::Unknown:
+            case LoadFormat::Unknown:
                 System::IO::File::Copy(fileName, System::IO::Path::Combine(unknownDir, nameOnly), true);
                 break;
 

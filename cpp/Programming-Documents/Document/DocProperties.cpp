@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/shared_ptr.h>
 #include <system/object_ext.h>
@@ -24,25 +25,18 @@ namespace
         // ExStart:EnumerateProperties
         System::String fileName = dataDir + u"Properties.doc";
         System::SharedPtr<Document> doc = System::MakeObject<Document>(fileName);
-        std::cout << "1. Document name: " << fileName.ToUtf8String() << std::endl
-                  << "2. Built-in Properties" << std::endl;
+        std::cout << "1. Document name: " << fileName.ToUtf8String() << std::endl;
+
+        std::cout << "2. Built-in Properties" << std::endl;
+        for (System::SharedPtr<DocumentProperty> prop : System::IterateOver(doc->get_BuiltInDocumentProperties()))
         {
-            auto enumerator = doc->get_BuiltInDocumentProperties()->GetEnumerator();
-            System::SharedPtr<DocumentProperty> prop;
-            while (enumerator->MoveNext() && (prop = enumerator->get_Current(), true))
-            {
-                std::cout << prop->get_Name().ToUtf8String() << " : " << prop->get_Value()->ToString().ToUtf8String() << std::endl;
-            }
+            std::cout << prop->get_Name().ToUtf8String() << " : " << prop->get_Value()->ToString().ToUtf8String() << std::endl;
         }
 
         std::cout << "3. Custom Properties" << std::endl;
+        for (System::SharedPtr<DocumentProperty> prop : System::IterateOver(doc->get_CustomDocumentProperties()))
         {
-            auto prop_enumerator = doc->get_CustomDocumentProperties()->GetEnumerator();
-            System::SharedPtr<DocumentProperty> prop;
-            while (prop_enumerator->MoveNext() && (prop = prop_enumerator->get_Current(), true))
-            {
-                std::cout << prop->get_Name().ToUtf8String() << " : " << prop->get_Value()->ToString().ToUtf8String() << std::endl;
-            }
+            std::cout << prop->get_Name().ToUtf8String() << " : " << prop->get_Value()->ToString().ToUtf8String() << std::endl;
         }
         // ExEnd:EnumerateProperties
     }
@@ -70,6 +64,17 @@ namespace
         doc->get_CustomDocumentProperties()->Remove(u"Authorized Date");
         // ExEnd:CustomRemove
     }
+
+    void RemovePersonalInformation(const System::String &dataDir)
+    {
+        // ExStart:RemovePersonalInformation
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Properties.doc");
+        doc->set_RemovePersonalInformation(true);
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocProperties.RemovePersonalInformation.docx");
+        doc->Save(outputPath);
+        // ExEnd:RemovePersonalInformation
+        std::cout << "Personal information has removed from document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void DocProperties()
@@ -84,6 +89,7 @@ void DocProperties()
     CustomAdd(dataDir);
     // Removes a custom document property.
     CustomRemove(dataDir);
+    RemovePersonalInformation(dataDir);
     // ExEnd:DocProperties
     std::cout << "DocProperties example finished." << std::endl << std::endl;
 }

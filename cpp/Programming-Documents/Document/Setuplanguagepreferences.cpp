@@ -20,12 +20,12 @@ namespace
         // ExStart:AddJapaneseAsEditinglanguages
         // The path to the documents directory.
         System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
-        loadOptions->get_LanguagePreferences()->AddEditingLanguage(Aspose::Words::EditingLanguage::Japanese);
+        loadOptions->get_LanguagePreferences()->AddEditingLanguage(EditingLanguage::Japanese);
 
         System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"languagepreferences.doc", loadOptions);
 
         int32_t localeIdFarEast = doc->get_Styles()->get_DefaultFont()->get_LocaleIdFarEast();
-        if (localeIdFarEast == (int32_t)Aspose::Words::EditingLanguage::Japanese)
+        if (localeIdFarEast == static_cast<int32_t>(EditingLanguage::Japanese))
         {
             std::cout << "The document either has no any FarEast language set in defaults or it was set to Japanese originally." << std::endl;
         }
@@ -42,12 +42,12 @@ namespace
         // The path to the documents directory.
         System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
 
-        loadOptions->get_LanguagePreferences()->SetAsDefault(Aspose::Words::EditingLanguage::Russian);
+        loadOptions->get_LanguagePreferences()->SetAsDefault(EditingLanguage::Russian);
 
         System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"languagepreferences.doc", loadOptions);
 
         int32_t localeId = doc->get_Styles()->get_DefaultFont()->get_LocaleId();
-        if (localeId == (int32_t)Aspose::Words::EditingLanguage::Russian)
+        if (localeId == static_cast<int32_t>(EditingLanguage::Russian))
         {
             std::cout << "The document either has no any language set in defaults or it was set to Russian originally." << std::endl;
         }

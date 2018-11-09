@@ -14,7 +14,9 @@
 #include <Model/Sections/Body.h>
 #include <Model/Nodes/NodeType.h>
 
+using namespace System::Diagnostics;
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 void AutoFitTableToWindow()
 {
@@ -24,14 +26,15 @@ void AutoFitTableToWindow()
     System::String dataDir = GetDataDir_WorkingWithTables();
     // Open the document
     auto doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-    auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+    auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
     // Autofit the first table to the page width.
-    table->AutoFit(Aspose::Words::Tables::AutoFitBehavior::AutoFitToWindow);
+    table->AutoFit(AutoFitBehavior::AutoFitToWindow);
     System::String outputPath = dataDir + GetOutputFilePath(u"AutoFitTableToWindow.doc");
     // Save the document to disk.
     doc->Save(outputPath);
-    System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_PreferredWidth()->get_Type() == Aspose::Words::Tables::PreferredWidthType::Percent, u"PreferredWidth type is not percent");
-    System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_PreferredWidth()->get_Value() == 100, u"PreferredWidth value is different than 100");
+    auto firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
+    Debug::Assert(firstTable->get_PreferredWidth()->get_Type() == PreferredWidthType::Percent, u"PreferredWidth type is not percent");
+    Debug::Assert(firstTable->get_PreferredWidth()->get_Value() == 100, u"PreferredWidth value is different than 100");
     // ExEnd:AutoFitTableToPageWidth
     std::cout << "Auto fit tables to window successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "AutoFitTableToWindow example finished." << std::endl << std::endl;

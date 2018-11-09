@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/shared_ptr.h>
 #include <system/special_casts.h>
 
 #include "Model/Document/Document.h"
 #include <Model/Tables/Table.h>
+#include <Model/Tables/RowCollection.h>
 #include <Model/Tables/Row.h>
 #include <Model/Tables/RowFormat.h>
 #include <Model/Tables/Cell.h>
@@ -16,6 +18,7 @@
 #include <Model/Nodes/NodeCollection.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -24,11 +27,9 @@ namespace
         // ExStart:RowFormatDisableBreakAcrossPages
         auto doc = System::MakeObject<Document>(dataDir + u"Table.TableAcrossPage.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Disable breaking across pages for all rows in the table.
-        auto row_enumerator = (System::DynamicCastEnumerableTo<System::SharedPtr<Aspose::Words::Tables::Row>>(table))->GetEnumerator();
-        decltype(row_enumerator->get_Current()) row;
-        while (row_enumerator->MoveNext() && (row = row_enumerator->get_Current(), true))
+        for (System::SharedPtr<Row> row : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Row>>(table->get_Rows())))
         {
             row->get_RowFormat()->set_AllowBreakAcrossPages(false);
         }
@@ -43,20 +44,16 @@ namespace
         // ExStart:KeepTableTogether
         auto doc = System::MakeObject<Document>(dataDir + u"Table.TableAcrossPage.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // To keep a table from breaking across a page we need to enable KeepWithNext
         // For every paragraph in the table except for the last paragraphs in the last
         // Row of the table.
-        auto cell_enumerator = (System::DynamicCastEnumerableTo<System::SharedPtr<Aspose::Words::Tables::Cell>>(table->GetChildNodes(Aspose::Words::NodeType::Cell, true)))->GetEnumerator();
-        decltype(cell_enumerator->get_Current()) cell;
-        while (cell_enumerator->MoveNext() && (cell = cell_enumerator->get_Current(), true))
+        for (System::SharedPtr<Cell> cell : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Cell>>(table->GetChildNodes(NodeType::Cell, true))))
         {
             // Call this method if table's cell is created on the fly
             // Newly created cell does not have paragraph inside
             cell->EnsureMinimum();
-            auto para_enumerator = (System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(cell->get_Paragraphs()))->GetEnumerator();
-            decltype(para_enumerator->get_Current()) para;
-            while (para_enumerator->MoveNext() && (para = para_enumerator->get_Current(), true))
+            for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(cell->get_Paragraphs())))
             {
                 if (!(cell->get_ParentRow()->get_IsLastRow() && para->get_IsEndOfCell()))
                 {

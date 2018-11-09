@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
 
@@ -21,7 +20,7 @@ void CreateDocument()
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
     builder->Writeln(u"Hello World!");
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"CreateDocument.doc");
+    System::String outputPath = dataDir + GetOutputFilePath(u"CreateDocument.docx");
     // Save the document to disk.
     doc->Save(outputPath);
     // ExEnd:CreateDocument

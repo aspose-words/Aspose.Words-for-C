@@ -11,7 +11,6 @@
 #include <Model/Text/Paragraph.h>
 #include <Model/Tables/Table.h>
 #include <Model/Sections/Section.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Nodes/CompositeNode.h>
@@ -19,7 +18,6 @@
 #include <cstdint>
 
 #include "Common.h"
-
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Tables;
@@ -33,8 +31,8 @@ void ExtractContentBetweenBlockLevelNodes()
 
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
 
-    System::SharedPtr<Paragraph> startPara = System::DynamicCast<Paragraph>(doc->get_LastSection()->GetChild(Aspose::Words::NodeType::Paragraph, 2, true));
-    System::SharedPtr<Table> endTable = System::DynamicCast<Table>(doc->get_LastSection()->GetChild(Aspose::Words::NodeType::Table, 0, true));
+    System::SharedPtr<Paragraph> startPara = System::DynamicCast<Paragraph>(doc->get_LastSection()->GetChild(NodeType::Paragraph, 2, true));
+    System::SharedPtr<Table> endTable = System::DynamicCast<Table>(doc->get_LastSection()->GetChild(NodeType::Table, 0, true));
 
     // Extract the content between these nodes in the document. Include these markers in the extraction.
     auto extractedNodes = ExtractContent(startPara, endTable, true);

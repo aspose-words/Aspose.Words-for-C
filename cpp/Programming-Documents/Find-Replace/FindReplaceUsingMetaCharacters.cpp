@@ -10,7 +10,6 @@
 #include <Model/Text/ParagraphFormat.h>
 #include <Model/Text/ParagraphAlignment.h>
 #include <Model/Text/Font.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/FindReplace/FindReplaceOptions.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
@@ -39,12 +38,12 @@ namespace
 
         builder->MoveToDocumentEnd();
         builder->Write(u"This is Line 1");
-        builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+        builder->InsertBreak(BreakType::PageBreak);
         builder->Writeln(u"This is Line 2");
 
         doc->get_Range()->Replace(u"This is Line 1&mThis is Line 2", u"Page break is replaced with new text.", findReplaceOptions);
 
-        auto savePath = dataDir + GetOutputFilePath(u"FindReplaceUsingMetaCharacters.MetaCharactersInSearchPattern.doc");
+        auto savePath = dataDir + GetOutputFilePath(u"FindReplaceUsingMetaCharacters.MetaCharactersInSearchPattern.docx");
         doc->Save(savePath);
         // ExEnd:MetaCharactersInSearchPattern
         std::cout << "Find and Replace text using meta-characters has done successfully." << std::endl << "File saved at " << savePath.ToUtf8String() << std::endl;
@@ -65,7 +64,7 @@ namespace
         builder->Writeln(u"  1st paragraph");
 
         System::SharedPtr<FindReplaceOptions> options = System::MakeObject<FindReplaceOptions>();
-        options->get_ApplyParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Center);
+        options->get_ApplyParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
 
         // Double each paragraph break after word "section", add kind of underline and make it centered.
         int32_t count = doc->get_Range()->Replace(u"section&p", u"section&p----------------------&p", options);
@@ -73,7 +72,7 @@ namespace
         // Insert section break instead of custom text tag.
         count = doc->get_Range()->Replace(u"{insert-section}", u"&b", options);
 
-        auto savePath = dataDir + GetOutputFilePath(u"FindReplaceUsingMetaCharacters.ReplaceTextContaingMetaCharacters.doc");
+        auto savePath = dataDir + GetOutputFilePath(u"FindReplaceUsingMetaCharacters.ReplaceTextContaingMetaCharacters.docx");
         doc->Save(savePath);
         // ExEnd:ReplaceTextContaingMetaCharacters
         std::cout << "Find and Replace text using meta-characters has done successfully." << std::endl << "File saved at " << savePath.ToUtf8String() << std::endl;

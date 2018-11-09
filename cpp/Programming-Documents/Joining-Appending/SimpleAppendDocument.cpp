@@ -2,7 +2,6 @@
 #include "examples.h"
 
 #include <system/string.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 
@@ -19,7 +18,7 @@ void SimpleAppendDocument()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
 
     // Append the source document to the destination document using no extra options.
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
 
     System::String outputPath = dataDir + GetOutputFilePath(u"SimpleAppendDocument.doc");
     dstDoc->Save(outputPath);

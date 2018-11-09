@@ -9,7 +9,6 @@
 #include <Model/Sections/PageSetup.h>
 #include <Model/Sections/HeaderFooterType.h>
 #include <Model/Sections/Body.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
@@ -80,19 +79,19 @@ namespace
         builder->get_PageSetup()->set_OddAndEvenPagesHeaderFooter(true);
 
         // Create the headers.
-        builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::HeaderFirst);
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderFirst);
         builder->Write(u"Header First");
-        builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::HeaderEven);
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderEven);
         builder->Write(u"Header Even");
-        builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::HeaderPrimary);
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
         builder->Write(u"Header Odd");
 
         // Create three pages in the document.
         builder->MoveToSection(0);
         builder->Writeln(u"Page1");
-        builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+        builder->InsertBreak(BreakType::PageBreak);
         builder->Writeln(u"Page2");
-        builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+        builder->InsertBreak(BreakType::PageBreak);
         builder->Writeln(u"Page3");
 
         System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderMovingCursor.HeadersAndFooters.doc");
@@ -146,6 +145,17 @@ namespace
         builder->Writeln(u"This is a very cool bookmark.");
         // ExEnd:DocumentBuilderMoveToBookmarkEnd
     }
+
+    void MoveToMergeField(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderMoveToMergeField
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+
+        builder->MoveToMergeField(u"NiceMergeField");
+        builder->Writeln(u"This is a very nice merge field.");
+        // ExEnd:DocumentBuilderMoveToMergeField
+    }
 }
 
 void DocumentBuilderMovingCursor()
@@ -163,6 +173,7 @@ void DocumentBuilderMovingCursor()
     MoveToTableCell(dataDir);
     MoveToBookmark(dataDir);
     MoveToBookmarkEnd(dataDir);
+    MoveToMergeField(dataDir);
     // ExEnd:DocumentBuilderMovingCursor
     std::cout << "DocumentBuilderMovingCursor example finished." << std::endl << std::endl;
 }

@@ -4,7 +4,6 @@
 #include <system/string.h>
 #include <system/shared_ptr.h>
 #include <system/object.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Drawing/WrapType.h>
 #include <Model/Drawing/Shape.h>
 #include <Model/Drawing/RelativeVerticalPosition.h>
@@ -36,7 +35,7 @@ namespace
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
-        builder->InsertImage(dataDir + u"Watermark.png", Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, 100, Aspose::Words::Drawing::RelativeVerticalPosition::Margin, 100, 200, 100, Aspose::Words::Drawing::WrapType::Square);
+        builder->InsertImage(dataDir + u"Watermark.png", RelativeHorizontalPosition::Margin, 100, RelativeVerticalPosition::Margin, 100, 200, 100, WrapType::Square);
         System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertImage.InsertFloatingImage.doc");
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderInsertFloatingImage
