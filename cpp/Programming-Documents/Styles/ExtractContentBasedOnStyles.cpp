@@ -23,6 +23,7 @@ namespace
 {
     std::vector<System::SharedPtr<Paragraph>> ParagraphsByStyleName(System::SharedPtr<Document> doc, System::String const &styleName)
     {
+		// ExStart:ParagraphsByStyleName
         // Create an array to collect paragraphs of the specified style.
         std::vector<System::SharedPtr<Paragraph>> paragraphsWithStyle;
         // Get all paragraphs from the document.
@@ -36,10 +37,12 @@ namespace
             }
         }
         return paragraphsWithStyle;
+		// ExEnd:ParagraphsByStyleName
     }
 
     std::vector<System::SharedPtr<Run>> RunsByStyleName(System::SharedPtr<Document> doc, System::String const &styleName)
     {
+		// ExStart:RunsByStyleName
         // Create an array to collect runs of the specified style.
         std::vector<System::SharedPtr<Run>> runsWithStyle;
         // Get all runs from the document.
@@ -53,6 +56,7 @@ namespace
             }
         }
         return runsWithStyle;
+		// ExEnd:RunsByStyleName
     }
 }
 
