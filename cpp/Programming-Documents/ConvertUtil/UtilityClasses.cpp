@@ -29,7 +29,7 @@ namespace
         pageSetup->set_FooterDistance(ConvertUtil::InchToPoint(0.2));
         // ExEnd:ConvertBetweenMeasurementUnits
         std::cout << "Page properties specified in inches." << std::endl;
-    }
+}
 
     void UseControlCharacters()
     {

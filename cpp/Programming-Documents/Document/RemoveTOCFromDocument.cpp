@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -10,7 +11,6 @@
 #include <system/collections/list.h>
 #include <system/collections/ilist.h>
 #include <system/collections/ienumerator.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Nodes/Node.h>
@@ -38,11 +38,9 @@ namespace
         // At the end of this method.
         std::vector<System::SharedPtr<Node>> nodeList;
 
-        auto start_enumerator = doc->GetChildNodes(Aspose::Words::NodeType::FieldStart, true)->GetEnumerator();
-        System::SharedPtr<FieldStart> start;
-        while (start_enumerator->MoveNext() && (start = System::DynamicCast<FieldStart>(start_enumerator->get_Current()), true))
+        for (System::SharedPtr<FieldStart> start : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<FieldStart>>(doc->GetChildNodes(NodeType::FieldStart, true))))
         {
-            if (start->get_FieldType() == Aspose::Words::Fields::FieldType::FieldTOC)
+            if (start->get_FieldType() == FieldType::FieldTOC)
             {
                 // Add all FieldStarts which are of type FieldTOC.
                 fieldStarts.push_back(start);
@@ -67,10 +65,10 @@ namespace
 
             // Once we encounter a FieldEnd node of type FieldTOC then we know we are at the end
             // Of the current TOC and we can stop here.
-            if (currentNode->get_NodeType() == Aspose::Words::NodeType::FieldEnd)
+            if (currentNode->get_NodeType() == NodeType::FieldEnd)
             {
-                System::SharedPtr<FieldEnd> fieldEnd = System::DynamicCast<Aspose::Words::Fields::FieldEnd>(currentNode);
-                if (fieldEnd->get_FieldType() == Aspose::Words::Fields::FieldType::FieldTOC)
+                System::SharedPtr<FieldEnd> fieldEnd = System::DynamicCast<FieldEnd>(currentNode);
+                if (fieldEnd->get_FieldType() == FieldType::FieldTOC)
                 {
                     isRemoving = false;
                 }

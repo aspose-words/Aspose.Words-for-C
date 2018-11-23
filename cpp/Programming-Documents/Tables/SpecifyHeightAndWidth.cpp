@@ -16,6 +16,7 @@
 #include <Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -28,7 +29,7 @@ namespace
         auto table = builder->StartTable();
         // Insert a few cells
         builder->InsertCell();
-        table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPercent(50));
+        table->set_PreferredWidth(PreferredWidth::FromPercent(50));
         builder->Writeln(u"Cell #1");
         builder->InsertCell();
         builder->Writeln(u"Cell #2");
@@ -50,17 +51,17 @@ namespace
         auto table = builder->StartTable();
         // Insert an absolute sized cell.
         builder->InsertCell();
-        builder->get_CellFormat()->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(40));
+        builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPoints(40));
         builder->get_CellFormat()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightYellow());
         builder->Writeln(u"Cell at 40 points width");
         // Insert a relative (percent) sized cell.
         builder->InsertCell();
-        builder->get_CellFormat()->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPercent(20));
+        builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPercent(20));
         builder->get_CellFormat()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightBlue());
         builder->Writeln(u"Cell at 20% width");
         // Insert a auto sized cell.
         builder->InsertCell();
-        builder->get_CellFormat()->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::Auto());
+        builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::Auto());
         builder->get_CellFormat()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightGreen());
         builder->Writeln(u"Cell automatically sized. The size of this cell is calculated from the table preferred width.");
         builder->Writeln(u"In this case the cell will fill up the rest of the available space.");
@@ -76,12 +77,12 @@ namespace
         // ExStart:RetrievePreferredWidthType
         auto doc = System::MakeObject<Document>(dataDir + u"Table.SimpleTable.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // ExStart:AllowAutoFit
         table->set_AllowAutoFit(true);
         // ExEnd:AllowAutoFit
         auto firstCell = table->get_FirstRow()->get_FirstCell();
-        Aspose::Words::Tables::PreferredWidthType type = firstCell->get_CellFormat()->get_PreferredWidth()->get_Type();
+        PreferredWidthType type = firstCell->get_CellFormat()->get_PreferredWidth()->get_Type();
         double value = firstCell->get_CellFormat()->get_PreferredWidth()->get_Value();
         // ExEnd:RetrievePreferredWidthType
         std::cout << "Table preferred width type value is " << value << std::endl;

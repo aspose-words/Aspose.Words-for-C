@@ -7,10 +7,8 @@
 #include <system/object.h>
 #include <Model/Settings/ViewType.h>
 #include <Model/Settings/ViewOptions.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/Document.h>
 #include <cstdint>
-
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Settings;
@@ -24,7 +22,7 @@ void SetViewOption()
     // Load the template document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
     // Set view option.
-    doc->get_ViewOptions()->set_ViewType(Aspose::Words::Settings::ViewType::PageLayout);
+    doc->get_ViewOptions()->set_ViewType(ViewType::PageLayout);
     doc->get_ViewOptions()->set_ZoomPercent(50);
 
     System::String outputPath = dataDir + GetOutputFilePath(u"SetViewOption.doc");

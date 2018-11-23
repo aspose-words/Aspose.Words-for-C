@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/diagnostics/debug.h>
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -13,7 +15,6 @@
 #include <system/exceptions.h>
 #include <system/collections/ienumerator.h>
 #include <system/array.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Nodes/Node.h>
@@ -36,6 +37,7 @@
 #include <cstdint>
 #include <system/diagnostics/debug.h>
 
+using namespace System::Diagnostics;
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 
@@ -77,7 +79,7 @@ namespace
 
         // Ignore metafiles, they are vector drawings and we don't want to resample them.
         ImageType imageType = imageData->get_ImageType();
-        if (System::ObjectExt::Equals(imageType, Aspose::Words::Drawing::ImageType::Wmf) || System::ObjectExt::Equals(imageType, Aspose::Words::Drawing::ImageType::Emf))
+        if (System::ObjectExt::Equals(imageType, ImageType::Wmf) || System::ObjectExt::Equals(imageType, ImageType::Emf))
         {
             return false;
         }
@@ -140,9 +142,7 @@ namespace
         int32_t count = 0;
 
         // Convert VML shapes.
-        auto shape_enumerator = (System::DynamicCastEnumerableTo<System::SharedPtr<Shape>>(doc->GetChildNodes(Aspose::Words::NodeType::Shape, true)))->GetEnumerator();
-        decltype(shape_enumerator->get_Current()) shape;
-        while (shape_enumerator->MoveNext() && (shape = shape_enumerator->get_Current(), true))
+        for (System::SharedPtr<Shape> shape: System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Shape>>(doc->GetChildNodes(NodeType::Shape, true))))
         {
             // It is important to use this method to correctly get the picture shape size in points even if the picture is inside a group shape.
             System::Drawing::SizeF shapeSizeInPoints = shape->get_SizeInPoints();
@@ -156,14 +156,13 @@ namespace
     }
 }
 
-
 void CompressImages()
 {
     std::cout << "CompressImages example started." << std::endl;
     // ExStart:CompressImages
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithImages();
-    System::String srcFileName = dataDir + u"Test.doc";
+    System::String srcFileName = dataDir + u"Test.docx";
 
     std::cout << "Loading " << srcFileName.ToUtf8String() << ". Size " << GetFileSize(srcFileName) << "." << std::endl;
     System::SharedPtr<Document> doc = System::MakeObject<Document>(srcFileName);
@@ -172,32 +171,30 @@ void CompressImages()
     // 150ppi Screen - said to be good for web pages and projectors.
     // 96ppi Email - said to be good for minimal document size and sharing.
     const int32_t desiredPpi = 150;
-    
+
     // In .NET this seems to be a good compression / quality setting.
     const int32_t jpegQuality = 90;
     
     // Resample images to desired ppi and save.
     int32_t count = Resample(doc, desiredPpi, jpegQuality);
-    
+
     std::cout << "Resampled " << count << " images." << std::endl;
-    
+
     if (count != 1)
     {
         std::cout << "We expected to have only 1 image resampled in this test document!" << std::endl;
     }
-    
-    System::String dstFileName = dataDir + GetOutputFilePath(u"CompressImages.doc");
+
+    System::String dstFileName = dataDir + GetOutputFilePath(u"CompressImages.docx");
     doc->Save(dstFileName);
     std::cout << "Saving " << dstFileName.ToUtf8String() << ". Size " << GetFileSize(dstFileName) << "." << std::endl;
-    
+
     // Verify that the first image was compressed by checking the new Ppi.
     doc = System::MakeObject<Document>(dstFileName);
     System::SharedPtr<Shape> shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
     double imagePpi = shape->get_ImageData()->get_ImageSize()->get_WidthPixels() / ConvertUtil::PointToInch(shape->get_SizeInPoints().get_Width());
-    assert(imagePpi < 150, u"Image was not resampled successfully.");
+    Debug::Assert(imagePpi < 150, u"Image was not resampled successfully.");
     // ExEnd:CompressImages
     std::cout << "Compressed images successfully." << std::endl << "File saved at " << dstFileName.ToUtf8String() << std::endl;
     std::cout << "CompressImages example finished." << std::endl << std::endl;
 }
-
-

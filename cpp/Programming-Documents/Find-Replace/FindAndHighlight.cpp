@@ -18,7 +18,6 @@
 #include <Model/Text/Run.h>
 #include <Model/Text/Range.h>
 #include <Model/Text/Font.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Nodes/CompositeNode.h>
@@ -32,7 +31,7 @@
 #include <cstdint>
 
 using namespace Aspose::Words;
-using namespace Replacing;
+using namespace Aspose::Words::Replacing;
 
 namespace
 {
@@ -54,66 +53,65 @@ namespace
 
     // ExStart:ReplaceEvaluatorFindAndHighlight
     class ReplaceEvaluatorFindAndHighlight : public IReplacingCallback
-    {        
+    {
         RTTI_INFO(ReplaceEvaluatorFindAndHighlight, ::System::BaseTypesInfo<IReplacingCallback>);
     public:
         /// <summary>
         /// This method is called by the Aspose.Words find and replace engine for each match.
         /// This method highlights the match string, even if it spans multiple runs.
         /// </summary>
-        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e) override
-        {
-            // This is a Run node that contains either the beginning or the complete match.
-            System::SharedPtr<Node> currentNode = e->get_MatchNode();
-
-            // The first (and may be the only) run can contain text before the match, 
-            // In this case it is necessary to split the run.
-            if (e->get_MatchOffset() > 0)
-            {
-                currentNode = SplitRun(System::DynamicCast<Run>(currentNode), e->get_MatchOffset());
-            }
-
-            // This array is used to store all nodes of the match for further highlighting.
-            std::vector<System::SharedPtr<Run>> runs;
-
-            // Find all runs that contain parts of the match string.
-            int32_t remainingLength = e->get_Match()->get_Value().get_Length();
-            while ((remainingLength > 0) && (currentNode != nullptr) && (currentNode->GetText().get_Length() <= remainingLength))
-            {
-                runs.push_back(System::DynamicCast<Run>(currentNode));
-                remainingLength = remainingLength - currentNode->GetText().get_Length();
-
-                // Select the next Run node. 
-                // Have to loop because there could be other nodes such as BookmarkStart etc.
-                do
-                {
-                    currentNode = currentNode->get_NextSibling();
-                } while ((currentNode != nullptr) && (currentNode->get_NodeType() != NodeType::Run));
-            }
-
-            // Split the last run that contains the match if there is any text left.
-            if ((currentNode != nullptr) && (remainingLength > 0))
-            {
-                auto run = System::DynamicCast<Run>(currentNode); 
-                SplitRun(run, remainingLength);
-                runs.push_back(run);
-            }
-
-            // Now highlight all runs in the sequence.
-            for (auto& run : runs)
-            {
-                run->get_Font()->set_HighlightColor(System::Drawing::Color::get_Yellow());
-            }
-
-            // Signal to the replace engine to do nothing because we have already done all what we wanted.
-            return ReplaceAction::Skip;
-        }
+        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e) override;
     };
+
+    ReplaceAction ReplaceEvaluatorFindAndHighlight::Replacing(System::SharedPtr<ReplacingArgs> e)
+    {
+        // This is a Run node that contains either the beginning or the complete match.
+        System::SharedPtr<Node> currentNode = e->get_MatchNode();
+
+        // The first (and may be the only) run can contain text before the match, 
+        // In this case it is necessary to split the run.
+        if (e->get_MatchOffset() > 0)
+        {
+            currentNode = SplitRun(System::DynamicCast<Run>(currentNode), e->get_MatchOffset());
+        }
+
+        // This array is used to store all nodes of the match for further highlighting.
+        std::vector<System::SharedPtr<Run>> runs;
+
+        // Find all runs that contain parts of the match string.
+        int32_t remainingLength = e->get_Match()->get_Value().get_Length();
+        while ((remainingLength > 0) && (currentNode != nullptr) && (currentNode->GetText().get_Length() <= remainingLength))
+        {
+            runs.push_back(System::DynamicCast<Run>(currentNode));
+            remainingLength = remainingLength - currentNode->GetText().get_Length();
+
+            // Select the next Run node. 
+            // Have to loop because there could be other nodes such as BookmarkStart etc.
+            do
+            {
+                currentNode = currentNode->get_NextSibling();
+            } while ((currentNode != nullptr) && (currentNode->get_NodeType() != NodeType::Run));
+        }
+
+        // Split the last run that contains the match if there is any text left.
+        if ((currentNode != nullptr) && (remainingLength > 0))
+        {
+            auto run = System::DynamicCast<Run>(currentNode); 
+            SplitRun(run, remainingLength);
+            runs.push_back(run);
+        }
+
+        // Now highlight all runs in the sequence.
+        for (auto& run : runs)
+        {
+            run->get_Font()->set_HighlightColor(System::Drawing::Color::get_Yellow());
+        }
+
+        // Signal to the replace engine to do nothing because we have already done all what we wanted.
+        return ReplaceAction::Skip;
+    }
     // ExEnd:ReplaceEvaluatorFindAndHighlight
-
 }
-
-
 
 void FindAndHighlight()
 {

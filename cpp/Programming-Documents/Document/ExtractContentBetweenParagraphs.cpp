@@ -11,7 +11,6 @@
 #include <Model/Text/Paragraph.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/Body.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Document/Document.h>
@@ -30,8 +29,8 @@ void ExtractContentBetweenParagraphs()
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
 
     // Gather the nodes. The GetChild method uses 0-based index
-    System::SharedPtr<Paragraph> startPara = System::DynamicCast<Aspose::Words::Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(Aspose::Words::NodeType::Paragraph, 6, true));
-    System::SharedPtr<Paragraph> endPara = System::DynamicCast<Aspose::Words::Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(Aspose::Words::NodeType::Paragraph, 10, true));
+    System::SharedPtr<Paragraph> startPara = System::DynamicCast<Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Paragraph, 6, true));
+    System::SharedPtr<Paragraph> endPara = System::DynamicCast<Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Paragraph, 10, true));
     // Extract the content between these nodes in the document. Include these markers in the extraction.
     auto extractedNodes = ExtractContent(startPara, endPara, true);
 

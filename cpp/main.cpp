@@ -1,13 +1,11 @@
 #include "stdafx.h"
-
 #include <iostream>
 
 #include "examples.h"
 
 int main()
 {
-    std::cout << "Open main.cpp \nIn main() function uncomment the example that you want to run.\n"
-              << "=====================================================\n";
+    std::cout << "Examples:" << std::endl << "=====================================================" << std::endl << std::endl;
 
     // Uncomment the one you want to try out
 
@@ -21,6 +19,9 @@ int main()
     FindAndReplace();
     HelloWorld();
     WorkingWithNodes();
+    UpdateFields();
+    ApplyLicenseFromFile();
+    ApplyLicenseFromStream();
 
     // =====================================================
     // =====================================================
@@ -31,6 +32,11 @@ int main()
     LoadAndSaveToStream();
     CreateDocument();
     ConvertDocumentToByte();
+    LoadTxt();
+    DetectDocumentSignatures();
+    WorkingWithTxt();
+    WorkingWithRTF();
+    Load_Options();
 
     // =====================================================
     // =====================================================
@@ -64,6 +70,7 @@ int main()
     ReplaceWithRegex();
     ReplaceWithEvaluator();
     FindReplaceUsingMetaCharacters();
+    ReplaceTextWithField();
 
     // Bookmarks
     // =====================================================
@@ -73,6 +80,10 @@ int main()
     BookmarkNameAndText();
     AccessBookmarks();
     CreateBookmark();
+
+    // Shapes
+    // =====================================================
+    WorkingWithShapes();
 
     // Comments
     // =====================================================
@@ -117,16 +128,46 @@ int main()
     RemoveTOCFromDocument();
     SetCompatibilityOptions();
     Setuplanguagepreferences();
+    WorkingWithRevisions();
+    ExtractContentUsingField();
+    ExtractTextOnly();
+    DocumentBuilderInsertTOC();
+    DocumentBuilderInsertTCField();
+    CheckBoxTypeContentControl();
+    RichTextBoxContentControl();
+    ComboBoxContentControl();
+    UpdateContentControls();
+    CleansUnusedStylesandLists();
+    DocumentPageSetup();
 
     // Fields
     // =====================================================
     RemoveField();
+    ConvertFieldsInDocument();
+    ConvertFieldsInBody();
+    ConvertFieldsInParagraph();
     SpecifylocaleAtFieldlevel();
     InsertFormFields();
     FormFieldsGetFormFieldsCollection();
     FormFieldsGetByName();
     FormFieldsWorkWithProperties();
     RenameMergeFields();
+    InsertNestedFields();
+    ChangeLocale();
+    UpdateDocFields();
+    UseOfficeMathProperties();
+    InsertField();
+    InsertMergeFieldUsingDOM();
+    InsertMailMergeAddressBlockFieldUsingDOM();
+    InsertAdvanceFieldWithoutDocumentBuilder();
+    InsertASKFieldWithoutDocumentBuilder();
+    InsertAuthorField();
+    // TODO (std_string) : investigate why this example doesn't work properly
+    //ChangeFieldUpdateCultureSource();
+    GetFieldNames();
+    InsertTOAFieldWithoutDocumentBuilder();
+    InsertIncludeTextFieldWithoutDocumentBuilder();
+    EvaluateIFCondition();
 
     // Images
     // =====================================================
@@ -134,11 +175,16 @@ int main()
     RemoveWatermark();
     CompressImages();
     ExtractImagesToFiles();
+    InsertBarcodeImage();
 
     // Ranges
     // =====================================================
     RangesDeleteText();
     RangesGetText();
+
+    // Theme
+    // =====================================================
+    ManipulateThemeProperties();
 
     // Node
     // =====================================================
@@ -186,8 +232,31 @@ int main()
     DeleteSectionContent();
     SectionsAccessByIndex();
 
+    // StructuredDocumentTag 
+    // =====================================================
+    WorkingWithSDT();
+
     // EndNote and Footnote
+    // =====================================================
     WorkingWithFootnote();
+
+    // List
+    // =====================================================
+    WorkingWithList();
+
+    // =====================================================
+    // =====================================================
+    // Mail-Merge
+    // =====================================================
+    // =====================================================
+    SimpleMailMerge();
+    MailMergeFormFields();
+    ExecuteArray();
+    NestedMailMergeCustom();
+    HandleMailMergeSwitches();
+    MailMergeAndConditionalField();
+
+    std::cout << "=====================================================" << std::endl << "Examples Finished." << std::endl;
 
     return 0;
 }

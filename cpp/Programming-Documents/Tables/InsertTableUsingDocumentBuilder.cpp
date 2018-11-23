@@ -19,6 +19,7 @@
 #include <Model/Borders/Shading.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -65,10 +66,10 @@ namespace
         table->set_LeftIndent(20.0);
         // Set height and define the height rule for the header row.
         builder->get_RowFormat()->set_Height(40.0);
-        builder->get_RowFormat()->set_HeightRule(Aspose::Words::HeightRule::AtLeast);
+        builder->get_RowFormat()->set_HeightRule(HeightRule::AtLeast);
         // Some special features for the header row.
         builder->get_CellFormat()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::FromArgb(198, 217, 241));
-        builder->get_ParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Center);
+        builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
         builder->get_Font()->set_Size(16);
         builder->get_Font()->set_Name(u"Arial");
         builder->get_Font()->set_Bold(true);
@@ -84,10 +85,10 @@ namespace
         // Set features for the other rows and cells.
         builder->get_CellFormat()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_White());
         builder->get_CellFormat()->set_Width(100.0);
-        builder->get_CellFormat()->set_VerticalAlignment(Aspose::Words::Tables::CellVerticalAlignment::Center);
+        builder->get_CellFormat()->set_VerticalAlignment(CellVerticalAlignment::Center);
         // Reset height and define a different height rule for table body
         builder->get_RowFormat()->set_Height(30.0);
-        builder->get_RowFormat()->set_HeightRule(Aspose::Words::HeightRule::Auto);
+        builder->get_RowFormat()->set_HeightRule(HeightRule::Auto);
         builder->InsertCell();
         // Reset font formatting.
         builder->get_Font()->set_Size(12);

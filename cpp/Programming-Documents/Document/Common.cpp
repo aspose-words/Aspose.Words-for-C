@@ -1,6 +1,8 @@
 #include "stdafx.h"
+
 #include "Common.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -45,14 +47,14 @@ namespace
         {
             throw System::ArgumentException(u"Start node and end node must belong to the same document");
         }
-        if (startNode->GetAncestor(Aspose::Words::NodeType::Body) == nullptr || endNode->GetAncestor(Aspose::Words::NodeType::Body) == nullptr)
+        if (startNode->GetAncestor(NodeType::Body) == nullptr || endNode->GetAncestor(NodeType::Body) == nullptr)
         {
             throw System::ArgumentException(u"Start node and end node must be a child or descendant of a body");
         }
         // Check the end node is after the start node in the DOM tree
         // First check if they are in different sections, then if they're not check their position in the body of the same section they are in.
-        System::SharedPtr<Section> startSection = System::DynamicCast<Section>(startNode->GetAncestor(Aspose::Words::NodeType::Section));
-        System::SharedPtr<Section> endSection = System::DynamicCast<Section>(endNode->GetAncestor(Aspose::Words::NodeType::Section));
+        System::SharedPtr<Section> startSection = System::DynamicCast<Section>(startNode->GetAncestor(NodeType::Section));
+        System::SharedPtr<Section> endSection = System::DynamicCast<Section>(endNode->GetAncestor(NodeType::Section));
         int32_t startIndex = startSection->get_ParentNode()->IndexOf(startSection);
         int32_t endIndex = endSection->get_ParentNode()->IndexOf(endSection);
         if (startIndex == endIndex)
@@ -71,8 +73,8 @@ namespace
     bool IsInline(const System::SharedPtr<Node>& node)
     {
         // Test if the node is desendant of a Paragraph or Table node and also is not a paragraph or a table a paragraph inside a comment class which is decesant of a pararaph is possible.
-        return ((node->GetAncestor(Aspose::Words::NodeType::Paragraph) != nullptr || node->GetAncestor(Aspose::Words::NodeType::Table) != nullptr)
-            && !(node->get_NodeType() == Aspose::Words::NodeType::Paragraph || node->get_NodeType() == Aspose::Words::NodeType::Table));
+        return ((node->GetAncestor(NodeType::Paragraph) != nullptr || node->GetAncestor(NodeType::Table) != nullptr)
+            && !(node->get_NodeType() == NodeType::Paragraph || node->get_NodeType() == NodeType::Table));
     }
 
     void ProcessMarker(const System::SharedPtr<CompositeNode>& cloneNode, std::vector<System::SharedPtr<Node>>& nodes, System::SharedPtr<Node> node, bool isInclusive, bool isStartMarker, bool isEndMarker)
@@ -93,13 +95,13 @@ namespace
 
         // If a marker is a FieldStart node check if it's to be included or not.
         // We assume for simplicity that the FieldStart and FieldEnd appear in the same paragraph.
-        if (node->get_NodeType() == Aspose::Words::NodeType::FieldStart)
+        if (node->get_NodeType() == NodeType::FieldStart)
         {
             // If the marker is a start node and is not be included then skip to the end of the field.
             // If the marker is an end node and it is to be included then move to the end field so the field will not be removed.
             if ((isStartMarker && !isInclusive) || (!isStartMarker && isInclusive))
             {
-                while (node->get_NextSibling() != nullptr && node->get_NodeType() != Aspose::Words::NodeType::FieldEnd)
+                while (node->get_NextSibling() != nullptr && node->get_NodeType() != NodeType::FieldEnd)
                 {
                     node = node->get_NextSibling();
                 }
@@ -108,9 +110,9 @@ namespace
 
         // If either marker is part of a comment then to include the comment itself we need to move the pointer forward to the Comment
         // Node found after the CommentRangeEnd node.
-        if (node->get_NodeType() == Aspose::Words::NodeType::CommentRangeEnd)
+        if (node->get_NodeType() == NodeType::CommentRangeEnd)
         {
-            while (node->get_NextSibling() != nullptr && node->get_NodeType() != Aspose::Words::NodeType::Comment)
+            while (node->get_NextSibling() != nullptr && node->get_NodeType() != NodeType::Comment)
             {
                 node = node->get_NextSibling();
             }
@@ -195,12 +197,12 @@ std::vector<System::SharedPtr<Node>> ExtractContent(System::SharedPtr<Node> star
 
     // Extract content based on block level nodes (paragraphs and tables). Traverse through parent nodes to find them.
     // We will split the content of first and last nodes depending if the marker nodes are inline
-    while (startNode->get_ParentNode()->get_NodeType() != Aspose::Words::NodeType::Body)
+    while (startNode->get_ParentNode()->get_NodeType() != NodeType::Body)
     {
         startNode = startNode->get_ParentNode();
     }
 
-    while (endNode->get_ParentNode()->get_NodeType() != Aspose::Words::NodeType::Body)
+    while (endNode->get_ParentNode()->get_NodeType() != NodeType::Body)
     {
         endNode = endNode->get_ParentNode();
     }
@@ -216,22 +218,22 @@ std::vector<System::SharedPtr<Node>> ExtractContent(System::SharedPtr<Node> star
     while (isExtracting)
     {
         // Clone the current node and its children to obtain a copy.
-        System::SharedPtr<CompositeNode> cloneNode = System::DynamicCast<Aspose::Words::CompositeNode>(currNode->Clone(true));
-        isEndingNode = currNode->Equals(endNode);
+        System::SharedPtr<Node> cloneNode = currNode->Clone(true);
+        isEndingNode = System::ObjectExt::Equals(currNode, endNode);
 
-        if (isStartingNode || isEndingNode)
+        if ((isStartingNode || isEndingNode) && cloneNode->get_IsComposite())
         {
             // We need to process each marker separately so pass it off to a separate method instead.
             if (isStartingNode)
             {
-                ProcessMarker(cloneNode, nodes, originalStartNode, isInclusive, isStartingNode, isEndingNode);
+                ProcessMarker(System::DynamicCast<CompositeNode>(cloneNode), nodes, originalStartNode, isInclusive, isStartingNode, isEndingNode);
                 isStartingNode = false;
             }
 
             // Conditional needs to be separate as the block level start and end markers maybe the same node.
             if (isEndingNode)
             {
-                ProcessMarker(cloneNode, nodes, originalEndNode, isInclusive, isStartingNode, isEndingNode);
+                ProcessMarker(System::DynamicCast<CompositeNode>(cloneNode), nodes, originalEndNode, isInclusive, isStartingNode, isEndingNode);
                 isExtracting = false;
             }
         }
@@ -244,7 +246,7 @@ std::vector<System::SharedPtr<Node>> ExtractContent(System::SharedPtr<Node> star
         if (currNode->get_NextSibling() == nullptr && isExtracting)
         {
             // Move to the next section.
-            System::SharedPtr<Section> nextSection = System::DynamicCast<Aspose::Words::Section>(currNode->GetAncestor(Aspose::Words::NodeType::Section)->get_NextSibling());
+            System::SharedPtr<Section> nextSection = System::DynamicCast<Section>(currNode->GetAncestor(NodeType::Section)->get_NextSibling());
             currNode = nextSection->get_Body()->get_FirstChild();
         }
         else
@@ -264,11 +266,9 @@ std::vector<System::SharedPtr<Paragraph>> ParagraphsByStyleName(const System::Sh
     // Create an array to collect paragraphs of the specified style.
     std::vector<System::SharedPtr<Paragraph>> paragraphsWithStyle;
     // Get all paragraphs from the document.
-    System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true);
+    System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
     // Look through all paragraphs to find those with the specified style.
-    auto paragraph_enumerator = paragraphs->GetEnumerator();
-    System::SharedPtr<Paragraph> paragraph;
-    while (paragraph_enumerator->MoveNext() && (paragraph = System::DynamicCast<Paragraph>(paragraph_enumerator->get_Current()), true))
+    for (System::SharedPtr<Paragraph> paragraph : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(paragraphs)))
     {
         if (paragraph->get_ParagraphFormat()->get_Style()->get_Name() == styleName)
         {
@@ -288,7 +288,7 @@ System::SharedPtr<Document> GenerateDocument(const System::SharedPtr<Document>& 
     dstDoc->get_FirstSection()->get_Body()->RemoveAllChildren();
 
     // Import each node from the list into the new document. Keep the original formatting of the node.
-    System::SharedPtr<NodeImporter> importer = System::MakeObject<NodeImporter>(srcDoc, dstDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    System::SharedPtr<NodeImporter> importer = System::MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
 
     for (auto& node : nodes)
     {
@@ -300,4 +300,3 @@ System::SharedPtr<Document> GenerateDocument(const System::SharedPtr<Document>& 
     return dstDoc;
 }
 // ExEnd:CommonGenerateDocument
-

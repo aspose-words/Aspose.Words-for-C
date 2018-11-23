@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
 #include <system/object.h>
 #include <system/collections/ienumerator.h>
 #include <Model/Sections/HeaderFooter.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Drawing/Shape.h>
@@ -21,13 +21,11 @@ namespace
     // ExStart:RemoveWatermark
     void RemoveWatermarkText(const System::SharedPtr<Document>& doc)
     {
-        auto hf_enumerator = doc->GetChildNodes(Aspose::Words::NodeType::HeaderFooter, true)->GetEnumerator();
-        System::SharedPtr<HeaderFooter> hf;
-        while (hf_enumerator->MoveNext() && (hf = System::DynamicCast<HeaderFooter>(hf_enumerator->get_Current()), true))
+        System::SharedPtr<NodeCollection> headerFooterNodes = doc->GetChildNodes(NodeType::HeaderFooter, true);
+        for (System::SharedPtr<HeaderFooter> hf : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<HeaderFooter>>(headerFooterNodes)))
         {
-            auto shape_enumerator = hf->GetChildNodes(Aspose::Words::NodeType::Shape, true)->GetEnumerator();
-            System::SharedPtr<Shape> shape;
-            while (shape_enumerator->MoveNext() && (shape = System::DynamicCast<Shape>(shape_enumerator->get_Current()), true))
+            auto shapeNodes = hf->GetChildNodes(NodeType::Shape, true);
+            for (System::SharedPtr<Shape> shape: System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Shape>>(shapeNodes)))
             {
                 if (shape->get_Name().Contains(u"WaterMark"))
                 {
@@ -44,9 +42,9 @@ void RemoveWatermark()
     std::cout << "RemoveWatermark example started." << std::endl;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithImages();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"RemoveWatermark.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"RemoveWatermark.docx");
     RemoveWatermarkText(doc);
-    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveWatermark.doc");
+    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveWatermark.docx");
     doc->Save(outputPath);
     std:: cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "RemoveWatermark example finished." << std::endl << std::endl;

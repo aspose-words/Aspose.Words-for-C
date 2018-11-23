@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -11,7 +12,6 @@
 #include <Model/Sections/SectionCollection.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/HeaderFooterCollection.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 
@@ -28,9 +28,7 @@ void RemoveSourceHeadersFooters()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
 
     // Remove the headers and footers from each of the sections in the source document.
-    auto section_enumerator = srcDoc->get_Sections()->GetEnumerator();
-    System::SharedPtr<Section> section;
-    while (section_enumerator->MoveNext() && (section = System::DynamicCast<Section>(section_enumerator->get_Current()), true))
+    for (System::SharedPtr<Section> section : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Section>>(srcDoc->get_Sections())))
     {
         section->ClearHeadersFooters();
     }
@@ -40,7 +38,7 @@ void RemoveSourceHeadersFooters()
     // Document. This should set to false to avoid this behavior.
     srcDoc->get_FirstSection()->get_HeadersFooters()->LinkToPrevious(false);
 
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
     System::String outputPath = dataDir + GetOutputFilePath(u"RemoveSourceHeadersFooters.doc");
     dstDoc->Save(outputPath);
     // ExEnd:RemoveSourceHeadersFooters

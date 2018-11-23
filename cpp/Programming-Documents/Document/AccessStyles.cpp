@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/shared_ptr.h>
 #include <system/object.h>
@@ -23,9 +24,7 @@ void AccessStyles()
     System::SharedPtr<StyleCollection> styles = doc->get_Styles();
     System::String styleName = u"";
     // Iterate through all the styles.
-    auto style_enumerator = styles->GetEnumerator();
-    System::SharedPtr<Style> style;
-    while (style_enumerator->MoveNext() && (style = style_enumerator->get_Current(), true))
+    for (System::SharedPtr<Style> style : System::IterateOver(styles))
     {
         if (styleName == u"")
         {

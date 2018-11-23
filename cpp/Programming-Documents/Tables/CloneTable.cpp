@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/shared_ptr.h>
 #include <system/special_casts.h>
 
@@ -14,6 +15,7 @@
 #include <Model/Nodes/Node.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -22,9 +24,9 @@ namespace
         // ExStart:CloneCompleteTable
         auto doc = System::MakeObject<Document>(dataDir + u"Table.SimpleTable.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Create a clone of the table.
-        auto tableClone = System::DynamicCast<Aspose::Words::Tables::Table>((System::StaticCast<Aspose::Words::Node>(table))->Clone(true));
+        auto tableClone = System::DynamicCast<Table>((System::StaticCast<Node>(table))->Clone(true));
         // Insert the cloned table into the document after the original
         table->get_ParentNode()->InsertAfter(tableClone, table);
         // Insert an empty paragraph between the two tables or else they will be combined into one
@@ -42,14 +44,12 @@ namespace
         // ExStart:CloneLastRow
         auto doc = System::MakeObject<Document>(dataDir + u"Table.SimpleTable.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Clone the last row in the table.
-        auto clonedRow = System::DynamicCast<Aspose::Words::Tables::Row>((System::StaticCast<Aspose::Words::Node>(table->get_LastRow()))->Clone(true));
+        auto clonedRow = System::DynamicCast<Row>((System::StaticCast<Node>(table->get_LastRow()))->Clone(true));
         // Remove all content from the cloned row's cells. This makes the row ready for
         // New content to be inserted into.
-        auto cell_enumerator = (System::DynamicCastEnumerableTo<System::SharedPtr<Aspose::Words::Tables::Cell>>(clonedRow->get_Cells()))->GetEnumerator();
-        decltype(cell_enumerator->get_Current()) cell;
-        while (cell_enumerator->MoveNext() && (cell = cell_enumerator->get_Current(), true))
+        for (System::SharedPtr<Cell> cell : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Cell>>(clonedRow->get_Cells())))
         {
             cell->RemoveAllChildren();
         }

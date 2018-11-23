@@ -17,7 +17,9 @@
 #include <Model/Sections/Body.h>
 #include <Model/Nodes/NodeType.h>
 
+using namespace System::Diagnostics;
 using namespace Aspose::Words;
+using namespace Aspose::Words::Tables;
 
 void AutoFitTableToContents()
 {
@@ -26,15 +28,16 @@ void AutoFitTableToContents()
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     auto doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-    auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+    auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
     // Auto fit the table to the cell contents
-    table->AutoFit(Aspose::Words::Tables::AutoFitBehavior::AutoFitToContents);
+    table->AutoFit(AutoFitBehavior::AutoFitToContents);
     System::String outputPath = dataDir + GetOutputFilePath(u"AutoFitTableToContents.doc");
     // Save the document to disk.
     doc->Save(outputPath);
-    System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_PreferredWidth()->get_Type() == Aspose::Words::Tables::PreferredWidthType::Auto, u"PreferredWidth type is not auto");
-    System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_PreferredWidth()->get_Type() == Aspose::Words::Tables::PreferredWidthType::Auto, u"PrefferedWidth on cell is not auto");
-    System::Diagnostics::Debug::Assert(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_PreferredWidth()->get_Value() == 0, u"PreferredWidth value is not 0");
+    auto firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
+    Debug::Assert(firstTable->get_PreferredWidth()->get_Type() == PreferredWidthType::Auto, u"PreferredWidth type is not auto");
+    Debug::Assert(firstTable->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_PreferredWidth()->get_Type() == PreferredWidthType::Auto, u"PrefferedWidth on cell is not auto");
+    Debug::Assert(firstTable->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_PreferredWidth()->get_Value() == 0, u"PreferredWidth value is not 0");
     // ExEnd:AutoFitTableToContents
     std::cout << "Auto fit tables to contents successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "AutoFitTableToContents example finished." << std::endl << std::endl;

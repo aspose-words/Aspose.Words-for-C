@@ -2,6 +2,7 @@
 #include "examples.h"
 
 #include <system/text/regularexpressions/regex.h>
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -13,7 +14,6 @@
 #include <Model/Sections/SectionCollection.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/Body.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Nodes/CompositeNode.h>
@@ -25,18 +25,25 @@
 #include <Model/FindReplace/FindReplaceOptions.h>
 #include <Model/Document/DocumentBase.h>
 #include <Model/Document/Document.h>
+#include <Model/Document/DocumentBuilder.h>
 #include <Model/Bookmarks/BookmarkStart.h>
 #include <Model/Bookmarks/BookmarkCollection.h>
 #include <Model/Bookmarks/Bookmark.h>
 #include <Model/FindReplace/IReplacingCallback.h>
+#include <Model/MailMerge/MailMerge.h>
+#include <Model/MailMerge/IFieldMergingCallback.h>
+#include <Model/MailMerge/ImageFieldMergingArgs.h>
+#include <Model/MailMerge/FieldMergingArgs.h>
 #include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;
+using namespace Aspose::Words::MailMerging;
+
+typedef System::SharedPtr<System::Object> TObjectPtr;
 
 namespace
 {
-
     // ExStart:InsertDocument
     /// <summary>
     /// Inserts content of the external document after the specified node.
@@ -57,22 +64,18 @@ namespace
         System::SharedPtr<CompositeNode> dstStory = insertAfterNode->get_ParentNode();
 
         // This object will be translating styles and lists during the import.
-        System::SharedPtr<NodeImporter> importer = System::MakeObject<NodeImporter>(srcDoc, insertAfterNode->get_Document(), Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+        System::SharedPtr<NodeImporter> importer = System::MakeObject<NodeImporter>(srcDoc, insertAfterNode->get_Document(), ImportFormatMode::KeepSourceFormatting);
 
         // Loop through all sections in the source document.
-        auto srcSection_enumerator = srcDoc->get_Sections()->GetEnumerator();
-        System::SharedPtr<Section> srcSection;
-        while (srcSection_enumerator->MoveNext() && (srcSection = System::DynamicCast<Section>(srcSection_enumerator->get_Current()), true))
+        for (System::SharedPtr<Section> srcSection : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Section>>(srcDoc->get_Sections())))
         {
             // Loop through all block level nodes (paragraphs and tables) in the body of the section.
-            auto srcNode_enumerator = srcSection->get_Body()->GetEnumerator();
-            System::SharedPtr<Node> srcNode;
-            while (srcNode_enumerator->MoveNext() && (srcNode = srcNode_enumerator->get_Current(), true))
+            for (System::SharedPtr<Node> srcNode : System::IterateOver(srcSection->get_Body()))
             {
                 // Let's skip the node if it is a last empty paragraph in a section.
-                if (srcNode->get_NodeType() == Aspose::Words::NodeType::Paragraph)
+                if (srcNode->get_NodeType() == NodeType::Paragraph)
                 {
-                    System::SharedPtr<Paragraph> para = System::DynamicCast<Aspose::Words::Paragraph>(srcNode);
+                    System::SharedPtr<Paragraph> para = System::DynamicCast<Paragraph>(srcNode);
                     if (para->get_IsEndOfSection() && !para->get_HasChildNodes())
                     {
                         continue;
@@ -94,27 +97,26 @@ namespace
     class InsertDocumentAtReplaceHandler : public IReplacingCallback
     {
         typedef InsertDocumentAtReplaceHandler ThisType;
-        typedef Aspose::Words::Replacing::IReplacingCallback BaseType;
-
+        typedef IReplacingCallback BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
+
     public:
-        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e) override
-        {
-            System::SharedPtr<Document> subDoc = System::MakeObject<Document>(GetDataDir_WorkingWithDocument() + u"InsertDocument2.doc");
-
-            // Insert a document after the paragraph, containing the match text.
-            System::SharedPtr<Paragraph> para = System::DynamicCast<Aspose::Words::Paragraph>(e->get_MatchNode()->get_ParentNode());
-            InsertDocument(para, subDoc);
-
-            // Remove the paragraph with the match text.
-            para->Remove();
-
-            return Aspose::Words::Replacing::ReplaceAction::Skip;
-
-        }
-        
+        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e) override;
     };
+
+    ReplaceAction InsertDocumentAtReplaceHandler::Replacing(System::SharedPtr<ReplacingArgs> e)
+    {
+        System::SharedPtr<Document> subDoc = System::MakeObject<Document>(GetDataDir_WorkingWithDocument() + u"InsertDocument2.doc");
+
+        // Insert a document after the paragraph, containing the match text.
+        System::SharedPtr<Paragraph> para = System::DynamicCast<Paragraph>(e->get_MatchNode()->get_ParentNode());
+        InsertDocument(para, subDoc);
+
+        // Remove the paragraph with the match text.
+        para->Remove();
+
+        return ReplaceAction::Skip;
+    }
     // ExEnd:InsertDocumentAtReplaceHandler
 
     void InsertDocumentAtReplace(System::String const &dataDir)
@@ -145,6 +147,61 @@ namespace
         // ExEnd:InsertDocumentAtBookmark
         std::cout << "Document inserted successfully at a bookmark." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    class InsertDocumentAtMailMergeHandler : public IFieldMergingCallback
+    {
+        typedef InsertDocumentAtMailMergeHandler ThisType;
+        typedef IFieldMergingCallback BaseType;
+        typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+
+    public:
+        void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override;
+        void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) override {}
+    };
+
+    void InsertDocumentAtMailMergeHandler::FieldMerging(System::SharedPtr<FieldMergingArgs> e)
+    {
+        if (e->get_DocumentFieldName() == u"Document_1")
+        {
+            // Use document builder to navigate to the merge field with the specified name.
+            System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(e->get_Document());
+            builder->MoveToMergeField(e->get_DocumentFieldName());
+
+            // The name of the document to load and insert is stored in the field value.
+            System::SharedPtr<Document> subDoc = System::MakeObject<Document>(System::ObjectExt::Unbox<System::String>(e->get_FieldValue()));
+
+            // Insert the document.
+            InsertDocument(builder->get_CurrentParagraph(), subDoc);
+
+            // The paragraph that contained the merge field might be empty now and you probably want to delete it.
+            if (!builder->get_CurrentParagraph()->get_HasChildNodes())
+            {
+                builder->get_CurrentParagraph()->Remove();
+            }
+
+            // Indicate to the mail merge engine that we have inserted what we wanted.
+            e->set_Text(nullptr);
+        }
+    }
+
+    void InsertDocumentAtMailMerge(System::String const &dataDir)
+    {
+        // ExStart:InsertDocumentAtMailMerge
+        // Open the main document.
+        System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(dataDir + u"InsertDocument1.doc");
+
+        // Add a handler to MergeField event
+        mainDoc->get_MailMerge()->set_FieldMergingCallback(System::MakeObject<InsertDocumentAtMailMergeHandler>());
+
+        // The main document has a merge field in it called "Document_1".
+        // The corresponding data for this field contains fully qualified path to the document
+        // That should be inserted to this field.
+        mainDoc->get_MailMerge()->Execute(System::MakeArray<System::String>({u"Document_1"}), System::StaticCastArray<TObjectPtr>(System::MakeArray<System::String>({dataDir + u"InsertDocument2.doc"})));
+        System::String outputPath = dataDir + GetOutputFilePath(u"InsertDoc.InsertDocumentAtMailMerge.doc");
+        mainDoc->Save(outputPath);
+        // ExEnd:InsertDocumentAtMailMerge
+        std::cout << "Document inserted successfully at mail merge." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void InsertDoc()
@@ -155,6 +212,7 @@ void InsertDoc()
     System::String dataDir = GetDataDir_WorkingWithDocument();
     // Invokes the InsertDocument method shown above to insert a document at a bookmark.
     InsertDocumentAtBookmark(dataDir);
+    InsertDocumentAtMailMerge(dataDir);
     InsertDocumentAtReplace(dataDir);
     // ExEnd:InsertDoc
     std::cout << "InsertDoc example finished." << std::endl << std::endl;

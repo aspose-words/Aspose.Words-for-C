@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/shared_ptr.h>
-
 #include "Model/Document/Document.h"
 #include <Model/Fields/FieldCollection.h>
 #include <Model/Fields/FieldType.h>
@@ -10,6 +10,7 @@
 #include <Model/Text/Range.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Fields;
 
 void ReplaceHyperlinks()
 {
@@ -21,13 +22,11 @@ void ReplaceHyperlinks()
     System::String NewName = u"Aspose - The .NET & Java Component Publisher";
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"ReplaceHyperlinks.doc");
     // Hyperlinks in a Word documents are fields.
-    auto field_enumerator = (doc->get_Range()->get_Fields())->GetEnumerator();
-    decltype(field_enumerator->get_Current()) field;
-    while (field_enumerator->MoveNext() && (field = field_enumerator->get_Current(), true))
+    for (System::SharedPtr<Field> field : System::IterateOver(doc->get_Range()->get_Fields()))
     {
-        if (field->get_Type() == Aspose::Words::Fields::FieldType::FieldHyperlink)
+        if (field->get_Type() == FieldType::FieldHyperlink)
         {
-            auto hyperlink = System::DynamicCast<Aspose::Words::Fields::FieldHyperlink>(field);
+            auto hyperlink = System::DynamicCast<FieldHyperlink>(field);
             // Some hyperlinks can be local (links to bookmarks inside the document), ignore these.
             if (hyperlink->get_SubAddress() != nullptr)
             {

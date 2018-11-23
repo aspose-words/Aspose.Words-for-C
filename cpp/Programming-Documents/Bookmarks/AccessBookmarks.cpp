@@ -27,7 +27,7 @@ void AccessBookmarks()
     // By name.
     System::SharedPtr<Bookmark> bookmark2 = doc->get_Range()->get_Bookmarks()->idx_get(u"Bookmark2");
     // ExEnd:AccessBookmarks
-    std::cout << "Bookmark by name is" << bookmark1->get_Name().ToUtf8String()
-              << " and bookmark by index is " << bookmark2->get_Name().ToUtf8String() << std::endl;
+    std::cout << "Bookmark by index is" << bookmark1->get_Name().ToUtf8String()
+              << " and bookmark by name is " << bookmark2->get_Name().ToUtf8String() << std::endl;
     std::cout << "AccessBookmarks example finished." << std::endl << std::endl;
 }

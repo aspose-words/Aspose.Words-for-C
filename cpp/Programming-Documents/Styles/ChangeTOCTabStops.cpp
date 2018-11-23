@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/shared_ptr.h>
 #include <system/special_casts.h>
 
@@ -25,12 +26,10 @@ void ChangeTOCTabStops()
     // Open the document.
     auto doc = System::MakeObject<Document>(dataDir + u"Document.TableOfContents.doc");
     // Iterate through all paragraphs in the document
-    auto para_enumerator = (System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)))->GetEnumerator();
-    decltype(para_enumerator->get_Current()) para;
-    while (para_enumerator->MoveNext() && (para = para_enumerator->get_Current(), true))
+    for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(doc->GetChildNodes(NodeType::Paragraph, true))))
     {
         // Check if this paragraph is formatted using the TOC result based styles. This is any style between TOC and TOC9.
-        if (para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() >= Aspose::Words::StyleIdentifier::Toc1 && para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() <= Aspose::Words::StyleIdentifier::Toc9)
+        if (para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() >= StyleIdentifier::Toc1 && para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() <= StyleIdentifier::Toc9)
         {
             // Get the first tab used in this paragraph, this should be the tab used to align the page numbers.
             auto tab = para->get_ParagraphFormat()->get_TabStops()->idx_get(0);

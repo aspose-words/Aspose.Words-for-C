@@ -14,6 +14,8 @@
 #include <Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Replacing;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -22,7 +24,7 @@ namespace
         // ExStart:ExtractText
         auto doc = System::MakeObject<Document>(documentPath);
         // Get the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // The range text will include control characters such as "\a" for a cell.
         // You can call ToString and pass SaveFormat.Text on the desired node to find the plain text content.
         // Print the plain text range of the table to the screen.
@@ -41,12 +43,12 @@ namespace
         // ExStart:ReplaceText
         auto doc = System::MakeObject<Document>(documentPath);
         // Get the first table in the document.
-        auto table = System::DynamicCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Replace any instances of our string in the entire table.
-        table->get_Range()->Replace(u"Carrots", u"Eggs", System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>(Aspose::Words::FindReplaceDirection::Forward));
+        table->get_Range()->Replace(u"Carrots", u"Eggs", System::MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));
         // Replace any instances of our string in the last cell of the table only.
-        table->get_LastRow()->get_LastCell()->get_Range()->Replace(u"50", u"20", System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>(Aspose::Words::FindReplaceDirection::Forward));
-        System::String outputPath = GetDataDir_WorkingWithTables() + GetOutputFilePath(u"ExtractText.ReplaceText.doc");
+        table->get_LastRow()->get_LastCell()->get_Range()->Replace(u"50", u"20", System::MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));
+        System::String outputPath = GetDataDir_WorkingWithTables() + GetOutputFilePath(u"ExtractOrReplaceText.ReplaceText.doc");
         doc->Save(outputPath);
         // ExEnd:ReplaceText
         std::cout << "Text replaced successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

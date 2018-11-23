@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -11,7 +12,6 @@
 #include <Model/Sections/HeaderFooterType.h>
 #include <Model/Sections/HeaderFooterCollection.h>
 #include <Model/Sections/HeaderFooter.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Document/Document.h>
 
 using namespace Aspose::Words;
@@ -25,35 +25,33 @@ void RemoveFooters()
 
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"HeaderFooter.RemoveFooters.doc");
 
-    auto section_enumerator = doc->GetEnumerator();
-    System::SharedPtr<Section> section;
-    while (section_enumerator->MoveNext() && (section = System::DynamicCast<Section>(section_enumerator->get_Current()), true))
+    for (System::SharedPtr<Section> section : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Section>>(doc)))
     {
         // Up to three different footers are possible in a section (for first, even and odd pages).
         // We check and delete all of them.
         System::SharedPtr<HeaderFooter> footer;
 
-        footer = section->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterFirst);
+        footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterFirst);
         if (footer != nullptr)
         {
             footer->Remove();
         }
 
         // Primary footer is the footer used for odd pages.
-        footer = section->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterPrimary);
+        footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary);
         if (footer != nullptr)
         {
             footer->Remove();
         }
 
-        footer = section->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterEven);
+        footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterEven);
         if (footer != nullptr)
         {
             footer->Remove();
         }
     }
-    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveFooters.doc");
 
+    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveFooters.doc");
     // Save the document.
     doc->Save(outputPath);
     // ExEnd:RemoveFooters

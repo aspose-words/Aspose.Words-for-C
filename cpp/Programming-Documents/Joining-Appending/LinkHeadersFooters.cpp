@@ -10,7 +10,6 @@
 #include <Model/Sections/Section.h>
 #include <Model/Sections/PageSetup.h>
 #include <Model/Sections/HeaderFooterCollection.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 
@@ -27,13 +26,13 @@ void LinkHeadersFooters()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
 
     // Set the appended document to appear on a new page.
-    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(Aspose::Words::SectionStart::NewPage);
+    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::NewPage);
 
     // Link the headers and footers in the source document to the previous section. 
     // This will override any headers or footers already found in the source document. 
     srcDoc->get_FirstSection()->get_HeadersFooters()->LinkToPrevious(true);
 
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
     System::String outputPath = dataDir + GetOutputFilePath(u"LinkHeadersFooters.doc");
     dstDoc->Save(outputPath);
     // ExEnd:LinkHeadersFooters

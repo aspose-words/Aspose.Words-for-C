@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <system/string.h>
 #include <system/special_casts.h>
 #include <system/shared_ptr.h>
@@ -13,7 +14,6 @@
 #include <Model/Sections/SectionStart.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/PageSetup.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Importing/ImportFormatMode.h>
@@ -32,17 +32,15 @@ void KeepSourceTogether()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
 
     // Set the source document to appear straight after the destination document's content.
-    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(Aspose::Words::SectionStart::Continuous);
+    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::Continuous);
 
     // Iterate through all sections in the source document.
-    auto para_enumerator = srcDoc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)->GetEnumerator();
-    System::SharedPtr<Paragraph> para;
-    while (para_enumerator->MoveNext() && (para = System::DynamicCast<Paragraph>(para_enumerator->get_Current()), true))
+    for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(srcDoc->GetChildNodes(NodeType::Paragraph, true))))
     {
         para->get_ParagraphFormat()->set_KeepWithNext(true);
     }
 
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
     System::String outputPath = dataDir + GetOutputFilePath(u"KeepSourceTogether.doc");
     dstDoc->Save(outputPath);
     // ExEnd:KeepSourceTogether

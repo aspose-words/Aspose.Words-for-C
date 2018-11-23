@@ -24,7 +24,7 @@ void HelloWorld()
 
     // Save the document in DOC format. The format to save as is inferred from the extension of the file name.
     // Aspose.Words supports saving any document in many more formats.
-    System::String outputPath = dataDir + GetOutputFilePath(u"HelloWorld.doc");
+    System::String outputPath = dataDir + GetOutputFilePath(u"HelloWorld.docx");
     doc->Save(outputPath);
     // ExEnd:HelloWorld
     std::cout << "New document created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

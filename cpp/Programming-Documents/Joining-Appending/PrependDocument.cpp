@@ -11,7 +11,6 @@
 #include <system/array.h>
 #include <Model/Sections/SectionCollection.h>
 #include <Model/Sections/Section.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
@@ -51,11 +50,11 @@ void PrependDocument()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
 
     // Append the source document to the destination document. This causes the result to have line spacing problems.
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
 
     // Instead prepend the content of the destination document to the start of the source document.
     // This results in the same joined document but with no line spacing issues.
-    DoPrepend(srcDoc, dstDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    DoPrepend(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
 
     System::String outputPath = dataDir + GetOutputFilePath(u"PrependDocument.doc");
     // Save the document

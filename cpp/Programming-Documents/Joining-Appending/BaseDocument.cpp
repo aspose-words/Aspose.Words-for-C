@@ -6,7 +6,6 @@
 #include <system/object_ext.h>
 #include <system/object.h>
 #include <system/console.h>
-#include <Model/Saving/SaveOutputParameters.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 
@@ -31,7 +30,7 @@ void BaseDocument()
     // Remove all content from the destination document before appending.
     dstDoc->RemoveAllChildren();
 
-    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting);
+    dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
     System::String outputPath = dataDir + GetOutputFilePath(u"BaseDocument.doc");
     dstDoc->Save(outputPath);
     // ExEnd:BaseDocument
