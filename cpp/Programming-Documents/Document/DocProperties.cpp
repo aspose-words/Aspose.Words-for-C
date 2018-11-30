@@ -80,7 +80,6 @@ namespace
 void DocProperties()
 {
     std::cout << "DocProperties example started." << std::endl;
-    // ExStart:DocProperties
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     // Enumerates through all built-in and custom properties in a document.
@@ -90,6 +89,5 @@ void DocProperties()
     // Removes a custom document property.
     CustomRemove(dataDir);
     RemovePersonalInformation(dataDir);
-    // ExEnd:DocProperties
     std::cout << "DocProperties example finished." << std::endl << std::endl;
 }

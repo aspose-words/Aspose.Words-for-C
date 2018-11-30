@@ -104,11 +104,9 @@ namespace
 void WorkingWithList()
 {
     std::cout << "WorkingWithList example started." << std::endl;
-    // ExStart:WorkingWithList
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithList();
     RestartListNumber(dataDir);
     SpecifyListLevel(dataDir);
-    // ExEnd:WorkingWithList
     std::cout << "WorkingWithList example finished." << std::endl << std::endl;
 }

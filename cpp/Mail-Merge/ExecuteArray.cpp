@@ -10,12 +10,11 @@
 
 using namespace Aspose::Words;
 
-typedef System::SharedPtr<System::Object> TObjectPtr;
-
 void ExecuteArray()
 {
     std::cout << "ExecuteArray example started." << std::endl;
     // ExStart:ExecuteArray
+    typedef System::SharedPtr<System::Object> TObjectPtr;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_MailMergeAndReporting();
     // Open an existing document.

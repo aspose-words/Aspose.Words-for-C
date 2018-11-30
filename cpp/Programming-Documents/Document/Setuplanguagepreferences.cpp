@@ -62,11 +62,9 @@ namespace
 void Setuplanguagepreferences()
 {
     std::cout << "Setuplanguagepreferences example started." << std::endl;
-    // ExStart:Setuplanguagepreferences
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     AddJapaneseAsEditinglanguages(dataDir);
     SetRussianAsDefaultEditingLanguage(dataDir);
-    // ExEnd:Setuplanguagepreferences
     std::cout << "Setuplanguagepreferences example finished." << std::endl << std::endl;
 }

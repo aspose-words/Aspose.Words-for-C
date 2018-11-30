@@ -177,7 +177,6 @@ namespace
 void DocumentBuilderInsertElements()
 {
     std::cout << "DocumentBuilderInsertElements example started." << std::endl;
-    // ExStart:DocumentBuilderInsertElements
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     InsertTextInputFormField(dataDir);
@@ -187,6 +186,5 @@ void DocumentBuilderInsertElements()
     InsertTableOfContents(dataDir);
     InsertOleObject(dataDir);
     InsertOleObjectwithOlePackage(dataDir);
-    // ExEnd:DocumentBuilderInsertElements
     std::cout << "DocumentBuilderInsertElements example finished." << std::endl << std::endl;
 }

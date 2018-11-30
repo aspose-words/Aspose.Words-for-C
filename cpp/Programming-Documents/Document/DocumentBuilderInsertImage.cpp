@@ -46,11 +46,9 @@ namespace
 void DocumentBuilderInsertImage()
 {
     std::cout << "DocumentBuilderInsertImage example started." << std::endl;
-    // ExStart:DocumentBuilderInsertImage
      // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     InsertInlineImage(dataDir);
     InsertFloatingImage(dataDir);
-    // ExEnd:DocumentBuilderInsertImage
     std::cout << "DocumentBuilderInsertImage example finished." << std::endl << std::endl;
 }

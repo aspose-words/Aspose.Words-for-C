@@ -49,7 +49,7 @@ namespace
         auto clonedRow = System::DynamicCast<Row>((System::StaticCast<Node>(table->get_LastRow()))->Clone(true));
         // Remove all content from the cloned row's cells. This makes the row ready for
         // New content to be inserted into.
-        for (System::SharedPtr<Cell> cell : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Cell>>(clonedRow->get_Cells())))
+        for (System::SharedPtr<Cell> cell : System::IterateOver<System::SharedPtr<Cell>>(clonedRow->get_Cells()))
         {
             cell->RemoveAllChildren();
         }
@@ -66,11 +66,9 @@ namespace
 void CloneTable()
 {
     std::cout << "CloneTable example started." << std::endl;
-    // ExStart:CloneTable
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     CloneCompleteTable(dataDir);
     CloneLastRow(dataDir);
-    // ExEnd:CloneTable
     std::cout << "CloneTable example finished." << std::endl << std::endl;
 }

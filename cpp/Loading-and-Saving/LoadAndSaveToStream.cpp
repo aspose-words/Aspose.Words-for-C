@@ -15,7 +15,7 @@ void LoadAndSaveToStream()
 {
     std::cout << "LoadAndSaveToStream example started." << std::endl;
     // ExStart:LoadAndSaveToStream
-    // ExStart:OpeningFromStream 
+    // ExStart:OpeningFromStream
     // The path to the documents directory.
     System::String dataDir = GetDataDir_LoadingAndSaving();
 
@@ -27,7 +27,7 @@ void LoadAndSaveToStream()
 
     // You can close the stream now, it is no longer needed because the document is in memory.
     stream->Close();
-    // ExEnd:OpeningFromStream 
+    // ExEnd:OpeningFromStream
 
     // ... do something with the document
 

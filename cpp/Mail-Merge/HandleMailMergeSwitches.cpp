@@ -17,11 +17,9 @@ using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::MailMerging;
 
-typedef System::SharedPtr<System::Object> TObjectPtr;
-
 namespace
 {
-    // ExStart:MailMergeSwitches
+    // ExStart:HandleMailMergeSwitches
     class MailMergeSwitches : public IFieldMergingCallback
     {
         typedef MailMergeSwitches ThisType;
@@ -54,14 +52,13 @@ namespace
             }
         }
     }
-
-    // ExEnd:MailMergeSwitches
+    // ExEnd:HandleMailMergeSwitches
 }
 
 void HandleMailMergeSwitches()
 {
     std::cout << "HandleMailMergeSwitches example started." << std::endl;
-    // ExStart:HandleMailMergeSwitches
+    typedef System::SharedPtr<System::Object> TObjectPtr;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_MailMergeAndReporting();
     // Open an existing document.
@@ -74,7 +71,6 @@ void HandleMailMergeSwitches()
 
     System::String outputPath = dataDir + GetOutputFilePath(u"HandleMailMergeSwitches.doc");
     doc->Save(outputPath);
-    // ExEnd:HandleMailMergeSwitches
     std::cout << "Simple Mail merge performed with array data successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "HandleMailMergeSwitches example finished." << std::endl << std::endl;
 }

@@ -30,7 +30,7 @@ void ExtractImagesToFiles()
     System::SharedPtr<NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
     int32_t imageIndex = 0;
 
-    for (System::SharedPtr<Shape> shape : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Shape>>(shapes)))
+    for (System::SharedPtr<Shape> shape : System::IterateOver<System::SharedPtr<Shape>>(shapes))
     {
         if (shape->get_HasImage())
         {

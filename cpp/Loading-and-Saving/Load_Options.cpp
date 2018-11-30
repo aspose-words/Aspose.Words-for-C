@@ -36,21 +36,6 @@ namespace
         std::cout << "Update the fields with the dirty attribute successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    /*void ConvertShapeToOfficeMath(System::String const &dataDir)
-    {
-        // ExStart:ConvertShapeToOfficeMath
-        System::SharedPtr<LoadOptions> lo = System::MakeObject<LoadOptions>();
-        lo->set_ConvertShapeToOfficeMath(true);
-
-        // Specify load option to use previous default behaviour i.e. convert math shapes to office math ojects on loading stage.
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"OfficeMath.docx", lo);
-
-        System::String outputPath = dataDir + GetOutputFilePath(u"Load_Options.ConvertShapeToOfficeMath.docx");
-        //Save the document into DOCX
-        doc->Save(outputPath, SaveFormat::Docx);
-        // ExEnd:ConvertShapeToOfficeMath
-    }*/
-
     void AnnotationsAtBlockLevel(System::String dataDir)
     {
         // ExStart:AnnotationsAtBlockLevel
@@ -78,14 +63,10 @@ namespace
 void Load_Options()
 {
     std::cout << "Load_Options example started." << std::endl;
-    // ExStart:Load_Options
     // The path to the documents directory.
     System::String dataDir = GetDataDir_QuickStart();
 
     LoadOptionsUpdateDirtyFields(dataDir);
-    // TODO (std_string) : investigate reason of failure
-    /*ConvertShapeToOfficeMath(dataDir);*/
     AnnotationsAtBlockLevel(dataDir);
-    // ExEnd:Load_Options
     std::cout << "Load_Options example finished." << std::endl << std::endl;
 }

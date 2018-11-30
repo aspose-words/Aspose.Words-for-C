@@ -150,12 +150,10 @@ namespace
 void InsertTableUsingDocumentBuilder()
 {
     std::cout << "InsertTableUsingDocumentBuilder example started." << std::endl;
-    // ExStart:InsertTableUsingDocumentBuilder
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     SimpleTable(dataDir);
     FormattedTable(dataDir);
     NestedTable(dataDir);
-    // ExEnd:InsertTableUsingDocumentBuilder
     std::cout << "InsertTableUsingDocumentBuilder example finished." << std::endl << std::endl;
 }

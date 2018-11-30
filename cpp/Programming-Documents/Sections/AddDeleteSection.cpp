@@ -43,7 +43,6 @@ namespace
 void AddDeleteSection()
 {
     std::cout << "AddDeleteSection example started." << std::endl;
-    // ExStart:AddDeleteSection
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithSections();
     // The path to the document
@@ -51,6 +50,5 @@ void AddDeleteSection()
     AddSection(documentPath);
     DeleteSection(documentPath);
     DeleteAllSections(documentPath);
-    // ExEnd:AddDeleteSection
     std::cout << "AddDeleteSection example finished." << std::endl << std::endl;
 }

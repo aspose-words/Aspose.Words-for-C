@@ -29,7 +29,7 @@ void AppendDocumentManually()
 
     // Loop through all sections in the source document. 
     // Section nodes are immediate children of the Document node so we can just enumerate the Document.
-    for (System::SharedPtr<Section> srcSection : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Section>>(srcDoc)))
+    for (System::SharedPtr<Section> srcSection : System::IterateOver<System::SharedPtr<Section>>(srcDoc))
     {
         // Because we are copying a section from one document to another, 
         // It is required to import the Section node into the destination document.

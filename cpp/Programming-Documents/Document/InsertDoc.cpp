@@ -40,8 +40,6 @@ using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;
 using namespace Aspose::Words::MailMerging;
 
-typedef System::SharedPtr<System::Object> TObjectPtr;
-
 namespace
 {
     // ExStart:InsertDocument
@@ -67,7 +65,7 @@ namespace
         System::SharedPtr<NodeImporter> importer = System::MakeObject<NodeImporter>(srcDoc, insertAfterNode->get_Document(), ImportFormatMode::KeepSourceFormatting);
 
         // Loop through all sections in the source document.
-        for (System::SharedPtr<Section> srcSection : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Section>>(srcDoc->get_Sections())))
+        for (System::SharedPtr<Section> srcSection : System::IterateOver<System::SharedPtr<Section>>(srcDoc->get_Sections()))
         {
             // Loop through all block level nodes (paragraphs and tables) in the body of the section.
             for (System::SharedPtr<Node> srcNode : System::IterateOver(srcSection->get_Body()))
@@ -148,6 +146,7 @@ namespace
         std::cout << "Document inserted successfully at a bookmark." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
+    // ExStart:InsertDocumentAtMailMergeHandler
     class InsertDocumentAtMailMergeHandler : public IFieldMergingCallback
     {
         typedef InsertDocumentAtMailMergeHandler ThisType;
@@ -183,11 +182,13 @@ namespace
             e->set_Text(nullptr);
         }
     }
+    // ExStart:InsertDocumentAtMailMergeHandler
 
     void InsertDocumentAtMailMerge(System::String const &dataDir)
     {
         // ExStart:InsertDocumentAtMailMerge
         // Open the main document.
+        typedef System::SharedPtr<System::Object> TObjectPtr;
         System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(dataDir + u"InsertDocument1.doc");
 
         // Add a handler to MergeField event
@@ -207,13 +208,11 @@ namespace
 void InsertDoc()
 {
     std::cout << "InsertDoc example started." << std::endl;
-    // ExStart:InsertDoc
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     // Invokes the InsertDocument method shown above to insert a document at a bookmark.
     InsertDocumentAtBookmark(dataDir);
     InsertDocumentAtMailMerge(dataDir);
     InsertDocumentAtReplace(dataDir);
-    // ExEnd:InsertDoc
     std::cout << "InsertDoc example finished." << std::endl << std::endl;
 }

@@ -26,7 +26,7 @@ void ChangeTOCTabStops()
     // Open the document.
     auto doc = System::MakeObject<Document>(dataDir + u"Document.TableOfContents.doc");
     // Iterate through all paragraphs in the document
-    for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(doc->GetChildNodes(NodeType::Paragraph, true))))
+    for (System::SharedPtr<Paragraph> para : System::IterateOver<System::SharedPtr<Paragraph>>(doc->GetChildNodes(NodeType::Paragraph, true)))
     {
         // Check if this paragraph is formatted using the TOC result based styles. This is any style between TOC and TOC9.
         if (para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() >= StyleIdentifier::Toc1 && para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() <= StyleIdentifier::Toc9)

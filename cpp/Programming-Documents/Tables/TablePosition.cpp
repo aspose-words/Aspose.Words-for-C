@@ -50,7 +50,7 @@ namespace
     {
         // ExStart:GetFloatingTablePosition
         auto doc = System::MakeObject<Document>(dataDir + u"FloatingTablePosition.doc");
-        for (System::SharedPtr<Table> table : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Table>>(doc->get_FirstSection()->get_Body()->get_Tables())))
+        for (System::SharedPtr<Table> table : System::IterateOver<System::SharedPtr<Table>>(doc->get_FirstSection()->get_Body()->get_Tables()))
         {
             // If table is floating type then print its positioning properties.
             if (table->get_TextWrapping() == TextWrapping::Around)
@@ -71,11 +71,9 @@ namespace
 void TablePosition()
 {
     std::cout << "TablePosition example started." << std::endl;
-    // ExStart:TablePosition
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     GetTablePosition(dataDir);
     GetFloatingTablePosition(dataDir);
-    // ExEnd:TablePosition
     std::cout << "TablePosition example finished." << std::endl << std::endl;
 }

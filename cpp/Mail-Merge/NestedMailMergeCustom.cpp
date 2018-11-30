@@ -190,6 +190,7 @@ namespace
         return (!get_IsEof());
     }
 
+    // ExStart:GetChildDataSourceExample
     System::SharedPtr<IMailMergeDataSource> CustomerMailMergeDataSource::GetChildDataSource(System::String tableName)
     {
         const System::String& switch_value_1 = tableName;
@@ -202,6 +203,7 @@ namespace
             return nullptr;
         }
     }
+    // ExEnd:GetChildDataSourceExample
 
     System::Object::shared_members_type CustomerMailMergeDataSource::GetSharedMembers()
     {
@@ -217,7 +219,6 @@ void NestedMailMergeCustom()
     // ExStart:NestedMailMergeCustom
     // The path to the documents directory.
     System::String dataDir = GetDataDir_MailMergeAndReporting();
-    //System::String fileName = u"NestedMailMerge.CustomDataSource.doc";
     // Create some data that we will use in the mail merge.
     TCustomerIListPtr customers = System::MakeObject<TCustomerList>();
     customers->Add(System::MakeObject<Customer>(u"Thomas Hardy", u"120 Hanover Sq., London"));

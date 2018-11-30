@@ -27,13 +27,12 @@
 using namespace Aspose::Words;
 using namespace Aspose::Words::Lists;
 
-typedef System::Collections::Generic::Dictionary<int32_t, System::SharedPtr<List>> TListDictionary;
-typedef System::Collections::Generic::IDictionary<int32_t, System::SharedPtr<List>> TListIDictionary;
-
 void ListUseDestinationStyles()
 {
     std::cout << "ListUseDestinationStyles example started." << std::endl;
     // ExStart:ListUseDestinationStyles
+    typedef System::Collections::Generic::Dictionary<int32_t, System::SharedPtr<List>> TListDictionary;
+    typedef System::Collections::Generic::IDictionary<int32_t, System::SharedPtr<List>> TListIDictionary;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_JoiningAndAppending();
 
@@ -47,7 +46,7 @@ void ListUseDestinationStyles()
     System::SharedPtr<TListIDictionary> newLists = System::MakeObject<TListDictionary>();
 
     // Iterate through all paragraphs in the document.
-    for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(srcDoc->GetChildNodes(NodeType::Paragraph, true))))
+    for (System::SharedPtr<Paragraph> para : System::IterateOver<System::SharedPtr<Paragraph>>(srcDoc->GetChildNodes(NodeType::Paragraph, true)))
     {
         if (para->get_IsListItem())
         {

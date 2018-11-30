@@ -46,12 +46,10 @@ namespace
 void ManipulateThemeProperties()
 {
     std::cout << "ManipulateThemeProperties example started." << std::endl;
-    // ExStart:ManipulateThemeProperties
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTheme();
     dataDir = dataDir + u"Document.doc";
     GetThemeProperties(dataDir);
     SetThemeProperties(dataDir);
-    // ExEnd:ManipulateThemeProperties
     std::cout << "ManipulateThemeProperties example finished." << std::endl << std::endl;
 }

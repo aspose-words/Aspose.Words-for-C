@@ -92,12 +92,10 @@ namespace
 void SpecifyHeightAndWidth()
 {
     std::cout << "SpecifyHeightAndWidth example started." << std::endl;
-    // ExStart:SpecifyHeightAndWidth
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     AutoFitToPageWidth(dataDir);
     SetPreferredWidthSettings(dataDir);
     RetrievePreferredWidthType(dataDir);
-    // ExEnd:SpecifyHeightAndWidth
     std::cout << "SpecifyHeightAndWidth example finished." << std::endl << std::endl;
 }

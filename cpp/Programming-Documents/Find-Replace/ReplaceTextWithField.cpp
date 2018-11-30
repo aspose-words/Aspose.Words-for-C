@@ -146,7 +146,6 @@ namespace
 void ReplaceTextWithField()
 {
     std::cout << "ReplaceTextWithField example started." << std::endl;
-    // ExStart:ReplaceTextWithField
     // The path to the documents directory.
     System::String dataDir = GetDataDir_FindAndReplace();
 
@@ -161,7 +160,6 @@ void ReplaceTextWithField()
     System::String outputPath = dataDir + GetOutputFilePath(u"ReplaceTextWithField.doc");
     doc->Save(outputPath);
 
-    // ExEnd:ReplaceTextWithField
     std::cout << "Text replaced with field successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "ReplaceTextWithField example finished." << std::endl << std::endl;
 }
