@@ -70,7 +70,6 @@ namespace
 void WorkingWithTxt()
 {
     std::cout << "WorkingWithTxt example started." << std::endl;
-    //ExStart:WorkingWithTxt
     // The path to the documents directory.
     System::String dataDir = GetDataDir_LoadingAndSaving();
 
@@ -78,6 +77,5 @@ void WorkingWithTxt()
     AddBidiMarks(dataDir);
     DetectNumberingWithWhitespaces(dataDir);
     HandleSpacesOptions(dataDir);
-    //ExEnd:WorkingWithTxt
     std::cout << "WorkingWithTxt example finished." << std::endl << std::endl;
 }

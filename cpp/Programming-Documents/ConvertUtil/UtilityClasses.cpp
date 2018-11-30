@@ -45,9 +45,7 @@ namespace
 void UtilityClasses()
 {
     std::cout << "UtilityClasses example started." << std::endl;
-    // ExStart:UtilityClasses
     ConvertBetweenMeasurementUnits();
     UseControlCharacters();
-    // ExEnd:UtilityClasses
     std::cout << "UtilityClasses example finished." << std::endl << std::endl;
 }

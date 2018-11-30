@@ -26,7 +26,7 @@ using namespace Aspose::Words::Replacing;
 
 namespace
 {
-	// ExStart:InsertTCFieldHandler
+    // ExStart:InsertTCFieldHandler
     class InsertTCFieldHandler : public IReplacingCallback
     {
         typedef InsertTCFieldHandler ThisType;
@@ -72,7 +72,7 @@ namespace
         // We have done what we want so skip replacement.
         return ReplaceAction::Skip;
     }
-	// ExEnd:InsertTCFieldHandler
+    // ExEnd:InsertTCFieldHandler
 }
 
 void DocumentBuilderInsertTCFieldsAtText()

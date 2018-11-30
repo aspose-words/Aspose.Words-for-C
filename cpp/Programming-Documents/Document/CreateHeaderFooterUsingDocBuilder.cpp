@@ -42,9 +42,7 @@ using namespace Aspose::Words::Drawing;
 namespace
 {
     // ExStart:CopyHeadersFootersFromPreviousSection
-    /// <summary>
-    /// Clones and copies headers/footers form the previous section to the specified section.
-    /// </summary>
+    // Clones and copies headers/footers form the previous section to the specified section.
     void CopyHeadersFootersFromPreviousSection(const System::SharedPtr<Section>& section)
     {
         System::SharedPtr<Section> previousSection = System::DynamicCast<Section>(section->get_PreviousSibling());

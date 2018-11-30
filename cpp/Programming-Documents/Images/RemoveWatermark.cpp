@@ -16,16 +16,16 @@
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 
+// ExStart:RemoveWatermark
 namespace
 {
-    // ExStart:RemoveWatermark
     void RemoveWatermarkText(const System::SharedPtr<Document>& doc)
     {
         System::SharedPtr<NodeCollection> headerFooterNodes = doc->GetChildNodes(NodeType::HeaderFooter, true);
-        for (System::SharedPtr<HeaderFooter> hf : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<HeaderFooter>>(headerFooterNodes)))
+        for (System::SharedPtr<HeaderFooter> hf : System::IterateOver<System::SharedPtr<HeaderFooter>>(headerFooterNodes))
         {
             auto shapeNodes = hf->GetChildNodes(NodeType::Shape, true);
-            for (System::SharedPtr<Shape> shape: System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Shape>>(shapeNodes)))
+            for (System::SharedPtr<Shape> shape: System::IterateOver<System::SharedPtr<Shape>>(shapeNodes))
             {
                 if (shape->get_Name().Contains(u"WaterMark"))
                 {
@@ -34,7 +34,6 @@ namespace
             }
         }
     }
-    // ExEnd:RemoveWatermark
 }
 
 void RemoveWatermark()
@@ -49,3 +48,4 @@ void RemoveWatermark()
     std:: cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "RemoveWatermark example finished." << std::endl << std::endl;
 }
+// ExEnd:RemoveWatermark

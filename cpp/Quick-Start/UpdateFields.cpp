@@ -14,7 +14,6 @@ using namespace Aspose::Words;
 void UpdateFields()
 {
     std::cout << "UpdateFields example started." << std::endl;
-    // ExStart:UpdateFields
     // The path to the documents directory.
     System::String dataDir = GetDataDir_QuickStart();
 
@@ -84,7 +83,6 @@ void UpdateFields()
     System::String outputPath = dataDir + GetOutputFilePath(u"UpdateFields.docx");
     doc->Save(outputPath);
 
-    // ExEnd:UpdateFields
     std::cout << "Fields updated successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "UpdateFields example finished." << std::endl << std::endl;
 }

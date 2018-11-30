@@ -221,7 +221,6 @@ namespace
 void ApplyFormatting()
 {
     std::cout << "ApplyFormatting example started." << std::endl;
-    // ExStart:ApplyFormatting
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     ApplyOutlineBorder(dataDir);
@@ -234,6 +233,5 @@ void ApplyFormatting()
     //Get DistanceLeft, DistanceRight, DistanceTop, and DistanceBottom properties
     GetDistancebetweenTableSurroundingText(dataDir);
     SetTableTitleandDescription(dataDir);
-    // ExEnd:ApplyFormatting
     std::cout << "ApplyFormatting example finished." << std::endl << std::endl;
 }

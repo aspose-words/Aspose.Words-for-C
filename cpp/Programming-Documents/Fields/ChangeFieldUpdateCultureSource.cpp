@@ -15,12 +15,11 @@
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;
 
-typedef System::SharedPtr<System::Object> TObjectPtr;
-
 void ChangeFieldUpdateCultureSource()
 {
     std::cout << "ChangeFieldUpdateCultureSource example started." << std::endl;
     // ExStart:ChangeFieldUpdateCultureSource
+    typedef System::SharedPtr<System::Object> TObjectPtr;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithFields();
     // We will test this functionality creating a document with two fields with date formatting

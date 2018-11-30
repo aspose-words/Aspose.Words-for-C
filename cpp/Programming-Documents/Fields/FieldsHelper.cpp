@@ -1,7 +1,5 @@
 #include "stdafx.h"
 
-#include "FieldsHelper.h"
-
 #include <system/enumerator_adapter.h>
 #include <Model/Fields/Field.h>
 #include <Model/Fields/FieldCollection.h>
@@ -12,6 +10,7 @@
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;
 
+// ExStart:FieldsHelper
 void ConvertFieldsToStaticText(System::SharedPtr<CompositeNode> compositeNode, FieldType targetFieldType)
 {
     for (System::SharedPtr<Field> field : System::IterateOver(compositeNode->get_Range()->get_Fields()))
@@ -22,3 +21,4 @@ void ConvertFieldsToStaticText(System::SharedPtr<CompositeNode> compositeNode, F
         }
     }
 }
+// ExEnd:FieldsHelper

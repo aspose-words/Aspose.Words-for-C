@@ -12,7 +12,6 @@ using namespace Aspose::Words::Replacing;
 void FindAndReplace()
 {
     std::cout << "FindAndReplace example started." << std::endl;
-    // ExStart:FindAndReplace
     // The path to the documents directory.
     System::String dataDir = GetDataDir_QuickStart();
 
@@ -33,7 +32,6 @@ void FindAndReplace()
     System::String outputPath = dataDir + GetOutputFilePath(u"FindAndReplace.doc");
     // Save the modified document.
     doc->Save(outputPath);
-    // ExEnd:FindAndReplace
     std::cout << "Text found and replaced successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "FindAndReplace example finished." << std::endl << std::endl;
 }

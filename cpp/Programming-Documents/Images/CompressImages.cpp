@@ -142,7 +142,7 @@ namespace
         int32_t count = 0;
 
         // Convert VML shapes.
-        for (System::SharedPtr<Shape> shape: System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Shape>>(doc->GetChildNodes(NodeType::Shape, true))))
+        for (System::SharedPtr<Shape> shape: System::IterateOver<System::SharedPtr<Shape>>(doc->GetChildNodes(NodeType::Shape, true)))
         {
             // It is important to use this method to correctly get the picture shape size in points even if the picture is inside a group shape.
             System::Drawing::SizeF shapeSizeInPoints = shape->get_SizeInPoints();
@@ -159,7 +159,6 @@ namespace
 void CompressImages()
 {
     std::cout << "CompressImages example started." << std::endl;
-    // ExStart:CompressImages
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithImages();
     System::String srcFileName = dataDir + u"Test.docx";
@@ -194,7 +193,6 @@ void CompressImages()
     System::SharedPtr<Shape> shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
     double imagePpi = shape->get_ImageData()->get_ImageSize()->get_WidthPixels() / ConvertUtil::PointToInch(shape->get_SizeInPoints().get_Width());
     Debug::Assert(imagePpi < 150, u"Image was not resampled successfully.");
-    // ExEnd:CompressImages
     std::cout << "Compressed images successfully." << std::endl << "File saved at " << dstFileName.ToUtf8String() << std::endl;
     std::cout << "CompressImages example finished." << std::endl << std::endl;
 }

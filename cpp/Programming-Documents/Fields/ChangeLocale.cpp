@@ -14,12 +14,11 @@
 
 using namespace Aspose::Words;
 
-typedef System::SharedPtr<System::Object> TObjectPtr;
-
 void ChangeLocale()
 {
     std::cout << "ChangeLocale example started." << std::endl;
     // ExStart:ChangeLocale
+    typedef System::SharedPtr<System::Object> TObjectPtr;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithFields();
 

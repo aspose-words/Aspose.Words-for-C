@@ -31,6 +31,7 @@
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 
+// ExStart:AddWatermark
 namespace
 {
     void InsertWatermarkIntoHeader(const System::SharedPtr<Paragraph>& watermarkPara, const System::SharedPtr<Section>& sect, HeaderFooterType headerType)
@@ -94,14 +95,13 @@ namespace
 void AddWatermark()
 {
     std::cout << "AddWatermark example started." << std::endl;
-    // ExStart:AddWatermark
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithImages();
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.Watermark.doc");
     InsertWatermarkText(doc, u"CONFIDENTIAL");
     System::String outputPath = dataDir + GetOutputFilePath(u"AddWatermark.doc");
     doc->Save(outputPath);
-    // ExEnd:AddWatermark
     std::cout << "Added watermark to the document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "AddWatermark example finished." << std::endl << std::endl;
 }
+// ExEnd:AddWatermark

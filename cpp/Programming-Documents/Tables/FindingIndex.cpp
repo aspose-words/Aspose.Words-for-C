@@ -18,7 +18,6 @@ using namespace Aspose::Words::Tables;
 void FindingIndex()
 {
     std::cout << "FindingIndex example started." << std::endl;
-    // ExStart:FindingIndex
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables() + u"Table.SimpleTable.doc";
     auto doc = System::MakeObject<Document>(dataDir);
@@ -38,6 +37,5 @@ void FindingIndex()
     int32_t cellIndex = row->IndexOf(row->get_Cells()->idx_get(4));
     // ExEnd:RetrieveCellIndex
     std::cout << "Cell index is " << cellIndex << std::endl;
-    // ExEnd:FindingIndex
     std::cout << "FindingIndex example finished." << std::endl << std::endl;
 }

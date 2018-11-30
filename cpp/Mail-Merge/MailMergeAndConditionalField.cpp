@@ -10,12 +10,11 @@
 
 using namespace Aspose::Words;
 
-typedef System::SharedPtr<System::Object> TObjectPtr;
-
 void MailMergeAndConditionalField()
 {
     std::cout << "MailMergeAndConditionalField example started." << std::endl;
     // ExStart:MailMergeAndConditionalField
+    typedef System::SharedPtr<System::Object> TObjectPtr;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_MailMergeAndReporting();
     // Open an existing document.

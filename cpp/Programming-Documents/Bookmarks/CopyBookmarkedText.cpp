@@ -63,7 +63,6 @@ namespace
 void CopyBookmarkedText()
 {
     std::cout << "CopyBookmarkedText example started." << std::endl;
-    // ExStart:CopyBookmarkedText
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithBookmarks();
 
@@ -92,7 +91,6 @@ void CopyBookmarkedText()
     System::String outputPath = dataDir + GetOutputFilePath(u"CopyBookmarkedText.doc");
     // Save the finished document.
     dstDoc->Save(outputPath);
-    // ExEnd:CopyBookmarkedText
 
     std::cout << "Bookmark copied successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "CopyBookmarkedText example finished." << std::endl << std::endl;

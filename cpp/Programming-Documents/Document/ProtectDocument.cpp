@@ -44,12 +44,10 @@ namespace
 void ProtectDocument()
 {
     std::cout << "ProtectDocument example started." << std::endl;
-    // ExStart:ProtectDocument
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument() + u"ProtectDocument.doc";
     Protect(dataDir);
     UnProtect(dataDir);
     GetProtectionType(dataDir);
-    // ExEnd:ProtectDocument
     std::cout << "ProtectDocument example finished." << std::endl << std::endl;
 }

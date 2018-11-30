@@ -10,12 +10,11 @@
 
 using namespace Aspose::Words;
 
-typedef System::SharedPtr<System::Object> TObjectPtr;
-
 void SimpleMailMerge()
 {
     std::cout << "SimpleMailMerge example started." << std::endl;
     // ExStart:SimpleMailMerge
+    typedef System::SharedPtr<System::Object> TObjectPtr;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_MailMergeAndReporting();
     // Open an existing document.

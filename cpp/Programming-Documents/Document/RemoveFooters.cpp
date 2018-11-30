@@ -25,7 +25,7 @@ void RemoveFooters()
 
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"HeaderFooter.RemoveFooters.doc");
 
-    for (System::SharedPtr<Section> section : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Section>>(doc)))
+    for (System::SharedPtr<Section> section : System::IterateOver<System::SharedPtr<Section>>(doc))
     {
         // Up to three different footers are possible in a section (for first, even and odd pages).
         // We check and delete all of them.

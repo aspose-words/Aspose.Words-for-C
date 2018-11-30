@@ -87,11 +87,9 @@ namespace
 void ApplyStyle()
 {
     std::cout << "ApplyStyle example started." << std::endl;
-    // ExStart:ApplyStyle
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     BuildTableWithStyle(dataDir);
     ExpandFormattingOnCellsAndRowFromStyle(dataDir);
-    // ExEnd:ApplyStyle
     std::cout << "ApplyStyle example finished." << std::endl << std::endl;
 }

@@ -17,10 +17,9 @@ using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::MailMerging;
 
-typedef System::SharedPtr<System::Object> TObjectPtr;
-
 namespace
 {
+    // ExStart:HandleMergeField
     class HandleMergeField : public IFieldMergingCallback
     {
         typedef HandleMergeField ThisType;
@@ -86,12 +85,14 @@ namespace
         result.Add("HandleMergeField::mBuilder", this->mBuilder);
         return result;
     }
+    // ExEnd:HandleMergeField
 }
 
 void MailMergeFormFields()
 {
     std::cout << "MailMergeFormFields example started." << std::endl;
     // ExStart:MailMergeFormFields
+    typedef System::SharedPtr<System::Object> TObjectPtr;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_MailMergeAndReporting();
     //System::String fileName = u"Template.doc";

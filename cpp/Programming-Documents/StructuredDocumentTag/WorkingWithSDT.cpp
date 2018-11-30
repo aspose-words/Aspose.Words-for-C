@@ -73,12 +73,10 @@ namespace
 void WorkingWithSDT()
 {
     std::cout << "WorkingWithSDT example started." << std::endl;
-    // ExStart:WorkingWithSDT
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithStructuredDocumentTag();
     BindSDTtoCustomXmlPart(dataDir);
     ClearContentsControl(dataDir);
     SetContentControlColor(dataDir);
-    // ExEnd:WorkingWithSDT
     std::cout << "WorkingWithSDT example finished." << std::endl << std::endl;
 }

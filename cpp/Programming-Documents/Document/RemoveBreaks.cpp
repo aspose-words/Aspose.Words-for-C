@@ -31,7 +31,7 @@ namespace
         System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
 
         // Iterate through all paragraphs
-        for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(paragraphs)))
+        for (System::SharedPtr<Paragraph> para : System::IterateOver<System::SharedPtr<Paragraph>>(paragraphs))
         {
             // If the paragraph has a page break before set then clear it.
             if (para->get_ParagraphFormat()->get_PageBreakBefore())
@@ -39,7 +39,7 @@ namespace
                 para->get_ParagraphFormat()->set_PageBreakBefore(false);
             }
             // Check all runs in the paragraph for page breaks and remove them.
-            for (System::SharedPtr<Run> run : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Run>>(para->get_Runs())))
+            for (System::SharedPtr<Run> run : System::IterateOver<System::SharedPtr<Run>>(para->get_Runs()))
             {
                 if (run->get_Text().Contains(ControlChar::PageBreak()))
                 {
@@ -69,7 +69,6 @@ namespace
 void RemoveBreaks()
 {
     std::cout << "RemoveBreaks example started." << std::endl;
-    // ExStart:RemoveBreaks
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     // ExStart:OpenFromFile
@@ -86,7 +85,6 @@ void RemoveBreaks()
     System::String outputPath = dataDir + GetOutputFilePath(u"RemoveBreaks.doc");
     // Save the document.
     doc->Save(outputPath);
-    // ExEnd:RemoveBreaks
     std::cout << "Removed breaks from the document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "RemoveBreaks example finished." << std::endl << std::endl;
 }

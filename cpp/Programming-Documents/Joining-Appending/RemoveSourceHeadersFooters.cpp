@@ -28,7 +28,7 @@ void RemoveSourceHeadersFooters()
     System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
 
     // Remove the headers and footers from each of the sections in the source document.
-    for (System::SharedPtr<Section> section : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Section>>(srcDoc->get_Sections())))
+    for (System::SharedPtr<Section> section : System::IterateOver<System::SharedPtr<Section>>(srcDoc->get_Sections()))
     {
         section->ClearHeadersFooters();
     }

@@ -104,10 +104,9 @@ namespace
         }
         // ExEnd:IndexChildNodes
     }
-
+    // ExStart:RecurseAllNodes
     void TraverseAllNodes(System::SharedPtr<CompositeNode> parentNode)
     {
-        // ExStart:RecurseAllNodes
         // This is the most efficient way to loop through immediate children of a node.
         for (auto childNode = parentNode->get_FirstChild(); childNode != nullptr; childNode = childNode->get_NextSibling())
         {
@@ -119,7 +118,6 @@ namespace
                 TraverseAllNodes(System::DynamicCast<CompositeNode>(childNode));
             }
         }
-        // ExEnd:RecurseAllNodes
     }
 
     void RecurseAllNodes()
@@ -131,6 +129,7 @@ namespace
         // Invoke the recursive function that will walk the tree.
         TraverseAllNodes(doc);
     }
+    // ExEnd:RecurseAllNodes
 
     void TypedAccess()
     {
@@ -141,7 +140,7 @@ namespace
         auto body = section->get_Body();
         // Quick typed access to all Table child nodes contained in the Body.
         auto tables = body->get_Tables();
-        for (System::SharedPtr<Table> table : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Table>>(tables)))
+        for (System::SharedPtr<Table> table : System::IterateOver<System::SharedPtr<Table>>(tables))
         {
             // Quick typed access to the first row of the table.
             if (table->get_FirstRow() != nullptr)
@@ -171,7 +170,6 @@ namespace
 void ExNode()
 {
     std::cout << "ExNode example started." << std::endl;
-    // ExStart:ExNode
     // The following method shows how to use the NodeType enumeration.
     UseNodeType();
     // The following method shows how to access the parent node.
@@ -188,6 +186,5 @@ void ExNode()
     TypedAccess();
     // The following method shows how to creates and adds a paragraph node.
     CreateAndAddParagraphNode();
-    // ExEnd:ExNode
     std::cout << "ExNode example finished." << std::endl << std::endl;
 }
