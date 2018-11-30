@@ -25,6 +25,7 @@ using namespace Aspose::Words::Fields;
 
 namespace
 {
+    // ExStart:RemoveTableOfContents
     /// <summary>
     /// Removes the specified table of contents field from the document.
     /// </summary>
@@ -38,7 +39,7 @@ namespace
         // At the end of this method.
         std::vector<System::SharedPtr<Node>> nodeList;
 
-        for (System::SharedPtr<FieldStart> start : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<FieldStart>>(doc->GetChildNodes(NodeType::FieldStart, true))))
+        for (System::SharedPtr<FieldStart> start : System::IterateOver<System::SharedPtr<FieldStart>>(doc->GetChildNodes(NodeType::FieldStart, true)))
         {
             if (start->get_FieldType() == FieldType::FieldTOC)
             {
@@ -81,6 +82,7 @@ namespace
             node->Remove();
         }
     }
+    // ExEnd:RemoveTableOfContents
 }
 
 void RemoveTOCFromDocument()

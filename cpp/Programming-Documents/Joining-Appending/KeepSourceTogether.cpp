@@ -35,7 +35,7 @@ void KeepSourceTogether()
     srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::Continuous);
 
     // Iterate through all sections in the source document.
-    for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(srcDoc->GetChildNodes(NodeType::Paragraph, true))))
+    for (System::SharedPtr<Paragraph> para : System::IterateOver<System::SharedPtr<Paragraph>>(srcDoc->GetChildNodes(NodeType::Paragraph, true)))
     {
         para->get_ParagraphFormat()->set_KeepWithNext(true);
     }

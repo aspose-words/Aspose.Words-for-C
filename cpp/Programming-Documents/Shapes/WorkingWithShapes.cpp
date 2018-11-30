@@ -112,12 +112,10 @@ namespace
 void WorkingWithShapes()
 {
     std::cout << "WorkingWithShapes example started." << std::endl;
-    // ExStart:WorkingWithShapes
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithShapes();
     SetShapeLayoutInCell(dataDir);
     SetAspectRatioLocked(dataDir);
     InsertShapeUsingDocumentBuilder(dataDir);
-    // ExEnd:WorkingWithShapes
     std::cout << "WorkingWithShapes example finished." << std::endl << std::endl;
 }

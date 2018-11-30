@@ -10,7 +10,6 @@ using namespace Aspose::Words;
 void SimpleAppendDocument()
 {
     std::cout << "SimpleAppendDocument example started." << std::endl;
-    // ExStart:SimpleAppendDocument
     // The path to the documents directory.
     System::String dataDir = GetDataDir_JoiningAndAppending();
 
@@ -22,7 +21,6 @@ void SimpleAppendDocument()
 
     System::String outputPath = dataDir + GetOutputFilePath(u"SimpleAppendDocument.doc");
     dstDoc->Save(outputPath);
-    // ExEnd:SimpleAppendDocument
     std::cout << "Simple document append." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "SimpleAppendDocument example finished." << std::endl << std::endl;
 }

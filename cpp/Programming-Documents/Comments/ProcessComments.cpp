@@ -33,7 +33,7 @@ namespace
         System::SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
 
         // Look through all comments and gather information about them.
-        for (System::SharedPtr<Comment> comment : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Comment>>(comments)))
+        for (System::SharedPtr<Comment> comment : System::IterateOver<System::SharedPtr<Comment>>(comments))
         {
             collectedComments.push_back(comment->get_Author() + u" " + comment->get_DateTime() + u" " + System::StaticCast<Node>(comment)->ToString(SaveFormat::Text));
         }
@@ -50,7 +50,7 @@ namespace
         System::SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
 
         // Look through all comments and gather information about those written by the authorName author.
-        for  (System::SharedPtr<Comment> comment : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Comment>>(comments)))
+        for (System::SharedPtr<Comment> comment : System::IterateOver<System::SharedPtr<Comment>>(comments))
         {
             if (comment->get_Author() == authorName)
             {
@@ -95,7 +95,7 @@ namespace
         System::SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
         System::SharedPtr<Comment> parentComment = System::DynamicCast<Comment>(comments->idx_get(0));
 
-        for (System::SharedPtr<Comment> childComment : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Comment>>(parentComment->get_Replies())))
+        for (System::SharedPtr<Comment> childComment : System::IterateOver<System::SharedPtr<Comment>>(parentComment->get_Replies()))
         {
             // Get comment parent and status.
             std::cout << childComment->get_Ancestor()->get_Id() << std::endl << childComment->get_Done() << std::endl;

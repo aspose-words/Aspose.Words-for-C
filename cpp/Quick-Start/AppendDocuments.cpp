@@ -11,7 +11,6 @@ using namespace Aspose::Words;
 void AppendDocuments()
 {
     std::cout << "AppendDocuments example started." << std::endl;
-    // ExStart:AppendDocuments
     // The path to the documents directory.
     System::String dataDir = GetDataDir_QuickStart();
     // Load the destination and source documents from disk.
@@ -23,7 +22,6 @@ void AppendDocuments()
 
     System::String outputPath = dataDir + GetOutputFilePath(u"AppendDocuments.doc");
     dstDoc->Save(outputPath);
-    // ExEnd:AppendDocuments
     std::cout << "Document appended successfully." << std::endl << "File saved at" << outputPath.ToUtf8String() << '\n';
     std::cout << "AppendDocuments example finished." << std::endl;
 }

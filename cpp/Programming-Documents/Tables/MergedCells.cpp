@@ -28,6 +28,7 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
+    // ExStart:HorizontalAndVerticalMergeHelperClasses
     class CellInfo : public System::Object
     {
         typedef CellInfo ThisType;
@@ -109,7 +110,9 @@ namespace
         result.Add("TableInfo::mRows", this->mRows);
         return std::move(result);
     }
+    // ExEnd:HorizontalAndVerticalMergeHelperClasses
 
+    // ExStart:PrintCellMergeType
     System::String PrintCellMergeType(System::SharedPtr<Cell> cell)
     {
         bool isHorizontallyMerged = cell->get_CellFormat()->get_HorizontalMerge() != CellMerge::None;
@@ -129,6 +132,7 @@ namespace
         }
         return System::String::Format(u"The cell at {0} is not merged", cellLocation);
     }
+    // ExEnd:PrintCellMergeType
 
     void CheckCellsMerged(System::String const &dataDir)
     {
@@ -136,9 +140,9 @@ namespace
         auto doc = System::MakeObject<Document>(dataDir + u"Table.MergedCells.doc");
         // Retrieve the first table in the document.
         auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
-        for (System::SharedPtr<Row> row : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Row>>(table->get_Rows())))
+        for (System::SharedPtr<Row> row : System::IterateOver<System::SharedPtr<Row>>(table->get_Rows()))
         {
-            for (System::SharedPtr<Cell> cell : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Cell>>(row->get_Cells())))
+            for (System::SharedPtr<Cell> cell : System::IterateOver<System::SharedPtr<Cell>>(row->get_Cells()))
             {
                 std::cout << PrintCellMergeType(cell).ToUtf8String() << std::endl;
             }
@@ -199,6 +203,7 @@ namespace
         std::cout << "Table created successfully with two columns with cells merged vertically in the first column." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
+    // ExStart:MergeCells
     void MergeCells(System::SharedPtr<Cell> startCell, System::SharedPtr<Cell> endCell)
     {
         auto parentTable = startCell->get_ParentRow()->get_ParentTable();
@@ -210,9 +215,9 @@ namespace
                                               System::Math::Min(startCellPos.get_Y(), endCellPos.get_Y()),
                                               System::Math::Abs(endCellPos.get_X() - startCellPos.get_X()) + 1,
                                               System::Math::Abs(endCellPos.get_Y() - startCellPos.get_Y()) + 1);
-        for (System::SharedPtr<Row> row : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Row>>(parentTable->get_Rows())))
+        for (System::SharedPtr<Row> row : System::IterateOver<System::SharedPtr<Row>>(parentTable->get_Rows()))
         {
-            for (System::SharedPtr<Cell> cell : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Cell>>(row->get_Cells())))
+            for (System::SharedPtr<Cell> cell : System::IterateOver<System::SharedPtr<Cell>>(row->get_Cells()))
             {
                 System::Drawing::Point currentPos(row->IndexOf(cell), parentTable->IndexOf(row));
                 // Check if the current cell is inside our merge range then merge it.
@@ -238,6 +243,7 @@ namespace
             }
         }
     }
+    // ExEnd:MergeCells
 
     void MergeCellRange(System::String const &dataDir)
     {
@@ -262,7 +268,6 @@ namespace
 void MergedCells()
 {
     std::cout << "MergedCells example started." << std::endl;
-    // ExStart:MergedCells
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     CheckCellsMerged(dataDir);
@@ -272,6 +277,5 @@ void MergedCells()
     VerticalMerge(dataDir);
     // The below method shows how to merges the range of cells between the two specified cells.
     MergeCellRange(dataDir);
-    // ExEnd:MergedCells
     std::cout << "MergedCells example finished." << std::endl << std::endl;
 }

@@ -53,7 +53,7 @@ namespace
         // Open an existing document
         System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"CheckBoxTypeContentControl.docx");
 
-        for (System::SharedPtr<StructuredDocumentTag> sdt : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<StructuredDocumentTag>>(doc->GetChildNodes(NodeType::StructuredDocumentTag, true))))
+        for (System::SharedPtr<StructuredDocumentTag> sdt : System::IterateOver<System::SharedPtr<StructuredDocumentTag>>(doc->GetChildNodes(NodeType::StructuredDocumentTag, true)))
         {
             if (sdt->get_SdtType() == SdtType::PlainText)
             {
@@ -87,12 +87,10 @@ namespace
 void UpdateContentControls()
 {
     std::cout << "UpdateContentControls example started." << std::endl;
-    // ExStart:UpdateContentControls
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     SetCurrentStateOfCheckBox(dataDir);
     // Shows how to modify content controls of type plain text box, drop down list and picture.
     ModifyContentControls(dataDir);
-    // ExEnd:UpdateContentControls
     std::cout << "UpdateContentControls example finished." << std::endl << std::endl;
 }

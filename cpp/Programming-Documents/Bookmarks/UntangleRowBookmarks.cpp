@@ -68,7 +68,6 @@ namespace
 void UntangleRowBookmarks()
 {
     std::cout << "UntangleRowBookmarks example started." << std::endl;
-    // ExStart:UntangleRowBookmarks
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithBookmarks();
 
@@ -90,7 +89,6 @@ void UntangleRowBookmarks()
     System::String outputPath = dataDir + GetOutputFilePath(u"UntangleRowBookmarks.doc");
     // Save the finished document.
     doc->Save(outputPath);
-    // ExEnd:UntangleRowBookmarks
 
     std::cout << "Row bookmark untangled successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "UntangleRowBookmarks example finished." << std::endl << std::endl;

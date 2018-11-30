@@ -73,11 +73,9 @@ namespace
 void JoiningAndSplittingTable()
 {
     std::cout << "JoiningAndSplittingTable example started." << std::endl;
-    // ExStart:JoiningAndSplittingTable
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     CombineRows(dataDir);
     SplitTable(dataDir);
-    // ExEnd:JoiningAndSplittingTable
     std::cout << "JoiningAndSplittingTable example finished." << std::endl << std::endl;
 }

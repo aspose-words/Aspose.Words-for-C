@@ -88,11 +88,9 @@ void FindReplaceUsingMetaCharacters()
                    &m - page break
                    &l - manual line break */
     std::cout << "FindReplaceUsingMetaCharacters example started." << std::endl;
-    // ExStart:FindReplaceUsingMetaCharacters
     // The path to the documents directory.
     System::String dataDir = GetDataDir_FindAndReplace();
     MetaCharactersInSearchPattern(dataDir);
     ReplaceTextContaingMetaCharacters(dataDir);
-    // ExEnd:FindReplaceUsingMetaCharacters
     std::cout << "FindReplaceUsingMetaCharacters example finished." << std::endl << std::endl;
 }

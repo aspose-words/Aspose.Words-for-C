@@ -143,7 +143,7 @@ void RenameMergeFields()
     // Select all field start nodes so we can find the merge fields.
     System::SharedPtr<NodeCollection> fieldStarts = doc->GetChildNodes(NodeType::FieldStart, true);
 
-    for (System::SharedPtr<FieldStart> fieldStart : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<FieldStart>>(fieldStarts)))
+    for (System::SharedPtr<FieldStart> fieldStart : System::IterateOver<System::SharedPtr<FieldStart>>(fieldStarts))
     {
         if (fieldStart->get_FieldType() == FieldType::FieldMergeField)
         {

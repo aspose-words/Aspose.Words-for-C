@@ -71,12 +71,10 @@ namespace
 void WorkingWithRevisions()
 {
     std::cout << "WorkingWithRevisions example started." << std::endl;
-    // ExStart:WorkingWithRevisions
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     AcceptRevisions(dataDir);
     GetRevisionTypes(dataDir);
     GetRevisionGroups(dataDir);
-    // ExEnd:WorkingWithRevisions
     std::cout << "WorkingWithRevisions example finished." << std::endl << std::endl;
 }

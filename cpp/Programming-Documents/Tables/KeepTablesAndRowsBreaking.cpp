@@ -29,7 +29,7 @@ namespace
         // Retrieve the first table in the document.
         auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Disable breaking across pages for all rows in the table.
-        for (System::SharedPtr<Row> row : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Row>>(table->get_Rows())))
+        for (System::SharedPtr<Row> row : System::IterateOver<System::SharedPtr<Row>>(table->get_Rows()))
         {
             row->get_RowFormat()->set_AllowBreakAcrossPages(false);
         }
@@ -48,12 +48,12 @@ namespace
         // To keep a table from breaking across a page we need to enable KeepWithNext
         // For every paragraph in the table except for the last paragraphs in the last
         // Row of the table.
-        for (System::SharedPtr<Cell> cell : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Cell>>(table->GetChildNodes(NodeType::Cell, true))))
+        for (System::SharedPtr<Cell> cell : System::IterateOver<System::SharedPtr<Cell>>(table->GetChildNodes(NodeType::Cell, true)))
         {
             // Call this method if table's cell is created on the fly
             // Newly created cell does not have paragraph inside
             cell->EnsureMinimum();
-            for (System::SharedPtr<Paragraph> para : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(cell->get_Paragraphs())))
+            for (System::SharedPtr<Paragraph> para : System::IterateOver<System::SharedPtr<Paragraph>>(cell->get_Paragraphs()))
             {
                 if (!(cell->get_ParentRow()->get_IsLastRow() && para->get_IsEndOfCell()))
                 {
@@ -71,13 +71,11 @@ namespace
 void KeepTablesAndRowsBreaking()
 {
     std::cout << "KeepTablesAndRowsBreaking example started." << std::endl;
-    // ExStart:KeepTablesAndRowsBreaking
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables();
     // The below method shows how to disable rows breaking across pages for every row in a table.
     RowFormatDisableBreakAcrossPages(dataDir);
     // The below method shows how to set a table to stay together on the same page.
     KeepTableTogether(dataDir);
-    // ExEnd:KeepTablesAndRowsBreaking
     std::cout << "KeepTablesAndRowsBreaking example finished." << std::endl << std::endl;
 }

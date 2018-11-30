@@ -280,7 +280,6 @@ namespace
 void DocumentBuilderSetFormatting()
 {
     std::cout << "DocumentBuilderSetFormatting example started." << std::endl;
-    // ExStart:DocumentBuilderSetFormatting
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     SetSpacebetweenAsianandLatintext(dataDir);
@@ -293,6 +292,5 @@ void DocumentBuilderSetFormatting()
     ApplyParagraphStyle(dataDir);
     ApplyBordersAndShadingToParagraph(dataDir);
     SetAsianTypographyLinebreakGroupProp(dataDir);
-    // ExEnd:DocumentBuilderSetFormatting
     std::cout << "DocumentBuilderSetFormatting example finished." << std::endl << std::endl;
 }

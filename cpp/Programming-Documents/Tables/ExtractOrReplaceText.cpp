@@ -58,11 +58,9 @@ namespace
 void ExtractOrReplaceText()
 {
     std::cout << "ExtractOrReplaceText example started." << std::endl;
-    // ExStart:ExtractOrReplaceText
     // The path to the documents directory.
     System::String documentPath = GetDataDir_WorkingWithTables() + u"Table.SimpleTable.doc";
     ExtractPrintText(documentPath);
     ReplaceText(documentPath);
-    // ExEnd:ExtractOrReplaceText
     std::cout << "ExtractOrReplaceText example finished." << std::endl << std::endl;
 }

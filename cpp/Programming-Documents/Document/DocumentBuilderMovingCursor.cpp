@@ -161,7 +161,6 @@ namespace
 void DocumentBuilderMovingCursor()
 {
     std::cout << "DocumentBuilderMovingCursor example started." << std::endl;
-    // ExStart:DocumentBuilderMovingCursor
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     CursorPosition(dataDir);
@@ -174,6 +173,5 @@ void DocumentBuilderMovingCursor()
     MoveToBookmark(dataDir);
     MoveToBookmarkEnd(dataDir);
     MoveToMergeField(dataDir);
-    // ExEnd:DocumentBuilderMovingCursor
     std::cout << "DocumentBuilderMovingCursor example finished." << std::endl << std::endl;
 }

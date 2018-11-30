@@ -268,7 +268,7 @@ std::vector<System::SharedPtr<Paragraph>> ParagraphsByStyleName(const System::Sh
     // Get all paragraphs from the document.
     System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
     // Look through all paragraphs to find those with the specified style.
-    for (System::SharedPtr<Paragraph> paragraph : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(paragraphs)))
+    for (System::SharedPtr<Paragraph> paragraph : System::IterateOver<System::SharedPtr<Paragraph>>(paragraphs))
     {
         if (paragraph->get_ParagraphFormat()->get_Style()->get_Name() == styleName)
         {

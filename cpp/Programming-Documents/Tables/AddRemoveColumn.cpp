@@ -30,7 +30,6 @@ typedef System::ArrayPtr<System::SharedPtr<Cell>> TCellArrayPtr;
 
 namespace
 {
-    // ExStart:ColumnClass
     class Column : public System::Object
     {
         typedef Column ThisType;
@@ -65,7 +64,7 @@ namespace
     TCellArrayPtr Column::GetColumnCells()
     {
         auto columnCells = System::MakeObject<TCellList>();
-        for (System::SharedPtr<Row> row : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Row>>(mTable->get_Rows())))
+        for (System::SharedPtr<Row> row : System::IterateOver<System::SharedPtr<Row>>(mTable->get_Rows()))
         {
             auto cell = row->get_Cells()->idx_get(mColumnIndex);
             if (cell != nullptr)
@@ -130,7 +129,6 @@ namespace
         result.Add("Column::mTable", this->mTable);
         return result;
     }
-    // ExEnd:ColumnClass
 
     void RemoveColumn(System::SharedPtr<Document> doc)
     {
@@ -170,12 +168,10 @@ namespace
 void AddRemoveColumn()
 {
     std::cout << "AddRemoveColumn example started." << std::endl;
-    // ExStart:AddRemoveColumn
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithTables() + u"Table.Document.doc";
     auto doc = System::MakeObject<Document>(dataDir);
     InsertBlankColumn(doc);
     RemoveColumn(doc);
-    // ExEnd:AddRemoveColumn
     std::cout << "AddRemoveColumn example finished." << std::endl;
 }

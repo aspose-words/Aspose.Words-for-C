@@ -42,7 +42,6 @@ namespace
 void PrependDocument()
 {
     std::cout << "PrependDocument example started." << std::endl;
-    // ExStart:PrependDocument
     // The path to the documents directory.
     System::String dataDir = GetDataDir_JoiningAndAppending();
 
@@ -59,7 +58,6 @@ void PrependDocument()
     System::String outputPath = dataDir + GetOutputFilePath(u"PrependDocument.doc");
     // Save the document
     dstDoc->Save(outputPath);
-    // ExEnd:PrependDocument
     std::cout << "Document prepended successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "PrependDocument example finished." << std::endl << std::endl;
 }

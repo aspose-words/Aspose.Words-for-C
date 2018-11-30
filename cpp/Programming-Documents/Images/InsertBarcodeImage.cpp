@@ -23,6 +23,7 @@ using namespace Aspose::Words;
 
 namespace
 {
+    // ExStart:InsertBarcodeIntoFooter
     void InsertBarcodeIntoFooter(System::SharedPtr<DocumentBuilder> builder, System::SharedPtr<Section> section, int32_t pageId, HeaderFooterType footerType)
     {
         // Move to the footer type in the specific section.
@@ -46,6 +47,7 @@ namespace
         builder->Write(u" of ");
         builder->InsertField(u"NUMPAGES");
     }
+    // ExEnd:InsertBarcodeIntoFooter
 }
 
 void InsertBarcodeImage()

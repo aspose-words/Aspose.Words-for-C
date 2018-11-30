@@ -64,12 +64,10 @@ namespace
 void WorkingWithFootnote()
 {
     std::cout << "WorkingWithFootnote example started." << std::endl;
-    // ExStart:WorkingWithFootnote
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     SetFootNoteColumns(dataDir);
     SetFootnoteAndEndNotePosition(dataDir);
     SetEndnoteOptions(dataDir);
-    // ExEnd:WorkingWithFootnote
     std::cout << "WorkingWithFootnote example finished." << std::endl << std::endl;
 }

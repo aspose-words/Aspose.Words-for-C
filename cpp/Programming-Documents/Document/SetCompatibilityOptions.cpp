@@ -31,10 +31,8 @@ namespace
 void SetCompatibilityOptions()
 {
     std::cout << "SetCompatibilityOptions example started." << std::endl;
-    // ExStart:SetCompatibilityOptions
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     OptimizeFor(dataDir);
-    // ExEnd:SetCompatibilityOptions
     std::cout << "SetCompatibilityOptions example finished." << std::endl << std::endl;
 }

@@ -21,15 +21,15 @@ using namespace Aspose::Words;
 
 namespace
 {
+    // ExStart:ParagraphsByStyleName
     std::vector<System::SharedPtr<Paragraph>> ParagraphsByStyleName(System::SharedPtr<Document> doc, System::String const &styleName)
     {
-		// ExStart:ParagraphsByStyleName
         // Create an array to collect paragraphs of the specified style.
         std::vector<System::SharedPtr<Paragraph>> paragraphsWithStyle;
         // Get all paragraphs from the document.
         auto paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
         // Look through all paragraphs to find those with the specified style.
-        for (System::SharedPtr<Paragraph> paragraph : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Paragraph>>(paragraphs)))
+        for (System::SharedPtr<Paragraph> paragraph : System::IterateOver<System::SharedPtr<Paragraph>>(paragraphs))
         {
             if (paragraph->get_ParagraphFormat()->get_Style()->get_Name() == styleName)
             {
@@ -37,18 +37,18 @@ namespace
             }
         }
         return paragraphsWithStyle;
-		// ExEnd:ParagraphsByStyleName
     }
+    // ExEnd:ParagraphsByStyleName
 
+    // ExStart:RunsByStyleName
     std::vector<System::SharedPtr<Run>> RunsByStyleName(System::SharedPtr<Document> doc, System::String const &styleName)
     {
-		// ExStart:RunsByStyleName
         // Create an array to collect runs of the specified style.
         std::vector<System::SharedPtr<Run>> runsWithStyle;
         // Get all runs from the document.
         auto runs = doc->GetChildNodes(NodeType::Run, true);
         // Look through all runs to find those with the specified style.
-        for (System::SharedPtr<Run> run : System::IterateOver(System::DynamicCastEnumerableTo<System::SharedPtr<Run>>(runs)))
+        for (System::SharedPtr<Run> run : System::IterateOver<System::SharedPtr<Run>>(runs))
         {
             if (run->get_Font()->get_Style()->get_Name() == styleName)
             {
@@ -56,8 +56,8 @@ namespace
             }
         }
         return runsWithStyle;
-		// ExEnd:RunsByStyleName
     }
+    // ExEnd:RunsByStyleName
 }
 
 void ExtractContentBasedOnStyles()
