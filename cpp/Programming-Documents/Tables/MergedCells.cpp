@@ -6,11 +6,14 @@
 #include <system/special_casts.h>
 #include <system/collections/list.h>
 #include <system/object.h>
+#include <xml/xml_document.h>
 #include <drawing/point.h>
 #include <drawing/rectangle.h>
 
 #include "Model/Document/Document.h"
 #include "Model/Document/DocumentBuilder.h"
+#include <Model/Document/DocumentVisitor.h>
+#include <Model/Saving/HtmlSaveOptions.h>
 #include <Model/Tables/Table.h>
 #include <Model/Tables/TableCollection.h>
 #include <Model/Tables/Row.h>
@@ -24,6 +27,7 @@
 #include <Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Tables;
 
 namespace
@@ -112,6 +116,115 @@ namespace
     }
     // ExEnd:HorizontalAndVerticalMergeHelperClasses
 
+    class SpanVisitor : public DocumentVisitor
+    {
+        typedef SpanVisitor ThisType;
+        typedef DocumentVisitor BaseType;
+
+        typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+        RTTI_INFO_DECL();
+
+    public:
+
+        SpanVisitor(System::SharedPtr<Document> doc);
+
+        virtual VisitorAction VisitCellStart(System::SharedPtr<Aspose::Words::Tables::Cell> cell);
+
+    protected:
+
+        System::Object::shared_members_type GetSharedMembers() override;
+
+    private:
+
+        System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<TableInfo>>> mTables;
+        System::SharedPtr<NodeCollection> mWordTables;
+    };
+
+    RTTI_INFO_IMPL_HASH(4097796275u, SpanVisitor, ThisTypeBaseTypesInfo);
+
+    SpanVisitor::SpanVisitor(System::SharedPtr<Document> doc)
+        : mTables(System::MakeObject<System::Collections::Generic::List<System::SharedPtr<TableInfo>>>())
+        , mWordTables(nullptr)
+    {
+        // Self reference protector
+        System::Details::ThisProtector __local_self_ref(this);
+
+        mWordTables = doc->GetChildNodes(Aspose::Words::NodeType::Table, true);
+        System::SharedPtr<System::IO::MemoryStream> htmlStream = System::MakeObject<System::IO::MemoryStream>();
+        System::SharedPtr<HtmlSaveOptions> options = System::MakeObject<HtmlSaveOptions>();
+        options->set_ImagesFolder(System::IO::Path::GetTempPath());
+        doc->Save(htmlStream, options);
+        System::SharedPtr<System::Xml::XmlDocument> xmlDoc = System::MakeObject<System::Xml::XmlDocument>();
+        htmlStream->set_Position(0);
+        xmlDoc->Load(htmlStream);
+        System::SharedPtr<System::Xml::XmlNodeList> tables = xmlDoc->get_DocumentElement()->SelectNodes(u"// Table");
+        for (System::SharedPtr<System::Xml::XmlNode> table : System::IterateOver(tables))
+        {
+            System::SharedPtr<TableInfo> tableInf = System::MakeObject<TableInfo>();
+            // Get collection of rows in the table
+            System::SharedPtr<System::Xml::XmlNodeList> rows = table->SelectNodes(u"tr");
+
+            for (System::SharedPtr<System::Xml::XmlNode> row : System::IterateOver(rows))
+            {
+                System::SharedPtr<RowInfo> rowInf = System::MakeObject<RowInfo>();
+
+                // Get collection of cells
+                System::SharedPtr<System::Xml::XmlNodeList> cells = row->SelectNodes(u"td");
+
+                for (System::SharedPtr<System::Xml::XmlNode> cell : System::IterateOver(cells))
+                {
+                    // Determine row span and colspan of the current cell
+                    System::SharedPtr<System::Xml::XmlAttribute> colSpanAttr = cell->get_Attributes()->idx_get(u"colspan");
+                    System::SharedPtr<System::Xml::XmlAttribute> rowSpanAttr = cell->get_Attributes()->idx_get(u"rowspan");
+
+                    int32_t colSpan = colSpanAttr == nullptr ? 0 : System::Convert::ToInt32(colSpanAttr->get_Value());
+                    int32_t rowSpan = rowSpanAttr == nullptr ? 0 : System::Convert::ToInt32(rowSpanAttr->get_Value());
+
+                    System::SharedPtr<CellInfo> cellInf = System::MakeObject<CellInfo>(colSpan, rowSpan);
+                    rowInf->GetCells()->Add(cellInf);
+                }
+                tableInf->GetRows()->Add(rowInf);
+            }
+            mTables->Add(tableInf);
+        }
+    }
+
+    VisitorAction SpanVisitor::VisitCellStart(System::SharedPtr<Cell> cell)
+    {
+        // Determone index of current table
+        int32_t tabIdx = mWordTables->IndexOf(cell->get_ParentRow()->get_ParentTable());
+
+        // Determine index of current row
+        int32_t rowIdx = cell->get_ParentRow()->get_ParentTable()->IndexOf(cell->get_ParentRow());
+
+        // And determine index of current cell
+        int32_t cellIdx = cell->get_ParentRow()->IndexOf(cell);
+
+        // Determine colspan and rowspan of current cell
+        int32_t colSpan = 0;
+        int32_t rowSpan = 0;
+        if (tabIdx < mTables->get_Count() && rowIdx < mTables->idx_get(tabIdx)->GetRows()->get_Count() &&
+            cellIdx < mTables->idx_get(tabIdx)->GetRows()->idx_get(rowIdx)->GetCells()->get_Count())
+        {
+            colSpan = mTables->idx_get(tabIdx)->GetRows()->idx_get(rowIdx)->GetCells()->idx_get(cellIdx)->GetColSpan();
+            rowSpan = mTables->idx_get(tabIdx)->GetRows()->idx_get(rowIdx)->GetCells()->idx_get(cellIdx)->GetRowSpan();
+        }
+
+        std::cout << tabIdx << "." << rowIdx << "." << cellIdx << "colspan=" << colSpan << "\t rowspan=" << rowSpan << std::endl;
+        return VisitorAction::Continue;
+    }
+
+    System::Object::shared_members_type SpanVisitor::GetSharedMembers()
+    {
+        auto result = DocumentVisitor::GetSharedMembers();
+
+        result.Add("SpanVisitor::mTables", this->mTables);
+        result.Add("SpanVisitor::mWordTables", this->mWordTables);
+
+        return result;
+    }
+
+
     // ExStart:PrintCellMergeType
     System::String PrintCellMergeType(System::SharedPtr<Cell> cell)
     {
@@ -122,11 +235,11 @@ namespace
         {
             return System::String::Format(u"The cell at {0} is both horizontally and vertically merged", cellLocation);
         }
-        if (isHorizontallyMerged)
+        else if (isHorizontallyMerged)
         {
             return System::String::Format(u"The cell at {0} is horizontally merged.", cellLocation);
         }
-        if (isVerticallyMerged)
+        else if (isVerticallyMerged)
         {
             return System::String::Format(u"The cell at {0} is vertically merged", cellLocation);
         }
@@ -252,7 +365,7 @@ namespace
         auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
         // Retrieve the first table in the body of the first section.
         auto table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-        // We want to merge the range of cells found inbetween these two cells.
+        // We want to merge the range of cells found in between these two cells.
         auto cellStartRange = table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2);
         auto cellEndRange = table->get_Rows()->idx_get(3)->get_Cells()->idx_get(3);
         // Merge all the cells between the two specified cells into one.
@@ -262,6 +375,21 @@ namespace
         doc->Save(outputPath);
         // ExEnd:MergeCellRange
         std::cout << "Cells merged successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
+
+    void PrintHorizontalAndVerticalMerged(System::String const &dataDir)
+    {
+        // ExStart:PrintHorizontalAndVerticalMerged
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Table.MergedCells.doc");
+
+        // Create visitor
+        System::SharedPtr<SpanVisitor> visitor = System::MakeObject<SpanVisitor>(doc);
+
+        // Accept visitor
+        doc->Accept(visitor);
+        // ExEnd:PrintHorizontalAndVerticalMerged
+        std::cout << "Horizontal and vertical merged of a cell prints successfully." << std::endl;
+
     }
 }
 
@@ -277,5 +405,7 @@ void MergedCells()
     VerticalMerge(dataDir);
     // The below method shows how to merges the range of cells between the two specified cells.
     MergeCellRange(dataDir);
+    // Show how to prints the horizontal and vertical merge of a cell.
+    PrintHorizontalAndVerticalMerged(dataDir);
     std::cout << "MergedCells example finished." << std::endl << std::endl;
 }

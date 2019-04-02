@@ -70,6 +70,12 @@
     <Filter Include="cpp\Mail-Merge">
       <UniqueIdentifier>{ab3d2d95-d9fe-4628-a64a-33c944cb8f87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cpp\Rendering-Printing">
+      <UniqueIdentifier>{f28cbb4e-f3eb-43b6-9669-55c9515972f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\Programming-Documents\Charts">
+      <UniqueIdentifier>{91669ac3-9e05-4155-bb8a-fb8bfe323e9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cpp\main.cpp">
@@ -589,6 +595,156 @@
       <Filter>cpp\Mail-Merge</Filter>
     </ClCompile>
     <ClCompile Include="cpp\stdafx.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\PageSplitter.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithSaveOptions.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceHtmlTextWithMetaCharacters.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\DocumentLayoutHelper.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToEPUB.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHtmlWithRoundtrip.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\Doc2Pdf.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ExportFontsAsBase64.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ExportResourcesUsingHtmlSaveOptions.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveHtmlFormFieldAsContentControlInDOCX.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\SaveDocWithHtmlSaveOptions.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\SpecifySaveOption.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\SplitIntoHtmlPages.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\WorkingWithOoxml.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\MailMergeCleanUp.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\ChartNumberFormat.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\CreateChartUsingShape.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\CreateColumnChart.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\InsertAreaChart.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\InsertBubbleChart.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\InsertScatterChart.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithChartDataLabel.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithSingleChartDataPoint.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithSingleChartSeries.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\WorkingWithChartAxis.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Comments\RemoveRegionText.cpp">
+      <Filter>cpp\Programming-Documents\Comments</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertHorizontalRule.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\PageNumbersOfNodes.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\FieldUpdateCulture.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormatFieldResult.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertFieldNone.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\ConvertNumPageFields.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\UpdatePageLayout.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Styles\CopyStyles.cpp">
+      <Filter>cpp\Programming-Documents\Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Tables\InsertTableFromHtml.cpp">
+      <Filter>cpp\Programming-Documents\Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\EmbeddedFontsInPDF.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\EmbeddingWindowsStandardFonts.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\EnumerateLayoutElements.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\HyphenateWordsOfLanguages.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\LoadHyphenationDictionaryForLanguage.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\ReceiveNotificationsOfFont.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\RenderShape.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetFontSettings.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersMultipleFolders.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersSystemAndCustomFolder.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetHorizontalAndVerticalImageResolution.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetTrueTypeFontsFolder.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SpecifyDefaultFontWhenRendering.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\WorkingWithFontSources.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\WorkingWithPdfSaveOptions.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
@@ -596,11 +752,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="cpp\stdafx.h" />
     <ClInclude Include="cpp\pch\aspose_pch.h" />
     <ClInclude Include="cpp\pch\pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -173,5 +173,5 @@ void AddRemoveColumn()
     auto doc = System::MakeObject<Document>(dataDir);
     InsertBlankColumn(doc);
     RemoveColumn(doc);
-    std::cout << "AddRemoveColumn example finished." << std::endl;
+    std::cout << "AddRemoveColumn example finished." << std::endl << std::endl;
 }
