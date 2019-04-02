@@ -49,7 +49,7 @@ namespace
     void GetFloatingTablePosition(System::String const &dataDir)
     {
         // ExStart:GetFloatingTablePosition
-        auto doc = System::MakeObject<Document>(dataDir + u"FloatingTablePosition.doc");
+        auto doc = System::MakeObject<Document>(dataDir + u"FloatingTablePosition.docx");
         for (System::SharedPtr<Table> table : System::IterateOver<System::SharedPtr<Table>>(doc->get_FirstSection()->get_Body()->get_Tables()))
         {
             // If table is floating type then print its positioning properties.

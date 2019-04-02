@@ -23,6 +23,17 @@ void DetectDocumentSignatures();
 void WorkingWithTxt();
 void WorkingWithRTF();
 void Load_Options();
+void PageSplitter();
+void ConvertDocumentToEPUB();
+void ConvertDocumentToHtmlWithRoundtrip();
+void Doc2Pdf();
+void ExportFontsAsBase64();
+void ExportResourcesUsingHtmlSaveOptions();
+void LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
+void SaveDocWithHtmlSaveOptions();
+void SpecifySaveOption();
+void SplitIntoHtmlPages();
+void WorkingWithOoxml();
 
 // =================================
 // Programming with Documents
@@ -45,6 +56,8 @@ void KeepSourceTogether();
 void BaseDocument();
 void AppendDocumentManually();
 void PrependDocument();
+void ConvertNumPageFields();
+void UpdatePageLayout();
 
 // Find and Replace
 void FindAndHighlight();
@@ -53,6 +66,7 @@ void ReplaceWithRegex();
 void ReplaceWithEvaluator();
 void FindReplaceUsingMetaCharacters();
 void ReplaceTextWithField();
+void ReplaceHtmlTextWithMetaCharacters();
 
 // Bookmarks
 void CopyBookmarkedText();
@@ -70,6 +84,7 @@ void ProcessComments();
 void AddComments();
 void AnchorComment();
 void CommentReply();
+void RemoveRegionText();
 
 // ConvertUtil
 void UtilityClasses();
@@ -116,6 +131,9 @@ void ComboBoxContentControl();
 void UpdateContentControls();
 void CleansUnusedStylesandLists();
 void DocumentPageSetup();
+void WorkingWithSaveOptions();
+void DocumentBuilderInsertHorizontalRule();
+void PageNumbersOfNodes();
 
 // Fields
 void RemoveField();
@@ -143,6 +161,9 @@ void GetFieldNames();
 void InsertTOAFieldWithoutDocumentBuilder();
 void InsertIncludeTextFieldWithoutDocumentBuilder();
 void EvaluateIFCondition();
+void FieldUpdateCulture();
+void FormatFieldResult();
+void InsertFieldNone();
 
 // Images
 void AddWatermark();
@@ -156,6 +177,16 @@ void RangesGetText();
 void RangesDeleteText();
 
 // Charts
+void ChartNumberFormat();
+void CreateChartUsingShape();
+void CreateColumnChart();
+void InsertAreaChart();
+void InsertBubbleChart();
+void InsertScatterChart();
+void WorkWithChartDataLabel();
+void WorkWithSingleChartDataPoint();
+void WorkWithSingleChartSeries();
+void WorkingWithChartAxis();
 
 // Theme
 void ManipulateThemeProperties();
@@ -171,6 +202,7 @@ void ExtractContentBasedOnStyles();
 void ChangeStyleOfTOCLevel();
 void ChangeTOCTabStops();
 void InsertStyleSeparator();
+void CopyStyles();
 
 // Tables
 void AddRemoveColumn();
@@ -190,6 +222,7 @@ void MergedCells();
 void RepeatRowsOnSubsequentPages();
 void SpecifyHeightAndWidth();
 void TablePosition();
+void InsertTableFromHtml();
 
 // Sections
 void AddDeleteSection();
@@ -218,3 +251,24 @@ void ExecuteArray();
 void NestedMailMergeCustom();
 void HandleMailMergeSwitches();
 void MailMergeAndConditionalField();
+void MailMergeCleanUp();
+
+// =====================================================
+// Rendering and Printing
+// =====================================================
+void DocumentLayoutHelper();
+void EmbeddedFontsInPDF();
+void EmbeddingWindowsStandardFonts();
+void EnumerateLayoutElements();
+void HyphenateWordsOfLanguages();
+void LoadHyphenationDictionaryForLanguage();
+void ReceiveNotificationsOfFont();
+void RenderShape();
+void SetFontSettings();
+void SetFontsFoldersMultipleFolders();
+void SetFontsFoldersSystemAndCustomFolder();
+void SetHorizontalAndVerticalImageResolution();
+void SetTrueTypeFontsFolder();
+void SpecifyDefaultFontWhenRendering();
+void WorkingWithFontSources();
+void WorkingWithPdfSaveOptions();

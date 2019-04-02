@@ -11,11 +11,14 @@
 #include <Model/Lists/ListLevelAlignment.h>
 #include <Model/Lists/ListLevelCollection.h>
 #include <Model/Lists/ListTemplate.h>
+#include <Model/Saving/OoxmlSaveOptions.h>
+#include <Model/Saving/OoxmlCompliance.h>
 #include <Model/Text/Font.h>
 #include <Model/Text/ListFormat.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Lists;
+using namespace Aspose::Words::Saving;
 
 namespace
 {
@@ -99,6 +102,46 @@ namespace
         // ExEnd:RestartListNumber
         std::cout << "Document is saved successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void SetRestartAtEachSection(System::String const &dataDir)
+    {
+        // ExStart:SetRestartAtEachSection
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+
+        doc->get_Lists()->Add(ListTemplate::NumberDefault);
+
+        System::SharedPtr<List> list = doc->get_Lists()->idx_get(0);
+
+        // Set true to specify that the list has to be restarted at each section.
+        list->set_IsRestartAtEachSection(true);
+
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+
+        builder->get_ListFormat()->set_List(list);
+
+        for (int32_t i = 1; i < 45; i++)
+        {
+            builder->Writeln(System::String::Format(u"List Item {0}", i));
+
+            // Insert section break.
+            if (i == 15)
+            {
+                builder->InsertBreak(Aspose::Words::BreakType::SectionBreakNewPage);
+            }
+        }
+
+        // IsRestartAtEachSection will be written only if compliance is higher then OoxmlComplianceCore.Ecma376
+        System::SharedPtr<OoxmlSaveOptions> options = System::MakeObject<OoxmlSaveOptions>();
+        options->set_Compliance(OoxmlCompliance::Iso29500_2008_Transitional);
+
+        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithList.SetRestartAtEachSection.docx");
+
+        // Save the document to disk.
+        doc->Save(outputPath, options);
+        // ExEnd:SetRestartAtEachSection
+        std::cout << "Document is saved successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+
+    }
 }
 
 void WorkingWithList()
@@ -108,5 +151,6 @@ void WorkingWithList()
     System::String dataDir = GetDataDir_WorkingWithList();
     RestartListNumber(dataDir);
     SpecifyListLevel(dataDir);
+    SetRestartAtEachSection(dataDir);
     std::cout << "WorkingWithList example finished." << std::endl << std::endl;
 }

@@ -37,6 +37,17 @@ int main()
     WorkingWithTxt();
     WorkingWithRTF();
     Load_Options();
+    PageSplitter();
+    ConvertDocumentToEPUB();
+    ConvertDocumentToHtmlWithRoundtrip();
+    Doc2Pdf();
+    ExportFontsAsBase64();
+    ExportResourcesUsingHtmlSaveOptions();
+    LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
+    SaveDocWithHtmlSaveOptions();
+    SpecifySaveOption();
+    SplitIntoHtmlPages();
+    WorkingWithOoxml();
 
     // =====================================================
     // =====================================================
@@ -62,6 +73,8 @@ int main()
     BaseDocument();
     AppendDocumentManually();
     PrependDocument();
+    ConvertNumPageFields();
+    UpdatePageLayout();
 
     // Find and Replace
     // =====================================================
@@ -71,6 +84,7 @@ int main()
     ReplaceWithEvaluator();
     FindReplaceUsingMetaCharacters();
     ReplaceTextWithField();
+    ReplaceHtmlTextWithMetaCharacters();
 
     // Bookmarks
     // =====================================================
@@ -91,6 +105,7 @@ int main()
     AddComments();
     AnchorComment();
     CommentReply();
+    RemoveRegionText();
 
     // ConvertUtil
     // =====================================================
@@ -139,6 +154,9 @@ int main()
     UpdateContentControls();
     CleansUnusedStylesandLists();
     DocumentPageSetup();
+    WorkingWithSaveOptions();
+    DocumentBuilderInsertHorizontalRule();
+    PageNumbersOfNodes();
 
     // Fields
     // =====================================================
@@ -162,12 +180,13 @@ int main()
     InsertAdvanceFieldWithoutDocumentBuilder();
     InsertASKFieldWithoutDocumentBuilder();
     InsertAuthorField();
-    // TODO (std_string) : investigate why this example doesn't work properly
-    //ChangeFieldUpdateCultureSource();
     GetFieldNames();
     InsertTOAFieldWithoutDocumentBuilder();
     InsertIncludeTextFieldWithoutDocumentBuilder();
     EvaluateIFCondition();
+    FieldUpdateCulture();
+    FormatFieldResult();
+    InsertFieldNone();
 
     // Images
     // =====================================================
@@ -181,6 +200,19 @@ int main()
     // =====================================================
     RangesDeleteText();
     RangesGetText();
+
+    // Charts
+    // =====================================================
+    ChartNumberFormat();
+    CreateChartUsingShape();
+    CreateColumnChart();
+    InsertAreaChart();
+    InsertBubbleChart();
+    InsertScatterChart();
+    WorkWithChartDataLabel();
+    WorkWithSingleChartDataPoint();
+    WorkWithSingleChartSeries();
+    WorkingWithChartAxis();
 
     // Theme
     // =====================================================
@@ -201,6 +233,7 @@ int main()
     ChangeTOCTabStops();
     ExtractContentBasedOnStyles();
     InsertStyleSeparator();
+    CopyStyles();
 
     // Tables
     // =====================================================
@@ -221,6 +254,7 @@ int main()
     RepeatRowsOnSubsequentPages();
     SpecifyHeightAndWidth();
     TablePosition();
+    InsertTableFromHtml();
 
     // Sections
     // =====================================================
@@ -255,6 +289,29 @@ int main()
     NestedMailMergeCustom();
     HandleMailMergeSwitches();
     MailMergeAndConditionalField();
+    MailMergeCleanUp();
+
+    // =====================================================
+    // =====================================================
+    // Rendering and Printing
+    // =====================================================
+    // =====================================================
+    DocumentLayoutHelper();
+    EmbeddedFontsInPDF();
+    EmbeddingWindowsStandardFonts();
+    EnumerateLayoutElements();
+    HyphenateWordsOfLanguages();
+    LoadHyphenationDictionaryForLanguage();
+    ReceiveNotificationsOfFont();
+    RenderShape();
+    SetFontSettings();
+    SetFontsFoldersMultipleFolders();
+    SetFontsFoldersSystemAndCustomFolder();
+    SetHorizontalAndVerticalImageResolution();
+    SetTrueTypeFontsFolder();
+    SpecifyDefaultFontWhenRendering();
+    WorkingWithFontSources();
+    WorkingWithPdfSaveOptions();
 
     std::cout << "=====================================================" << std::endl << "Examples Finished." << std::endl;
 

@@ -6,6 +6,9 @@
 #include <system/shared_ptr.h>
 #include <system/object.h>
 #include <system/object_ext.h>
+#include <Layout/Public/LayoutOptions.h>
+#include <Layout/Public/RevisionOptions.h>
+#include <Layout/Public/ShowInBalloons.h>
 #include <Model/Document/Document.h>
 #include <Model/Revisions/RevisionCollection.h>
 #include <Model/Revisions/RevisionType.h>
@@ -66,6 +69,37 @@ namespace
         }
         // ExEnd:GetRevisionGroups
     }
+
+    void SetShowCommentsInPDF(System::String const &dataDir)
+    {
+        // ExStart:SetShowCommentsinPDF
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Revisions.docx");
+
+        //Do not render the comments in PDF
+        doc->get_LayoutOptions()->set_ShowComments(false);
+        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithRevisions.SetShowCommentsinPDF.pdf");
+        doc->Save(outputPath);
+        // ExEnd:SetShowCommentsinPDF
+        std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
+
+    void SetShowInBalloons(System::String const &dataDir)
+    {
+        // ExStart:SetShowInBalloons
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Revisions.docx");
+
+        // Renders insert and delete revisions inline, format revisions in balloons.
+        doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(Aspose::Words::Layout::ShowInBalloons::Format);
+
+        // Renders insert revisions inline, delete and format revisions in balloons.
+        //doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(Aspose::Words::Layout::ShowInBalloons::FormatAndDelete);
+
+        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithRevisions.SetShowInBalloons.pdf");
+        doc->Save(outputPath);
+        // ExEnd:SetShowInBalloons
+        std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
+
+    }
 }
 
 void WorkingWithRevisions()
@@ -76,5 +110,7 @@ void WorkingWithRevisions()
     AcceptRevisions(dataDir);
     GetRevisionTypes(dataDir);
     GetRevisionGroups(dataDir);
+    SetShowCommentsInPDF(dataDir);
+    SetShowInBalloons(dataDir);
     std::cout << "WorkingWithRevisions example finished." << std::endl << std::endl;
 }

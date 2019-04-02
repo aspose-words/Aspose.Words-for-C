@@ -5,6 +5,8 @@
 #include <system/shared_ptr.h>
 #include <Model/Bookmarks/BookmarkStart.h>
 #include <Model/Bookmarks/BookmarkEnd.h>
+#include <Model/Document/FileFormatInfo.h>
+#include <Model/Document/FileFormatUtil.h>
 #include <Model/Document/LoadOptions.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/DocumentBuilder.h>
@@ -36,6 +38,28 @@ namespace
         std::cout << "Update the fields with the dirty attribute successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
+    void VerifyODTdocument(System::String const &dataDir)
+    {
+        // ExStart:VerifyODTdocument
+        System::SharedPtr<FileFormatInfo> info = FileFormatUtil::DetectFileFormat(dataDir + u"encrypted.odt");
+        std::cout << info->get_IsEncrypted() << std::endl;
+        // ExEnd:VerifyODTdocument
+    }
+
+    void ConvertShapeToOfficeMath(System::String const &dataDir)
+    {
+        // ExStart:ConvertShapeToOfficeMath
+        System::SharedPtr<LoadOptions> lo = System::MakeObject<LoadOptions>();
+        lo->set_ConvertShapeToOfficeMath(true);
+
+        // Specify load option to use previous default behaviour i.e. convert math shapes to office math ojects on loading stage.
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"OfficeMath.docx", lo);
+        System::String outputPath = dataDir + GetOutputFilePath(u"Load_Options.ConvertShapeToOfficeMath.docx");
+        //Save the document into DOCX
+        doc->Save(outputPath, Aspose::Words::SaveFormat::Docx);
+        // ExEnd:ConvertShapeToOfficeMath
+    }
+
     void AnnotationsAtBlockLevel(System::String dataDir)
     {
         // ExStart:AnnotationsAtBlockLevel
@@ -65,8 +89,9 @@ void Load_Options()
     std::cout << "Load_Options example started." << std::endl;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_QuickStart();
-
     LoadOptionsUpdateDirtyFields(dataDir);
+    VerifyODTdocument(dataDir);
+    ConvertShapeToOfficeMath(dataDir);
     AnnotationsAtBlockLevel(dataDir);
     std::cout << "Load_Options example finished." << std::endl << std::endl;
 }

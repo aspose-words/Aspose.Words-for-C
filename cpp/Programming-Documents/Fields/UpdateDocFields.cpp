@@ -18,7 +18,7 @@ void UpdateDocFields()
 
     // This updates all fields in the document.
     doc->UpdateFields();
-    System::String outputPath = dataDir + GetOutputFilePath(u"UpdateDocFields.docx");
+    System::String outputPath = dataDir + GetOutputFilePath(u"UpdateDocFields.pdf");
     doc->Save(outputPath);
     // ExEnd:UpdateDocFields
     std::cout << "Document fields updated successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
