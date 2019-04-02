@@ -67,7 +67,7 @@ namespace
         if (e->get_FieldName() == u"Body")
         {
             mBuilder->MoveToMergeField(e->get_FieldName());
-            mBuilder->Write(System::ObjectExt::Unbox<System::String>(e->get_FieldValue()));
+            mBuilder->InsertHtml(System::ObjectExt::Unbox<System::String>(e->get_FieldValue()));
         }
 
         // Another example, we want the Subject field to come out as text input form field.

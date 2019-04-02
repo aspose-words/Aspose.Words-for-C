@@ -46,7 +46,7 @@ namespace
                 System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(e->get_Document());
                 builder->MoveToMergeField(e->get_DocumentFieldName(), true, false);
                 builder->Write(field->get_TextBefore());
-                builder->Write(System::ObjectExt::ToString(e->get_FieldValue()));
+                builder->InsertHtml(System::ObjectExt::ToString(e->get_FieldValue()));
 
                 e->set_Text(u"");
             }

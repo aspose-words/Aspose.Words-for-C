@@ -70,6 +70,20 @@ namespace
         std::cout << "Combobox form field using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
+    void InsertHtml(System::String const &dataDir)
+    {
+        // ExStart:DocumentBuilderInsertHtml
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+
+        builder->InsertHtml(u"<P align='right'>Paragraph right</P><b>Implicit paragraph left</b><div align='center'>Div center</div><h1 align='left'>Heading 1 left.</h1>");
+        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertElements.InsertHtml.doc");
+        doc->Save(outputPath);
+        // ExEnd:DocumentBuilderInsertHtml
+        std::cout << "HTML using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+
+    }
+
     void InsertHyperlink(System::String const &dataDir)
     {
         // ExStart:DocumentBuilderInsertHyperlink
@@ -182,6 +196,7 @@ void DocumentBuilderInsertElements()
     InsertTextInputFormField(dataDir);
     InsertCheckBoxFormField(dataDir);
     InsertComboBoxFormField(dataDir);
+    InsertHtml(dataDir);
     InsertHyperlink(dataDir);
     InsertTableOfContents(dataDir);
     InsertOleObject(dataDir);

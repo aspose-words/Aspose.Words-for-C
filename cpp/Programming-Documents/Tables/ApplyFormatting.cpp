@@ -19,9 +19,10 @@
 #include <Model/Borders/LineStyle.h>
 #include <Model/Borders/TextureIndex.h>
 #include <Model/Borders/Shading.h>
+#include <Model/Saving/OoxmlSaveOptions.h>
+#include <Model/Saving/OoxmlCompliance.h>
 #include <Model/Text/TextOrientation.h>
 #include <Model/Text/HeightRule.h>
-#include <Model/Saving/DocSaveOptions.h>
 #include <Model/Settings/MsWordVersion.h>
 #include <Model/Settings/CompatibilityOptions.h>
 
@@ -201,20 +202,35 @@ namespace
         // ExEnd:GetDistancebetweenTableSurroundingText
     }
 
-    void SetTableTitleandDescription(System::String const &dataDir)
+    void SetTableTitleAndDescription(System::String const &dataDir)
     {
         // ExStart:SetTableTitleandDescription
         auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
         auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         table->set_Title(u"Test title");
         table->set_Description(u"Test description");
-        auto options = System::MakeObject<DocSaveOptions>();
+        System::SharedPtr<OoxmlSaveOptions> options = System::MakeObject<OoxmlSaveOptions>();
+        options->set_Compliance(Aspose::Words::Saving::OoxmlCompliance::Iso29500_2008_Strict);
         doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2016);
         System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.SetTableTitleandDescription.docx");
         // Save the document to disk.
         doc->Save(outputPath, options);
         // ExEnd:SetTableTitleandDescription
         std::cout << "Table's title and description is set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
+
+    void AllowCellSpacing(System::String const &dataDir)
+    {
+        // ExStart:AllowCellSpacing
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        table->set_AllowCellSpacing(true);
+        table->set_CellSpacing(2);
+        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.AllowCellSpacing.docx");
+        // Save the document to disk.
+        doc->Save(outputPath);
+        // ExEnd:AllowCellSpacing
+        std::cout << "Allow spacing between cells is set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
@@ -232,6 +248,7 @@ void ApplyFormatting()
     SetCellPadding(dataDir);
     //Get DistanceLeft, DistanceRight, DistanceTop, and DistanceBottom properties
     GetDistancebetweenTableSurroundingText(dataDir);
-    SetTableTitleandDescription(dataDir);
+    SetTableTitleAndDescription(dataDir);
+    AllowCellSpacing(dataDir);
     std::cout << "ApplyFormatting example finished." << std::endl << std::endl;
 }

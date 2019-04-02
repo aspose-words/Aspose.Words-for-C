@@ -18,12 +18,16 @@
 #include <Model/Drawing/WrapType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Nodes/NodeType.h>
+#include <Model/Saving/OoxmlSaveOptions.h>
+#include <Model/Saving/OoxmlCompliance.h>
 #include <Model/Settings/CompatibilityOptions.h>
 #include <Model/Settings/MsWordVersion.h>
 #include <Model/Text/Run.h>
+#include <Rendering/ShapeRenderer.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
+using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Settings;
 
 namespace
@@ -44,9 +48,13 @@ namespace
         shape = builder->InsertShape(ShapeType::TextBox, 50, 50);
         shape->set_Rotation(30.0);
 
+        System::SharedPtr<OoxmlSaveOptions> so = System::MakeObject<OoxmlSaveOptions>(Aspose::Words::SaveFormat::Docx);
+        // "Strict" or "Transitional" compliance allows to save shape as DML.
+        so->set_Compliance(Aspose::Words::Saving::OoxmlCompliance::Iso29500_2008_Transitional);
+
         System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithShapes.InsertShapeUsingDocumentBuilder.docx");
         // Save the document to disk.
-        doc->Save(outputPath);
+        doc->Save(outputPath, so);
         // ExEnd:InsertShapeUsingDocumentBuilder
         std::cout << "Insert Shape successfully using DocumentBuilder." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
@@ -107,6 +115,36 @@ namespace
         // ExEnd:SetShapeLayoutInCell
         std::cout << "Shape's IsLayoutInCell property is set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void AddCornersSnipped(System::String const &dataDir)
+    {
+        // ExStart:AddCornersSnipped
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Shape> shape = builder->InsertShape(ShapeType::TopCornersSnipped, 50, 50);
+
+        System::SharedPtr<OoxmlSaveOptions> so = System::MakeObject<OoxmlSaveOptions>(SaveFormat::Docx);
+        so->set_Compliance(Aspose::Words::Saving::OoxmlCompliance::Iso29500_2008_Transitional);
+        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithShapes.AddCornersSnipped.docx");
+
+        //Save the document to disk.
+        doc->Save(outputPath, so);
+        // ExEnd:AddCornersSnipped
+        std::cout << "Corner Snip shape is created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
+
+    void GetActualShapeBoundsPoints(System::String const &dataDir)
+    {
+        // ExStart:GetActualShapeBoundsPoints
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Shape> shape = builder->InsertImage(dataDir + u"Test.png");
+        shape->set_AspectRatioLocked(false);
+
+        std::cout << "Gets the actual bounds of the shape in points.";
+        std::cout << shape->GetShapeRenderer()->get_BoundsInPoints().ToString().ToUtf8String() << std::endl;
+        // ExEnd:GetActualShapeBoundsPoints
+    }
 }
 
 void WorkingWithShapes()
@@ -117,5 +155,7 @@ void WorkingWithShapes()
     SetShapeLayoutInCell(dataDir);
     SetAspectRatioLocked(dataDir);
     InsertShapeUsingDocumentBuilder(dataDir);
+    AddCornersSnipped(dataDir);
+    GetActualShapeBoundsPoints(dataDir);
     std::cout << "WorkingWithShapes example finished." << std::endl << std::endl;
 }
