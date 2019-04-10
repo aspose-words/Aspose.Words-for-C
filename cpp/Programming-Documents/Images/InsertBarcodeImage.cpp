@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <drawing/image.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Nodes/Node.h>

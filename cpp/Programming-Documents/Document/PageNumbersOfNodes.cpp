@@ -31,7 +31,7 @@ void PageNumbersOfNodes()
     {
         std::cout << " --------- " << std::endl;
         std::cout << "NodeType:   " << Node::NodeTypeToString(node->get_NodeType()).ToUtf8String() << std::endl;
-        std::cout << "Text:       \"" << node->ToString(Aspose::Words::SaveFormat::Text).Trim().ToUtf8String() << "\"" << std::endl;
+        std::cout << "Text:       \"" << node->ToString(SaveFormat::Text).Trim().ToUtf8String() << "\"" << std::endl;
         std::cout << "Page Start: " << layoutCollector->GetStartPageIndex(node) << std::endl;
         std::cout << "Page End:   " << layoutCollector->GetEndPageIndex(node) << std::endl;
         std::cout << " --------- " << std::endl << std::endl;

@@ -2,14 +2,8 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/collections/keyvalue_pair.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Document/VariableCollection.h>
 #include <Model/Document/Document.h>
-#include <system/object_ext.h>
 
 using namespace Aspose::Words;
 

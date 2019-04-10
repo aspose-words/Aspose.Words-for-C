@@ -34,25 +34,20 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
-    typedef System::Collections::Generic::Dictionary<System::SharedPtr<Node>, int32_t> TNodePageNumberDict;
-    typedef System::Collections::Generic::IDictionary<System::SharedPtr<Node>, int32_t> TNodePageNumberIDict;
-    typedef System::Collections::Generic::List<System::SharedPtr<Node>> TNodeList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<Node>> TNodeIList;
-    typedef System::Collections::Generic::Dictionary<int32_t, System::SharedPtr<TNodeIList>> TPageNumberNodesDict;
-    typedef System::Collections::Generic::IDictionary<int32_t, System::SharedPtr<TNodeIList>> TPageNumberNodesIDict;
-    typedef System::Collections::Generic::List<System::String> TStringList;
+    typedef System::SharedPtr<Node> TNodePtr;
 
     class DocumentPageSplitter;
     class PageNumberFinder;
     class SectionSplitter;
 
-    bool IsHeaderFooterType(System::SharedPtr<Node> node)
+    bool IsHeaderFooterType(TNodePtr node)
     {
         return node->get_NodeType() == NodeType::HeaderFooter || node->GetAncestor(NodeType::HeaderFooter) != nullptr;
     }
 
     System::SharedPtr<Run> SplitRun(System::SharedPtr<Run> run, int32_t position)
     {
+        // TODO (std_string) : fix using of overloaded members defined in the base classes
         System::SharedPtr<Run> afterRun = System::DynamicCast<Run>(System::StaticCast<Node>(run)->Clone(true));
         afterRun->set_Text(run->get_Text().Substring(position));
         run->set_Text(run->get_Text().Substring(0, position));
@@ -67,28 +62,27 @@ namespace
     {
         typedef PageNumberFinder ThisType;
         typedef System::Object BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
     public:
         System::SharedPtr<Document> GetDocument();
         PageNumberFinder(System::SharedPtr<LayoutCollector> collector);
-        int32_t GetPage(System::SharedPtr<Node> node);
-        int32_t GetPageEnd(System::SharedPtr<Node> node);
-        int32_t PageSpan(System::SharedPtr<Node> node);
-        System::SharedPtr<TNodeIList> RetrieveAllNodesOnPages(int32_t startPage, int32_t endPage, NodeType nodeType);
+        int32_t GetPage(TNodePtr node);
+        int32_t GetPageEnd(TNodePtr node);
+        int32_t PageSpan(TNodePtr node);
+        std::vector<TNodePtr> RetrieveAllNodesOnPages(int32_t startPage, int32_t endPage, NodeType nodeType);
         void SplitNodesAcrossPages();
-        void AddPageNumbersForNode(System::SharedPtr<Node> node, int32_t startPage, int32_t endPage);
+        void AddPageNumbersForNode(TNodePtr node, int32_t startPage, int32_t endPage);
 
     protected:
         System::Object::shared_members_type GetSharedMembers() override;
 
     private:
-        System::SharedPtr<TNodePageNumberIDict> nodeStartPageLookup;
-        System::SharedPtr<TNodePageNumberIDict> nodeEndPageLookup;
+        std::unordered_map<TNodePtr, int32_t> nodeStartPageLookup;
+        std::unordered_map<TNodePtr, int32_t> nodeEndPageLookup;
         System::SharedPtr<LayoutCollector> collector;
-        System::SharedPtr<TPageNumberNodesIDict> reversePageLookup;
+        std::unordered_multimap<int32_t, TNodePtr> reversePageLookup;
 
         void CheckPageListsPopulated();
         void SplitRunsByWords(System::SharedPtr<Paragraph> paragraph);
@@ -104,28 +98,28 @@ namespace
     }
 
     PageNumberFinder::PageNumberFinder(System::SharedPtr<LayoutCollector> collector)
-        : nodeStartPageLookup(System::MakeObject<TNodePageNumberDict>())
-        , nodeEndPageLookup(System::MakeObject<TNodePageNumberDict>())
     {
         this->collector = collector;
     }
 
-    int32_t PageNumberFinder::GetPage(System::SharedPtr<Node> node)
+    int32_t PageNumberFinder::GetPage(TNodePtr node)
     {
-        return this->nodeStartPageLookup->ContainsKey(node) ? this->nodeStartPageLookup->idx_get(node) : this->collector->GetStartPageIndex(node);
+        std::unordered_map<TNodePtr, int32_t>::const_iterator iterator = nodeStartPageLookup.find(node);
+        return iterator == nodeStartPageLookup.cend() ? this->collector->GetStartPageIndex(node) : iterator->second;
     }
 
-    int32_t PageNumberFinder::GetPageEnd(System::SharedPtr<Node> node)
+    int32_t PageNumberFinder::GetPageEnd(TNodePtr node)
     {
-        return this->nodeEndPageLookup->ContainsKey(node) ? this->nodeEndPageLookup->idx_get(node) : this->collector->GetEndPageIndex(node);
+        std::unordered_map<TNodePtr, int32_t>::const_iterator iterator = nodeEndPageLookup.find(node);
+        return iterator == nodeEndPageLookup.cend() ? this->collector->GetEndPageIndex(node) : iterator->second;
     }
 
-    int32_t PageNumberFinder::PageSpan(System::SharedPtr<Node> node)
+    int32_t PageNumberFinder::PageSpan(TNodePtr node)
     {
         return this->GetPageEnd(node) - this->GetPage(node) + 1;
     }
 
-    System::SharedPtr<TNodeIList> PageNumberFinder::RetrieveAllNodesOnPages(int32_t startPage, int32_t endPage, NodeType nodeType)
+    std::vector<TNodePtr> PageNumberFinder::RetrieveAllNodesOnPages(int32_t startPage, int32_t endPage, NodeType nodeType)
     {
         if (startPage < 1 || startPage > this->GetDocument()->get_PageCount())
         {
@@ -138,20 +132,24 @@ namespace
         }
 
         this->CheckPageListsPopulated();
-        System::SharedPtr<TNodeIList> pageNodes = System::MakeObject<TNodeList>();
+        std::vector<TNodePtr> pageNodes;
         for (int32_t page = startPage; page <= endPage; page++)
         {
+            auto iterators = reversePageLookup.equal_range(page);
             // Some pages can be empty.
-            if (!this->reversePageLookup->ContainsKey(page))
+            if (iterators.first == reversePageLookup.end() && iterators.second == reversePageLookup.end())
             {
                 continue;
             }
 
-            for (System::SharedPtr<Node> node : System::IterateOver(this->reversePageLookup->idx_get(page)))
+            for (auto iterator = iterators.first; iterator != iterators.second; ++ iterator)
             {
-                if (node->get_ParentNode() != nullptr && (nodeType == NodeType::Any || node->get_NodeType() == nodeType) && !pageNodes->Contains(node))
+                TNodePtr node = iterator->second;
+                if (node->get_ParentNode() != nullptr &&
+                    (nodeType == NodeType::Any || node->get_NodeType() == nodeType) &&
+                    std::find(pageNodes.cbegin(), pageNodes.cend(), node) == pageNodes.cend())
                 {
-                    pageNodes->Add(node);
+                    pageNodes.push_back(node);
                 }
             }
         }
@@ -175,30 +173,28 @@ namespace
         this->GetDocument()->Accept(System::DynamicCast<DocumentVisitor>(System::MakeObject<SectionSplitter>(System::MakeSharedPtr(this))));
     }
 
-    void PageNumberFinder::AddPageNumbersForNode(System::SharedPtr<Node> node, int32_t startPage, int32_t endPage)
+    void PageNumberFinder::AddPageNumbersForNode(TNodePtr node, int32_t startPage, int32_t endPage)
     {
         if (startPage > 0)
         {
-            this->nodeStartPageLookup->idx_set(node, startPage);
+            nodeStartPageLookup.insert({node, startPage});
         }
 
         if (endPage > 0)
         {
-            this->nodeEndPageLookup->idx_set(node, endPage);
+            nodeEndPageLookup.insert({node, endPage});
         }
     }
 
     void PageNumberFinder::CheckPageListsPopulated()
     {
-        if (this->reversePageLookup != nullptr)
+        if (!reversePageLookup.empty())
         {
             return;
         }
 
-        this->reversePageLookup = System::MakeObject<TPageNumberNodesDict>();
-
         // Add each node to a list which represent the nodes found on each page.
-        for (System::SharedPtr<Node> node : System::IterateOver(this->GetDocument()->GetChildNodes(NodeType::Any, true)))
+        for (TNodePtr node : System::IterateOver(this->GetDocument()->GetChildNodes(NodeType::Any, true)))
         {
             // Headers/Footers follow sections. They are not split by themselves.
             if (IsHeaderFooterType(node))
@@ -210,11 +206,7 @@ namespace
             int32_t endPage = this->GetPageEnd(node);
             for (int32_t page = startPage; page <= endPage; page++)
             {
-                if (!this->reversePageLookup->ContainsKey(page))
-                {
-                    this->reversePageLookup->Add(page, System::MakeObject<TNodeList>());
-                }
-                this->reversePageLookup->idx_get(page)->Add(node);
+                reversePageLookup.insert({page, node});
             }
         }
     }
@@ -233,10 +225,11 @@ namespace
 
     void PageNumberFinder::SplitRunByWords(System::SharedPtr<Run> run)
     {
-        System::SharedPtr<TStringList> words = System::MakeObject<TStringList>(run->get_Text().Split(u' '));
-        words->Reverse();
+        System::ArrayPtr<System::String> splitResult = run->get_Text().Split(u' ');
+        std::vector<System::String> words(splitResult.begin(), splitResult.end());
+        std::reverse(std::begin(words), std::end(words));
 
-        for (System::String const &word : System::IterateOver(words))
+        for (System::String const &word : words)
         {
             int32_t pos = run->get_Text().get_Length() - word.get_Length() - 1;
             if (pos > 1)
@@ -251,17 +244,14 @@ namespace
         this->collector->Clear();
         this->GetDocument()->UpdatePageLayout();
 
-        this->nodeStartPageLookup->Clear();
-        this->nodeEndPageLookup->Clear();
+        nodeStartPageLookup.clear();
+        nodeEndPageLookup.clear();
     }
 
     System::Object::shared_members_type PageNumberFinder::GetSharedMembers()
     {
         auto result = System::Object::GetSharedMembers();
-        result.Add("PageNumberFinder::nodeStartPageLookup", this->nodeStartPageLookup);
-        result.Add("PageNumberFinder::nodeEndPageLookup", this->nodeEndPageLookup);
         result.Add("PageNumberFinder::collector", this->collector);
-        result.Add("PageNumberFinder::reversePageLookup", this->reversePageLookup);
         return result;
     }
 
@@ -333,7 +323,6 @@ namespace
     {
         typedef SectionSplitter ThisType;
         typedef DocumentVisitor BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
@@ -360,9 +349,9 @@ namespace
     private:
         System::SharedPtr<PageNumberFinder> pageNumberFinder;
         VisitorAction ContinueIfCompositeAcrossPageElseSkip(System::SharedPtr<CompositeNode> composite);
-        System::SharedPtr<TNodeIList> SplitComposite(System::SharedPtr<CompositeNode> composite);
-        System::SharedPtr<TNodeIList> FindChildSplitPositions(System::SharedPtr<CompositeNode> node);
-        System::SharedPtr<CompositeNode> SplitCompositeAtNode(System::SharedPtr<CompositeNode> baseNode, System::SharedPtr<Node> targetNode);
+        std::vector<TNodePtr> SplitComposite(System::SharedPtr<CompositeNode> composite);
+        std::vector<TNodePtr> FindChildSplitPositions(System::SharedPtr<CompositeNode> node);
+        System::SharedPtr<CompositeNode> SplitCompositeAtNode(System::SharedPtr<CompositeNode> baseNode, TNodePtr targetNode);
     };
 
     RTTI_INFO_IMPL_HASH(728794745u, SectionSplitter, ThisTypeBaseTypesInfo);
@@ -421,7 +410,8 @@ namespace
             {
                 if (section->get_HeadersFooters()->idx_get(previousHeaderFooter->get_HeaderFooterType()) == nullptr)
                 {
-                    System::SharedPtr<HeaderFooter> newHeaderFooter = System::DynamicCast<HeaderFooter>((System::StaticCast<Node>(previousHeaderFooters->idx_get(previousHeaderFooter->get_HeaderFooterType())))->Clone(true));
+                    // TODO (std_string) : fix using of overloaded members defined in the base classes
+                    System::SharedPtr<HeaderFooter> newHeaderFooter = System::DynamicCast<HeaderFooter>(System::StaticCast<Node>(previousHeaderFooters->idx_get(previousHeaderFooter->get_HeaderFooterType()))->Clone(true));
                     section->get_HeadersFooters()->Add(newHeaderFooter);
                 }
             }
@@ -471,8 +461,10 @@ namespace
             this->pageNumberFinder->AddPageNumbersForNode(run, currentEndPageNum, currentEndPageNum);
         }
 
-        for (System::SharedPtr<Paragraph> clonePara : System::IterateOver<Paragraph>(SplitComposite(paragraph)))
+        //for (System::SharedPtr<Paragraph> clonePara : System::IterateOver<Paragraph>(SplitComposite(paragraph)))
+        for (TNodePtr cloneParaNode : SplitComposite(paragraph))
         {
+            System::SharedPtr<Paragraph> clonePara = System::DynamicCast<Paragraph>(cloneParaNode);
             // Remove list numbering from the cloned paragraph but leave the indent the same 
             // as the paragraph is supposed to be part of the item before.
             if (paragraph->get_IsListItem())
@@ -494,8 +486,9 @@ namespace
 
     VisitorAction SectionSplitter::VisitSectionEnd(System::SharedPtr<Section> section)
     {
-        for (System::SharedPtr<Section> cloneSection : System::IterateOver<Section>(this->SplitComposite(section)))
+        for (TNodePtr cloneSectionNode : SplitComposite(section))
         {
+            System::SharedPtr<Section> cloneSection = System::DynamicCast<Section>(cloneSectionNode);
             cloneSection->get_PageSetup()->set_SectionStart(SectionStart::NewPage);
             cloneSection->get_PageSetup()->set_RestartPageNumbering(true);
             cloneSection->get_PageSetup()->set_PageStartingNumber(section->get_PageSetup()->get_PageStartingNumber() + (section->get_Document()->IndexOf(cloneSection) - section->get_Document()->IndexOf(section)));
@@ -514,30 +507,30 @@ namespace
 
     VisitorAction SectionSplitter::ContinueIfCompositeAcrossPageElseSkip(System::SharedPtr<CompositeNode> composite)
     {
-        return (this->pageNumberFinder->PageSpan(composite) > 1) ? Aspose::Words::VisitorAction::Continue : Aspose::Words::VisitorAction::SkipThisNode;
+        return (this->pageNumberFinder->PageSpan(composite) > 1) ? VisitorAction::Continue : VisitorAction::SkipThisNode;
     }
 
-    System::SharedPtr<TNodeIList> SectionSplitter::SplitComposite(System::SharedPtr<CompositeNode> composite)
+    std::vector<TNodePtr> SectionSplitter::SplitComposite(System::SharedPtr<CompositeNode> composite)
     {
-        System::SharedPtr<TNodeIList> splitNodes = System::MakeObject<TNodeList>();
-        for (System::SharedPtr<Node> splitNode : System::IterateOver(this->FindChildSplitPositions(composite)))
+        std::vector<TNodePtr> splitNodes;
+        for (TNodePtr splitNode : FindChildSplitPositions(composite))
         {
-            splitNodes->Add(this->SplitCompositeAtNode(composite, splitNode));
+            splitNodes.push_back(SplitCompositeAtNode(composite, splitNode));
         }
 
         return splitNodes;
     }
 
-    System::SharedPtr<TNodeIList> SectionSplitter::FindChildSplitPositions(System::SharedPtr<CompositeNode> node)
+    std::vector<TNodePtr> SectionSplitter::FindChildSplitPositions(System::SharedPtr<CompositeNode> node)
     {
         // A node may span across multiple pages so a list of split positions is returned.
         // The split node is the first node on the next page.
-        System::SharedPtr<TNodeList> splitList = System::MakeObject<TNodeList>();
+        std::vector<TNodePtr> splitList;
         int32_t startingPage = this->pageNumberFinder->GetPage(node);
-        System::ArrayPtr<System::SharedPtr<Node>> childNodes = node->get_NodeType() == NodeType::Section ?
-                                                               (System::DynamicCast<Section>(node))->get_Body()->get_ChildNodes()->ToArray() :
-                                                               node->get_ChildNodes()->ToArray();
-        for (System::SharedPtr<Node> childNode : childNodes)
+        System::ArrayPtr<TNodePtr> childNodes = node->get_NodeType() == NodeType::Section ?
+                                                (System::DynamicCast<Section>(node))->get_Body()->get_ChildNodes()->ToArray() :
+                                                node->get_ChildNodes()->ToArray();
+        for (TNodePtr childNode : childNodes)
         {
             int32_t pageNum = this->pageNumberFinder->GetPage(childNode);
 
@@ -550,7 +543,7 @@ namespace
             // this to the list.
             if (pageNum > startingPage)
             {
-                splitList->Add(childNode);
+                splitList.push_back(childNode);
                 startingPage = pageNum;
             }
 
@@ -561,14 +554,16 @@ namespace
         }
 
         // Split composites backward so the cloned nodes are inserted in the right order.
-        splitList->Reverse();
+        //splitList->Reverse();
+        std::reverse(std::begin(splitList), std::end(splitList));
         return splitList;
     }
 
-    System::SharedPtr<CompositeNode> SectionSplitter::SplitCompositeAtNode(System::SharedPtr<CompositeNode> baseNode, System::SharedPtr<Node> targetNode)
+    System::SharedPtr<CompositeNode> SectionSplitter::SplitCompositeAtNode(System::SharedPtr<CompositeNode> baseNode, TNodePtr targetNode)
     {
-        System::SharedPtr<CompositeNode> cloneNode = System::DynamicCast<CompositeNode>((System::StaticCast<Node>(baseNode))->Clone(false));
-        System::SharedPtr<Node> node = targetNode;
+        // TODO (std_string) : fix using of overloaded members defined in the base classes
+        System::SharedPtr<CompositeNode> cloneNode = System::DynamicCast<CompositeNode>(System::StaticCast<Node>(baseNode)->Clone(false));
+        TNodePtr node = targetNode;
         int32_t currentPageNum = this->pageNumberFinder->GetPage(baseNode);
 
         // Move all nodes found on the next page into the copied node. Handle row nodes separately.
@@ -577,6 +572,7 @@ namespace
             System::SharedPtr<CompositeNode> composite = cloneNode;
             if (baseNode->get_NodeType() == NodeType::Section)
             {
+                // TODO (std_string) : fix using of overloaded members defined in the base classes
                 cloneNode = System::DynamicCast<CompositeNode>((System::StaticCast<Node>(baseNode))->Clone(true));
                 System::SharedPtr<Section> section = System::DynamicCast<Section>(cloneNode);
                 section->get_Body()->RemoveAllChildren();
@@ -585,7 +581,7 @@ namespace
 
             while (node != nullptr)
             {
-                System::SharedPtr<Node> nextNode = node->get_NextSibling();
+                TNodePtr nextNode = node->get_NextSibling();
                 composite->AppendChild(node);
                 node = nextNode;
             }
@@ -594,8 +590,7 @@ namespace
         {
             // If we are dealing with a row then we need to add in dummy cells for the cloned row.
             int32_t targetPageNum = this->pageNumberFinder->GetPage(targetNode);
-            System::ArrayPtr<System::SharedPtr<Node>> childNodes = baseNode->get_ChildNodes()->ToArray();
-            for (System::SharedPtr<Node> childNode : childNodes)
+            for (TNodePtr childNode : baseNode->get_ChildNodes()->ToArray())
             {
                 int32_t pageNum = this->pageNumberFinder->GetPage(childNode);
                 if (pageNum == targetPageNum)
@@ -622,7 +617,7 @@ namespace
         int32_t currentEndPageNum = this->pageNumberFinder->GetPageEnd(baseNode);
         this->pageNumberFinder->AddPageNumbersForNode(baseNode, currentPageNum, currentEndPageNum - 1);
         this->pageNumberFinder->AddPageNumbersForNode(cloneNode, currentEndPageNum, currentEndPageNum);
-        for (System::SharedPtr<Node> childNode : System::IterateOver(cloneNode->GetChildNodes(NodeType::Any, true)))
+        for (TNodePtr childNode : System::IterateOver(cloneNode->GetChildNodes(NodeType::Any, true)))
         {
             this->pageNumberFinder->AddPageNumbersForNode(childNode, currentEndPageNum, currentEndPageNum);
         }
@@ -644,12 +639,11 @@ namespace
     {
         typedef DocumentPageSplitter ThisType;
         typedef System::Object BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
     public:
-        DocumentPageSplitter(System::SharedPtr<Aspose::Words::Document> source);
+        DocumentPageSplitter(System::SharedPtr<Document> source);
         System::SharedPtr<Document> GetDocumentOfPage(int32_t pageIndex);
         System::SharedPtr<Document> GetDocumentOfPageRange(int32_t startIndex, int32_t endIndex);
 
@@ -662,7 +656,7 @@ namespace
 
     RTTI_INFO_IMPL_HASH(2297209060u, DocumentPageSplitter, ThisTypeBaseTypesInfo);
 
-    DocumentPageSplitter::DocumentPageSplitter(System::SharedPtr<Aspose::Words::Document> source)
+    DocumentPageSplitter::DocumentPageSplitter(System::SharedPtr<Document> source)
     {
         //Self Reference protector
         System::Details::ThisProtector selfRefProtector(this);
@@ -677,7 +671,7 @@ namespace
     System::SharedPtr<Document> DocumentPageSplitter::GetDocumentOfPageRange(int32_t startIndex, int32_t endIndex)
     {
         System::SharedPtr<Document> result = System::DynamicCast<Document>(System::StaticCast<Node>(this->pageNumberFinder->GetDocument())->Clone(false));
-        for (System::SharedPtr<Node> section : System::IterateOver(this->pageNumberFinder->RetrieveAllNodesOnPages(startIndex, endIndex, NodeType::Section)))
+        for (TNodePtr section : pageNumberFinder->RetrieveAllNodesOnPages(startIndex, endIndex, NodeType::Section))
         {
             result->AppendChild(result->ImportNode(section, true));
         }

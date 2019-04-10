@@ -1,15 +1,12 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Text/Font.h>
 #include <Model/Styles/StyleCollection.h>
 #include <Model/Document/LoadOptions.h>
 #include <Model/Document/LanguagePreferences.h>
 #include <Model/Document/EditingLanguage.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 

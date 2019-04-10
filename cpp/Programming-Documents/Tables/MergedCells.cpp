@@ -2,14 +2,7 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/shared_ptr.h>
-#include <system/special_casts.h>
-#include <system/collections/list.h>
-#include <system/object.h>
 #include <xml/xml_document.h>
-#include <drawing/point.h>
-#include <drawing/rectangle.h>
-
 #include "Model/Document/Document.h"
 #include "Model/Document/DocumentBuilder.h"
 #include <Model/Document/DocumentVisitor.h>
@@ -37,7 +30,6 @@ namespace
     {
         typedef CellInfo ThisType;
         typedef System::Object BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
@@ -53,103 +45,80 @@ namespace
 
     RTTI_INFO_IMPL_HASH(1673797985u, CellInfo, ThisTypeBaseTypesInfo);
 
-    typedef System::Collections::Generic::List<System::SharedPtr<CellInfo>> TCellsInfo;
-    typedef System::SharedPtr<TCellsInfo> TCellsInfoPtr;
+    typedef System::SharedPtr<CellInfo> TCellInfoPtr;
 
     class RowInfo : public System::Object
     {
         typedef RowInfo ThisType;
         typedef System::Object BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
     public:
-        RowInfo() : mCells(System::MakeObject<TCellsInfo>()) {}
-        TCellsInfoPtr GetCells() { return mCells; }
+        RowInfo()
+        {
+        }
 
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
+        std::vector<TCellInfoPtr>& GetCells() { return mCells; }
 
     private:
-        TCellsInfoPtr mCells;
+        std::vector<TCellInfoPtr> mCells;
     };
 
     RTTI_INFO_IMPL_HASH(2224295735u, RowInfo, ThisTypeBaseTypesInfo);
-    
-    System::Object::shared_members_type RowInfo::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("RowInfo::mCells", this->mCells);
-        return std::move(result);
-    }
 
-    typedef System::Collections::Generic::List<System::SharedPtr<RowInfo>> TRowsInfo;
-    typedef System::SharedPtr<TRowsInfo> TRowsInfoPtr;
+    typedef System::SharedPtr<RowInfo> TRowInfoPtr;
 
     class TableInfo : public System::Object
     {
         typedef TableInfo ThisType;
         typedef System::Object BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
     public:
-        TableInfo() : mRows(System::MakeObject<TRowsInfo>()) {}
-        TRowsInfoPtr GetRows() { return mRows; }
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
+        TableInfo()
+        {
+        }
+        std::vector<TRowInfoPtr>& GetRows() { return mRows; }
 
     private:
-        TRowsInfoPtr mRows;
+        std::vector<TRowInfoPtr> mRows;
     };
 
     RTTI_INFO_IMPL_HASH(2175561643u, TableInfo, ThisTypeBaseTypesInfo);
 
-    System::Object::shared_members_type TableInfo::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("TableInfo::mRows", this->mRows);
-        return std::move(result);
-    }
+    typedef System::SharedPtr<TableInfo> TTableInfoPtr;
+
     // ExEnd:HorizontalAndVerticalMergeHelperClasses
 
     class SpanVisitor : public DocumentVisitor
     {
         typedef SpanVisitor ThisType;
         typedef DocumentVisitor BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
     public:
-
         SpanVisitor(System::SharedPtr<Document> doc);
-
-        virtual VisitorAction VisitCellStart(System::SharedPtr<Aspose::Words::Tables::Cell> cell);
+        virtual VisitorAction VisitCellStart(System::SharedPtr<Cell> cell);
 
     protected:
-
         System::Object::shared_members_type GetSharedMembers() override;
 
     private:
-
-        System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<TableInfo>>> mTables;
+        std::vector<TTableInfoPtr> mTables;
         System::SharedPtr<NodeCollection> mWordTables;
     };
 
     RTTI_INFO_IMPL_HASH(4097796275u, SpanVisitor, ThisTypeBaseTypesInfo);
 
-    SpanVisitor::SpanVisitor(System::SharedPtr<Document> doc)
-        : mTables(System::MakeObject<System::Collections::Generic::List<System::SharedPtr<TableInfo>>>())
-        , mWordTables(nullptr)
+    SpanVisitor::SpanVisitor(System::SharedPtr<Document> doc) : mWordTables(nullptr)
     {
         // Self reference protector
         System::Details::ThisProtector __local_self_ref(this);
 
-        mWordTables = doc->GetChildNodes(Aspose::Words::NodeType::Table, true);
+        mWordTables = doc->GetChildNodes(NodeType::Table, true);
         System::SharedPtr<System::IO::MemoryStream> htmlStream = System::MakeObject<System::IO::MemoryStream>();
         System::SharedPtr<HtmlSaveOptions> options = System::MakeObject<HtmlSaveOptions>();
         options->set_ImagesFolder(System::IO::Path::GetTempPath());
@@ -160,13 +129,13 @@ namespace
         System::SharedPtr<System::Xml::XmlNodeList> tables = xmlDoc->get_DocumentElement()->SelectNodes(u"// Table");
         for (System::SharedPtr<System::Xml::XmlNode> table : System::IterateOver(tables))
         {
-            System::SharedPtr<TableInfo> tableInf = System::MakeObject<TableInfo>();
+            TTableInfoPtr tableInf = System::MakeObject<TableInfo>();
             // Get collection of rows in the table
             System::SharedPtr<System::Xml::XmlNodeList> rows = table->SelectNodes(u"tr");
 
             for (System::SharedPtr<System::Xml::XmlNode> row : System::IterateOver(rows))
             {
-                System::SharedPtr<RowInfo> rowInf = System::MakeObject<RowInfo>();
+                TRowInfoPtr rowInf = System::MakeObject<RowInfo>();
 
                 // Get collection of cells
                 System::SharedPtr<System::Xml::XmlNodeList> cells = row->SelectNodes(u"td");
@@ -180,12 +149,12 @@ namespace
                     int32_t colSpan = colSpanAttr == nullptr ? 0 : System::Convert::ToInt32(colSpanAttr->get_Value());
                     int32_t rowSpan = rowSpanAttr == nullptr ? 0 : System::Convert::ToInt32(rowSpanAttr->get_Value());
 
-                    System::SharedPtr<CellInfo> cellInf = System::MakeObject<CellInfo>(colSpan, rowSpan);
-                    rowInf->GetCells()->Add(cellInf);
+                    TCellInfoPtr cellInf = System::MakeObject<CellInfo>(colSpan, rowSpan);
+                    rowInf->GetCells().push_back(cellInf);
                 }
-                tableInf->GetRows()->Add(rowInf);
+                tableInf->GetRows().push_back(rowInf);
             }
-            mTables->Add(tableInf);
+            mTables.push_back(tableInf);
         }
     }
 
@@ -203,11 +172,11 @@ namespace
         // Determine colspan and rowspan of current cell
         int32_t colSpan = 0;
         int32_t rowSpan = 0;
-        if (tabIdx < mTables->get_Count() && rowIdx < mTables->idx_get(tabIdx)->GetRows()->get_Count() &&
-            cellIdx < mTables->idx_get(tabIdx)->GetRows()->idx_get(rowIdx)->GetCells()->get_Count())
+        if (tabIdx < mTables.size() && rowIdx < mTables[tabIdx]->GetRows().size() &&
+            cellIdx < mTables[tabIdx]->GetRows()[rowIdx]->GetCells().size())
         {
-            colSpan = mTables->idx_get(tabIdx)->GetRows()->idx_get(rowIdx)->GetCells()->idx_get(cellIdx)->GetColSpan();
-            rowSpan = mTables->idx_get(tabIdx)->GetRows()->idx_get(rowIdx)->GetCells()->idx_get(cellIdx)->GetRowSpan();
+            colSpan = mTables[tabIdx]->GetRows()[rowIdx]->GetCells()[cellIdx]->GetColSpan();
+            rowSpan = mTables[tabIdx]->GetRows()[rowIdx]->GetCells()[cellIdx]->GetRowSpan();
         }
 
         std::cout << tabIdx << "." << rowIdx << "." << cellIdx << "colspan=" << colSpan << "\t rowspan=" << rowSpan << std::endl;
@@ -217,10 +186,7 @@ namespace
     System::Object::shared_members_type SpanVisitor::GetSharedMembers()
     {
         auto result = DocumentVisitor::GetSharedMembers();
-
-        result.Add("SpanVisitor::mTables", this->mTables);
         result.Add("SpanVisitor::mWordTables", this->mWordTables);
-
         return result;
     }
 
@@ -389,7 +355,6 @@ namespace
         doc->Accept(visitor);
         // ExEnd:PrintHorizontalAndVerticalMerged
         std::cout << "Horizontal and vertical merged of a cell prints successfully." << std::endl;
-
     }
 }
 

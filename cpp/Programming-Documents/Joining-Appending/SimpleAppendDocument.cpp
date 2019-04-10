@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
 

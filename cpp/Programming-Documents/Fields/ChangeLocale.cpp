@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/globalization/culture_info.h>
-#include <system/threading/thread.h>
-#include <system/date_time.h>
-#include <system/object.h>
-#include <system/object_ext.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/MailMerge/MailMerge.h>

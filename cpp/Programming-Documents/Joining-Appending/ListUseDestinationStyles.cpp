@@ -2,15 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/console.h>
-#include <system/collections/ienumerator.h>
-#include <system/collections/idictionary.h>
-#include <system/collections/dictionary.h>
 #include <Model/Text/Paragraph.h>
 #include <Model/Text/ListFormat.h>
 #include <Model/Sections/SectionStart.h>
@@ -22,7 +13,6 @@
 #include <Model/Lists/List.h>
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Lists;
@@ -31,8 +21,6 @@ void ListUseDestinationStyles()
 {
     std::cout << "ListUseDestinationStyles example started." << std::endl;
     // ExStart:ListUseDestinationStyles
-    typedef System::Collections::Generic::Dictionary<int32_t, System::SharedPtr<List>> TListDictionary;
-    typedef System::Collections::Generic::IDictionary<int32_t, System::SharedPtr<List>> TListIDictionary;
     // The path to the documents directory.
     System::String dataDir = GetDataDir_JoiningAndAppending();
 
@@ -43,7 +31,8 @@ void ListUseDestinationStyles()
     srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::Continuous);
 
     // Keep track of the lists that are created.
-    System::SharedPtr<TListIDictionary> newLists = System::MakeObject<TListDictionary>();
+    //System::SharedPtr<TListIDictionary> newLists = System::MakeObject<TListDictionary>();
+    std::unordered_map< int32_t, System::SharedPtr<List>> newLists;
 
     // Iterate through all paragraphs in the document.
     for (System::SharedPtr<Paragraph> para : System::IterateOver<System::SharedPtr<Paragraph>>(srcDoc->GetChildNodes(NodeType::Paragraph, true)))
@@ -59,15 +48,15 @@ void ListUseDestinationStyles()
                 System::SharedPtr<List> currentList;
                 // A newly copied list already exists for this ID, retrieve the stored list and use it on 
                 // The current paragraph.
-                if (newLists->ContainsKey(listId))
+                if (newLists.find(listId) != newLists.end())
                 {
-                    currentList = newLists->idx_get(listId);
+                    currentList = currentList = newLists.find(listId)->second;
                 }
                 else
                 {
                     // Add a copy of this list to the document and store it for later reference.
                     currentList = srcDoc->get_Lists()->AddCopy(para->get_ListFormat()->get_List());
-                    newLists->Add(listId, currentList);
+                    newLists.insert({listId, currentList});
                 }
 
                 // Set the list of this paragraph  to the copied list.

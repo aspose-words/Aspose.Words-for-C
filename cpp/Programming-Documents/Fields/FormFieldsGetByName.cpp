@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
 #include <Model/Text/Range.h>
 #include <Model/Fields/FormFields/FormFieldCollection.h>
 #include <Model/Fields/FormFields/FormField.h>

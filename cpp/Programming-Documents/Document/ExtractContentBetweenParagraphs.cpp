@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/exceptions.h>
-#include <system/collections/list.h>
-#include <system/collections/ilist.h>
 #include <Model/Text/Paragraph.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/Body.h>

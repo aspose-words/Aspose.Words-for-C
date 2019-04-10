@@ -2,15 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/exceptions.h>
-#include <system/collections/list.h>
-#include <system/collections/ilist.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Nodes/Node.h>
@@ -18,7 +9,6 @@
 #include <Model/Fields/Nodes/FieldEnd.h>
 #include <Model/Fields/FieldType.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

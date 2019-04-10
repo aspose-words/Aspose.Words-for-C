@@ -1,15 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/array.h>
 #include <system/enumerator_adapter.h>
-#include <system/shared_ptr.h>
-#include <system/special_casts.h>
-#include <system/collections/list.h>
-#include <system/exceptions.h>
-#include <system/object.h>
-#include <system/string.h>
-#include <system/text/string_builder.h>
 #include "Model/Document/Document.h"
 #include <Model/Document/SaveFormat.h>
 #include <Model/Text/Run.h>
@@ -25,8 +17,7 @@
 using namespace Aspose::Words;
 using namespace Aspose::Words::Tables;
 
-typedef System::Collections::Generic::List<System::SharedPtr<Cell>> TCellList;
-typedef System::ArrayPtr<System::SharedPtr<Cell>> TCellArrayPtr;
+typedef System::SharedPtr<Cell> TCellPtr;
 
 namespace
 {
@@ -39,7 +30,7 @@ namespace
 
     public:
         Column(System::SharedPtr<Table> table, int32_t columnIndex);
-        TCellArrayPtr GetColumnCells();
+        std::vector<TCellPtr> GetColumnCells();
         int32_t IndexOf(System::SharedPtr<Cell> cell);
         System::SharedPtr<Column> InsertColumnBefore();
         void Remove();
@@ -61,29 +52,31 @@ namespace
         mColumnIndex = columnIndex;
     }
 
-    TCellArrayPtr Column::GetColumnCells()
+    std::vector<TCellPtr> Column::GetColumnCells()
     {
-        auto columnCells = System::MakeObject<TCellList>();
+        std::vector<TCellPtr> columnCells;
         for (System::SharedPtr<Row> row : System::IterateOver<System::SharedPtr<Row>>(mTable->get_Rows()))
         {
             auto cell = row->get_Cells()->idx_get(mColumnIndex);
             if (cell != nullptr)
             {
-                columnCells->Add(cell);
+                columnCells.push_back(cell);
             }
         }
-        return columnCells->ToArray();
+        return columnCells;
     }
 
     int32_t Column::IndexOf(System::SharedPtr<Cell> cell)
     {
-        return GetColumnCells()->IndexOf(cell);
+        std::vector<TCellPtr> columnCells(GetColumnCells());
+        std::vector<TCellPtr>::iterator iterator = std::find(columnCells.begin(), columnCells.end(), cell);
+        return iterator == columnCells.end() ? -1 : std::distance(columnCells.begin(), iterator);
     }
 
     System::SharedPtr<Column> Column::InsertColumnBefore()
     {
-        auto columnCells = GetColumnCells();
-        if (columnCells->get_Length() == 0)
+        std::vector<TCellPtr> columnCells(GetColumnCells());
+        if (columnCells.empty())
         {
             throw System::ArgumentException(u"Column must not be empty");
         }

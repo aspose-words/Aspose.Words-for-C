@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
 #include <Model/Settings/MsWordVersion.h>
 #include <Model/Settings/CompatibilityOptions.h>
 #include <Model/Document/Document.h>

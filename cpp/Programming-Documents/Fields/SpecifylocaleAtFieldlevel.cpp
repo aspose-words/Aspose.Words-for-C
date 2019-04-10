@@ -1,13 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/shared_ptr.h>
-#include <system/object.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
 #include <Model/Fields/Field.h>
 #include <Model/Fields/FieldType.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

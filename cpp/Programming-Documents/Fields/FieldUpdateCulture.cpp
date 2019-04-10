@@ -17,8 +17,7 @@ namespace
     class FieldUpdateCultureProvider : public IFieldUpdateCultureProvider
     {
         typedef FieldUpdateCultureProvider ThisType;
-        typedef Aspose::Words::Fields::IFieldUpdateCultureProvider BaseType;
-
+        typedef IFieldUpdateCultureProvider BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 

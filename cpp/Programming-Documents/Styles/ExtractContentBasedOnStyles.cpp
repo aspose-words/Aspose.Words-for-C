@@ -2,9 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/shared_ptr.h>
-#include <system/special_casts.h>
-
 #include "Model/Document/Document.h"
 #include <Model/Document/SaveFormat.h>
 #include <Model/Styles/Style.h>
@@ -15,7 +12,6 @@
 #include <Model/Text/Run.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Nodes/NodeType.h>
-#include <vector>
 
 using namespace Aspose::Words;
 

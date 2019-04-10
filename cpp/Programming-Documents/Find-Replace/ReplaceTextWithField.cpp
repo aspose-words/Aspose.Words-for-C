@@ -1,14 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/collections/list.h>
-#include <system/collections/ilist.h>
 #include <system/enumerator_adapter.h>
-#include <system/object.h>
-#include <system/object_ext.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/special_casts.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Fields/FieldType.h>
@@ -27,9 +20,7 @@ using namespace Aspose::Words::Replacing;
 
 namespace
 {
-    typedef System::Collections::Generic::IList<System::SharedPtr<Node>> TINodeList;
-    typedef System::SharedPtr<TINodeList> TINodeListPtr;
-    typedef System::Collections::Generic::List<System::SharedPtr<Node>> TNodeList;
+    typedef System::SharedPtr<Node> TNodePtr;
 
     class ReplaceTextWithFieldHandler : public IReplacingCallback
     {
@@ -40,9 +31,8 @@ namespace
 
     public:
         ReplaceTextWithFieldHandler(FieldType type);
-
         ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args);
-        TINodeListPtr FindAndSplitMatchRuns(System::SharedPtr<ReplacingArgs> args);
+        std::vector<TNodePtr> FindAndSplitMatchRuns(System::SharedPtr<ReplacingArgs> args);
 
     protected:
         System::Object::shared_members_type GetSharedMembers() override;
@@ -62,11 +52,11 @@ namespace
 
     ReplaceAction ReplaceTextWithFieldHandler::Replacing(System::SharedPtr<ReplacingArgs> args)
     {
-        TINodeListPtr runs = FindAndSplitMatchRuns(args);
+        std::vector<TNodePtr> runs = FindAndSplitMatchRuns(args);
 
         // Create DocumentBuilder which is used to insert the field.
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
-        builder->MoveTo(System::DynamicCast<Run>(runs->idx_get(runs->get_Count() - 1)));
+        builder->MoveTo(System::DynamicCast<Run>(runs.at(runs.size() - 1)));
 
         // Calculate the name of the field from the FieldType enumeration by removing the first instance of "Field" from the text. 
         // This works for almost all of the field types.
@@ -77,7 +67,7 @@ namespace
         builder->InsertField(System::String::Format(u"{0} {1}",fieldName,args->get_Match()->get_Groups()->idx_get(0)));
 
         // Now remove all runs in the sequence.
-        for (System::SharedPtr<Node> runNode : System::IterateOver(runs))
+        for (System::SharedPtr<Node> runNode : runs)
         {
             runNode->Remove();
         }
@@ -86,7 +76,7 @@ namespace
         return ReplaceAction::Skip;
     }
 
-    TINodeListPtr ReplaceTextWithFieldHandler::FindAndSplitMatchRuns(System::SharedPtr<ReplacingArgs> args)
+    std::vector<TNodePtr> ReplaceTextWithFieldHandler::FindAndSplitMatchRuns(System::SharedPtr<ReplacingArgs> args)
     {
         // This is a Run node that contains either the beginning or the complete match.
         System::SharedPtr<Node> currentNode = args->get_MatchNode();
@@ -99,13 +89,13 @@ namespace
         }
 
         // This array is used to store all nodes of the match for further removing.
-        TINodeListPtr runs = System::MakeObject<TNodeList>();
+        std::vector<TNodePtr> runs;
 
         // Find all runs that contain parts of the match string.
         int32_t remainingLength = args->get_Match()->get_Value().get_Length();
         while ((remainingLength > 0) && (currentNode != nullptr) && (currentNode->GetText().get_Length() <= remainingLength))
         {
-            runs->Add(currentNode);
+            runs.push_back(currentNode);
             remainingLength = remainingLength - currentNode->GetText().get_Length();
 
             // Select the next Run node. 
@@ -120,7 +110,7 @@ namespace
         if ((currentNode != nullptr) && (remainingLength > 0))
         {
             SplitRun(System::DynamicCast<Run>(currentNode), remainingLength);
-            runs->Add(currentNode);
+            runs.push_back(currentNode);
         }
 
         return runs;

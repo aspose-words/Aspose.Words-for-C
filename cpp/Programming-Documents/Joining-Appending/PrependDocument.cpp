@@ -1,14 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/console.h>
-#include <system/collections/list.h>
-#include <system/collections/ienumerator.h>
-#include <system/array.h>
 #include <Model/Sections/SectionCollection.h>
 #include <Model/Sections/Section.h>
 #include <Model/Nodes/Node.h>

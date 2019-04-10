@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Bookmarks/BookmarkStart.h>
 #include <Model/Bookmarks/BookmarkEnd.h>
 #include <Model/Document/FileFormatInfo.h>
@@ -56,7 +54,7 @@ namespace
         System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"OfficeMath.docx", lo);
         System::String outputPath = dataDir + GetOutputFilePath(u"Load_Options.ConvertShapeToOfficeMath.docx");
         //Save the document into DOCX
-        doc->Save(outputPath, Aspose::Words::SaveFormat::Docx);
+        doc->Save(outputPath, SaveFormat::Docx);
         // ExEnd:ConvertShapeToOfficeMath
     }
 

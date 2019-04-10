@@ -1,19 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/text/regularexpressions/regex_options.h>
-#include <system/text/regularexpressions/regex.h>
-#include <system/text/regularexpressions/match.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/exceptions.h>
-#include <system/enum_helpers.h>
-#include <system/console.h>
-#include <system/collections/list.h>
-#include <system/collections/ilist.h>
-
 #include <Model/FindReplace/IReplacingCallback.h>
 #include <Model/Text/Run.h>
 #include <Model/Text/Range.h>
@@ -27,8 +14,6 @@
 #include <Model/FindReplace/FindReplaceOptions.h>
 #include <Model/FindReplace/FindReplaceDirection.h>
 #include <Model/Document/Document.h>
-#include <drawing/color.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;

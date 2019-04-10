@@ -24,11 +24,6 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
-    template <typename T> T GetFirst(System::SharedPtr<System::Collections::Generic::IList<T>> source)
-    {
-        return source->get_Count() > 0 ? source->idx_get(0) : System::Default<T>();
-    }
-
     class LayoutEntity;
     class RenderedLine;
     class RenderedSpan;
@@ -42,24 +37,22 @@ namespace
     class RenderedComment;
     class RenderedPage;
 
-    typedef System::Collections::Generic::IList<System::SharedPtr<LayoutEntity>> TLayoutEntityIList;
-    typedef System::Collections::Generic::List<System::SharedPtr<LayoutEntity>> TLayoutEntityList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedLine>> TRenderedLineIList;
-    typedef System::Collections::Generic::List<System::SharedPtr<RenderedLine>> TRenderedLineList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedRow>> TRenderedRowIList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedSpan>> TRenderedSpanIList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedCell>> TRenderedCellIList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedFootnote>> TRenderedFootnoteIList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedEndnote>> TRenderedEndnoteIList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedNoteSeparator>> TRenderedNoteSeparatorIList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedColumn>> TRenderedColumnIList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedHeaderFooter>> TRenderedHeaderFooterIList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedComment>> TRenderedCommentIList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<RenderedPage>> TRenderedPageIList;
-    typedef System::Collections::Generic::IDictionary<System::SharedPtr<System::Object>, System::SharedPtr<Node>> LayoutNodeLookupIDict;
-    typedef System::Collections::Generic::Dictionary<System::SharedPtr<System::Object>, System::SharedPtr<Node>> LayoutNodeLookupDict;
+    typedef System::SharedPtr<LayoutEntity> TLayoutEntityPtr;
+    typedef System::SharedPtr<RenderedLine> TRenderedLinePtr;
+    typedef System::SharedPtr<RenderedRow> TRenderedRowPtr;
+    typedef System::SharedPtr<RenderedSpan> TRenderedSpanPtr;
+    typedef System::SharedPtr<RenderedCell> TRenderedCellPtr;
+    typedef System::SharedPtr<RenderedFootnote> TRenderedFootnotePtr;
+    typedef System::SharedPtr<RenderedEndnote> TRenderedEndnotePtr;
+    typedef System::SharedPtr<RenderedNoteSeparator> TRenderedNoteSeparatorPtr;
+    typedef System::SharedPtr<RenderedColumn> TRenderedColumnPtr;
+    typedef System::SharedPtr<RenderedHeaderFooter> TRenderedHeaderFooterPtr;
+    typedef System::SharedPtr<RenderedComment> TRenderedCommentPtr;
+    typedef System::SharedPtr<RenderedPage> TRenderedPagePtr;
+    typedef System::SharedPtr<System::Object> TObjectPtr;
+    typedef System::SharedPtr<Node> TNodePtr;
 
-    System::SharedPtr<LayoutEntity> CreateLayoutEntityFromType(System::SharedPtr<LayoutEnumerator> it);
+    TLayoutEntityPtr CreateLayoutEntityFromType(System::SharedPtr<LayoutEnumerator> it);
 
     /// <summary>
     /// Provides the base class for rendered elements of a document.
@@ -77,28 +70,28 @@ namespace
         System::Drawing::RectangleF GetRectangle();
         LayoutEntityType GetLayoutEntityType();
         virtual System::String GetText();
-        System::SharedPtr<LayoutEntity> GetParent();
-        virtual System::SharedPtr<Node> GetParentNode();
-        System::SharedPtr<TLayoutEntityIList> GetChildEntities(LayoutEntityType type, bool isDeep);
+        TLayoutEntityPtr GetParent();
+        virtual TNodePtr GetParentNode();
+        std::vector<TLayoutEntityPtr> GetChildEntities(LayoutEntityType type, bool isDeep);
 
     protected:
         LayoutEntity();
-        System::SharedPtr<System::Object> GetLayoutObject();
-        void SetLayoutObject(System::SharedPtr<System::Object> value);
-        System::SharedPtr<LayoutEntity> AddChildEntity(System::SharedPtr<LayoutEnumerator> it);
-        virtual void SetParentNode(System::SharedPtr<Node> value);
-        template <typename T> System::SharedPtr<System::Collections::Generic::IList<T>> GetChildNodes()
+        TObjectPtr GetLayoutObject();
+        void SetLayoutObject(TObjectPtr value);
+        TLayoutEntityPtr AddChildEntity(System::SharedPtr<LayoutEnumerator> it);
+        virtual void SetParentNode(TNodePtr value);
+        template <typename T> std::vector<T> GetChildNodes()
         {
             typedef LayoutEntity BaseT_LayoutEntity;
             assert_is_base_of(BaseT_LayoutEntity, T);
             assert_is_constructable(T);
             T obj = System::MakeObject<T>();
-            System::SharedPtr<System::Collections::Generic::IList<T>> childList = System::MakeObject<System::Collections::Generic::List<T>>();
-            for (System::SharedPtr<LayoutEntity> entity : System::IterateOver(mChildEntities))
+            std::vector<T> childList;
+            for (TLayoutEntityPtr entity : mChildEntities)
             {
                 if (System::ObjectExt::GetType(entity) == System::ObjectExt::GetType(obj))
                 {
-                    childList->Add(System::StaticCast<typename T::Pointee_>(entity));
+                    childList.push_back(System::StaticCast<typename T::Pointee_>(entity));
                 }
             }
             return childList;
@@ -107,14 +100,14 @@ namespace
 
         System::String mKind;
         int32_t mPageIndex;
-        System::SharedPtr<Node> mParentNode;
+        TNodePtr mParentNode;
         System::Drawing::RectangleF mRectangle;
         LayoutEntityType mType;
-        System::SharedPtr<LayoutEntity> mParent;
-        System::SharedPtr<TLayoutEntityIList> mChildEntities;
+        TLayoutEntityPtr mParent;
+        std::vector<TLayoutEntityPtr> mChildEntities;
 
     private:
-        System::SharedPtr<System::Object> mLayoutObject;
+        TObjectPtr mLayoutObject;
     };
 
     RTTI_INFO_IMPL_HASH(3019693939u, LayoutEntity, ThisTypeBaseTypesInfo);
@@ -137,7 +130,7 @@ namespace
     System::String LayoutEntity::GetText()
     {
         System::SharedPtr<System::Text::StringBuilder> builder = System::MakeObject<System::Text::StringBuilder>();
-        for (System::SharedPtr<LayoutEntity> entity : System::IterateOver(mChildEntities))
+        for (TLayoutEntityPtr entity : mChildEntities)
         {
             builder->Append(entity->GetText());
         }
@@ -145,38 +138,38 @@ namespace
         return builder->ToString();
     }
 
-    System::SharedPtr<LayoutEntity> LayoutEntity::GetParent()
+    TLayoutEntityPtr LayoutEntity::GetParent()
     {
         return mParent;
     }
 
-    System::SharedPtr<Node> LayoutEntity::GetParentNode()
+    TNodePtr LayoutEntity::GetParentNode()
     {
         return mParentNode;
     }
 
-    System::SharedPtr<System::Object> LayoutEntity::GetLayoutObject()
+    TObjectPtr LayoutEntity::GetLayoutObject()
     {
         return mLayoutObject;
     }
 
-    void LayoutEntity::SetLayoutObject(System::SharedPtr<System::Object> value)
+    void LayoutEntity::SetLayoutObject(TObjectPtr value)
     {
         mLayoutObject = value;
     }
 
-    LayoutEntity::LayoutEntity() : mPageIndex(0), mType(LayoutEntityType::None), mChildEntities(System::MakeObject<TLayoutEntityList>())
+    LayoutEntity::LayoutEntity() : mPageIndex(0), mType(LayoutEntityType::None)
     {
     }
 
-    void LayoutEntity::SetParentNode(System::SharedPtr<Node> value)
+    void LayoutEntity::SetParentNode(TNodePtr value)
     {
         mParentNode = value;
     }
 
-    System::SharedPtr<LayoutEntity> LayoutEntity::AddChildEntity(System::SharedPtr<LayoutEnumerator> it)
+    TLayoutEntityPtr LayoutEntity::AddChildEntity(System::SharedPtr<LayoutEnumerator> it)
     {
-        System::SharedPtr<LayoutEntity> child = CreateLayoutEntityFromType(it);
+        TLayoutEntityPtr child = CreateLayoutEntityFromType(it);
         // init child fields
         child->mKind = it->get_Kind();
         child->mPageIndex = it->get_PageIndex();
@@ -184,24 +177,25 @@ namespace
         child->mType = it->get_Type();
         child->SetLayoutObject(it->get_Current());
         child->mParent = System::MakeSharedPtr(this);
-        mChildEntities->Add(child);
+        mChildEntities.push_back(child);
         return child;
     }
 
-    System::SharedPtr<TLayoutEntityIList> LayoutEntity::GetChildEntities(LayoutEntityType type, bool isDeep)
+    std::vector<TLayoutEntityPtr> LayoutEntity::GetChildEntities(LayoutEntityType type, bool isDeep)
     {
-        System::SharedPtr<TLayoutEntityList> childList = System::MakeObject<TLayoutEntityList>();
+        std::vector<TLayoutEntityPtr> childList;
 
-        for (System::SharedPtr<LayoutEntity> entity : System::IterateOver(mChildEntities))
+        for (TLayoutEntityPtr entity : mChildEntities)
         {
             if ((entity->GetLayoutEntityType() & type) == entity->GetLayoutEntityType())
             {
-                childList->Add(entity);
+                childList.push_back(entity);
             }
 
             if (isDeep)
             {
-                childList->AddRange(entity->GetChildEntities(type, true));
+                std::vector<TLayoutEntityPtr> children(entity->GetChildEntities(type, true));
+                childList.insert(childList.end(), children.begin(), children.end());
             }
         }
 
@@ -215,7 +209,6 @@ namespace
         result.Add("LayoutEntity::mRectangle", this->mRectangle);
         result.Add("LayoutEntity::mType", this->mType);
         result.Add("LayoutEntity::mParent", this->mParent);
-        result.Add("LayoutEntity::mChildEntities", this->mChildEntities);
         return result;
     }
 
@@ -230,20 +223,20 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        System::SharedPtr<TRenderedLineIList> GetLines();
-        System::SharedPtr<TRenderedRowIList> GetRows();
+        std::vector<TRenderedLinePtr> GetLines();
+        std::vector<TRenderedRowPtr> GetRows();
     };
 
     RTTI_INFO_IMPL_HASH(3178778940u, StoryLayoutEntity, ThisTypeBaseTypesInfo);
 
-    System::SharedPtr<TRenderedLineIList> StoryLayoutEntity::GetLines()
+    std::vector<TRenderedLinePtr> StoryLayoutEntity::GetLines()
     {
-        return GetChildNodes<System::SharedPtr<RenderedLine>>();
+        return GetChildNodes<TRenderedLinePtr>();
     }
 
-    System::SharedPtr<TRenderedRowIList> StoryLayoutEntity::GetRows()
+    std::vector<TRenderedRowPtr> StoryLayoutEntity::GetRows()
     {
-        return GetChildNodes<System::SharedPtr<RenderedRow>>();
+        return GetChildNodes<TRenderedRowPtr>();
     }
 
     /// <summary>
@@ -259,7 +252,7 @@ namespace
     public:
         System::String GetText() override;
         System::SharedPtr<Paragraph> GetParagraph();
-        System::SharedPtr<TRenderedSpanIList> GetSpans();
+        std::vector<TRenderedSpanPtr> GetSpans();
     };
 
     RTTI_INFO_IMPL_HASH(3891846319u, RenderedLine, ThisTypeBaseTypesInfo);
@@ -274,9 +267,9 @@ namespace
         return System::DynamicCast<Paragraph>(GetParentNode());
     }
 
-    System::SharedPtr<TRenderedSpanIList> RenderedLine::GetSpans()
+    std::vector<TRenderedSpanPtr> RenderedLine::GetSpans()
     {
-        return GetChildNodes<System::SharedPtr<RenderedSpan>>();
+        return GetChildNodes<TRenderedSpanPtr>();
     }
 
     /// <summary>
@@ -355,7 +348,7 @@ namespace
 
     public:
         System::SharedPtr<Cell> GetCell();
-        System::SharedPtr<Node> GetParentNode() override;
+        TNodePtr GetParentNode() override;
     };
 
     RTTI_INFO_IMPL_HASH(1128351613u, RenderedCell, ThisTypeBaseTypesInfo);
@@ -365,15 +358,16 @@ namespace
         return System::DynamicCast<Cell>(GetParentNode());
     }
 
-    System::SharedPtr<Node> RenderedCell::GetParentNode()
+    TNodePtr RenderedCell::GetParentNode()
     {
-        if (GetFirst(GetLines()) == nullptr)
+        std::vector<TRenderedLinePtr> lines(GetLines());
+        if (lines.empty())
         {
             return nullptr;
         }
         else
         {
-            return GetFirst(GetLines())->GetParagraph() != nullptr ? GetFirst(GetLines())->GetParagraph()->GetAncestor(NodeType::Cell) : nullptr;
+            return lines.at(0)->GetParagraph() != nullptr ? lines.at(0)->GetParagraph()->GetAncestor(NodeType::Cell) : nullptr;
         }
     }
 
@@ -388,17 +382,17 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        System::SharedPtr<TRenderedCellIList> GetCells();
+        std::vector<TRenderedCellPtr> GetCells();
         System::SharedPtr<Row> GetRow();
         System::SharedPtr<Table> GetTable();
-        System::SharedPtr<Node> GetParentNode() override;
+        TNodePtr GetParentNode() override;
     };
 
     RTTI_INFO_IMPL_HASH(1922289599u, RenderedRow, ThisTypeBaseTypesInfo);
 
-    System::SharedPtr<TRenderedCellIList> RenderedRow::GetCells()
+    std::vector<TRenderedCellPtr> RenderedRow::GetCells()
     {
-        return GetChildNodes<System::SharedPtr<RenderedCell>>();
+        return GetChildNodes<TRenderedCellPtr>();
     }
 
     System::SharedPtr<Row> RenderedRow::GetRow()
@@ -411,9 +405,13 @@ namespace
         return GetRow() != nullptr ? GetRow()->get_ParentTable() : nullptr;
     }
 
-    System::SharedPtr<Node> RenderedRow::GetParentNode()
+    TNodePtr RenderedRow::GetParentNode()
     {
-        System::SharedPtr<Paragraph> para = GetFirst(GetFirst(GetCells())->GetLines()) != nullptr ? GetFirst(GetFirst(GetCells())->GetLines())->GetParagraph() : nullptr;
+        std::vector<TRenderedCellPtr> cells(GetCells());
+        if (cells.empty())
+            return nullptr;
+        std::vector<TRenderedLinePtr> lines(cells.at(0)->GetLines());
+        System::SharedPtr<Paragraph> para = lines.empty() ? nullptr : lines.at(0)->GetParagraph();
         return para != nullptr ? para->GetAncestor(NodeType::Row) : para;
     }
 
@@ -428,28 +426,28 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        System::SharedPtr<TRenderedFootnoteIList> GetFootnotes();
-        System::SharedPtr<TRenderedEndnoteIList> GetEndnotes();
-        System::SharedPtr<TRenderedNoteSeparatorIList> GetNoteSeparators();
+        std::vector<TRenderedFootnotePtr> GetFootnotes();
+        std::vector<TRenderedEndnotePtr> GetEndnotes();
+        std::vector<TRenderedNoteSeparatorPtr> GetNoteSeparators();
         System::SharedPtr<Body> GetBody();
-        System::SharedPtr<Node> GetParentNode() override;
+        TNodePtr GetParentNode() override;
     };
 
     RTTI_INFO_IMPL_HASH(2461185489u, RenderedColumn, ThisTypeBaseTypesInfo);
 
-    System::SharedPtr<TRenderedFootnoteIList> RenderedColumn::GetFootnotes()
+    std::vector<TRenderedFootnotePtr> RenderedColumn::GetFootnotes()
     {
-        return GetChildNodes<System::SharedPtr<RenderedFootnote>>();
+        return GetChildNodes<TRenderedFootnotePtr>();
     }
 
-    System::SharedPtr<TRenderedEndnoteIList> RenderedColumn::GetEndnotes()
+    std::vector<TRenderedEndnotePtr> RenderedColumn::GetEndnotes()
     {
-        return GetChildNodes<System::SharedPtr<RenderedEndnote>>();
+        return GetChildNodes<TRenderedEndnotePtr>();
     }
 
-    System::SharedPtr<TRenderedNoteSeparatorIList> RenderedColumn::GetNoteSeparators()
+    std::vector<TRenderedNoteSeparatorPtr> RenderedColumn::GetNoteSeparators()
     {
-        return GetChildNodes<System::SharedPtr<RenderedNoteSeparator>>();
+        return GetChildNodes<TRenderedNoteSeparatorPtr>();
     }
 
     System::SharedPtr<Body> RenderedColumn::GetBody()
@@ -457,9 +455,9 @@ namespace
         return System::DynamicCast<Body>(GetParentNode());
     }
 
-    System::SharedPtr<Node> RenderedColumn::GetParentNode()
+    TNodePtr RenderedColumn::GetParentNode()
     {
-        return GetFirst(GetChildEntities(LayoutEntityType::Line, true))->GetParentNode()->GetAncestor(NodeType::Body);
+        return GetChildEntities(LayoutEntityType::Line, true).at(0)->GetParentNode()->GetAncestor(NodeType::Body);
     }
 
     /// <summary>
@@ -474,7 +472,7 @@ namespace
 
     public:
         System::SharedPtr<Footnote> GetFootnote();
-        System::SharedPtr<Node> GetParentNode() override;
+        TNodePtr GetParentNode() override;
     };
 
     RTTI_INFO_IMPL_HASH(4175017083u, RenderedFootnote, ThisTypeBaseTypesInfo);
@@ -484,9 +482,9 @@ namespace
         return System::DynamicCast<Footnote>(GetParentNode());
     }
 
-    System::SharedPtr<Node> RenderedFootnote::GetParentNode()
+    TNodePtr RenderedFootnote::GetParentNode()
     {
-        return GetFirst(GetChildEntities(LayoutEntityType::Line, true))->GetParentNode()->GetAncestor(NodeType::Footnote);
+        return GetChildEntities(LayoutEntityType::Line, true).at(0)->GetParentNode()->GetAncestor(NodeType::Footnote);
     }
 
     /// <summary>
@@ -501,7 +499,7 @@ namespace
 
     public:
         System::SharedPtr<Footnote> GetEndnote();
-        System::SharedPtr<Node> GetParentNode() override;
+        TNodePtr GetParentNode() override;
     };
 
     RTTI_INFO_IMPL_HASH(31763922u, RenderedEndnote, ThisTypeBaseTypesInfo);
@@ -511,9 +509,9 @@ namespace
         return System::DynamicCast<Footnote>(GetParentNode());
     }
 
-    System::SharedPtr<Node> RenderedEndnote::GetParentNode()
+    TNodePtr RenderedEndnote::GetParentNode()
     {
-        return GetFirst(GetChildEntities(LayoutEntityType::Line, true))->GetParentNode()->GetAncestor(NodeType::Footnote);
+        return GetChildEntities(LayoutEntityType::Line, true).at(0)->GetParentNode()->GetAncestor(NodeType::Footnote);
     }
 
     /// <summary>
@@ -527,24 +525,16 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        System::SharedPtr<Node> GetParentNode() override;
+        TNodePtr GetParentNode() override;
     };
 
     RTTI_INFO_IMPL_HASH(374067683u, RenderedTextBox, ThisTypeBaseTypesInfo);
 
-    System::SharedPtr<Node> RenderedTextBox::GetParentNode()
+    TNodePtr RenderedTextBox::GetParentNode()
     {
-        System::SharedPtr<TLayoutEntityIList> lines = GetChildEntities(LayoutEntityType::Line, true);
-        System::SharedPtr<Node> shape = GetFirst(lines)->GetParentNode()->GetAncestor(NodeType::Shape);
-
-        if (shape != nullptr)
-        {
-            return shape;
-        }
-        else
-        {
-            return GetFirst(lines)->GetParentNode()->GetAncestor(NodeType::Shape);
-        }
+        std::vector<TLayoutEntityPtr> lines(GetChildEntities(LayoutEntityType::Line, true));
+        TNodePtr shape = lines.at(0)->GetParentNode()->GetAncestor(NodeType::Shape);
+        return shape;
     }
 
     /// <summary>
@@ -559,19 +549,19 @@ namespace
 
     public:
         System::SharedPtr<Comment> GetComment();
-        System::SharedPtr<Node> GetParentNode() override;
+        TNodePtr GetParentNode() override;
     };
 
     RTTI_INFO_IMPL_HASH(2609978340u, RenderedComment, ThisTypeBaseTypesInfo);
 
-    System::SharedPtr<Aspose::Words::Comment> RenderedComment::GetComment()
+    System::SharedPtr<Comment> RenderedComment::GetComment()
     {
         return System::DynamicCast<Comment>(GetParentNode());
     }
 
-    System::SharedPtr<Node> RenderedComment::GetParentNode()
+    TNodePtr RenderedComment::GetParentNode()
     {
-        return GetFirst(GetChildEntities(LayoutEntityType::Line, true))->GetParentNode()->GetAncestor(NodeType::Comment);
+        return GetChildEntities(LayoutEntityType::Line, true).at(0)->GetParentNode()->GetAncestor(NodeType::Comment);
     }
 
     /// <summary>
@@ -586,7 +576,7 @@ namespace
 
     public:
         System::SharedPtr<Footnote> GetFootnote();
-        System::SharedPtr<Node> GetParentNode() override;
+        TNodePtr GetParentNode() override;
     };
 
     RTTI_INFO_IMPL_HASH(425844120u, RenderedNoteSeparator, ThisTypeBaseTypesInfo);
@@ -596,9 +586,9 @@ namespace
         return System::DynamicCast<Footnote>(GetParentNode());
     }
 
-    System::SharedPtr<Node> RenderedNoteSeparator::GetParentNode()
+    TNodePtr RenderedNoteSeparator::GetParentNode()
     {
-        return GetFirst(GetChildEntities(LayoutEntityType::Line, true))->GetParentNode()->GetAncestor(NodeType::Footnote);
+        return GetChildEntities(LayoutEntityType::Line, true).at(0)->GetParentNode()->GetAncestor(NodeType::Footnote);
     }
 
     /// <summary>
@@ -612,38 +602,38 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        System::SharedPtr<TRenderedColumnIList> GetColumns();
-        System::SharedPtr<TRenderedHeaderFooterIList> GetHeaderFooters();
-        System::SharedPtr<TRenderedCommentIList> GetComments();
+        std::vector<TRenderedColumnPtr> GetColumns();
+        std::vector<TRenderedHeaderFooterPtr> GetHeaderFooters();
+        std::vector<TRenderedCommentPtr> GetComments();
         System::SharedPtr<Section> GetSection();
-        System::SharedPtr<Node> GetParentNode() override;
+        TNodePtr GetParentNode() override;
     };
 
     RTTI_INFO_IMPL_HASH(2652676586u, RenderedPage, ThisTypeBaseTypesInfo);
 
-    System::SharedPtr<TRenderedColumnIList> RenderedPage::GetColumns()
+    std::vector<TRenderedColumnPtr> RenderedPage::GetColumns()
     {
-        return GetChildNodes<System::SharedPtr<RenderedColumn>>();
+        return GetChildNodes<TRenderedColumnPtr>();
     }
 
-    System::SharedPtr<TRenderedHeaderFooterIList> RenderedPage::GetHeaderFooters()
+    std::vector<TRenderedHeaderFooterPtr> RenderedPage::GetHeaderFooters()
     {
-        return GetChildNodes<System::SharedPtr<RenderedHeaderFooter>>();
+        return GetChildNodes<TRenderedHeaderFooterPtr>();
     }
 
-    System::SharedPtr<TRenderedCommentIList> RenderedPage::GetComments()
+    std::vector<TRenderedCommentPtr> RenderedPage::GetComments()
     {
-        return GetChildNodes<System::SharedPtr<RenderedComment>>();
+        return GetChildNodes<TRenderedCommentPtr>();
     }
 
     System::SharedPtr<Section> RenderedPage::GetSection()
     {
-        return System::DynamicCast<Aspose::Words::Section>(GetParentNode());
+        return System::DynamicCast<Section>(GetParentNode());
     }
 
-    System::SharedPtr<Node> RenderedPage::GetParentNode()
+    TNodePtr RenderedPage::GetParentNode()
     {
-        return GetFirst(GetFirst(GetColumns())->GetChildEntities(LayoutEntityType::Line, true))->GetParentNode()->GetAncestor(NodeType::Section);
+        return GetColumns().at(0)->GetChildEntities(LayoutEntityType::Line, true).at(0)->GetParentNode()->GetAncestor(NodeType::Section);
     }
 
     /// <summary>
@@ -658,30 +648,30 @@ namespace
 
     public:
         RenderedDocument(System::SharedPtr<Document> doc);
-        System::SharedPtr<TRenderedPageIList> GetPages();
-        System::SharedPtr<TLayoutEntityIList> GetLayoutEntitiesOfNode(System::SharedPtr<Node> node);
+        std::vector<TRenderedPagePtr> GetPages();
+        std::vector<TLayoutEntityPtr> GetLayoutEntitiesOfNode(TNodePtr node);
 
     protected:
         System::Object::shared_members_type GetSharedMembers() override;
 
     private:
-        void ProcessLayoutElements(System::SharedPtr<LayoutEntity> current);
+        void ProcessLayoutElements(TLayoutEntityPtr current);
         void CollectLinesAndAddToMarkers();
         void CollectLinesOfMarkersCore(LayoutEntityType type);
         void LinkLayoutMarkersToNodes(System::SharedPtr<Document> doc);
 
         System::SharedPtr<LayoutCollector> mLayoutCollector;
         System::SharedPtr<LayoutEnumerator> mEnumerator;
-        static System::SharedPtr<LayoutNodeLookupIDict> mLayoutToNodeLookup;
+        static std::unordered_map<TObjectPtr, TNodePtr> mLayoutToNodeLookup;
     };
 
     RTTI_INFO_IMPL_HASH(3105141718u, RenderedDocument, ThisTypeBaseTypesInfo);
 
-    System::SharedPtr<LayoutNodeLookupIDict> RenderedDocument::mLayoutToNodeLookup = System::MakeObject<LayoutNodeLookupDict>();
+    std::unordered_map<TObjectPtr, TNodePtr> RenderedDocument::mLayoutToNodeLookup;
 
-    System::SharedPtr<TRenderedPageIList> RenderedDocument::GetPages()
+    std::vector<TRenderedPagePtr> RenderedDocument::GetPages()
     {
-        return GetChildNodes<System::SharedPtr<RenderedPage>>();
+        return GetChildNodes<TRenderedPagePtr>();
     }
 
     RenderedDocument::RenderedDocument(System::SharedPtr<Document> doc)
@@ -696,7 +686,7 @@ namespace
         CollectLinesAndAddToMarkers();
     }
 
-    System::SharedPtr<TLayoutEntityIList> RenderedDocument::GetLayoutEntitiesOfNode(System::SharedPtr<Node> node)
+    std::vector<TLayoutEntityPtr> RenderedDocument::GetLayoutEntitiesOfNode(TNodePtr node)
     {
         if (!System::ObjectExt::Equals(mLayoutCollector->get_Document(), node->get_Document()))
         {
@@ -708,23 +698,23 @@ namespace
             return mChildEntities;
         }
 
-        System::SharedPtr<TLayoutEntityIList> entities = System::MakeObject<TLayoutEntityList>();
+        std::vector<TLayoutEntityPtr> entities;
 
         // Retrieve all entities from the layout document (inversion of LayoutEntityType.None).
-        for (System::SharedPtr<LayoutEntity> entity : System::IterateOver(GetChildEntities(~LayoutEntityType::None, true)))
+        for (TLayoutEntityPtr entity : GetChildEntities(~LayoutEntityType::None, true))
         {
             if (entity->GetParentNode() == node)
             {
-                entities->Add(entity);
+                entities.push_back(entity);
             }
 
             // There is no table entity in rendered output so manually check if rows belong to a table node.
             if (entity->GetLayoutEntityType() == LayoutEntityType::Row)
             {
-                System::SharedPtr<RenderedRow> row = System::StaticCast<RenderedRow>(entity);
+                TRenderedRowPtr row = System::StaticCast<RenderedRow>(entity);
                 if (row->GetTable() == node)
                 {
-                    entities->Add(entity);
+                    entities.push_back(entity);
                 }
             }
         }
@@ -732,11 +722,11 @@ namespace
         return entities;
     }
 
-    void RenderedDocument::ProcessLayoutElements(System::SharedPtr<LayoutEntity> current)
+    void RenderedDocument::ProcessLayoutElements(TLayoutEntityPtr current)
     {
         do
         {
-            System::SharedPtr<LayoutEntity> child = current->AddChildEntity(mEnumerator);
+            TLayoutEntityPtr child = current->AddChildEntity(mEnumerator);
 
             if (mEnumerator->MoveFirstChild())
             {
@@ -758,37 +748,39 @@ namespace
 
     void RenderedDocument::CollectLinesOfMarkersCore(LayoutEntityType type)
     {
-        System::SharedPtr<TRenderedLineIList> collectedLines = System::MakeObject<TRenderedLineList>();
-        for (System::SharedPtr<RenderedPage> page : System::IterateOver(GetPages()))
+        std::vector<TRenderedLinePtr> collectedLines;
+        for (TRenderedPagePtr page : GetPages())
         {
-            for (System::SharedPtr<LayoutEntity> story : System::IterateOver(page->GetChildEntities(type, false)))
+            for (TLayoutEntityPtr story : page->GetChildEntities(type, false))
             {
-                for (System::SharedPtr<RenderedLine> line : System::IterateOver<RenderedLine>(story->GetChildEntities(LayoutEntityType::Line, true)))
+                for (TLayoutEntityPtr lineEntity : story->GetChildEntities(LayoutEntityType::Line, true))
                 {
-                    collectedLines->Add(line);
-                    for (System::SharedPtr<RenderedSpan> span : System::IterateOver(line->GetSpans()))
+                    TRenderedLinePtr line = System::DynamicCast<RenderedLine>(lineEntity);
+                    collectedLines.push_back(line);
+                    for (TRenderedSpanPtr span : line->GetSpans())
                     {
-                        if (mLayoutToNodeLookup->ContainsKey(span->GetLayoutObject()))
+                        auto iterator = mLayoutToNodeLookup.find(span->GetLayoutObject());
+                        if (iterator != mLayoutToNodeLookup.end())
                         {
                             if (span->GetKind() == u"PARAGRAPH" || span->GetKind() == u"ROW" || span->GetKind() == u"CELL" || span->GetKind() == u"SECTION")
                             {
-                                System::SharedPtr<Node> node = mLayoutToNodeLookup->idx_get(span->GetLayoutObject());
+                                TNodePtr node = iterator->second;
 
                                 if (node->get_NodeType() == NodeType::Row)
                                 {
                                     node = (System::DynamicCast<Row>(node))->get_LastCell()->get_LastParagraph();
                                 }
 
-                                for (System::SharedPtr<RenderedLine> collectedLine : System::IterateOver(collectedLines))
+                                for (TRenderedLinePtr collectedLine : collectedLines)
                                 {
                                     collectedLine->SetParentNode(node);
                                 }
 
-                                collectedLines = System::MakeObject<TRenderedLineList>();
+                                collectedLines.clear();
                             }
                             else
                             {
-                                span->SetParentNode(mLayoutToNodeLookup->idx_get(span->GetLayoutObject()));
+                                span->SetParentNode(iterator->second);
                             }
                         }
                     }
@@ -799,13 +791,13 @@ namespace
 
     void RenderedDocument::LinkLayoutMarkersToNodes(System::SharedPtr<Document> doc)
     {
-        for (System::SharedPtr<Node> node : System::IterateOver(doc->GetChildNodes(NodeType::Any, true)))
+        for (TNodePtr node : System::IterateOver(doc->GetChildNodes(NodeType::Any, true)))
         {
-            System::SharedPtr<System::Object> entity = mLayoutCollector->GetEntity(node);
+            TObjectPtr entity = mLayoutCollector->GetEntity(node);
 
             if (entity != nullptr)
             {
-                mLayoutToNodeLookup->Add(entity, node);
+                mLayoutToNodeLookup.insert({entity, node});
             }
         }
     }
@@ -818,9 +810,8 @@ namespace
         return result;
     }
 
-    System::SharedPtr<LayoutEntity> CreateLayoutEntityFromType(System::SharedPtr<LayoutEnumerator> it)
+    TLayoutEntityPtr CreateLayoutEntityFromType(System::SharedPtr<LayoutEnumerator> it)
     {
-        System::SharedPtr<LayoutEntity> childEntity;
         switch (it->get_Type())
         {
         case LayoutEntityType::Cell:
@@ -881,7 +872,7 @@ void DocumentLayoutHelper()
 
     // The following examples demonstrate how to use the wrapper API. 
     // This snippet returns the third line of the first page and prints the line of text to the console.
-    System::SharedPtr<RenderedLine> line = layoutDoc->GetPages()->idx_get(0)->GetColumns()->idx_get(0)->GetLines()->idx_get(2);
+    TRenderedLinePtr line = layoutDoc->GetPages().at(0)->GetColumns().at(0)->GetLines().at(2);
     std::cout << "Line: " << line->GetText().ToUtf8String() << std::endl;
 
     // With a rendered line the original paragraph in the document object model can be returned.
@@ -889,20 +880,20 @@ void DocumentLayoutHelper()
     std::cout << "Paragraph text: " << para->get_Range()->get_Text().ToUtf8String() << std::endl;
 
     // Retrieve all the text that appears of the first page in plain text format (including headers and footers).
-    System::String pageText = layoutDoc->GetPages()->idx_get(0)->GetText();
+    System::String pageText = layoutDoc->GetPages().at(0)->GetText();
     std::cout << "Page text: " << pageText.ToUtf8String() << std::endl;
 
     // Loop through each page in the document and print how many lines appear on each page.
-    for (System::SharedPtr<RenderedPage> page : System::IterateOver(layoutDoc->GetPages()))
+    for (TRenderedPagePtr page : layoutDoc->GetPages())
     {
-        System::SharedPtr<System::Collections::Generic::IList<System::SharedPtr<LayoutEntity>>> lines = page->GetChildEntities(LayoutEntityType::Line, true);
-        std::cout << "Page " << page->GetPageIndex() << " has " << lines->get_Count() << " lines." << std::endl;
+        std::vector<TLayoutEntityPtr> lines(page->GetChildEntities(LayoutEntityType::Line, true));
+        std::cout << "Page " << page->GetPageIndex() << " has " << lines.size() << " lines." << std::endl;
     }
 
     // This method provides a reverse lookup of layout entities for any given node (with the exception of runs and nodes in the
     // Header and footer).
     std::cout << std::endl << "The lines of the second paragraph:" << std::endl;
-    for (System::SharedPtr<RenderedLine> paragraphLine : System::IterateOver<RenderedLine>(layoutDoc->GetLayoutEntitiesOfNode(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1))))
+    for (TLayoutEntityPtr paragraphLine : layoutDoc->GetLayoutEntitiesOfNode(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)))
     {
         std::cout << "\"" << paragraphLine->GetText().Trim().ToUtf8String() << "\"" << std::endl;
         std::cout << paragraphLine->GetRectangle().ToString().ToUtf8String() << std::endl << std::endl;

@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/io/path.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/FileFormatUtil.h>
 #include <Model/Document/FileFormatInfo.h>
 

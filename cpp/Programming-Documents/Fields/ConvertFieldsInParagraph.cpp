@@ -1,13 +1,12 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/Document.h>
 #include <Model/Fields/FieldType.h>
 #include <Model/Sections/Body.h>
 #include <Model/Sections/Section.h>
 #include <Model/Text/Paragraph.h>
+
 #include "FieldsHelper.h"
 
 using namespace Aspose::Words;

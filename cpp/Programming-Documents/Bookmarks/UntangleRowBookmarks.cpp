@@ -2,11 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/exceptions.h>
 #include <Model/Text/Range.h>
 #include <Model/Text/Paragraph.h>
 #include <Model/Tables/Row.h>

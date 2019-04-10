@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
 #include <Model/Text/ControlChar.h>
 #include <Model/Sections/PageSetup.h>
 #include <Model/Document/DocumentBuilder.h>

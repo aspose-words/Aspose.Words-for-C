@@ -2,10 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Styles/StyleCollection.h>
 #include <Model/Styles/Style.h>
 #include <Model/Document/Document.h>
