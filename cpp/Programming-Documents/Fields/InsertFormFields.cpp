@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/array.h>
 #include <Model/Fields/FormFields/FormField.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>

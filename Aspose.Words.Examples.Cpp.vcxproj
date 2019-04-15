@@ -260,7 +260,6 @@
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRevisions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithSaveOptions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WriteAndFont.cpp" />
-    <ClCompile Include="cpp\Programming-Documents\Fields\ChangeFieldUpdateCultureSource.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\ChangeLocale.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\ConvertFieldsInBody.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\ConvertFieldsInDocument.cpp" />

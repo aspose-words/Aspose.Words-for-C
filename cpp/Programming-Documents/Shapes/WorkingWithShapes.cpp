@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <drawing/color.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/special_casts.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Drawing/Fill.h>
@@ -48,9 +44,9 @@ namespace
         shape = builder->InsertShape(ShapeType::TextBox, 50, 50);
         shape->set_Rotation(30.0);
 
-        System::SharedPtr<OoxmlSaveOptions> so = System::MakeObject<OoxmlSaveOptions>(Aspose::Words::SaveFormat::Docx);
+        System::SharedPtr<OoxmlSaveOptions> so = System::MakeObject<OoxmlSaveOptions>(SaveFormat::Docx);
         // "Strict" or "Transitional" compliance allows to save shape as DML.
-        so->set_Compliance(Aspose::Words::Saving::OoxmlCompliance::Iso29500_2008_Transitional);
+        so->set_Compliance(OoxmlCompliance::Iso29500_2008_Transitional);
 
         System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithShapes.InsertShapeUsingDocumentBuilder.docx");
         // Save the document to disk.
@@ -124,7 +120,7 @@ namespace
         System::SharedPtr<Shape> shape = builder->InsertShape(ShapeType::TopCornersSnipped, 50, 50);
 
         System::SharedPtr<OoxmlSaveOptions> so = System::MakeObject<OoxmlSaveOptions>(SaveFormat::Docx);
-        so->set_Compliance(Aspose::Words::Saving::OoxmlCompliance::Iso29500_2008_Transitional);
+        so->set_Compliance(OoxmlCompliance::Iso29500_2008_Transitional);
         System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithShapes.AddCornersSnipped.docx");
 
         //Save the document to disk.
@@ -140,9 +136,7 @@ namespace
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
         System::SharedPtr<Shape> shape = builder->InsertImage(dataDir + u"Test.png");
         shape->set_AspectRatioLocked(false);
-
-        std::cout << "Gets the actual bounds of the shape in points.";
-        std::cout << shape->GetShapeRenderer()->get_BoundsInPoints().ToString().ToUtf8String() << std::endl;
+        std::cout << "Gets the actual bounds of the shape in points." << shape->GetShapeRenderer()->get_BoundsInPoints().ToString().ToUtf8String() << std::endl;
         // ExEnd:GetActualShapeBoundsPoints
     }
 }

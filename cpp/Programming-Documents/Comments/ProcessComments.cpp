@@ -2,16 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/exceptions.h>
-#include <system/date_time.h>
-#include <system/collections/list.h>
-#include <system/collections/ilist.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Text/CommentCollection.h>
 #include <Model/Text/Comment.h>
 #include <Model/Nodes/NodeType.h>
@@ -19,7 +9,6 @@
 #include <Model/Nodes/Node.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/SaveFormat.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 
@@ -134,7 +123,7 @@ void ProcessComments()
 
     //Read the comment's reply and resolve them.
     CommentResolvedandReplies(doc);
-    
+
     // Remove all comments.
     RemoveComments(doc);
     std::cout << "All comments are removed!" << std::endl;

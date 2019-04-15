@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/date_time.h>
 #include <Model/Text/RunCollection.h>
 #include <Model/Text/Run.h>
 #include <Model/Text/ParagraphCollection.h>
@@ -18,7 +13,6 @@
 #include <Model/Nodes/Node.h>
 #include <Model/Nodes/CompositeNode.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 

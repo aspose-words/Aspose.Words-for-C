@@ -2,10 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/object_ext.h>
 #include <Layout/Public/LayoutOptions.h>
 #include <Layout/Public/RevisionOptions.h>
 #include <Layout/Public/ShowInBalloons.h>
@@ -20,6 +16,7 @@
 #include <Model/Text/Paragraph.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Layout;
 
 namespace
 {
@@ -89,10 +86,10 @@ namespace
         System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Revisions.docx");
 
         // Renders insert and delete revisions inline, format revisions in balloons.
-        doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(Aspose::Words::Layout::ShowInBalloons::Format);
+        doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(ShowInBalloons::Format);
 
         // Renders insert revisions inline, delete and format revisions in balloons.
-        //doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(Aspose::Words::Layout::ShowInBalloons::FormatAndDelete);
+        //doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(ShowInBalloons::FormatAndDelete);
 
         System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithRevisions.SetShowInBalloons.pdf");
         doc->Save(outputPath);

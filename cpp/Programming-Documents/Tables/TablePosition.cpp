@@ -2,11 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/shared_ptr.h>
-#include <system/special_casts.h>
-#include <system/object.h>
-#include <system/object_ext.h>
-
 #include "Model/Document/Document.h"
 #include <Model/Tables/Table.h>
 #include <Model/Tables/TableAlignment.h>

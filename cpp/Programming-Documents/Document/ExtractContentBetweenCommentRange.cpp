@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/exceptions.h>
 #include <Model/Text/CommentRangeStart.h>
 #include <Model/Text/CommentRangeEnd.h>
 #include <Model/Nodes/NodeType.h>

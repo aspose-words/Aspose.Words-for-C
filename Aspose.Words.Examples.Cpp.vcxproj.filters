@@ -531,9 +531,6 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertAuthorField.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Programming-Documents\Fields\ChangeFieldUpdateCultureSource.cpp">
-      <Filter>cpp\Programming-Documents\Fields</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Fields\GetFieldNames.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>

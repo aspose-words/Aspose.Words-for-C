@@ -1,14 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
 #include <Model/Settings/ViewType.h>
 #include <Model/Settings/ViewOptions.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Settings;

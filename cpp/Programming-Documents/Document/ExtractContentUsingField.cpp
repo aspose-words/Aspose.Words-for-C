@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <vector>
-#include <system/collections/ilist.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/special_casts.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Fields/Nodes/FieldStart.h>
@@ -13,6 +8,7 @@
 #include <Model/Nodes/NodeType.h>
 #include <Model/Sections/Section.h>
 #include <Model/Text/Paragraph.h>
+
 #include "Common.h"
 
 using namespace Aspose::Words;

@@ -1,14 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/text/regularexpressions/regex.h>
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/exceptions.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Text/Range.h>
 #include <Model/Text/Paragraph.h>
 #include <Model/Sections/SectionCollection.h>
@@ -34,7 +27,6 @@
 #include <Model/MailMerge/IFieldMergingCallback.h>
 #include <Model/MailMerge/ImageFieldMergingArgs.h>
 #include <Model/MailMerge/FieldMergingArgs.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;

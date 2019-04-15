@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/text/regularexpressions/regex.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
 #include <Model/Text/Range.h>
 #include <Model/FindReplace/FindReplaceOptions.h>
 #include <Model/Document/Document.h>

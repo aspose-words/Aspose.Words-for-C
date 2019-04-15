@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include "system/shared_ptr.h"
-#include <drawing/color.h>
-
 #include "Model/Document/Document.h"
 #include "Model/Document/DocumentBuilder.h"
 #include <Model/Tables/Table.h>
@@ -210,7 +207,7 @@ namespace
         table->set_Title(u"Test title");
         table->set_Description(u"Test description");
         System::SharedPtr<OoxmlSaveOptions> options = System::MakeObject<OoxmlSaveOptions>();
-        options->set_Compliance(Aspose::Words::Saving::OoxmlCompliance::Iso29500_2008_Strict);
+        options->set_Compliance(OoxmlCompliance::Iso29500_2008_Strict);
         doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2016);
         System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.SetTableTitleandDescription.docx");
         // Save the document to disk.

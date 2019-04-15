@@ -90,40 +90,30 @@ namespace
             const float resolution = 150.0f;
             System::Drawing::Size pageSize = pageInfo->GetSizeInPixels(1.0f, resolution);
 
-            System::SharedPtr<System::Drawing::Bitmap> img = System::MakeObject<System::Drawing::Bitmap>(pageSize.get_Width(), pageSize.get_Height());
-            // Clearing resources under 'using' statement
-            System::Details::DisposeGuard<1> imgDisposeGuard({img});
-
-            try
             {
-                img->SetResolution(resolution, resolution);
-                System::SharedPtr<System::Drawing::Graphics> g = System::Drawing::Graphics::FromImage(img);
                 // Clearing resources under 'using' statement
-                System::Details::DisposeGuard<1> gDisposeGuard({g});
-                try
+                DisposableHolder<System::Drawing::Bitmap> imgHolder(System::MakeObject<System::Drawing::Bitmap>(pageSize.get_Width(), pageSize.get_Height()));
+
+                imgHolder.GetObject()->SetResolution(resolution, resolution);
+
                 {
+                    // Clearing resources under 'using' statement
+                    DisposableHolder<System::Drawing::Graphics> gHolder(System::Drawing::Graphics::FromImage(imgHolder.GetObject()));
+
                     // Make the background white.
-                    g->Clear(System::Drawing::Color::get_White());
+                    gHolder.GetObject()->Clear(System::Drawing::Color::get_White());
 
                     // Render the page to the graphics.
-                    doc->RenderToScale(pageIndex, g, 0.0f, 0.0f, 1.0f);
+                    doc->RenderToScale(pageIndex, gHolder.GetObject(), 0.0f, 0.0f, 1.0f);
 
                     // Add an outline around each element on the page using the graphics object.
-                    AddBoundingBoxToElementsOnPage(it, g);
+                    AddBoundingBoxToElementsOnPage(it, gHolder.GetObject());
 
                     // Move the enumerator to the next page if there is one.
                     it->MoveNext();
 
-                    img->Save(folderPath + GetOutputFilePath(System::String::Format(u"TestFile Page {0}.png", pageIndex + 1)));
+                    imgHolder.GetObject()->Save(folderPath + GetOutputFilePath(System::String::Format(u"TestFile Page {0}.png", pageIndex + 1)));
                 }
-                catch (...)
-                {
-                    gDisposeGuard.SetCurrentException(std::current_exception());
-                }
-            }
-            catch (...)
-            {
-                imgDisposeGuard.SetCurrentException(std::current_exception());
             }
         }
     }
@@ -163,40 +153,40 @@ namespace
     {
         switch (type)
         {
-        case Aspose::Words::Layout::LayoutEntityType::Cell:
+        case LayoutEntityType::Cell:
             return System::Drawing::Pens::get_Purple();
 
-        case Aspose::Words::Layout::LayoutEntityType::Column:
+        case LayoutEntityType::Column:
             return System::Drawing::Pens::get_Green();
 
-        case Aspose::Words::Layout::LayoutEntityType::Comment:
+        case LayoutEntityType::Comment:
             return System::Drawing::Pens::get_LightBlue();
 
-        case Aspose::Words::Layout::LayoutEntityType::Endnote:
+        case LayoutEntityType::Endnote:
             return System::Drawing::Pens::get_DarkRed();
 
-        case Aspose::Words::Layout::LayoutEntityType::Footnote:
+        case LayoutEntityType::Footnote:
             return System::Drawing::Pens::get_DarkBlue();
 
-        case Aspose::Words::Layout::LayoutEntityType::HeaderFooter:
+        case LayoutEntityType::HeaderFooter:
             return System::Drawing::Pens::get_DarkGreen();
 
-        case Aspose::Words::Layout::LayoutEntityType::Line:
+        case LayoutEntityType::Line:
             return System::Drawing::Pens::get_Blue();
 
-        case Aspose::Words::Layout::LayoutEntityType::NoteSeparator:
+        case LayoutEntityType::NoteSeparator:
             return System::Drawing::Pens::get_LightGreen();
 
-        case Aspose::Words::Layout::LayoutEntityType::Page:
+        case LayoutEntityType::Page:
             return System::Drawing::Pens::get_Red();
 
-        case Aspose::Words::Layout::LayoutEntityType::Row:
+        case LayoutEntityType::Row:
             return System::Drawing::Pens::get_Orange();
 
-        case Aspose::Words::Layout::LayoutEntityType::Span:
+        case LayoutEntityType::Span:
             return System::Drawing::Pens::get_Red();
 
-        case Aspose::Words::Layout::LayoutEntityType::TextBox:
+        case LayoutEntityType::TextBox:
             return System::Drawing::Pens::get_Yellow();
 
         default:

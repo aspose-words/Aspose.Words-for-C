@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/array.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/Document.h>
 #include <Model/MailMerge/MailMerge.h>
 #include <Model/MailMerge/MappedDataFieldCollection.h>

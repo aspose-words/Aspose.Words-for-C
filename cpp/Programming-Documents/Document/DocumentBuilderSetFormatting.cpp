@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
 #include <Model/Text/Underline.h>
 #include <Model/Text/ParagraphFormat.h>
 #include <Model/Text/ParagraphCollection.h>
@@ -31,7 +28,6 @@
 #include <Model/Borders/BorderType.h>
 #include <Model/Borders/BorderCollection.h>
 #include <Model/Borders/Border.h>
-#include <drawing/color.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Tables;

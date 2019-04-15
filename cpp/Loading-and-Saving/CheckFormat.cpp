@@ -1,10 +1,6 @@
 ﻿#include "stdafx.h"
 #include "examples.h"
 
-#include <system/io/path.h>
-#include <system/io/file.h>
-#include <system/io/directory.h>
-
 #include <Model/Document/LoadFormat.h>
 #include <Model/Document/FileFormatUtil.h>
 #include <Model/Document/FileFormatInfo.h>

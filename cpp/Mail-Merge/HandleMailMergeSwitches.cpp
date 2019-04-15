@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/object.h>
-#include <system/object_ext.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Fields/Fields/MailMerge/FieldMergeField.h>
@@ -30,7 +26,6 @@ namespace
     public:
         void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override;
         void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) override {}
-
     };
 
     RTTI_INFO_IMPL_HASH(273698781u, MailMergeSwitches, ThisTypeBaseTypesInfo);

@@ -107,10 +107,10 @@ namespace
             // Iterate through each NUMPAGES field in the section and replace the field with a PAGEREF field referring to the bookmark of the current subdocument
             // This bookmark is positioned at the end of the sub document but does not exist yet. It is inserted when a section with restart page numbering or the last 
             // Section is encountered.
-            for (System::SharedPtr<Node> node : System::IterateOver(section->GetChildNodes(Aspose::Words::NodeType::FieldStart, true)))
+            for (System::SharedPtr<Node> node : System::IterateOver(section->GetChildNodes(NodeType::FieldStart, true)))
             {
                 System::SharedPtr<FieldStart> fieldStart = System::DynamicCast<FieldStart>(node);
-                if (fieldStart->get_FieldType() == Aspose::Words::Fields::FieldType::FieldNumPages)
+                if (fieldStart->get_FieldType() == FieldType::FieldNumPages)
                 {
                     // Get the field code.
                     System::String fieldCode = GetFieldCode(fieldStart);

@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/special_casts.h>
 #include <Model/Document/Document.h>
 #include <Model/Fields/Fields/EquationsAndFormulas/FieldAdvance.h>
 #include <Model/Fields/FieldType.h>

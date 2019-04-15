@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/console.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/HeaderFooterCollection.h>
 #include <Model/Importing/ImportFormatMode.h>

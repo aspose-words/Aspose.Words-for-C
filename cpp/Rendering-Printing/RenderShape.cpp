@@ -48,12 +48,13 @@ namespace
 
         // There a bug which affects the cache of a cloned node. To avoid this we instead clone the entire document including all nodes,
         // Find the matching node in the cloned document and render that instead.
+        // TODO (std_string) : fix using of overloaded members defined in the base classes
         System::SharedPtr<Document> doc = System::DynamicCast<Document>((System::StaticCast<Node>(node->get_Document()))->Clone(true));
         node = doc->GetChild(NodeType::Any, node->get_Document()->GetChildNodes(NodeType::Any, true)->IndexOf(node), true);
 
         // Create a temporary shape to store the target node in. This shape will be rendered to retrieve
         // The rendered content of the node.
-        System::SharedPtr<Shape> shape = System::MakeObject<Shape>(doc, Aspose::Words::Drawing::ShapeType::TextBox);
+        System::SharedPtr<Shape> shape = System::MakeObject<Shape>(doc, ShapeType::TextBox);
         System::SharedPtr<Section> parentSection = System::DynamicCast<Section>(node->GetAncestor(NodeType::Section));
 
         // Assume that the node cannot be larger than the page in size.
@@ -71,6 +72,7 @@ namespace
         System::SharedPtr<Node> currentNode = node;
         while (!(System::ObjectExt::Is<InlineStory>(currentNode->get_ParentNode()) || System::ObjectExt::Is<Story>(currentNode->get_ParentNode()) || System::ObjectExt::Is<ShapeBase>(currentNode->get_ParentNode())))
         {
+            // TODO (std_string) : fix using of overloaded members defined in the base classes
             System::SharedPtr<CompositeNode> parent = System::DynamicCast<CompositeNode>((System::StaticCast<Node>(currentNode->get_ParentNode()))->Clone(false));
             currentNode = currentNode->get_ParentNode();
             parent->AppendChild(node->Clone(true));
@@ -91,39 +93,27 @@ namespace
 
         System::Drawing::Rectangle crop = renderer->GetOpaqueBoundsInPixels(imageOptions->get_Scale(), imageOptions->get_HorizontalResolution(), imageOptions->get_VerticalResolution());
 
-        // Load the image into a new bitmap.
-        System::SharedPtr<System::Drawing::Bitmap> renderedImage = System::MakeObject<System::Drawing::Bitmap>(stream);
-        // Clearing resources under 'using' statement
-        System::Details::DisposeGuard<1> renderedImageDisposeGuard({ renderedImage });
-        try
         {
+            // Load the image into a new bitmap.
+            // Clearing resources under 'using' statement
+            DisposableHolder<System::Drawing::Bitmap> renderedImageHolder(System::MakeObject<System::Drawing::Bitmap>(stream));
             System::SharedPtr<System::Drawing::Bitmap> croppedImage = System::MakeObject<System::Drawing::Bitmap>(crop.get_Width(), crop.get_Height());
             croppedImage->SetResolution(imageOptions->get_HorizontalResolution(), imageOptions->get_VerticalResolution());
 
-            // Create the final image with the proper background color.
-            System::SharedPtr<System::Drawing::Graphics> g = System::Drawing::Graphics::FromImage(croppedImage);
-            // Clearing resources under 'using' statement
-            System::Details::DisposeGuard<1> gDisposeGuard({ g });
-            try
             {
-                g->Clear(savePaperColor);
-                g->DrawImage(renderedImage,
-                             System::Drawing::Rectangle(0, 0, croppedImage->get_Width(), croppedImage->get_Height()),
-                             crop.get_X(),
-                             crop.get_Y(),
-                             crop.get_Width(),
-                             crop.get_Height(),
-                             System::Drawing::GraphicsUnit::Pixel);
+                // Create the final image with the proper background color.
+                // Clearing resources under 'using' statement
+                DisposableHolder<System::Drawing::Graphics> gHolder(System::Drawing::Graphics::FromImage(croppedImage));
+                gHolder.GetObject()->Clear(savePaperColor);
+                gHolder.GetObject()->DrawImage(renderedImageHolder.GetObject(),
+                                     System::Drawing::Rectangle(0, 0, croppedImage->get_Width(), croppedImage->get_Height()),
+                                     crop.get_X(),
+                                     crop.get_Y(),
+                                     crop.get_Width(),
+                                     crop.get_Height(),
+                                     System::Drawing::GraphicsUnit::Pixel);
                 croppedImage->Save(filePath);
             }
-            catch (...)
-            {
-                gDisposeGuard.SetCurrentException(std::current_exception());
-            }
-        }
-        catch (...)
-        {
-            renderedImageDisposeGuard.SetCurrentException(std::current_exception());
         }
     }
 
@@ -172,44 +162,32 @@ namespace
         // And make sure that the graphics canvas is large enough to compensate for this.
         int32_t maxSide = System::Math::Max(shapeSizeInPixels.get_Width(), shapeSizeInPixels.get_Height());
 
-        System::SharedPtr<System::Drawing::Bitmap> image = System::MakeObject<System::Drawing::Bitmap>((int32_t)(maxSide * 1.25), (int32_t)(maxSide * 1.25));
-        // Clearing resources under 'using' statement
-        System::Details::DisposeGuard<1> imageDisposeGuard({image});
-
-        try
         {
-            // Rendering to a graphics object means we can specify settings and transformations to be applied to 
-            // The shape that is rendered. In our case we will rotate the rendered shape.
-            System::SharedPtr<System::Drawing::Graphics> gr = System::Drawing::Graphics::FromImage(image);
             // Clearing resources under 'using' statement
-            System::Details::DisposeGuard<1> grDisposeGuard({gr});
+            DisposableHolder<System::Drawing::Bitmap> imageHolder(System::MakeObject<System::Drawing::Bitmap>((int32_t)(maxSide * 1.25), (int32_t)(maxSide * 1.25)));
 
-            try
             {
+                // Rendering to a graphics object means we can specify settings and transformations to be applied to 
+                // The shape that is rendered. In our case we will rotate the rendered shape.
+                // Clearing resources under 'using' statement
+                DisposableHolder<System::Drawing::Graphics> grHolder(System::Drawing::Graphics::FromImage(imageHolder.GetObject()));
+
                 // Clear the shape with the background color of the document.
-                gr->Clear(shape->get_Document()->get_PageColor());
+                grHolder.GetObject()->Clear(shape->get_Document()->get_PageColor());
                 // Center the rotation using translation method below
-                gr->TranslateTransform((float)image->get_Width() / 8, (float)image->get_Height() / 2);
+                grHolder.GetObject()->TranslateTransform((float)imageHolder.GetObject()->get_Width() / 8, (float)imageHolder.GetObject()->get_Height() / 2);
                 // Rotate the image by 45 degrees.
-                gr->RotateTransform(45.0f);
+                grHolder.GetObject()->RotateTransform(45.0f);
                 // Undo the translation.
-                gr->TranslateTransform(-(float)image->get_Width() / 8, -(float)image->get_Height() / 2);
+                grHolder.GetObject()->TranslateTransform(-(float)imageHolder.GetObject()->get_Width() / 8, -(float)imageHolder.GetObject()->get_Height() / 2);
 
                 // Render the shape onto the graphics object.
-                r->RenderToSize(gr, 0.0f, 0.0f, shapeSizeInPixels.get_Width(), shapeSizeInPixels.get_Height());
-            }
-            catch (...)
-            {
-                grDisposeGuard.SetCurrentException(std::current_exception());
+                r->RenderToSize(grHolder.GetObject(), 0.0f, 0.0f, shapeSizeInPixels.get_Width(), shapeSizeInPixels.get_Height());
             }
 
             System::String outputPath = dataDir + GetOutputFilePath(u"RenderShape.RenderShapeToGraphics.png");
-            image->Save(outputPath, System::Drawing::Imaging::ImageFormat::get_Png());
+            imageHolder.GetObject()->Save(outputPath, System::Drawing::Imaging::ImageFormat::get_Png());
             std::cout << "Shape rendered to graphics successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-        }
-        catch (...)
-        {
-            imageDisposeGuard.SetCurrentException(std::current_exception());
         }
     }
 
@@ -262,26 +240,14 @@ namespace
 
         System::Drawing::Size shapeRenderedSize = shape->GetShapeRenderer()->GetSizeInPixels(1.0f, 96.0f);
 
-        System::SharedPtr<System::Drawing::Bitmap> image = System::MakeObject<System::Drawing::Bitmap>(shapeRenderedSize.get_Width(), shapeRenderedSize.get_Height());
-        // Clearing resources under 'using' statement
-        System::Details::DisposeGuard<1> imageDisposeGuard({image});
-        try
         {
-            System::SharedPtr<System::Drawing::Graphics> g = System::Drawing::Graphics::FromImage(image);
             // Clearing resources under 'using' statement
-            System::Details::DisposeGuard<1> gDisposeGuard({g});
-            try
+            DisposableHolder<System::Drawing::Bitmap> imageHolder(System::MakeObject<System::Drawing::Bitmap>(shapeRenderedSize.get_Width(), shapeRenderedSize.get_Height()));
             {
+                // Clearing resources under 'using' statement
+                DisposableHolder<System::Drawing::Graphics> gHolder(System::Drawing::Graphics::FromImage(imageHolder.GetObject()));
                 // Render shape onto the graphics object using the RenderToScale or RenderToSize methods of ShapeRenderer class.
             }
-            catch (...)
-            {
-                gDisposeGuard.SetCurrentException(std::current_exception());
-            }
-        }
-        catch (...)
-        {
-            imageDisposeGuard.SetCurrentException(std::current_exception());
         }
         // ExEnd:FindShapeSizes
     }

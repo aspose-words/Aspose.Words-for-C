@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
 #include <Model/Text/Range.h>
 #include <Model/Nodes/Node.h>
 #include <Model/Fields/FieldCollection.h>

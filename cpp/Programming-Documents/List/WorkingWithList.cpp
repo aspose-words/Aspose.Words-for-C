@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <drawing/color.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Lists/List.h>
@@ -126,7 +123,7 @@ namespace
             // Insert section break.
             if (i == 15)
             {
-                builder->InsertBreak(Aspose::Words::BreakType::SectionBreakNewPage);
+                builder->InsertBreak(BreakType::SectionBreakNewPage);
             }
         }
 

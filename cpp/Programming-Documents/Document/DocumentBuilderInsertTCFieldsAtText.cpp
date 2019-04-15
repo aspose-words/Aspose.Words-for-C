@@ -1,12 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/text/regularexpressions/regex.h>
-#include <system/text/regularexpressions/match.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/exceptions.h>
 #include <Model/Text/Range.h>
 #include <Model/Text/Font.h>
 #include <Model/Nodes/Node.h>
@@ -18,8 +12,6 @@
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/DocumentBase.h>
 #include <Model/Document/Document.h>
-#include <drawing/color.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;
@@ -38,7 +30,6 @@ namespace
             : mFieldText(text), mFieldSwitches(switches) {}
         InsertTCFieldHandler(const System::String& switches)
             : mFieldText(System::String::Empty), mFieldSwitches(switches) {}
-
         ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args) override;
 
     private:

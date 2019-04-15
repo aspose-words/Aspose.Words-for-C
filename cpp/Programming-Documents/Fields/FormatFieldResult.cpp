@@ -17,8 +17,7 @@ namespace
     class FieldResultFormatter : public IFieldResultFormatter
     {
         typedef FieldResultFormatter ThisType;
-        typedef Aspose::Words::Fields::IFieldResultFormatter BaseType;
-
+        typedef IFieldResultFormatter BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
@@ -50,12 +49,12 @@ namespace
         return System::String::IsNullOrEmpty(mDateFormat) ? nullptr : System::String::Format(mDateFormat, value);
     }
 
-    System::String FieldResultFormatter::Format(System::String value, Aspose::Words::Fields::GeneralFormat format)
+    System::String FieldResultFormatter::Format(System::String value, GeneralFormat format)
     {
         throw System::NotImplementedException();
     }
 
-    System::String FieldResultFormatter::Format(double value, Aspose::Words::Fields::GeneralFormat format)
+    System::String FieldResultFormatter::Format(double value, GeneralFormat format)
     {
         throw System::NotImplementedException();
     }

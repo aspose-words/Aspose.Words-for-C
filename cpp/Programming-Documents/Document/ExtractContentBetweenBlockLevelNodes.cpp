@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/exceptions.h>
-#include <system/console.h>
-#include <system/collections/list.h>
 #include <Model/Text/Paragraph.h>
 #include <Model/Tables/Table.h>
 #include <Model/Sections/Section.h>
@@ -15,7 +8,6 @@
 #include <Model/Nodes/Node.h>
 #include <Model/Nodes/CompositeNode.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 #include "Common.h"
 

@@ -20,13 +20,11 @@ namespace
     {
         typedef FindAndInsertHtml ThisType;
         typedef IReplacingCallback BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
     public:
         ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e);
-
     };
 
     RTTI_INFO_IMPL_HASH(369195648u, FindAndInsertHtml, ThisTypeBaseTypesInfo);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <system/string.h>
 
 System::String GetDataDir_QuickStart();
@@ -59,3 +60,35 @@ System::String GetDataDir_MailMergeAndReporting();
 System::String GetDataDir_RenderingAndPrinting();
 
 System::String GetDataDir_ViewersAndVisualizers();
+
+template <typename T> struct DisposableHolder
+{
+public:
+    DisposableHolder(System::SharedPtr<T> obj) : mObj(obj)
+    {
+    }
+    DisposableHolder(DisposableHolder<T>&) = delete;
+    DisposableHolder(DisposableHolder<T>&&) = delete;
+    DisposableHolder<T> operator=(DisposableHolder<T>&) = delete;
+    DisposableHolder<T> operator=(DisposableHolder<T>&&) = delete;
+    ~DisposableHolder()
+    {
+        try
+        {
+            mObj->Dispose();
+        }
+        catch (System::Exception &exc)
+        {
+            std::cerr << "The following error is raised during the call of the Dispose method: " << exc.ToString().ToUtf8String() << std::endl;
+        }
+        catch(...)
+        {
+            std::cerr << "The unknown error is raised during the call of the Dispose method" << std::endl;
+        }
+    }
+
+    System::SharedPtr<T> GetObject() const { return mObj; }
+
+private:
+    System::SharedPtr<T> mObj;
+};
