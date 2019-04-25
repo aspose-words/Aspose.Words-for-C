@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/io/file.h>
-#include <system/io/memory_stream.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/exceptions.h>
 #include <Licensing/License.h>
 
 using namespace Aspose::Words;

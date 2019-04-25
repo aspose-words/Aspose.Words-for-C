@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
 #include <Model/Drawing/WrapType.h>
 #include <Model/Drawing/Shape.h>
 #include <Model/Drawing/RelativeVerticalPosition.h>

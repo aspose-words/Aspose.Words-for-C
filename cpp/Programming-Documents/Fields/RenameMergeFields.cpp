@@ -1,17 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/text/regularexpressions/regex.h>
-#include <system/text/regularexpressions/match.h>
-#include <system/text/regularexpressions/group_collection.h>
-#include <system/text/regularexpressions/group.h>
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/exceptions.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Text/Run.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>

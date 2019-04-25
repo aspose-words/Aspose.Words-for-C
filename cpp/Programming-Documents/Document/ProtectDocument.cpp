@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/object_ext.h>
-
 #include <Model/Document/ProtectionType.h>
 #include <Model/Document/Document.h>
 

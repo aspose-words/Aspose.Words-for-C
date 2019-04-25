@@ -30,16 +30,13 @@ namespace
 {
     class Topic;
 
-    typedef System::Collections::Generic::List<System::SharedPtr<Paragraph>> TParagraphList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<Paragraph>> TParagraphIList;
-    typedef System::Collections::Generic::List<System::SharedPtr<Topic>> TTopicList;
-    typedef System::Collections::Generic::IList<System::SharedPtr<Topic>> TTopicIList;
+    typedef System::SharedPtr<Paragraph> TParagraphPtr;
+    typedef System::SharedPtr<Topic> TTopicPtr;
 
     class Topic : public System::Object
     {
         typedef Topic ThisType;
         typedef System::Object BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
@@ -75,28 +72,24 @@ namespace
     {
         typedef TocMailMergeDataSource ThisType;
         typedef IMailMergeDataSource BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
     public:
-        TocMailMergeDataSource(System::SharedPtr<TTopicIList> topics);
+        TocMailMergeDataSource(std::vector<TTopicPtr> const & topics);
         System::String get_TableName();
         bool MoveNext();
         bool GetValue(System::String fieldName, System::SharedPtr<System::Object>& fieldValue);
         System::SharedPtr<IMailMergeDataSource> GetChildDataSource(System::String tableName);
 
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
-        System::SharedPtr<TTopicIList> mTopics;
+        std::vector<TTopicPtr> mTopics;
         int32_t mIndex;
     };
 
     RTTI_INFO_IMPL_HASH(270249105u, TocMailMergeDataSource, ThisTypeBaseTypesInfo);
 
-    TocMailMergeDataSource::TocMailMergeDataSource(System::SharedPtr<TTopicIList> topics) : mIndex(-1), mTopics(topics)
+    TocMailMergeDataSource::TocMailMergeDataSource(std::vector<TTopicPtr> const &topics) : mIndex(-1), mTopics(topics)
     {
     }
 
@@ -107,7 +100,7 @@ namespace
 
     bool TocMailMergeDataSource::MoveNext()
     {
-        if (mIndex < mTopics->get_Count() - 1)
+        if (mIndex < mTopics.size() - 1)
         {
             mIndex++;
             return true;
@@ -124,7 +117,7 @@ namespace
         if (fieldName == u"TocEntry")
         {
             // The template document is supposed to have only one field called "TocEntry".
-            fieldValue = mTopics->idx_get(mIndex);
+            fieldValue = mTopics[mIndex];
             return true;
         }
         else
@@ -139,18 +132,10 @@ namespace
         return nullptr;
     }
 
-    System::Object::shared_members_type TocMailMergeDataSource::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("TocMailMergeDataSource::mTopics", this->mTopics);
-        return result;
-    }
-
     class HandleTocMergeField : public IFieldMergingCallback
     {
         typedef HandleTocMergeField ThisType;
         typedef IFieldMergingCallback BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
@@ -175,7 +160,7 @@ namespace
         }
 
         // Our custom data source returns topic objects.
-        System::SharedPtr<Topic> topic = System::StaticCast<Topic>(e->get_FieldValue());
+        TTopicPtr topic = System::StaticCast<Topic>(e->get_FieldValue());
 
         // We use the document builder to move to the current merge field and insert a hyperlink.
         mBuilder->MoveToMergeField(e->get_FieldName());
@@ -199,7 +184,6 @@ namespace
     {
         typedef Worker ThisType;
         typedef System::Object BaseType;
-
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
         RTTI_INFO_DECL();
 
@@ -214,13 +198,13 @@ namespace
         System::String mTocTemplate;
         System::String mDstDir;
 
-        System::SharedPtr<TParagraphIList> SelectTopicStarts();
-        void InsertSectionBreaks(System::SharedPtr<TParagraphIList> topicStartParas);
-        System::SharedPtr<TTopicIList> SaveHtmlTopics();
+        std::vector<TParagraphPtr> SelectTopicStarts();
+        void InsertSectionBreaks(std::vector<TParagraphPtr> const &topicStartParas);
+        std::vector<TTopicPtr> SaveHtmlTopics();
         static System::String MakeTopicFileName(System::String paraText);
         static System::String MakeTopicTitle(System::String paraText);
-        static void SaveHtmlTopic(System::SharedPtr<Section> section, System::SharedPtr<Topic> topic);
-        void SaveTableOfContents(System::SharedPtr<TTopicIList> topics);
+        static void SaveHtmlTopic(System::SharedPtr<Section> section, TTopicPtr topic);
+        void SaveTableOfContents(std::vector<TTopicPtr> const &topics);
     };
 
     RTTI_INFO_IMPL_HASH(3546846289u, Worker, ThisTypeBaseTypesInfo);
@@ -231,33 +215,33 @@ namespace
         mTocTemplate = tocTemplate;
         mDstDir = dstDir;
 
-        System::SharedPtr<TParagraphIList> topicStartParas = SelectTopicStarts();
+        std::vector<TParagraphPtr> topicStartParas = SelectTopicStarts();
         InsertSectionBreaks(topicStartParas);
-        System::SharedPtr<TTopicIList> topics = SaveHtmlTopics();
+        std::vector<TTopicPtr> topics = SaveHtmlTopics();
         SaveTableOfContents(topics);
     }
 
-    System::SharedPtr<TParagraphIList> Worker::SelectTopicStarts()
+    std::vector<TParagraphPtr> Worker::SelectTopicStarts()
     {
         System::SharedPtr<NodeCollection> paras = mDoc->GetChildNodes(NodeType::Paragraph, true);
-        System::SharedPtr<TParagraphIList> topicStartParas = System::MakeObject<TParagraphList>();
+        std::vector<TParagraphPtr> topicStartParas;
 
-        for (System::SharedPtr<Paragraph> para : System::IterateOver<Paragraph>(paras))
+        for (TParagraphPtr para : System::IterateOver<Paragraph>(paras))
         {
             StyleIdentifier style = para->get_ParagraphFormat()->get_StyleIdentifier();
             if (style == StyleIdentifier::Heading1)
             {
-                topicStartParas->Add(para);
+                topicStartParas.push_back(para);
             }
         }
 
         return topicStartParas;
     }
 
-    void Worker::InsertSectionBreaks(System::SharedPtr<TParagraphIList> topicStartParas)
+    void Worker::InsertSectionBreaks(std::vector<TParagraphPtr> const &topicStartParas)
     {
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(mDoc);
-        for (System::SharedPtr<Paragraph> para : System::IterateOver(topicStartParas))
+        for (TParagraphPtr para : topicStartParas)
         {
             System::SharedPtr<Section> section = para->get_ParentSection();
 
@@ -274,9 +258,9 @@ namespace
         }
     }
 
-    System::SharedPtr<TTopicIList> Worker::SaveHtmlTopics()
+    std::vector<TTopicPtr> Worker::SaveHtmlTopics()
     {
-        System::SharedPtr<TTopicIList> topics = System::MakeObject<TTopicList>();
+        std::vector<TTopicPtr> topics;
         for (int32_t sectionIdx = 0; sectionIdx < mDoc->get_Sections()->get_Count(); ++sectionIdx)
         {
             System::SharedPtr<Section> section = mDoc->get_Sections()->idx_get(sectionIdx);
@@ -299,8 +283,8 @@ namespace
                 title = System::String(u"UNTITLED SECTION ") + sectionIdx;
             }
 
-            System::SharedPtr<Topic> topic = System::MakeObject<Topic>(title, fileName);
-            topics->Add(topic);
+            TTopicPtr topic = System::MakeObject<Topic>(title, fileName);
+            topics.push_back(topic);
 
             SaveHtmlTopic(section, topic);
         }
@@ -330,7 +314,7 @@ namespace
         return paraText.Substring(0, paraText.get_Length() - 1);
     }
 
-    void Worker::SaveHtmlTopic(System::SharedPtr<Section> section, System::SharedPtr<Topic> topic)
+    void Worker::SaveHtmlTopic(System::SharedPtr<Section> section, TTopicPtr topic)
     {
         System::SharedPtr<Document> dummyDoc = System::MakeObject<Document>();
         dummyDoc->RemoveAllChildren();
@@ -347,7 +331,7 @@ namespace
         dummyDoc->Save(topic->GetFilename(), saveOptions);
     }
 
-    void Worker::SaveTableOfContents(System::SharedPtr<TTopicIList> topics)
+    void Worker::SaveTableOfContents(std::vector<TTopicPtr> const &topics)
     {
         System::SharedPtr<Document> tocDoc = System::MakeObject<Document>(mTocTemplate);
 

@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <drawing/color.h>
-#include <system/object.h>
-#include <system/object_ext.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/Document.h>
 #include <Model/Themes/Theme.h>
 #include <Model/Themes/ThemeColors.h>

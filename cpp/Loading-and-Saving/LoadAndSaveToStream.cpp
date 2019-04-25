@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/io/stream.h>
-#include <system/io/memory_stream.h>
-#include <system/io/file.h>
-#include <system/console.h>
 #include <Model/Document/SaveFormat.h>
 #include <Model/Document/Document.h>
 

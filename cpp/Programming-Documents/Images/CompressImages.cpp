@@ -1,20 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/diagnostics/debug.h>
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/io/stream.h>
-#include <system/io/memory_stream.h>
-#include <system/io/file_stream.h>
-#include <system/io/file.h>
-#include <system/guid.h>
-#include <system/exceptions.h>
-#include <system/collections/ienumerator.h>
-#include <system/array.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Nodes/Node.h>
@@ -24,20 +11,8 @@
 #include <Model/Drawing/ImageData.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/ConvertUtil.h>
-#include <drawing/size_f.h>
-#include <drawing/imaging/image_format.h>
-#include <drawing/imaging/image_codec_info.h>
-#include <drawing/imaging/encoder_parameters.h>
-#include <drawing/imaging/encoder_parameter.h>
-#include <drawing/imaging/encoder.h>
-#include <drawing/image.h>
-#include <drawing/graphics.h>
-#include <drawing/drawing2d/interpolation_mode.h>
 #include <drawing/bitmap.h>
-#include <cstdint>
-#include <system/diagnostics/debug.h>
 
-using namespace System::Diagnostics;
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 
@@ -192,7 +167,7 @@ void CompressImages()
     doc = System::MakeObject<Document>(dstFileName);
     System::SharedPtr<Shape> shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
     double imagePpi = shape->get_ImageData()->get_ImageSize()->get_WidthPixels() / ConvertUtil::PointToInch(shape->get_SizeInPoints().get_Width());
-    Debug::Assert(imagePpi < 150, u"Image was not resampled successfully.");
+    System::Diagnostics::Debug::Assert(imagePpi < 150, u"Image was not resampled successfully.");
     std::cout << "Compressed images successfully." << std::endl << "File saved at " << dstFileName.ToUtf8String() << std::endl;
     std::cout << "CompressImages example finished." << std::endl << std::endl;
 }

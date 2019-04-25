@@ -52,7 +52,7 @@ void WorkWithSingleChartDataPoint()
     // Add data point to the third point of the second series.
     System::SharedPtr<ChartDataPoint> dataPoint12 = series1->get_DataPoints()->Add(2);
     dataPoint12->set_InvertIfNegative(true);
-    dataPoint12->get_Marker()->set_Symbol(Aspose::Words::Drawing::Charts::MarkerSymbol::Star);
+    dataPoint12->get_Marker()->set_Symbol(MarkerSymbol::Star);
     dataPoint12->get_Marker()->set_Size(20);
     System::String outputPath = dataDir + GetOutputFilePath(u"WorkWithSingleChartDataPoint.docx");
     doc->Save(outputPath);

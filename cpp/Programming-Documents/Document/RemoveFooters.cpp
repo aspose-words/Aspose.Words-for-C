@@ -2,12 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Sections/Section.h>
 #include <Model/Sections/HeaderFooterType.h>
 #include <Model/Sections/HeaderFooterCollection.h>

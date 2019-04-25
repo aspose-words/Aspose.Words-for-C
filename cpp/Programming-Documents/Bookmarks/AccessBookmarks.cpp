@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
 #include <Model/Text/Range.h>
 #include <Model/Document/Document.h>
 #include <Model/Bookmarks/BookmarkCollection.h>

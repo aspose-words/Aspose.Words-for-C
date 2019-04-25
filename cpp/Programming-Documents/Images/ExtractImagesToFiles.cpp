@@ -2,11 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Drawing/Shape.h>
@@ -14,7 +9,6 @@
 #include <Model/Drawing/ImageData.h>
 #include <Model/Document/FileFormatUtil.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

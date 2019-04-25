@@ -1,12 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/collections/list.h>
-#include <system/collections/ilist.h>
-#include <system/object.h>
-#include <system/object_ext.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/Document.h>
 #include <Model/MailMerge/IMailMergeDataSource.h>
 #include <Model/MailMerge/MailMerge.h>
@@ -151,7 +145,7 @@ namespace
 
     private:
         bool get_IsEof() { return (mRecordIndex >= mCustomers->get_Count()); }
-        System::SharedPtr<System::Collections::Generic::IList<System::SharedPtr<Customer>>> mCustomers;
+        TCustomerIListPtr mCustomers;
         int32_t mRecordIndex;
     };
 

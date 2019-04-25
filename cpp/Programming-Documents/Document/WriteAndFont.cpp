@@ -1,15 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
 #include <Model/Text/Underline.h>
 #include <Model/Text/Font.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
-#include <drawing/color.h>
 
 using namespace Aspose::Words;
 

@@ -2,12 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Text/RunCollection.h>
 #include <Model/Text/Run.h>
 #include <Model/Text/ParagraphFormat.h>
@@ -18,7 +12,6 @@
 #include <Model/Nodes/NodeType.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 

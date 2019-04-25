@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
 #include <Model/Tables/Table.h>
 #include <Model/Tables/Row.h>
 #include <Model/Tables/Cell.h>

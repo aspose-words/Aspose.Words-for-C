@@ -2,12 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/exceptions.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Text/Paragraph.h>
 #include <Model/Sections/SectionCollection.h>
 #include <Model/Sections/Section.h>
@@ -26,7 +20,6 @@
 #include <Model/Drawing/Fill.h>
 #include <Model/Document/DocumentBase.h>
 #include <Model/Document/Document.h>
-#include <drawing/color.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

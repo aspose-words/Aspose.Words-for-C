@@ -2,7 +2,6 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/shared_ptr.h>
 #include "Model/Document/Document.h"
 #include <Model/Fields/FieldCollection.h>
 #include <Model/Fields/FieldType.h>

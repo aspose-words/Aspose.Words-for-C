@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/shared_ptr.h>
-#include <drawing/color.h>
-
 #include <Model/Document/Document.h>
 #include <Model/Tables/Table.h>
 #include <Model/Tables/Row.h>

@@ -3,15 +3,6 @@
 #include "Common.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/special_casts.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/exceptions.h>
-#include <system/collections/list.h>
-#include <system/collections/ilist.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Text/ParagraphFormat.h>
 #include <Model/Text/Paragraph.h>
 #include <Model/Styles/Style.h>
@@ -25,7 +16,6 @@
 #include <Model/Importing/ImportFormatMode.h>
 #include <Model/Document/DocumentBase.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 
@@ -182,7 +172,7 @@ namespace
             // If the marker is an end node and it is to be included then move to the end field so the field will not be removed.
             if ((isStartMarker && !isInclusive) || (!isStartMarker && isInclusive))
             {
-                while (node->get_NextSibling() != nullptr && node->get_NodeType() != Aspose::Words::NodeType::FieldEnd)
+                while (node->get_NextSibling() != nullptr && node->get_NodeType() != NodeType::FieldEnd)
                 {
                     node = node->get_NextSibling();
                 }
@@ -198,7 +188,7 @@ namespace
         {
             System::SharedPtr<Node> currentNode = nodeBranch.at(index);
             int32_t nodeIndex = currentNode->get_ParentNode()->IndexOf(currentNode);
-            currentCloneNode = (System::DynamicCast<Aspose::Words::CompositeNode>(currentCloneNode))->get_ChildNodes()->idx_get(nodeIndex);
+            currentCloneNode = (System::DynamicCast<CompositeNode>(currentCloneNode))->get_ChildNodes()->idx_get(nodeIndex);
             RemoveNodesOutsideOfRange(currentCloneNode, isInclusive || (index > 0), isStartMarker);
         }
 

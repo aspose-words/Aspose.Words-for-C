@@ -1,13 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
 #include <Model/Text/Range.h>
 #include <Model/Fields/FormFields/FormFieldCollection.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

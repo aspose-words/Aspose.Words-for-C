@@ -2,18 +2,10 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object_ext.h>
-#include <system/object.h>
-#include <system/date_time.h>
-#include <system/collections/ienumerator.h>
 #include <Model/Properties/DocumentProperty.h>
 #include <Model/Properties/CustomDocumentProperties.h>
 #include <Model/Properties/BuiltInDocumentProperties.h>
 #include <Model/Document/Document.h>
-#include <cstdint>
-
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Properties;

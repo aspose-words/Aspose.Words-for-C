@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/TxtLeadingSpacesOptions.h>
 #include <Model/Document/TxtLoadOptions.h>
@@ -73,18 +71,18 @@ namespace
         System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TxtExportHeadersFootersMode.docx");
 
         System::SharedPtr<TxtSaveOptions> options = System::MakeObject<TxtSaveOptions>();
-        options->set_SaveFormat(Aspose::Words::SaveFormat::Text);
+        options->set_SaveFormat(SaveFormat::Text);
 
         // All headers and footers are placed at the very end of the output document.
-        options->set_ExportHeadersFootersMode(Aspose::Words::Saving::TxtExportHeadersFootersMode::AllAtEnd);
+        options->set_ExportHeadersFootersMode(TxtExportHeadersFootersMode::AllAtEnd);
         doc->Save(dataDir + GetOutputFilePath(u"WorkingWithTxt.ExportHeadersFootersMode.AllAtEnd.txt"), options);
 
         // Only primary headers and footers are exported at the beginning and end of each section.
-        options->set_ExportHeadersFootersMode(Aspose::Words::Saving::TxtExportHeadersFootersMode::PrimaryOnly);
+        options->set_ExportHeadersFootersMode(TxtExportHeadersFootersMode::PrimaryOnly);
         doc->Save(dataDir + GetOutputFilePath(u"WorkingWithTxt.ExportHeadersFootersMode.PrimaryOnly.txt"), options);
 
         // No headers and footers are exported.
-        options->set_ExportHeadersFootersMode(Aspose::Words::Saving::TxtExportHeadersFootersMode::None);
+        options->set_ExportHeadersFootersMode(TxtExportHeadersFootersMode::None);
         doc->Save(dataDir + GetOutputFilePath(u"WorkingWithTxt.ExportHeadersFootersMode.None.txt"), options);
 
         //ExEnd:ExportHeadersFootersMode
@@ -94,6 +92,7 @@ namespace
     void UseTabCharacterPerLevelForListIndentation(System::String const &dataDir)
     {
         //ExStart:UseTabCharacterPerLevelForListIndentation
+        // TODO (std_string) : think about document named input_document
         System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Input.docx");
 
         System::SharedPtr<TxtSaveOptions> options = System::MakeObject<TxtSaveOptions>();
@@ -107,6 +106,7 @@ namespace
     void UseSpaceCharacterPerLevelForListIndentation(System::String const &dataDir)
     {
         //ExStart:UseSpaceCharacterPerLevelForListIndentation
+        // TODO (std_string) : think about document named input_document
         System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Input.docx");
 
         System::SharedPtr<TxtSaveOptions> options = System::MakeObject<TxtSaveOptions>();
@@ -120,9 +120,11 @@ namespace
     void DefaultLevelForListIndentation(System::String const &dataDir)
     {
         //ExStart:DefaultLevelForListIndentation
+        // TODO (std_string) : think about document named input_document
         System::SharedPtr<Document> doc1 = System::MakeObject<Document>(dataDir + u"Input.docx");
         doc1->Save(dataDir + GetOutputFilePath(u"WorkingWithTxt.DefaultLevelForListIndentation1.txt"));
 
+        //Document doc2 = new Document("input_document");
         System::SharedPtr<Document> doc2 = System::MakeObject<Document>(dataDir + u"Input.docx");
         System::SharedPtr<TxtSaveOptions> options = System::MakeObject<TxtSaveOptions>();
         doc2->Save(dataDir + GetOutputFilePath(u"WorkingWithTxt.DefaultLevelForListIndentation2.txt"), options);

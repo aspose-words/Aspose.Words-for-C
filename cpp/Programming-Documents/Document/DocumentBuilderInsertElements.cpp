@@ -1,13 +1,6 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/object.h>
-#include <system/io/stream.h>
-#include <system/io/memory_stream.h>
-#include <system/io/file.h>
-#include <system/array.h>
 #include <Model/Document/BreakType.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Document/Document.h>
@@ -21,8 +14,6 @@
 #include <Model/Text/ParagraphFormat.h>
 #include <Model/Text/Underline.h>
 #include <Model/Styles/StyleIdentifier.h>
-#include <drawing/color.h>
-#include <cstdint>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
