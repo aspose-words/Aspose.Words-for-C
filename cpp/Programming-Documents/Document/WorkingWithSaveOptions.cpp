@@ -2,6 +2,8 @@
 #include "examples.h"
 
 #include <Model/Document/Document.h>
+#include <Model/Saving/OdtSaveMeasureUnit.h>
+#include <Model/Saving/OdtSaveOptions.h>
 #include <Model/Saving/OoxmlSaveOptions.h>
 
 using namespace Aspose::Words;
@@ -25,6 +27,25 @@ namespace
         std::cout << "Updated Last Saved Time Property successfully." << std::endl;
     }
 
+    void SetMeasureUnitForODT(System::String const &dataDir)
+    {
+        // ExStart:SetMeasureUnitForODT
+        //Load the Word document
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.doc");
+
+        //Open Office uses centimeters when specifying lengths, widths and other measurable formatting
+        //and content properties in documents whereas MS Office uses inches.
+
+        System::SharedPtr<OdtSaveOptions> saveOptions = System::MakeObject<OdtSaveOptions>();
+        saveOptions->set_MeasureUnit(OdtSaveMeasureUnit::Inches);
+
+        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithSaveOptions.SetMeasureUnitForODT.docx");
+
+        //Save the document into ODT
+        doc->Save(outputPath, saveOptions);
+        // ExEnd:SetMeasureUnitForODT
+        std::cout << "Set MeasureUnit for ODT successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void WorkingWithSaveOptions()
@@ -33,5 +54,6 @@ void WorkingWithSaveOptions()
     // The path to the documents directory.
     System::String dataDir = GetDataDir_WorkingWithDocument();
     UpdateLastSavedTimeProperty(dataDir);
+    SetMeasureUnitForODT(dataDir);
     std::cout << "WorkingWithSaveOptions example finished." << std::endl << std::endl;
 }
