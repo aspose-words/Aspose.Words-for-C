@@ -62,6 +62,21 @@ namespace
         // ExEnd:ScaleWmfFontsToMetafileSize
         std::cout << "Fonts as metafile are rendered to its default size in PDF." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void AdditionalTextPositioning(System::String const &dataDir)
+    {
+        // ExStart:AdditionalTextPositioning
+        // The path to the documents directory.
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.docx");
+
+        System::SharedPtr<PdfSaveOptions> options = System::MakeObject<PdfSaveOptions>();
+        options->set_AdditionalTextPositioning(true);
+
+        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithPdfSaveOptions.AdditionalTextPositioning.pdf");
+        doc->Save(outputPath, options);
+        // ExEnd:AdditionalTextPositioning
+        std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void WorkingWithPdfSaveOptions()
@@ -73,5 +88,6 @@ void WorkingWithPdfSaveOptions()
     EscapeUriInPdf(dataDir);
     ExportHeaderFooterBookmarks(dataDir);
     ScaleWmfFontsToMetafileSize(dataDir);
+    AdditionalTextPositioning(dataDir);
     std::cout << "WorkingWithPdfSaveOptions example finished." << std::endl << std::endl;
 }

@@ -47,6 +47,23 @@ namespace
         // ExEnd:SetFontFallbackSettings
         std::cout << "Document is rendered to PDF with font fallback." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void SetPredefinedFontFallbackSettings(System::String const &dataDir)
+    {
+        // ExStart:SetPredefinedFontFallbackSettings
+        // The path to the documents directory.
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Rendering.doc");
+
+        System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
+        fontSettings->get_FallbackSettings()->LoadNotoFallbackSettings();
+
+        // Set font settings
+        doc->set_FontSettings(fontSettings);
+        System::String outputPath = dataDir + GetOutputFilePath(u"SetFontSettings.SetPredefinedFontFallbackSettings.pdf");
+        doc->Save(outputPath);
+        // ExEnd:SetPredefinedFontFallbackSettings
+        std::cout << "Document is rendered to PDF with font fallback." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void SetFontSettings()
@@ -56,5 +73,7 @@ void SetFontSettings()
     System::String dataDir = GetDataDir_RenderingAndPrinting();
     EnableDisableFontSubstitution(dataDir);
     SetFontFallbackSettings(dataDir);
+    // TODO (std_string) : FontFallbackSettings::LoadNotoFallbackSettings() don't work properly
+    SetPredefinedFontFallbackSettings(dataDir);
     std::cout << "SetFontSettings example finished." << std::endl << std::endl;
 }
