@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <Model/Revisions/RevisionCollection.h>
 #include <Model/Document/Document.h>
 
 using namespace Aspose::Words;
@@ -27,8 +28,7 @@ namespace {
 		System::SharedPtr<Document> docB = System::MakeObject<Document>(dataDir + u"TestFile - Copy.doc");
 
 		// DocA now contains changes as revisions. 
-		docA->Compare(docB, u"User", System::DateTime::get_Now());
-		if (docA->get_Revisions().get_shared_count() == 0)
+		if (docA->get_Revisions()->get_Count() == 0)
 			std::cout << "Documents are equal" << std::endl << std::endl;
 		else
 			std::cout << "Documents are not equal" << std::endl << std::endl;
