@@ -157,6 +157,7 @@ int main()
     WorkingWithSaveOptions();
     DocumentBuilderInsertHorizontalRule();
     PageNumbersOfNodes();
+	CompareDocument();
 
     // Fields
     // =====================================================
