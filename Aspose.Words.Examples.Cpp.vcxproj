@@ -35,6 +35,7 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
+    <Import Project="packages\Aspose.Words.Cpp.19.7.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.19.7.0\build\native\aspose.words.cpp.targets')" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -328,13 +329,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\Aspose.Words.Cpp.19.6.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.19.6.0\build\native\aspose.words.cpp.targets')" />
-  </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Aspose.Words.Cpp.19.6.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.19.6.0\build\native\aspose.words.cpp.targets'))" />
+    <Error Condition="!Exists('packages\Aspose.Words.Cpp.19.7.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.19.7.0\build\native\aspose.words.cpp.targets'))" />
   </Target>
 </Project>
