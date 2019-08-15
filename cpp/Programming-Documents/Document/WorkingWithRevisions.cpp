@@ -95,7 +95,24 @@ namespace
         doc->Save(outputPath);
         // ExEnd:SetShowInBalloons
         std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 
+    void GetRevisionGroupDetails(System::String const &dataDir)
+    {
+        // ExStart:GetRevisionGroupDetails
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFormatDescription.docx");
+
+        for (auto revision : System::IterateOver(doc->get_Revisions()))
+        {
+            System::String groupText = revision->get_Group() != nullptr ? System::String(u"Revision group text: ") + revision->get_Group()->get_Text() : u"Revision has no group";
+
+            std::cout << "Type: " << System::ObjectExt::ToString(revision->get_RevisionType()).ToUtf8String() << std::endl;
+            std::cout << "Author: " << revision->get_Author().ToUtf8String() << std::endl;
+            std::cout << "Date: " << revision->get_DateTime().ToString().ToUtf8String() << std::endl;
+            std::cout << "Revision text: " << revision->get_ParentNode()->ToString(Aspose::Words::SaveFormat::Text).ToUtf8String() << std::endl;
+            std::cout << groupText.ToUtf8String() << std::endl;
+        }
+        // ExEnd:GetRevisionGroupDetails
     }
 }
 
@@ -109,5 +126,6 @@ void WorkingWithRevisions()
     GetRevisionGroups(dataDir);
     SetShowCommentsInPDF(dataDir);
     SetShowInBalloons(dataDir);
+    GetRevisionGroupDetails(dataDir);
     std::cout << "WorkingWithRevisions example finished." << std::endl << std::endl;
 }

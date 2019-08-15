@@ -48,6 +48,7 @@ int main()
     SpecifySaveOption();
     SplitIntoHtmlPages();
     WorkingWithOoxml();
+    WorkingWithDoc();
 
     // =====================================================
     // =====================================================
@@ -85,6 +86,7 @@ int main()
     FindReplaceUsingMetaCharacters();
     ReplaceTextWithField();
     ReplaceHtmlTextWithMetaCharacters();
+    ReplaceWithHTML();
 
     // Bookmarks
     // =====================================================
@@ -157,7 +159,10 @@ int main()
     WorkingWithSaveOptions();
     DocumentBuilderInsertHorizontalRule();
     PageNumbersOfNodes();
-	CompareDocument();
+    CheckDMLTextEffect();
+    ParagraphStyleSeparator();
+    WorkingWithMarkdownFeatures();
+    CompareDocument();
 
     // Fields
     // =====================================================
@@ -181,6 +186,7 @@ int main()
     InsertAdvanceFieldWithoutDocumentBuilder();
     InsertASKFieldWithoutDocumentBuilder();
     InsertAuthorField();
+    ChangeFieldUpdateCultureSource();
     GetFieldNames();
     InsertTOAFieldWithoutDocumentBuilder();
     InsertIncludeTextFieldWithoutDocumentBuilder();
@@ -278,6 +284,10 @@ int main()
     // List
     // =====================================================
     WorkingWithList();
+
+    // Linked TextBoxes
+    // =====================================================
+    WorkingWithLinkedTextboxes();
 
     // =====================================================
     // =====================================================

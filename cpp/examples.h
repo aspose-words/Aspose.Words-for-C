@@ -34,6 +34,7 @@ void SaveDocWithHtmlSaveOptions();
 void SpecifySaveOption();
 void SplitIntoHtmlPages();
 void WorkingWithOoxml();
+void WorkingWithDoc();
 
 // =================================
 // Programming with Documents
@@ -67,6 +68,7 @@ void ReplaceWithEvaluator();
 void FindReplaceUsingMetaCharacters();
 void ReplaceTextWithField();
 void ReplaceHtmlTextWithMetaCharacters();
+void ReplaceWithHTML();
 
 // Bookmarks
 void CopyBookmarkedText();
@@ -98,7 +100,6 @@ void ExtractContentBetweenBookmark();
 void ExtractContentBetweenCommentRange();
 void RemoveBreaks();
 void CloningDocument();
-void CompareDocument();
 void ProtectDocument();
 void AccessStyles();
 void GetVariables();
@@ -135,6 +136,10 @@ void DocumentPageSetup();
 void WorkingWithSaveOptions();
 void DocumentBuilderInsertHorizontalRule();
 void PageNumbersOfNodes();
+void CheckDMLTextEffect();
+void ParagraphStyleSeparator();
+void WorkingWithMarkdownFeatures();
+void CompareDocument();
 
 // Fields
 void RemoveField();
@@ -157,6 +162,7 @@ void InsertMailMergeAddressBlockFieldUsingDOM();
 void InsertAdvanceFieldWithoutDocumentBuilder();
 void InsertASKFieldWithoutDocumentBuilder();
 void InsertAuthorField();
+void ChangeFieldUpdateCultureSource();
 void GetFieldNames();
 void InsertTOAFieldWithoutDocumentBuilder();
 void InsertIncludeTextFieldWithoutDocumentBuilder();
@@ -241,6 +247,9 @@ void WorkingWithFootnote();
 
 // List
 void WorkingWithList();
+
+// Linked TextBoxes
+void WorkingWithLinkedTextboxes();
 
 // =====================================================
 // Mail-Merge
