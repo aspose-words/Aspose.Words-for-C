@@ -748,6 +748,9 @@
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToPCL.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\CompareDocument.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">

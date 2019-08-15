@@ -98,6 +98,7 @@ void ExtractContentBetweenBookmark();
 void ExtractContentBetweenCommentRange();
 void RemoveBreaks();
 void CloningDocument();
+void CompareDocument();
 void ProtectDocument();
 void AccessStyles();
 void GetVariables();
