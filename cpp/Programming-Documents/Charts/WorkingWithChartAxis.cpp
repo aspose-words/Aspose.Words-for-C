@@ -219,6 +219,20 @@ namespace
         // ExEnd:HideChartAxis
         std::cout << "Y Axis of chart has hidden successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void TickMultiLineLabelAlignment(System::String const &dataDir)
+    {
+        // ExStart:TickMultiLineLabelAlignment
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.docx");
+        System::SharedPtr<Shape> shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        System::SharedPtr<ChartAxis> axis = shape->get_Chart()->get_AxisX();
+
+        //This property has effect only for multi-line labels.
+        axis->set_TickLabelAlignment(ParagraphAlignment::Right);
+
+        doc->Save(dataDir + GetOutputFilePath(u"WorkingWithChartAxis.TickMultiLineLabelAlignment.docx"));
+        // ExEnd:TickMultiLineLabelAlignment
+    }
 }
 
 void WorkingWithChartAxis()
@@ -232,6 +246,6 @@ void WorkingWithChartAxis()
     SetBoundsOfAxis(dataDir);
     SetIntervalUnitBetweenLabelsOnAxis(dataDir);
     HideChartAxis(dataDir);
-    //TickMultiLineLabelAlignment(dataDir); - absent documents
+    TickMultiLineLabelAlignment(dataDir);
     std::cout << "WorkingWithChartAxis example finished." << std::endl << std::endl;
 }

@@ -742,6 +742,12 @@
     <ClCompile Include="cpp\Rendering-Printing\WorkingWithPdfSaveOptions.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\SaveOptionsHtmlFixed.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToPCL.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
