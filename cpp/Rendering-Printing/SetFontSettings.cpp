@@ -73,7 +73,6 @@ void SetFontSettings()
     System::String dataDir = GetDataDir_RenderingAndPrinting();
     EnableDisableFontSubstitution(dataDir);
     SetFontFallbackSettings(dataDir);
-    // TODO (std_string) : FontFallbackSettings::LoadNotoFallbackSettings() don't work properly
     SetPredefinedFontFallbackSettings(dataDir);
     std::cout << "SetFontSettings example finished." << std::endl << std::endl;
 }

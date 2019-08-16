@@ -12,9 +12,11 @@
 #include <Model/Markup/Sdt/StructuredDocumentTag.h>
 #include <Model/Nodes/NodeCollection.h>
 #include <Model/Nodes/NodeType.h>
+#include <Model/Saving/OdtSaveOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Markup;
+using namespace Aspose::Words::Saving;
 
 namespace
 {
@@ -34,6 +36,17 @@ namespace
         doc->Save(outputPath, SaveFormat::Docx);
         // ExEnd:LoadOptionsUpdateDirtyFields
         std::cout << "Update the fields with the dirty attribute successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
+
+    void LoadAndSaveEncryptedODT(System::String const &dataDir)
+    {
+        // ExStart:LoadAndSaveEncryptedODT  
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"encrypted.odt", System::MakeObject<LoadOptions>(u"password"));
+
+        System::String outputPath = dataDir + GetOutputFilePath(u"Load_Options.LoadAndSaveEncryptedODT.odt");
+        doc->Save(outputPath, System::MakeObject<OdtSaveOptions>(u"newpassword"));
+        // ExEnd:LoadAndSaveEncryptedODT 
+        std::cout << "Load and save encrypted document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
     void VerifyODTdocument(System::String const &dataDir)
