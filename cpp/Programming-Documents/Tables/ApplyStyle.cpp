@@ -1,17 +1,25 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <Model/Borders/BorderCollection.h>
+#include <Model/Borders/LineStyle.h>
+#include <Model/Borders/Shading.h>
+#include <Model/Borders/TextureIndex.h>
 #include "Model/Document/Document.h"
 #include "Model/Document/DocumentBuilder.h"
-#include <Model/Tables/Table.h>
-#include <Model/Tables/TableStyleOptions.h>
+#include <Model/Nodes/NodeType.h>
+#include <Model/Styles/ConditionalStyleCollection.h>
+#include <Model/Styles/Style.h>
+#include <Model/Styles/StyleCollection.h>
+#include <Model/Styles/StyleIdentifier.h>
+#include <Model/Styles/StyleType.h>
+#include <Model/Styles/TableStyle.h>
 #include <Model/Tables/AutoFitBehavior.h>
-#include <Model/Tables/Row.h>
 #include <Model/Tables/Cell.h>
 #include <Model/Tables/CellFormat.h>
-#include <Model/Styles/StyleIdentifier.h>
-#include <Model/Borders/Shading.h>
-#include <Model/Nodes/NodeType.h>
+#include <Model/Tables/Row.h>
+#include <Model/Tables/Table.h>
+#include <Model/Tables/TableStyleOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Tables;
@@ -79,6 +87,65 @@ namespace
         std::cout << "Cell shading after style expansion: " << cellShadingAfter.ToString().ToUtf8String() << std::endl;
         // ExEnd:ExpandFormattingOnCellsAndRowFromStyle
     }
+
+    void CreateTableStyle(System::String const &dataDir)
+    {
+        // ExStart:CreateTableStyle
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+
+        System::SharedPtr<Table> table = builder->StartTable();
+        builder->InsertCell();
+        builder->Write(u"Name");
+        builder->InsertCell();
+        builder->Write(u"Value");
+        builder->EndRow();
+        builder->InsertCell();
+        builder->InsertCell();
+        builder->EndTable();
+
+        System::SharedPtr<TableStyle> tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        tableStyle->get_Borders()->set_LineStyle(LineStyle::Double);
+        tableStyle->get_Borders()->set_LineWidth(1);
+        tableStyle->set_LeftPadding(18);
+        tableStyle->set_RightPadding(18);
+        tableStyle->set_TopPadding(12);
+        tableStyle->set_BottomPadding(12);
+
+        table->set_Style(tableStyle);
+
+        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyStyle.CreateTableStyle.docx");
+        doc->Save(outputPath);
+        // ExEnd:CreateTableStyle
+    }
+
+    void DefineConditionalFormatting(System::String const &dataDir)
+    {
+        // ExStart:DefineConditionalFormatting
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+
+        System::SharedPtr<Table> table = builder->StartTable();
+        builder->InsertCell();
+        builder->Write(u"Name");
+        builder->InsertCell();
+        builder->Write(u"Value");
+        builder->EndRow();
+        builder->InsertCell();
+        builder->InsertCell();
+        builder->EndTable();
+
+        System::SharedPtr<TableStyle> tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        // Define background color to the first row of table.
+        tableStyle->get_ConditionalStyles()->get_FirstRow()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_GreenYellow());
+        tableStyle->get_ConditionalStyles()->get_FirstRow()->get_Shading()->set_Texture(TextureIndex::TextureNone);
+
+        table->set_Style(tableStyle);
+
+        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyStyle.DefineConditionalFormatting.docx");
+        doc->Save(outputPath);
+        // ExEnd:DefineConditionalFormatting
+    }
 }
 
 void ApplyStyle()
@@ -88,5 +155,7 @@ void ApplyStyle()
     System::String dataDir = GetDataDir_WorkingWithTables();
     BuildTableWithStyle(dataDir);
     ExpandFormattingOnCellsAndRowFromStyle(dataDir);
+    CreateTableStyle(dataDir);
+    DefineConditionalFormatting(dataDir);
     std::cout << "ApplyStyle example finished." << std::endl << std::endl;
 }

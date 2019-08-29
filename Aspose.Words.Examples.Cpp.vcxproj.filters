@@ -76,6 +76,9 @@
     <Filter Include="cpp\Programming-Documents\Charts">
       <UniqueIdentifier>{91669ac3-9e05-4155-bb8a-fb8bfe323e9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cpp\Programming-Documents\Linked-Textboxes">
+      <UniqueIdentifier>{ed5ad1e2-df97-4efd-94f5-b4a8459f0821}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cpp\main.cpp">
@@ -531,6 +534,9 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertAuthorField.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\ChangeFieldUpdateCultureSource.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Fields\GetFieldNames.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
@@ -747,6 +753,24 @@
     </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToPCL.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\WorkingWithDoc.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\CheckDMLTextEffect.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ParagraphStyleSeparator.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithMarkdownFeatures.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithHTML.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Linked-Textboxes\WorkingWithLinkedTextboxes.cpp">
+      <Filter>cpp\Programming-Documents\Linked-Textboxes</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Document\CompareDocument.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
