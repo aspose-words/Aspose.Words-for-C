@@ -17,7 +17,7 @@ void ChangeFieldUpdateCultureSource()
     // ExStart:ChangeFieldUpdateCultureSource
     typedef System::SharedPtr<System::Object> TObjectPtr;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
     // We will test this functionality creating a document with two fields with date formatting
     // ExStart:DocumentBuilderInsertField
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -33,7 +33,7 @@ void ChangeFieldUpdateCultureSource()
     // Set the culture used during field update to the culture used by the field.
     doc->get_FieldOptions()->set_FieldUpdateCultureSource(FieldUpdateCultureSource::FieldCode);
     doc->get_MailMerge()->Execute(System::MakeArray<System::String>({u"Date2"}), System::MakeArray<TObjectPtr>({System::ObjectExt::Box<System::DateTime>(System::DateTime(2011, 1, 1))}));
-    System::String outputPath = dataDir + GetOutputFilePath(u"ChangeFieldUpdateCultureSource.doc");
+    System::String outputPath = outputDataDir + u"ChangeFieldUpdateCultureSource.doc";
     doc->Save(outputPath);
     // ExEnd:ChangeFieldUpdateCultureSource
 

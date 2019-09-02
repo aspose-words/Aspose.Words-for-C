@@ -37,7 +37,7 @@ namespace
         }
     }
 
-    void ReceiveWarningNotification(System::SharedPtr<Document> doc, System::String const &dataDir)
+    void ReceiveWarningNotification(System::SharedPtr<Document> doc, System::String const &outputDataDir)
     {
         // ExStart:ReceiveWarningNotification 
         // When you call UpdatePageLayout the document is rendered in memory. Any warnings that occured during rendering
@@ -48,7 +48,7 @@ namespace
         System::SharedPtr<HandleDocumentWarnings> callback = System::MakeObject<HandleDocumentWarnings>();
 
         doc->set_WarningCallback(callback);
-        System::String outputPath = dataDir + GetOutputFilePath(u"ReceiveNotificationsOfFont.ReceiveWarningNotification.pdf");
+        System::String outputPath = outputDataDir + u"ReceiveNotificationsOfFont.ReceiveWarningNotification.pdf";
         // Even though the document was rendered previously, any save warnings are notified to the user during document save.
         doc->Save(outputPath);
         // ExEnd:ReceiveWarningNotification  
@@ -59,10 +59,11 @@ void ReceiveNotificationsOfFont()
 {
     std::cout << "ReceiveNotificationsOfFont example started." << std::endl;
     // ExStart:ReceiveNotificationsOfFonts 
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Rendering.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
 
     System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
 
@@ -79,11 +80,11 @@ void ReceiveNotificationsOfFont()
     doc->set_WarningCallback(callback);
     // Set font settings
     doc->set_FontSettings(fontSettings);
-    System::String outputPath = dataDir + GetOutputFilePath(u"ReceiveNotificationsOfFont.pdf");
+    System::String outputPath = outputDataDir + u"ReceiveNotificationsOfFont.pdf";
     // Pass the save options along with the save path to the save method.
     doc->Save(outputPath);
     // ExEnd:ReceiveNotificationsOfFonts 
     std::cout << "Receive notifications of font substitutions by using IWarningCallback processed." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    ReceiveWarningNotification(doc, dataDir);
+    ReceiveWarningNotification(doc, outputDataDir);
     std::cout << "ReceiveNotificationsOfFont example finished." << std::endl << std::endl;
 }

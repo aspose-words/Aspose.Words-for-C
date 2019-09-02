@@ -360,13 +360,14 @@ void SplitIntoHtmlPages()
     // Aspose.Words.License license = new Aspose.Words.License();
     // License.SetLicense(@"Aspose.Words.lic");
 
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
 
-    System::String srcFileName = dataDir + u"SOI 2007-2012-DeeM with footnote added.doc";
-    System::String tocTemplate = dataDir + u"TocTemplate.doc";
+    System::String srcFileName = inputDataDir + u"SOI 2007-2012-DeeM with footnote added.doc";
+    System::String tocTemplate = inputDataDir + u"TocTemplate.doc";
 
-    System::String outDir = System::IO::Path::Combine(dataDir, u"_out");
+    System::String outDir = System::IO::Path::Combine(outputDataDir, u"SplitIntoHtmlPages");
     System::IO::Directory::CreateDirectory_(outDir);
 
     // This class does the job.

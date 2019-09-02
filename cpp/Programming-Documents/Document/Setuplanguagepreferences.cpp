@@ -12,14 +12,14 @@ using namespace Aspose::Words;
 
 namespace
 {
-    void AddJapaneseAsEditinglanguages(const System::String& dataDir)
+    void AddJapaneseAsEditinglanguages(const System::String& inputDataDir)
     {
         // ExStart:AddJapaneseAsEditinglanguages
         // The path to the documents directory.
         System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
         loadOptions->get_LanguagePreferences()->AddEditingLanguage(EditingLanguage::Japanese);
 
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"languagepreferences.docx", loadOptions);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"languagepreferences.docx", loadOptions);
 
         int32_t localeIdFarEast = doc->get_Styles()->get_DefaultFont()->get_LocaleIdFarEast();
         if (localeIdFarEast == static_cast<int32_t>(EditingLanguage::Japanese))
@@ -33,7 +33,7 @@ namespace
         // ExEnd:AddJapaneseAsEditinglanguages
     }
 
-    void SetRussianAsDefaultEditingLanguage(const System::String& dataDir)
+    void SetRussianAsDefaultEditingLanguage(const System::String& inputDataDir)
     {
         // ExStart:SetRussianAsDefaultEditingLanguage
         // The path to the documents directory.
@@ -41,7 +41,7 @@ namespace
 
         loadOptions->get_LanguagePreferences()->set_DefaultEditingLanguage(EditingLanguage::Russian);
 
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"languagepreferences.docx", loadOptions);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"languagepreferences.docx", loadOptions);
 
         int32_t localeId = doc->get_Styles()->get_DefaultFont()->get_LocaleId();
         if (localeId == static_cast<int32_t>(EditingLanguage::Russian))
@@ -60,8 +60,8 @@ void Setuplanguagepreferences()
 {
     std::cout << "Setuplanguagepreferences example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
-    AddJapaneseAsEditinglanguages(dataDir);
-    SetRussianAsDefaultEditingLanguage(dataDir);
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    AddJapaneseAsEditinglanguages(inputDataDir);
+    SetRussianAsDefaultEditingLanguage(inputDataDir);
     std::cout << "Setuplanguagepreferences example finished." << std::endl << std::endl;
 }

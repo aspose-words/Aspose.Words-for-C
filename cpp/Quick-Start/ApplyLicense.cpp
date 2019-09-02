@@ -8,7 +8,7 @@ using namespace Aspose::Words;
 void ApplyLicense()
 {
     std::cout << "ApplyLicense example started." << std::endl;
-    auto license = System::MakeObject<License>();
+    System::SharedPtr<License> license = System::MakeObject<License>();
     // This line attempts to set a license from several locations relative to the executable and Aspose.Words.dll.
     // You can also use the additional overload to load a license from a stream, this is useful for instance when the 
     // License is stored as an embedded resource 

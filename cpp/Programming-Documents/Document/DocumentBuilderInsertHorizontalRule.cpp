@@ -10,7 +10,7 @@ void DocumentBuilderInsertHorizontalRule()
 {
     std::cout << "DocumentBuilderInsertHorizontalRule example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
 
     // ExStart:DocumentBuilderInsertHorizontalRule
     // Initialize document.
@@ -20,7 +20,7 @@ void DocumentBuilderInsertHorizontalRule()
     builder->Writeln(u"Insert a horizontal rule shape into the document.");
     builder->InsertHorizontalRule();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertHorizontalRule.doc");
+    System::String outputPath = outputDataDir + u"DocumentBuilderInsertHorizontalRule.doc";
     doc->Save(outputPath);
     // ExEnd:DocumentBuilderInsertHorizontalRule
     std::cout << "Horizontal rule is inserted into document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

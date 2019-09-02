@@ -211,8 +211,9 @@ void NestedMailMergeCustom()
 {
     std::cout << "NestedMailMergeCustom example started." << std::endl;
     // ExStart:NestedMailMergeCustom
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_MailMergeAndReporting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_MailMergeAndReporting();
+    System::String outputDataDir = GetOutputDataDir_MailMergeAndReporting();
     // Create some data that we will use in the mail merge.
     TCustomerIListPtr customers = System::MakeObject<TCustomerList>();
     customers->Add(System::MakeObject<Customer>(u"Thomas Hardy", u"120 Hanover Sq., London"));
@@ -224,7 +225,7 @@ void NestedMailMergeCustom()
     customers->idx_get(1)->GetOrders()->Add(System::MakeObject<Order>(u"Rugby World Cup Guide", 1));
 
     // Open the template document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"NestedMailMerge.CustomDataSource.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"NestedMailMerge.CustomDataSource.doc");
 
     // To be able to mail merge from your own data source, it must be wrapped
     // Into an object that implements the IMailMergeDataSource interface.
@@ -233,7 +234,7 @@ void NestedMailMergeCustom()
     // Now you can pass your data source into Aspose.Words.
     doc->get_MailMerge()->ExecuteWithRegions(customersDataSource);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"NestedMailMergeCustom.doc");
+    System::String outputPath = outputDataDir + u"NestedMailMergeCustom.doc";
     doc->Save(outputPath);
     // ExEnd:NestedMailMergeCustom
 

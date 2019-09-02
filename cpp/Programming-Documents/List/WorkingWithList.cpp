@@ -19,7 +19,7 @@ using namespace Aspose::Words::Saving;
 
 namespace
 {
-    void SpecifyListLevel(System::String const &dataDir)
+    void SpecifyListLevel(System::String const &outputDataDir)
     {
         // ExStart:SpecifyListLevel
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -51,7 +51,7 @@ namespace
         // This is a way to stop list formatting. 
         builder->get_ListFormat()->set_List(nullptr);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithList.SpecifyListLevel.doc");
+        System::String outputPath = outputDataDir + u"WorkingWithList.SpecifyListLevel.doc";
 
         // Save the document to disk.
         builder->get_Document()->Save(outputPath);
@@ -59,7 +59,7 @@ namespace
         std::cout << "Document is saved successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void RestartListNumber(System::String const &dataDir)
+    void RestartListNumber(System::String const &outputDataDir)
     {
         // ExStart:RestartListNumber
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -92,7 +92,7 @@ namespace
         builder->Writeln(u"Item 2");
         builder->get_ListFormat()->RemoveNumbers();
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithList.RestartListNumber.doc");
+        System::String outputPath = outputDataDir + u"WorkingWithList.RestartListNumber.doc";
 
         // Save the document to disk.
         builder->get_Document()->Save(outputPath);
@@ -100,7 +100,7 @@ namespace
         std::cout << "Document is saved successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetRestartAtEachSection(System::String const &dataDir)
+    void SetRestartAtEachSection(System::String const &outputDataDir)
     {
         // ExStart:SetRestartAtEachSection
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -131,7 +131,7 @@ namespace
         System::SharedPtr<OoxmlSaveOptions> options = System::MakeObject<OoxmlSaveOptions>();
         options->set_Compliance(OoxmlCompliance::Iso29500_2008_Transitional);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithList.SetRestartAtEachSection.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithList.SetRestartAtEachSection.docx";
 
         // Save the document to disk.
         doc->Save(outputPath, options);
@@ -145,9 +145,9 @@ void WorkingWithList()
 {
     std::cout << "WorkingWithList example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithList();
-    RestartListNumber(dataDir);
-    SpecifyListLevel(dataDir);
-    SetRestartAtEachSection(dataDir);
+    System::String outputDataDir = GetOutputDataDir_WorkingWithList();
+    RestartListNumber(outputDataDir);
+    SpecifyListLevel(outputDataDir);
+    SetRestartAtEachSection(outputDataDir);
     std::cout << "WorkingWithList example finished." << std::endl << std::endl;
 }

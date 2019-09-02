@@ -22,11 +22,11 @@ using namespace Aspose::Words::Markup;
 
 namespace
 {
-    void SetCurrentStateOfCheckBox(System::String const &dataDir)
+    void SetCurrentStateOfCheckBox(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetCurrentStateOfCheckBox
         // Open an existing document
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"CheckBoxTypeContentControl.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"CheckBoxTypeContentControl.docx");
 
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
         // Get the first content control from the document
@@ -38,17 +38,17 @@ namespace
             SdtCheckBox->set_Checked(true);
         }
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"UpdateContentControls.SetCurrentStateOfCheckBox.docx");
+        System::String outputPath = outputDataDir + u"UpdateContentControls.SetCurrentStateOfCheckBox.docx";
         doc->Save(outputPath);
         // ExEnd:SetCurrentStateOfCheckBox
         std::cout << "Current state fo checkbox setup successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void ModifyContentControls(System::String const &dataDir)
+    void ModifyContentControls(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:ModifyContentControls
         // Open an existing document
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"CheckBoxTypeContentControl.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"CheckBoxTypeContentControl.docx");
 
         for (System::SharedPtr<StructuredDocumentTag> sdt : System::IterateOver<System::SharedPtr<StructuredDocumentTag>>(doc->GetChildNodes(NodeType::StructuredDocumentTag, true)))
         {
@@ -69,12 +69,12 @@ namespace
                 System::SharedPtr<Shape> shape = System::DynamicCast<Shape>(sdt->GetChild(NodeType::Shape, 0, true));
                 if (shape->get_HasImage())
                 {
-                    shape->get_ImageData()->SetImage(dataDir + u"Watermark.png");
+                    shape->get_ImageData()->SetImage(inputDataDir + u"Watermark.png");
                 }
             }
         }
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"UpdateContentControls.ModifyContentControls.docx");
+        System::String outputPath = outputDataDir + u"UpdateContentControls.ModifyContentControls.docx";
         doc->Save(outputPath);
         // ExEnd:ModifyContentControls
         std::cout << "Plain text box, drop down list and picture content modified successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -84,10 +84,11 @@ namespace
 void UpdateContentControls()
 {
     std::cout << "UpdateContentControls example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
-    SetCurrentStateOfCheckBox(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
+    SetCurrentStateOfCheckBox(inputDataDir, outputDataDir);
     // Shows how to modify content controls of type plain text box, drop down list and picture.
-    ModifyContentControls(dataDir);
+    ModifyContentControls(inputDataDir, outputDataDir);
     std::cout << "UpdateContentControls example finished." << std::endl << std::endl;
 }

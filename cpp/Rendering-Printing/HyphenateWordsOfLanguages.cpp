@@ -10,15 +10,16 @@ void HyphenateWordsOfLanguages()
 {
     std::cout << "HyphenateWordsOfLanguages example started." << std::endl;
     // ExStart:HyphenateWordsOfLanguages
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
 
     // Load the documents which store the shapes we want to render.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile RenderShape.doc");
-    Hyphenation::RegisterDictionary(u"en-US", dataDir + u"hyph_en_US.dic");
-    Hyphenation::RegisterDictionary(u"de-CH", dataDir + u"hyph_de_CH.dic");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile RenderShape.doc");
+    Hyphenation::RegisterDictionary(u"en-US", inputDataDir + u"hyph_en_US.dic");
+    Hyphenation::RegisterDictionary(u"de-CH", inputDataDir + u"hyph_de_CH.dic");
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"HyphenateWordsOfLanguages.pdf");
+    System::String outputPath = outputDataDir + u"HyphenateWordsOfLanguages.pdf";
     doc->Save(outputPath);
     // ExEnd:HyphenateWordsOfLanguages
     std::cout << "Words of special languages hyphenate successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

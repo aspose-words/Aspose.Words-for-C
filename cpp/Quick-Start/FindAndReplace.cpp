@@ -12,13 +12,14 @@ using namespace Aspose::Words::Replacing;
 void FindAndReplace()
 {
     std::cout << "FindAndReplace example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_QuickStart();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_QuickStart();
+    System::String outputDataDir = GetOutputDataDir_QuickStart();
 
     // Open the document.
-    std::cout << (dataDir + u"ReplaceSimple.doc").ToUtf8String() << std::endl;
-
-    auto doc = System::MakeObject<Document>(dataDir + u"ReplaceSimple.doc");
+    System::String documentPath = inputDataDir + u"ReplaceSimple.doc";
+    std::cout << documentPath.ToUtf8String() << std::endl;
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(documentPath);
 
     // Check the text of the document
     std::cout << "Original document text: " << doc->get_Range()->get_Text().ToUtf8String() << std::endl;
@@ -29,7 +30,7 @@ void FindAndReplace()
     // Check the replacement was made.
     std::cout << "Document text after replace: " << doc->get_Range()->get_Text().ToUtf8String() << std::endl;
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"FindAndReplace.doc");
+    System::String outputPath = outputDataDir + u"FindAndReplace.doc";
     // Save the modified document.
     doc->Save(outputPath);
     std::cout << "Text found and replaced successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

@@ -52,7 +52,7 @@ void ReplaceHtmlTextWithMetaCharacters()
     std::cout << "ReplaceHtmlTextWithMetaCharacters example started." << std::endl;
     // ExStart:ReplaceHtmlTextWithMetaCharacters
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_FindAndReplace();
+    System::String outputDataDir = GetOutputDataDir_FindAndReplace();
 
     System::String html = u"<p>&ldquo;Some Text&rdquo;</p>";
 
@@ -70,7 +70,7 @@ void ReplaceHtmlTextWithMetaCharacters()
     doc->get_Range()->Replace(u"{PLACEHOLDER}", html, findReplaceOptions);
 
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"ReplaceHtmlTextWithMetaCharacters.doc");
+    System::String outputPath = outputDataDir + u"ReplaceHtmlTextWithMetaCharacters.doc";
     doc->Save(outputPath);
     // ExEnd:ReplaceHtmlTextWithMetaCharacters
     std::cout << "Text replaced with meta characters successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

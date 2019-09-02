@@ -59,8 +59,9 @@ void CreateHeaderFooterUsingDocBuilder()
 {
     std::cout << "CreateHeaderFooterUsingDocBuilder example started." << std::endl;
     // ExStart:CreateHeaderFooterUsingDocBuilder
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
 
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -91,7 +92,7 @@ void CreateHeaderFooterUsingDocBuilder()
 
     // Insert absolutely positioned image into the top/left corner of the header.
     // Distance from the top/left edges of the page is set to 10 points.
-    System::String imageFileName = dataDir + u"Aspose.Words.gif";
+    System::String imageFileName = inputDataDir + u"Aspose.Words.gif";
     builder->InsertImage(imageFileName, RelativeHorizontalPosition::Page, 10, RelativeVerticalPosition::Page, 10, 50, 50, WrapType::Through);
 
     builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
@@ -172,7 +173,7 @@ void CreateHeaderFooterUsingDocBuilder()
     row->get_FirstCell()->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPercent(100 / 3));
     row->get_LastCell()->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPercent(100 * 2 / 3));
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"CreateHeaderFooterUsingDocBuilder.doc");
+    System::String outputPath = outputDataDir + u"CreateHeaderFooterUsingDocBuilder.doc";
     // Save the resulting document.
     doc->Save(outputPath);
     // ExEnd:CreateHeaderFooterUsingDocBuilder

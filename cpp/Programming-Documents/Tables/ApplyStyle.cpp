@@ -26,12 +26,12 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
-    void BuildTableWithStyle(System::String const &dataDir)
+    void BuildTableWithStyle(System::String const &outputDataDir)
     {
         // ExStart:BuildTableWithStyle
-        auto doc = System::MakeObject<Document>();
-        auto builder = System::MakeObject<DocumentBuilder>(doc);
-        auto table = builder->StartTable();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Table> table = builder->StartTable();
         // We must insert at least one row first before setting any table formatting.
         builder->InsertCell();
         // Set the table style used based of the unique style identifier.
@@ -61,20 +61,20 @@ namespace
         builder->InsertCell();
         builder->Writeln(u"50");
         builder->EndRow();
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyStyle.BuildTableWithStyle.docx");
+        System::String outputPath = outputDataDir + u"ApplyStyle.BuildTableWithStyle.docx";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:BuildTableWithStyle
         std::cout << "Table created successfully with table style." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void ExpandFormattingOnCellsAndRowFromStyle(System::String const &dataDir)
+    void ExpandFormattingOnCellsAndRowFromStyle(System::String const &inputDataDir)
     {
         // ExStart:ExpandFormattingOnCellsAndRowFromStyle
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.TableStyle.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.TableStyle.docx");
         // Get the first cell of the first table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
-        auto firstCell = table->get_FirstRow()->get_FirstCell();
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Cell> firstCell = table->get_FirstRow()->get_FirstCell();
         // First print the color of the cell shading. This should be empty as the current shading
         // Is stored in the table style.
         System::Drawing::Color cellShadingBefore = firstCell->get_CellFormat()->get_Shading()->get_BackgroundPatternColor();
@@ -88,7 +88,7 @@ namespace
         // ExEnd:ExpandFormattingOnCellsAndRowFromStyle
     }
 
-    void CreateTableStyle(System::String const &dataDir)
+    void CreateTableStyle(System::String const &outputDataDir)
     {
         // ExStart:CreateTableStyle
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -114,12 +114,12 @@ namespace
 
         table->set_Style(tableStyle);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyStyle.CreateTableStyle.docx");
+        System::String outputPath = outputDataDir + u"ApplyStyle.CreateTableStyle.docx";
         doc->Save(outputPath);
         // ExEnd:CreateTableStyle
     }
 
-    void DefineConditionalFormatting(System::String const &dataDir)
+    void DefineConditionalFormatting(System::String const &outputDataDir)
     {
         // ExStart:DefineConditionalFormatting
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -142,7 +142,7 @@ namespace
 
         table->set_Style(tableStyle);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyStyle.DefineConditionalFormatting.docx");
+        System::String outputPath = outputDataDir + u"ApplyStyle.DefineConditionalFormatting.docx";
         doc->Save(outputPath);
         // ExEnd:DefineConditionalFormatting
     }
@@ -151,11 +151,12 @@ namespace
 void ApplyStyle()
 {
     std::cout << "ApplyStyle example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
-    BuildTableWithStyle(dataDir);
-    ExpandFormattingOnCellsAndRowFromStyle(dataDir);
-    CreateTableStyle(dataDir);
-    DefineConditionalFormatting(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithTables();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
+    BuildTableWithStyle(outputDataDir);
+    ExpandFormattingOnCellsAndRowFromStyle(inputDataDir);
+    CreateTableStyle(outputDataDir);
+    DefineConditionalFormatting(outputDataDir);
     std::cout << "ApplyStyle example finished." << std::endl << std::endl;
 }

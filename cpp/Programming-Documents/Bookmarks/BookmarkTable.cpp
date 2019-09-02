@@ -19,7 +19,7 @@ void BookmarkTable()
     std::cout << "BookmarkTable example started." << std::endl;
     // ExStart:BookmarkTable
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithBookmarks();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithBookmarks();
 
     // Create empty document
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -55,7 +55,7 @@ void BookmarkTable()
     // End of bookmark
     builder->EndBookmark(u"MyBookmark");
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"BookmarkTable.doc");
+    System::String outputPath = outputDataDir + u"BookmarkTable.doc";
     doc->Save(outputPath);
     // ExEnd:BookmarkTable
     std::cout << "Table bookmarked successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

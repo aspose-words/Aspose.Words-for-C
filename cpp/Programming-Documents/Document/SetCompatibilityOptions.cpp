@@ -10,13 +10,13 @@ using namespace Aspose::Words::Settings;
 
 namespace
 {
-    void OptimizeFor(System::String const &dataDir)
+    void OptimizeFor(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:OptimizeFor
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.docx");
         doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2016);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"SetCompatibilityOptions.docx");
+        System::String outputPath = outputDataDir + u"SetCompatibilityOptions.docx";
 
         // Save the document to disk.
         doc->Save(outputPath);
@@ -28,8 +28,9 @@ namespace
 void SetCompatibilityOptions()
 {
     std::cout << "SetCompatibilityOptions example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
-    OptimizeFor(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
+    OptimizeFor(inputDataDir, outputDataDir);
     std::cout << "SetCompatibilityOptions example finished." << std::endl << std::endl;
 }

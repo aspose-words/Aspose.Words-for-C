@@ -42,14 +42,14 @@ namespace
     void DeleteRowByBookmark(const System::SharedPtr<Document>& doc, const System::String& bookmarkName)
     {
         // Find the bookmark in the document. Exit if cannot find it.
-        auto bookmark = doc->get_Range()->get_Bookmarks()->idx_get(bookmarkName);
+        System::SharedPtr<Bookmark> bookmark = doc->get_Range()->get_Bookmarks()->idx_get(bookmarkName);
         if (bookmark == nullptr)
         {
             return;
         }
 
         // Get the parent row of the bookmark. Exit if the bookmark is not in a row.
-        auto row = System::DynamicCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
+        System::SharedPtr<Row> row = System::DynamicCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
         if (row == nullptr)
         {
             return;
@@ -64,10 +64,11 @@ void UntangleRowBookmarks()
 {
     std::cout << "UntangleRowBookmarks example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithBookmarks();
+    System::String inputDataDir = GetInputDataDir_WorkingWithBookmarks();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithBookmarks();
 
     // Load a document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestDefect1352.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestDefect1352.doc");
 
     // This perform the custom task of putting the row bookmark ends into the same row with the bookmark starts.
     Untangle(doc);
@@ -81,7 +82,7 @@ void UntangleRowBookmarks()
         throw System::Exception(u"Wrong, the end of the bookmark was deleted.");
     }
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"UntangleRowBookmarks.doc");
+    System::String outputPath = outputDataDir + u"UntangleRowBookmarks.doc";
     // Save the finished document.
     doc->Save(outputPath);
 

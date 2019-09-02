@@ -15,15 +15,16 @@ void ConvertFieldsInBody()
 {
     std::cout << "ConvertFieldsInBody example started." << std::endl;
     // ExStart:ConvertFieldsInBody
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
 
     // Pass the appropriate parameters to convert PAGE fields encountered to static text only in the body of the first section.
     ConvertFieldsToStaticText(doc->get_FirstSection()->get_Body(), FieldType::FieldPage);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"ConvertFieldsInBody.doc");
+    System::String outputPath = outputDataDir + u"ConvertFieldsInBody.doc";
     // Save the document with fields transformed to disk.
     doc->Save(outputPath);
     // ExEnd:ConvertFieldsInBody

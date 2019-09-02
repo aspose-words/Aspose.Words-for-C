@@ -24,7 +24,7 @@ namespace
     void UseNodeType()
     {
         // ExStart:UseNodeType
-        auto doc = System::MakeObject<Document>();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
         // Returns NodeType.Document
         NodeType type = doc->get_NodeType();
         // ExEnd:UseNodeType
@@ -34,9 +34,9 @@ namespace
     {
         // ExStart:GetParentNode
         // Create a new empty document. It has one section.
-        auto doc = System::MakeObject<Document>();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
         // The section is the first child node of the document.
-        auto section = doc->get_FirstChild();
+        System::SharedPtr<Node> section = doc->get_FirstChild();
         // The section's parent node is the document.
         std::cout << "Section parent is the document: " << System::ObjectExt::Box<bool>((doc == section->get_ParentNode()))->ToString().ToUtf8String() << std::endl;
         // ExEnd:GetParentNode
@@ -46,9 +46,9 @@ namespace
     {
         // ExStart:OwnerDocument
         // Open a file from disk.
-        auto doc = System::MakeObject<Document>();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
         // Creating a new node of any type requires a document passed into the constructor.
-        auto para = System::MakeObject<Paragraph>(doc);
+        System::SharedPtr<Paragraph> para = System::MakeObject<Paragraph>(doc);
         // The new paragraph node does not yet have a parent.
         std::cout << "Paragraph has no parent node: " << System::ObjectExt::Box<bool>((para->get_ParentNode() == nullptr))->ToString().ToUtf8String() << std::endl;
         // But the paragraph node knows its document.
@@ -66,15 +66,15 @@ namespace
     void EnumerateChildNodes()
     {
         // ExStart:EnumerateChildNodes
-        auto doc = System::MakeObject<Document>();
-        auto paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
-        auto children = paragraph->get_ChildNodes();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<Paragraph> paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
+        System::SharedPtr<NodeCollection> children = paragraph->get_ChildNodes();
         for (System::SharedPtr<Node> child : System::IterateOver(children))
         {
             if (System::ObjectExt::Equals(child->get_NodeType(), NodeType::Run))
             {
                 // Say we found the node that we want, do something useful.
-                auto run = System::DynamicCast<Run>(child);
+                System::SharedPtr<Run> run = System::DynamicCast<Run>(child);
                 std::cout << run->get_Text().ToUtf8String() << std::endl;
             }
         }
@@ -84,17 +84,17 @@ namespace
     void IndexChildNodes()
     {
         // ExStart:IndexChildNodes
-        auto doc = System::MakeObject<Document>();
-        auto paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
-        auto children = paragraph->get_ChildNodes();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<Paragraph> paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
+        System::SharedPtr<NodeCollection> children = paragraph->get_ChildNodes();
         for (int32_t i = 0; i < children->get_Count(); i++)
         {
-            auto child = children->idx_get(i);
+            System::SharedPtr<Node> child = children->idx_get(i);
             // Paragraph may contain children of various types such as runs, shapes and so on.
             if (System::ObjectExt::Equals(child->get_NodeType(), NodeType::Run))
             {
                 // Say we found the node that we want, do something useful.
-                auto run = System::DynamicCast<Run>(child);
+                System::SharedPtr<Run> run = System::DynamicCast<Run>(child);
                 std::cout << run->get_Text().ToUtf8String() << std::endl;
             }
         }
@@ -104,7 +104,7 @@ namespace
     void TraverseAllNodes(System::SharedPtr<CompositeNode> parentNode)
     {
         // This is the most efficient way to loop through immediate children of a node.
-        for (auto childNode = parentNode->get_FirstChild(); childNode != nullptr; childNode = childNode->get_NextSibling())
+        for (System::SharedPtr<Node> childNode = parentNode->get_FirstChild(); childNode != nullptr; childNode = childNode->get_NextSibling())
         {
             // Do some useful work.
             std::cout << Node::NodeTypeToString(childNode->get_NodeType()).ToUtf8String() << std::endl;
@@ -116,12 +116,10 @@ namespace
         }
     }
 
-    void RecurseAllNodes()
+    void RecurseAllNodes(System::String const &inputDataDir)
     {
-        // The path to the documents directory.
-        System::String dataDir = GetDataDir_WorkingWithNode();
         // Open a document.
-        auto doc = System::MakeObject<Document>(dataDir + u"Node.RecurseAllNodes.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Node.RecurseAllNodes.doc");
         // Invoke the recursive function that will walk the tree.
         TraverseAllNodes(doc);
     }
@@ -130,12 +128,12 @@ namespace
     void TypedAccess()
     {
         // ExStart:TypedAccess
-        auto doc = System::MakeObject<Document>();
-        auto section = doc->get_FirstSection();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<Section> section = doc->get_FirstSection();
         // Quick typed access to the Body child node of the Section.
-        auto body = section->get_Body();
+        System::SharedPtr<Body> body = section->get_Body();
         // Quick typed access to all Table child nodes contained in the Body.
-        auto tables = body->get_Tables();
+        System::SharedPtr<TableCollection> tables = body->get_Tables();
         for (System::SharedPtr<Table> table : System::IterateOver<System::SharedPtr<Table>>(tables))
         {
             // Quick typed access to the first row of the table.
@@ -155,9 +153,9 @@ namespace
     void CreateAndAddParagraphNode()
     {
         // ExStart:CreateAndAddParagraphNode
-        auto doc = System::MakeObject<Document>();
-        auto para = System::MakeObject<Paragraph>(doc);
-        auto section = doc->get_LastSection();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<Paragraph> para = System::MakeObject<Paragraph>(doc);
+        System::SharedPtr<Section> section = doc->get_LastSection();
         section->get_Body()->AppendChild(para);
         // ExEnd:CreateAndAddParagraphNode
     }
@@ -166,6 +164,8 @@ namespace
 void ExNode()
 {
     std::cout << "ExNode example started." << std::endl;
+    // The path to the documents directory.
+    System::String inputDataDir = GetInputDataDir_WorkingWithNode();
     // The following method shows how to use the NodeType enumeration.
     UseNodeType();
     // The following method shows how to access the parent node.
@@ -177,7 +177,7 @@ void ExNode()
     // Shows how to enumerate immediate children of a CompositeNode using indexed access.
     IndexChildNodes();
     // Shows how to efficiently visit all direct and indirect children of a composite node.
-    RecurseAllNodes();
+    RecurseAllNodes(inputDataDir);
     // Demonstrates how to use typed properties to access nodes of the document tree.
     TypedAccess();
     // The following method shows how to creates and adds a paragraph node.

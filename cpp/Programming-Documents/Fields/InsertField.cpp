@@ -11,12 +11,12 @@ void InsertField()
     std::cout << "InsertField example started." << std::endl;
     // ExStart:InsertField
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
 
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
     builder->InsertField(u"MERGEFIELD MyFieldName \\* MERGEFORMAT");
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertField.docx");
+    System::String outputPath = outputDataDir + u"InsertField.docx";
     doc->Save(outputPath);
     // ExEnd:InsertField
     std::cout << "Inserted field in the document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

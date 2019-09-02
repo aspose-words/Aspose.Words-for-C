@@ -18,7 +18,7 @@ void ComboBoxContentControl()
     std::cout << "ComboBoxContentControl example started." << std::endl;
     // ExStart:ComboBoxContentControl
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<StructuredDocumentTag> sdt = System::MakeObject<StructuredDocumentTag>(doc, SdtType::ComboBox, MarkupLevel::Block);
 
@@ -27,7 +27,7 @@ void ComboBoxContentControl()
     sdt->get_ListItems()->Add(System::MakeObject<SdtListItem>(u"Item 2", u"2"));
     doc->get_FirstSection()->get_Body()->AppendChild(sdt);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"ComboBoxContentControl.docx");
+    System::String outputPath = outputDataDir + u"ComboBoxContentControl.docx";
     doc->Save(outputPath);
     // ExEnd:ComboBoxContentControl
     std::cout << "Combo box type content control created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

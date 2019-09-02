@@ -28,7 +28,7 @@ using namespace Aspose::Words::Settings;
 
 namespace
 {
-    void InsertShapeUsingDocumentBuilder(System::String const &dataDir)
+    void InsertShapeUsingDocumentBuilder(System::String const &outputDataDir)
     {
         // ExStart:InsertShapeUsingDocumentBuilder
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -48,22 +48,22 @@ namespace
         // "Strict" or "Transitional" compliance allows to save shape as DML.
         so->set_Compliance(OoxmlCompliance::Iso29500_2008_Transitional);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithShapes.InsertShapeUsingDocumentBuilder.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithShapes.InsertShapeUsingDocumentBuilder.docx";
         // Save the document to disk.
         doc->Save(outputPath, so);
         // ExEnd:InsertShapeUsingDocumentBuilder
         std::cout << "Insert Shape successfully using DocumentBuilder." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetAspectRatioLocked(System::String const &dataDir)
+    void SetAspectRatioLocked(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetAspectRatioLocked
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-        auto shape = builder->InsertImage(dataDir + u"Test.png");
+        System::SharedPtr<Shape> shape = builder->InsertImage(inputDataDir + u"Test.png");
         shape->set_AspectRatioLocked(false);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithShapes.SetAspectRatioLocked.doc");
+        System::String outputPath = outputDataDir + u"WorkingWithShapes.SetAspectRatioLocked.doc";
 
         // Save the document to disk.
         doc->Save(outputPath);
@@ -71,10 +71,10 @@ namespace
         std::cout << "Shape's AspectRatioLocked property is set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetShapeLayoutInCell(System::String const &dataDir)
+    void SetShapeLayoutInCell(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetShapeLayoutInCell
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"LayoutInCell.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"LayoutInCell.docx");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         System::SharedPtr<Shape> watermark = System::MakeObject<Shape>(doc, ShapeType::TextPlainText);
@@ -104,7 +104,7 @@ namespace
         builder->InsertNode(watermark);
         doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2010);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithShapes.SetShapeLayoutInCell.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithShapes.SetShapeLayoutInCell.docx";
 
         // Save the document to disk.
         doc->Save(outputPath);
@@ -112,7 +112,7 @@ namespace
         std::cout << "Shape's IsLayoutInCell property is set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void AddCornersSnipped(System::String const &dataDir)
+    void AddCornersSnipped(System::String const &outputDataDir)
     {
         // ExStart:AddCornersSnipped
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -121,7 +121,7 @@ namespace
 
         System::SharedPtr<OoxmlSaveOptions> so = System::MakeObject<OoxmlSaveOptions>(SaveFormat::Docx);
         so->set_Compliance(OoxmlCompliance::Iso29500_2008_Transitional);
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithShapes.AddCornersSnipped.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithShapes.AddCornersSnipped.docx";
 
         //Save the document to disk.
         doc->Save(outputPath, so);
@@ -129,12 +129,12 @@ namespace
         std::cout << "Corner Snip shape is created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void GetActualShapeBoundsPoints(System::String const &dataDir)
+    void GetActualShapeBoundsPoints(System::String const &inputDataDir)
     {
         // ExStart:GetActualShapeBoundsPoints
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
-        System::SharedPtr<Shape> shape = builder->InsertImage(dataDir + u"Test.png");
+        System::SharedPtr<Shape> shape = builder->InsertImage(inputDataDir + u"Test.png");
         shape->set_AspectRatioLocked(false);
         std::cout << "Gets the actual bounds of the shape in points." << shape->GetShapeRenderer()->get_BoundsInPoints().ToString().ToUtf8String() << std::endl;
         // ExEnd:GetActualShapeBoundsPoints
@@ -144,12 +144,16 @@ namespace
 void WorkingWithShapes()
 {
     std::cout << "WorkingWithShapes example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithShapes();
-    SetShapeLayoutInCell(dataDir);
-    SetAspectRatioLocked(dataDir);
-    InsertShapeUsingDocumentBuilder(dataDir);
-    AddCornersSnipped(dataDir);
-    GetActualShapeBoundsPoints(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithShapes();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithShapes();
+    SetShapeLayoutInCell(inputDataDir, outputDataDir);
+    SetAspectRatioLocked(inputDataDir, outputDataDir);
+    InsertShapeUsingDocumentBuilder(outputDataDir);
+    AddCornersSnipped(outputDataDir);
+    GetActualShapeBoundsPoints(inputDataDir);
+    // doesn't work properly because documents are absent
+    //SpecifyVerticalAnchor(dataDir);
+    //DetectSmartArtShape(dataDir);
     std::cout << "WorkingWithShapes example finished." << std::endl << std::endl;
 }

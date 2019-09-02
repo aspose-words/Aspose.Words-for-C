@@ -14,11 +14,12 @@ void DifferentPageSetup()
 {
     std::cout << "DifferentPageSetup example started." << std::endl;
     // ExStart:DifferentPageSetup
-    // The path to the documents directory.
-    System::String dataDir = ::GetDataDir_JoiningAndAppending();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_JoiningAndAppending();
+    System::String outputDataDir = GetOutputDataDir_JoiningAndAppending();
     
-    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.Destination.doc");
-    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.SourcePageSetup.doc");
+    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.Destination.doc");
+    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.SourcePageSetup.doc");
     
     // Set the source document to continue straight after the end of the destination document.
     // If some page setup settings are different then this may not work and the source document will appear 
@@ -34,7 +35,7 @@ void DifferentPageSetup()
     srcDoc->get_FirstSection()->get_PageSetup()->set_Orientation(dstDoc->get_LastSection()->get_PageSetup()->get_Orientation());
     
     dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
-    System::String outputPath = dataDir + GetOutputFilePath(u"DifferentPageSetup.doc");
+    System::String outputPath = outputDataDir + u"DifferentPageSetup.doc";
     dstDoc->Save(outputPath);
     // ExEnd:DifferentPageSetup
     std::cout << "Document appended successfully with different page setup." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

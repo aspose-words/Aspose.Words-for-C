@@ -13,17 +13,18 @@ void ListKeepSourceFormatting()
 {
     std::cout << "ListKeepSourceFormatting example started." << std::endl;
     // ExStart:ListKeepSourceFormatting
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_JoiningAndAppending();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_JoiningAndAppending();
+    System::String outputDataDir = GetOutputDataDir_JoiningAndAppending();
 
-    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.DestinationList.doc");
-    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.SourceList.doc");
+    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.DestinationList.doc");
+    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.SourceList.doc");
 
     // Append the content of the document so it flows continuously.
     srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::Continuous);
 
     dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
-    System::String outputPath = dataDir + GetOutputFilePath(u"ListKeepSourceFormatting.doc");
+    System::String outputPath = outputDataDir + u"ListKeepSourceFormatting.doc";
     dstDoc->Save(outputPath);
     // ExEnd:ListKeepSourceFormatting
     std::cout << "Document appended successfully with lists retaining source formatting." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

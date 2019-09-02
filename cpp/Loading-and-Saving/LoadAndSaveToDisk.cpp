@@ -10,12 +10,13 @@ void LoadAndSaveToDisk()
     std::cout << "LoadAndSaveToDisk example started." << std::endl;
     // ExStart:LoadAndSave
     // ExStart:OpenDocument
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
     // Load the document from the absolute path on disk.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
     // ExEnd:OpenDocument
-    System::String outputPath = dataDir + GetOutputFilePath(u"LoadAndSaveToDisk.doc");
+    System::String outputPath = outputDataDir + u"LoadAndSaveToDisk.doc";
     // Save the document as DOC document.");
     doc->Save(outputPath);
     // ExEnd:LoadAndSave

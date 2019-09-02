@@ -13,9 +13,9 @@ void AccessBookmarks()
     std::cout << "AccessBookmarks example started." << std::endl;
     // ExStart:AccessBookmarks
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithBookmarks();
+    System::String inputDataDir = GetInputDataDir_WorkingWithBookmarks();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Bookmarks.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Bookmarks.doc");
 
     // By index.
     System::SharedPtr<Bookmark> bookmark1 = doc->get_Range()->get_Bookmarks()->idx_get(0);

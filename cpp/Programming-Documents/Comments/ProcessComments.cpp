@@ -99,14 +99,15 @@ void ProcessComments()
 {
     std::cout << "ProcessComments example started." << std::endl;
     // ExStart:ProcessComments
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithComments();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithComments();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithComments();
     
     // Open the document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
     
     // Extract the information about the comments of all the authors.
-    for (auto& comment : ExtractComments(doc))
+    for (System::String const &comment : ExtractComments(doc))
     {
         std::cout << comment.ToUtf8String();
     }
@@ -116,7 +117,7 @@ void ProcessComments()
     std::cout << "Comments from \"pm\" are removed!" << std::endl;
     
     // Extract the information about the comments of the "ks" author.
-    for (auto& comment: ExtractComments(doc, u"ks"))
+    for (System::String const &comment: ExtractComments(doc, u"ks"))
     {
         std::cout << comment.ToUtf8String();
     }
@@ -128,7 +129,7 @@ void ProcessComments()
     RemoveComments(doc);
     std::cout << "All comments are removed!" << std::endl;
     
-    System::String outputPath = dataDir + GetOutputFilePath(u"ProcessComments.doc");
+    System::String outputPath = outputDataDir + u"ProcessComments.doc";
     // Save the document.
     doc->Save(outputPath);
     // ExEnd:ProcessComments

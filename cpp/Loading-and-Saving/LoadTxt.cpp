@@ -9,14 +9,15 @@ void LoadTxt()
 {
     std::cout << "LoadTxt example started." << std::endl;
     // ExStart:LoadTxt
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
 
     // The encoding of the text file is automatically detected.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"LoadTxt.txt");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"LoadTxt.txt");
 
     // Save as any Aspose.Words supported format, such as DOCX.
-    System::String outputPath = dataDir + GetOutputFilePath(u"LoadTxt.docx");
+    System::String outputPath = outputDataDir + u"LoadTxt.docx";
     doc->Save(outputPath);
     // ExEnd:LoadTxt
     std::cout << "Text document loaded successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

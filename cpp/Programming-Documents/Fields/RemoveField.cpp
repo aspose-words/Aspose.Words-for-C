@@ -15,9 +15,9 @@ void RemoveField()
     std::cout << "RemoveField example started." << std::endl;
     // ExStart:RemoveField
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Field.RemoveField.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Field.RemoveField.doc");
 
     System::SharedPtr<Field> field = doc->get_Range()->get_Fields()->idx_get(0);
     // Calling this method completely removes the field from the document.

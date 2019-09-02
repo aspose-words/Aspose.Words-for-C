@@ -16,9 +16,9 @@ void PageNumbersOfNodes()
 {
     std::cout << "PageNumbersOfNodes example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.docx");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.docx");
 
     // Create and attach collector before the document before page layout is built.
     System::SharedPtr<LayoutCollector> layoutCollector = System::MakeObject<LayoutCollector>(doc);

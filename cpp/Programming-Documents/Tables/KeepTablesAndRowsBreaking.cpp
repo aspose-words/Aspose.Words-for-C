@@ -19,29 +19,29 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
-    void RowFormatDisableBreakAcrossPages(System::String const &dataDir)
+    void RowFormatDisableBreakAcrossPages(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:RowFormatDisableBreakAcrossPages
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.TableAcrossPage.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.TableAcrossPage.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Disable breaking across pages for all rows in the table.
         for (System::SharedPtr<Row> row : System::IterateOver<System::SharedPtr<Row>>(table->get_Rows()))
         {
             row->get_RowFormat()->set_AllowBreakAcrossPages(false);
         }
-        System::String outputPath = dataDir + GetOutputFilePath(u"KeepTablesAndRowsBreaking.RowFormatDisableBreakAcrossPages.doc");
+        System::String outputPath = outputDataDir + u"KeepTablesAndRowsBreaking.RowFormatDisableBreakAcrossPages.doc";
         doc->Save(outputPath);
         // ExEnd:RowFormatDisableBreakAcrossPages
         std::cout << "Table rows breaking across pages for every row in a table disabled successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void KeepTableTogether(System::String const &dataDir)
+    void KeepTableTogether(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:KeepTableTogether
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.TableAcrossPage.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.TableAcrossPage.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // To keep a table from breaking across a page we need to enable KeepWithNext
         // For every paragraph in the table except for the last paragraphs in the last
         // Row of the table.
@@ -58,7 +58,7 @@ namespace
                 }
             }
         }
-        System::String outputPath = dataDir + GetOutputFilePath(u"KeepTablesAndRowsBreaking.KeepTableTogether.doc");
+        System::String outputPath = outputDataDir + u"KeepTablesAndRowsBreaking.KeepTableTogether.doc";
         doc->Save(outputPath);
         // ExEnd:KeepTableTogether
         std::cout << "Table setup successfully to stay together on the same page." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -68,11 +68,12 @@ namespace
 void KeepTablesAndRowsBreaking()
 {
     std::cout << "KeepTablesAndRowsBreaking example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithTables();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
     // The below method shows how to disable rows breaking across pages for every row in a table.
-    RowFormatDisableBreakAcrossPages(dataDir);
+    RowFormatDisableBreakAcrossPages(inputDataDir, outputDataDir);
     // The below method shows how to set a table to stay together on the same page.
-    KeepTableTogether(dataDir);
+    KeepTableTogether(inputDataDir, outputDataDir);
     std::cout << "KeepTablesAndRowsBreaking example finished." << std::endl << std::endl;
 }

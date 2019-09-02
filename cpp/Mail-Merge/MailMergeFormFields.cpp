@@ -89,11 +89,12 @@ void MailMergeFormFields()
     std::cout << "MailMergeFormFields example started." << std::endl;
     // ExStart:MailMergeFormFields
     typedef System::SharedPtr<System::Object> TObjectPtr;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_MailMergeAndReporting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_MailMergeAndReporting();
+    System::String outputDataDir = GetOutputDataDir_MailMergeAndReporting();
     //System::String fileName = u"Template.doc";
     // Load the template document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Template.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Template.doc");
 
     // Setup mail merge event handler to do the custom work.
     doc->get_MailMerge()->set_FieldMergingCallback(System::MakeObject<HandleMergeField>());
@@ -116,7 +117,7 @@ void MailMergeFormFields()
     // Execute the mail merge.
     doc->get_MailMerge()->Execute(names, values);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"MailMergeFormFields.doc");
+    System::String outputPath = outputDataDir + u"MailMergeFormFields.doc";
     // Save the finished document.
     doc->Save(outputPath);
     // ExEnd:MailMergeFormFields

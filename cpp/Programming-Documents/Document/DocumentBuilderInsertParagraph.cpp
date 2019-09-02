@@ -15,7 +15,7 @@ void DocumentBuilderInsertParagraph()
     std::cout << "DocumentBuilderInsertParagraph example started." << std::endl;
     // ExStart:DocumentBuilderInsertParagraph
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Initialize document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -35,7 +35,7 @@ void DocumentBuilderInsertParagraph()
     paragraphFormat->set_KeepTogether(true);
 
     builder->Writeln(u"A whole paragraph.");
-    System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertParagraph.doc");
+    System::String outputPath = outputDataDir + u"DocumentBuilderInsertParagraph.doc";
     doc->Save(outputPath);
     // ExEnd:DocumentBuilderInsertParagraph
     std::cout << "Paragraph inserted successfully into the document using DocumentBuilder." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

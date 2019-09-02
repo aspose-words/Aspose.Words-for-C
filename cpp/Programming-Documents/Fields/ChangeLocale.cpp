@@ -13,7 +13,7 @@ void ChangeLocale()
     // ExStart:ChangeLocale
     typedef System::SharedPtr<System::Object> TObjectPtr;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
 
     // Create a blank document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -30,7 +30,7 @@ void ChangeLocale()
 
     // Restore the original culture.
     System::Threading::Thread::get_CurrentThread()->set_CurrentCulture(currentCulture);
-    System::String outputPath = dataDir + GetOutputFilePath(u"ChangeLocale.doc");
+    System::String outputPath = outputDataDir + u"ChangeLocale.doc";
     doc->Save(outputPath);
     // ExEnd:ChangeLocale
 

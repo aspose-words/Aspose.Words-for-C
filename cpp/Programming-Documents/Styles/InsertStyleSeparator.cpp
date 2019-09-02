@@ -16,11 +16,11 @@ void InsertStyleSeparator()
 {
     std::cout << "InsertStyleSeparator example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithStyles();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithStyles();
     // ExStart:ParagraphInsertStyleSeparator
-    auto doc = System::MakeObject<Document>();
-    auto builder = System::MakeObject<DocumentBuilder>(doc);
-    auto paraStyle = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"MyParaStyle");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>();
+    System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+    System::SharedPtr<Style> paraStyle = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"MyParaStyle");
     paraStyle->get_Font()->set_Bold(false);
     paraStyle->get_Font()->set_Size(8);
     paraStyle->get_Font()->set_Name(u"Arial");
@@ -31,7 +31,7 @@ void InsertStyleSeparator()
     // Append text with another style.
     builder->get_ParagraphFormat()->set_StyleName(paraStyle->get_Name());
     builder->Write(u"This is text with some other formatting ");
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertStyleSeparator.doc");
+    System::String outputPath = outputDataDir + u"InsertStyleSeparator.doc";
     // Save the document to disk.
     doc->Save(outputPath);
     // ExEnd:ParagraphInsertStyleSeparator

@@ -12,9 +12,9 @@ void GetVariables()
     std::cout << "GetVariables example started." << std::endl;
     // ExStart:GetVariables
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
     // Load the template document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
     System::String variables = u"";
 
     for (System::Collections::Generic::KeyValuePair<System::String, System::String> entry : System::IterateOver(doc->get_Variables()))

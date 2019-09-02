@@ -11,10 +11,10 @@ using namespace Aspose::Words::Themes;
 
 namespace
 {
-    void GetThemeProperties(System::String const &dataDir)
+    void GetThemeProperties(System::String const &documentPath)
     {
         // ExStart:GetThemeProperties
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(documentPath);
         System::SharedPtr<Theme> theme = doc->get_Theme();
         // Major (Headings) font for Latin characters.
         std::cout << theme->get_MajorFonts()->get_Latin().ToUtf8String() << std::endl;
@@ -25,10 +25,10 @@ namespace
         // ExEnd:GetThemeProperties 
     }
 
-    void SetThemeProperties(System::String const &dataDir)
+    void SetThemeProperties(System::String const &documentPath)
     {
         // ExStart:SetThemeProperties
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(documentPath);
         System::SharedPtr<Theme> theme = doc->get_Theme();
         // Set Times New Roman font as Body theme font for Latin Character.
         theme->get_MinorFonts()->set_Latin(u"Times New Roman");
@@ -42,9 +42,9 @@ void ManipulateThemeProperties()
 {
     std::cout << "ManipulateThemeProperties example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTheme();
-    dataDir = dataDir + u"Document.doc";
-    GetThemeProperties(dataDir);
-    SetThemeProperties(dataDir);
+    System::String inputDataDir = GetInputDataDir_WorkingWithTheme();
+    System::String documentPath = inputDataDir + u"Document.doc";
+    GetThemeProperties(documentPath);
+    SetThemeProperties(documentPath);
     std::cout << "ManipulateThemeProperties example finished." << std::endl << std::endl;
 }

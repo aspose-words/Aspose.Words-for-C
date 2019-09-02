@@ -12,15 +12,16 @@ void SetViewOption()
 {
     std::cout << "SetViewOption example started." << std::endl;
     // ExStart:SetViewOption
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Load the template document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
     // Set view option.
     doc->get_ViewOptions()->set_ViewType(ViewType::PageLayout);
     doc->get_ViewOptions()->set_ZoomPercent(50);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"SetViewOption.doc");
+    System::String outputPath = outputDataDir + u"SetViewOption.doc";
     // Save the finished document.
     doc->Save(outputPath);
     // ExEnd:SetViewOption

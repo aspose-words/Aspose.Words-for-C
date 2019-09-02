@@ -88,11 +88,12 @@ namespace
 void AddWatermark()
 {
     std::cout << "AddWatermark example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithImages();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.Watermark.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithImages();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithImages();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.Watermark.doc");
     InsertWatermarkText(doc, u"CONFIDENTIAL");
-    System::String outputPath = dataDir + GetOutputFilePath(u"AddWatermark.doc");
+    System::String outputPath = outputDataDir + u"AddWatermark.doc";
     doc->Save(outputPath);
     std::cout << "Added watermark to the document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "AddWatermark example finished." << std::endl << std::endl;

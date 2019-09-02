@@ -18,7 +18,7 @@ void InsertBubbleChart()
     std::cout << "InsertBubbleChart example started." << std::endl;
     // ExStart:InsertBubbleChart
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
@@ -31,7 +31,7 @@ void InsertBubbleChart()
                              System::MakeArray<double>({0.7, 1.8, 2.6}),
                              System::MakeArray<double>({2.7, 3.2, 0.8}),
                              System::MakeArray<double>({10, 4, 8}));
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertBubbleChart.docx");
+    System::String outputPath = outputDataDir + u"InsertBubbleChart.docx";
     doc->Save(outputPath);
     // ExEnd:InsertBubbleChart
     std::cout << "Bubble chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

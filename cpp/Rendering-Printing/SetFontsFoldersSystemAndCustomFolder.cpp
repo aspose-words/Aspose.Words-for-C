@@ -19,10 +19,11 @@ void SetFontsFoldersSystemAndCustomFolder()
 {
     std::cout << "SetFontsFoldersSystemAndCustomFolder example started." << std::endl;
     // ExStart:SetFontsFoldersSystemAndCustomFolder
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Rendering.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
     System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
 
     // Retrieve the array of environment-dependent font sources that are searched by default. For example this will contain a "Windows\Fonts\" source on a Windows machines.
@@ -42,7 +43,7 @@ void SetFontsFoldersSystemAndCustomFolder()
     fontSettings->SetFontsSources(updatedFontSources);
     // Set font settings
     doc->set_FontSettings(fontSettings);
-    System::String outputPath = dataDir + GetOutputFilePath(u"SetFontsFoldersSystemAndCustomFolder.pdf");
+    System::String outputPath = outputDataDir + u"SetFontsFoldersSystemAndCustomFolder.pdf";
     doc->Save(outputPath);
     // ExEnd:SetFontsFoldersSystemAndCustomFolder 
     std::cout << "Fonts system and coustom folder is setup." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

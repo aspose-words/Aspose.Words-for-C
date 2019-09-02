@@ -18,17 +18,18 @@ void AutoFitTableToWindow()
 {
     std::cout << "AutoFitTableToWindow example started." << std::endl;
     // ExStart:AutoFitTableToPageWidth
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithTables();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
     // Open the document
-    auto doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-    auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
+    System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
     // Autofit the first table to the page width.
     table->AutoFit(AutoFitBehavior::AutoFitToWindow);
-    System::String outputPath = dataDir + GetOutputFilePath(u"AutoFitTableToWindow.doc");
+    System::String outputPath = outputDataDir + u"AutoFitTableToWindow.doc";
     // Save the document to disk.
     doc->Save(outputPath);
-    auto firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
+    System::SharedPtr<Table> firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::Diagnostics::Debug::Assert(firstTable->get_PreferredWidth()->get_Type() == PreferredWidthType::Percent, u"PreferredWidth type is not percent");
     System::Diagnostics::Debug::Assert(firstTable->get_PreferredWidth()->get_Value() == 100, u"PreferredWidth value is different than 100");
     // ExEnd:AutoFitTableToPageWidth

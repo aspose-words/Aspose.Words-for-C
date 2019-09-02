@@ -16,18 +16,17 @@ namespace
     typedef System::SharedPtr<FontSourceBase> TFontSourceBasePtr;
     typedef System::Collections::Generic::List<TFontSourceBasePtr> TFontSourceBasePtrList;
 
-    void GetListOfAvailableFonts(System::String const &dataDir)
+    void GetListOfAvailableFonts(System::String const &inputDataDir)
     {
         // ExStart:GetListOfAvailableFonts
         // The path to the documents directory.
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.docx");
 
         System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
-        //ArrayList fontSources = new ArrayList(fontSettings.GetFontsSources());
         System::SharedPtr<TFontSourceBasePtrList> fontSources = System::MakeObject<TFontSourceBasePtrList>(fontSettings->GetFontsSources());
 
-        // Add a new folder source which will instruct Aspose.Words to search the following folder for fonts. 
-        System::SharedPtr<FolderFontSource> folderFontSource = System::MakeObject<FolderFontSource>(dataDir, true);
+        // Add a new folder source which will instruct Aspose.Words to search the following folder for fonts.
+        System::SharedPtr<FolderFontSource> folderFontSource = System::MakeObject<FolderFontSource>(inputDataDir, true);
 
         // Add the custom folder which contains our fonts to the list of existing font sources.
         fontSources->Add(folderFontSource);
@@ -50,7 +49,7 @@ void WorkingWithFontSources()
 {
     std::cout << "WorkingWithFontSources example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
-    GetListOfAvailableFonts(dataDir);
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    GetListOfAvailableFonts(inputDataDir);
     std::cout << "WorkingWithFontSources example finished." << std::endl << std::endl;
 }

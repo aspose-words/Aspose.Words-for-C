@@ -12,9 +12,10 @@ void DocumentPageSetup()
 {
     std::cout << "DocumentPageSetup example started." << std::endl;
     // ExStart:DocumentPageSetup
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
 
     //Set the layout mode for a section allowing to define the document grid behavior
     //Note that the Document Grid tab becomes visible in the Page Setup dialog of MS Word if any Asian language is defined as editing language.
@@ -24,7 +25,7 @@ void DocumentPageSetup()
     //Set the number of lines per page in the document grid. 
     doc->get_FirstSection()->get_PageSetup()->set_LinesPerPage(10);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"DocumentPageSetup.doc");
+    System::String outputPath = outputDataDir + u"DocumentPageSetup.doc";
     doc->Save(outputPath);
     // ExEnd:DocumentPageSetup
     std::cout << "PageSetup properties are set successfully." << std::endl;

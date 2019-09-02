@@ -13,15 +13,16 @@ void ConvertFieldsInDocument()
 {
     std::cout << "ConvertFieldsInDocument example started." << std::endl;
     // ExStart:ConvertFieldsInDocument
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
 
     // Pass the appropriate parameters to convert all IF fields encountered in the document (including headers and footers) to static text.
     ConvertFieldsToStaticText(doc, FieldType::FieldIf);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"ConvertFieldsInDocument.doc");
+    System::String outputPath = outputDataDir + u"ConvertFieldsInDocument.doc";
     // Save the document with fields transformed to disk.
     doc->Save(outputPath);
     // ExEnd:ConvertFieldsInDocument

@@ -16,9 +16,10 @@ void InsertMailMergeAddressBlockFieldUsingDOM()
 {
     std::cout << "InsertMailMergeAddressBlockFieldUsingDOM example started." << std::endl;
     // ExStart:InsertMailMergeAddressBlockFieldUsingDOM
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"in.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"in.doc");
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
     // Get paragraph you want to append this merge field to
@@ -51,7 +52,7 @@ void InsertMailMergeAddressBlockFieldUsingDOM()
     // Finally update this merge field
     field->Update();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertMailMergeAddressBlockFieldUsingDOM.doc");
+    System::String outputPath = outputDataDir + u"InsertMailMergeAddressBlockFieldUsingDOM.doc";
     doc->Save(outputPath);
 
     // ExEnd:InsertMailMergeAddressBlockFieldUsingDOM
