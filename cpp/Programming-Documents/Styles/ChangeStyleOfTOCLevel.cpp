@@ -12,7 +12,7 @@ void ChangeStyleOfTOCLevel()
 {
     std::cout << "ChangeStyleOfTOCLevel example started." << std::endl;
     // ExStart:ChangeStyleOfTOCLevel
-    auto doc = System::MakeObject<Document>();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>();
     // Retrieve the style used for the first level of the TOC and change the formatting of the style.
     doc->get_Styles()->idx_get(StyleIdentifier::Toc1)->get_Font()->set_Bold(true);
     // ExEnd:ChangeStyleOfTOCLevel

@@ -13,11 +13,11 @@ using namespace Aspose::Words::Fonts;
 
 namespace
 {
-    void EnableDisableFontSubstitution(System::String const &dataDir)
+    void EnableDisableFontSubstitution(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:EnableDisableFontSubstitution
         // The path to the documents directory.
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Rendering.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
 
         System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
         fontSettings->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Arial");
@@ -25,41 +25,41 @@ namespace
 
         // Set font settings
         doc->set_FontSettings(fontSettings);
-        System::String outputPath = dataDir + GetOutputFilePath(u"SetFontSettings.EnableDisableFontSubstitution.pdf");
+        System::String outputPath = outputDataDir + u"SetFontSettings.EnableDisableFontSubstitution.pdf";
         doc->Save(outputPath);
         // ExEnd:EnableDisableFontSubstitution
         std::cout << "Document is rendered to PDF with disabled font substitution." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetFontFallbackSettings(System::String const &dataDir)
+    void SetFontFallbackSettings(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetFontFallbackSettings
         // The path to the documents directory.
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Rendering.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
 
         System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
-        fontSettings->get_FallbackSettings()->Load(dataDir + u"Fallback.xml");
+        fontSettings->get_FallbackSettings()->Load(inputDataDir + u"Fallback.xml");
 
         // Set font settings
         doc->set_FontSettings(fontSettings);
-        System::String outputPath = dataDir + GetOutputFilePath(u"SetFontSettings.SetFontFallbackSettings.pdf");
+        System::String outputPath = outputDataDir + u"SetFontSettings.SetFontFallbackSettings.pdf";
         doc->Save(outputPath);
         // ExEnd:SetFontFallbackSettings
         std::cout << "Document is rendered to PDF with font fallback." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetPredefinedFontFallbackSettings(System::String const &dataDir)
+    void SetPredefinedFontFallbackSettings(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetPredefinedFontFallbackSettings
         // The path to the documents directory.
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Rendering.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
 
         System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
         fontSettings->get_FallbackSettings()->LoadNotoFallbackSettings();
 
         // Set font settings
         doc->set_FontSettings(fontSettings);
-        System::String outputPath = dataDir + GetOutputFilePath(u"SetFontSettings.SetPredefinedFontFallbackSettings.pdf");
+        System::String outputPath = outputDataDir + u"SetFontSettings.SetPredefinedFontFallbackSettings.pdf";
         doc->Save(outputPath);
         // ExEnd:SetPredefinedFontFallbackSettings
         std::cout << "Document is rendered to PDF with font fallback." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -69,10 +69,11 @@ namespace
 void SetFontSettings()
 {
     std::cout << "SetFontSettings example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
-    EnableDisableFontSubstitution(dataDir);
-    SetFontFallbackSettings(dataDir);
-    SetPredefinedFontFallbackSettings(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
+    EnableDisableFontSubstitution(inputDataDir, outputDataDir);
+    SetFontFallbackSettings(inputDataDir, outputDataDir);
+    SetPredefinedFontFallbackSettings(inputDataDir, outputDataDir);
     std::cout << "SetFontSettings example finished." << std::endl << std::endl;
 }

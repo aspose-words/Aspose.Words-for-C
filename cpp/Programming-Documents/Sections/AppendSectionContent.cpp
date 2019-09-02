@@ -12,15 +12,15 @@ void AppendSectionContent()
     std::cout << "AppendSectionContent example started." << std::endl;
     // ExStart:AppendSectionContent
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithSections();
-    auto doc = System::MakeObject<Document>(dataDir + u"Section.AppendContent.doc");
+    System::String inputDataDir = GetInputDataDir_WorkingWithSections();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Section.AppendContent.doc");
     // This is the section that we will append and prepend to.
-    auto section = doc->get_Sections()->idx_get(2);
+    System::SharedPtr<Section> section = doc->get_Sections()->idx_get(2);
     // This copies content of the 1st section and inserts it at the beginning of the specified section.
-    auto sectionToPrepend = doc->get_Sections()->idx_get(0);
+    System::SharedPtr<Section> sectionToPrepend = doc->get_Sections()->idx_get(0);
     section->PrependContent(sectionToPrepend);
     // This copies content of the 2nd section and inserts it at the end of the specified section.
-    auto sectionToAppend = doc->get_Sections()->idx_get(1);
+    System::SharedPtr<Section> sectionToAppend = doc->get_Sections()->idx_get(1);
     section->AppendContent(sectionToAppend);
     // ExEnd:AppendSectionContent
     std::cout << "Section content appended successfully." << std::endl;

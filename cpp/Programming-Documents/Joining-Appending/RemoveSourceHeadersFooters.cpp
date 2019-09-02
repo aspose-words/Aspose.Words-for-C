@@ -14,11 +14,12 @@ void RemoveSourceHeadersFooters()
 {
     std::cout << "RemoveSourceHeadersFooters example started." << std::endl;
     // ExStart:RemoveSourceHeadersFooters
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_JoiningAndAppending();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_JoiningAndAppending();
+    System::String outputDataDir = GetOutputDataDir_JoiningAndAppending();
 
-    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.Destination.doc");
-    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
+    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.Destination.doc");
+    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.Source.doc");
 
     // Remove the headers and footers from each of the sections in the source document.
     for (System::SharedPtr<Section> section : System::IterateOver<System::SharedPtr<Section>>(srcDoc->get_Sections()))
@@ -32,7 +33,7 @@ void RemoveSourceHeadersFooters()
     srcDoc->get_FirstSection()->get_HeadersFooters()->LinkToPrevious(false);
 
     dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
-    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveSourceHeadersFooters.doc");
+    System::String outputPath = outputDataDir + u"RemoveSourceHeadersFooters.doc";
     dstDoc->Save(outputPath);
     // ExEnd:RemoveSourceHeadersFooters
     std::cout << "Document appended successfully with source header footers removed." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

@@ -16,7 +16,7 @@ void CheckBoxTypeContentControl()
     std::cout << "CheckBoxTypeContentControl example started." << std::endl;
     // ExStart:CheckBoxTypeContentControl
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Open the empty document
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
 
@@ -25,7 +25,7 @@ void CheckBoxTypeContentControl()
 
     // Insert content control into the document
     builder->InsertNode(SdtCheckBox);
-    System::String outputPath = dataDir + GetOutputFilePath(u"CheckBoxTypeContentControl.docx");
+    System::String outputPath = outputDataDir + u"CheckBoxTypeContentControl.docx";
 
     doc->Save(outputPath, SaveFormat::Docx);
     // ExEnd:CheckBoxTypeContentControl

@@ -12,9 +12,9 @@ void DeleteHeaderFooterContent()
     std::cout << "DeleteHeaderFooterContent example started." << std::endl;
     // ExStart:DeleteHeaderFooterContent
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithSections();
-    auto doc = System::MakeObject<Document>(dataDir + u"Document.doc");
-    auto section = doc->get_Sections()->idx_get(0);
+    System::String inputDataDir = GetInputDataDir_WorkingWithSections();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
+    System::SharedPtr<Section> section = doc->get_Sections()->idx_get(0);
     section->ClearHeadersFooters();
     // ExEnd:DeleteHeaderFooterContent
     std::cout << "Header and footer content of 0 index deleted successfully." << std::endl;

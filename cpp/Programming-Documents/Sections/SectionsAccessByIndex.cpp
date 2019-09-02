@@ -14,9 +14,9 @@ void SectionsAccessByIndex()
     std::cout << "SectionsAccessByIndex example started." << std::endl;
     // ExStart:SectionsAccessByIndex
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithSections();
-    auto doc = System::MakeObject<Document>(dataDir + u"Document.doc");
-    auto section = doc->get_Sections()->idx_get(0);
+    System::String inputDataDir = GetInputDataDir_WorkingWithSections();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
+    System::SharedPtr<Section> section = doc->get_Sections()->idx_get(0);
     section->get_PageSetup()->set_LeftMargin(90);
     // 3.17 cm
     section->get_PageSetup()->set_RightMargin(90);

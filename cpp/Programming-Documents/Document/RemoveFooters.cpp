@@ -14,10 +14,11 @@ void RemoveFooters()
 {
     std::cout << "RemoveFooters example started." << std::endl;
     // ExStart:RemoveFooters
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"HeaderFooter.RemoveFooters.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"HeaderFooter.RemoveFooters.doc");
 
     for (System::SharedPtr<Section> section : System::IterateOver<System::SharedPtr<Section>>(doc))
     {
@@ -45,7 +46,7 @@ void RemoveFooters()
         }
     }
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveFooters.doc");
+    System::String outputPath = outputDataDir + u"RemoveFooters.doc";
     // Save the document.
     doc->Save(outputPath);
     // ExEnd:RemoveFooters

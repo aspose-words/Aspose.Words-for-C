@@ -73,7 +73,7 @@ namespace
     {
         // Merge field name is stored in the field result which is a Run
         // Node between field separator and field end.
-        auto fieldResult = System::DynamicCast<Run>(mFieldSeparator->get_NextSibling());
+        System::SharedPtr<Run> fieldResult = System::DynamicCast<Run>(mFieldSeparator->get_NextSibling());
         fieldResult->set_Text(System::String::Format(u"«{0}»", value));
 
         // But sometimes the field result can consist of more than one run, delete these runs.
@@ -124,11 +124,12 @@ void RenameMergeFields()
 {
     std::cout << "RenameMergeFields example started." << std::endl;
     // ExStart:RenameMergeFields
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
 
     // Specify your document name here.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"RenameMergeFields.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"RenameMergeFields.doc");
 
     // Select all field start nodes so we can find the merge fields.
     System::SharedPtr<NodeCollection> fieldStarts = doc->GetChildNodes(NodeType::FieldStart, true);
@@ -142,7 +143,7 @@ void RenameMergeFields()
         }
     }
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"RenameMergeFields.doc");
+    System::String outputPath = outputDataDir + u"RenameMergeFields.doc";
     doc->Save(outputPath);
     // ExEnd:RenameMergeFields
     std::cout << "Merge fields rename successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

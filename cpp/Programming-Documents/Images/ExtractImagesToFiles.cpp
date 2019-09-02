@@ -17,9 +17,10 @@ void ExtractImagesToFiles()
 {
     std::cout << "ExtractImagesToFiles example started." << std::endl;
     // ExStart:ExtractImagesToFiles
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithImages();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Image.SampleImages.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithImages();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithImages();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Image.SampleImages.doc");
 
     System::SharedPtr<NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
     int32_t imageIndex = 0;
@@ -28,8 +29,8 @@ void ExtractImagesToFiles()
     {
         if (shape->get_HasImage())
         {
-            System::String imageFileName = System::String::Format(u"Image.ExportImages.{0}_out{1}", imageIndex, FileFormatUtil::ImageTypeToExtension(shape->get_ImageData()->get_ImageType()));
-            System::String imagePath = dataDir + imageFileName;
+            System::String imageFileName = System::String::Format(u"Image.ExportImages.{0}.{1}", imageIndex, FileFormatUtil::ImageTypeToExtension(shape->get_ImageData()->get_ImageType()));
+            System::String imagePath = outputDataDir + imageFileName;
             shape->get_ImageData()->Save(imagePath);
             std::cout << "Image saved at " << imagePath.ToUtf8String() << std::endl;
             imageIndex++;

@@ -11,7 +11,7 @@ void InsertTableFromHtml()
     std::cout << "InsertTableFromHtml example started." << std::endl;
     // ExStart:InsertTableFromHtml
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
@@ -19,7 +19,7 @@ void InsertTableFromHtml()
     // Inserted from HTML.
     builder->InsertHtml(u"<table><tr><td>Row 1, Cell 1</td><td>Row 1, Cell 2</td></tr><tr><td>Row 2, Cell 2</td><td>Row 2, Cell 2</td></tr></table>");
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertTableFromHtml.doc");
+    System::String outputPath = outputDataDir + u"InsertTableFromHtml.doc";
     // Save the document to disk.
     doc->Save(outputPath);
     // ExEnd:InsertTableFromHtml

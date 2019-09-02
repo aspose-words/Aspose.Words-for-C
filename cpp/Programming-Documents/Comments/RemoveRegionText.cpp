@@ -13,11 +13,12 @@ void RemoveRegionText()
 {
     std::cout << "RemoveRegionText example started." << std::endl;
     // ExStart:RemoveRegionText
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithComments();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithComments();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithComments();
 
     // Open the document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
 
     System::SharedPtr<CommentRangeStart> commentStart = System::DynamicCast<CommentRangeStart>(doc->GetChild(NodeType::CommentRangeStart, 0, true));
     System::SharedPtr<CommentRangeEnd> commentEnd = System::DynamicCast<CommentRangeEnd>(doc->GetChild(NodeType::CommentRangeEnd, 0, true));
@@ -36,7 +37,7 @@ void RemoveRegionText()
         currentNode = nextNode;
     }
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveRegionText.doc");
+    System::String outputPath = outputDataDir + u"RemoveRegionText.doc";
     // Save the document.
     doc->Save(outputPath);
     // ExEnd:RemoveRegionText

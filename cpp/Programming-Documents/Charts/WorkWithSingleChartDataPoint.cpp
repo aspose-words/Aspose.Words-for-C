@@ -22,7 +22,7 @@ void WorkWithSingleChartDataPoint()
     std::cout << "WorkWithSingleChartDataPoint example started." << std::endl;
     // ExStart:WorkWithSingleChartDataPoint
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
@@ -54,7 +54,7 @@ void WorkWithSingleChartDataPoint()
     dataPoint12->set_InvertIfNegative(true);
     dataPoint12->get_Marker()->set_Symbol(MarkerSymbol::Star);
     dataPoint12->get_Marker()->set_Size(20);
-    System::String outputPath = dataDir + GetOutputFilePath(u"WorkWithSingleChartDataPoint.docx");
+    System::String outputPath = outputDataDir + u"WorkWithSingleChartDataPoint.docx";
     doc->Save(outputPath);
     // ExEnd:WorkWithSingleChartDataPoint
     std::cout << "Single line chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

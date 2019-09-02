@@ -21,11 +21,12 @@ void ListUseDestinationStyles()
 {
     std::cout << "ListUseDestinationStyles example started." << std::endl;
     // ExStart:ListUseDestinationStyles
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_JoiningAndAppending();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_JoiningAndAppending();
+    System::String outputDataDir = GetOutputDataDir_JoiningAndAppending();
 
-    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.DestinationList.doc");
-    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.SourceList.doc");
+    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.DestinationList.doc");
+    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.SourceList.doc");
 
     // Set the source document to continue straight after the end of the destination document.
     srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::Continuous);
@@ -68,7 +69,7 @@ void ListUseDestinationStyles()
     // Append the source document to end of the destination document.
     dstDoc->AppendDocument(srcDoc, ImportFormatMode::UseDestinationStyles);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"ListUseDestinationStyles.doc");
+    System::String outputPath = outputDataDir + u"ListUseDestinationStyles.doc";
     // Save the combined document to disk.
     dstDoc->Save(outputPath);
     // ExEnd:ListUseDestinationStyles

@@ -13,7 +13,7 @@ void WriteAndFont()
     std::cout << "WriteAndFont example started." << std::endl;
     // ExStart:WriteAndFont
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Initialize document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -27,7 +27,7 @@ void WriteAndFont()
     font->set_Underline(Underline::Dash);
 
     builder->Write(u"Sample text.");
-    System::String outputPath = dataDir + GetOutputFilePath(u"WriteAndFont.doc");
+    System::String outputPath = outputDataDir + u"WriteAndFont.doc";
     doc->Save(outputPath);
     // ExEnd:WriteAndFont
     std::cout << "Formatted text using DocumentBuilder inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

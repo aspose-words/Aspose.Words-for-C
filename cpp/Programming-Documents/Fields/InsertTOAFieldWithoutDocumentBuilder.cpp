@@ -18,9 +18,10 @@ void InsertTOAFieldWithoutDocumentBuilder()
 {
     std::cout << "InsertTOAFieldWithoutDocumentBuilder example started." << std::endl;
     // ExStart:InsertTOAFieldWithoutDocumentBuilder
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"in.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"in.doc");
     // Get paragraph you want to append this TOA field to
     System::SharedPtr<Paragraph> para = System::DynamicCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(1));
 
@@ -45,7 +46,7 @@ void InsertTOAFieldWithoutDocumentBuilder()
     // Finally update this TOA field
     fieldToa->Update();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertTOAFieldWithoutDocumentBuilder.doc");
+    System::String outputPath = outputDataDir + u"InsertTOAFieldWithoutDocumentBuilder.doc";
     doc->Save(outputPath);
 
     // ExEnd:InsertTOAFieldWithoutDocumentBuilder

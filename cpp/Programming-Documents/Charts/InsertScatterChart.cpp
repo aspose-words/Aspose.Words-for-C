@@ -18,7 +18,7 @@ void InsertScatterChart()
     std::cout << "InsertScatterChart example started." << std::endl;
     // ExStart:InsertScatterChart
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
@@ -29,7 +29,7 @@ void InsertScatterChart()
     // Use this overload to add series to any type of Scatter charts.
     chart->get_Series()->Add(u"AW Series 1", System::MakeArray<double>({0.7, 1.8, 2.6}), System::MakeArray<double>({2.7, 3.2, 0.8}));
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertScatterChart.docx");
+    System::String outputPath = outputDataDir + u"InsertScatterChart.docx";
     doc->Save(outputPath);
     // ExEnd:InsertScatterChart
     std::cout << "Scatter chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

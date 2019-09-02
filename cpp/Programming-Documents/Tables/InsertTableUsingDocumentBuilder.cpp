@@ -20,11 +20,11 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
-    void SimpleTable(System::String const &dataDir)
+    void SimpleTable(System::String const &outputDataDir)
     {
         // ExStart:SimpleTable
-        auto doc = System::MakeObject<Document>();
-        auto builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
         // We call this method to start building the table.
         builder->StartTable();
         builder->InsertCell();
@@ -43,19 +43,19 @@ namespace
         builder->EndRow();
         // Signal that we have finished building the table.
         builder->EndTable();
-        System::String outputPath = dataDir + GetOutputFilePath(u"InsertTableUsingDocumentBuilder.SimpleTable.doc");
+        System::String outputPath = outputDataDir + u"InsertTableUsingDocumentBuilder.SimpleTable.doc";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SimpleTable
         std::cout << "Simple table created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void FormattedTable(System::String const &dataDir)
+    void FormattedTable(System::String const &outputDataDir)
     {
         // ExStart:FormattedTable
-        auto doc = System::MakeObject<Document>();
-        auto builder = System::MakeObject<DocumentBuilder>(doc);
-        auto table = builder->StartTable();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Table> table = builder->StartTable();
         // Make the header row.
         builder->InsertCell();
         // Set the left indent for the table. Table wide formatting must be applied after
@@ -108,20 +108,20 @@ namespace
         builder->Write(u"Row 2, Cell 3 Content.");
         builder->EndRow();
         builder->EndTable();
-        System::String outputPath = dataDir + GetOutputFilePath(u"InsertTableUsingDocumentBuilder.FormattedTable.doc");
+        System::String outputPath = outputDataDir + u"InsertTableUsingDocumentBuilder.FormattedTable.doc";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:FormattedTable
         std::cout << "Formatted table created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void NestedTable(System::String dataDir)
+    void NestedTable(System::String const &outputDataDir)
     {
         // ExStart:NestedTable
-        auto doc = System::MakeObject<Document>();
-        auto builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
         // Build the outer table.
-        auto cell = builder->InsertCell();
+        System::SharedPtr<Cell> cell = builder->InsertCell();
         builder->Writeln(u"Outer Table Cell 1");
         builder->InsertCell();
         builder->Writeln(u"Outer Table Cell 2");
@@ -136,7 +136,7 @@ namespace
         builder->InsertCell();
         builder->Writeln(u"Inner Table Cell 2");
         builder->EndTable();
-        System::String outputPath = dataDir + GetOutputFilePath(u"InsertTableUsingDocumentBuilder.NestedTable.doc");
+        System::String outputPath = outputDataDir + u"InsertTableUsingDocumentBuilder.NestedTable.doc";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:NestedTable
@@ -148,9 +148,9 @@ void InsertTableUsingDocumentBuilder()
 {
     std::cout << "InsertTableUsingDocumentBuilder example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
-    SimpleTable(dataDir);
-    FormattedTable(dataDir);
-    NestedTable(dataDir);
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
+    SimpleTable(outputDataDir);
+    FormattedTable(outputDataDir);
+    NestedTable(outputDataDir);
     std::cout << "InsertTableUsingDocumentBuilder example finished." << std::endl << std::endl;
 }

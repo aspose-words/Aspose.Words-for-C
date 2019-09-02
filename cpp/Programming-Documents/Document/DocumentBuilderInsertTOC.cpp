@@ -11,7 +11,7 @@ void DocumentBuilderInsertTOC()
     std::cout << "DocumentBuilderInsertTOC example started." << std::endl;
     // ExStart:DocumentBuilderInsertTOC
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Initialize document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -24,7 +24,7 @@ void DocumentBuilderInsertTOC()
     // ExStart:UpdateFields
     doc->UpdateFields();
     // ExEnd:UpdateFields
-    System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertTOC.doc");
+    System::String outputPath = outputDataDir + u"DocumentBuilderInsertTOC.doc";
     doc->Save(outputPath);
     // ExEnd:DocumentBuilderInsertTOC
     std::cout << "Table of contents field inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

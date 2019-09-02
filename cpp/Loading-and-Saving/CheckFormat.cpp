@@ -12,7 +12,7 @@ void CheckFormat()
     std::cout << "CheckFormat example started." << std::endl;
     // ExStart:CheckFormatCompatibility
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    System::String dataDir = GetInputDataDir_LoadingAndSaving();
     
     System::String supportedDir = dataDir + u"OutSupported";
     System::String unknownDir = dataDir + u"OutUnknown";
@@ -38,18 +38,18 @@ void CheckFormat()
     }
 
     // ExStart:GetListOfFilesInFolder
-    auto fileList = System::IO::Directory::GetFiles(dataDir);
+    System::ArrayPtr<System::String> fileList = System::IO::Directory::GetFiles(dataDir);
     // ExEnd:GetListOfFilesInFolder
     // Loop through all found files.
 
-    for (const auto& fileName: fileList->data())
+    for (System::String const &fileName: fileList)
     {
         // Extract and display the file name without the path.
         System::String nameOnly = System::IO::Path::GetFileName(fileName);
         std::cout << nameOnly.ToUtf8String();
         // ExStart:DetectFileFormat
         // Check the file format and move the file to the appropriate folder.
-        auto info = FileFormatUtil::DetectFileFormat(fileName);
+        System::SharedPtr<FileFormatInfo> info = FileFormatUtil::DetectFileFormat(fileName);
 
         // Display the document type.
         switch (info->get_LoadFormat())

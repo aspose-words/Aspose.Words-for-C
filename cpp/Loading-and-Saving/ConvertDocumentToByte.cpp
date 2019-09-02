@@ -11,7 +11,7 @@ void ConvertDocumentToByte()
     std::cout << "ConvertDocumentToByte example started." << std::endl;
     // ExStart:ConvertDocumentToByte
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    System::String dataDir = GetInputDataDir_LoadingAndSaving();
 
     // Load the document from disk.
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Test File (doc).doc");

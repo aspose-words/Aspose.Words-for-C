@@ -19,7 +19,7 @@ namespace
         System::SharedPtr<NodeCollection> headerFooterNodes = doc->GetChildNodes(NodeType::HeaderFooter, true);
         for (System::SharedPtr<HeaderFooter> hf : System::IterateOver<System::SharedPtr<HeaderFooter>>(headerFooterNodes))
         {
-            auto shapeNodes = hf->GetChildNodes(NodeType::Shape, true);
+            System::SharedPtr<NodeCollection> shapeNodes = hf->GetChildNodes(NodeType::Shape, true);
             for (System::SharedPtr<Shape> shape: System::IterateOver<System::SharedPtr<Shape>>(shapeNodes))
             {
                 if (shape->get_Name().Contains(u"WaterMark"))
@@ -34,11 +34,12 @@ namespace
 void RemoveWatermark()
 {
     std::cout << "RemoveWatermark example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithImages();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"RemoveWatermark.docx");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithImages();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithImages();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"RemoveWatermark.docx");
     RemoveWatermarkText(doc);
-    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveWatermark.docx");
+    System::String outputPath = outputDataDir + u"RemoveWatermark.docx";
     doc->Save(outputPath);
     std:: cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "RemoveWatermark example finished." << std::endl << std::endl;

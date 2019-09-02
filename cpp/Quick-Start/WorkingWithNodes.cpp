@@ -14,13 +14,13 @@ void WorkingWithNodes()
 {
     std::cout << "WorkingWithNodes example started." << std::endl;
     // Create a new document.
-    auto doc = System::MakeObject<Document>();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>();
 
     // Creates and adds a paragraph node to the document.
-    auto para = System::MakeObject<Paragraph>(doc);
+    System::SharedPtr<Paragraph> para = System::MakeObject<Paragraph>(doc);
 
     // Typed access to the last section of the document.
-    auto section = doc->get_LastSection();
+    System::SharedPtr<Section> section = doc->get_LastSection();
     section->get_Body()->AppendChild(para);
 
     // Next print the node type of one of the nodes in the document.

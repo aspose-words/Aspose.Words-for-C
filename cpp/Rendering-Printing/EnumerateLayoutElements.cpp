@@ -77,7 +77,7 @@ namespace
         static int32_t PointToPixel(float value, double resolution);
     };
 
-    void OutlineLayoutEntitiesRenderer::Run(System::SharedPtr<Document> doc, System::SharedPtr<LayoutEnumerator> it, System::String const &folderPath)
+    void OutlineLayoutEntitiesRenderer::Run(System::SharedPtr<Document> doc, System::SharedPtr<LayoutEnumerator> it, System::String const &outputDataDir)
     {
         // Make sure the enumerator is at the beginning of the document.
         it->Reset();
@@ -112,7 +112,7 @@ namespace
                     // Move the enumerator to the next page if there is one.
                     it->MoveNext();
 
-                    imgHolder.GetObject()->Save(folderPath + GetOutputFilePath(System::String::Format(u"TestFile Page {0}.png", pageIndex + 1)));
+                    imgHolder.GetObject()->Save(outputDataDir + System::String::Format(u"TestFile Page {0}.png", pageIndex + 1));
                 }
             }
         }
@@ -203,10 +203,11 @@ namespace
 void EnumerateLayoutElements()
 {
     std::cout << "EnumerateLayoutElements example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.EnumerateLayout.docx");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.EnumerateLayout.docx");
 
     // This creates an enumerator which is used to "walk" the elements of a rendered document.
     System::SharedPtr<LayoutEnumerator> it = System::MakeObject<LayoutEnumerator>(doc);
@@ -215,7 +216,7 @@ void EnumerateLayoutElements()
     LayoutInfoWriter::Run(it);
 
     // This sample adds a border around each layout element and saves each page as a JPEG image to the data directory.
-    OutlineLayoutEntitiesRenderer::Run(doc, it, dataDir);
+    OutlineLayoutEntitiesRenderer::Run(doc, it, outputDataDir);
 
     std::cout << "Enumerate layout elements example ran successfully." << std::endl;
     std::cout << "EnumerateLayoutElements example finished." << std::endl << std::endl;

@@ -136,10 +136,11 @@ namespace
 void ReplaceTextWithField()
 {
     std::cout << "ReplaceTextWithField example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_FindAndReplace();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_FindAndReplace();
+    System::String outputDataDir = GetOutputDataDir_FindAndReplace();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Field.ReplaceTextWithFields.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Field.ReplaceTextWithFields.doc");
 
     System::SharedPtr<FindReplaceOptions> options = System::MakeObject<FindReplaceOptions>();
     options->set_ReplacingCallback(System::MakeObject<ReplaceTextWithFieldHandler>(FieldType::FieldMergeField));
@@ -147,7 +148,7 @@ void ReplaceTextWithField()
     // Replace any "PlaceHolderX" instances in the document (where X is a number) with a merge field.
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"PlaceHolder(\\d+)"), u"", options);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"ReplaceTextWithField.doc");
+    System::String outputPath = outputDataDir + u"ReplaceTextWithField.doc";
     doc->Save(outputPath);
 
     std::cout << "Text replaced with field successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

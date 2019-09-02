@@ -625,6 +625,9 @@
     <ClCompile Include="cpp\Loading-and-Saving\ExportResourcesUsingHtmlSaveOptions.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ImageToPdf.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveHtmlFormFieldAsContentControlInDOCX.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
@@ -715,6 +718,9 @@
     <ClCompile Include="cpp\Rendering-Printing\HyphenateWordsOfLanguages.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\ImageColorFilters.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
     <ClCompile Include="cpp\Rendering-Printing\LoadHyphenationDictionaryForLanguage.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
@@ -722,6 +728,9 @@
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Rendering-Printing\RenderShape.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SaveAsMultipageTiff.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Rendering-Printing\SetFontSettings.cpp">
@@ -769,10 +778,25 @@
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithHTML.cpp">
       <Filter>cpp\Programming-Documents\Find-Replace</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Images\AddImageToEachPage.cpp">
+      <Filter>cpp\Programming-Documents\Images</Filter>
+    </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Linked-Textboxes\WorkingWithLinkedTextboxes.cpp">
       <Filter>cpp\Programming-Documents\Linked-Textboxes</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\ResourceSteamFontSource.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\OpenEncryptedDocument.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Document\CompareDocument.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentUsingDocumentVisitor.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\GetFontLineSpacing.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,7 +20,7 @@ void WorkWithChartDataLabel()
     std::cout << "WorkWithChartDataLabel example started." << std::endl;
     // ExStart:WorkWithChartDataLabel
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
@@ -48,7 +48,7 @@ void WorkWithChartDataLabel()
     chartDataLabel00->set_Separator(u"/");
     chartDataLabel01->set_ShowValue(true);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"WorkWithChartDataLabel.docx");
+    System::String outputPath = outputDataDir + u"WorkWithChartDataLabel.docx";
     doc->Save(outputPath);
     // ExEnd:WorkWithChartDataLabel
     std::cout << "Simple bar chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

@@ -15,11 +15,11 @@ using namespace Aspose::Words;
 
 namespace
 {
-    void CursorPosition(System::String const &dataDir)
+    void CursorPosition(System::String const &inputDataDir)
     {
         // ExStart:DocumentBuilderCursorPosition
         // Shows how to access the current node in a document builder.
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilder.doc");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         System::SharedPtr<Node> curNode = builder->get_CurrentNode();
@@ -28,20 +28,20 @@ namespace
         std::cout << "Cursor move to paragraph: " << curParagraph->GetText().ToUtf8String() << std::endl;
     }
 
-    void MoveToNode(System::String const &dataDir)
+    void MoveToNode(System::String const &inputDataDir)
     {
         // ExStart:DocumentBuilderMoveToNode
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilder.doc");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
         builder->MoveTo(doc->get_FirstSection()->get_Body()->get_LastParagraph());
-        // ExEnd:DocumentBuilderMoveToNode   
+        // ExEnd:DocumentBuilderMoveToNode
         std::cout << "Cursor move to required node." << std::endl;
     }
 
-    void MoveToDocumentStartEnd(System::String const &dataDir)
+    void MoveToDocumentStartEnd(System::String const &inputDataDir)
     {
         // ExStart:DocumentBuilderMoveToDocumentStartEnd
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilder.doc");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         builder->MoveToDocumentEnd();
@@ -52,10 +52,10 @@ namespace
         // ExEnd:DocumentBuilderMoveToDocumentStartEnd
     }
 
-    void MoveToSection(System::String const &dataDir)
+    void MoveToSection(System::String const &inputDataDir)
     {
         // ExStart:DocumentBuilderMoveToSection
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilder.doc");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         // Parameters are 0-index. Moves to third section.
@@ -64,7 +64,7 @@ namespace
         // ExEnd:DocumentBuilderMoveToSection
     }
 
-    void HeadersAndFooters(System::String const &dataDir)
+    void HeadersAndFooters(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderHeadersAndFooters
         // Create a blank document.
@@ -91,16 +91,16 @@ namespace
         builder->InsertBreak(BreakType::PageBreak);
         builder->Writeln(u"Page3");
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderMovingCursor.HeadersAndFooters.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderMovingCursor.HeadersAndFooters.doc";
         doc->Save(outputPath);
-        // ExEnd:DocumentBuilderHeadersAndFooters   
+        // ExEnd:DocumentBuilderHeadersAndFooters
         std::cout << "Headers and footers created successfully using DocumentBuilder." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void MoveToParagraph(System::String const &dataDir)
+    void MoveToParagraph(System::String const &inputDataDir)
     {
         // ExStart:DocumentBuilderMoveToParagraph
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilder.doc");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         // Parameters are 0-index. Moves to third paragraph.
@@ -109,10 +109,10 @@ namespace
         // ExEnd:DocumentBuilderMoveToParagraph
     }
 
-    void MoveToTableCell(System::String const &dataDir)
+    void MoveToTableCell(System::String const &inputDataDir)
     {
         // ExStart:DocumentBuilderMoveToTableCell
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilder.doc");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         // All parameters are 0-index. Moves to the 2nd table, 3rd row, 5th cell.
@@ -121,10 +121,10 @@ namespace
         // ExEnd:DocumentBuilderMoveToTableCell
     }
 
-    void MoveToBookmark(System::String const &dataDir)
+    void MoveToBookmark(System::String const &inputDataDir)
     {
         // ExStart:DocumentBuilderMoveToBookmark
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilder.doc");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         builder->MoveToBookmark(u"CoolBookmark");
@@ -132,10 +132,10 @@ namespace
         // ExEnd:DocumentBuilderMoveToBookmark
     }
 
-    void MoveToBookmarkEnd(System::String const &dataDir)
+    void MoveToBookmarkEnd(System::String const &inputDataDir)
     {
         // ExStart:DocumentBuilderMoveToBookmarkEnd
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilder.doc");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         builder->MoveToBookmark(u"CoolBookmark", false, true);
@@ -143,10 +143,10 @@ namespace
         // ExEnd:DocumentBuilderMoveToBookmarkEnd
     }
 
-    void MoveToMergeField(System::String const &dataDir)
+    void MoveToMergeField(System::String const &inputDataDir)
     {
         // ExStart:DocumentBuilderMoveToMergeField
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"DocumentBuilder.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilder.doc");
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
         builder->MoveToMergeField(u"NiceMergeField");
@@ -158,17 +158,18 @@ namespace
 void DocumentBuilderMovingCursor()
 {
     std::cout << "DocumentBuilderMovingCursor example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
-    CursorPosition(dataDir);
-    MoveToNode(dataDir);
-    MoveToDocumentStartEnd(dataDir);
-    MoveToSection(dataDir);
-    HeadersAndFooters(dataDir);
-    MoveToParagraph(dataDir);
-    MoveToTableCell(dataDir);
-    MoveToBookmark(dataDir);
-    MoveToBookmarkEnd(dataDir);
-    MoveToMergeField(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
+    CursorPosition(inputDataDir);
+    MoveToNode(inputDataDir);
+    MoveToDocumentStartEnd(inputDataDir);
+    MoveToSection(inputDataDir);
+    HeadersAndFooters(outputDataDir);
+    MoveToParagraph(inputDataDir);
+    MoveToTableCell(inputDataDir);
+    MoveToBookmark(inputDataDir);
+    MoveToBookmarkEnd(inputDataDir);
+    MoveToMergeField(inputDataDir);
     std::cout << "DocumentBuilderMovingCursor example finished." << std::endl << std::endl;
 }

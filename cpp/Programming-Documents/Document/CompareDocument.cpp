@@ -10,21 +10,21 @@ using namespace Aspose::Words;
 
 namespace
 {
-    void NormalComparison(System::String const &dataDir)
+    void NormalComparison(System::String const &inputDataDir)
     {
         // ExStart:NormalComparison
-        System::SharedPtr<Document> docA = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-        System::SharedPtr<Document> docB = System::MakeObject<Document>(dataDir + u"TestFile - Copy.doc");
+        System::SharedPtr<Document> docA = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
+        System::SharedPtr<Document> docB = System::MakeObject<Document>(inputDataDir + u"TestFile - Copy.doc");
         // DocA now contains changes as revisions. 
         docA->Compare(docB, u"user", System::DateTime::get_Now());
         // ExEnd:NormalComparison
     }
 
-    void CompareForEqual(System::String const &dataDir)
+    void CompareForEqual(System::String const &inputDataDir)
     {
         // ExStart:CompareForEqual
-        System::SharedPtr<Document> docA = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-        System::SharedPtr<Document> docB = System::MakeObject<Document>(dataDir + u"TestFile - Copy.doc");
+        System::SharedPtr<Document> docA = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
+        System::SharedPtr<Document> docB = System::MakeObject<Document>(inputDataDir + u"TestFile - Copy.doc");
         // DocA now contains changes as revisions. 
         docA->Compare(docB, u"user", System::DateTime::get_Now());
         if (docA->get_Revisions()->get_Count() == 0)
@@ -38,11 +38,11 @@ namespace
         // ExEnd:CompareForEqual
     }
 
-    void CompareDocumentWithCompareOptions(System::String const &dataDir)
+    void CompareDocumentWithCompareOptions(System::String const &inputDataDir)
     {
         // ExStart:CompareDocumentWithCompareOptions
-        System::SharedPtr<Document> docA = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-        System::SharedPtr<Document> docB = System::MakeObject<Document>(dataDir + u"TestFile - Copy.doc");
+        System::SharedPtr<Document> docA = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
+        System::SharedPtr<Document> docB = System::MakeObject<Document>(inputDataDir + u"TestFile - Copy.doc");
 
         System::SharedPtr<CompareOptions> options = System::MakeObject<CompareOptions>();
         options->set_IgnoreFormatting(true);
@@ -67,11 +67,11 @@ namespace
         // ExEnd:CompareDocumentWithCompareOptions
     }
 
-    void CompareDocumentWithComparisonTarget(System::String const &dataDir)
+    void CompareDocumentWithComparisonTarget(System::String const &inputDataDir)
     {
         // ExStart:CompareDocumentWithComparisonTarget
-        System::SharedPtr<Document> docA = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-        System::SharedPtr<Document> docB = System::MakeObject<Document>(dataDir + u"TestFile - Copy.doc");
+        System::SharedPtr<Document> docA = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
+        System::SharedPtr<Document> docB = System::MakeObject<Document>(inputDataDir + u"TestFile - Copy.doc");
 
         System::SharedPtr<CompareOptions> options = System::MakeObject<CompareOptions>();
         options->set_IgnoreFormatting(true);
@@ -89,10 +89,10 @@ void CompareDocument()
 {
     std::cout << "CompareDocument example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
-    NormalComparison(dataDir);
-    CompareForEqual(dataDir);
-    CompareDocumentWithCompareOptions(dataDir);
-    CompareDocumentWithComparisonTarget(dataDir);
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    NormalComparison(inputDataDir);
+    CompareForEqual(inputDataDir);
+    CompareDocumentWithCompareOptions(inputDataDir);
+    CompareDocumentWithComparisonTarget(inputDataDir);
     std::cout << "CompareDocument example finished." << std::endl << std::endl;
 }

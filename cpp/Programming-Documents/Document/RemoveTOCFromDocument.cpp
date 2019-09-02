@@ -67,7 +67,7 @@ namespace
         }
 
         // Remove all nodes found in the specified TOC.
-        for (auto& node : nodeList)
+        for (System::SharedPtr<Node> node : nodeList)
         {
             node->Remove();
         }
@@ -79,16 +79,17 @@ void RemoveTOCFromDocument()
 {
     std::cout << "RemoveTOCFromDocument example started." << std::endl;
     // ExStart:RemoveTOCFromDocument
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithStyles();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithStyles();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithStyles();
 
     // Open a document which contains a TOC.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.TableOfContents.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.TableOfContents.doc");
 
     // Remove the first table of contents from the document.
     RemoveTableOfContents(doc, 0);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveTOCFromDocument.doc");
+    System::String outputPath = outputDataDir + u"RemoveTOCFromDocument.doc";
     // Save the output.
     doc->Save(outputPath);
     // ExEnd:RemoveTOCFromDocument

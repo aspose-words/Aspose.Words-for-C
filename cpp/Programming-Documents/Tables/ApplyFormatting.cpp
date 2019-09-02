@@ -30,11 +30,11 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
-    void ApplyOutlineBorder(System::String const &dataDir)
+    void ApplyOutlineBorder(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:ApplyOutlineBorder
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.EmptyTable.doc");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.EmptyTable.doc");
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Align the table to the center of the page.
         table->set_Alignment(TableAlignment::Center);
         // Clear any existing borders from the table.
@@ -46,23 +46,23 @@ namespace
         table->SetBorder(BorderType::Bottom, LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
         // Fill the cells with a light green solid color.
         table->SetShading(TextureIndex::TextureSolid, System::Drawing::Color::get_LightGreen(), System::Drawing::Color::Empty);
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.ApplyOutlineBorder.doc");
+        System::String outputPath = outputDataDir + u"ApplyFormatting.ApplyOutlineBorder.doc";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:ApplyOutlineBorder
         std::cout << "Outline border applied successfully to a table." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void BuildTableWithBordersEnabled(System::String const &dataDir)
+    void BuildTableWithBordersEnabled(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:BuildTableWithBordersEnabled
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.EmptyTable.doc");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.EmptyTable.doc");
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Clear any existing borders from the table.
         table->ClearBorders();
         // Set a green border around and inside the table.
         table->SetBorders(LineStyle::Single, 1.5, System::Drawing::Color::get_Green());
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.BuildTableWithBordersEnabled.doc");
+        System::String outputPath = outputDataDir + u"ApplyFormatting.BuildTableWithBordersEnabled.doc";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:BuildTableWithBordersEnabled
@@ -70,13 +70,13 @@ namespace
 
     }
 
-    void ModifyRowFormatting(System::String const &dataDir)
+    void ModifyRowFormatting(System::String const &inputDataDir)
     {
         // ExStart:ModifyRowFormatting
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.Document.doc");
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Retrieve the first row in the table.
-        auto firstRow = table->get_FirstRow();
+        System::SharedPtr<Row> firstRow = table->get_FirstRow();
         // Modify some row level properties.
         firstRow->get_RowFormat()->get_Borders()->set_LineStyle(LineStyle::None);
         firstRow->get_RowFormat()->set_HeightRule(HeightRule::Auto);
@@ -85,15 +85,15 @@ namespace
         std::cout << "Some row level properties modified successfully." << std::endl;
     }
 
-    void ApplyRowFormatting(System::String const &dataDir)
+    void ApplyRowFormatting(System::String const &outputDataDir)
     {
         // ExStart:ApplyRowFormatting
-        auto doc = System::MakeObject<Document>();
-        auto builder = System::MakeObject<DocumentBuilder>(doc);
-        auto table = builder->StartTable();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Table> table = builder->StartTable();
         builder->InsertCell();
         // Set the row formatting
-        auto rowFormat = builder->get_RowFormat();
+        System::SharedPtr<RowFormat> rowFormat = builder->get_RowFormat();
         rowFormat->set_Height(100);
         rowFormat->set_HeightRule(HeightRule::Exactly);
         // These formatting properties are set on the table and are applied to all rows in the table.
@@ -104,20 +104,20 @@ namespace
         builder->Writeln(u"I'm a wonderful formatted row.");
         builder->EndRow();
         builder->EndTable();
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.ApplyRowFormatting.doc");
+        System::String outputPath = outputDataDir + u"ApplyFormatting.ApplyRowFormatting.doc";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:ApplyRowFormatting
         std::cout << "Row formatting applied successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void ModifyCellFormatting(System::String const &dataDir)
+    void ModifyCellFormatting(System::String const &inputDataDir)
     {
         // ExStart:ModifyCellFormatting
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.Document.doc");
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Retrieve the first cell in the table.
-        auto firstCell = table->get_FirstRow()->get_FirstCell();
+        System::SharedPtr<Cell> firstCell = table->get_FirstRow()->get_FirstCell();
         // Modify some cell level properties.
         firstCell->get_CellFormat()->set_Width(30);
         // In points
@@ -127,12 +127,12 @@ namespace
         std::cout << "Some cell level properties modified successfully." << std::endl;
     }
 
-    void FormatTableAndCellWithDifferentBorders(System::String const &dataDir)
+    void FormatTableAndCellWithDifferentBorders(System::String const &outputDataDir)
     {
         // ExStart:FormatTableAndCellWithDifferentBorders
-        auto doc = System::MakeObject<Document>();
-        auto builder = System::MakeObject<DocumentBuilder>(doc);
-        auto table = builder->StartTable();
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Table> table = builder->StartTable();
         builder->InsertCell();
         // Set the borders for the entire table.
         table->SetBorders(LineStyle::Single, 2.0, System::Drawing::Color::get_Black());
@@ -161,17 +161,17 @@ namespace
         builder->get_CellFormat()->ClearFormatting();
         builder->Writeln(u"Cell #4");
         // Save finished document.
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.FormatTableAndCellWithDifferentBorders.doc");
+        System::String outputPath = outputDataDir + u"ApplyFormatting.FormatTableAndCellWithDifferentBorders.doc";
         doc->Save(outputPath);
         // ExEnd:FormatTableAndCellWithDifferentBorders
         std::cout << "Format table and cell with different borders and shadings successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetCellPadding(System::String const &dataDir)
+    void SetCellPadding(System::String const &outputDataDir)
     {
         // ExStart:SetCellPadding
-        auto doc = System::MakeObject<Document>();
-        auto builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
         builder->StartTable();
         builder->InsertCell();
         //Sets the amount of space (in points) to add to the left/top/right/bottom of the contents of cell.
@@ -179,19 +179,19 @@ namespace
         builder->Writeln(u"I'm a wonderful formatted cell.");
         builder->EndRow();
         builder->EndTable();
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.SetCellPadding.doc");
+        System::String outputPath = outputDataDir + u"ApplyFormatting.SetCellPadding.doc";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetCellPadding
         std::cout << "Cell padding is set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void GetDistancebetweenTableSurroundingText(System::String const &dataDir)
+    void GetDistancebetweenTableSurroundingText(System::String const &inputDataDir)
     {
         // ExStart:GetDistancebetweenTableSurroundingText
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.EmptyTable.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.EmptyTable.doc");
         std::cout << "Get distance between table left, right, bottom, top and the surrounding text." << std::endl;
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         std::cout << table->get_DistanceTop() << std::endl;
         std::cout << table->get_DistanceBottom() << std::endl;
         std::cout << table->get_DistanceRight() << std::endl;
@@ -199,31 +199,31 @@ namespace
         // ExEnd:GetDistancebetweenTableSurroundingText
     }
 
-    void SetTableTitleAndDescription(System::String const &dataDir)
+    void SetTableTitleAndDescription(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetTableTitleandDescription
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.Document.doc");
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         table->set_Title(u"Test title");
         table->set_Description(u"Test description");
         System::SharedPtr<OoxmlSaveOptions> options = System::MakeObject<OoxmlSaveOptions>();
         options->set_Compliance(OoxmlCompliance::Iso29500_2008_Strict);
         doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2016);
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.SetTableTitleandDescription.docx");
+        System::String outputPath = outputDataDir + u"ApplyFormatting.SetTableTitleandDescription.docx";
         // Save the document to disk.
         doc->Save(outputPath, options);
         // ExEnd:SetTableTitleandDescription
         std::cout << "Table's title and description is set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void AllowCellSpacing(System::String const &dataDir)
+    void AllowCellSpacing(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:AllowCellSpacing
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.Document.doc");
         System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         table->set_AllowCellSpacing(true);
         table->set_CellSpacing(2);
-        System::String outputPath = dataDir + GetOutputFilePath(u"ApplyFormatting.AllowCellSpacing.docx");
+        System::String outputPath = outputDataDir + u"ApplyFormatting.AllowCellSpacing.docx";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:AllowCellSpacing
@@ -234,18 +234,19 @@ namespace
 void ApplyFormatting()
 {
     std::cout << "ApplyFormatting example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
-    ApplyOutlineBorder(dataDir);
-    BuildTableWithBordersEnabled(dataDir);
-    ModifyRowFormatting(dataDir);
-    ApplyRowFormatting(dataDir);
-    ModifyCellFormatting(dataDir);
-    FormatTableAndCellWithDifferentBorders(dataDir);
-    SetCellPadding(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithTables();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
+    ApplyOutlineBorder(inputDataDir, outputDataDir);
+    BuildTableWithBordersEnabled(inputDataDir, outputDataDir);
+    ModifyRowFormatting(inputDataDir);
+    ApplyRowFormatting(outputDataDir);
+    ModifyCellFormatting(inputDataDir);
+    FormatTableAndCellWithDifferentBorders(outputDataDir);
+    SetCellPadding(outputDataDir);
     //Get DistanceLeft, DistanceRight, DistanceTop, and DistanceBottom properties
-    GetDistancebetweenTableSurroundingText(dataDir);
-    SetTableTitleAndDescription(dataDir);
-    AllowCellSpacing(dataDir);
+    GetDistancebetweenTableSurroundingText(inputDataDir);
+    SetTableTitleAndDescription(inputDataDir, outputDataDir);
+    AllowCellSpacing(inputDataDir, outputDataDir);
     std::cout << "ApplyFormatting example finished." << std::endl << std::endl;
 }

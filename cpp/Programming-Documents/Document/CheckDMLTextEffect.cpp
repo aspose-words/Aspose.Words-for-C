@@ -17,10 +17,10 @@ void CheckDMLTextEffect()
     std::cout << "CheckDMLTextEffect example started." << std::endl;
     // ExStart:CheckDMLTextEffect
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
 
     // Initialize document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
     System::SharedPtr<RunCollection> runs = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs();
     System::SharedPtr<Font> runFont = runs->idx_get(0)->get_Font();
 

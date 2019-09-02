@@ -12,10 +12,10 @@ using namespace Aspose::Words::Properties;
 
 namespace
 {
-    void EnumerateProperties(const System::String& dataDir)
+    void EnumerateProperties(const System::String& inputDataDir)
     {
         // ExStart:EnumerateProperties
-        System::String fileName = dataDir + u"Properties.doc";
+        System::String fileName = inputDataDir + u"Properties.doc";
         System::SharedPtr<Document> doc = System::MakeObject<Document>(fileName);
         std::cout << "1. Document name: " << fileName.ToUtf8String() << std::endl;
 
@@ -33,10 +33,10 @@ namespace
         // ExEnd:EnumerateProperties
     }
 
-    void CustomAdd(const System::String& dataDir)
+    void CustomAdd(const System::String& inputDataDir)
     {
         // ExStart:CustomAdd
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Properties.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Properties.doc");
         System::SharedPtr<CustomDocumentProperties> props = doc->get_CustomDocumentProperties();
         if (props->idx_get(u"Authorized") == nullptr)
         {
@@ -49,20 +49,20 @@ namespace
         // ExEnd:CustomAdd
     }
 
-    void CustomRemove(const System::String& dataDir)
+    void CustomRemove(const System::String& inputDataDir)
     {
         // ExStart:CustomRemove
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Properties.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Properties.doc");
         doc->get_CustomDocumentProperties()->Remove(u"Authorized Date");
         // ExEnd:CustomRemove
     }
 
-    void RemovePersonalInformation(const System::String &dataDir)
+    void RemovePersonalInformation(const System::String &inputDataDir, const System::String &outputDataDir)
     {
         // ExStart:RemovePersonalInformation
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Properties.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Properties.doc");
         doc->set_RemovePersonalInformation(true);
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocProperties.RemovePersonalInformation.docx");
+        System::String outputPath = outputDataDir + u"DocProperties.RemovePersonalInformation.docx";
         doc->Save(outputPath);
         // ExEnd:RemovePersonalInformation
         std::cout << "Personal information has removed from document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -72,14 +72,15 @@ namespace
 void DocProperties()
 {
     std::cout << "DocProperties example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Enumerates through all built-in and custom properties in a document.
-    EnumerateProperties(dataDir);
+    EnumerateProperties(inputDataDir);
     // Checks if a custom property with a given name exists in a document and adds few more custom document properties.
-    CustomAdd(dataDir);
+    CustomAdd(inputDataDir);
     // Removes a custom document property.
-    CustomRemove(dataDir);
-    RemovePersonalInformation(dataDir);
+    CustomRemove(inputDataDir);
+    RemovePersonalInformation(inputDataDir, outputDataDir);
     std::cout << "DocProperties example finished." << std::endl << std::endl;
 }

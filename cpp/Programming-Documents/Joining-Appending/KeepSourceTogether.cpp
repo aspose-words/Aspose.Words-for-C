@@ -18,11 +18,12 @@ void KeepSourceTogether()
 {
     std::cout << "KeepSourceTogether example started." << std::endl;
     // ExStart:KeepSourceTogether
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_JoiningAndAppending();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_JoiningAndAppending();
+    System::String outputDataDir = GetOutputDataDir_JoiningAndAppending();
 
-    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.DestinationList.doc");
-    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
+    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.DestinationList.doc");
+    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.Source.doc");
 
     // Set the source document to appear straight after the destination document's content.
     srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::Continuous);
@@ -34,7 +35,7 @@ void KeepSourceTogether()
     }
 
     dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
-    System::String outputPath = dataDir + GetOutputFilePath(u"KeepSourceTogether.doc");
+    System::String outputPath = outputDataDir + u"KeepSourceTogether.doc";
     dstDoc->Save(outputPath);
     // ExEnd:KeepSourceTogether
     std::cout << "Document appended successfully while keeping the content from splitting across two pages." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

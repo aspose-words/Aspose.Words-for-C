@@ -19,7 +19,7 @@ using namespace Aspose::Words::Drawing::Charts;
 
 namespace
 {
-    void FormatNumberOfDataLabel(System::String const &dataDir)
+    void FormatNumberOfDataLabel(System::String const &outputDataDir)
     {
         //ExStart:FormatNumberofDataLabel
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -59,7 +59,7 @@ namespace
         // in this case NumberFormat will be reset to general and inherited from a source cell.
         chartDataLabel2->get_NumberFormat()->set_IsLinkedToSource(true);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"ChartNumberFormat.docx");
+        System::String outputPath = outputDataDir + u"ChartNumberFormat.docx";
         doc->Save(outputPath);
         //ExEnd:FormatNumberofDataLabel
         std::cout << "Simple line chart created with formatted data lablel successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -70,7 +70,7 @@ void ChartNumberFormat()
 {
     std::cout << "ChartNumberFormat example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
-    FormatNumberOfDataLabel(dataDir);
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
+    FormatNumberOfDataLabel(outputDataDir);
     std::cout << "ChartNumberFormat example finished." << std::endl << std::endl;
 }

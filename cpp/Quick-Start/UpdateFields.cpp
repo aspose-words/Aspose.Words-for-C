@@ -13,7 +13,7 @@ void UpdateFields()
 {
     std::cout << "UpdateFields example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_QuickStart();
+    System::String outputDataDir = GetOutputDataDir_QuickStart();
 
     // Demonstrates how to insert fields and update them using Aspose.Words.
 
@@ -78,7 +78,7 @@ void UpdateFields()
     // Call the method below to update the TOC.
     doc->UpdateFields();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"UpdateFields.docx");
+    System::String outputPath = outputDataDir + u"UpdateFields.docx";
     doc->Save(outputPath);
 
     std::cout << "Fields updated successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

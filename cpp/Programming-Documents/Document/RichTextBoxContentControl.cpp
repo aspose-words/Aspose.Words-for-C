@@ -20,7 +20,7 @@ void RichTextBoxContentControl()
     std::cout << "RichTextBoxContentControl example started." << std::endl;
     // ExStart:RichTextBoxContentControl
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<StructuredDocumentTag> sdtRichText = System::MakeObject<StructuredDocumentTag>(doc, SdtType::RichText, MarkupLevel::Block);
 
@@ -32,7 +32,7 @@ void RichTextBoxContentControl()
     sdtRichText->get_ChildNodes()->Add(para);
     doc->get_FirstSection()->get_Body()->AppendChild(sdtRichText);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"RichTextBoxContentControl.docx");
+    System::String outputPath = outputDataDir + u"RichTextBoxContentControl.docx";
     doc->Save(outputPath);
     // ExEnd:RichTextBoxContentControl
     std::cout << "Rich text box type content control created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

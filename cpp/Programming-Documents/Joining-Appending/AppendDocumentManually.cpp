@@ -13,11 +13,12 @@ void AppendDocumentManually()
 {
     std::cout << "AppendDocumentManually example started." << std::endl;
     // ExStart:AppendDocumentManually
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_JoiningAndAppending();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_JoiningAndAppending();
+    System::String outputDataDir = GetOutputDataDir_JoiningAndAppending();
 
-    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.Destination.doc");
-    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
+    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.Destination.doc");
+    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.Source.doc");
     ImportFormatMode mode = ImportFormatMode::KeepSourceFormatting;
 
     // Loop through all sections in the source document. 
@@ -35,7 +36,7 @@ void AppendDocumentManually()
         dstDoc->AppendChild(dstSection);
     }
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"AppendDocumentManually.doc");
+    System::String outputPath = outputDataDir + u"AppendDocumentManually.doc";
     // Save the joined document
     dstDoc->Save(outputPath);
     // ExEnd:AppendDocumentManually

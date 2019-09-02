@@ -12,9 +12,9 @@ void DeleteSectionContent()
     std::cout << "DeleteSectionContent example started." << std::endl;
     // ExStart:DeleteSectionContent
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithSections();
-    auto doc = System::MakeObject<Document>(dataDir + u"Document.doc");
-    auto section = doc->get_Sections()->idx_get(0);
+    System::String inputDataDir = GetInputDataDir_WorkingWithSections();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
+    System::SharedPtr<Section> section = doc->get_Sections()->idx_get(0);
     section->ClearContent();
     // ExEnd:DeleteSectionContent
     std::cout << "Section content at 0 index deleted successfully." << std::endl;

@@ -64,14 +64,15 @@ void FieldUpdateCulture()
 {
     std::cout << "FieldUpdateCulture example started." << std::endl;
     // ExStart:FieldUpdateCultureProvider
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"FieldUpdateCultureProvider.docx");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"FieldUpdateCultureProvider.docx");
 
     doc->get_FieldOptions()->set_FieldUpdateCultureSource(FieldUpdateCultureSource::FieldCode);
     doc->get_FieldOptions()->set_FieldUpdateCultureProvider(System::MakeObject<FieldUpdateCultureProvider>());
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"FieldUpdateCulture.pdf");
+    System::String outputPath = outputDataDir + u"FieldUpdateCulture.pdf";
     doc->Save(outputPath);
     // ExEnd:FieldUpdateCultureProvider
 

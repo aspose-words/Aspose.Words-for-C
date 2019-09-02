@@ -13,7 +13,7 @@ void DocumentBuilderInsertBookmark()
     std::cout << "DocumentBuilderInsertBookmark example started." << std::endl;
     // ExStart:DocumentBuilderInsertBookmark
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Initialize document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -22,7 +22,7 @@ void DocumentBuilderInsertBookmark()
     builder->Writeln(u"This is just a fine bookmark.");
     builder->EndBookmark(u"FineBookmark");
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertBookmark.doc");
+    System::String outputPath = outputDataDir + u"DocumentBuilderInsertBookmark.doc";
     doc->Save(outputPath);
     // ExEnd:DocumentBuilderInsertBookmark
     std::cout << "Bookmark using DocumentBuilder inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

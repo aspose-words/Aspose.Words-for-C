@@ -13,9 +13,10 @@ void CommentReply()
 {
     std::cout << "CommentReply example started." << std::endl;
     // ExStart:AddRemoveCommentReply
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithComments();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithComments();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithComments();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
     System::SharedPtr<Comment> comment = System::DynamicCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
 
     //Remove the reply
@@ -24,7 +25,7 @@ void CommentReply()
     //Add a reply to comment
     comment->AddReply(u"John Doe", u"JD", System::DateTime(2017, 9, 25, 12, 15, 0), u"New reply");
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"CommentReply.doc");
+    System::String outputPath = outputDataDir + u"CommentReply.doc";
 
     // Save the document to disk.
     doc->Save(outputPath);

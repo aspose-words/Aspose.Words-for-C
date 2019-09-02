@@ -285,7 +285,7 @@ namespace
 
     public:
         RenderedSpan();
-        RenderedSpan(System::String text);
+        RenderedSpan(System::String const &text);
         System::String GetKind();
         System::String GetText() override;
 
@@ -310,7 +310,7 @@ namespace
     }
 
 
-    RenderedSpan::RenderedSpan(System::String text)
+    RenderedSpan::RenderedSpan(System::String const &text)
     {
         mText = text != nullptr ? text : System::String::Empty;
     }
@@ -860,9 +860,9 @@ void DocumentLayoutHelper()
 {
     std::cout << "DocumentLayoutHelper example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.docx");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.docx");
 
     // This sample introduces the RenderedDocument class and other related classes which provide an API wrapper for 
     // The LayoutEnumerator. This allows you to access the layout entities of a document using a DOM style API.

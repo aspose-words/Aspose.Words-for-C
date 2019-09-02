@@ -19,7 +19,7 @@ void CreateChartUsingShape()
     std::cout << "CreateChartUsingShape example started." << std::endl;
     // ExStart:CreateChartUsingShape
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
@@ -38,7 +38,7 @@ void CreateChartUsingShape()
     // Determines how legend shall be shown for this chart.
     chart->get_Legend()->set_Position(LegendPosition::Left);
     chart->get_Legend()->set_Overlay(true);
-    System::String outputPath = dataDir + GetOutputFilePath(u"CreateChartUsingShape.docx");
+    System::String outputPath = outputDataDir + u"CreateChartUsingShape.docx";
     doc->Save(outputPath);
     // ExEnd:CreateChartUsingShape
     std::cout << "Simple line chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

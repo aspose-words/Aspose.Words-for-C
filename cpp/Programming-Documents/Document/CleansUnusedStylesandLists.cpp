@@ -10,9 +10,10 @@ void CleansUnusedStylesandLists()
 {
     std::cout << "CleansUnusedStylesandLists example started." << std::endl;
     // ExStart:CleansUnusedStylesandLists
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
 
     System::SharedPtr<CleanupOptions> cleanupoptions = System::MakeObject<CleanupOptions>();
     cleanupoptions->set_UnusedLists(false);
@@ -21,7 +22,7 @@ void CleansUnusedStylesandLists()
     // Cleans unused styles and lists from the document depending on given CleanupOptions. 
     doc->Cleanup(cleanupoptions);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"CleansUnusedStylesandLists.docx");
+    System::String outputPath = outputDataDir + u"CleansUnusedStylesandLists.docx";
     doc->Save(outputPath);
     // ExEnd:CleansUnusedStylesandLists
     std::cout << "All revisions accepted." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

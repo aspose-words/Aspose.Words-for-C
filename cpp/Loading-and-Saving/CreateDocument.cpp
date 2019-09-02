@@ -11,7 +11,7 @@ void CreateDocument()
     std::cout << "CreateDocument example started." << std::endl;
     // ExStart:CreateDocument
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
 
     // Initialize a Document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -20,7 +20,7 @@ void CreateDocument()
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
     builder->Writeln(u"Hello World!");
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"CreateDocument.docx");
+    System::String outputPath = outputDataDir + u"CreateDocument.docx";
     // Save the document to disk.
     doc->Save(outputPath);
     // ExEnd:CreateDocument

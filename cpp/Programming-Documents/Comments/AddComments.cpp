@@ -17,7 +17,7 @@ void AddComments()
     std::cout << "AddComments example started." << std::endl;
     // ExStart:AddComments
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithComments();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithComments();
     // ExStart:CreateSimpleDocumentUsingDocumentBuilder
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -28,7 +28,7 @@ void AddComments()
     comment->get_Paragraphs()->Add(System::MakeObject<Paragraph>(doc));
     comment->get_FirstParagraph()->get_Runs()->Add(System::MakeObject<Run>(doc, u"Comment text."));
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"AddComments.doc");
+    System::String outputPath = outputDataDir + u"AddComments.doc";
     // Save the document.
     doc->Save(outputPath);
     // ExEnd:AddComments

@@ -15,7 +15,7 @@ using namespace Aspose::Words::Replacing;
 
 namespace
 {
-    void MetaCharactersInSearchPattern(const System::String& dataDir)
+    void MetaCharactersInSearchPattern(System::String const &outputDataDir)
     {
         // ExStart:MetaCharactersInSearchPattern
         // Initialize a Document.
@@ -26,7 +26,7 @@ namespace
         builder->Writeln(u"This is Line 1");
         builder->Writeln(u"This is Line 2");
 
-        auto findReplaceOptions = System::MakeObject<FindReplaceOptions>();
+        System::SharedPtr<FindReplaceOptions> findReplaceOptions = System::MakeObject<FindReplaceOptions>();
 
         doc->get_Range()->Replace(u"This is Line 1&pThis is Line 2", u"This is replaced line", findReplaceOptions);
 
@@ -37,13 +37,13 @@ namespace
 
         doc->get_Range()->Replace(u"This is Line 1&mThis is Line 2", u"Page break is replaced with new text.", findReplaceOptions);
 
-        auto savePath = dataDir + GetOutputFilePath(u"FindReplaceUsingMetaCharacters.MetaCharactersInSearchPattern.docx");
+        System::String savePath = outputDataDir + u"FindReplaceUsingMetaCharacters.MetaCharactersInSearchPattern.docx";
         doc->Save(savePath);
         // ExEnd:MetaCharactersInSearchPattern
         std::cout << "Find and Replace text using meta-characters has done successfully." << std::endl << "File saved at " << savePath.ToUtf8String() << std::endl;
 }
 
-    void ReplaceTextContaingMetaCharacters(const System::String& dataDir)
+    void ReplaceTextContaingMetaCharacters(System::String const &outputDataDir)
     {
         // ExStart:ReplaceTextContaingMetaCharacters
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -66,7 +66,7 @@ namespace
         // Insert section break instead of custom text tag.
         count = doc->get_Range()->Replace(u"{insert-section}", u"&b", options);
 
-        auto savePath = dataDir + GetOutputFilePath(u"FindReplaceUsingMetaCharacters.ReplaceTextContaingMetaCharacters.docx");
+        System::String savePath = outputDataDir + u"FindReplaceUsingMetaCharacters.ReplaceTextContaingMetaCharacters.docx";
         doc->Save(savePath);
         // ExEnd:ReplaceTextContaingMetaCharacters
         std::cout << "Find and Replace text using meta-characters has done successfully." << std::endl << "File saved at " << savePath.ToUtf8String() << std::endl;
@@ -83,8 +83,8 @@ void FindReplaceUsingMetaCharacters()
                    &l - manual line break */
     std::cout << "FindReplaceUsingMetaCharacters example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_FindAndReplace();
-    MetaCharactersInSearchPattern(dataDir);
-    ReplaceTextContaingMetaCharacters(dataDir);
+    System::String outputDataDir = GetOutputDataDir_FindAndReplace();
+    MetaCharactersInSearchPattern(outputDataDir);
+    ReplaceTextContaingMetaCharacters(outputDataDir);
     std::cout << "FindReplaceUsingMetaCharacters example finished." << std::endl << std::endl;
 }

@@ -20,9 +20,9 @@ namespace
     void ExtractPrintText(System::String const &documentPath)
     {
         // ExStart:ExtractText
-        auto doc = System::MakeObject<Document>(documentPath);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(documentPath);
         // Get the first table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // The range text will include control characters such as "\a" for a cell.
         // You can call ToString and pass SaveFormat.Text on the desired node to find the plain text content.
         // Print the plain text range of the table to the screen.
@@ -36,17 +36,17 @@ namespace
         // ExEnd:PrintTextRangeOFRowAndTable
     }
 
-    void ReplaceText(System::String const &documentPath)
+    void ReplaceText(System::String const &documentPath, System::String const &outputDataDir)
     {
         // ExStart:ReplaceText
-        auto doc = System::MakeObject<Document>(documentPath);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(documentPath);
         // Get the first table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Replace any instances of our string in the entire table.
         table->get_Range()->Replace(u"Carrots", u"Eggs", System::MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));
         // Replace any instances of our string in the last cell of the table only.
         table->get_LastRow()->get_LastCell()->get_Range()->Replace(u"50", u"20", System::MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));
-        System::String outputPath = GetDataDir_WorkingWithTables() + GetOutputFilePath(u"ExtractOrReplaceText.ReplaceText.doc");
+        System::String outputPath = outputDataDir + u"ExtractOrReplaceText.ReplaceText.doc";
         doc->Save(outputPath);
         // ExEnd:ReplaceText
         std::cout << "Text replaced successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -56,9 +56,11 @@ namespace
 void ExtractOrReplaceText()
 {
     std::cout << "ExtractOrReplaceText example started." << std::endl;
-    // The path to the documents directory.
-    System::String documentPath = GetDataDir_WorkingWithTables() + u"Table.SimpleTable.doc";
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithTables();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
+    System::String documentPath = inputDataDir + u"Table.SimpleTable.doc";
     ExtractPrintText(documentPath);
-    ReplaceText(documentPath);
+    ReplaceText(documentPath, outputDataDir);
     std::cout << "ExtractOrReplaceText example finished." << std::endl << std::endl;
 }

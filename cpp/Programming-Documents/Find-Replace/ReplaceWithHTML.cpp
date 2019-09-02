@@ -65,7 +65,7 @@ void ReplaceWithHTML()
 {
     std::cout << "ReplaceWithHTML example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_FindAndReplace();
+    System::String outputDataDir = GetOutputDataDir_FindAndReplace();
 
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -78,7 +78,7 @@ void ReplaceWithHTML()
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u" <CustomerName>,"), System::String::Empty, options);
 
     // Save the modified document.
-    System::String outputPath = dataDir + GetOutputFilePath(u"ReplaceWithHTML.doc");
+    System::String outputPath = outputDataDir + u"ReplaceWithHTML.doc";
     doc->Save(outputPath);
     std::cout << "ReplaceWithHTML example finished." << std::endl << std::endl;
 }

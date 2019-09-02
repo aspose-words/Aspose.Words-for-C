@@ -21,7 +21,7 @@ void DocumentBuilderBuildTable()
     std::cout << "DocumentBuilderBuildTable example started." << std::endl;
     // ExStart:DocumentBuilderBuildTable
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Initialize document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -60,7 +60,7 @@ void DocumentBuilderBuildTable()
     builder->EndRow();
 
     builder->EndTable();
-    System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderBuildTable.doc");
+    System::String outputPath = outputDataDir + u"DocumentBuilderBuildTable.doc";
     doc->Save(outputPath);
     // ExEnd:DocumentBuilderBuildTable
     std::cout << "Table build successfully using DocumentBuilder." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

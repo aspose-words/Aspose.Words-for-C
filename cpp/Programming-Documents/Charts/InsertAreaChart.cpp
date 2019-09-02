@@ -18,7 +18,7 @@ void InsertAreaChart()
     std::cout << "InsertAreaChart example started." << std::endl;
     // ExStart:InsertAreaChart
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
@@ -30,7 +30,7 @@ void InsertAreaChart()
     chart->get_Series()->Add(u"AW Series 1",
                              System::MakeArray<System::DateTime>({System::DateTime(2002, 5, 1), System::DateTime(2002, 6, 1), System::DateTime(2002, 7, 1), System::DateTime(2002, 8, 1), System::DateTime(2002, 9, 1)}),
                              System::MakeArray<double>({32, 32, 28, 12, 15}));
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertAreaChart.docx");
+    System::String outputPath = outputDataDir + u"InsertAreaChart.docx";
     doc->Save(outputPath);
     // ExEnd:InsertAreaChart
     std::cout << "Scatter chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

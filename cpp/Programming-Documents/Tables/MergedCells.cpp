@@ -190,7 +190,6 @@ namespace
         return result;
     }
 
-
     // ExStart:PrintCellMergeType
     System::String PrintCellMergeType(System::SharedPtr<Cell> cell)
     {
@@ -213,12 +212,12 @@ namespace
     }
     // ExEnd:PrintCellMergeType
 
-    void CheckCellsMerged(System::String const &dataDir)
+    void CheckCellsMerged(System::String const &inputDataDir)
     {
         // ExStart:CheckCellsMerged 
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.MergedCells.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.MergedCells.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         for (System::SharedPtr<Row> row : System::IterateOver<System::SharedPtr<Row>>(table->get_Rows()))
         {
             for (System::SharedPtr<Cell> cell : System::IterateOver<System::SharedPtr<Cell>>(row->get_Cells()))
@@ -229,11 +228,11 @@ namespace
         // ExEnd:CheckCellsMerged 
     }
 
-    void HorizontalMerge(System::String const &dataDir)
+    void HorizontalMerge(System::String const &outputDataDir)
     {
         // ExStart:HorizontalMerge
-        auto doc = System::MakeObject<Document>();
-        auto builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
         builder->InsertCell();
         builder->get_CellFormat()->set_HorizontalMerge(CellMerge::First);
         builder->Write(u"Text in merged cells.");
@@ -248,18 +247,18 @@ namespace
         builder->Write(u"Text in another cell.");
         builder->EndRow();
         builder->EndTable();
-        System::String outputPath = dataDir + GetOutputFilePath(u"MergedCells.HorizontalMerge.doc");
+        System::String outputPath = outputDataDir + u"MergedCells.HorizontalMerge.doc";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:HorizontalMerge
         std::cout << "Table created successfully with cells in the first row horizontally merged." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void VerticalMerge(System::String const &dataDir)
+    void VerticalMerge(System::String const &outputDataDir)
     {
         // ExStart:VerticalMerge
-        auto doc = System::MakeObject<Document>();
-        auto builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
         builder->InsertCell();
         builder->get_CellFormat()->set_VerticalMerge(CellMerge::First);
         builder->Write(u"Text in merged cells.");
@@ -275,7 +274,7 @@ namespace
         builder->Write(u"Text in another cell");
         builder->EndRow();
         builder->EndTable();
-        System::String outputPath = dataDir + GetOutputFilePath(u"MergedCells.VerticalMerge.doc");
+        System::String outputPath = outputDataDir + u"MergedCells.VerticalMerge.doc";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:VerticalMerge
@@ -285,7 +284,7 @@ namespace
     // ExStart:MergeCells
     void MergeCells(System::SharedPtr<Cell> startCell, System::SharedPtr<Cell> endCell)
     {
-        auto parentTable = startCell->get_ParentRow()->get_ParentTable();
+        System::SharedPtr<Table> parentTable = startCell->get_ParentRow()->get_ParentTable();
         // Find the row and cell indices for the start and end cell.
         System::Drawing::Point startCellPos(startCell->get_ParentRow()->IndexOf(startCell), parentTable->IndexOf(startCell->get_ParentRow()));
         System::Drawing::Point endCellPos(endCell->get_ParentRow()->IndexOf(endCell), parentTable->IndexOf(endCell->get_ParentRow()));
@@ -324,29 +323,29 @@ namespace
     }
     // ExEnd:MergeCells
 
-    void MergeCellRange(System::String const &dataDir)
+    void MergeCellRange(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:MergeCellRange
         // Open the document
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.Document.doc");
         // Retrieve the first table in the body of the first section.
-        auto table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
+        System::SharedPtr<Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
         // We want to merge the range of cells found in between these two cells.
-        auto cellStartRange = table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2);
-        auto cellEndRange = table->get_Rows()->idx_get(3)->get_Cells()->idx_get(3);
+        System::SharedPtr<Cell> cellStartRange = table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2);
+        System::SharedPtr<Cell> cellEndRange = table->get_Rows()->idx_get(3)->get_Cells()->idx_get(3);
         // Merge all the cells between the two specified cells into one.
         MergeCells(cellStartRange, cellEndRange);
-        System::String outputPath = dataDir + GetOutputFilePath(u"MergedCells.MergeCellRange.doc");
+        System::String outputPath = outputDataDir + u"MergedCells.MergeCellRange.doc";
         // Save the document.
         doc->Save(outputPath);
         // ExEnd:MergeCellRange
         std::cout << "Cells merged successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void PrintHorizontalAndVerticalMerged(System::String const &dataDir)
+    void PrintHorizontalAndVerticalMerged(System::String const &inputDataDir)
     {
         // ExStart:PrintHorizontalAndVerticalMerged
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Table.MergedCells.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.MergedCells.doc");
 
         // Create visitor
         System::SharedPtr<SpanVisitor> visitor = System::MakeObject<SpanVisitor>(doc);
@@ -361,16 +360,17 @@ namespace
 void MergedCells()
 {
     std::cout << "MergedCells example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
-    CheckCellsMerged(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithTables();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
+    CheckCellsMerged(inputDataDir);
     // The below method shows how to create a table with two rows with cells in the first row horizontally merged.
-    HorizontalMerge(dataDir);
+    HorizontalMerge(outputDataDir);
     // The below method shows how to create a table with two columns with cells merged vertically in the first column.
-    VerticalMerge(dataDir);
+    VerticalMerge(outputDataDir);
     // The below method shows how to merges the range of cells between the two specified cells.
-    MergeCellRange(dataDir);
+    MergeCellRange(inputDataDir, outputDataDir);
     // Show how to prints the horizontal and vertical merge of a cell.
-    PrintHorizontalAndVerticalMerged(dataDir);
+    PrintHorizontalAndVerticalMerged(inputDataDir);
     std::cout << "MergedCells example finished." << std::endl << std::endl;
 }
