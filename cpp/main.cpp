@@ -17,7 +17,7 @@ int main()
     ApplyLicense();
     ApplyLicenseFromFile();
     ApplyLicenseFromStream();
-    // TODO(std_string) : ApplyMeteredLicense isn't compiled
+    // TODO(std_string) : Metered license isn't supported
     //ApplyMeteredLicense();
     AppendDocuments();
     FindAndReplace();
@@ -30,7 +30,7 @@ int main()
     // Loading and Saving
     // =====================================================
     // =====================================================
-    // TODO (std_string) : signatures isn't supported
+    // TODO (std_string) : Cryptography isn't supported
     //AccessAndVerifySignature();
     CheckFormat();
     ConvertDocumentToByte();
@@ -39,9 +39,9 @@ int main()
     ConvertDocumentToPCL();
     CreateDocument();
     DetectDocumentSignatures();
-    // TODO (std_string) : doesn't work in C# code (System.NullReferenceException raised)
+    // TODO (std_string) : Cryptography isn't supported 
     //DigitallySignedPdf();
-    // TODO (std_string) : signatures isn't supported
+    // TODO (std_string) : Cryptography isn't supported
     //DigitallySignedPdfUsingCertificateHolder();
     Doc2Pdf();
     ExportFontsAsBase64();
@@ -53,14 +53,14 @@ int main()
     LoadAndSaveToStream();
     Load_Options();
     LoadTxt();
-    // TODO (std_string) : doesn't work properly, but raises FileCorruptedException instead of NotSupportedException / NotImplemented Exception
+    // TODO (std_string) : Cryptography isn't supported
     //OpenEncryptedDocument();
     PageSplitter();
     SaveDocWithHtmlSaveOptions();
     SaveOptionsHtmlFixed();
     SpecifySaveOption();
     SplitIntoHtmlPages();
-    // TODO(std_string) : encryption doesn't work
+    // TODO(std_string) : Cryptography isn't supported
     WorkingWithDoc();
     WorkingWithOoxml();
     WorkingWithRTF();
@@ -75,8 +75,8 @@ int main()
     // Joining and Appending
     // =====================================================
     AppendDocumentManually();
-    // TODO(std_string) : absent documents
-    //AppendWithImportFormatOptions();
+    // TODO(std_string) : The source document is missing
+    // AppendWithImportFormatOptions();
     BaseDocument();
     ConvertNumPageFields();
     DifferentPageSetup();
@@ -165,7 +165,7 @@ int main()
     ExtractContentUsingDocumentVisitor();
     ExtractContentUsingField();
     ExtractTextOnly();
-    // TODO (std_string) : doesn't work due to dependebcy from Aspose.Barcode lib
+    // TODO (std_string) : Dependency from Aspose.BarCode 
     //GenerateACustomBarCodeImage.Run();
     GetFontLineSpacing();
     GetVariables();
@@ -180,12 +180,11 @@ int main()
     SetCompatibilityOptions();
     Setuplanguagepreferences();
     SetViewOption();
-    // TODO (std_string) : signatures isn't supported
+    // TODO (std_string) : Cryptography isn't supported
     //SigningSignatureLine();
     UpdateContentControls();
-    // TODO(std_string) : absent documents
+    // TODO(std_string) : The source document is missing 
     //WorkingWithImportFormatOptions();
-    // TODO(std_string) : doesn't all work properly (in C# code)
     WorkingWithMarkdownFeatures();
     WorkingWithRevisions();
     WorkingWithSaveOptions();
@@ -224,8 +223,7 @@ int main()
 
     // Images
     // =====================================================
-    // TODO(std_string) : problems with compilation of the Aspose::Words::NodeList type
-    //AddImageToEachPage();
+    AddImageToEachPage();
     AddWatermark();
     CompressImages();
     ExtractImagesToFiles();
@@ -302,7 +300,7 @@ int main()
     CopySection();
     DeleteHeaderFooterContent();
     DeleteSectionContent();
-    // TODO(std_string) : absent documents
+    // TODO(std_string) : The source document is missing
     //ModifyPageSetupInAllSectionsOfDocument();
     SectionsAccessByIndex();
 
@@ -380,8 +378,7 @@ int main()
     //ReadActiveXControlProperties();
     ReceiveNotificationsOfFont();
     RenderShape();
-    // TODO (std_string): absent virtual inheritance from System::Object in IFontData
-    //ResourceSteamFontSource();
+    ResourceSteamFontSource();
     // TODO (std_string) : saving into images don't work properly
     //SaveAsMultipageTiff();
     SetFontSettings();
@@ -390,7 +387,7 @@ int main()
     SetHorizontalAndVerticalImageResolution();
     SetTrueTypeFontsFolder();
     SpecifyDefaultFontWhenRendering();
-    // TODO (std_string) : absent documents
+    // TODO (std_string) : The source document is missing
     //WorkingWithFontResolution();
     WorkingWithFontSources();
     WorkingWithPdfSaveOptions();

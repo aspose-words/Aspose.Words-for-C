@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
-/*#include <Layout/Public/LayoutCollector.h>
+#include <Layout/Public/LayoutCollector.h>
 #include <Model/Document/Document.h>
 #include <Model/Document/DocumentBuilder.h>
 #include <Model/Drawing/RelativeHorizontalPosition.h>
@@ -9,7 +9,8 @@
 #include <Model/Drawing/Shape.h>
 #include <Model/Drawing/ShapeType.h>
 #include <Model/Drawing/WrapType.h>
-#include "Model/Nodes/Node.h"
+#include <Model/Nodes/Node.h>
+#include <Model/Nodes/NodeList.h>
 #include <Model/Text/Paragraph.h>
 
 using namespace Aspose::Words;
@@ -56,7 +57,7 @@ void AddImageToEachPage()
 {
     std::cout << "AddImageToEachPage example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithImages();
+    System::String dataDir = GetInputDataDir_WorkingWithImages();
     System::String filename = u"TestFile.doc";
     // This a document that we want to add an image and custom text for each page without using the header or footer.
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + filename);
@@ -66,7 +67,7 @@ void AddImageToEachPage()
 
     // Images in a document are added to paragraphs, so to add an image to every page we need to find at any paragraph 
     // Belonging to each page.
-    auto enumerator = System::StaticCast<TNodeEnumerable>(doc->SelectNodes(u"// Body/Paragraph"))->GetEnumerator();
+    auto enumerator = doc->SelectNodes(u"//Paragraph")->GetEnumerator();
 
     // Loop through each document page.
     for (int32_t page = 1; page <= doc->get_PageCount(); page++)
@@ -86,9 +87,9 @@ void AddImageToEachPage()
     // Call UpdatePageLayout() method if file is to be saved as PDF or image format
     doc->UpdatePageLayout();
 
-    System::String outputPath = dataDir + GetOutputFilePath(filename);
+    System::String outputPath = GetOutputDataDir_WorkingWithFields() + filename;
     doc->Save(outputPath);
 
     std::cout << "Inserted images on each page of the document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "AddImageToEachPage example finished." << std::endl << std::endl;
-}*/
+}

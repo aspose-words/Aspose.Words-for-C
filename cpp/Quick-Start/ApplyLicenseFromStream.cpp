@@ -21,7 +21,7 @@ void ApplyLicenseFromStream()
     catch (System::Exception& e)
     {
         // We do not ship any license with this example, visit the Aspose site to obtain either a temporary or permanent license. 
-        std::cout << "There was an error setting the license: " << e.get_Message().ToUtf8String() << std::endl;
+        std::cout << "There was an error setting the license: " << e->get_Message().ToUtf8String() << std::endl;
     }
 
     //ExEnd:ApplyLicenseFromStream
