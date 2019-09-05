@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
-/*#include <Model/Document/Document.h>
+#include <Model/Document/Document.h>
 #include <Model/Fonts/FontSettings.h>
 #include <Model/Fonts/FontSourceBase.h>
 #include <Model/Fonts/StreamFontSource.h>
@@ -37,12 +37,12 @@ void ResourceSteamFontSource()
 {
     std::cout << "ResourceSteamFontSource example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    System::String dataDir = GetInputDataDir_RenderingAndPrinting();
     System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Rendering.doc");
 
     // FontSettings.SetFontSources instead.
     FontSettings::get_DefaultInstance()->SetFontsSources(System::MakeArray<System::SharedPtr<FontSourceBase>>({System::MakeObject<SystemFontSource>(), System::MakeObject<ResourceSteamFontSourceExample>()}));
-    System::String outputPath = dataDir + GetOutputFilePath(u"ResourceSteamFontSource.pdf");
+    System::String outputPath = GetOutputDataDir_RenderingAndPrinting() + u"ResourceSteamFontSource.pdf";
     doc->Save(outputPath);
     std::cout << "ResourceSteamFontSource example finished." << std::endl << std::endl;
-}*/
+}

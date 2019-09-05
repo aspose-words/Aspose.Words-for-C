@@ -107,7 +107,7 @@ namespace
         catch (System::Exception& e)
         {
             // Catch an exception, log an error and continue if cannot process one of the images for whatever reason.
-            std::cout << "Error processing an image, ignoring. " << e.get_Message().ToUtf8String() << std::endl;
+            std::cout << "Error processing an image, ignoring. " << e->get_Message().ToUtf8String() << std::endl;
         }
         return false;
     }
