@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Math/OfficeMath.h>
-#include <Model/Math/OfficeMathDisplayType.h>
-#include <Model/Math/OfficeMathJustification.h>
-#include <Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Math/OfficeMath.h>
+#include <Aspose.Words.Cpp/Model/Math/OfficeMathDisplayType.h>
+#include <Aspose.Words.Cpp/Model/Math/OfficeMathJustification.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Math;

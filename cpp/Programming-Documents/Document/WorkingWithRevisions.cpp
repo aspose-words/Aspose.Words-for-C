@@ -2,18 +2,18 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Layout/Public/LayoutOptions.h>
-#include <Layout/Public/RevisionOptions.h>
-#include <Layout/Public/ShowInBalloons.h>
-#include <Model/Document/Document.h>
-#include <Model/Revisions/RevisionCollection.h>
-#include <Model/Revisions/RevisionType.h>
-#include <Model/Revisions/RevisionGroupCollection.h>
-#include <Model/Revisions/RevisionGroup.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/Section.h>
-#include <Model/Text/ParagraphCollection.h>
-#include <Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Layout/Public/LayoutOptions.h>
+#include <Aspose.Words.Cpp/Layout/Public/RevisionOptions.h>
+#include <Aspose.Words.Cpp/Layout/Public/ShowInBalloons.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Revisions/RevisionCollection.h>
+#include <Aspose.Words.Cpp/Model/Revisions/RevisionType.h>
+#include <Aspose.Words.Cpp/Model/Revisions/RevisionGroupCollection.h>
+#include <Aspose.Words.Cpp/Model/Revisions/RevisionGroup.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Layout;

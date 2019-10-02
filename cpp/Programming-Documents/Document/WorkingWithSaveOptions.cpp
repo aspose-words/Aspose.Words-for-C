@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Saving/OdtSaveMeasureUnit.h>
-#include <Model/Saving/OdtSaveOptions.h>
-#include <Model/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Saving/OdtSaveMeasureUnit.h>
+#include <Aspose.Words.Cpp/Model/Saving/OdtSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

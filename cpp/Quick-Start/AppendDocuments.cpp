@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include "Model/Document/Document.h"
-#include "Model/Importing/ImportFormatMode.h"
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Importing/ImportFormatMode.h>
 
 using namespace Aspose::Words;
 

@@ -2,31 +2,31 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Text/Range.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Sections/SectionCollection.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/Body.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/CompositeNode.h>
-#include <Model/Importing/NodeImporter.h>
-#include <Model/Importing/ImportFormatMode.h>
-#include <Model/FindReplace/ReplacingArgs.h>
-#include <Model/FindReplace/ReplaceAction.h>
-#include <Model/FindReplace/IReplacingCallback.h>
-#include <Model/FindReplace/FindReplaceOptions.h>
-#include <Model/Document/DocumentBase.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Bookmarks/BookmarkStart.h>
-#include <Model/Bookmarks/BookmarkCollection.h>
-#include <Model/Bookmarks/Bookmark.h>
-#include <Model/FindReplace/IReplacingCallback.h>
-#include <Model/MailMerge/MailMerge.h>
-#include <Model/MailMerge/IFieldMergingCallback.h>
-#include <Model/MailMerge/ImageFieldMergingArgs.h>
-#include <Model/MailMerge/FieldMergingArgs.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
+#include <Aspose.Words.Cpp/Model/Importing/NodeImporter.h>
+#include <Aspose.Words.Cpp/Model/Importing/ImportFormatMode.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/ReplacingArgs.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/ReplaceAction.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/IReplacingCallback.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkStart.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkCollection.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/Bookmark.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/IReplacingCallback.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/IFieldMergingCallback.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/ImageFieldMergingArgs.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/FieldMergingArgs.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;

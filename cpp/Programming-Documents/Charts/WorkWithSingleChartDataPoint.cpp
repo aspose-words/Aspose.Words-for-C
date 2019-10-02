@@ -1,17 +1,17 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Drawing/Charts/Chart.h>
-#include <Model/Drawing/Charts/ChartDataPoint.h>
-#include <Model/Drawing/Charts/ChartDataPointCollection.h>
-#include <Model/Drawing/Charts/ChartMarker.h>
-#include <Model/Drawing/Charts/ChartSeries.h>
-#include <Model/Drawing/Charts/ChartSeriesCollection.h>
-#include <Model/Drawing/Charts/ChartType.h>
-#include <Model/Drawing/Charts/MarkerSymbol.h>
-#include <Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/Chart.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartDataPoint.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartDataPointCollection.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartMarker.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartSeries.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartSeriesCollection.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/MarkerSymbol.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

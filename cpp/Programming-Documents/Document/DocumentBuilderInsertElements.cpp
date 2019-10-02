@@ -1,19 +1,19 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/BreakType.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Document/Document.h>
-#include <Model/Drawing/Ole/OleFormat.h>
-#include <Model/Drawing/Ole/OlePackage.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Fields/FormFields/FormField.h>
-#include <Model/Fields/FormFields/TextFormFieldType.h>
-#include <Model/Fields/Field.h>
-#include <Model/Text/Font.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/Underline.h>
-#include <Model/Styles/StyleIdentifier.h>
+#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Ole/OleFormat.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Ole/OlePackage.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
+#include <Aspose.Words.Cpp/Model/Fields/FormFields/TextFormFieldType.h>
+#include <Aspose.Words.Cpp/Model/Fields/Field.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/Underline.h>
+#include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

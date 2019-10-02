@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Saving/HeaderFooterBookmarksExportMode.h>
-#include <Model/Saving/MetafileRenderingOptions.h>
-#include <Model/Saving/OutlineOptions.h>
-#include <Model/Saving/PdfSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Saving/HeaderFooterBookmarksExportMode.h>
+#include <Aspose.Words.Cpp/Model/Saving/MetafileRenderingOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/OutlineOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/PdfSaveOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

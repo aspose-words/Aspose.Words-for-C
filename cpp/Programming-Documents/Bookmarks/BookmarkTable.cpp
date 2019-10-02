@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Tables/Table.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Saving/SaveOutputParameters.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Document/Document.h>
-#include <Model/Bookmarks/BookmarkStart.h>
-#include <Model/Bookmarks/BookmarkEnd.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkStart.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkEnd.h>
 
 
 using namespace Aspose::Words;

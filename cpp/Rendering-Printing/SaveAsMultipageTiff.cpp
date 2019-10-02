@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Saving/ImageSaveOptions.h>
-#include <Model/Saving/TiffCompression.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
 
 /*using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

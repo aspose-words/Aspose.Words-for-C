@@ -1,19 +1,19 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/FindReplace/IReplacingCallback.h>
-#include <Model/Text/Run.h>
-#include <Model/Text/Range.h>
-#include <Model/Text/Font.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/CompositeNode.h>
-#include <Model/FindReplace/ReplacingArgs.h>
-#include <Model/FindReplace/ReplaceAction.h>
-#include <Model/FindReplace/IReplacingCallback.h>
-#include <Model/FindReplace/FindReplaceOptions.h>
-#include <Model/FindReplace/FindReplaceDirection.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/IReplacingCallback.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/ReplacingArgs.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/ReplaceAction.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/IReplacingCallback.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceOptions.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceDirection.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;

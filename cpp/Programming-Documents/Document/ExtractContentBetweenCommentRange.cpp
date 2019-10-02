@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/CommentRangeStart.h>
-#include <Model/Text/CommentRangeEnd.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/CommentRangeStart.h>
+#include <Aspose.Words.Cpp/Model/Text/CommentRangeEnd.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 #include "Common.h"
 

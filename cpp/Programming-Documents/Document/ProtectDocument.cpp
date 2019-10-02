@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/ProtectionType.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/ProtectionType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

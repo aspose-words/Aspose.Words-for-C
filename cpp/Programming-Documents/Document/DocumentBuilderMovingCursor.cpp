@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Paragraph.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/PageSetup.h>
-#include <Model/Sections/HeaderFooterType.h>
-#include <Model/Sections/Body.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/BreakType.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
 
 using namespace Aspose::Words;
 

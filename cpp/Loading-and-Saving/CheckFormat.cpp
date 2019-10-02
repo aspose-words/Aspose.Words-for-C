@@ -1,9 +1,9 @@
 ﻿#include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/LoadFormat.h>
-#include <Model/Document/FileFormatUtil.h>
-#include <Model/Document/FileFormatInfo.h>
+#include <Aspose.Words.Cpp/Model/Document/LoadFormat.h>
+#include <Aspose.Words.Cpp/Model/Document/FileFormatUtil.h>
+#include <Aspose.Words.Cpp/Model/Document/FileFormatInfo.h>
 
 using namespace Aspose::Words;
 

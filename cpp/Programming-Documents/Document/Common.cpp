@@ -3,19 +3,19 @@
 #include "Common.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Styles/Style.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/Body.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/CompositeNode.h>
-#include <Model/Importing/NodeImporter.h>
-#include <Model/Importing/ImportFormatMode.h>
-#include <Model/Document/DocumentBase.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Styles/Style.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
+#include <Aspose.Words.Cpp/Model/Importing/NodeImporter.h>
+#include <Aspose.Words.Cpp/Model/Importing/ImportFormatMode.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

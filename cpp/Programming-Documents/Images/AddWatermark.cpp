@@ -2,24 +2,24 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Sections/SectionCollection.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/HeaderFooterType.h>
-#include <Model/Sections/HeaderFooterCollection.h>
-#include <Model/Sections/HeaderFooter.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Drawing/WrapType.h>
-#include <Model/Drawing/VerticalAlignment.h>
-#include <Model/Drawing/TextPath.h>
-#include <Model/Drawing/ShapeType.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Drawing/RelativeVerticalPosition.h>
-#include <Model/Drawing/RelativeHorizontalPosition.h>
-#include <Model/Drawing/HorizontalAlignment.h>
-#include <Model/Drawing/Fill.h>
-#include <Model/Document/DocumentBase.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Drawing/WrapType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/VerticalAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/TextPath.h>
+#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeVerticalPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeHorizontalPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/HorizontalAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Fill.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

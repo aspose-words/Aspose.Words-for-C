@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Underline.h>
-#include <Model/Text/Font.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/Underline.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

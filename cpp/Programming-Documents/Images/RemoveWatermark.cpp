@@ -2,11 +2,11 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Sections/HeaderFooter.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

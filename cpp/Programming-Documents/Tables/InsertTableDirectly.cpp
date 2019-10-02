@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Tables/Table.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/RowFormat.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Tables/CellFormat.h>
-#include <Model/Tables/AutoFitBehavior.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/Body.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/Run.h>
-#include <Model/Borders/Shading.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/RowFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Tables/CellFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/AutoFitBehavior.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Borders/Shading.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Tables;

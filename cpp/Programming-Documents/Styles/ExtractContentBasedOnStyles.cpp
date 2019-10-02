@@ -2,16 +2,16 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include "Model/Document/Document.h"
-#include <Model/Document/SaveFormat.h>
-#include <Model/Styles/Style.h>
-#include <Model/Text/Font.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/Range.h>
-#include <Model/Text/Run.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
+#include <Aspose.Words.Cpp/Model/Styles/Style.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
 

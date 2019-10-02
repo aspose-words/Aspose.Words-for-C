@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Drawing/Charts/Chart.h>
-#include <Model/Drawing/Charts/ChartLegend.h>
-#include <Model/Drawing/Charts/LegendPosition.h>
-#include <Model/Drawing/Charts/ChartTitle.h>
-#include <Model/Drawing/Charts/ChartType.h>
-#include <Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/Chart.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartLegend.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/LegendPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartTitle.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

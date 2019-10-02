@@ -1,11 +1,11 @@
 #include "stdafx.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Fields/Field.h>
-#include <Model/Fields/FieldCollection.h>
-#include <Model/Fields/FieldType.h>
-#include <Model/Nodes/CompositeNode.h>
-#include <Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Fields/Field.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldCollection.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

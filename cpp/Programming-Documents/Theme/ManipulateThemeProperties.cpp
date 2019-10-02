@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Themes/Theme.h>
-#include <Model/Themes/ThemeColors.h>
-#include <Model/Themes/ThemeFonts.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Themes/Theme.h>
+#include <Aspose.Words.Cpp/Model/Themes/ThemeColors.h>
+#include <Aspose.Words.Cpp/Model/Themes/ThemeFonts.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Themes;

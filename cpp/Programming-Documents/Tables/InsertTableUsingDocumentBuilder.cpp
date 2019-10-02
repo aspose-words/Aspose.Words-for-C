@@ -1,19 +1,19 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include "Model/Document/Document.h"
-#include "Model/Document/DocumentBuilder.h"
-#include <Model/Tables/Table.h>
-#include <Model/Tables/RowFormat.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Tables/CellFormat.h>
-#include <Model/Tables/CellVerticalAlignment.h>
-#include <Model/Text/HeightRule.h>
-#include <Model/Text/ParagraphAlignment.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/Font.h>
-#include <Model/Borders/Shading.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/RowFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Tables/CellFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/CellVerticalAlignment.h>
+#include <Aspose.Words.Cpp/Model/Text/HeightRule.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Borders/Shading.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Tables;

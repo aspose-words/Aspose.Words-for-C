@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Settings/MsWordVersion.h>
-#include <Model/Settings/CompatibilityOptions.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Settings;

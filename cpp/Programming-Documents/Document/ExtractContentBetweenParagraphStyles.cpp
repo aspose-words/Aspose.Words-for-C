@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Paragraph.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 #include "Common.h"
 

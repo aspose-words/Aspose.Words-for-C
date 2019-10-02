@@ -2,11 +2,11 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Document/Document.h>
-#include <Model/Fonts/FolderFontSource.h>
-#include <Model/Fonts/FontSettings.h>
-#include <Model/Fonts/FontSourceBase.h>
-#include <Model/Fonts/PhysicalFontInfo.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FolderFontSource.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FontSourceBase.h>
+#include <Aspose.Words.Cpp/Model/Fonts/PhysicalFontInfo.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fonts;

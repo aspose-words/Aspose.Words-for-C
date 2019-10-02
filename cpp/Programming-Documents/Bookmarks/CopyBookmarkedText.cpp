@@ -1,19 +1,19 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Range.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/Body.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/CompositeNode.h>
-#include <Model/Importing/NodeImporter.h>
-#include <Model/Importing/ImportFormatMode.h>
-#include <Model/Document/Document.h>
-#include <Model/Bookmarks/BookmarkStart.h>
-#include <Model/Bookmarks/BookmarkEnd.h>
-#include <Model/Bookmarks/BookmarkCollection.h>
-#include <Model/Bookmarks/Bookmark.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
+#include <Aspose.Words.Cpp/Model/Importing/NodeImporter.h>
+#include <Aspose.Words.Cpp/Model/Importing/ImportFormatMode.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkStart.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkEnd.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkCollection.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/Bookmark.h>
 
 using namespace Aspose::Words;
 

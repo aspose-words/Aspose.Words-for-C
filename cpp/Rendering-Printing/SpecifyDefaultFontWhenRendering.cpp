@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Fonts/DefaultFontSubstitutionRule.h>
-#include <Model/Fonts/FontSettings.h>
-#include <Model/Fonts/FontSubstitutionSettings.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Fonts/DefaultFontSubstitutionRule.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FontSubstitutionSettings.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fonts;

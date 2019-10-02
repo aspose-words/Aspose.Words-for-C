@@ -2,18 +2,18 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include "Model/Document/Document.h"
-#include <Model/Tables/Table.h>
-#include <Model/Tables/TableAlignment.h>
-#include <Model/Tables/TableCollection.h>
-#include <Model/Tables/TextWrapping.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/Body.h>
-#include <Model/Drawing/HorizontalAlignment.h>
-#include <Model/Drawing/VerticalAlignment.h>
-#include <Model/Drawing/RelativeVerticalPosition.h>
-#include <Model/Drawing/RelativeHorizontalPosition.h>
-#include <Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/TableAlignment.h>
+#include <Aspose.Words.Cpp/Model/Tables/TableCollection.h>
+#include <Aspose.Words.Cpp/Model/Tables/TextWrapping.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Drawing/HorizontalAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/VerticalAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeVerticalPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeHorizontalPosition.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

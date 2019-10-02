@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Fonts/FontSettings.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fonts;

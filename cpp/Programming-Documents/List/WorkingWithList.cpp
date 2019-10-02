@@ -1,17 +1,17 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Lists/List.h>
-#include <Model/Lists/ListCollection.h>
-#include <Model/Lists/ListLevelAlignment.h>
-#include <Model/Lists/ListLevelCollection.h>
-#include <Model/Lists/ListTemplate.h>
-#include <Model/Saving/OoxmlSaveOptions.h>
-#include <Model/Saving/OoxmlCompliance.h>
-#include <Model/Text/Font.h>
-#include <Model/Text/ListFormat.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Lists/List.h>
+#include <Aspose.Words.Cpp/Model/Lists/ListCollection.h>
+#include <Aspose.Words.Cpp/Model/Lists/ListLevelAlignment.h>
+#include <Aspose.Words.Cpp/Model/Lists/ListLevelCollection.h>
+#include <Aspose.Words.Cpp/Model/Lists/ListTemplate.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Lists;

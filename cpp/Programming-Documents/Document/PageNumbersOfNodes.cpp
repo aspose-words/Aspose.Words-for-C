@@ -2,12 +2,12 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Layout/Public/LayoutCollector.h>
-#include <Model/Document/Document.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Layout/Public/LayoutCollector.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Layout;

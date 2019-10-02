@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include "Model/Document/Document.h"
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Footnotes/FootnotePosition.h>
-#include <Model/Footnotes/FootnoteType.h>
-#include <Model/Footnotes/FootnoteOptions.h>
-#include <Model/Footnotes/FootnoteNumberingRule.h>
-#include <Model/Footnotes/EndnotePosition.h>
-#include <Model/Footnotes/EndnoteOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Footnotes/FootnotePosition.h>
+#include <Aspose.Words.Cpp/Model/Footnotes/FootnoteType.h>
+#include <Aspose.Words.Cpp/Model/Footnotes/FootnoteOptions.h>
+#include <Aspose.Words.Cpp/Model/Footnotes/FootnoteNumberingRule.h>
+#include <Aspose.Words.Cpp/Model/Footnotes/EndnotePosition.h>
+#include <Aspose.Words.Cpp/Model/Footnotes/EndnoteOptions.h>
 
 using namespace Aspose::Words;
 

@@ -1,22 +1,22 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Drawing/Charts/AxisBound.h>
-#include <Model/Drawing/Charts/AxisCategoryType.h>
-#include <Model/Drawing/Charts/AxisCrosses.h>
-#include <Model/Drawing/Charts/AxisDisplayUnit.h>
-#include <Model/Drawing/Charts/AxisScaling.h>
-#include <Model/Drawing/Charts/AxisTickLabelPosition.h>
-#include <Model/Drawing/Charts/AxisTickMark.h>
-#include <Model/Drawing/Charts/Chart.h>
-#include <Model/Drawing/Charts/ChartAxis.h>
-#include <Model/Drawing/Charts/ChartNumberFormat.h>
-#include <Model/Drawing/Charts/ChartSeries.h>
-#include <Model/Drawing/Charts/ChartSeriesCollection.h>
-#include <Model/Drawing/Charts/ChartType.h>
-#include <Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/AxisBound.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/AxisCategoryType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/AxisCrosses.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/AxisDisplayUnit.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/AxisScaling.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/AxisTickLabelPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/AxisTickMark.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/Chart.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartAxis.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartNumberFormat.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartSeries.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartSeriesCollection.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

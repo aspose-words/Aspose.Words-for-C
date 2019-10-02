@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Fields/Fields/DocumentAutomation/FieldIf.h>
-#include <Model/Fields/Fields/DocumentAutomation/FieldIfComparisonResult.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Fields/Fields/DocumentAutomation/FieldIf.h>
+#include <Aspose.Words.Cpp/Model/Fields/Fields/DocumentAutomation/FieldIfComparisonResult.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

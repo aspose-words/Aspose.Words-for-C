@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Range.h>
-#include <Model/Fields/FormFields/FormFieldCollection.h>
-#include <Model/Fields/FormFields/FormField.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Fields/FormFields/FormFieldCollection.h>
+#include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;
