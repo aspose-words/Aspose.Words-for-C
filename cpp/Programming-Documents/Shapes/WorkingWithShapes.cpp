@@ -1,25 +1,25 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Drawing/Fill.h>
-#include <Model/Drawing/HorizontalAlignment.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Drawing/ShapeType.h>
-#include <Model/Drawing/RelativeVerticalPosition.h>
-#include <Model/Drawing/RelativeHorizontalPosition.h>
-#include <Model/Drawing/TextPath.h>
-#include <Model/Drawing/VerticalAlignment.h>
-#include <Model/Drawing/WrapType.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Saving/OoxmlSaveOptions.h>
-#include <Model/Saving/OoxmlCompliance.h>
-#include <Model/Settings/CompatibilityOptions.h>
-#include <Model/Settings/MsWordVersion.h>
-#include <Model/Text/Run.h>
-#include <Rendering/ShapeRenderer.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Fill.h>
+#include <Aspose.Words.Cpp/Model/Drawing/HorizontalAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeVerticalPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeHorizontalPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/TextPath.h>
+#include <Aspose.Words.Cpp/Model/Drawing/VerticalAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/WrapType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
+#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

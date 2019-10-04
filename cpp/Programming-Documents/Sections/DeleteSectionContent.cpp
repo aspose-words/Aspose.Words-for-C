@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include "Model/Document/Document.h"
-#include <Model/Sections/SectionCollection.h>
-#include <Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
 
 using namespace Aspose::Words;
 

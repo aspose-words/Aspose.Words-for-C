@@ -2,21 +2,21 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Layout/Public/LayoutCollector.h>
-#include <Layout/Public/LayoutEntityType.h>
-#include <Layout/Public/LayoutEnumerator.h>
-#include <Model/Document/Document.h>
-#include <Model/Footnotes/Footnote.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/Section.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/Table.h>
-#include <Model/Text/Comment.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/ParagraphCollection.h>
-#include <Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Layout/Public/LayoutCollector.h>
+#include <Aspose.Words.Cpp/Layout/Public/LayoutEntityType.h>
+#include <Aspose.Words.Cpp/Layout/Public/LayoutEnumerator.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Footnotes/Footnote.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Text/Comment.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Layout;

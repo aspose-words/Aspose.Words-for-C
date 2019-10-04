@@ -2,7 +2,7 @@
 #include "examples.h"
 
 /*#include <Model/Document/Document.h>
-#include <Model/Document/LoadOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/LoadOptions.h>
 
 using namespace Aspose::Words;
 

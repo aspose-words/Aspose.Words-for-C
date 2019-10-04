@@ -2,23 +2,23 @@
 #include "examples.h"
 
 #include <drawing/bitmap.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/FileFormatUtil.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Saving/ImageColorMode.h>
-#include <Model/Saving/ImageSaveOptions.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/PageSetup.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/Story.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Tables/Row.h>
-#include <Model/Text/InlineStory.h>
-#include <Model/Text/Paragraph.h>
-#include <Rendering/ShapeRenderer.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/FileFormatUtil.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Saving/ImageColorMode.h>
+#include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/Story.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Text/InlineStory.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

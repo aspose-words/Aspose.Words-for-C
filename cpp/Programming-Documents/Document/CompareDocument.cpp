@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Comparer/CompareOptions.h>
-#include <Model/Comparer/ComparisonTargetType.h>
-#include <Model/Document/Document.h>
-#include <Model/Revisions/RevisionCollection.h>
+#include <Aspose.Words.Cpp/Model/Comparer/CompareOptions.h>
+#include <Aspose.Words.Cpp/Model/Comparer/ComparisonTargetType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Revisions/RevisionCollection.h>
 
 using namespace Aspose::Words;
 

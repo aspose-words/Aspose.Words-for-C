@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Saving/HtmlFixedSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Saving/HtmlFixedSaveOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

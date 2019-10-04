@@ -2,15 +2,15 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Sections/SectionStart.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/PageSetup.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Importing/ImportFormatMode.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionStart.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Importing/ImportFormatMode.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

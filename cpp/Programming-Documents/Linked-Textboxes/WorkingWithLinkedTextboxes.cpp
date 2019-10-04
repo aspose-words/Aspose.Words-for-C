@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Drawing/ShapeType.h>
-#include <Model/Drawing/TextBox.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/TextBox.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

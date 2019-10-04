@@ -2,17 +2,17 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Fields/FieldType.h>
-#include <Model/FindReplace/FindReplaceOptions.h>
-#include <Model/FindReplace/IReplacingCallback.h>
-#include <Model/FindReplace/ReplaceAction.h>
-#include <Model/FindReplace/ReplacingArgs.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Text/Range.h>
-#include <Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceOptions.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/IReplacingCallback.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/ReplaceAction.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/ReplacingArgs.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

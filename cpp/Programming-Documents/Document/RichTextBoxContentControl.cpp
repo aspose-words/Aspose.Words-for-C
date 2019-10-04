@@ -1,16 +1,16 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Markup/MarkupLevel.h>
-#include <Model/Markup/Sdt/SdtType.h>
-#include <Model/Markup/Sdt/StructuredDocumentTag.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/Section.h>
-#include <Model/Text/Font.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/Run.h>
-#include <Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Markup/MarkupLevel.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/SdtType.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/StructuredDocumentTag.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Markup;

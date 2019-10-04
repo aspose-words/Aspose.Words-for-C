@@ -2,17 +2,17 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include "Model/Document/Document.h"
-#include <Model/Tables/Table.h>
-#include <Model/Tables/RowCollection.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/RowFormat.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/ParagraphCollection.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/RowCollection.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/RowFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Tables;

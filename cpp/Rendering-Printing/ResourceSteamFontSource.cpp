@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Fonts/FontSettings.h>
-#include <Model/Fonts/FontSourceBase.h>
-#include <Model/Fonts/StreamFontSource.h>
-#include <Model/Fonts/SystemFontSource.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FontSourceBase.h>
+#include <Aspose.Words.Cpp/Model/Fonts/StreamFontSource.h>
+#include <Aspose.Words.Cpp/Model/Fonts/SystemFontSource.h>
 
 
 using namespace Aspose::Words;

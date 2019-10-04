@@ -2,10 +2,10 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Properties/DocumentProperty.h>
-#include <Model/Properties/CustomDocumentProperties.h>
-#include <Model/Properties/BuiltInDocumentProperties.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Properties/DocumentProperty.h>
+#include <Aspose.Words.Cpp/Model/Properties/CustomDocumentProperties.h>
+#include <Aspose.Words.Cpp/Model/Properties/BuiltInDocumentProperties.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Properties;

@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Fields/FormFields/TextFormFieldType.h>
-#include <Model/MailMerge/FieldMergingArgs.h>
-#include <Model/MailMerge/IFieldMergingCallback.h>
-#include <Model/MailMerge/ImageFieldMergingArgs.h>
-#include <Model/MailMerge/MailMerge.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Fields/FormFields/TextFormFieldType.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/FieldMergingArgs.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/IFieldMergingCallback.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/ImageFieldMergingArgs.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

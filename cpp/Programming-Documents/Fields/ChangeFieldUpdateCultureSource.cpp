@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Fields/FieldOptions.h>
-#include <Model/Fields/FieldUpdateCultureSource.h>
-#include <Model/MailMerge/MailMerge.h>
-#include <Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldOptions.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldUpdateCultureSource.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

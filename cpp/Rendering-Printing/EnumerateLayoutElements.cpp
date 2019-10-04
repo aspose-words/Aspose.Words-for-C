@@ -4,11 +4,11 @@
 #include <drawing/bitmap.h>
 #include <drawing/pen.h>
 #include <drawing/pens.h>
-#include <Layout/Public/LayoutEnumerator.h>
-#include <Layout/Public/LayoutEntityType.h>
-#include <Model/Document/ConvertUtil.h>
-#include <Model/Document/Document.h>
-#include <Rendering/PageInfo.h>
+#include <Aspose.Words.Cpp/Layout/Public/LayoutEnumerator.h>
+#include <Aspose.Words.Cpp/Layout/Public/LayoutEntityType.h>
+#include <Aspose.Words.Cpp/Model/Document/ConvertUtil.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Rendering/PageInfo.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Layout;

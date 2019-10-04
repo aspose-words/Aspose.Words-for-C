@@ -2,9 +2,9 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Styles/StyleCollection.h>
-#include <Model/Styles/Style.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
+#include <Aspose.Words.Cpp/Model/Styles/Style.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

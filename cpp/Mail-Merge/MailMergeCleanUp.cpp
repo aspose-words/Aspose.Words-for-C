@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/MailMerge/MailMerge.h>
-#include <Model/MailMerge/MailMergeCleanupOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/MailMergeCleanupOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::MailMerging;

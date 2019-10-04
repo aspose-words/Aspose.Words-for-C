@@ -1,27 +1,27 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include "Model/Document/Document.h"
-#include "Model/Document/DocumentBuilder.h"
-#include <Model/Tables/Table.h>
-#include <Model/Tables/TableAlignment.h>
-#include <Model/Tables/RowFormat.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/CellFormat.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Borders/BorderType.h>
-#include <Model/Borders/BorderCollection.h>
-#include <Model/Borders/Border.h>
-#include <Model/Borders/LineStyle.h>
-#include <Model/Borders/TextureIndex.h>
-#include <Model/Borders/Shading.h>
-#include <Model/Saving/OoxmlSaveOptions.h>
-#include <Model/Saving/OoxmlCompliance.h>
-#include <Model/Text/TextOrientation.h>
-#include <Model/Text/HeightRule.h>
-#include <Model/Settings/MsWordVersion.h>
-#include <Model/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/TableAlignment.h>
+#include <Aspose.Words.Cpp/Model/Tables/RowFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/CellFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Borders/BorderType.h>
+#include <Aspose.Words.Cpp/Model/Borders/BorderCollection.h>
+#include <Aspose.Words.Cpp/Model/Borders/Border.h>
+#include <Aspose.Words.Cpp/Model/Borders/LineStyle.h>
+#include <Aspose.Words.Cpp/Model/Borders/TextureIndex.h>
+#include <Aspose.Words.Cpp/Model/Borders/Shading.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
+#include <Aspose.Words.Cpp/Model/Text/TextOrientation.h>
+#include <Aspose.Words.Cpp/Model/Text/HeightRule.h>
+#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

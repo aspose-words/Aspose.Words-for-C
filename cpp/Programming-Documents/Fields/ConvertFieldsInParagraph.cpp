@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Fields/FieldType.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/Section.h>
-#include <Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 
 #include "FieldsHelper.h"
 

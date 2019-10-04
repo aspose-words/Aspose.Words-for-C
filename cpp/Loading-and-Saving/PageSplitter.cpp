@@ -2,30 +2,30 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Layout/Public/LayoutCollector.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentVisitor.h>
-#include <Model/Document/VisitorAction.h>
-#include <Model/Lists/ListLevel.h>
-#include <Model/Markup/Sdt/StructuredDocumentTag.h>
-#include <Model/Markup/SmartTag.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Sections/HeaderFooter.h>
-#include <Model/Sections/HeaderFooterCollection.h>
-#include <Model/Sections/PageSetup.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/SectionStart.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/Table.h>
-#include <Model/Text/ListFormat.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/Run.h>
-#include <Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Layout/Public/LayoutCollector.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>
+#include <Aspose.Words.Cpp/Model/Document/VisitorAction.h>
+#include <Aspose.Words.Cpp/Model/Lists/ListLevel.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/StructuredDocumentTag.h>
+#include <Aspose.Words.Cpp/Model/Markup/SmartTag.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionStart.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Layout;

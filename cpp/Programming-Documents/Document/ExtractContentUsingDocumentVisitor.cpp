@@ -1,17 +1,17 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentVisitor.h>
-#include <Model/Document/VisitorAction.h>
-#include <Model/Fields/Nodes/FieldEnd.h>
-#include <Model/Fields/Nodes/FieldSeparator.h>
-#include <Model/Fields/Nodes/FieldStart.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/HeaderFooter.h>
-#include <Model/Text/ControlChar.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>
+#include <Aspose.Words.Cpp/Model/Document/VisitorAction.h>
+#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldEnd.h>
+#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldSeparator.h>
+#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldStart.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
+#include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

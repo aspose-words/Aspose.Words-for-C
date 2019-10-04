@@ -2,11 +2,11 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include "Model/Document/Document.h"
-#include <Model/Fields/FieldCollection.h>
-#include <Model/Fields/FieldType.h>
-#include <Model/Fields/Fields/LinksAndReferences/FieldHyperlink.h>
-#include <Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldCollection.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
+#include <Aspose.Words.Cpp/Model/Fields/Fields/LinksAndReferences/FieldHyperlink.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

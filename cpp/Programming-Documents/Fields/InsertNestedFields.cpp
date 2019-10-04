@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/BreakType.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Fields/Nodes/FieldSeparator.h>
-#include <Model/Fields/Field.h>
-#include <Model/Sections/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldSeparator.h>
+#include <Aspose.Words.Cpp/Model/Fields/Field.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

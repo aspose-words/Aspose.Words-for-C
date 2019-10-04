@@ -1,16 +1,16 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Range.h>
-#include <Model/Sections/SectionCollection.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/PageSetup.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Document/Document.h>
-#include <Model/Bookmarks/BookmarkStart.h>
-#include <Model/Bookmarks/BookmarkEnd.h>
-#include <Model/Bookmarks/BookmarkCollection.h>
-#include <Model/Bookmarks/Bookmark.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkStart.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkEnd.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkCollection.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/Bookmark.h>
 
 #include "Common.h"
 
