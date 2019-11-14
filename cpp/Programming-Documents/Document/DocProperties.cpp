@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
@@ -67,6 +67,31 @@ namespace
         // ExEnd:RemovePersonalInformation
         std::cout << "Personal information has removed from document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+	
+	void ConfiguringLinkToContent(const System::String &inputDataDir)
+	{
+		// ExStart:ConfiguringLinkToContent            
+		System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"test.docx");
+
+		// Retrieve a list of all custom document properties from the file.
+		System::SharedPtr<CustomDocumentProperties> customProperties = doc->get_CustomDocumentProperties();
+
+		// Add linked to content property.
+		System::SharedPtr<DocumentProperty> customProperty = customProperties->AddLinkToContent(u"PropertyName", u"BookmarkName");
+
+		// Also, accessing the custom document property can be performed by using the property name.
+		customProperty = customProperties->idx_get(customProperties->IndexOf(u"PropertyName"));
+
+		// Check whether the property is linked to content.
+		bool isLinkedToContent = customProperty->get_IsLinkToContent();
+
+		// Get the source of the property.
+		System::String source = customProperty->get_LinkSource();
+
+		// Get the value of the property.
+		System::String value = customProperty->get_Value()->ToString();
+		// ExEnd:ConfiguringLinkToContent
+	}
 }
 
 void DocProperties()
@@ -82,5 +107,6 @@ void DocProperties()
     // Removes a custom document property.
     CustomRemove(inputDataDir);
     RemovePersonalInformation(inputDataDir, outputDataDir);
+	ConfiguringLinkToContent(inputDataDir);
     std::cout << "DocProperties example finished." << std::endl << std::endl;
 }

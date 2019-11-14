@@ -14,6 +14,7 @@ int main()
     // Quick Start
     // =====================================================
     // =====================================================
+	WorkingWithVbaMacros();
     ApplyLicense();
     ApplyLicenseFromFile();
     ApplyLicenseFromStream();
@@ -65,7 +66,7 @@ int main()
     WorkingWithOoxml();
     WorkingWithRTF();
     WorkingWithTxt();
-
+	WorkingWithVbaMacros();
     // =====================================================
     // =====================================================
     // Programming with Documents

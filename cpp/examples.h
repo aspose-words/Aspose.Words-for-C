@@ -25,7 +25,7 @@ void ConvertDocumentToPCL();
 void CreateDocument();
 void DetectDocumentSignatures();
 // TODO (std_string) : doesn't work in C# code (System.NullReferenceException raised)
-//void DigitallySignedPdf();
+void DigitallySignedPdf();
 // TODO (std_string) : signatures isn't supported
 //void DigitallySignedPdfUsingCertificateHolder();
 void Doc2Pdf();
@@ -50,6 +50,7 @@ void WorkingWithDoc();
 void WorkingWithOoxml();
 void WorkingWithRTF();
 void WorkingWithTxt();
+void WorkingWithVbaMacros();
 
 // =================================
 // Programming with Documents

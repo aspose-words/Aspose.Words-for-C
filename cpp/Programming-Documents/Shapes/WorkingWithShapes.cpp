@@ -20,6 +20,8 @@
 #include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
+#include <Aspose.Words.Cpp/Model/Drawing/HorizontalRuleAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/HorizontalRuleFormat.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
@@ -139,6 +141,29 @@ namespace
         std::cout << "Gets the actual bounds of the shape in points." << shape->GetShapeRenderer()->get_BoundsInPoints().ToString().ToUtf8String() << std::endl;
         // ExEnd:GetActualShapeBoundsPoints
     }
+
+	void DocumentBuilderHorizontalRuleFormat(System::String const &outputDataDir)
+	{
+		std::cout << "DocumentBuilderHorizontalRuleFormat example started." << std::endl;
+		
+		// ExStart:DocumentBuilderInsertHorizontalRule
+		// Initialize document.
+		System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>();
+
+		System::SharedPtr<Shape> shape = builder->InsertHorizontalRule();
+		System::SharedPtr<HorizontalRuleFormat> horizontalRuleFormat = shape->get_HorizontalRuleFormat();
+
+		horizontalRuleFormat->set_Alignment(HorizontalRuleAlignment::Center);
+		horizontalRuleFormat->set_WidthPercent(70);
+		horizontalRuleFormat->set_Height(3);
+		horizontalRuleFormat->set_Color(System::Drawing::Color::get_Blue());
+		horizontalRuleFormat->set_NoShade(true);
+
+		builder->get_Document()->Save(outputDataDir + u"HorizontalRuleFormat.docx");
+
+		// ExEnd:DocumentBuilderInsertHorizontalRule
+		std::cout << "DocumentBuilderHorizontalRuleFormat example finished." << std::endl << std::endl;
+	}
 }
 
 void WorkingWithShapes()
@@ -152,6 +177,7 @@ void WorkingWithShapes()
     InsertShapeUsingDocumentBuilder(outputDataDir);
     AddCornersSnipped(outputDataDir);
     GetActualShapeBoundsPoints(inputDataDir);
+	DocumentBuilderHorizontalRuleFormat(outputDataDir);
     // doesn't work properly because documents are absent
     //SpecifyVerticalAnchor(dataDir);
     //DetectSmartArtShape(dataDir);

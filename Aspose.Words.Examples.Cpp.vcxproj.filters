@@ -79,6 +79,9 @@
     <Filter Include="cpp\Programming-Documents\Linked-Textboxes">
       <UniqueIdentifier>{ed5ad1e2-df97-4efd-94f5-b4a8459f0821}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cpp\Programming-Documents\WebExtensions">
+      <UniqueIdentifier>{698dfa41-edc4-4a42-9757-0c99325a8245}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cpp\main.cpp">
@@ -798,6 +801,12 @@
     </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Document\GetFontLineSpacing.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\WorkingWithVbaMacros.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithWebExtension.cpp">
+      <Filter>cpp\Programming-Documents\WebExtensions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
