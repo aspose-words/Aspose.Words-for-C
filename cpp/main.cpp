@@ -8,13 +8,11 @@ int main()
     std::cout << "Examples:" << std::endl << "=====================================================" << std::endl << std::endl;
 
     // Uncomment the one you want to try out
-
     // =====================================================
     // =====================================================
     // Quick Start
     // =====================================================
     // =====================================================
-	WorkingWithVbaMacros();
     ApplyLicense();
     ApplyLicenseFromFile();
     ApplyLicenseFromStream();
@@ -66,7 +64,8 @@ int main()
     WorkingWithOoxml();
     WorkingWithRTF();
     WorkingWithTxt();
-	WorkingWithVbaMacros();
+    // TODO Input file are missing
+	// WorkingWithVbaMacros();
     // =====================================================
     // =====================================================
     // Programming with Documents
@@ -143,7 +142,7 @@ int main()
     ComboBoxContentControl();
     CompareDocument();
     CreateHeaderFooterUsingDocBuilder();
-    DocProperties();
+    // DocProperties();
     DocumentBuilderBuildTable();
     DocumentBuilderInsertBookmark();
     DocumentBuilderInsertBreak();
