@@ -14,8 +14,7 @@
 #include <Aspose.Words.Cpp/Model/WebExtensions/Enums/WebExtensionBindingType.h>
 
 using namespace Aspose::Words;
-using namespace Aspose::Words::Model::WebExtensions;
-using namespace Aspose::Words::Model::WebExtensions::Enums;
+using namespace Aspose::Words::WebExtensions;
 using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Settings;
 
