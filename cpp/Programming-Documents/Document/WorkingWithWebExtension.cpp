@@ -14,8 +14,7 @@
 #include <Aspose.Words.Cpp/Model/WebExtensions/Enums/WebExtensionBindingType.h>
 
 using namespace Aspose::Words;
-using namespace Aspose::Words::Model::WebExtensions;
-using namespace Aspose::Words::Model::WebExtensions::Enums;
+using namespace Aspose::Words::WebExtensions;
 using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Settings;
 
@@ -50,6 +49,5 @@ void WorkingWithWebExtension()
 	System::String inputDataDir = GetInputDataDir_WorkingWithShapes();
 	System::String outputDataDir = GetOutputDataDir_WorkingWithShapes();
 	UsingWebExtensionTaskPanes(outputDataDir);
-
 	std::cout << "WorkingWithWebExtensions example finished." << std::endl << std::endl;
 }
