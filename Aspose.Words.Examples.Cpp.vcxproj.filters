@@ -808,6 +808,9 @@
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithWebExtension.cpp">
       <Filter>cpp\Programming-Documents\WebExtensions</Filter>
     </ClCompile>
+    <ClCompile Include="CropImages.cpp">
+      <Filter>cpp\Programming-Documents\Images</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
