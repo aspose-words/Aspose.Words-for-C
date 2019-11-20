@@ -806,7 +806,7 @@
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithWebExtension.cpp">
-      <Filter>cpp\Programming-Documents\WebExtensions</Filter>
+      <Filter>cpp\Programming-Documents\Document</Filter>
     </ClCompile>
     <ClCompile Include="CropImages.cpp">
       <Filter>cpp\Programming-Documents\Images</Filter>
