@@ -808,9 +808,6 @@
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithWebExtension.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
     </ClCompile>
-    <ClCompile Include="CropImages.cpp">
-      <Filter>cpp\Programming-Documents\Images</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
@@ -823,9 +820,9 @@
     <ClInclude Include="cpp\pch\pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
   </ItemGroup>
 </Project>
