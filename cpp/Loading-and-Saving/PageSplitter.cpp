@@ -38,9 +38,7 @@ namespace
 
     class DocumentPageSplitter;
     class PageNumberFinder;
-	class PageNumberFinderFactory;//MZK
     class SectionSplitter;
-	class SplitPageBreakCorrector;//MZK
 	
 
     bool IsHeaderFooterType(TNodePtr node)
