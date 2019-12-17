@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Font.h>
-#include <Model/Styles/StyleCollection.h>
-#include <Model/Document/LoadOptions.h>
-#include <Model/Document/LanguagePreferences.h>
-#include <Model/Document/EditingLanguage.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
+#include <Aspose.Words.Cpp/Model/Document/LoadOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/LanguagePreferences.h>
+#include <Aspose.Words.Cpp/Model/Document/EditingLanguage.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

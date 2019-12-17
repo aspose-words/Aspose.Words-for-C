@@ -2,8 +2,8 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Document/VariableCollection.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/VariableCollection.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

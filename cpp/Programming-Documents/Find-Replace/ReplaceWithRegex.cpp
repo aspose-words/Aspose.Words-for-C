@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Range.h>
-#include <Model/FindReplace/FindReplaceOptions.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace System::Text::RegularExpressions;
 using namespace Aspose::Words;

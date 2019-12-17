@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/DateTimeFormatting/CalendarType.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Fields/IFieldResultFormatter.h>
-#include <Model/Fields/Format/GeneralFormat.h>
-#include <Model/Fields/Field.h>
-#include <Model/Fields/FieldOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/DateTimeFormatting/CalendarType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Fields/IFieldResultFormatter.h>
+#include <Aspose.Words.Cpp/Model/Fields/Format/GeneralFormat.h>
+#include <Aspose.Words.Cpp/Model/Fields/Field.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

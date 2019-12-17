@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include "Model/Document/Document.h"
-#include "Model/Document/DocumentBuilder.h"
-#include <Model/Tables/Table.h>
-#include <Model/Tables/RowFormat.h>
-#include <Model/Tables/CellFormat.h>
-#include <Model/Text/ParagraphAlignment.h>
-#include <Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/RowFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/CellFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Tables;

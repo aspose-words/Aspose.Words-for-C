@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Fields/FormFields/FormField.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

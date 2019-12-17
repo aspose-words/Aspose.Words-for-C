@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Markup/Sdt/SdtType.h>
-#include <Model/Markup/Sdt/StructuredDocumentTag.h>
-#include <Model/Markup/Sdt/XmlMapping.h>
-#include <Model/Markup/CustomXmlPart.h>
-#include <Model/Markup/CustomXmlPartCollection.h>
-#include <Model/Markup/MarkupLevel.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/Section.h>
-#include <Model/Styles/StyleCollection.h>
-#include <Model/Styles/StyleIdentifier.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/SdtType.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/StructuredDocumentTag.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/XmlMapping.h>
+#include <Aspose.Words.Cpp/Model/Markup/CustomXmlPart.h>
+#include <Aspose.Words.Cpp/Model/Markup/CustomXmlPartCollection.h>
+#include <Aspose.Words.Cpp/Model/Markup/MarkupLevel.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
+#include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Markup;

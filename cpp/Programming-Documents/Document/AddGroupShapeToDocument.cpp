@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Nodes/Node.h>
-#include <Model/Drawing/ShapeType.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Drawing/GroupShape.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Drawing/GroupShape.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <drawing/size.h>
 
 using namespace Aspose::Words;

@@ -2,30 +2,30 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Layout/Public/LayoutCollector.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentVisitor.h>
-#include <Model/Document/VisitorAction.h>
-#include <Model/Lists/ListLevel.h>
-#include <Model/Markup/Sdt/StructuredDocumentTag.h>
-#include <Model/Markup/SmartTag.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Sections/HeaderFooter.h>
-#include <Model/Sections/HeaderFooterCollection.h>
-#include <Model/Sections/PageSetup.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/SectionStart.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/Table.h>
-#include <Model/Text/ListFormat.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/Run.h>
-#include <Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Layout/Public/LayoutCollector.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>
+#include <Aspose.Words.Cpp/Model/Document/VisitorAction.h>
+#include <Aspose.Words.Cpp/Model/Lists/ListLevel.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/StructuredDocumentTag.h>
+#include <Aspose.Words.Cpp/Model/Markup/SmartTag.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionStart.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Layout;
@@ -39,12 +39,16 @@ namespace
     class DocumentPageSplitter;
     class PageNumberFinder;
     class SectionSplitter;
+	
 
     bool IsHeaderFooterType(TNodePtr node)
     {
         return node->get_NodeType() == NodeType::HeaderFooter || node->GetAncestor(NodeType::HeaderFooter) != nullptr;
     }
-
+	/// <summary>
+	/// Splits text of the specified run into two runs.
+	/// Inserts the new run just after the specified run.
+	/// </summary>
     System::SharedPtr<Run> SplitRun(System::SharedPtr<Run> run, int32_t position)
     {
         // TODO (std_string) : fix using of overloaded members defined in the base classes
@@ -96,29 +100,70 @@ namespace
     {
         return this->collector->get_Document();
     }
-
+	/// <summary>
+	/// Initializes a new instance of the <see cref="PageNumberFinder"/> class.
+	/// </summary>
+	/// <param name="collector">A collector instance which has layout model records for the document.</param>
     PageNumberFinder::PageNumberFinder(System::SharedPtr<LayoutCollector> collector)
     {
         this->collector = collector;
     }
-
+	/// <summary>
+	/// Retrieves 1-based index of a page that the node begins on.
+	/// </summary>
+	/// <param name="node">
+	/// The node.
+	/// </param>
+	/// <returns>
+	/// Page index.
+	/// </returns>
     int32_t PageNumberFinder::GetPage(TNodePtr node)
     {
         std::unordered_map<TNodePtr, int32_t>::const_iterator iterator = nodeStartPageLookup.find(node);
         return iterator == nodeStartPageLookup.cend() ? this->collector->GetStartPageIndex(node) : iterator->second;
     }
-
+	/// <summary>
+	/// Retrieves 1-based index of a page that the node ends on.
+	/// </summary>
+	/// <param name="node">
+	/// The node.
+	/// </param>
+	/// <returns>
+	/// Page index.
+	/// </returns>
     int32_t PageNumberFinder::GetPageEnd(TNodePtr node)
     {
         std::unordered_map<TNodePtr, int32_t>::const_iterator iterator = nodeEndPageLookup.find(node);
         return iterator == nodeEndPageLookup.cend() ? this->collector->GetEndPageIndex(node) : iterator->second;
     }
-
+	/// <summary>
+	/// Returns how many pages the specified node spans over. Returns 1 if the node is contained within one page.
+	/// </summary>
+	/// <param name="node">
+	/// The node.
+	/// </param>
+	/// <returns>
+	/// Page index.
+	/// </returns>
     int32_t PageNumberFinder::PageSpan(TNodePtr node)
     {
         return this->GetPageEnd(node) - this->GetPage(node) + 1;
     }
-
+	/// <summary>
+	/// Returns a list of nodes that are contained anywhere on the specified page or pages which match the specified node type.
+	/// </summary>
+	/// <param name="startPage">
+	/// The start Page.
+	/// </param>
+	/// <param name="endPage">
+	/// The end Page.
+	/// </param>
+	/// <param name="nodeType">
+	/// The node Type.
+	/// </param>
+	/// <returns>
+	/// The <see cref="IList"/>.
+	/// </returns>
     std::vector<TNodePtr> PageNumberFinder::RetrieveAllNodesOnPages(int32_t startPage, int32_t endPage, NodeType nodeType)
     {
         if (startPage < 1 || startPage > this->GetDocument()->get_PageCount())
@@ -156,7 +201,10 @@ namespace
 
         return pageNodes;
     }
-
+	/// <summary>
+	/// Splits nodes which appear over two or more pages into separate nodes so that they still appear in the same way
+	/// but no longer appear across a page.
+	/// </summary>
     void PageNumberFinder::SplitNodesAcrossPages()
     {
         for (System::SharedPtr<Paragraph> paragraph : System::IterateOver<Paragraph>(this->GetDocument()->GetChildNodes(NodeType::Paragraph, true)))
@@ -595,6 +643,12 @@ namespace
                 int32_t pageNum = this->pageNumberFinder->GetPage(childNode);
                 if (pageNum == targetPageNum)
                 {
+					if (cloneNode->get_NodeType() == NodeType::Row)
+						(System::DynamicCast<Row>(cloneNode))->EnsureMinimum();
+
+					if (cloneNode->get_NodeType() == NodeType::Cell)
+						(System::DynamicCast<Cell>(cloneNode))->EnsureMinimum();
+
                     cloneNode->get_LastChild()->Remove();
                     cloneNode->AppendChild(childNode);
                 }
@@ -707,7 +761,7 @@ namespace
 
     void SplitAllDocumentsToPages(System::String const &inputDataDir, System::String const &outputDataDir)
     {
-        System::ArrayPtr<System::String> fileNames = System::IO::Directory::GetFiles(inputDataDir, u"*.doc?", System::IO::SearchOption::TopDirectoryOnly);
+		System::ArrayPtr<System::String> fileNames = System::IO::Directory::GetFiles(inputDataDir, u"*.doc", System::IO::SearchOption::TopDirectoryOnly);
         for (System::String fileName : fileNames)
         {
             SplitDocumentToPages(fileName, outputDataDir);

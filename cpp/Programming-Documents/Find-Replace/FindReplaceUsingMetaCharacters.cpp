@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Range.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/ParagraphAlignment.h>
-#include <Model/Text/Font.h>
-#include <Model/FindReplace/FindReplaceOptions.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/BreakType.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;

@@ -1,18 +1,18 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/RunCollection.h>
-#include <Model/Text/Run.h>
-#include <Model/Text/ParagraphCollection.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/CommentRangeStart.h>
-#include <Model/Text/CommentRangeEnd.h>
-#include <Model/Text/Comment.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/Body.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Nodes/CompositeNode.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/CommentRangeStart.h>
+#include <Aspose.Words.Cpp/Model/Text/CommentRangeEnd.h>
+#include <Aspose.Words.Cpp/Model/Text/Comment.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/TxtLeadingSpacesOptions.h>
-#include <Model/Document/TxtLoadOptions.h>
-#include <Model/Document/TxtTrailingSpacesOptions.h>
-#include <Model/Saving/TxtListIndentation.h>
-#include <Model/Saving/TxtSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/TxtLeadingSpacesOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/TxtLoadOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/TxtTrailingSpacesOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/TxtListIndentation.h>
+#include <Aspose.Words.Cpp/Model/Saving/TxtSaveOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

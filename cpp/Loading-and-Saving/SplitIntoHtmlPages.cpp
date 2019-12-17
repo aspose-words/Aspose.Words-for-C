@@ -1,26 +1,26 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/BreakType.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Importing/ImportFormatMode.h>
-#include <Model/MailMerge/MailMerge.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Properties/BuiltInDocumentProperties.h>
-#include <Model/Saving/ExportHeadersFootersMode.h>
-#include <Model/Saving/HtmlSaveOptions.h>
-#include <Model/Sections/Body.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/SectionCollection.h>
-#include <Model/Styles/StyleIdentifier.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/MailMerge/FieldMergingArgs.h>
-#include <Model/MailMerge/IFieldMergingCallback.h>
-#include <Model/MailMerge/ImageFieldMergingArgs.h>
-#include <Model/MailMerge/IMailMergeDataSource.h>
+#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Importing/ImportFormatMode.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Properties/BuiltInDocumentProperties.h>
+#include <Aspose.Words.Cpp/Model/Saving/ExportHeadersFootersMode.h>
+#include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
+#include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/FieldMergingArgs.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/IFieldMergingCallback.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/ImageFieldMergingArgs.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/IMailMergeDataSource.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::MailMerging;

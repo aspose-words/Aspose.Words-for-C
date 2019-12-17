@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/MailMerge/MailMerge.h>
-#include <Model/MailMerge/MappedDataFieldCollection.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/MappedDataFieldCollection.h>
 
 using namespace Aspose::Words;
 

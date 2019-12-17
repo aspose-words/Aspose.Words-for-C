@@ -25,7 +25,7 @@ void ConvertDocumentToPCL();
 void CreateDocument();
 void DetectDocumentSignatures();
 // TODO (std_string) : doesn't work in C# code (System.NullReferenceException raised)
-//void DigitallySignedPdf();
+void DigitallySignedPdf();
 // TODO (std_string) : signatures isn't supported
 //void DigitallySignedPdfUsingCertificateHolder();
 void Doc2Pdf();
@@ -50,6 +50,7 @@ void WorkingWithDoc();
 void WorkingWithOoxml();
 void WorkingWithRTF();
 void WorkingWithTxt();
+void WorkingWithVbaMacros();
 
 // =================================
 // Programming with Documents
@@ -198,8 +199,7 @@ void UpdateDocFields();
 void UseOfficeMathProperties();
 
 // Images
-// TODO(std_string) : problems with compilation of the Aspose::Words::NodeList type
-//void AddImageToEachPage();
+void AddImageToEachPage();
 void AddWatermark();
 void CompressImages();
 void ExtractImagesToFiles();
@@ -337,8 +337,7 @@ void LoadHyphenationDictionaryForLanguage();
 //void ReadActiveXControlProperties();
 void ReceiveNotificationsOfFont();
 void RenderShape();
-// TODO (std_string): absent virtual inheritance from System::Object in IFontData
-//void ResourceSteamFontSource();
+void ResourceSteamFontSource();
 // TODO (std_string) : saving into images don't work properly
 //void SaveAsMultipageTiff();
 void SetFontSettings();

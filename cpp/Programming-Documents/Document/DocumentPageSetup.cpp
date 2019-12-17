@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/SectionLayoutMode.h>
-#include <Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionLayoutMode.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
 
 using namespace Aspose::Words;
 

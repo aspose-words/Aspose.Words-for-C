@@ -1,25 +1,27 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Drawing/Fill.h>
-#include <Model/Drawing/HorizontalAlignment.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Drawing/ShapeType.h>
-#include <Model/Drawing/RelativeVerticalPosition.h>
-#include <Model/Drawing/RelativeHorizontalPosition.h>
-#include <Model/Drawing/TextPath.h>
-#include <Model/Drawing/VerticalAlignment.h>
-#include <Model/Drawing/WrapType.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Saving/OoxmlSaveOptions.h>
-#include <Model/Saving/OoxmlCompliance.h>
-#include <Model/Settings/CompatibilityOptions.h>
-#include <Model/Settings/MsWordVersion.h>
-#include <Model/Text/Run.h>
-#include <Rendering/ShapeRenderer.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Fill.h>
+#include <Aspose.Words.Cpp/Model/Drawing/HorizontalAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeVerticalPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeHorizontalPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/TextPath.h>
+#include <Aspose.Words.Cpp/Model/Drawing/VerticalAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/WrapType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
+#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
+#include <Aspose.Words.Cpp/Model/Drawing/HorizontalRuleAlignment.h>
+#include <Aspose.Words.Cpp/Model/Drawing/HorizontalRuleFormat.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
@@ -139,6 +141,29 @@ namespace
         std::cout << "Gets the actual bounds of the shape in points." << shape->GetShapeRenderer()->get_BoundsInPoints().ToString().ToUtf8String() << std::endl;
         // ExEnd:GetActualShapeBoundsPoints
     }
+
+	void DocumentBuilderHorizontalRuleFormat(System::String const &outputDataDir)
+	{
+		std::cout << "DocumentBuilderHorizontalRuleFormat example started." << std::endl;
+		
+		// ExStart:DocumentBuilderInsertHorizontalRule
+		// Initialize document.
+		System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>();
+
+		System::SharedPtr<Shape> shape = builder->InsertHorizontalRule();
+		System::SharedPtr<HorizontalRuleFormat> horizontalRuleFormat = shape->get_HorizontalRuleFormat();
+
+		horizontalRuleFormat->set_Alignment(HorizontalRuleAlignment::Center);
+		horizontalRuleFormat->set_WidthPercent(70);
+		horizontalRuleFormat->set_Height(3);
+		horizontalRuleFormat->set_Color(System::Drawing::Color::get_Blue());
+		horizontalRuleFormat->set_NoShade(true);
+
+		builder->get_Document()->Save(outputDataDir + u"HorizontalRuleFormat.docx");
+
+		// ExEnd:DocumentBuilderInsertHorizontalRule
+		std::cout << "DocumentBuilderHorizontalRuleFormat example finished." << std::endl << std::endl;
+	}
 }
 
 void WorkingWithShapes()
@@ -152,6 +177,7 @@ void WorkingWithShapes()
     InsertShapeUsingDocumentBuilder(outputDataDir);
     AddCornersSnipped(outputDataDir);
     GetActualShapeBoundsPoints(inputDataDir);
+	DocumentBuilderHorizontalRuleFormat(outputDataDir);
     // doesn't work properly because documents are absent
     //SpecifyVerticalAnchor(dataDir);
     //DetectSmartArtShape(dataDir);

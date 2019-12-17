@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include "Model/Document/Document.h"
-#include <Model/Tables/Table.h>
-#include <Model/Tables/RowCollection.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/Cell.h>
-#include <Model/FindReplace/FindReplaceOptions.h>
-#include <Model/FindReplace/FindReplaceDirection.h>
-#include <Model/Text/Range.h>
-#include <Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/RowCollection.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceOptions.h>
+#include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceDirection.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;

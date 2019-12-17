@@ -2,13 +2,13 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Fields/Nodes/FieldStart.h>
-#include <Model/Fields/Nodes/FieldEnd.h>
-#include <Model/Fields/FieldType.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldStart.h>
+#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldEnd.h>
+#include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

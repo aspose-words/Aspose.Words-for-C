@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Saving/ImageBinarizationMethod.h>
-#include <Model/Saving/ImageColorMode.h>
-#include <Model/Saving/ImagePixelFormat.h>
-#include <Model/Saving/ImageSaveOptions.h>
-#include <Model/Saving/TiffCompression.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Saving/ImageBinarizationMethod.h>
+#include <Aspose.Words.Cpp/Model/Saving/ImageColorMode.h>
+#include <Aspose.Words.Cpp/Model/Saving/ImagePixelFormat.h>
+#include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
 
 /*using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

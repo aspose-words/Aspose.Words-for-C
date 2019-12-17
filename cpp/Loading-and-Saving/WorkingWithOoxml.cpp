@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Saving/OoxmlCompliance.h>
-#include <Model/Saving/OoxmlSaveOptions.h>
-#include <Model/Settings/CompatibilityOptions.h>
-#include <Model/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
+#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

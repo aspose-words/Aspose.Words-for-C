@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/CommentCollection.h>
-#include <Model/Text/Comment.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Text/CommentCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Comment.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

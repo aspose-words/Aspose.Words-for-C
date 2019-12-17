@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/Range.h>
-#include <Model/Document/Document.h>
-#include <Model/Bookmarks/BookmarkCollection.h>
-#include <Model/Bookmarks/Bookmark.h>
+#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkCollection.h>
+#include <Aspose.Words.Cpp/Model/Bookmarks/Bookmark.h>
 
 using namespace Aspose::Words;
 

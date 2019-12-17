@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Text/RunCollection.h>
-#include <Model/Text/Run.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/SaveFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 
 #include "Common.h"
 

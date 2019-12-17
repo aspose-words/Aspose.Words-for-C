@@ -2,11 +2,11 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/HeaderFooterType.h>
-#include <Model/Sections/HeaderFooterCollection.h>
-#include <Model/Sections/HeaderFooter.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 

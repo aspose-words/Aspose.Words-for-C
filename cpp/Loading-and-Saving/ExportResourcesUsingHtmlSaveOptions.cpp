@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Saving/CssStyleSheetType.h>
-#include <Model/Saving/HtmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Saving/CssStyleSheetType.h>
+#include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

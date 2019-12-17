@@ -1,20 +1,20 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Sections/HeaderFooterType.h>
-#include <Model/Sections/PageSetup.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/SectionStart.h>
-#include <Model/Text/ControlChar.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/TabAlignment.h>
-#include <Model/Text/TabLeader.h>
-#include <Model/Text/TabStop.h>
-#include <Model/Text/TabStopCollection.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionStart.h>
+#include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/TabAlignment.h>
+#include <Aspose.Words.Cpp/Model/Text/TabLeader.h>
+#include <Aspose.Words.Cpp/Model/Text/TabStop.h>
+#include <Aspose.Words.Cpp/Model/Text/TabStopCollection.h>
 
 using namespace Aspose::Words;
 

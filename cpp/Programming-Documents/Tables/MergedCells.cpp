@@ -3,21 +3,21 @@
 
 #include <system/enumerator_adapter.h>
 #include <xml/xml_document.h>
-#include "Model/Document/Document.h"
-#include "Model/Document/DocumentBuilder.h"
-#include <Model/Document/DocumentVisitor.h>
-#include <Model/Saving/HtmlSaveOptions.h>
-#include <Model/Tables/Table.h>
-#include <Model/Tables/TableCollection.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/RowCollection.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Tables/CellFormat.h>
-#include <Model/Tables/CellMerge.h>
-#include <Model/Tables/CellCollection.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/Body.h>
-#include <Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>
+#include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/TableCollection.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/RowCollection.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Tables/CellFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/CellMerge.h>
+#include <Aspose.Words.Cpp/Model/Tables/CellCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

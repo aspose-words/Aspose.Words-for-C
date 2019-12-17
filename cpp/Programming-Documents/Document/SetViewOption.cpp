@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
-#include <Model/Settings/ViewType.h>
-#include <Model/Settings/ViewOptions.h>
-#include <Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Settings/ViewType.h>
+#include <Aspose.Words.Cpp/Model/Settings/ViewOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Settings;

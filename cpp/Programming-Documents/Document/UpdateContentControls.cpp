@@ -2,19 +2,19 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Drawing/ImageData.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Markup/Sdt/SdtListItem.h>
-#include <Model/Markup/Sdt/SdtListItemCollection.h>
-#include <Model/Markup/Sdt/SdtType.h>
-#include <Model/Markup/Sdt/StructuredDocumentTag.h>
-#include <Model/Nodes/NodeCollection.h>
-#include <Model/Nodes/NodeType.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Drawing/ImageData.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/SdtListItem.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/SdtListItemCollection.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/SdtType.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/StructuredDocumentTag.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

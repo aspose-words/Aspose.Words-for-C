@@ -2,31 +2,31 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
-#include <Model/Text/ParagraphFormat.h>
-#include <Model/Text/ParagraphAlignment.h>
-#include <Model/Text/Paragraph.h>
-#include <Model/Text/Font.h>
-#include <Model/Tables/TableCollection.h>
-#include <Model/Tables/Table.h>
-#include <Model/Tables/Row.h>
-#include <Model/Tables/PreferredWidth.h>
-#include <Model/Tables/CellFormat.h>
-#include <Model/Tables/Cell.h>
-#include <Model/Sections/Section.h>
-#include <Model/Sections/PageSetup.h>
-#include <Model/Sections/Orientation.h>
-#include <Model/Sections/HeaderFooterType.h>
-#include <Model/Sections/HeaderFooterCollection.h>
-#include <Model/Sections/HeaderFooter.h>
-#include <Model/Nodes/Node.h>
-#include <Model/Fields/Field.h>
-#include <Model/Drawing/WrapType.h>
-#include <Model/Drawing/Shape.h>
-#include <Model/Drawing/RelativeVerticalPosition.h>
-#include <Model/Drawing/RelativeHorizontalPosition.h>
-#include <Model/Document/DocumentBuilder.h>
-#include <Model/Document/Document.h>
-#include <Model/Document/BreakType.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Tables/TableCollection.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/PreferredWidth.h>
+#include <Aspose.Words.Cpp/Model/Tables/CellFormat.h>
+#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Sections/Orientation.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
+#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
+#include <Aspose.Words.Cpp/Model/Fields/Field.h>
+#include <Aspose.Words.Cpp/Model/Drawing/WrapType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeVerticalPosition.h>
+#include <Aspose.Words.Cpp/Model/Drawing/RelativeHorizontalPosition.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Tables;
