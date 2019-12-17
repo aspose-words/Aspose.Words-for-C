@@ -62,11 +62,12 @@ namespace
 void RemoveBreaks()
 {
     std::cout << "RemoveBreaks example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // ExStart:OpenFromFile
     // Open the document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
     // ExEnd:OpenFromFile
 
     // Remove the page and section breaks from the document.
@@ -75,7 +76,7 @@ void RemoveBreaks()
     RemovePageBreaks(doc);
     RemoveSectionBreaks(doc);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"RemoveBreaks.doc");
+    System::String outputPath = outputDataDir + u"RemoveBreaks.doc";
     // Save the document.
     doc->Save(outputPath);
     std::cout << "Removed breaks from the document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

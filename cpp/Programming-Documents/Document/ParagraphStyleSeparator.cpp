@@ -14,13 +14,13 @@ void ParagraphStyleSeparator()
     std::cout << "ParagraphStyleSeparator example started." << std::endl;
     // ExStart:ParagraphStyleSeparator
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
 
     // Initialize document.
     System::String fileName = u"TestFile.doc";
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + fileName);
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + fileName);
 
-    for (auto paragraph : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
+    for (System::SharedPtr<Paragraph> paragraph : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
     {
         if (paragraph->get_BreakIsStyleSeparator())
         {

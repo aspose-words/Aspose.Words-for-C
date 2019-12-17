@@ -10,20 +10,20 @@ using namespace Aspose::Words::Saving;
 
 namespace
 {
-    void SaveHtmlWithMetafileFormat(System::String const &dataDir)
+    void SaveHtmlWithMetafileFormat(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SaveHtmlWithMetafileFormat
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.docx");
         System::SharedPtr<HtmlSaveOptions> options = System::MakeObject<HtmlSaveOptions>();
         options->set_MetafileFormat(HtmlMetafileFormat::EmfOrWmf);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"SaveDocWithHtmlSaveOptions.SaveHtmlWithMetafileFormat.html");
+        System::String outputPath = outputDataDir + u"SaveDocWithHtmlSaveOptions.SaveHtmlWithMetafileFormat.html";
         doc->Save(outputPath, options);
         // ExEnd:SaveHtmlWithMetafileFormat
         std::cout << "Document saved with Metafile format." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void ImportExportSVGinHTML(System::String const &dataDir)
+    void ImportExportSVGinHTML(System::String const &outputDataDir)
     {
         // ExStart:ImportExportSVGinHTML
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -34,53 +34,53 @@ namespace
         System::SharedPtr<HtmlSaveOptions> options = System::MakeObject<HtmlSaveOptions>();
         options->set_MetafileFormat(HtmlMetafileFormat::Svg);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"SaveDocWithHtmlSaveOptions.ImportExportSVGinHTML.html");
+        System::String outputPath = outputDataDir + u"SaveDocWithHtmlSaveOptions.ImportExportSVGinHTML.html";
         doc->Save(outputPath, options);
         // ExEnd:ImportExportSVGinHTML
         std::cout << "Document saved with SVG Metafile format." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetCssClassNamePrefix(System::String const &dataDir)
+    void SetCssClassNamePrefix(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetCssClassNamePrefix
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.docx");
 
         System::SharedPtr<HtmlSaveOptions> saveOptions = System::MakeObject<HtmlSaveOptions>();
         saveOptions->set_CssStyleSheetType(CssStyleSheetType::External);
         saveOptions->set_CssClassNamePrefix(u"pfx_");
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"SaveDocWithHtmlSaveOptions.SetCssClassNamePrefix.html");
+        System::String outputPath = outputDataDir + u"SaveDocWithHtmlSaveOptions.SetCssClassNamePrefix.html";
         doc->Save(outputPath, saveOptions);
         // ExEnd:SetCssClassNamePrefix
         std::cout << "Document saved with CSS prefix pfx_." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetExportCidUrlsForMhtmlResources(System::String const &dataDir)
+    void SetExportCidUrlsForMhtmlResources(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetExportCidUrlsForMhtmlResources
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"CidUrls.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"CidUrls.docx");
 
         System::SharedPtr<HtmlSaveOptions> saveOptions = System::MakeObject<HtmlSaveOptions>(SaveFormat::Mhtml);
         saveOptions->set_PrettyFormat(true);
         saveOptions->set_ExportCidUrlsForMhtmlResources(true);
         saveOptions->set_SaveFormat(SaveFormat::Mhtml);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"SaveDocWithHtmlSaveOptions.SetExportCidUrlsForMhtmlResources.mhtml");
+        System::String outputPath = outputDataDir + u"SaveDocWithHtmlSaveOptions.SetExportCidUrlsForMhtmlResources.mhtml";
         doc->Save(outputPath, saveOptions);
         // ExEnd:SetExportCidUrlsForMhtmlResources
         std::cout << "Document has saved with Content - Id URL scheme." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetResolveFontNames(System::String const &dataDir)
+    void SetResolveFontNames(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetResolveFontNames
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Test File (docx).docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Test File (docx).docx");
 
         System::SharedPtr<HtmlSaveOptions> saveOptions = System::MakeObject<HtmlSaveOptions>(SaveFormat::Html);
         saveOptions->set_PrettyFormat(true);
         saveOptions->set_ResolveFontNames(true);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"SaveDocWithHtmlSaveOptions.SetResolveFontNames.html");
+        System::String outputPath = outputDataDir + u"SaveDocWithHtmlSaveOptions.SetResolveFontNames.html";
         doc->Save(outputPath, saveOptions);
         // ExEnd:SetResolveFontNames
         std::cout << "FontSettings is used to resolve font family name." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -91,12 +91,13 @@ namespace
 void SaveDocWithHtmlSaveOptions()
 {
     std::cout << "SaveDocWithHtmlSaveOptions example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
-    SaveHtmlWithMetafileFormat(dataDir);
-    ImportExportSVGinHTML(dataDir);
-    SetCssClassNamePrefix(dataDir);
-    SetExportCidUrlsForMhtmlResources(dataDir);
-    SetResolveFontNames(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
+    SaveHtmlWithMetafileFormat(inputDataDir, outputDataDir);
+    ImportExportSVGinHTML(outputDataDir);
+    SetCssClassNamePrefix(inputDataDir, outputDataDir);
+    SetExportCidUrlsForMhtmlResources(inputDataDir, outputDataDir);
+    SetResolveFontNames(inputDataDir, outputDataDir);
     std::cout << "SaveDocWithHtmlSaveOptions example finished." << std::endl << std::endl;
 }

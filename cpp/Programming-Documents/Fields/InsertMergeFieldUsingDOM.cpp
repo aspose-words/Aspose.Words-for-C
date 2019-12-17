@@ -16,9 +16,10 @@ void InsertMergeFieldUsingDOM()
 {
     std::cout << "InsertMergeFieldUsingDOM example started." << std::endl;
     // ExStart:InsertMergeFieldUsingDOM
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"in.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"in.doc");
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
     // Get paragraph you want to append this merge field to
@@ -51,7 +52,7 @@ void InsertMergeFieldUsingDOM()
     // Finally update this merge field
     field->Update();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertMergeFieldUsingDOM.doc");
+    System::String outputPath = outputDataDir + u"InsertMergeFieldUsingDOM.doc";
     doc->Save(outputPath);
 
     // ExEnd:InsertMergeFieldUsingDOM

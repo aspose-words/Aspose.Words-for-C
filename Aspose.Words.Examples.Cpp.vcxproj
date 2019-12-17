@@ -173,11 +173,13 @@
     <ClCompile Include="cpp\Loading-and-Saving\Doc2Pdf.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ExportFontsAsBase64.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ExportResourcesUsingHtmlSaveOptions.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\ImageToPdf.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveHtmlFormFieldAsContentControlInDOCX.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveToDisk.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveToStream.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\Load_Options.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\LoadTxt.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\OpenEncryptedDocument.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\PageSplitter.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SaveDocWithHtmlSaveOptions.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SaveOptionsHtmlFixed.cpp" />
@@ -247,8 +249,10 @@
     <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenParagraphs.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenParagraphStyles.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentBetweenRuns.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentUsingDocumentVisitor.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\ExtractContentUsingField.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\ExtractTextOnly.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\GetFontLineSpacing.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\GetVariables.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\InsertDoc.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\PageNumbersOfNodes.cpp" />
@@ -305,6 +309,7 @@
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithRegex.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithString.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Hyperlink\ReplaceHyperlinks.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Images\AddImageToEachPage.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Images\AddWatermark.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Images\CompressImages.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Images\ExtractImagesToFiles.cpp" />
@@ -379,9 +384,12 @@
     <ClCompile Include="cpp\Rendering-Printing\EmbeddingWindowsStandardFonts.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\EnumerateLayoutElements.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\HyphenateWordsOfLanguages.cpp" />
+    <ClCompile Include="cpp\Rendering-Printing\ImageColorFilters.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\LoadHyphenationDictionaryForLanguage.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\ReceiveNotificationsOfFont.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\RenderShape.cpp" />
+    <ClCompile Include="cpp\Rendering-Printing\ResourceSteamFontSource.cpp" />
+    <ClCompile Include="cpp\Rendering-Printing\SaveAsMultipageTiff.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SetFontSettings.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersMultipleFolders.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersSystemAndCustomFolder.cpp" />

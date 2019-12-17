@@ -34,7 +34,7 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
-    void SetSpacebetweenAsianandLatintext(System::String const &dataDir)
+    void SetSpacebetweenAsianandLatintext(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderSetSpacebetweenAsianandLatintext
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -48,30 +48,30 @@ namespace
         builder->Writeln(u"Automatically adjust space between Asian and Latin text");
         builder->Writeln(u"Automatically adjust space between Asian text and numbers");
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetSpacebetweenAsianandLatintext.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.SetSpacebetweenAsianandLatintext.doc";
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderSetSpacebetweenAsianandLatintext
         std::cout << "ParagraphFormat properties AddSpaceBetweenFarEastAndAlpha and AddSpaceBetweenFarEastAndDigit set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetAsianTypographyLinebreakGroupProp(System::String const &dataDir)
+    void SetAsianTypographyLinebreakGroupProp(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetAsianTypographyLinebreakGroupProp
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Input.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Input.docx");
 
         System::SharedPtr<ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
         format->set_FarEastLineBreakControl(false);
         format->set_WordWrap(true);
         format->set_HangingPunctuation(false);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetAsianTypographyLinebreakGroupProp.docx");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.SetAsianTypographyLinebreakGroupProp.docx";
         doc->Save(outputPath);
         // ExEnd:SetAsianTypographyLinebreakGroupProp
         std::cout << "ParagraphFormat properties for Asian Typography line break group are set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
 
-    void SetFontFormatting(System::String const &dataDir)
+    void SetFontFormatting(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderSetFontFormatting
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -89,13 +89,13 @@ namespace
 
         // Output formatted text
         builder->Writeln(u"I'm a very nice formatted string.");
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetFontFormatting.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.SetFontFormatting.doc";
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderSetFontFormatting
         std::cout << "Font formatting using DocumentBuilder set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetParagraphFormatting(System::String const &dataDir)
+    void SetParagraphFormatting(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderSetParagraphFormatting
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -112,13 +112,13 @@ namespace
         builder->Writeln(u"I'm a very nice formatted paragraph. I'm intended to demonstrate how the left and right indents affect word wrapping.");
         builder->Writeln(u"I'm another nice formatted paragraph. I'm intended to demonstrate how the space after paragraph looks like.");
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetParagraphFormatting.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.SetParagraphFormatting.doc";
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderSetParagraphFormatting
         std::cout << "Paragraph formatting using DocumentBuilder set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetTableCellFormatting(System::String const &dataDir)
+    void SetTableCellFormatting(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderSetTableCellFormatting
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -140,13 +140,13 @@ namespace
         builder->EndRow();
         builder->EndTable();
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetTableCellFormatting.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.SetTableCellFormatting.doc";
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderSetTableCellFormatting
         std::cout << "Table cell formatting using DocumentBuilder set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetTableRowFormatting(System::String const &dataDir)
+    void SetTableRowFormatting(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderSetTableRowFormatting
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -170,13 +170,13 @@ namespace
         builder->EndRow();
         builder->EndTable();
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetTableRowFormatting.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.SetTableRowFormatting.doc";
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderSetTableRowFormatting
         std::cout << "Table row formatting using DocumentBuilder set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetMultilevelListFormatting(System::String const &dataDir)
+    void SetMultilevelListFormatting(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderSetMultilevelListFormatting
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -206,13 +206,13 @@ namespace
         builder->Writeln(u"Item 3");
 
         builder->get_ListFormat()->RemoveNumbers();
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetMultilevelListFormatting.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.SetMultilevelListFormatting.doc";
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderSetMultilevelListFormatting
         std::cout << "Multilevel list formatting using DocumentBuilder set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetPageSetupAndSectionFormatting(System::String const &dataDir)
+    void SetPageSetupAndSectionFormatting(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderSetPageSetupAndSectionFormatting
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -223,13 +223,13 @@ namespace
         builder->get_PageSetup()->set_LeftMargin(50);
         builder->get_PageSetup()->set_PaperSize(PaperSize::Paper10x14);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.SetPageSetupAndSectionFormatting.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.SetPageSetupAndSectionFormatting.doc";
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderSetPageSetupAndSectionFormatting
         std::cout << "Page setup and section formatting using DocumentBuilder set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void ApplyParagraphStyle(System::String const &dataDir)
+    void ApplyParagraphStyle(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderApplyParagraphStyle
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -239,13 +239,13 @@ namespace
         builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Title);
 
         builder->Write(u"Hello");
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.ApplyParagraphStyle.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.ApplyParagraphStyle.doc";
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderApplyParagraphStyle
         std::cout << "Paragraph style using DocumentBuilder applied successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void ApplyBordersAndShadingToParagraph(System::String const &dataDir)
+    void ApplyBordersAndShadingToParagraph(System::String const &outputDataDir)
     {
         // ExStart:DocumentBuilderApplyBordersAndShadingToParagraph
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -266,7 +266,7 @@ namespace
         shading->set_ForegroundPatternColor(System::Drawing::Color::get_LightSalmon());
 
         builder->Write(u"I'm a formatted paragraph with double border and nice shading.");
-        System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderSetFormatting.ApplyBordersAndShadingToParagraph.doc");
+        System::String outputPath = outputDataDir + u"DocumentBuilderSetFormatting.ApplyBordersAndShadingToParagraph.doc";
         doc->Save(outputPath);
         // ExEnd:DocumentBuilderApplyBordersAndShadingToParagraph
         std::cout << "Borders and shading using DocumentBuilder applied successfully to paragraph." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -276,17 +276,18 @@ namespace
 void DocumentBuilderSetFormatting()
 {
     std::cout << "DocumentBuilderSetFormatting example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
-    SetSpacebetweenAsianandLatintext(dataDir);
-    SetFontFormatting(dataDir);
-    SetParagraphFormatting(dataDir);
-    SetTableCellFormatting(dataDir);
-    SetTableRowFormatting(dataDir);
-    SetMultilevelListFormatting(dataDir);
-    SetPageSetupAndSectionFormatting(dataDir);
-    ApplyParagraphStyle(dataDir);
-    ApplyBordersAndShadingToParagraph(dataDir);
-    SetAsianTypographyLinebreakGroupProp(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
+    SetSpacebetweenAsianandLatintext(outputDataDir);
+    SetFontFormatting(outputDataDir);
+    SetParagraphFormatting(outputDataDir);
+    SetTableCellFormatting(outputDataDir);
+    SetTableRowFormatting(outputDataDir);
+    SetMultilevelListFormatting(outputDataDir);
+    SetPageSetupAndSectionFormatting(outputDataDir);
+    ApplyParagraphStyle(outputDataDir);
+    ApplyBordersAndShadingToParagraph(outputDataDir);
+    SetAsianTypographyLinebreakGroupProp(inputDataDir, outputDataDir);
     std::cout << "DocumentBuilderSetFormatting example finished." << std::endl << std::endl;
 }

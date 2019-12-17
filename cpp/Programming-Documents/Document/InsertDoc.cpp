@@ -96,7 +96,7 @@ namespace
 
     ReplaceAction InsertDocumentAtReplaceHandler::Replacing(System::SharedPtr<ReplacingArgs> e)
     {
-        System::SharedPtr<Document> subDoc = System::MakeObject<Document>(GetDataDir_WorkingWithDocument() + u"InsertDocument2.doc");
+        System::SharedPtr<Document> subDoc = System::MakeObject<Document>(GetInputDataDir_WorkingWithDocument() + u"InsertDocument2.doc");
 
         // Insert a document after the paragraph, containing the match text.
         System::SharedPtr<Paragraph> para = System::DynamicCast<Paragraph>(e->get_MatchNode()->get_ParentNode());
@@ -109,30 +109,30 @@ namespace
     }
     // ExEnd:InsertDocumentAtReplaceHandler
 
-    void InsertDocumentAtReplace(System::String const &dataDir)
+    void InsertDocumentAtReplace(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:InsertDocumentAtReplace
-        System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(dataDir + u"InsertDocument1.doc");
+        System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(inputDataDir + u"InsertDocument1.doc");
 
         System::SharedPtr<FindReplaceOptions> options = System::MakeObject<FindReplaceOptions>();
         options->set_ReplacingCallback(System::MakeObject<InsertDocumentAtReplaceHandler>());
 
         mainDoc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"\\[MY_DOCUMENT\\]"), u"", options);
-        System::String outputPath = dataDir + GetOutputFilePath(u"InsertDoc.InsertDocumentAtReplace.doc");
+        System::String outputPath = outputDataDir + u"InsertDoc.InsertDocumentAtReplace.doc";
         mainDoc->Save(outputPath);
         // ExEnd:InsertDocumentAtReplace
         std::cout << "Document inserted successfully at a replace." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void InsertDocumentAtBookmark(System::String const &dataDir)
+    void InsertDocumentAtBookmark(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:InsertDocumentAtBookmark
-        System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(dataDir + u"InsertDocument1.doc");
-        System::SharedPtr<Document> subDoc = System::MakeObject<Document>(dataDir + u"InsertDocument2.doc");
+        System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(inputDataDir + u"InsertDocument1.doc");
+        System::SharedPtr<Document> subDoc = System::MakeObject<Document>(inputDataDir + u"InsertDocument2.doc");
 
         System::SharedPtr<Bookmark> bookmark = mainDoc->get_Range()->get_Bookmarks()->idx_get(u"insertionPlace");
         InsertDocument(bookmark->get_BookmarkStart()->get_ParentNode(), subDoc);
-        System::String outputPath = dataDir + GetOutputFilePath(u"InsertDoc.InsertDocumentAtBookmark.doc");
+        System::String outputPath = outputDataDir + u"InsertDoc.InsertDocumentAtBookmark.doc";
         mainDoc->Save(outputPath);
         // ExEnd:InsertDocumentAtBookmark
         std::cout << "Document inserted successfully at a bookmark." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -176,12 +176,12 @@ namespace
     }
     // ExStart:InsertDocumentAtMailMergeHandler
 
-    void InsertDocumentAtMailMerge(System::String const &dataDir)
+    void InsertDocumentAtMailMerge(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:InsertDocumentAtMailMerge
         // Open the main document.
         typedef System::SharedPtr<System::Object> TObjectPtr;
-        System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(dataDir + u"InsertDocument1.doc");
+        System::SharedPtr<Document> mainDoc = System::MakeObject<Document>(inputDataDir + u"InsertDocument1.doc");
 
         // Add a handler to MergeField event
         mainDoc->get_MailMerge()->set_FieldMergingCallback(System::MakeObject<InsertDocumentAtMailMergeHandler>());
@@ -189,8 +189,8 @@ namespace
         // The main document has a merge field in it called "Document_1".
         // The corresponding data for this field contains fully qualified path to the document
         // That should be inserted to this field.
-        mainDoc->get_MailMerge()->Execute(System::MakeArray<System::String>({u"Document_1"}), System::StaticCastArray<TObjectPtr>(System::MakeArray<System::String>({dataDir + u"InsertDocument2.doc"})));
-        System::String outputPath = dataDir + GetOutputFilePath(u"InsertDoc.InsertDocumentAtMailMerge.doc");
+        mainDoc->get_MailMerge()->Execute(System::MakeArray<System::String>({u"Document_1"}), System::StaticCastArray<TObjectPtr>(System::MakeArray<System::String>({inputDataDir + u"InsertDocument2.doc"})));
+        System::String outputPath = outputDataDir + u"InsertDoc.InsertDocumentAtMailMerge.doc";
         mainDoc->Save(outputPath);
         // ExEnd:InsertDocumentAtMailMerge
         std::cout << "Document inserted successfully at mail merge." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -200,11 +200,12 @@ namespace
 void InsertDoc()
 {
     std::cout << "InsertDoc example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Invokes the InsertDocument method shown above to insert a document at a bookmark.
-    InsertDocumentAtBookmark(dataDir);
-    InsertDocumentAtMailMerge(dataDir);
-    InsertDocumentAtReplace(dataDir);
+    InsertDocumentAtBookmark(inputDataDir, outputDataDir);
+    InsertDocumentAtMailMerge(inputDataDir, outputDataDir);
+    InsertDocumentAtReplace(inputDataDir, outputDataDir);
     std::cout << "InsertDoc example finished." << std::endl << std::endl;
 }

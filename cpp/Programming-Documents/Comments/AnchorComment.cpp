@@ -21,7 +21,7 @@ void AnchorComment()
     std::cout << "AnchorComment example started." << std::endl;
     // ExStart:AnchorComment
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithComments();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithComments();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
 
     System::SharedPtr<Paragraph> para1 = System::MakeObject<Paragraph>(doc);
@@ -49,7 +49,7 @@ void AnchorComment()
     run3->get_ParentNode()->InsertAfter(commentRangeEnd, run3);
     commentRangeEnd->get_ParentNode()->InsertAfter(comment, commentRangeEnd);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"AnchorComment.doc");
+    System::String outputPath = outputDataDir + u"AnchorComment.doc";
     // Save the document.
     doc->Save(outputPath);
     // ExEnd:AnchorComment

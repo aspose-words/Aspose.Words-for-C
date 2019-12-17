@@ -46,16 +46,17 @@ void ReplaceWithEvaluator()
 {
     std::cout << "ReplaceWithEvaluator example started." << std::endl;
     // ExStart:ReplaceWithEvaluator
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_FindAndReplace();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Range.ReplaceWithEvaluator.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_FindAndReplace();
+    System::String outputDataDir = GetOutputDataDir_FindAndReplace();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Range.ReplaceWithEvaluator.doc");
 
     System::SharedPtr<FindReplaceOptions> options = System::MakeObject<FindReplaceOptions>();
     options->set_ReplacingCallback(System::MakeObject<::MyReplaceEvaluator>());
 
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"[s|m]ad"), u"", options);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"ReplaceWithEvaluator.doc");
+    System::String outputPath = outputDataDir + u"ReplaceWithEvaluator.doc";
     doc->Save(outputPath);
     // ExEnd:ReplaceWithEvaluator
     std::cout << "Text replaced successfully with evaluator." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

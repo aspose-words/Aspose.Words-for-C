@@ -9,15 +9,16 @@ void CloningDocument()
 {
     std::cout << "CloningDocument example started." << std::endl;
     // ExStart:CloningDocument
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
 
     // Load the document from disk.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
 
     System::SharedPtr<Document> clone = doc->Clone();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"CloningDocument.doc");
+    System::String outputPath = outputDataDir + u"CloningDocument.doc";
 
     // Save the document to disk.
     clone->Save(outputPath);

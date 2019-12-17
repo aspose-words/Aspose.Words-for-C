@@ -54,17 +54,18 @@ void HandleMailMergeSwitches()
 {
     std::cout << "HandleMailMergeSwitches example started." << std::endl;
     typedef System::SharedPtr<System::Object> TObjectPtr;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_MailMergeAndReporting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_MailMergeAndReporting();
+    System::String outputDataDir = GetOutputDataDir_MailMergeAndReporting();
     // Open an existing document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"MailMergeSwitches.docx");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"MailMergeSwitches.docx");
 
     doc->get_MailMerge()->set_FieldMergingCallback(System::MakeObject<MailMergeSwitches>());
 
     // Fill the fields in the document with user data.
     doc->get_MailMerge()->Execute(System::MakeArray<System::String>({u"HTML_Name"}), System::MakeArray<TObjectPtr>({System::ObjectExt::Box<System::String>(u"James Bond")}));
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"HandleMailMergeSwitches.doc");
+    System::String outputPath = outputDataDir + u"HandleMailMergeSwitches.doc";
     doc->Save(outputPath);
     std::cout << "Simple Mail merge performed with array data successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "HandleMailMergeSwitches example finished." << std::endl << std::endl;

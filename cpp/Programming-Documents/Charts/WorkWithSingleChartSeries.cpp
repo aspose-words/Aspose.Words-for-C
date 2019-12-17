@@ -19,7 +19,7 @@ void WorkWithSingleChartSeries()
 {
     std::cout << "WorkWithSingleChartSeries example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
@@ -53,7 +53,7 @@ void WorkWithSingleChartSeries()
     series1->get_Marker()->set_Symbol(MarkerSymbol::Star);
     series1->get_Marker()->set_Size(10);
     // ExEnd:ChartDataPoint 
-    System::String outputPath = dataDir + GetOutputFilePath(u"WorkWithSingleChartSeries.docx");
+    System::String outputPath = outputDataDir + u"WorkWithSingleChartSeries.docx";
     doc->Save(outputPath);
     std::cout << "Chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "WorkWithSingleChartSeries example finished." << std::endl << std::endl;

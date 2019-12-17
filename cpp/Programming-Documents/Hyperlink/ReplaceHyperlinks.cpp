@@ -15,17 +15,18 @@ void ReplaceHyperlinks()
 {
     std::cout << "ReplaceHyperlinks example started." << std::endl;
     // ExStart:ReplaceHyperlinks
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithHyperlink();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithHyperlink();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithHyperlink();
     System::String NewUrl = u"http://www.aspose.com";
     System::String NewName = u"Aspose - The .NET & Java Component Publisher";
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"ReplaceHyperlinks.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"ReplaceHyperlinks.doc");
     // Hyperlinks in a Word documents are fields.
     for (System::SharedPtr<Field> field : System::IterateOver(doc->get_Range()->get_Fields()))
     {
         if (field->get_Type() == FieldType::FieldHyperlink)
         {
-            auto hyperlink = System::DynamicCast<FieldHyperlink>(field);
+            System::SharedPtr<FieldHyperlink> hyperlink = System::DynamicCast<FieldHyperlink>(field);
             // Some hyperlinks can be local (links to bookmarks inside the document), ignore these.
             if (hyperlink->get_SubAddress() != nullptr)
             {
@@ -35,7 +36,7 @@ void ReplaceHyperlinks()
             hyperlink->set_Result(NewName);
         }
     }
-    System::String outputPath = dataDir + GetOutputFilePath(u"ReplaceHyperlinks.doc");
+    System::String outputPath = outputDataDir + u"ReplaceHyperlinks.doc";
     doc->Save(outputPath);
     // ExEnd:ReplaceHyperlinks
     std::cout << "Hyperlinks replaced successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

@@ -17,7 +17,7 @@ void AddGroupShapeToDocument()
     std::cout << "AddGroupShapeToDocument example started." << std::endl;
     // ExStart:AddGroupShapeToDocument
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
 
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     doc->EnsureMinimum();
@@ -42,7 +42,7 @@ void AddGroupShapeToDocument()
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
     builder->InsertNode(gs);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"AddGroupShapeToDocument.doc");
+    System::String outputPath = outputDataDir + u"AddGroupShapeToDocument.doc";
 
     // Save the document to disk.
     doc->Save(outputPath);

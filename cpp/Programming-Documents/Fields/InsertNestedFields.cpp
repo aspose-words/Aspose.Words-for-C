@@ -16,7 +16,7 @@ void InsertNestedFields()
     std::cout << "InsertNestedFields example started." << std::endl;
     // ExStart:InsertNestedFields
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
 
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -42,7 +42,7 @@ void InsertNestedFields()
     // Finally update the outer field to recalculate the final value. Doing this will automatically update
     // The inner fields at the same time.
     field->Update();
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertNestedFields.docx");
+    System::String outputPath = outputDataDir + u"InsertNestedFields.docx";
     doc->Save(outputPath);
     // ExEnd:InsertNestedFields
     std::cout << "Inserted nested fields in the document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

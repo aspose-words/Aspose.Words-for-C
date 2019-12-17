@@ -14,88 +14,106 @@ int main()
     // Quick Start
     // =====================================================
     // =====================================================
-    AppendDocuments();
     ApplyLicense();
-    FindAndReplace();
-    HelloWorld();
-    WorkingWithNodes();
-    UpdateFields();
     ApplyLicenseFromFile();
     ApplyLicenseFromStream();
+    // TODO(std_string) : ApplyMeteredLicense isn't compiled
+    //ApplyMeteredLicense();
+    AppendDocuments();
+    FindAndReplace();
+    HelloWorld();
+    UpdateFields();
+    WorkingWithNodes();
 
     // =====================================================
     // =====================================================
     // Loading and Saving
     // =====================================================
     // =====================================================
-    LoadAndSaveToDisk();
-    LoadAndSaveToStream();
-    CreateDocument();
+    // TODO (std_string) : signatures isn't supported
+    //AccessAndVerifySignature();
+    CheckFormat();
     ConvertDocumentToByte();
-    LoadTxt();
-    DetectDocumentSignatures();
-    WorkingWithTxt();
-    WorkingWithRTF();
-    Load_Options();
-    PageSplitter();
     ConvertDocumentToEPUB();
     ConvertDocumentToHtmlWithRoundtrip();
+    ConvertDocumentToPCL();
+    CreateDocument();
+    DetectDocumentSignatures();
+    // TODO (std_string) : doesn't work in C# code (System.NullReferenceException raised)
+    //DigitallySignedPdf();
+    // TODO (std_string) : signatures isn't supported
+    //DigitallySignedPdfUsingCertificateHolder();
     Doc2Pdf();
     ExportFontsAsBase64();
     ExportResourcesUsingHtmlSaveOptions();
+    // TODO (std_string) : System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
+    //ImageToPdf();
     LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
+    LoadAndSaveToDisk();
+    LoadAndSaveToStream();
+    Load_Options();
+    LoadTxt();
+    // TODO (std_string) : doesn't work properly, but raises FileCorruptedException instead of NotSupportedException / NotImplemented Exception
+    //OpenEncryptedDocument();
+    PageSplitter();
     SaveDocWithHtmlSaveOptions();
+    SaveOptionsHtmlFixed();
     SpecifySaveOption();
     SplitIntoHtmlPages();
-    WorkingWithOoxml();
+    // TODO(std_string) : encryption doesn't work
     WorkingWithDoc();
+    WorkingWithOoxml();
+    WorkingWithRTF();
+    WorkingWithTxt();
 
     // =====================================================
     // =====================================================
     // Programming with Documents
     // =====================================================
     // =====================================================
-    
+
     // Joining and Appending
     // =====================================================
-    SimpleAppendDocument();
-    KeepSourceFormatting();
-    UseDestinationStyles();
+    AppendDocumentManually();
+    // TODO(std_string) : absent documents
+    //AppendWithImportFormatOptions();
+    BaseDocument();
+    ConvertNumPageFields();
+    DifferentPageSetup();
     JoinContinuous();
     JoinNewPage();
-    RestartPageNumbering();
-    LinkHeadersFooters();
-    UnlinkHeadersFooters();
-    RemoveSourceHeadersFooters();
-    DifferentPageSetup();
-    ListUseDestinationStyles();
-    ListKeepSourceFormatting();
+    KeepSourceFormatting();
     KeepSourceTogether();
-    BaseDocument();
-    AppendDocumentManually();
+    LinkHeadersFooters();
+    ListKeepSourceFormatting();
+    ListUseDestinationStyles();
     PrependDocument();
-    ConvertNumPageFields();
+    RemoveSourceHeadersFooters();
+    RestartPageNumbering();
+    SimpleAppendDocument();
+    UnlinkHeadersFooters();
     UpdatePageLayout();
+    UseDestinationStyles();
 
     // Find and Replace
     // =====================================================
     FindAndHighlight();
-    ReplaceWithString();
-    ReplaceWithRegex();
-    ReplaceWithEvaluator();
     FindReplaceUsingMetaCharacters();
-    ReplaceTextWithField();
     ReplaceHtmlTextWithMetaCharacters();
+    ReplaceTextWithField();
+    ReplaceWithEvaluator();
     ReplaceWithHTML();
+    ReplaceWithRegex();
+    ReplaceWithString();
 
     // Bookmarks
     // =====================================================
-    CopyBookmarkedText();
-    UntangleRowBookmarks();
-    BookmarkTable();
-    BookmarkNameAndText();
     AccessBookmarks();
+    BookmarkNameAndText();
+    BookmarkTable();
+    CopyBookmarkedText();
     CreateBookmark();
+    UntangleRowBookmarks();
 
     // Shapes
     // =====================================================
@@ -103,10 +121,10 @@ int main()
 
     // Comments
     // =====================================================
-    ProcessComments();
     AddComments();
     AnchorComment();
     CommentReply();
+    ProcessComments();
     RemoveRegionText();
 
     // ConvertUtil
@@ -115,93 +133,104 @@ int main()
 
     // Document
     // =====================================================
-    ExtractContentBetweenParagraphs();
+    AccessStyles();
+    AddGroupShapeToDocument();
+    CheckBoxTypeContentControl();
+    CheckDMLTextEffect();
+    CleansUnusedStylesandLists();
+    CloningDocument();
+    ComboBoxContentControl();
+    CompareDocument();
+    CreateHeaderFooterUsingDocBuilder();
+    DocProperties();
+    DocumentBuilderBuildTable();
+    DocumentBuilderInsertBookmark();
+    DocumentBuilderInsertBreak();
+    DocumentBuilderInsertElements();
+    DocumentBuilderInsertHorizontalRule();
+    DocumentBuilderInsertImage();
+    DocumentBuilderInsertParagraph();
+    DocumentBuilderInsertTCField();
+    DocumentBuilderInsertTCFieldsAtText();
+    DocumentBuilderInsertTOC();
+    DocumentBuilderMovingCursor();
+    DocumentBuilderSetFormatting();
+    DocumentPageSetup();
     ExtractContentBetweenBlockLevelNodes();
-    ExtractContentBetweenParagraphStyles();
-    ExtractContentBetweenRuns();
     ExtractContentBetweenBookmark();
     ExtractContentBetweenCommentRange();
-    RemoveBreaks();
-    CloningDocument();
-    ProtectDocument();
-    AccessStyles();
-    GetVariables();
-    SetViewOption();
-    CreateHeaderFooterUsingDocBuilder();
-    RemoveFooters();
-    AddGroupShapeToDocument();
-    DocProperties();
-    WriteAndFont();
-    DocumentBuilderInsertParagraph();
-    DocumentBuilderBuildTable();
-    DocumentBuilderInsertBreak();
-    DocumentBuilderInsertImage();
-    DocumentBuilderInsertBookmark();
-    DocumentBuilderInsertElements();
-    DocumentBuilderSetFormatting();
-    DocumentBuilderMovingCursor();
-    InsertDoc();
-    DocumentBuilderInsertTCFieldsAtText();
-    RemoveTOCFromDocument();
-    SetCompatibilityOptions();
-    Setuplanguagepreferences();
-    WorkingWithRevisions();
+    ExtractContentBetweenParagraphs();
+    ExtractContentBetweenParagraphStyles();
+    ExtractContentBetweenRuns();
+    ExtractContentUsingDocumentVisitor();
     ExtractContentUsingField();
     ExtractTextOnly();
-    DocumentBuilderInsertTOC();
-    DocumentBuilderInsertTCField();
-    CheckBoxTypeContentControl();
-    RichTextBoxContentControl();
-    ComboBoxContentControl();
-    UpdateContentControls();
-    CleansUnusedStylesandLists();
-    DocumentPageSetup();
-    WorkingWithSaveOptions();
-    DocumentBuilderInsertHorizontalRule();
+    // TODO (std_string) : doesn't work due to dependebcy from Aspose.Barcode lib
+    //GenerateACustomBarCodeImage.Run();
+    GetFontLineSpacing();
+    GetVariables();
+    InsertDoc();
     PageNumbersOfNodes();
-    CheckDMLTextEffect();
     ParagraphStyleSeparator();
+    ProtectDocument();
+    RemoveBreaks();
+    RemoveFooters();
+    RemoveTOCFromDocument();
+    RichTextBoxContentControl();
+    SetCompatibilityOptions();
+    Setuplanguagepreferences();
+    SetViewOption();
+    // TODO (std_string) : signatures isn't supported
+    //SigningSignatureLine();
+    UpdateContentControls();
+    // TODO(std_string) : absent documents
+    //WorkingWithImportFormatOptions();
+    // TODO(std_string) : doesn't all work properly (in C# code)
     WorkingWithMarkdownFeatures();
-    CompareDocument();
+    WorkingWithRevisions();
+    WorkingWithSaveOptions();
+    WriteAndFont();
 
     // Fields
     // =====================================================
-    RemoveField();
-    ConvertFieldsInDocument();
-    ConvertFieldsInBody();
-    ConvertFieldsInParagraph();
-    SpecifylocaleAtFieldlevel();
-    InsertFormFields();
-    FormFieldsGetFormFieldsCollection();
-    FormFieldsGetByName();
-    FormFieldsWorkWithProperties();
-    RenameMergeFields();
-    InsertNestedFields();
-    ChangeLocale();
-    UpdateDocFields();
-    UseOfficeMathProperties();
-    InsertField();
-    InsertMergeFieldUsingDOM();
-    InsertMailMergeAddressBlockFieldUsingDOM();
-    InsertAdvanceFieldWithoutDocumentBuilder();
-    InsertASKFieldWithoutDocumentBuilder();
-    InsertAuthorField();
     ChangeFieldUpdateCultureSource();
-    GetFieldNames();
-    InsertTOAFieldWithoutDocumentBuilder();
-    InsertIncludeTextFieldWithoutDocumentBuilder();
+    ChangeLocale();
+    ConvertFieldsInBody();
+    ConvertFieldsInDocument();
+    ConvertFieldsInParagraph();
     EvaluateIFCondition();
     FieldUpdateCulture();
     FormatFieldResult();
+    FormFieldsGetByName();
+    FormFieldsGetFormFieldsCollection();
+    FormFieldsWorkWithProperties();
+    GetFieldNames();
+    InsertAdvanceFieldWithoutDocumentBuilder();
+    InsertASKFieldWithoutDocumentBuilder();
+    InsertAuthorField();
+    InsertField();
     InsertFieldNone();
+    InsertFormFields();
+    InsertIncludeTextFieldWithoutDocumentBuilder();
+    InsertMailMergeAddressBlockFieldUsingDOM();
+    InsertMergeFieldUsingDOM();
+    InsertNestedFields();
+    InsertTOAFieldWithoutDocumentBuilder();
+    RemoveField();
+    RenameMergeFields();
+    SpecifylocaleAtFieldlevel();
+    UpdateDocFields();
+    UseOfficeMathProperties();
 
     // Images
     // =====================================================
+    // TODO(std_string) : problems with compilation of the Aspose::Words::NodeList type
+    //AddImageToEachPage();
     AddWatermark();
-    RemoveWatermark();
     CompressImages();
     ExtractImagesToFiles();
     InsertBarcodeImage();
+    RemoveWatermark();
 
     // Ranges
     // =====================================================
@@ -216,10 +245,10 @@ int main()
     InsertAreaChart();
     InsertBubbleChart();
     InsertScatterChart();
+    WorkingWithChartAxis();
     WorkWithChartDataLabel();
     WorkWithSingleChartDataPoint();
     WorkWithSingleChartSeries();
-    WorkingWithChartAxis();
 
     // Theme
     // =====================================================
@@ -238,9 +267,9 @@ int main()
     // =====================================================
     ChangeStyleOfTOCLevel();
     ChangeTOCTabStops();
+    CopyStyles();
     ExtractContentBasedOnStyles();
     InsertStyleSeparator();
-    CopyStyles();
 
     // Tables
     // =====================================================
@@ -250,10 +279,13 @@ int main()
     AutoFitTableToContents();
     AutoFitTableToFixedColumnWidths();
     AutoFitTableToWindow();
+    // TODO(std_string) : isn't compiled due to using of DataTable
+    //BuildTableFromDataTable();
     CloneTable();
     ExtractOrReplaceText();
     FindingIndex();
     InsertTableDirectly();
+    InsertTableFromHtml();
     InsertTableUsingDocumentBuilder();
     JoiningAndSplittingTable();
     KeepTablesAndRowsBreaking();
@@ -261,7 +293,6 @@ int main()
     RepeatRowsOnSubsequentPages();
     SpecifyHeightAndWidth();
     TablePosition();
-    InsertTableFromHtml();
 
     // Sections
     // =====================================================
@@ -271,6 +302,8 @@ int main()
     CopySection();
     DeleteHeaderFooterContent();
     DeleteSectionContent();
+    // TODO(std_string) : absent documents
+    //ModifyPageSetupInAllSectionsOfDocument();
     SectionsAccessByIndex();
 
     // StructuredDocumentTag 
@@ -294,13 +327,37 @@ int main()
     // Mail-Merge
     // =====================================================
     // =====================================================
-    SimpleMailMerge();
-    MailMergeFormFields();
+    // TODO(std_string) : isn't compiled due to using of DataSet
+    //ApplyCustomLogicToEmptyRegions();
     ExecuteArray();
-    NestedMailMergeCustom();
+    // TODO(std_string) : isn't compiled due to using of OleDbXXX & DataTable
+    //ExecuteWithRegionsDataTable();
     HandleMailMergeSwitches();
+    // TODO(std_string) : isn't compiled due to using of Linq2Xml
+    //LINQtoXMLMailMerge();
+    // TODO(std_string) : isn't compiled due to using of DataTable
+    //MailMergeAlternatingRows();
     MailMergeAndConditionalField();
     MailMergeCleanUp();
+    MailMergeFormFields();
+    // TODO(std_string) : isn't compiled due to using of OleDbXXX & IDataReader
+    //MailMergeImageFromBlob();
+    // TODO(std_string) : isn't compiled due to using of DataSet
+    //MailMergeUsingMustacheSyntax.Run();
+    // TODO(std_string) : isn't compiled due to using of OleDbXXX & DataTable
+    //MultipleDocsInMailMerge();
+    // TODO(std_string) : isn't compiled due to using of DataSet
+    //NestedMailMerge();
+    NestedMailMergeCustom();
+    // TODO(std_string) : OleDbXXX & DataTable
+    //ProduceMultipleDocuments();
+    // TODO(std_string) : isn't compiled due to using of DataSet
+    //RemoveEmptyRegions();
+    // TODO(std_string) : isn't compiled due to using of DataSet
+    //RemoveRowsFromTable();
+    SimpleMailMerge();
+    // TODO(std_string) : isn't compiled due to using of DataSet
+    //XMLMailMerge();
 
     // =====================================================
     // =====================================================
@@ -312,15 +369,29 @@ int main()
     EmbeddingWindowsStandardFonts();
     EnumerateLayoutElements();
     HyphenateWordsOfLanguages();
+    // TODO (std_string) : saving into images don't work properly
+    //ImageColorFilters();
     LoadHyphenationDictionaryForLanguage();
+    // TODO (std_string) : doesn't work due to using of GUI
+    //PrintProgressDialog();
+    // TODO (std_string) : doesn't work due to using of GUI
+    //Print_CachePrinterSettings;
+    // TODO (std_string) : doesn't work due to using of OleControl
+    //ReadActiveXControlProperties();
     ReceiveNotificationsOfFont();
     RenderShape();
+    // TODO (std_string): absent virtual inheritance from System::Object in IFontData
+    //ResourceSteamFontSource();
+    // TODO (std_string) : saving into images don't work properly
+    //SaveAsMultipageTiff();
     SetFontSettings();
     SetFontsFoldersMultipleFolders();
     SetFontsFoldersSystemAndCustomFolder();
     SetHorizontalAndVerticalImageResolution();
     SetTrueTypeFontsFolder();
     SpecifyDefaultFontWhenRendering();
+    // TODO (std_string) : absent documents
+    //WorkingWithFontResolution();
     WorkingWithFontSources();
     WorkingWithPdfSaveOptions();
 

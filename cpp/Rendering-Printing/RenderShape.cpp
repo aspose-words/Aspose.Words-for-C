@@ -117,7 +117,7 @@ namespace
         }
     }
 
-    void RenderShapeToDisk(System::String const &dataDir, System::SharedPtr<Shape> shape)
+    void RenderShapeToDisk(System::String const &outputDataDir, System::SharedPtr<Shape> shape)
     {
         // ExStart:RenderShapeToDisk
         System::SharedPtr<ShapeRenderer> r = shape->GetShapeRenderer();
@@ -126,14 +126,14 @@ namespace
         System::SharedPtr<ImageSaveOptions> imageOptions = System::MakeObject<ImageSaveOptions>(SaveFormat::Emf);
         imageOptions->set_Scale(1.5f);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"RenderShape.RenderShapeToDisk.emf");
+        System::String outputPath = outputDataDir + u"RenderShape.RenderShapeToDisk.emf";
         // Save the rendered image to disk.
         r->Save(outputPath, imageOptions);
         // ExEnd:RenderShapeToDisk
         std::cout << "Shape rendered to disk successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void RenderShapeToStream(System::String const &dataDir, System::SharedPtr<Shape> shape)
+    void RenderShapeToStream(System::String const &outputDataDir, System::SharedPtr<Shape> shape)
     {
         // ExStart:RenderShapeToStream
         System::SharedPtr<ShapeRenderer> r = System::MakeObject<ShapeRenderer>(shape);
@@ -142,7 +142,7 @@ namespace
         System::SharedPtr<ImageSaveOptions> imageOptions = System::MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);
         imageOptions->set_ImageColorMode(ImageColorMode::Grayscale);
         imageOptions->set_ImageBrightness(0.45f);
-        System::String outputPath = dataDir + GetOutputFilePath(u"RenderShape.RenderShapeToStream.jpg");
+        System::String outputPath = outputDataDir + u"RenderShape.RenderShapeToStream.jpg";
         System::SharedPtr<System::IO::FileStream> stream = System::MakeObject<System::IO::FileStream>(outputPath, System::IO::FileMode::Create);
 
         // Save the rendered image to the stream using different options.
@@ -151,7 +151,7 @@ namespace
         std::cout << "Shape rendered to stream successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void RenderShapeToGraphics(System::String const &dataDir, System::SharedPtr<Shape> shape)
+    void RenderShapeToGraphics(System::String const &outputDataDir, System::SharedPtr<Shape> shape)
     {
         System::SharedPtr<ShapeRenderer> r = shape->GetShapeRenderer();
 
@@ -185,36 +185,36 @@ namespace
                 r->RenderToSize(grHolder.GetObject(), 0.0f, 0.0f, shapeSizeInPixels.get_Width(), shapeSizeInPixels.get_Height());
             }
 
-            System::String outputPath = dataDir + GetOutputFilePath(u"RenderShape.RenderShapeToGraphics.png");
+            System::String outputPath = outputDataDir + u"RenderShape.RenderShapeToGraphics.png";
             imageHolder.GetObject()->Save(outputPath, System::Drawing::Imaging::ImageFormat::get_Png());
             std::cout << "Shape rendered to graphics successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
         }
     }
 
-    void RenderCellToImage(System::String const &dataDir, System::SharedPtr<Document> doc)
+    void RenderCellToImage(System::String const &outputDataDir, System::SharedPtr<Document> doc)
     {
         // ExStart:RenderCellToImage
         System::SharedPtr<Cell> cell = System::DynamicCast<Cell>(doc->GetChild(NodeType::Cell, 2, true));
         // The third cell in the first table.
-        System::String outputPath = dataDir + GetOutputFilePath(u"RenderShape.RenderCellToImage.png");
+        System::String outputPath = outputDataDir + u"RenderShape.RenderCellToImage.png";
         RenderNode(cell, outputPath, nullptr);
         // ExEnd:RenderCellToImage
         std::cout << "Cell rendered to image successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void RenderRowToImage(System::String const &dataDir, System::SharedPtr<Document> doc)
+    void RenderRowToImage(System::String const &outputDataDir, System::SharedPtr<Document> doc)
     {
         // ExStart:RenderRowToImage
         System::SharedPtr<Row> row = System::DynamicCast<Row>(doc->GetChild(NodeType::Row, 0, true));
         // The first row in the first table.
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"RenderShape.RenderRowToImage.png");
+        System::String outputPath = outputDataDir + u"RenderShape.RenderRowToImage.png";
         RenderNode(row, outputPath, nullptr);
         // ExEnd:RenderRowToImage
         std::cout << "Row rendered to image successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void RenderParagraphToImage(System::String const &dataDir, System::SharedPtr<Document> doc)
+    void RenderParagraphToImage(System::String const &outputDataDir, System::SharedPtr<Document> doc)
     {
         // ExStart:RenderParagraphToImage
         System::SharedPtr<Shape> shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
@@ -223,7 +223,7 @@ namespace
         // Save the node with a light pink background.
         System::SharedPtr<ImageSaveOptions> options = System::MakeObject<ImageSaveOptions>(SaveFormat::Png);
         options->set_PaperColor(System::Drawing::Color::get_LightPink());
-        System::String outputPath = dataDir + GetOutputFilePath(u"RenderShape.RenderParagraphToImage.png");
+        System::String outputPath = outputDataDir + u"RenderShape.RenderParagraphToImage.png";
         RenderNode(paragraph, outputPath, options);
         // ExEnd:RenderParagraphToImage
         std::cout << "Paragraph rendered to image successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -252,10 +252,10 @@ namespace
         // ExEnd:FindShapeSizes
     }
 
-    void RenderShapeImage(System::String const &dataDir, System::SharedPtr<Shape> shape)
+    void RenderShapeImage(System::String const &outputDataDir, System::SharedPtr<Shape> shape)
     {
         // ExStart:RenderShapeImage
-        System::String outputPath = dataDir + GetOutputFilePath(u"RenderShape.RenderShapeImage.jpg");
+        System::String outputPath = outputDataDir + u"RenderShape.RenderShapeImage.jpg";
         // Save the Shape image to disk in JPEG format and using default options.
         shape->GetShapeRenderer()->Save(outputPath, nullptr);
         // ExEnd:RenderShapeImage
@@ -266,24 +266,25 @@ namespace
 void RenderShape()
 {
     std::cout << "RenderShape example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
 
     // Load the documents which store the shapes we want to render.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile RenderShape.doc");
-    System::SharedPtr<Document> doc2 = System::MakeObject<Document>(dataDir + u"TestFile RenderShape.docx");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile RenderShape.doc");
+    System::SharedPtr<Document> doc2 = System::MakeObject<Document>(inputDataDir + u"TestFile RenderShape.docx");
 
     // Retrieve the target shape from the document. In our sample document this is the first shape.
     System::SharedPtr<Shape> shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
     // Test rendering of different types of nodes.
-    RenderShapeToDisk(dataDir, shape);
-    RenderShapeToStream(dataDir, shape);
-    RenderShapeToGraphics(dataDir, shape);
-    RenderCellToImage(dataDir, doc);
-    RenderRowToImage(dataDir, doc);
-    RenderParagraphToImage(dataDir, doc);
+    RenderShapeToDisk(outputDataDir, shape);
+    RenderShapeToStream(outputDataDir, shape);
+    RenderShapeToGraphics(outputDataDir, shape);
+    RenderCellToImage(outputDataDir, doc);
+    RenderRowToImage(outputDataDir, doc);
+    RenderParagraphToImage(outputDataDir, doc);
     FindShapeSizes(shape);
-    RenderShapeImage(dataDir, shape);
+    RenderShapeImage(outputDataDir, shape);
     std::cout << "RenderShape example finished." << std::endl << std::endl;
 }

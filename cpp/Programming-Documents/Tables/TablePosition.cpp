@@ -21,12 +21,12 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
-    void GetTablePosition(System::String const &dataDir)
+    void GetTablePosition(System::String const &inputDataDir)
     {
         // ExStart:GetTablePosition
-        auto doc = System::MakeObject<Document>(dataDir + u"Table.Document.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Table.Document.doc");
         // Retrieve the first table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         if (table->get_TextWrapping() == TextWrapping::Around)
         {
             std::cout << System::ObjectExt::Box<HorizontalAlignment>(table->get_RelativeHorizontalAlignment())->ToString().ToUtf8String() << std::endl;
@@ -41,10 +41,10 @@ namespace
         std::cout << "Get the Table position successfully." << std::endl;
     }
 
-    void GetFloatingTablePosition(System::String const &dataDir)
+    void GetFloatingTablePosition(System::String const &inputDataDir)
     {
         // ExStart:GetFloatingTablePosition
-        auto doc = System::MakeObject<Document>(dataDir + u"FloatingTablePosition.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"FloatingTablePosition.docx");
         for (System::SharedPtr<Table> table : System::IterateOver<System::SharedPtr<Table>>(doc->get_FirstSection()->get_Body()->get_Tables()))
         {
             // If table is floating type then print its positioning properties.
@@ -67,8 +67,8 @@ void TablePosition()
 {
     std::cout << "TablePosition example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
-    GetTablePosition(dataDir);
-    GetFloatingTablePosition(dataDir);
+    System::String inputDataDir = GetInputDataDir_WorkingWithTables();
+    GetTablePosition(inputDataDir);
+    GetFloatingTablePosition(inputDataDir);
     std::cout << "TablePosition example finished." << std::endl << std::endl;
 }

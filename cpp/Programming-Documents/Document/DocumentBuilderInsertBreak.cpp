@@ -12,7 +12,7 @@ void DocumentBuilderInsertBreak()
     std::cout << "DocumentBuilderInsertBreak example started." << std::endl;
     // ExStart:DocumentBuilderInsertBreak
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     // Initialize document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -24,7 +24,7 @@ void DocumentBuilderInsertBreak()
     builder->InsertBreak(BreakType::PageBreak);
 
     builder->Writeln(u"This is page 3.");
-    System::String outputPath = dataDir + GetOutputFilePath(u"DocumentBuilderInsertBreak.doc");
+    System::String outputPath = outputDataDir + u"DocumentBuilderInsertBreak.doc";
     doc->Save(outputPath);
     // ExEnd:DocumentBuilderInsertBreak
     std::cout << "Page breaks inserted into a document using DocumentBuilder." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

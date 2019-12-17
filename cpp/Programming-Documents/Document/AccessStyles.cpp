@@ -13,9 +13,9 @@ void AccessStyles()
     std::cout << "AccessStyles example started." << std::endl;
     // ExStart:AccessStyles
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
     // Load the template document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
     // Get styles collection from document.
     System::SharedPtr<StyleCollection> styles = doc->get_Styles();
     System::String styleName = u"";

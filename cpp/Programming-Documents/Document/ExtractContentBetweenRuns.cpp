@@ -18,9 +18,9 @@ void ExtractContentBetweenRuns()
     std::cout << "ExtractContentBetweenRuns example started." << std::endl;
     // ExStart:ExtractContentBetweenRuns
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
 
     // Retrieve a paragraph from the first section.
     System::SharedPtr<Paragraph> para = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 7, true));
@@ -30,7 +30,7 @@ void ExtractContentBetweenRuns()
     System::SharedPtr<Run> endRun = para->get_Runs()->idx_get(4);
 
     // Extract the content between these nodes in the document. Include these markers in the extraction.
-    auto extractedNodes = ExtractContent(startRun, endRun, true);
+    std::vector<System::SharedPtr<Node>> extractedNodes = ExtractContent(startRun, endRun, true);
 
     // Get the node from the list. There should only be one paragraph returned in the list.
     System::SharedPtr<Node> node = extractedNodes[0];

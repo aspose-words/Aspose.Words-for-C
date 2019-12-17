@@ -13,9 +13,9 @@ void BookmarkNameAndText()
     std::cout << "BookmarkNameAndText example started." << std::endl;
     // ExStart:BookmarkNameAndText
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithBookmarks();
+    System::String inputDataDir = GetInputDataDir_WorkingWithBookmarks();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Bookmark.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Bookmark.doc");
 
     // Use the indexer of the Bookmarks collection to obtain the desired bookmark.
     System::SharedPtr<Bookmark> bookmark = doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark");

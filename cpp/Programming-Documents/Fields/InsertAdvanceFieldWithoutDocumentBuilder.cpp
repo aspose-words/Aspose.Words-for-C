@@ -15,9 +15,10 @@ void InsertAdvanceFieldWithoutDocumentBuilder()
 {
     std::cout << "InsertAdvanceFieldWithoutDocumentBuilder example started." << std::endl;
     // ExStart:InsertAdvanceFieldWithoutDocumentBuilder
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"in.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"in.doc");
     // Get paragraph you want to append this Advance field to
     System::SharedPtr<Paragraph> para = System::DynamicCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(1));
 
@@ -49,7 +50,7 @@ void InsertAdvanceFieldWithoutDocumentBuilder()
     // Finally update this Advance field
     field->Update();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertAdvanceFieldWithoutDocumentBuilder.doc");
+    System::String outputPath = outputDataDir + u"InsertAdvanceFieldWithoutDocumentBuilder.doc";
     doc->Save(outputPath);
 
     // ExEnd:InsertAdvanceFieldWithoutDocumentBuilder

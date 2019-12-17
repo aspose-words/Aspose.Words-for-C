@@ -18,9 +18,10 @@ void ExtractContentUsingField()
 {
     std::cout << "ExtractContentUsingField example started." << std::endl;
     // ExStart:ExtractContentUsingField
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
 
     // Use a document builder to retrieve the field start of a merge field.
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -38,7 +39,7 @@ void ExtractContentUsingField()
 
     // Insert the content into a new separate document and save it to disk.
     System::SharedPtr<Document> dstDoc = GenerateDocument(doc, extractedNodes);
-    System::String outputPath = dataDir + GetOutputFilePath(u"ExtractContentUsingField.doc");
+    System::String outputPath = outputDataDir + u"ExtractContentUsingField.doc";
     dstDoc->Save(outputPath);
     // ExEnd:ExtractContentUsingField
     std::cout << "Extracted content using the Field successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

@@ -685,12 +685,10 @@ namespace
         return result;
     }
 
-    void SplitDocumentToPages(System::String const &docName)
+    void SplitDocumentToPages(System::String const &docName, System::String const &outputDataDir)
     {
-        System::String folderName = System::IO::Path::GetDirectoryName(docName);
         System::String fileName = System::IO::Path::GetFileNameWithoutExtension(docName);
         System::String extensionName = System::IO::Path::GetExtension(docName);
-        System::String outFolder = System::IO::Path::Combine(folderName, u"_out");
 
         std::cout << "Processing document: " << fileName.ToUtf8String() << extensionName.ToUtf8String() << std::endl;
 
@@ -703,16 +701,16 @@ namespace
         for (int32_t page = 1; page <= doc->get_PageCount(); page++)
         {
             System::SharedPtr<Document> pageDoc = splitter->GetDocumentOfPage(page);
-            pageDoc->Save(System::IO::Path::Combine(outFolder, GetOutputFilePath(System::String::Format(u"PageSplitter.SplitDocumentToPages.Page{0}{1}", page, extensionName))));
+            pageDoc->Save(System::IO::Path::Combine(outputDataDir, System::String::Format(u"PageSplitter.SplitDocumentToPages.Page{0}{1}", page, extensionName)));
         }
     }
 
-    void SplitAllDocumentsToPages(System::String const &folderName)
+    void SplitAllDocumentsToPages(System::String const &inputDataDir, System::String const &outputDataDir)
     {
-        System::ArrayPtr<System::String> fileNames = System::IO::Directory::GetFiles(folderName, u"*.doc?", System::IO::SearchOption::TopDirectoryOnly);
+        System::ArrayPtr<System::String> fileNames = System::IO::Directory::GetFiles(inputDataDir, u"*.doc?", System::IO::SearchOption::TopDirectoryOnly);
         for (System::String fileName : fileNames)
         {
-            SplitDocumentToPages(fileName);
+            SplitDocumentToPages(fileName, outputDataDir);
         }
     }
 }
@@ -720,9 +718,10 @@ namespace
 void PageSplitter()
 {
     std::cout << "PageSplitter example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving() + u"Split";
-    SplitAllDocumentsToPages(dataDir);
-    std::cout << "Document split to pages successfully." << std::endl << "Files saved at " << dataDir.ToUtf8String() << "\\_out" << std::endl;
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving() + u"Split";
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving() + u"Split";
+    SplitAllDocumentsToPages(inputDataDir, outputDataDir);
+    std::cout << "Document split to pages successfully." << std::endl << "Files saved at " << outputDataDir.ToUtf8String() << std::endl;
     std::cout << "PageSplitter example finished." << std::endl << std::endl;
 }

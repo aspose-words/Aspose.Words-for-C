@@ -17,9 +17,10 @@ void InsertIncludeTextFieldWithoutDocumentBuilder()
 {
     std::cout << "InsertIncludeTextFieldWithoutDocumentBuilder example started." << std::endl;
     // ExStart:InsertIncludeTextFieldWithoutDocumentBuilder
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"in.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"in.doc");
     // Get paragraph you want to append this INCLUDETEXT field to
     System::SharedPtr<Paragraph> para = System::DynamicCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(1));
 
@@ -29,14 +30,14 @@ void InsertIncludeTextFieldWithoutDocumentBuilder()
     // Create instance of FieldAsk class and lets build the above field code
     System::SharedPtr<FieldIncludeText> fieldIncludeText = System::DynamicCast<FieldIncludeText>(para->AppendField(FieldType::FieldIncludeText, false));
     fieldIncludeText->set_BookmarkName(u"bookmark");
-    fieldIncludeText->set_SourceFullName(dataDir + u"IncludeText.docx");
+    fieldIncludeText->set_SourceFullName(inputDataDir + u"IncludeText.docx");
 
     doc->get_FirstSection()->get_Body()->AppendChild(para);
 
     // Finally update this IncludeText field
     fieldIncludeText->Update();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertIncludeTextFieldWithoutDocumentBuilder.doc");
+    System::String outputPath = outputDataDir + u"InsertIncludeTextFieldWithoutDocumentBuilder.doc";
     doc->Save(outputPath);
 
     // ExEnd:InsertIncludeTextFieldWithoutDocumentBuilder

@@ -65,7 +65,7 @@ void FormatFieldResult()
     std::cout << "FormatFieldResult example started." << std::endl;
     // ExStart:FormatFieldResult
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
 
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>();
     System::SharedPtr<Document> document = builder->get_Document();
@@ -75,7 +75,7 @@ void FormatFieldResult()
 
     field->Update();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"FormatFieldResult.docx");
+    System::String outputPath = outputDataDir + u"FormatFieldResult.docx";
     builder->get_Document()->Save(outputPath);
     // ExEnd:FormatFieldResult
     std::cout << "Format field result successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

@@ -24,7 +24,7 @@ using namespace Aspose::Words::Drawing::Charts;
 
 namespace
 {
-    void DefineXYAxisProperties(System::String const &dataDir)
+    void DefineXYAxisProperties(System::String const &outputDataDir)
     {
         //ExStart:DefineXYAxisProperties
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -68,13 +68,13 @@ namespace
         yAxis->get_Scaling()->set_Minimum(System::MakeObject<AxisBound>(100));
         yAxis->get_Scaling()->set_Maximum(System::MakeObject<AxisBound>(700));
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithChartAxis.DefineXYAxisProperties.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithChartAxis.DefineXYAxisProperties.docx";
         doc->Save(outputPath);
         //ExEnd:DefineXYAxisProperties
         std::cout << "Properties of X and Y axis are set successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetDateTimeValuesToAxis(System::String const &dataDir)
+    void SetDateTimeValuesToAxis(System::String const &outputDataDir)
     {
         // ExStart:SetDateTimeValuesToAxis
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -107,13 +107,13 @@ namespace
         xAxis->set_MajorTickMark(AxisTickMark::Cross);
         xAxis->set_MinorTickMark(AxisTickMark::Outside);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithChartAxis.SetDateTimeValuesToAxis.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithChartAxis.SetDateTimeValuesToAxis.docx";
         doc->Save(outputPath);
         // ExEnd:SetDateTimeValuesToAxis
         std::cout << "DateTime values are set for chart axis successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetNumberFormatForAxis(System::String const &dataDir)
+    void SetNumberFormatForAxis(System::String const &outputDataDir)
     {
         // ExStart:SetNumberFormatForAxis
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -134,13 +134,13 @@ namespace
         // Set number format.
         chart->get_AxisY()->get_NumberFormat()->set_FormatCode(u"#,##0");
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithChartAxis.SetNumberFormatForAxis.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithChartAxis.SetNumberFormatForAxis.docx";
         doc->Save(outputPath);
         // ExEnd:SetNumberFormatForAxis
         std::cout << "Set number format for axis successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetBoundsOfAxis(System::String const &dataDir)
+    void SetBoundsOfAxis(System::String const &outputDataDir)
     {
         // ExStart:SetboundsOfAxis
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -161,13 +161,13 @@ namespace
         chart->get_AxisY()->get_Scaling()->set_Minimum(System::MakeObject<AxisBound>(0));
         chart->get_AxisY()->get_Scaling()->set_Maximum(System::MakeObject<AxisBound>(6));
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithChartAxis.SetBoundsOfAxis.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithChartAxis.SetBoundsOfAxis.docx";
         doc->Save(outputPath);
         // ExEnd:SetboundsOfAxis
         std::cout << "Set Bounds of chart axis successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetIntervalUnitBetweenLabelsOnAxis(System::String const &dataDir)
+    void SetIntervalUnitBetweenLabelsOnAxis(System::String const &outputDataDir)
     {
         // ExStart:SetIntervalUnitBetweenLabelsOnAxis
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -187,13 +187,13 @@ namespace
 
         chart->get_AxisX()->set_TickLabelSpacing(2);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithChartAxis.SetIntervalUnitBetweenLabelsOnAxis.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithChartAxis.SetIntervalUnitBetweenLabelsOnAxis.docx";
         doc->Save(outputPath);
         // ExEnd:SetIntervalUnitBetweenLabelsOnAxis
         std::cout << "Set interval unit between labels on an axis successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void HideChartAxis(System::String const &dataDir)
+    void HideChartAxis(System::String const &outputDataDir)
     {
         // ExStart:HideChartAxis
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -214,23 +214,23 @@ namespace
         // Hide the Y axis.
         chart->get_AxisY()->set_Hidden(true);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithChartAxis.HideChartAxis.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithChartAxis.HideChartAxis.docx";
         doc->Save(outputPath);
         // ExEnd:HideChartAxis
         std::cout << "Y Axis of chart has hidden successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void TickMultiLineLabelAlignment(System::String const &dataDir)
+    void TickMultiLineLabelAlignment(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:TickMultiLineLabelAlignment
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.docx");
         System::SharedPtr<Shape> shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         System::SharedPtr<ChartAxis> axis = shape->get_Chart()->get_AxisX();
 
         //This property has effect only for multi-line labels.
         axis->set_TickLabelAlignment(ParagraphAlignment::Right);
 
-        doc->Save(dataDir + GetOutputFilePath(u"WorkingWithChartAxis.TickMultiLineLabelAlignment.docx"));
+        doc->Save(outputDataDir + u"WorkingWithChartAxis.TickMultiLineLabelAlignment.docx");
         // ExEnd:TickMultiLineLabelAlignment
     }
 }
@@ -238,14 +238,15 @@ namespace
 void WorkingWithChartAxis()
 {
     std::cout << "WorkingWithChartAxis example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
-    DefineXYAxisProperties(dataDir);
-    SetDateTimeValuesToAxis(dataDir);
-    SetNumberFormatForAxis(dataDir);
-    SetBoundsOfAxis(dataDir);
-    SetIntervalUnitBetweenLabelsOnAxis(dataDir);
-    HideChartAxis(dataDir);
-    TickMultiLineLabelAlignment(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithCharts();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
+    DefineXYAxisProperties(outputDataDir);
+    SetDateTimeValuesToAxis(outputDataDir);
+    SetNumberFormatForAxis(outputDataDir);
+    SetBoundsOfAxis(outputDataDir);
+    SetIntervalUnitBetweenLabelsOnAxis(outputDataDir);
+    HideChartAxis(outputDataDir);
+    TickMultiLineLabelAlignment(inputDataDir, outputDataDir);
     std::cout << "WorkingWithChartAxis example finished." << std::endl << std::endl;
 }

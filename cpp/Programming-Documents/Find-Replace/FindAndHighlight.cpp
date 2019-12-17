@@ -28,7 +28,7 @@ namespace
     /// </summary>
     System::SharedPtr<Run> SplitRun(const System::SharedPtr<Run>& run, int32_t position)
     {
-        auto afterRun = System::DynamicCast<Run>((System::StaticCast<Node>(run))->Clone(true));
+        System::SharedPtr<Run> afterRun = System::DynamicCast<Run>((System::StaticCast<Node>(run))->Clone(true));
         afterRun->set_Text(run->get_Text().Substring(position));
         run->set_Text(run->get_Text().Substring(0, position));
         run->get_ParentNode()->InsertAfter(afterRun, run);
@@ -81,13 +81,13 @@ namespace
         // Split the last run that contains the match if there is any text left.
         if ((currentNode != nullptr) && (remainingLength > 0))
         {
-            auto run = System::DynamicCast<Run>(currentNode); 
+            System::SharedPtr<Run> run = System::DynamicCast<Run>(currentNode);
             SplitRun(run, remainingLength);
             runs.push_back(run);
         }
 
         // Now highlight all runs in the sequence.
-        for (auto& run : runs)
+        for (System::SharedPtr<Run> run : runs)
         {
             run->get_Font()->set_HighlightColor(System::Drawing::Color::get_Yellow());
         }
@@ -103,20 +103,21 @@ void FindAndHighlight()
     std::cout << "FindAndHighlight example started." << std::endl;
     using namespace System::Text::RegularExpressions;
     // ExStart:FindAndHighlight
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_FindAndReplace();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_FindAndReplace();
+    System::String outputDataDir = GetOutputDataDir_FindAndReplace();
     
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
     
     System::SharedPtr<FindReplaceOptions> options = System::MakeObject<FindReplaceOptions>();
     options->set_ReplacingCallback(System::MakeObject<ReplaceEvaluatorFindAndHighlight>());
     options->set_Direction(FindReplaceDirection::Backward);
     
     // We want the "your document" phrase to be highlighted.
-    auto regex = System::MakeObject<Regex>(u"your document", RegexOptions::IgnoreCase);
+    System::SharedPtr<Regex> regex = System::MakeObject<Regex>(u"your document", RegexOptions::IgnoreCase);
     doc->get_Range()->Replace(regex, u"", options);
     
-    System::String outputPath = dataDir + GetOutputFilePath(u"FindAndHighlight.doc");
+    System::String outputPath = outputDataDir + u"FindAndHighlight.doc";
     // Save the output document.
     doc->Save(outputPath);
     // ExEnd:FindAndHighlight

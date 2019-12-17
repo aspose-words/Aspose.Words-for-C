@@ -13,8 +13,8 @@ void RangesDeleteText()
     std::cout << "RangesDeleteText example started." << std::endl;
     // ExStart:RangesDeleteText
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithRanges();
-    auto doc = System::MakeObject<Document>(dataDir + u"Document.doc");
+    System::String inputDataDir = GetInputDataDir_WorkingWithRanges();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
     doc->get_Sections()->idx_get(0)->get_Range()->Delete();
     // ExEnd:RangesDeleteText
     std::cout << "All characters of a range deleted successfully." << std::endl;

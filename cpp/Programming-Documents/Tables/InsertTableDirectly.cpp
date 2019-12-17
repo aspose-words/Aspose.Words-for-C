@@ -22,12 +22,12 @@ void InsertTableDirectly()
     std::cout << "InsertTableDirectly example started." << std::endl;
     // ExStart:InsertTableDirectly
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
-    auto doc = System::MakeObject<Document>();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>();
     // We start by creating the table object. Note how we must pass the document object
     // To the constructor of each node. This is because every node we create must belong
     // To some document.
-    auto table = System::MakeObject<Table>(doc);
+    System::SharedPtr<Table> table = System::MakeObject<Table>(doc);
     // Add the table to the document.
     doc->get_FirstSection()->get_Body()->AppendChild(table);
     // Here we could call EnsureMinimum to create the rows and cells for us. This method is used
@@ -35,13 +35,13 @@ void InsertTableDirectly()
     // Row and one cell, therefore this method creates them for us.
     // Instead we will handle creating the row and table ourselves. This would be the best way to do this
     // If we were creating a table inside an algorthim for example.
-    auto row = System::MakeObject<Row>(doc);
+    System::SharedPtr<Row> row = System::MakeObject<Row>(doc);
     row->get_RowFormat()->set_AllowBreakAcrossPages(true);
     table->AppendChild(row);
     // We can now apply any auto fit settings.
     table->AutoFit(AutoFitBehavior::FixedColumnWidths);
     // Create a cell and add it to the row
-    auto cell = System::MakeObject<Cell>(doc);
+    System::SharedPtr<Cell> cell = System::MakeObject<Cell>(doc);
     cell->get_CellFormat()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightBlue());
     cell->get_CellFormat()->set_Width(80);
     // Add a paragraph to the cell as well as a new run with some text.
@@ -54,7 +54,7 @@ void InsertTableDirectly()
     row->AppendChild((System::StaticCast<Node>(cell))->Clone(false));
     row->get_LastCell()->AppendChild(System::MakeObject<Paragraph>(doc));
     row->get_LastCell()->get_FirstParagraph()->AppendChild(System::MakeObject<Run>(doc, u"Row 1, Cell 2 Text"));
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertTableDirectly.doc");
+    System::String outputPath = outputDataDir + u"InsertTableDirectly.doc";
     // Save the document to disk.
     doc->Save(outputPath);
     // ExEnd:InsertTableDirectly

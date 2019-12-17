@@ -11,10 +11,11 @@ void SimpleMailMerge()
     std::cout << "SimpleMailMerge example started." << std::endl;
     // ExStart:SimpleMailMerge
     typedef System::SharedPtr<System::Object> TObjectPtr;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_MailMergeAndReporting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_MailMergeAndReporting();
+    System::String outputDataDir = GetOutputDataDir_MailMergeAndReporting();
     // Open an existing document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"MailMerge.ExecuteArray.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"MailMerge.ExecuteArray.doc");
 
     doc->get_MailMerge()->set_UseNonMergeFields(true);
 
@@ -27,7 +28,7 @@ void SimpleMailMerge()
                                                                          System::ObjectExt::Box<System::String>(u"London")});
     doc->get_MailMerge()->Execute(names, values);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"SimpleMailMerge.doc");
+    System::String outputPath = outputDataDir + u"SimpleMailMerge.doc";
     // Send the document in Word format to the client browser with an option to save to disk or open inside the current browser.
     doc->Save(outputPath);
     // ExEnd:SimpleMailMerge

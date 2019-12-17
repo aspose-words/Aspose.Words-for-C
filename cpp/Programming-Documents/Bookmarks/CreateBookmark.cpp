@@ -17,7 +17,7 @@ void CreateBookmark()
     std::cout << "CreateBookmark example started." << std::endl;
     // ExStart:CreateBookmark
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithBookmarks();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithBookmarks();
 
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -36,7 +36,7 @@ void CreateBookmark()
     options->get_OutlineOptions()->get_BookmarksOutlineLevels()->Add(u"My Bookmark", 1);
     options->get_OutlineOptions()->get_BookmarksOutlineLevels()->Add(u"Nested Bookmark", 2);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"CreateBookmark.pdf");
+    System::String outputPath = outputDataDir + u"CreateBookmark.pdf";
     doc->Save(outputPath, options);
     // ExEnd:CreateBookmark
     std::cout << "Bookmark created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

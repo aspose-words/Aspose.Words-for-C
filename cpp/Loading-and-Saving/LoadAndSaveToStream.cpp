@@ -11,11 +11,12 @@ void LoadAndSaveToStream()
     std::cout << "LoadAndSaveToStream example started." << std::endl;
     // ExStart:LoadAndSaveToStream
     // ExStart:OpeningFromStream
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
 
     // Open the stream. Read only access is enough for Aspose.Words to load a document.
-    System::SharedPtr<System::IO::Stream> stream = System::IO::File::OpenRead(dataDir + u"Document.doc");
+    System::SharedPtr<System::IO::Stream> stream = System::IO::File::OpenRead(inputDataDir + u"Document.doc");
 
     // Load the entire document into memory.
     System::SharedPtr<Document> doc = System::MakeObject<Document>(stream);
@@ -34,7 +35,7 @@ void LoadAndSaveToStream()
     dstStream->set_Position(0);
     // Save the document from stream, to disk. Normally you would do something with the stream directly,
     // For example writing the data to a database.
-    System::String outputPath = dataDir + GetOutputFilePath(u"LoadAndSaveToStream.doc");
+    System::String outputPath = outputDataDir + u"LoadAndSaveToStream.doc";
     System::IO::File::WriteAllBytes(outputPath, dstStream->ToArray());
     // ExEnd:LoadAndSaveToStream
     std::cout << "Stream of document saved successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

@@ -58,11 +58,12 @@ namespace
 void CopyBookmarkedText()
 {
     std::cout << "CopyBookmarkedText example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithBookmarks();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithBookmarks();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithBookmarks();
 
     // Load the source document.
-    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"Template.doc");
+    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(inputDataDir + u"Template.doc");
 
     // This is the bookmark whose content we want to copy.
     System::SharedPtr<Bookmark> srcBookmark = srcDoc->get_Range()->get_Bookmarks()->idx_get(u"ntf010145060");
@@ -75,7 +76,7 @@ void CopyBookmarkedText()
 
     // It is a good idea to use this import context object because multiple nodes are being imported.
     // If you import multiple times without a single context, it will result in many styles created.
-    auto importer = System::MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
+    System::SharedPtr<NodeImporter> importer = System::MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
 
     // Do it once.
     AppendBookmarkedText(importer, srcBookmark, dstNode);
@@ -83,7 +84,7 @@ void CopyBookmarkedText()
     // Do it one more time for fun.
     AppendBookmarkedText(importer, srcBookmark, dstNode);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"CopyBookmarkedText.doc");
+    System::String outputPath = outputDataDir + u"CopyBookmarkedText.doc";
     // Save the finished document.
     dstDoc->Save(outputPath);
 

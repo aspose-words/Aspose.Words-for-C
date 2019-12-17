@@ -20,15 +20,15 @@ namespace
 {
     int32_t GetFileSize(const System::String& fileName)
     {
-        auto stream = System::IO::File::OpenRead(fileName);
+        FileStreamPtr stream = System::IO::File::OpenRead(fileName);
         return stream->get_Length();
     }
 
     System::SharedPtr<System::Drawing::Imaging::ImageCodecInfo> GetEncoderInfo(const System::SharedPtr<System::Drawing::Imaging::ImageFormat>& format)
     {
-        auto encoders = System::Drawing::Imaging::ImageCodecInfo::GetImageEncoders();
+        System::ArrayPtr<System::Drawing::Imaging::ImageCodecInfoPtr> encoders = System::Drawing::Imaging::ImageCodecInfo::GetImageEncoders();
 
-        for (auto& encoder : encoders->data())
+        for (System::Drawing::Imaging::ImageCodecInfoPtr encoder : encoders)
         {
             if (encoder->get_FormatID() == format->get_Guid())
             {
@@ -134,9 +134,10 @@ namespace
 void CompressImages()
 {
     std::cout << "CompressImages example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithImages();
-    System::String srcFileName = dataDir + u"Test.docx";
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithImages();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithImages();
+    System::String srcFileName = inputDataDir + u"Test.docx";
 
     std::cout << "Loading " << srcFileName.ToUtf8String() << ". Size " << GetFileSize(srcFileName) << "." << std::endl;
     System::SharedPtr<Document> doc = System::MakeObject<Document>(srcFileName);
@@ -159,7 +160,7 @@ void CompressImages()
         std::cout << "We expected to have only 1 image resampled in this test document!" << std::endl;
     }
 
-    System::String dstFileName = dataDir + GetOutputFilePath(u"CompressImages.docx");
+    System::String dstFileName = outputDataDir + u"CompressImages.docx";
     doc->Save(dstFileName);
     std::cout << "Saving " << dstFileName.ToUtf8String() << ". Size " << GetFileSize(dstFileName) << "." << std::endl;
 

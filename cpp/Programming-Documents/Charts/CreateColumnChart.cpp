@@ -15,7 +15,7 @@ using namespace Aspose::Words::Drawing::Charts;
 
 namespace
 {
-    void InsertSimpleColumnChart(System::String const &dataDir)
+    void InsertSimpleColumnChart(System::String const &outputDataDir)
     {
         // ExStart:InsertSimpleColumnChart
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -47,13 +47,13 @@ namespace
         seriesColl->Add(u"AW Series 4", categories, System::MakeArray<double>({7, 8}));
         seriesColl->Add(u"AW Series 5", categories, System::MakeArray<double>({9, 10}));
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"CreateColumnChart.InsertSimpleColumnChart.doc");
+        System::String outputPath = outputDataDir + u"CreateColumnChart.InsertSimpleColumnChart.doc";
         doc->Save(outputPath);
         // ExEnd:InsertSimpleColumnChart
         std::cout << "Simple column chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void InsertColumnChart(System::String const &dataDir)
+    void InsertColumnChart(System::String const &outputDataDir)
     {
         // ExStart:InsertColumnChart
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -66,7 +66,7 @@ namespace
         // Use this overload to add series to any type of Bar, Column, Line and Surface charts.
         chart->get_Series()->Add(u"AW Series 1", System::MakeArray<System::String>({u"AW Category 1", u"AW Category 2"}), System::MakeArray<double>({1, 2}));
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"CreateColumnChart.InsertColumnChart.doc");
+        System::String outputPath = outputDataDir + u"CreateColumnChart.InsertColumnChart.doc";
         doc->Save(outputPath);
         // ExEnd:InsertColumnChart
         std::cout << "Column chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -77,8 +77,8 @@ void CreateColumnChart()
 {
     std::cout << "CreateColumnChart example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithCharts();
-    InsertSimpleColumnChart(dataDir);
-    InsertColumnChart(dataDir);
+    System::String outputDataDir = GetOutputDataDir_WorkingWithCharts();
+    InsertSimpleColumnChart(outputDataDir);
+    InsertColumnChart(outputDataDir);
     std::cout << "CreateColumnChart example finished." << std::endl << std::endl;
 }

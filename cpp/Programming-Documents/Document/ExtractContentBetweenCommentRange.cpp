@@ -11,14 +11,20 @@
 
 using namespace Aspose::Words;
 
+namespace
+{
+    typedef std::vector<System::SharedPtr<Node>> TNodePtrVector;
+}
+
 void ExtractContentBetweenCommentRange()
 {
     std::cout << "ExtractContentBetweenCommentRange example started." << std::endl;
     // ExStart:ExtractContentBetweenCommentRange
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithDocument();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
 
     // This is a quick way of getting both comment nodes.
     // Your code should have a proper method of retrieving each corresponding start and end node.
@@ -26,16 +32,16 @@ void ExtractContentBetweenCommentRange()
     System::SharedPtr<CommentRangeEnd> commentEnd = System::DynamicCast<CommentRangeEnd>(doc->GetChild(NodeType::CommentRangeEnd, 0, true));
 
     // Firstly extract the content between these nodes including the comment as well. 
-    auto extractedNodesInclusive = ExtractContent(commentStart, commentEnd, true);
+    TNodePtrVector extractedNodesInclusive = ExtractContent(commentStart, commentEnd, true);
     System::SharedPtr<Document> dstDoc = GenerateDocument(doc, extractedNodesInclusive);
-    System::String inclusiveOutputPath = dataDir + GetOutputFilePath(u"ExtractContentBetweenCommentRange.Inclusive.doc");
+    System::String inclusiveOutputPath = outputDataDir + u"ExtractContentBetweenCommentRange.Inclusive.doc";
     dstDoc->Save(inclusiveOutputPath);
     std::cout << "File saved at " << inclusiveOutputPath.ToUtf8String() << std::endl;
 
     // Secondly extract the content between these nodes without the comment.
-    auto extractedNodesExclusive = ExtractContent(commentStart, commentEnd, false);
+    TNodePtrVector extractedNodesExclusive = ExtractContent(commentStart, commentEnd, false);
     dstDoc = GenerateDocument(doc, extractedNodesExclusive);
-    System::String exclusiveOutputPath = dataDir + GetOutputFilePath(u"ExtractContentBetweenCommentRange.Exclusive.doc");
+    System::String exclusiveOutputPath = outputDataDir + u"ExtractContentBetweenCommentRange.Exclusive.doc";
     dstDoc->Save(exclusiveOutputPath);
     std::cout << "File saved at " << exclusiveOutputPath.ToUtf8String() << std::endl;
     // ExEnd:ExtractContentBetweenCommentRange

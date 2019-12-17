@@ -16,16 +16,17 @@ void ConvertFieldsInParagraph()
 {
     std::cout << "ConvertFieldsInParagraph example started." << std::endl;
     // ExStart:ConvertFieldsInParagraph
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
 
     // Pass the appropriate parameters to convert all IF fields to static text that are encountered only in the last 
     // Paragraph of the document.
     ConvertFieldsToStaticText(doc->get_FirstSection()->get_Body()->get_LastParagraph(), FieldType::FieldIf);
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"ConvertFieldsInParagraph.doc");
+    System::String outputPath = outputDataDir + u"ConvertFieldsInParagraph.doc";
     // Save the document with fields transformed to disk.
     doc->Save(outputPath);
     // ExEnd:ConvertFieldsInParagraph

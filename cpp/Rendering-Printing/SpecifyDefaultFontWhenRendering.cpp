@@ -13,10 +13,11 @@ void SpecifyDefaultFontWhenRendering()
 {
     std::cout << "SpecifyDefaultFontWhenRendering example started." << std::endl;
     // ExStart:SpecifyDefaultFontWhenRendering
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Rendering.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
 
     System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
 
@@ -24,7 +25,7 @@ void SpecifyDefaultFontWhenRendering()
     fontSettings->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Arial Unicode MS");
     // Set font settings
     doc->set_FontSettings(fontSettings);
-    System::String outputPath = dataDir + GetOutputFilePath(u"SpecifyDefaultFontWhenRendering.pdf");
+    System::String outputPath = outputDataDir + u"SpecifyDefaultFontWhenRendering.pdf";
     // Now the set default font is used in place of any missing fonts during any rendering calls.
     doc->Save(outputPath);
     // ExEnd:SpecifyDefaultFontWhenRendering 

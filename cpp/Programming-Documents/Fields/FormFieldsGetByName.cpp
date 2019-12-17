@@ -14,9 +14,9 @@ void FormFieldsGetByName()
     std::cout << "FormFieldsGetByName example started." << std::endl;
     // ExStart:FormFieldsGetByName
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"FormFields.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"FormFields.doc");
     System::SharedPtr<FormFieldCollection> documentFormFields = doc->get_Range()->get_FormFields();
 
     System::SharedPtr<FormField> formField1 = documentFormFields->idx_get(3);

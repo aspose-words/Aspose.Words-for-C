@@ -13,9 +13,9 @@ void FormFieldsGetFormFieldsCollection()
     std::cout << "FormFieldsGetFormFieldsCollection example started." << std::endl;
     // ExStart:FormFieldsGetFormFieldsCollection
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
 
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"FormFields.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"FormFields.doc");
     System::SharedPtr<FormFieldCollection> formFields = doc->get_Range()->get_FormFields();
 
     // ExEnd:FormFieldsGetFormFieldsCollection

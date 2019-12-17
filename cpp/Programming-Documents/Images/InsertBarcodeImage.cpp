@@ -21,7 +21,7 @@ using namespace Aspose::Words;
 namespace
 {
     // ExStart:InsertBarcodeIntoFooter
-    void InsertBarcodeIntoFooter(System::SharedPtr<DocumentBuilder> builder, System::SharedPtr<Section> section, int32_t pageId, HeaderFooterType footerType)
+    void InsertBarcodeIntoFooter(System::SharedPtr<DocumentBuilder> builder, System::SharedPtr<Section> section, int32_t pageId, HeaderFooterType footerType, System::String const &inputDataDir)
     {
         // Move to the footer type in the specific section.
         builder->MoveToSection(section->get_Document()->IndexOf(section));
@@ -29,7 +29,7 @@ namespace
 
         // Insert the barcode, then move to the next line and insert the ID along with the page number.
         // Use pageId if you need to insert a different barcode on each page. 0 = First page, 1 = Second page etc.
-        builder->InsertImage(System::Drawing::Image::FromFile(GetDataDir_WorkingWithImages() + u"Barcode1.png"));
+        builder->InsertImage(System::Drawing::Image::FromFile(inputDataDir + u"Barcode1.png"));
         builder->Writeln();
         builder->Write(u"1234567890");
         builder->InsertField(u"PAGE");
@@ -51,8 +51,9 @@ void InsertBarcodeImage()
 {
     std::cout << "InsertBarcodeImage example started." << std::endl;
     // ExStart:InsertBarcodeImage
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithImages();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithImages();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithImages();
     // Create a blank documenet.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
@@ -60,7 +61,7 @@ void InsertBarcodeImage()
     // The number of pages the document should have.
     int32_t numPages = 4;
     // The document starts with one section, insert the barcode into this existing section.
-    InsertBarcodeIntoFooter(builder, doc->get_FirstSection(), 1, HeaderFooterType::FooterPrimary);
+    InsertBarcodeIntoFooter(builder, doc->get_FirstSection(), 1, HeaderFooterType::FooterPrimary, inputDataDir);
 
     for (int32_t i = 1; i < numPages; i++)
     {
@@ -70,10 +71,10 @@ void InsertBarcodeImage()
         doc->AppendChild(cloneSection);
 
         // Insert the barcode and other information into the footer of the section.
-        InsertBarcodeIntoFooter(builder, cloneSection, i, HeaderFooterType::FooterPrimary);
+        InsertBarcodeIntoFooter(builder, cloneSection, i, HeaderFooterType::FooterPrimary, inputDataDir);
     }
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertBarcodeImage.docx");
+    System::String outputPath = outputDataDir + u"InsertBarcodeImage.docx";
     // Save the document as a DOCX to disk. You can also save this directly to a stream.
     doc->Save(outputPath);
     // ExEnd:InsertBarcodeImage

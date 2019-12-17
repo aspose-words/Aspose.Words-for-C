@@ -11,11 +11,12 @@ void ConvertDocumentToPCL()
 {
     std::cout << "ConvertDocumentToPCL example started." << std::endl;
     // ExStart:ConvertDocumentToPCL
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
 
     // Load the document from disk.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Test File (docx).docx");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Test File (docx).docx");
 
     System::SharedPtr<PclSaveOptions> saveOptions = System::MakeObject<PclSaveOptions>();
 
@@ -23,7 +24,7 @@ void ConvertDocumentToPCL()
     saveOptions->set_RasterizeTransformedElements(false);
 
     // Export the document as an PCL file.
-    doc->Save(dataDir + GetOutputFilePath(u"ConvertDocumentToPCL.pcl"), saveOptions);
+    doc->Save(outputDataDir + u"ConvertDocumentToPCL.pcl", saveOptions);
     // ExEnd:ConvertDocumentToPCL
     std::cout << "ConvertDocumentToPCL example finished." << std::endl << std::endl;
 }

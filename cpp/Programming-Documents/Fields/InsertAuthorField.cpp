@@ -15,9 +15,10 @@ void InsertAuthorField()
 {
     std::cout << "InsertAuthorField example started." << std::endl;
     // ExStart:InsertAuthorField
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithFields();
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"in.doc");
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithFields();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithFields();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"in.doc");
     // Get paragraph you want to append this AUTHOR field to
     System::SharedPtr<Paragraph> para = System::DynamicCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(1));
 
@@ -33,7 +34,7 @@ void InsertAuthorField()
     // Finally update this AUTHOR field
     field->Update();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"InsertAuthorField.doc");
+    System::String outputPath = outputDataDir + u"InsertAuthorField.doc";
     doc->Save(outputPath);
     // ExEnd:InsertAuthorField
     std::cout << "Author field without document builder inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

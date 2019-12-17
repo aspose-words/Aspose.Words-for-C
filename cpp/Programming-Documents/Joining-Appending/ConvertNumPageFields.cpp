@@ -148,11 +148,12 @@ void ConvertNumPageFields()
 {
     std::cout << "ConvertNumPageFields example started." << std::endl;
     // ExStart:ConvertNumPageFields
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_JoiningAndAppending();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_JoiningAndAppending();
+    System::String outputDataDir = GetOutputDataDir_JoiningAndAppending();
 
-    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(dataDir + u"TestFile.Destination.doc");
-    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(dataDir + u"TestFile.Source.doc");
+    System::SharedPtr<Document> dstDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.Destination.doc");
+    System::SharedPtr<Document> srcDoc = System::MakeObject<Document>(inputDataDir + u"TestFile.Source.doc");
 
     // Restart the page numbering on the start of the source document.
     srcDoc->get_FirstSection()->get_PageSetup()->set_RestartPageNumbering(true);
@@ -168,7 +169,7 @@ void ConvertNumPageFields()
     // This needs to be called in order to update the new fields with page numbers.
     dstDoc->UpdatePageLayout();
 
-    System::String outputPath = dataDir + GetOutputFilePath(u"ConvertNumPageFields.doc");
+    System::String outputPath = outputDataDir + u"ConvertNumPageFields.doc";
     dstDoc->Save(outputPath);
     // ExEnd:ConvertNumPageFields
     std::cout << "Document appended successfully with conversion of NUMPAGE fields with PAGEREF fields." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

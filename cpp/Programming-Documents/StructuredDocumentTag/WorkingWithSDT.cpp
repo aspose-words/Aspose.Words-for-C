@@ -19,15 +19,15 @@ using namespace Aspose::Words::Markup;
 
 namespace
 {
-    void SetContentControlColor(System::String const &dataDir)
+    void SetContentControlColor(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetContentControlColor
 
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"input.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"input.docx");
         System::SharedPtr<StructuredDocumentTag> sdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         sdt->set_Color(System::Drawing::Color::get_Red());
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithSDT.SetContentControlColor.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithSDT.SetContentControlColor.docx";
 
         // Save the document to disk.
         doc->Save(outputPath);
@@ -35,14 +35,14 @@ namespace
         std::cout << "Set the color of content control successfully." << std::endl;
     }
 
-    void ClearContentsControl(System::String const &dataDir)
+    void ClearContentsControl(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:ClearContentsControl
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"input.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"input.docx");
         System::SharedPtr<StructuredDocumentTag> sdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         sdt->Clear();
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithSDT.ClearContentsControl.doc");
+        System::String outputPath = outputDataDir + u"WorkingWithSDT.ClearContentsControl.doc";
 
         // Save the document to disk.
         doc->Save(outputPath);
@@ -50,7 +50,7 @@ namespace
         std::cout << "Clear the contents of content control successfully." << std::endl;
     }
 
-    void BindSDTtoCustomXmlPart(System::String const &dataDir)
+    void BindSDTtoCustomXmlPart(System::String const &outputDataDir)
     {
         // ExStart:BindSDTtoCustomXmlPart
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -60,7 +60,7 @@ namespace
         doc->get_FirstSection()->get_Body()->AppendChild(sdt);
         sdt->get_XmlMapping()->SetMapping(xmlPart, u"/root[1]/text[1]", u"");
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithSDT.BindSDTtoCustomXmlPart.doc");
+        System::String outputPath = outputDataDir + u"WorkingWithSDT.BindSDTtoCustomXmlPart.doc";
 
         // Save the document to disk.
         doc->Save(outputPath);
@@ -68,15 +68,15 @@ namespace
         std::cout << "Creation of an XML part and binding a content control to it successfully." << std::endl;
     }
 
-    void SetContentControlStyle(System::String const &dataDir)
+    void SetContentControlStyle(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:SetContentControlStyle
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"input.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"input.docx");
         System::SharedPtr<StructuredDocumentTag> sdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         System::SharedPtr<Style> style = doc->get_Styles()->idx_get(StyleIdentifier::Quote);
         sdt->set_Style(style);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithSDT.SetContentControlStyle.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithSDT.SetContentControlStyle.docx";
         // Save the document to disk.
         doc->Save(outputPath);
         // ExEnd:SetContentControlStyle
@@ -87,11 +87,12 @@ namespace
 void WorkingWithSDT()
 {
     std::cout << "WorkingWithSDT example started." << std::endl;
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithStructuredDocumentTag();
-    BindSDTtoCustomXmlPart(dataDir);
-    ClearContentsControl(dataDir);
-    SetContentControlColor(dataDir);
-    SetContentControlStyle(dataDir);
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithStructuredDocumentTag();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithStructuredDocumentTag();
+    BindSDTtoCustomXmlPart(outputDataDir);
+    ClearContentsControl(inputDataDir, outputDataDir);
+    SetContentControlColor(inputDataDir, outputDataDir);
+    SetContentControlStyle(inputDataDir, outputDataDir);
     std::cout << "WorkingWithSDT example finished." << std::endl << std::endl;
 }

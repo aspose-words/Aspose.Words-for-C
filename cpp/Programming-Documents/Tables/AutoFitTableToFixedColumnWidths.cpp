@@ -21,16 +21,17 @@ void AutoFitTableToFixedColumnWidths()
 {
     std::cout << "AutoFitTableToFixedColumnWidths example started." << std::endl;
     // ExStart:AutoFitTableToFixedColumnWidths
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables();
-    auto doc = System::MakeObject<Document>(dataDir + u"TestFile.doc");
-    auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_WorkingWithTables();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
+    System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
     // Disable autofitting on this table.
     table->AutoFit(AutoFitBehavior::FixedColumnWidths);
-    System::String outputPath = dataDir + GetOutputFilePath(u"AutoFitTableToFixedColumnWidths.doc");
+    System::String outputPath = outputDataDir + u"AutoFitTableToFixedColumnWidths.doc";
     // Save the document to disk.
     doc->Save(outputPath);
-    auto firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
+    System::SharedPtr<Table> firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::Diagnostics::Debug::Assert(firstTable->get_PreferredWidth()->get_Type() == PreferredWidthType::Auto, u"PreferredWidth type is not auto");
     System::Diagnostics::Debug::Assert(firstTable->get_PreferredWidth()->get_Value() == 0, u"PreferredWidth value is not 0");
     System::Diagnostics::Debug::Assert(firstTable->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Width() == 69.2, u"Cell width is not correct.");

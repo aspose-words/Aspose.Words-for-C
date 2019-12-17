@@ -11,10 +11,10 @@ void DetectDocumentSignatures()
     std::cout << "DetectDocumentSignatures example started." << std::endl;
     // ExStart:DetectDocumentSignatures
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
 
     // The path to the document which is to be processed.
-    System::String filePath = dataDir + u"Document.Signed.docx";
+    System::String filePath = inputDataDir + u"Document.Signed.docx";
 
     System::SharedPtr<FileFormatInfo> info = FileFormatUtil::DetectFileFormat(filePath);
     if (info->get_HasDigitalSignature())

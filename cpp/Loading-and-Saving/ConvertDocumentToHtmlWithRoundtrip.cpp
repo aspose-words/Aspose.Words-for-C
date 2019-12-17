@@ -11,11 +11,12 @@ void ConvertDocumentToHtmlWithRoundtrip()
 {
     std::cout << "ConvertDocumentToHtmlWithRoundtrip example started." << std::endl;
     // ExStart:ConvertDocumentToHtmlWithRoundtrip
-    // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
+    // The path to the documents directories.
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
 
     // Load the document from disk.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Test File (doc).doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Test File (doc).doc");
 
     System::SharedPtr<HtmlSaveOptions> options = System::MakeObject<HtmlSaveOptions>();
     // HtmlSaveOptions.ExportRoundtripInformation property specifies
@@ -23,7 +24,7 @@ void ConvertDocumentToHtmlWithRoundtrip()
     // Default value is true for HTML and false for MHTML and EPUB.
     options->set_ExportRoundtripInformation(true);
 
-    doc->Save(dataDir + GetOutputFilePath(u"ConvertDocumentToHtmlWithRoundtrip.html"), options);
+    doc->Save(outputDataDir + u"ConvertDocumentToHtmlWithRoundtrip.html", options);
     // ExEnd:ConvertDocumentToHtmlWithRoundtrip
     std::cout << "Document converted to html with roundtrip informations successfully." << std::endl;
     std::cout << "ConvertDocumentToHtmlWithRoundtrip example finished." << std::endl << std::endl;

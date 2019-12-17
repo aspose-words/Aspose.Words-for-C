@@ -57,7 +57,7 @@ namespace
         std::vector<TCellPtr> columnCells;
         for (System::SharedPtr<Row> row : System::IterateOver<System::SharedPtr<Row>>(mTable->get_Rows()))
         {
-            auto cell = row->get_Cells()->idx_get(mColumnIndex);
+            TCellPtr cell = row->get_Cells()->idx_get(mColumnIndex);
             if (cell != nullptr)
             {
                 columnCells.push_back(cell);
@@ -86,7 +86,7 @@ namespace
             cell->get_ParentRow()->InsertBefore((System::StaticCast<Node>(cell))->Clone(false), cell);
         }
         // This is the new column.
-        auto column = System::MakeObject<Column>(columnCells[0]->get_ParentRow()->get_ParentTable(), mColumnIndex);
+        System::SharedPtr<Column> column = System::MakeObject<Column>(columnCells[0]->get_ParentRow()->get_ParentTable(), mColumnIndex);
         // We want to make sure that the cells are all valid to work with (have at least one paragraph).
         columnCells = column->GetColumnCells();
         for (System::SharedPtr<Cell> cell : columnCells)
@@ -108,7 +108,7 @@ namespace
 
     System::String Column::ToTxt()
     {
-        auto builder = System::MakeObject<System::Text::StringBuilder>();
+        System::SharedPtr<System::Text::StringBuilder> builder = System::MakeObject<System::Text::StringBuilder>();
         for (System::SharedPtr<Cell> cell : GetColumnCells())
         {
             builder->Append(cell->ToString(SaveFormat::Text));
@@ -127,9 +127,9 @@ namespace
     {
         // ExStart:RemoveColumn
         // Get the second table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
         // Get the third column from the table and remove it.
-        auto column = System::MakeObject<Column>(table, 2);
+        System::SharedPtr<Column> column = System::MakeObject<Column>(table, 2);
         column->Remove();
         // ExEnd:RemoveColumn
         std::cout << "Third column removed successfully." << std::endl;
@@ -139,16 +139,16 @@ namespace
     {
         // ExStart:InsertBlankColumn
         // Get the first table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        System::SharedPtr<Table> table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Get the second column in the table.
-        auto column = System::MakeObject<Column>(table, 0);
+        System::SharedPtr<Column> column = System::MakeObject<Column>(table, 0);
         // Print the plain text of the column to the screen.
         std::cout << column->ToTxt().ToUtf8String() << std::endl;
         // Create a new column to the left of this column.
         // This is the same as using the "Insert Column Before" command in Microsoft Word.
-        auto newColumn = column->InsertColumnBefore();
+        System::SharedPtr<Column> newColumn = column->InsertColumnBefore();
         // Add some text to each of the column cells.
-        auto columnCells = newColumn->GetColumnCells();
+        std::vector<TCellPtr> columnCells = newColumn->GetColumnCells();
         for (System::SharedPtr<Cell> cell : newColumn->GetColumnCells())
         {
             cell->get_FirstParagraph()->AppendChild(System::MakeObject<Run>(doc, System::String(u"Column Text ") + newColumn->IndexOf(cell)));
@@ -162,8 +162,8 @@ void AddRemoveColumn()
 {
     std::cout << "AddRemoveColumn example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_WorkingWithTables() + u"Table.Document.doc";
-    auto doc = System::MakeObject<Document>(dataDir);
+    System::String inputFilePath = GetInputDataDir_WorkingWithTables() + u"Table.Document.doc";
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputFilePath);
     InsertBlankColumn(doc);
     RemoveColumn(doc);
     std::cout << "AddRemoveColumn example finished." << std::endl << std::endl;
