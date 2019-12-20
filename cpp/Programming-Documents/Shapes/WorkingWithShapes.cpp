@@ -142,28 +142,28 @@ namespace
         // ExEnd:GetActualShapeBoundsPoints
     }
 
-	void DocumentBuilderHorizontalRuleFormat(System::String const &outputDataDir)
-	{
-		std::cout << "DocumentBuilderHorizontalRuleFormat example started." << std::endl;
-		
-		// ExStart:DocumentBuilderInsertHorizontalRule
-		// Initialize document.
-		System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>();
+    void DocumentBuilderHorizontalRuleFormat(System::String const &outputDataDir)
+    {
+        std::cout << "DocumentBuilderHorizontalRuleFormat example started." << std::endl;
 
-		System::SharedPtr<Shape> shape = builder->InsertHorizontalRule();
-		System::SharedPtr<HorizontalRuleFormat> horizontalRuleFormat = shape->get_HorizontalRuleFormat();
+        // ExStart:DocumentBuilderInsertHorizontalRule
+        // Initialize document.
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>();
 
-		horizontalRuleFormat->set_Alignment(HorizontalRuleAlignment::Center);
-		horizontalRuleFormat->set_WidthPercent(70);
-		horizontalRuleFormat->set_Height(3);
-		horizontalRuleFormat->set_Color(System::Drawing::Color::get_Blue());
-		horizontalRuleFormat->set_NoShade(true);
+        System::SharedPtr<Shape> shape = builder->InsertHorizontalRule();
+        System::SharedPtr<HorizontalRuleFormat> horizontalRuleFormat = shape->get_HorizontalRuleFormat();
 
-		builder->get_Document()->Save(outputDataDir + u"HorizontalRuleFormat.docx");
+        horizontalRuleFormat->set_Alignment(HorizontalRuleAlignment::Center);
+        horizontalRuleFormat->set_WidthPercent(70);
+        horizontalRuleFormat->set_Height(3);
+        horizontalRuleFormat->set_Color(System::Drawing::Color::get_Blue());
+        horizontalRuleFormat->set_NoShade(true);
 
-		// ExEnd:DocumentBuilderInsertHorizontalRule
-		std::cout << "DocumentBuilderHorizontalRuleFormat example finished." << std::endl << std::endl;
-	}
+        builder->get_Document()->Save(outputDataDir + u"HorizontalRuleFormat.docx");
+
+        // ExEnd:DocumentBuilderInsertHorizontalRule
+        std::cout << "DocumentBuilderHorizontalRuleFormat example finished." << std::endl << std::endl;
+    }
 }
 
 void WorkingWithShapes()
@@ -177,9 +177,8 @@ void WorkingWithShapes()
     InsertShapeUsingDocumentBuilder(outputDataDir);
     AddCornersSnipped(outputDataDir);
     GetActualShapeBoundsPoints(inputDataDir);
-	DocumentBuilderHorizontalRuleFormat(outputDataDir);
-    // doesn't work properly because documents are absent
-    //SpecifyVerticalAnchor(dataDir);
-    //DetectSmartArtShape(dataDir);
+    DocumentBuilderHorizontalRuleFormat(outputDataDir);
+    //SpecifyVerticalAnchor(dataDir); // Source document is missing
+    //DetectSmartArtShape(dataDir); // Source document is missing
     std::cout << "WorkingWithShapes example finished." << std::endl << std::endl;
 }

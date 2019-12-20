@@ -4,5 +4,5 @@ Release/
 x64/
 packages/
 Data/**/*_out.*
-Data/**/*Out*
+Data/**/*_out
 Data.Output/

@@ -6,14 +6,18 @@
 #include <Aspose.Words.Cpp/Layout/Public/RevisionOptions.h>
 #include <Aspose.Words.Cpp/Layout/Public/ShowInBalloons.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Lists/ListLabel.h>
+#include <Aspose.Words.Cpp/Model/Lists/ListLevel.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionCollection.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionType.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionGroupCollection.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionGroup.h>
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Layout;
@@ -114,6 +118,31 @@ namespace
         }
         // ExEnd:GetRevisionGroupDetails
     }
+
+    void AccessRevisedVersion(System::String const &inputDataDir)
+    {
+        // ExStart:AccessRevisedVersion
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Test.docx");
+        doc->UpdateListLabels();
+
+        // Switch to the revised version of the document.
+        doc->set_RevisionsView(RevisionsView::Final);
+
+        for (System::SharedPtr<Revision> revision : System::IterateOver(doc->get_Revisions()))
+        {
+            if (revision->get_ParentNode()->get_NodeType() == NodeType::Paragraph)
+            {
+                System::SharedPtr<Paragraph> paragraph = System::DynamicCast<Paragraph>(revision->get_ParentNode());
+                if (paragraph->get_IsListItem())
+                {
+                    // Print revised version of LabelString and ListLevel.
+                    System::Console::WriteLine(paragraph->get_ListLabel()->get_LabelString());
+                    System::Console::WriteLine(paragraph->get_ListFormat()->get_ListLevel());
+                }
+            }
+        }
+        // ExEnd:AccessRevisedVersion
+    }
 }
 
 void WorkingWithRevisions()
@@ -128,5 +157,6 @@ void WorkingWithRevisions()
     SetShowCommentsInPDF(inputDataDir, outputDataDir);
     SetShowInBalloons(inputDataDir, outputDataDir);
     GetRevisionGroupDetails(inputDataDir);
+    AccessRevisedVersion(inputDataDir);
     std::cout << "WorkingWithRevisions example finished." << std::endl << std::endl;
 }

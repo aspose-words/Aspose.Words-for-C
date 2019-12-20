@@ -9,13 +9,13 @@ using namespace Aspose::Words::Saving;
 
 namespace
 {
-    /*void EncryptDocumentWithPassword(System::String const &dataDir)
+    /*void EncryptDocumentWithPassword(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         //ExStart:EncryptDocumentWithPassword
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
         System::SharedPtr<DocSaveOptions> docSaveOptions = System::MakeObject<DocSaveOptions>();
         docSaveOptions->set_Password(u"password");
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithDoc.EncryptDocumentWithPassword.doc");
+        System::String outputPath = outputDataDir + u"WorkingWithDoc.EncryptDocumentWithPassword.doc";
         doc->Save(outputPath, docSaveOptions);
         //ExEnd:EncryptDocumentWithPassword
         std::cout << "The password of document is set using RC4 encryption method. " << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -41,8 +41,8 @@ void WorkingWithDoc()
     System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
     System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
 
-    // TODO (std_string) : encryption doesn't work properly
-    /*EncryptDocumentWithPassword(dataDir);*/
+    //EncryptDocumentWithPassword(inputDataDir, outputDataDir); // Cryptography isn't supported
     AlwaysCompressMetafiles(inputDataDir, outputDataDir);
+    //SavePictureBullet(dataDir); // Source document is missing
     std::cout << "WorkingWithTxt example finished." << std::endl << std::endl;
 }

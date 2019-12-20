@@ -178,5 +178,5 @@ void CreateHeaderFooterUsingDocBuilder()
     doc->Save(outputPath);
     // ExEnd:CreateHeaderFooterUsingDocBuilder
     std::cout << "Header and footer created successfully using document builder." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    std::cout << "CreateHeaderFooterUsingDocBuilder example finished." << std::endl;
+    std::cout << "CreateHeaderFooterUsingDocBuilder example finished." << std::endl << std::endl;
 }

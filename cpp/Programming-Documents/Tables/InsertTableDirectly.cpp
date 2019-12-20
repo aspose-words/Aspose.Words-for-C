@@ -60,5 +60,4 @@ void InsertTableDirectly()
     // ExEnd:InsertTableDirectly
     std::cout << "Table using notes inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "InsertTableDirectly example finished." << std::endl << std::endl;
-
 }

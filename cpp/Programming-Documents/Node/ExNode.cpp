@@ -100,6 +100,7 @@ namespace
         }
         // ExEnd:IndexChildNodes
     }
+
     // ExStart:RecurseAllNodes
     void TraverseAllNodes(System::SharedPtr<CompositeNode> parentNode)
     {
