@@ -288,7 +288,7 @@ namespace
         // Find the row and cell indices for the start and end cell.
         System::Drawing::Point startCellPos(startCell->get_ParentRow()->IndexOf(startCell), parentTable->IndexOf(startCell->get_ParentRow()));
         System::Drawing::Point endCellPos(endCell->get_ParentRow()->IndexOf(endCell), parentTable->IndexOf(endCell->get_ParentRow()));
-        // Create the range of cells to be merged based off these indices. Inverse each index if the end cell if before the start cell. 
+        // Create the range of cells to be merged based off these indices. Inverse each index if the end cell if before the start cell.
         System::Drawing::Rectangle mergeRange(System::Math::Min(startCellPos.get_X(), endCellPos.get_X()),
                                               System::Math::Min(startCellPos.get_Y(), endCellPos.get_Y()),
                                               System::Math::Abs(endCellPos.get_X() - startCellPos.get_X()) + 1,
@@ -372,5 +372,7 @@ void MergedCells()
     MergeCellRange(inputDataDir, outputDataDir);
     // Show how to prints the horizontal and vertical merge of a cell.
     PrintHorizontalAndVerticalMerged(inputDataDir);
+    // This method converts cells which are horizontally merged by its width to the cell horizontally merged by flags
+    //ConvertToHorizontallyMergedCells(dataDir); // error in test
     std::cout << "MergedCells example finished." << std::endl << std::endl;
 }

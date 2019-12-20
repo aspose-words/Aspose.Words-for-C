@@ -39,16 +39,16 @@ namespace
     class DocumentPageSplitter;
     class PageNumberFinder;
     class SectionSplitter;
-	
+
 
     bool IsHeaderFooterType(TNodePtr node)
     {
         return node->get_NodeType() == NodeType::HeaderFooter || node->GetAncestor(NodeType::HeaderFooter) != nullptr;
     }
-	/// <summary>
-	/// Splits text of the specified run into two runs.
-	/// Inserts the new run just after the specified run.
-	/// </summary>
+    /// <summary>
+    /// Splits text of the specified run into two runs.
+    /// Inserts the new run just after the specified run.
+    /// </summary>
     System::SharedPtr<Run> SplitRun(System::SharedPtr<Run> run, int32_t position)
     {
         // TODO (std_string) : fix using of overloaded members defined in the base classes
@@ -100,70 +100,75 @@ namespace
     {
         return this->collector->get_Document();
     }
-	/// <summary>
-	/// Initializes a new instance of the <see cref="PageNumberFinder"/> class.
-	/// </summary>
-	/// <param name="collector">A collector instance which has layout model records for the document.</param>
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PageNumberFinder"/> class.
+    /// </summary>
+    /// <param name="collector">A collector instance which has layout model records for the document.</param>
     PageNumberFinder::PageNumberFinder(System::SharedPtr<LayoutCollector> collector)
     {
         this->collector = collector;
     }
-	/// <summary>
-	/// Retrieves 1-based index of a page that the node begins on.
-	/// </summary>
-	/// <param name="node">
-	/// The node.
-	/// </param>
-	/// <returns>
-	/// Page index.
-	/// </returns>
+
+    /// <summary>
+    /// Retrieves 1-based index of a page that the node begins on.
+    /// </summary>
+    /// <param name="node">
+    /// The node.
+    /// </param>
+    /// <returns>
+    /// Page index.
+    /// </returns>
     int32_t PageNumberFinder::GetPage(TNodePtr node)
     {
         std::unordered_map<TNodePtr, int32_t>::const_iterator iterator = nodeStartPageLookup.find(node);
         return iterator == nodeStartPageLookup.cend() ? this->collector->GetStartPageIndex(node) : iterator->second;
     }
-	/// <summary>
-	/// Retrieves 1-based index of a page that the node ends on.
-	/// </summary>
-	/// <param name="node">
-	/// The node.
-	/// </param>
-	/// <returns>
-	/// Page index.
-	/// </returns>
+
+    /// <summary>
+    /// Retrieves 1-based index of a page that the node ends on.
+    /// </summary>
+    /// <param name="node">
+    /// The node.
+    /// </param>
+    /// <returns>
+    /// Page index.
+    /// </returns>
     int32_t PageNumberFinder::GetPageEnd(TNodePtr node)
     {
         std::unordered_map<TNodePtr, int32_t>::const_iterator iterator = nodeEndPageLookup.find(node);
         return iterator == nodeEndPageLookup.cend() ? this->collector->GetEndPageIndex(node) : iterator->second;
     }
-	/// <summary>
-	/// Returns how many pages the specified node spans over. Returns 1 if the node is contained within one page.
-	/// </summary>
-	/// <param name="node">
-	/// The node.
-	/// </param>
-	/// <returns>
-	/// Page index.
-	/// </returns>
+
+    /// <summary>
+    /// Returns how many pages the specified node spans over. Returns 1 if the node is contained within one page.
+    /// </summary>
+    /// <param name="node">
+    /// The node.
+    /// </param>
+    /// <returns>
+    /// Page index.
+    /// </returns>
     int32_t PageNumberFinder::PageSpan(TNodePtr node)
     {
         return this->GetPageEnd(node) - this->GetPage(node) + 1;
     }
-	/// <summary>
-	/// Returns a list of nodes that are contained anywhere on the specified page or pages which match the specified node type.
-	/// </summary>
-	/// <param name="startPage">
-	/// The start Page.
-	/// </param>
-	/// <param name="endPage">
-	/// The end Page.
-	/// </param>
-	/// <param name="nodeType">
-	/// The node Type.
-	/// </param>
-	/// <returns>
-	/// The <see cref="IList"/>.
-	/// </returns>
+
+    /// <summary>
+    /// Returns a list of nodes that are contained anywhere on the specified page or pages which match the specified node type.
+    /// </summary>
+    /// <param name="startPage">
+    /// The start Page.
+    /// </param>
+    /// <param name="endPage">
+    /// The end Page.
+    /// </param>
+    /// <param name="nodeType">
+    /// The node Type.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IList"/>.
+    /// </returns>
     std::vector<TNodePtr> PageNumberFinder::RetrieveAllNodesOnPages(int32_t startPage, int32_t endPage, NodeType nodeType)
     {
         if (startPage < 1 || startPage > this->GetDocument()->get_PageCount())
@@ -201,10 +206,11 @@ namespace
 
         return pageNodes;
     }
-	/// <summary>
-	/// Splits nodes which appear over two or more pages into separate nodes so that they still appear in the same way
-	/// but no longer appear across a page.
-	/// </summary>
+
+    /// <summary>
+    /// Splits nodes which appear over two or more pages into separate nodes so that they still appear in the same way
+    /// but no longer appear across a page.
+    /// </summary>
     void PageNumberFinder::SplitNodesAcrossPages()
     {
         for (System::SharedPtr<Paragraph> paragraph : System::IterateOver<Paragraph>(this->GetDocument()->GetChildNodes(NodeType::Paragraph, true)))
@@ -643,11 +649,11 @@ namespace
                 int32_t pageNum = this->pageNumberFinder->GetPage(childNode);
                 if (pageNum == targetPageNum)
                 {
-					if (cloneNode->get_NodeType() == NodeType::Row)
-						(System::DynamicCast<Row>(cloneNode))->EnsureMinimum();
+                    if (cloneNode->get_NodeType() == NodeType::Row)
+                        (System::DynamicCast<Row>(cloneNode))->EnsureMinimum();
 
-					if (cloneNode->get_NodeType() == NodeType::Cell)
-						(System::DynamicCast<Cell>(cloneNode))->EnsureMinimum();
+                    if (cloneNode->get_NodeType() == NodeType::Cell)
+                        (System::DynamicCast<Cell>(cloneNode))->EnsureMinimum();
 
                     cloneNode->get_LastChild()->Remove();
                     cloneNode->AppendChild(childNode);
@@ -761,7 +767,7 @@ namespace
 
     void SplitAllDocumentsToPages(System::String const &inputDataDir, System::String const &outputDataDir)
     {
-		System::ArrayPtr<System::String> fileNames = System::IO::Directory::GetFiles(inputDataDir, u"*.doc", System::IO::SearchOption::TopDirectoryOnly);
+        System::ArrayPtr<System::String> fileNames = System::IO::Directory::GetFiles(inputDataDir, u"*.doc", System::IO::SearchOption::TopDirectoryOnly);
         for (System::String fileName : fileNames)
         {
             SplitDocumentToPages(fileName, outputDataDir);

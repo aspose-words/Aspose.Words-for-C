@@ -54,5 +54,5 @@ void AnchorComment()
     doc->Save(outputPath);
     // ExEnd:AnchorComment
     std::cout << "Comment anchored successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    std::cout << "AnchorComment example finished." << std::endl;
+    std::cout << "AnchorComment example finished." << std::endl << std::endl;
 }

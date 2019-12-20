@@ -7,30 +7,12 @@ int main()
 {
     std::cout << "Examples:" << std::endl << "=====================================================" << std::endl << std::endl;
 
-    // Uncomment the one you want to try out
-    // =====================================================
-    // =====================================================
-    // Quick Start
-    // =====================================================
-    // =====================================================
-    ApplyLicense();
-    ApplyLicenseFromFile();
-    ApplyLicenseFromStream();
-    // TODO(std_string) : Metered license isn't supported
-    //ApplyMeteredLicense();
-    AppendDocuments();
-    FindAndReplace();
-    HelloWorld();
-    UpdateFields();
-    WorkingWithNodes();
-
     // =====================================================
     // =====================================================
     // Loading and Saving
     // =====================================================
     // =====================================================
-    // TODO (std_string) : Cryptography isn't supported
-    //AccessAndVerifySignature();
+    //AccessAndVerifySignature(); // Cryptography isn't supported
     CheckFormat();
     ConvertDocumentToByte();
     ConvertDocumentToEPUB();
@@ -38,73 +20,59 @@ int main()
     ConvertDocumentToPCL();
     CreateDocument();
     DetectDocumentSignatures();
-    // TODO (std_string) : Cryptography isn't supported 
-    //DigitallySignedPdf();
-    // TODO (std_string) : Cryptography isn't supported
-    //DigitallySignedPdfUsingCertificateHolder();
+    //DigitallySignedPdf(); // Cryptography isn't supported
+    //DigitallySignedPdfUsingCertificateHolder(); // Cryptography isn't supported
     Doc2Pdf();
     ExportFontsAsBase64();
     ExportResourcesUsingHtmlSaveOptions();
-    // TODO (std_string) : System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
-    //ImageToPdf();
+    //ImageToPdf(); // System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
+    Load_Options(); // Cryptography isn't supported
     LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
     LoadAndSaveToDisk();
     LoadAndSaveToStream();
-    Load_Options();
     LoadTxt();
-    // TODO (std_string) : Cryptography isn't supported
-    //OpenEncryptedDocument();
+    //OpenEncryptedDocument(); // Cryptography isn't supported
     PageSplitter();
     SaveDocWithHtmlSaveOptions();
     SaveOptionsHtmlFixed();
     SpecifySaveOption();
     SplitIntoHtmlPages();
-    // TODO(std_string) : Cryptography isn't supported
-    WorkingWithDoc();
-    WorkingWithOoxml();
+    WorkingWithDoc(); // Cryptography isn't supported + Source document is missing
+    WorkingWithOoxml(); // Cryptography isn't supported
     WorkingWithRTF();
-    WorkingWithTxt();
-    // TODO Input file are missing
-	// WorkingWithVbaMacros();
+    WorkingWithTxt(); // Source document is missing
+    WorkingWithVbaMacros();
+
+    // =====================================================
+    // =====================================================
+    // Mail-Merge
+    // =====================================================
+    // =====================================================
+    //ApplyCustomLogicToEmptyRegions(); // isn't compiled due to using of DataSet
+    ExecuteArray();
+    //ExecuteWithRegionsDataTable(); // isn't compiled due to using of OleDbXXX & DataTable
+    HandleMailMergeSwitches();
+    //LINQtoXMLMailMerge(); // isn't compiled due to using of Linq2Xml
+    //MailMergeAlternatingRows(); // isn't compiled due to using of DataTable
+    MailMergeAndConditionalField();
+    MailMergeCleanUp();
+    MailMergeFormFields();
+    //MailMergeImageFromBlob(); // isn't compiled due to using of OleDbXXX & IDataReader
+    //MailMergeUsingMustacheSyntax.Run(); // isn't compiled due to using of DataSet
+    //MultipleDocsInMailMerge(); // isn't compiled due to using of OleDbXXX & DataTable
+    //NestedMailMerge(); // isn't compiled due to using of DataSet
+    NestedMailMergeCustom();
+    //ProduceMultipleDocuments(); // isn't compiled due to using of OleDbXXX & DataTable
+    //RemoveEmptyRegions(); // isn't compiled due to using of DataSet
+    //RemoveRowsFromTable(); // isn't compiled due to using of DataSet
+    SimpleMailMerge();
+    //XMLMailMerge(); // isn't compiled due to using of DataSet
+
     // =====================================================
     // =====================================================
     // Programming with Documents
     // =====================================================
     // =====================================================
-
-    // Joining and Appending
-    // =====================================================
-    AppendDocumentManually();
-    // TODO(std_string) : The source document is missing
-    // AppendWithImportFormatOptions();
-    BaseDocument();
-    ConvertNumPageFields();
-    DifferentPageSetup();
-    JoinContinuous();
-    JoinNewPage();
-    KeepSourceFormatting();
-    KeepSourceTogether();
-    LinkHeadersFooters();
-    ListKeepSourceFormatting();
-    ListUseDestinationStyles();
-    PrependDocument();
-    RemoveSourceHeadersFooters();
-    RestartPageNumbering();
-    SimpleAppendDocument();
-    UnlinkHeadersFooters();
-    UpdatePageLayout();
-    UseDestinationStyles();
-
-    // Find and Replace
-    // =====================================================
-    FindAndHighlight();
-    FindReplaceUsingMetaCharacters();
-    ReplaceHtmlTextWithMetaCharacters();
-    ReplaceTextWithField();
-    ReplaceWithEvaluator();
-    ReplaceWithHTML();
-    ReplaceWithRegex();
-    ReplaceWithString();
 
     // Bookmarks
     // =====================================================
@@ -115,9 +83,18 @@ int main()
     CreateBookmark();
     UntangleRowBookmarks();
 
-    // Shapes
+    // Charts
     // =====================================================
-    WorkingWithShapes();
+    ChartNumberFormat();
+    CreateChartUsingShape();
+    CreateColumnChart();
+    InsertAreaChart();
+    InsertBubbleChart();
+    InsertScatterChart();
+    WorkingWithChartAxis();
+    WorkWithChartDataLabels();
+    WorkWithSingleChartDataPoint();
+    WorkWithSingleChartSeries();
 
     // Comments
     // =====================================================
@@ -142,12 +119,12 @@ int main()
     ComboBoxContentControl();
     CompareDocument();
     CreateHeaderFooterUsingDocBuilder();
-    // DocProperties();
+    DocProperties(); // exception at execution
     DocumentBuilderBuildTable();
+    DocumentBuilderHorizontalRule();
     DocumentBuilderInsertBookmark();
     DocumentBuilderInsertBreak();
     DocumentBuilderInsertElements();
-    DocumentBuilderInsertHorizontalRule();
     DocumentBuilderInsertImage();
     DocumentBuilderInsertParagraph();
     DocumentBuilderInsertTCField();
@@ -165,8 +142,7 @@ int main()
     ExtractContentUsingDocumentVisitor();
     ExtractContentUsingField();
     ExtractTextOnly();
-    // TODO (std_string) : Dependency from Aspose.BarCode 
-    //GenerateACustomBarCodeImage.Run();
+    //GenerateACustomBarCodeImage.Run(); // Depend from Aspose.BarCode
     GetFontLineSpacing();
     GetVariables();
     InsertDoc();
@@ -180,15 +156,18 @@ int main()
     SetCompatibilityOptions();
     Setuplanguagepreferences();
     SetViewOption();
-    // TODO (std_string) : Cryptography isn't supported
-    //SigningSignatureLine();
+    //SigningSignatureLine(); // Cryptography isn't supported
     UpdateContentControls();
-    // TODO(std_string) : The source document is missing 
-    //WorkingWithImportFormatOptions();
+    //WorkingWithImportFormatOptions(); // Source document is missing
     WorkingWithMarkdownFeatures();
     WorkingWithRevisions();
     WorkingWithSaveOptions();
+    WorkingWithWebExtension();
     WriteAndFont();
+
+    // EndNote and Footnote
+    // =====================================================
+    WorkingWithFootnote();
 
     // Fields
     // =====================================================
@@ -210,7 +189,7 @@ int main()
     InsertField();
     InsertFieldNone();
     InsertFormFields();
-    InsertIncludeTextFieldWithoutDocumentBuilder();
+    InsertIncludeFieldWithoutDocumentBuilder();
     InsertMailMergeAddressBlockFieldUsingDOM();
     InsertMergeFieldUsingDOM();
     InsertNestedFields();
@@ -221,6 +200,21 @@ int main()
     UpdateDocFields();
     UseOfficeMathProperties();
 
+    // Find and Replace
+    // =====================================================
+    FindAndHighlight();
+    FindReplaceUsingMetaCharacters();
+    ReplaceHtmlTextWithMetaCharacters();
+    ReplaceTextWithField();
+    ReplaceWithEvaluator();
+    ReplaceWithHTML();
+    ReplaceWithRegex();
+    ReplaceWithString();
+
+    // Hyperlink
+    // =====================================================
+    ReplaceHyperlinks();
+
     // Images
     // =====================================================
     AddImageToEachPage();
@@ -230,36 +224,63 @@ int main()
     InsertBarcodeImage();
     RemoveWatermark();
 
-    // Ranges
+    // Joining and Appending
     // =====================================================
-    RangesDeleteText();
-    RangesGetText();
+    AppendDocumentManually();
+    // AppendWithImportFormatOptions(); // Source document is missing
+    BaseDocument();
+    ConvertNumPageFields();
+    DifferentPageSetup();
+    JoinContinuous();
+    JoinNewPage();
+    KeepSourceFormatting();
+    KeepSourceTogether();
+    LinkHeadersFooters();
+    ListKeepSourceFormatting();
+    ListUseDestinationStyles();
+    PrependDocument();
+    RemoveSourceHeadersFooters();
+    RestartPageNumbering();
+    SimpleAppendDocument();
+    UnlinkHeadersFooters();
+    UpdatePageLayout();
+    UseDestinationStyles();
 
-    // Charts
+    // Linked TextBoxes
     // =====================================================
-    ChartNumberFormat();
-    CreateChartUsingShape();
-    CreateColumnChart();
-    InsertAreaChart();
-    InsertBubbleChart();
-    InsertScatterChart();
-    WorkingWithChartAxis();
-    WorkWithChartDataLabel();
-    WorkWithSingleChartDataPoint();
-    WorkWithSingleChartSeries();
+    WorkingWithLinkedTextboxes();
 
-    // Theme
+    // List
     // =====================================================
-    ManipulateThemeProperties();
+    WorkingWithList();
 
     // Node
     // =====================================================
     ExNode();
 
-    // Hyperlink
+    // Ranges
     // =====================================================
-    ReplaceHyperlinks();
+    RangesDeleteText();
+    RangesGetText();
 
+    // Sections
+    // =====================================================
+    AddDeleteSection();
+    AppendSectionContent();
+    CloneSection();
+    CopySection();
+    DeleteHeaderFooterContent();
+    DeleteSectionContent();
+    //ModifyPageSetupInAllSectionsOfDocument(); // Source document is missing
+    SectionsAccessByIndex();
+
+    // Shapes
+    // =====================================================
+    WorkingWithShapes(); // Source document is missing
+
+    // StructuredDocumentTag 
+    // =====================================================
+    WorkingWithSDT();
 
     // Styles
     // =====================================================
@@ -277,8 +298,7 @@ int main()
     AutoFitTableToContents();
     AutoFitTableToFixedColumnWidths();
     AutoFitTableToWindow();
-    // TODO(std_string) : isn't compiled due to using of DataTable
-    //BuildTableFromDataTable();
+    //BuildTableFromDataTable(); // isn't compiled due to using of DataTable
     CloneTable();
     ExtractOrReplaceText();
     FindingIndex();
@@ -287,75 +307,29 @@ int main()
     InsertTableUsingDocumentBuilder();
     JoiningAndSplittingTable();
     KeepTablesAndRowsBreaking();
-    MergedCells();
+    MergedCells(); // error in test
     RepeatRowsOnSubsequentPages();
     SpecifyHeightAndWidth();
     TablePosition();
 
-    // Sections
+    // Theme
     // =====================================================
-    AddDeleteSection();
-    AppendSectionContent();
-    CloneSection();
-    CopySection();
-    DeleteHeaderFooterContent();
-    DeleteSectionContent();
-    // TODO(std_string) : The source document is missing
-    //ModifyPageSetupInAllSectionsOfDocument();
-    SectionsAccessByIndex();
-
-    // StructuredDocumentTag 
-    // =====================================================
-    WorkingWithSDT();
-
-    // EndNote and Footnote
-    // =====================================================
-    WorkingWithFootnote();
-
-    // List
-    // =====================================================
-    WorkingWithList();
-
-    // Linked TextBoxes
-    // =====================================================
-    WorkingWithLinkedTextboxes();
+    ManipulateThemeProperties();
 
     // =====================================================
     // =====================================================
-    // Mail-Merge
+    // Quick Start
     // =====================================================
     // =====================================================
-    // TODO(std_string) : isn't compiled due to using of DataSet
-    //ApplyCustomLogicToEmptyRegions();
-    ExecuteArray();
-    // TODO(std_string) : isn't compiled due to using of OleDbXXX & DataTable
-    //ExecuteWithRegionsDataTable();
-    HandleMailMergeSwitches();
-    // TODO(std_string) : isn't compiled due to using of Linq2Xml
-    //LINQtoXMLMailMerge();
-    // TODO(std_string) : isn't compiled due to using of DataTable
-    //MailMergeAlternatingRows();
-    MailMergeAndConditionalField();
-    MailMergeCleanUp();
-    MailMergeFormFields();
-    // TODO(std_string) : isn't compiled due to using of OleDbXXX & IDataReader
-    //MailMergeImageFromBlob();
-    // TODO(std_string) : isn't compiled due to using of DataSet
-    //MailMergeUsingMustacheSyntax.Run();
-    // TODO(std_string) : isn't compiled due to using of OleDbXXX & DataTable
-    //MultipleDocsInMailMerge();
-    // TODO(std_string) : isn't compiled due to using of DataSet
-    //NestedMailMerge();
-    NestedMailMergeCustom();
-    // TODO(std_string) : OleDbXXX & DataTable
-    //ProduceMultipleDocuments();
-    // TODO(std_string) : isn't compiled due to using of DataSet
-    //RemoveEmptyRegions();
-    // TODO(std_string) : isn't compiled due to using of DataSet
-    //RemoveRowsFromTable();
-    SimpleMailMerge();
-    // TODO(std_string) : isn't compiled due to using of DataSet
-    //XMLMailMerge();
+    AppendDocuments();
+    ApplyLicense();
+    ApplyLicenseFromFile();
+    ApplyLicenseFromStream();
+    //ApplyMeteredLicense(); // Metered license isn't supported
+    FindAndReplace();
+    HelloWorld();
+    UpdateFields();
+    WorkingWithNodes();
 
     // =====================================================
     // =====================================================
@@ -367,28 +341,22 @@ int main()
     EmbeddingWindowsStandardFonts();
     EnumerateLayoutElements();
     HyphenateWordsOfLanguages();
-    // TODO (std_string) : saving into images don't work properly
-    //ImageColorFilters();
+    ImageColorFilters(); // saving into images don't work properly
     LoadHyphenationDictionaryForLanguage();
-    // TODO (std_string) : doesn't work due to using of GUI
-    //PrintProgressDialog();
-    // TODO (std_string) : doesn't work due to using of GUI
-    //Print_CachePrinterSettings;
-    // TODO (std_string) : doesn't work due to using of OleControl
-    //ReadActiveXControlProperties();
+    //PrintProgressDialog(); // using of GUI
+    //Print_CachePrinterSettings; // using of GUI
+    //ReadActiveXControlProperties(); // doesn't work due to using of OleControl
     ReceiveNotificationsOfFont();
     RenderShape();
     ResourceSteamFontSource();
-    // TODO (std_string) : saving into images don't work properly
-    //SaveAsMultipageTiff();
+    //SaveAsMultipageTiff(); // saving into images don't work properly
     SetFontSettings();
     SetFontsFoldersMultipleFolders();
     SetFontsFoldersSystemAndCustomFolder();
     SetHorizontalAndVerticalImageResolution();
     SetTrueTypeFontsFolder();
     SpecifyDefaultFontWhenRendering();
-    // TODO (std_string) : The source document is missing
-    //WorkingWithFontResolution();
+    //WorkingWithFontResolution(); // Source document is missing
     WorkingWithFontSources();
     WorkingWithPdfSaveOptions();
 

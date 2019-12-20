@@ -75,11 +75,12 @@ void ImageToPdf()
 {
     std::cout << "ImageToPdf example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_LoadingAndSaving();
-    ConvertImageToPdf(dataDir + u"Test.jpg", dataDir + GetOutputFilePath(u"ImageToPdf_Jpg.pdf"));
-    ConvertImageToPdf(dataDir + u"Test.png", dataDir + GetOutputFilePath(u"ImageToPdf_Png.pdf"));
-    ConvertImageToPdf(dataDir + u"Test.wmf", dataDir + GetOutputFilePath(u"ImageToPdf_Wmf.pdf"));
-    ConvertImageToPdf(dataDir + u"Test.tiff", dataDir +GetOutputFilePath(u"ImageToPdf_Tiff.pdf"));
-    ConvertImageToPdf(dataDir + u"Test.gif", dataDir + GetOutputFilePath(u"ImageToPdf_Gif.pdf"));
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
+    ConvertImageToPdf(inputDataDir + u"Test.jpg", outputDataDir + u"ImageToPdf_Jpg.pdf");
+    ConvertImageToPdf(inputDataDir + u"Test.png", outputDataDir + u"ImageToPdf_Png.pdf");
+    ConvertImageToPdf(inputDataDir + u"Test.wmf", outputDataDir + u"ImageToPdf_Wmf.pdf");
+    ConvertImageToPdf(inputDataDir + u"Test.tiff", outputDataDir + u"ImageToPdf_Tiff.pdf");
+    ConvertImageToPdf(inputDataDir + u"Test.gif", outputDataDir + u"ImageToPdf_Gif.pdf");
     std::cout << "ImageToPdf example finished." << std::endl << std::endl;
 }*/

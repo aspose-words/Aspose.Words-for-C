@@ -14,10 +14,10 @@ void CheckFormat()
     // The path to the documents directory.
     System::String dataDir = GetInputDataDir_LoadingAndSaving();
     
-    System::String supportedDir = dataDir + u"OutSupported";
-    System::String unknownDir = dataDir + u"OutUnknown";
-    System::String encryptedDir = dataDir + u"OutEncrypted";
-    System::String pre97Dir = dataDir + u"OutPre97";
+    System::String supportedDir = dataDir + u"Supported_out";
+    System::String unknownDir = dataDir + u"Unknown_out";
+    System::String encryptedDir = dataDir + u"Encrypted_out";
+    System::String pre97Dir = dataDir + u"Pre97_out";
 
     // Create the directories if they do not already exist
     if (!System::IO::Directory::Exists(supportedDir))
