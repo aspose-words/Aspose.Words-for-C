@@ -2,6 +2,7 @@
 #include "examples.h"
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Markup/Sdt/SdtType.h>
 #include <Aspose.Words.Cpp/Model/Markup/Sdt/StructuredDocumentTag.h>
 #include <Aspose.Words.Cpp/Model/Markup/Sdt/XmlMapping.h>
@@ -13,9 +14,12 @@
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
+#include <Aspose.Words.Cpp/Model/Tables/Row.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Markup;
+using namespace Aspose::Words::Tables;
 
 namespace
 {
@@ -82,6 +86,51 @@ namespace
         // ExEnd:SetContentControlStyle
         std::cout << "Set the style of content control successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void CreatingTableRepeatingSectionMappedToCustomXmlPart(System::String const &outputDataDir)
+    {
+        // ExStart:CreatingTableRepeatingSectionMappedToCustomXmlPart
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+
+        System::String xml = System::String(u"<books><book><title>Everyday Italian</title><author>Giada De Laurentiis</author></book>") +
+                             u"<book><title>Harry Potter</title><author>J K. Rowling</author></book>" +
+                             u"<book><title>Learning XML</title><author>Erik T. Ray</author></book></books>";
+        System::SharedPtr<CustomXmlPart> xmlPart = doc->get_CustomXmlParts()->Add(u"Books", xml);
+
+        System::SharedPtr<Table> table = builder->StartTable();
+
+        builder->InsertCell();
+        builder->Write(u"Title");
+
+        builder->InsertCell();
+        builder->Write(u"Author");
+
+        builder->EndRow();
+        builder->EndTable();
+
+        System::SharedPtr<StructuredDocumentTag> repeatingSectionSdt = System::MakeObject<StructuredDocumentTag>(doc, Aspose::Words::Markup::SdtType::RepeatingSection, Aspose::Words::Markup::MarkupLevel::Row);
+        repeatingSectionSdt->get_XmlMapping()->SetMapping(xmlPart, u"/books[1]/book", u"");
+        table->AppendChild(repeatingSectionSdt);
+
+        System::SharedPtr<StructuredDocumentTag> repeatingSectionItemSdt = System::MakeObject<StructuredDocumentTag>(doc, Aspose::Words::Markup::SdtType::RepeatingSectionItem, Aspose::Words::Markup::MarkupLevel::Row);
+        repeatingSectionSdt->AppendChild(repeatingSectionItemSdt);
+
+        System::SharedPtr<Row> row = System::MakeObject<Row>(doc);
+        repeatingSectionItemSdt->AppendChild(row);
+
+        System::SharedPtr<StructuredDocumentTag> titleSdt = System::MakeObject<StructuredDocumentTag>(doc, Aspose::Words::Markup::SdtType::PlainText, Aspose::Words::Markup::MarkupLevel::Cell);
+        titleSdt->get_XmlMapping()->SetMapping(xmlPart, u"/books[1]/book[1]/title[1]", u"");
+        row->AppendChild(titleSdt);
+
+        System::SharedPtr<StructuredDocumentTag> authorSdt = System::MakeObject<StructuredDocumentTag>(doc, Aspose::Words::Markup::SdtType::PlainText, Aspose::Words::Markup::MarkupLevel::Cell);
+        authorSdt->get_XmlMapping()->SetMapping(xmlPart, u"/books[1]/book[1]/author[1]", u"");
+        row->AppendChild(authorSdt);
+
+        doc->Save(outputDataDir + u"WorkingWithSDT.CreatingTableRepeatingSectionMappedToCustomXmlPart.docx");
+        // ExEnd:CreatingTableRepeatingSectionMappedToCustomXmlPart
+        System::Console::WriteLine(u"\nCreation of a Table Repeating Section Mapped To a Custom Xml Part is successfull.");
+    }
 }
 
 void WorkingWithSDT()
@@ -94,5 +143,6 @@ void WorkingWithSDT()
     ClearContentsControl(inputDataDir, outputDataDir);
     SetContentControlColor(inputDataDir, outputDataDir);
     SetContentControlStyle(inputDataDir, outputDataDir);
+    CreatingTableRepeatingSectionMappedToCustomXmlPart(outputDataDir);
     std::cout << "WorkingWithSDT example finished." << std::endl << std::endl;
 }

@@ -13,9 +13,9 @@
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;
 
-void InsertIncludeTextFieldWithoutDocumentBuilder()
+void InsertIncludeFieldWithoutDocumentBuilder()
 {
-    std::cout << "InsertIncludeTextFieldWithoutDocumentBuilder example started." << std::endl;
+    std::cout << "InsertIncludeFieldWithoutDocumentBuilder example started." << std::endl;
     // ExStart:InsertIncludeTextFieldWithoutDocumentBuilder
     // The path to the documents directories.
     System::String inputDataDir = GetInputDataDir_WorkingWithFields();
@@ -42,5 +42,5 @@ void InsertIncludeTextFieldWithoutDocumentBuilder()
 
     // ExEnd:InsertIncludeTextFieldWithoutDocumentBuilder
     std::cout << "IncludeText field without using document builder inserted successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    std::cout << "InsertIncludeTextFieldWithoutDocumentBuilder example finished." << std::endl << std::endl;
+    std::cout << "InsertIncludeFieldWithoutDocumentBuilder example finished." << std::endl << std::endl;
 }

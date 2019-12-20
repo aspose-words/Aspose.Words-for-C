@@ -38,7 +38,7 @@ namespace
         std::cout << "Update the fields with the dirty attribute successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void LoadAndSaveEncryptedODT(System::String const &inputDataDir, System::String const &outputDataDir)
+    /*void LoadAndSaveEncryptedODT(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:LoadAndSaveEncryptedODT  
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"encrypted.odt", System::MakeObject<LoadOptions>(u"password"));
@@ -47,7 +47,7 @@ namespace
         doc->Save(outputPath, System::MakeObject<OdtSaveOptions>(u"newpassword"));
         // ExEnd:LoadAndSaveEncryptedODT 
         std::cout << "Load and save encrypted document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }
+    }*/
 
     void VerifyODTdocument(System::String const &inputDataDir)
     {
@@ -102,8 +102,7 @@ void Load_Options()
     System::String inputDataDir = GetInputDataDir_QuickStart();
     System::String outputDataDir = GetOutputDataDir_QuickStart();
     LoadOptionsUpdateDirtyFields(inputDataDir, outputDataDir);
-    // TODO (std_string): doesn't work properly, but raises FileCorruptedException instead of NotSupportedException / NotImplemented Exception
-    //LoadAndSaveEncryptedODT(inputDataDir, outputDataDir);
+    //LoadAndSaveEncryptedODT(inputDataDir, outputDataDir); // doesn't work properly
     VerifyODTdocument(inputDataDir);
     ConvertShapeToOfficeMath(inputDataDir, outputDataDir);
     AnnotationsAtBlockLevel(inputDataDir, outputDataDir);

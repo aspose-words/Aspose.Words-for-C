@@ -13,14 +13,15 @@ void SaveAsMultipageTiff()
     std::cout << "SaveAsMultipageTiff example started." << std::endl;
     // ExStart:SaveAsMultipageTiff
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
 
     // Open the document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile Multipage TIFF.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile Multipage TIFF.doc");
 
     // ExStart:SaveAsTIFF
     // Save the document as multipage TIFF.
-    doc->Save(dataDir + GetOutputFilePath(u"SaveAsMultipageTiff.WithoutOptions.tiff"));
+    doc->Save(outputDataDir + u"SaveAsMultipageTiff.WithoutOptions.tiff");
     // ExEnd:SaveAsTIFF
     // ExStart:SaveAsTIFFUsingImageSaveOptions
     // Create an ImageSaveOptions object to pass to the Save method
@@ -29,7 +30,7 @@ void SaveAsMultipageTiff()
     options->set_PageCount(2);
     options->set_TiffCompression(TiffCompression::Ccitt4);
     options->set_Resolution(160.0f);
-    System::String outputPath = dataDir + GetOutputFilePath(u"SaveAsMultipageTiff.WithOptions.tiff");
+    System::String outputPath = outputDataDir + u"SaveAsMultipageTiff.WithOptions.tiff";
     doc->Save(outputPath, options);
     // ExEnd:SaveAsTIFFUsingImageSaveOptions
     // ExEnd:SaveAsMultipageTiff

@@ -89,11 +89,11 @@ namespace
         std::cout << "Export text files with TxtExportHeadersFootersMode." << std::endl << "Files saved at " << outputDataDir.ToUtf8String() << std::endl;
     }
 
-    void UseTabCharacterPerLevelForListIndentation(System::String const &inputDataDir, System::String const &outputDataDir)
+    /*void UseTabCharacterPerLevelForListIndentation(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         //ExStart:UseTabCharacterPerLevelForListIndentation
         // TODO (std_string) : think about document named input_document
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Input.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"input_document");
 
         System::SharedPtr<TxtSaveOptions> options = System::MakeObject<TxtSaveOptions>();
         options->get_ListIndentation()->set_Count(1);
@@ -107,7 +107,7 @@ namespace
     {
         //ExStart:UseSpaceCharacterPerLevelForListIndentation
         // TODO (std_string) : think about document named input_document
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Input.docx");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"input_document");
 
         System::SharedPtr<TxtSaveOptions> options = System::MakeObject<TxtSaveOptions>();
         options->get_ListIndentation()->set_Count(3);
@@ -121,7 +121,7 @@ namespace
     {
         //ExStart:DefaultLevelForListIndentation
         // TODO (std_string) : think about document named input_document
-        System::SharedPtr<Document> doc1 = System::MakeObject<Document>(inputDataDir + u"Input.docx");
+        System::SharedPtr<Document> doc1 = System::MakeObject<Document>(inputDataDir + u"input_document");
         doc1->Save(outputDataDir + u"WorkingWithTxt.DefaultLevelForListIndentation1.txt");
 
         //Document doc2 = new Document("input_document");
@@ -129,8 +129,7 @@ namespace
         System::SharedPtr<TxtSaveOptions> options = System::MakeObject<TxtSaveOptions>();
         doc2->Save(outputDataDir + u"WorkingWithTxt.DefaultLevelForListIndentation2.txt", options);
         //ExEnd:DefaultLevelForListIndentation
-    }
-
+    }*/
 }
 
 void WorkingWithTxt()
@@ -144,9 +143,10 @@ void WorkingWithTxt()
     AddBidiMarks(inputDataDir, outputDataDir);
     DetectNumberingWithWhitespaces(inputDataDir, outputDataDir);
     HandleSpacesOptions(inputDataDir, outputDataDir);
+    //DocumentTextDirection(dataDir); // Source document is missing
     ExportHeadersFootersMode(inputDataDir, outputDataDir);
-    UseTabCharacterPerLevelForListIndentation(inputDataDir, outputDataDir);
-    UseSpaceCharacterPerLevelForListIndentation(inputDataDir, outputDataDir);
-    DefaultLevelForListIndentation(inputDataDir, outputDataDir);
+    //UseTabCharacterPerLevelForListIndentation(inputDataDir, outputDataDir); // Source document is missing
+    //UseSpaceCharacterPerLevelForListIndentation(inputDataDir, outputDataDir); // Source document is missing
+    //DefaultLevelForListIndentation(inputDataDir, outputDataDir); // Source document is missing
     std::cout << "WorkingWithTxt example finished." << std::endl << std::endl;
 }

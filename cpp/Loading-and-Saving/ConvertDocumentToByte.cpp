@@ -19,7 +19,7 @@ void ConvertDocumentToByte()
     // Create a new memory stream.
     System::SharedPtr<System::IO::MemoryStream> outStream = System::MakeObject<System::IO::MemoryStream>();
     // Save the document to stream.
-    doc->Save(outStream, SaveFormat::Doc);
+    doc->Save(outStream, SaveFormat::Docx);
 
     // Convert the document to byte form.
     System::ArrayPtr<uint8_t> docBytes = outStream->ToArray();

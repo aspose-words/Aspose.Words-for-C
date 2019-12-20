@@ -48,5 +48,4 @@ void RepeatRowsOnSubsequentPages()
     // ExEnd:RepeatRowsOnSubsequentPages
     std::cout << "Table build successfully which include heading rows that repeat on subsequent pages." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "RepeatRowsOnSubsequentPages example finished." << std::endl << std::endl;
-
 }

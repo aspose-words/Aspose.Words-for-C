@@ -8,12 +8,12 @@
 #include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
 
-/*using namespace Aspose::Words;
+using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;
 
 namespace
 {
-    void SaveColorTIFFwithLZW(System::SharedPtr<Document> doc, System::String const &dataDir, float brightness, float contrast)
+    /*void SaveColorTIFFwithLZW(System::SharedPtr<Document> doc, System::String const &outputDataDir, float brightness, float contrast)
     {
         // Select the TIFF format with 100 dpi.
         System::SharedPtr<ImageSaveOptions> imgOpttiff = System::MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -27,13 +27,13 @@ namespace
         imgOpttiff->set_ImageContrast(contrast);
 
         // Save multipage color TIFF.
-        System::String outputPath = dataDir + GetOutputFilePath(u"ImageColorFilters.SaveColorTIFFwithLZW.tiff");
+        System::String outputPath = outputDataDir + u"ImageColorFilters.SaveColorTIFFwithLZW.tiff";
         doc->Save(outputPath, imgOpttiff);
 
         std::cout << "Document converted to TIFF successfully with Colors." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }
+    }*/
 
-    void SaveGrayscaleTIFFwithLZW(System::SharedPtr<Document> doc, System::String const &dataDir, float brightness, float contrast)
+    /*void SaveGrayscaleTIFFwithLZW(System::SharedPtr<Document> doc, System::String const &outputDataDir, float brightness, float contrast)
     {
         // Select the TIFF format with 100 dpi.
         System::SharedPtr<ImageSaveOptions> imgOpttiff = System::MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -50,13 +50,13 @@ namespace
         imgOpttiff->set_ImageContrast(contrast);
 
         // Save multipage grayscale TIFF.
-        System::String outputPath = dataDir + GetOutputFilePath(u"ImageColorFilters.SaveGrayscaleTIFFwithLZW.tiff");
+        System::String outputPath = outputDataDir + u"ImageColorFilters.SaveGrayscaleTIFFwithLZW.tiff";
         doc->Save(outputPath, imgOpttiff);
 
         std::cout << "Document converted to TIFF successfully with Gray scale." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }
+    }*/
 
-    void SaveBlackWhiteTIFFwithLZW(System::SharedPtr<Document> doc, System::String const &dataDir, bool highSensitivity)
+    /*void SaveBlackWhiteTIFFwithLZW(System::SharedPtr<Document> doc, System::String const &outputDataDir, bool highSensitivity)
     {
         // Select the TIFF format with 100 dpi.
         System::SharedPtr<ImageSaveOptions> imgOpttiff = System::MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -79,13 +79,13 @@ namespace
         }
 
         // Save multipage TIFF.
-        System::String outputPath = dataDir + GetOutputFilePath(u"ImageColorFilters.SaveBlackWhiteTIFFwithLZW.tiff");
+        System::String outputPath = outputDataDir + u"ImageColorFilters.SaveBlackWhiteTIFFwithLZW.tiff";
         doc->Save(outputPath, imgOpttiff);
 
         std::cout << "Document converted to TIFF successfully with black and white." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }
+    }*/
 
-    void SaveBlackWhiteTIFFwithCITT4(System::SharedPtr<Document> doc, System::String const &dataDir, bool highSensitivity)
+    /*void SaveBlackWhiteTIFFwithCITT4(System::SharedPtr<Document> doc, System::String const &outputDataDir, bool highSensitivity)
     {
         // Select the TIFF format with 100 dpi.
         System::SharedPtr<ImageSaveOptions> imgOpttiff = System::MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -110,13 +110,13 @@ namespace
         }
 
         // Save multipage TIFF.
-        System::String outputPath = dataDir + GetOutputFilePath(u"ImageColorFilters.SaveBlackWhiteTIFFwithCITT4.tiff");
+        System::String outputPath = outputDataDir + u"ImageColorFilters.SaveBlackWhiteTIFFwithCITT4.tiff";
         doc->Save(outputPath, imgOpttiff);
 
         std::cout << "Document converted to TIFF successfully with black and white and Ccitt4 compression." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }
+    }*/
 
-    void SaveBlackWhiteTIFFwithRLE(System::SharedPtr<Document> doc, System::String const &dataDir, bool highSensitivity)
+    /*void SaveBlackWhiteTIFFwithRLE(System::SharedPtr<Document> doc, System::String const &outputDataDir, bool highSensitivity)
     {
         // Select the TIFF format with 100 dpi.
         System::SharedPtr<ImageSaveOptions> imgOpttiff = System::MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -141,13 +141,13 @@ namespace
         }
 
         // Save multipage TIFF grayscale with low bright and contrast
-        System::String outputPath = dataDir + GetOutputFilePath(u"ImageColorFilters.SaveBlackWhiteTIFFwithRLE.tiff");
+        System::String outputPath = outputDataDir + u"ImageColorFilters.SaveBlackWhiteTIFFwithRLE.tiff";
         doc->Save(outputPath, imgOpttiff);
 
         std::cout << "Document converted to TIFF successfully with black and white and Rle compression." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }
+    }*/
 
-    void SaveImageToOnebitPerPixel(System::SharedPtr<Document> doc, System::String const &dataDir)
+    void SaveImageToOnebitPerPixel(System::SharedPtr<Document> doc, System::String const &outputDataDir)
     {
         // ExStart:SaveImageToOnebitPerPixel
         System::SharedPtr<ImageSaveOptions> opt = System::MakeObject<ImageSaveOptions>(SaveFormat::Png);
@@ -155,13 +155,13 @@ namespace
         opt->set_ImageColorMode(ImageColorMode::BlackAndWhite);
         opt->set_PixelFormat(ImagePixelFormat::Format1bppIndexed);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"ImageColorFilters.SaveImageToOnebitPerPixel.png");
+        System::String outputPath = outputDataDir + u"ImageColorFilters.SaveImageToOnebitPerPixel.png";
         doc->Save(outputPath, opt);
         // ExEnd:SaveImageToOnebitPerPixel
         std::cout << "Document converted to PNG successfully with 1 bit per pixel." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void ExposeThresholdControlForTiffBinarization(System::SharedPtr<Document> doc, System::String const &dataDir)
+    /*void ExposeThresholdControlForTiffBinarization(System::SharedPtr<Document> doc, System::String const &outputDataDir)
     {
         // ExStart:ExposeThresholdControlForTiffBinarization
         System::SharedPtr<ImageSaveOptions> options = System::MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -170,26 +170,27 @@ namespace
         options->set_TiffBinarizationMethod(ImageBinarizationMethod::FloydSteinbergDithering);
         options->set_ThresholdForFloydSteinbergDithering(254);
 
-        System::String outputPath = dataDir + GetOutputFilePath(u"ImageColorFilters.ExposeThresholdControlForTiffBinarization.tiff");
+        System::String outputPath = outputDataDir + u"ImageColorFilters.ExposeThresholdControlForTiffBinarization.tiff";
         doc->Save(outputPath, options);
         // ExEnd:ExposeThresholdControlForTiffBinarization
         std::cout << "Expose Threshold Control For Tiff Binarization." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }
+    }*/
 }
 
 void ImageColorFilters()
 {
     std::cout << "ImageColorFilters example started." << std::endl;
     // The path to the documents directory.
-    System::String dataDir = GetDataDir_RenderingAndPrinting();
+    System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
     // Open the document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"TestFile.Colors.docx");
-    SaveColorTIFFwithLZW(doc, dataDir, 0.8f, 0.8f);
-    SaveGrayscaleTIFFwithLZW(doc, dataDir, 0.8f, 0.8f);
-    SaveBlackWhiteTIFFwithLZW(doc, dataDir, true);
-    SaveBlackWhiteTIFFwithCITT4(doc, dataDir, true);
-    SaveBlackWhiteTIFFwithRLE(doc, dataDir, true);
-    SaveImageToOnebitPerPixel(doc, dataDir);
-    ExposeThresholdControlForTiffBinarization(doc, dataDir);
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.Colors.docx");
+    //SaveColorTIFFwithLZW(doc, outputDataDir, 0.8f, 0.8f); // exception at execution
+    //SaveGrayscaleTIFFwithLZW(doc, outputDataDir, 0.8f, 0.8f); // exception at execution
+    //SaveBlackWhiteTIFFwithLZW(doc, outputDataDir, true); // exception at execution
+    //SaveBlackWhiteTIFFwithCITT4(doc, outputDataDir, true); // exception at execution
+    //SaveBlackWhiteTIFFwithRLE(doc, outputDataDir, true); // exception at execution
+    SaveImageToOnebitPerPixel(doc, outputDataDir);
+    //ExposeThresholdControlForTiffBinarization(doc, outputDataDir); // exception at execution
     std::cout << "ImageColorFilters example finished." << std::endl << std::endl;
-}*/
+}

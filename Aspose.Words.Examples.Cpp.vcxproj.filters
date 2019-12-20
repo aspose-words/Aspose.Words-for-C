@@ -79,9 +79,6 @@
     <Filter Include="cpp\Programming-Documents\Linked-Textboxes">
       <UniqueIdentifier>{ed5ad1e2-df97-4efd-94f5-b4a8459f0821}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cpp\Programming-Documents\WebExtensions">
-      <UniqueIdentifier>{698dfa41-edc4-4a42-9757-0c99325a8245}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cpp\main.cpp">
@@ -546,9 +543,6 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertTOAFieldWithoutDocumentBuilder.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Programming-Documents\Fields\InsertIncludeTextFieldWithoutDocumentBuilder.cpp">
-      <Filter>cpp\Programming-Documents\Fields</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Fields\EvaluateIFCondition.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
@@ -667,9 +661,6 @@
     <ClCompile Include="cpp\Programming-Documents\Charts\InsertScatterChart.cpp">
       <Filter>cpp\Programming-Documents\Charts</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithChartDataLabel.cpp">
-      <Filter>cpp\Programming-Documents\Charts</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithSingleChartDataPoint.cpp">
       <Filter>cpp\Programming-Documents\Charts</Filter>
     </ClCompile>
@@ -681,9 +672,6 @@
     </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Comments\RemoveRegionText.cpp">
       <Filter>cpp\Programming-Documents\Comments</Filter>
-    </ClCompile>
-    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertHorizontalRule.cpp">
-      <Filter>cpp\Programming-Documents\Document</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Document\PageNumbersOfNodes.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
@@ -807,6 +795,15 @@
     </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithWebExtension.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithChartDataLabels.cpp">
+      <Filter>cpp\Programming-Documents\Charts</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderHorizontalRule.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertIncludeFieldWithoutDocumentBuilder.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

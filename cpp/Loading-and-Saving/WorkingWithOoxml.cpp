@@ -81,8 +81,7 @@ void WorkingWithOoxml()
     // The path to the documents directories.
     System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
     System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
-    // TODO (std_string): doesn't work properly: raises NotImplementedException
-    //EncryptDocxWithPassword(dataDir);
+    //EncryptDocxWithPassword(dataDir); // Cryptography isn't supported
     SetOOXMLCompliance(inputDataDir, outputDataDir);
     UpdateLastSavedTimeProperty(inputDataDir, outputDataDir);
     KeepLegacyControlChars(inputDataDir, outputDataDir);

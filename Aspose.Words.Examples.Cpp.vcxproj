@@ -211,7 +211,7 @@
     <ClCompile Include="cpp\Programming-Documents\Charts\InsertBubbleChart.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Charts\InsertScatterChart.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Charts\WorkingWithChartAxis.cpp" />
-    <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithChartDataLabel.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithChartDataLabels.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithSingleChartDataPoint.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Charts\WorkWithSingleChartSeries.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Comments\AddComments.cpp" />
@@ -235,7 +235,7 @@
     <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertBookmark.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertBreak.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertElements.cpp" />
-    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertHorizontalRule.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderHorizontalRule.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertImage.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertParagraph.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\DocumentBuilderInsertTCField.cpp" />
@@ -292,7 +292,7 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertField.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertFieldNone.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertFormFields.cpp" />
-    <ClCompile Include="cpp\Programming-Documents\Fields\InsertIncludeTextFieldWithoutDocumentBuilder.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertIncludeFieldWithoutDocumentBuilder.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertMailMergeAddressBlockFieldUsingDOM.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertMergeFieldUsingDOM.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertNestedFields.cpp" />
