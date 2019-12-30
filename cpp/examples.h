@@ -159,6 +159,7 @@ void WorkingWithRevisions();
 void WorkingWithSaveOptions();
 void WorkingWithWebExtension();
 void WriteAndFont();
+void WorkingWithRtfSaveOptions();
 
 // EndNote and Footnote
 // =====================================================
@@ -205,6 +206,7 @@ void ReplaceWithEvaluator();
 void ReplaceWithHTML();
 void ReplaceWithRegex();
 void ReplaceWithString();
+void UsingLegacyOrder();
 
 // Hyperlink
 // =====================================================

@@ -270,6 +270,7 @@
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithFootnote.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithMarkdownFeatures.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRevisions.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRtfSaveOptions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithSaveOptions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithWebExtension.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WriteAndFont.cpp" />
@@ -310,6 +311,7 @@
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithHTML.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithRegex.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithString.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\UsingLegacyOrder.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Hyperlink\ReplaceHyperlinks.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Images\AddImageToEachPage.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Images\AddWatermark.cpp" />
