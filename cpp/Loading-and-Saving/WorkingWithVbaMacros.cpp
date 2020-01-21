@@ -113,6 +113,6 @@ void WorkingWithVbaMacros()
     ReadVbaMacros(inputDataDir);
     ModifyVbaMacros(inputDataDir);
 	CloneVbaProject(inputDataDir);
-	CloneVbaModule(inputDataDir);
+	// CloneVbaModule(inputDataDir); // TODO: Doesnt' work
     std::cout << "WorkingWithVbaMacros example finished." << std::endl << std::endl;
 }
