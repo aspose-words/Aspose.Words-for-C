@@ -77,6 +77,23 @@ namespace
         // ExEnd:AdditionalTextPositioning
         std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+	void ConversionToPDF17(System::String const &inputDataDir, System::String const &outputDataDir)
+	{
+		// ExStart:ConversionToPDF17
+		// The path to the documents directory.
+		System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.docx");
+
+		// Provide PDFSaveOption compliance to PDF17
+		// or just convert without SaveOptions
+		System::SharedPtr<PdfSaveOptions> options = System::MakeObject<PdfSaveOptions>();
+		options->set_Compliance(PdfCompliance::Pdf17);
+
+		System::String outputPath = outputDataDir + u"WorkingWithPdfSaveOptions.PDF17.pdf";
+		doc->Save(outputPath, options);
+		// ExEnd:ConversionToPDF17
+		std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
+	}
 }
 
 void WorkingWithPdfSaveOptions()
@@ -90,5 +107,6 @@ void WorkingWithPdfSaveOptions()
     ExportHeaderFooterBookmarks(inputDataDir, outputDataDir);
     ScaleWmfFontsToMetafileSize(inputDataDir, outputDataDir);
     AdditionalTextPositioning(inputDataDir, outputDataDir);
+	ConversionToPDF17(inputDataDir, outputDataDir);
     std::cout << "WorkingWithPdfSaveOptions example finished." << std::endl << std::endl;
 }

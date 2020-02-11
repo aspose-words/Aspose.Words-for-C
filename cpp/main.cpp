@@ -164,6 +164,7 @@ int main()
     WorkingWithSaveOptions();
     WorkingWithWebExtension();
     WriteAndFont();
+	WorkingWithRtfSaveOptions();
 
     // EndNote and Footnote
     // =====================================================
@@ -210,6 +211,7 @@ int main()
     ReplaceWithHTML();
     ReplaceWithRegex();
     ReplaceWithString();
+	UsingLegacyOrder();
 
     // Hyperlink
     // =====================================================

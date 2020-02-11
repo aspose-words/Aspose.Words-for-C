@@ -805,6 +805,12 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertIncludeFieldWithoutDocumentBuilder.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRtfSaveOptions.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\UsingLegacyOrder.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
@@ -817,9 +823,9 @@
     <ClInclude Include="cpp\pch\pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
