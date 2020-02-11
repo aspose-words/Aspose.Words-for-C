@@ -69,7 +69,6 @@ void ReplaceHtmlTextWithMetaCharacters()
 
     doc->get_Range()->Replace(u"{PLACEHOLDER}", html, findReplaceOptions);
 
-
     System::String outputPath = outputDataDir + u"ReplaceHtmlTextWithMetaCharacters.doc";
     doc->Save(outputPath);
     // ExEnd:ReplaceHtmlTextWithMetaCharacters

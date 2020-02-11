@@ -68,39 +68,39 @@ namespace
         project->get_Modules()->idx_get(0)->set_SourceCode(newSourceCode);
         //ExEnd:ModifyVbaMacros
     }
-	
-	void CloneVbaProject(System::String const &inputDataDir)
-	{
-		//ExStart:CloneVbaProject
-		System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"VbaProject.docm");
-		System::SharedPtr<VbaProject> project = doc->get_VbaProject();
 
-		System::SharedPtr<Document> destDoc = System::MakeObject<Document>();
+    void CloneVbaProject(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        //ExStart:CloneVbaProject
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"VbaProject.docm");
+        System::SharedPtr<VbaProject> project = doc->get_VbaProject();
 
-		// Clone the whole project.
-		destDoc->set_VbaProject(doc->get_VbaProject()->Clone());
+        System::SharedPtr<Document> destDoc = System::MakeObject<Document>();
 
-		destDoc->Save(inputDataDir + u"output.docm");
-		//ExEnd:CloneVbaProject
-	}
+        // Clone the whole project.
+        destDoc->set_VbaProject(doc->get_VbaProject()->Clone());
 
-	void CloneVbaModule(System::String const &inputDataDir)
-	{
-		//ExStart:CloneVbaModule
-		System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"VbaProject.docm");
-		System::SharedPtr<VbaProject> project = doc->get_VbaProject();
+        destDoc->Save(outputDataDir + u"WorkingWithVbaMacros.CloneVbaProject.docm");
+        //ExEnd:CloneVbaProject
+    }
 
-		System::SharedPtr<Document> destDoc = System::MakeObject<Document>();
+    void CloneVbaModule(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        //ExStart:CloneVbaModule
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"VbaProject.docm");
+        System::SharedPtr<VbaProject> project = doc->get_VbaProject();
 
-		destDoc->set_VbaProject(System::MakeObject<VbaProject>());
+        System::SharedPtr<Document> destDoc = System::MakeObject<Document>();
 
-		// Clone a single module.
-		System::SharedPtr<VbaModule> copyModule = doc->get_VbaProject()->get_Modules()->idx_get(0)->Clone();
-		destDoc->get_VbaProject()->get_Modules()->Add(copyModule);
+        destDoc->set_VbaProject(System::MakeObject<VbaProject>());
 
-		destDoc->Save(inputDataDir + u"output.docm");
-		//ExEnd:CloneVbaModule
-	}
+        // Clone a single module.
+        System::SharedPtr<VbaModule> copyModule = doc->get_VbaProject()->get_Modules()->idx_get(0)->Clone();
+        destDoc->get_VbaProject()->get_Modules()->Add(copyModule);
+
+        destDoc->Save(outputDataDir + u"WorkingWithVbaMacros.CloneVbaModule.docm");
+        //ExEnd:CloneVbaModule
+    }
 }
 
 void WorkingWithVbaMacros()
@@ -112,7 +112,7 @@ void WorkingWithVbaMacros()
     CreateVbaMacros(outputDataDir);
     ReadVbaMacros(inputDataDir);
     ModifyVbaMacros(inputDataDir);
-	CloneVbaProject(inputDataDir);
-	// CloneVbaModule(inputDataDir); // TODO: Doesnt' work
+    CloneVbaProject(inputDataDir, outputDataDir);
+    // CloneVbaModule(inputDataDir, outputDataDir); // TODO: Doesnt' work
     std::cout << "WorkingWithVbaMacros example finished." << std::endl << std::endl;
 }

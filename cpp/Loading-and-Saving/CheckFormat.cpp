@@ -13,7 +13,7 @@ void CheckFormat()
     // ExStart:CheckFormatCompatibility
     // The path to the documents directory.
     System::String dataDir = GetInputDataDir_LoadingAndSaving();
-    
+
     System::String supportedDir = dataDir + u"Supported_out";
     System::String unknownDir = dataDir + u"Unknown_out";
     System::String encryptedDir = dataDir + u"Encrypted_out";

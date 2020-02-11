@@ -106,17 +106,17 @@ void FindAndHighlight()
     // The path to the documents directories.
     System::String inputDataDir = GetInputDataDir_FindAndReplace();
     System::String outputDataDir = GetOutputDataDir_FindAndReplace();
-    
+
     System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
     
     System::SharedPtr<FindReplaceOptions> options = System::MakeObject<FindReplaceOptions>();
     options->set_ReplacingCallback(System::MakeObject<ReplaceEvaluatorFindAndHighlight>());
     options->set_Direction(FindReplaceDirection::Backward);
-    
+
     // We want the "your document" phrase to be highlighted.
     System::SharedPtr<Regex> regex = System::MakeObject<Regex>(u"your document", RegexOptions::IgnoreCase);
     doc->get_Range()->Replace(regex, u"", options);
-    
+
     System::String outputPath = outputDataDir + u"FindAndHighlight.doc";
     // Save the output document.
     doc->Save(outputPath);

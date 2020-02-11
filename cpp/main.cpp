@@ -78,7 +78,7 @@ int main()
     // =====================================================
     AccessBookmarks();
     BookmarkNameAndText();
-    BookmarkTable();
+    BookmarkTable(); // Source document is missing
     CopyBookmarkedText();
     CreateBookmark();
     UntangleRowBookmarks();
@@ -211,7 +211,7 @@ int main()
     ReplaceWithHTML();
     ReplaceWithRegex();
     ReplaceWithString();
-	UsingLegacyOrder();
+    UsingLegacyOrder();
 
     // Hyperlink
     // =====================================================
