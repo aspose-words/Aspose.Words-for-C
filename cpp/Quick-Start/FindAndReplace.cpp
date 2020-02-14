@@ -23,7 +23,7 @@ void FindAndReplace()
 
     // Check the text of the document
     std::cout << "Original document text: " << doc->get_Range()->get_Text().ToUtf8String() << std::endl;
-    
+
     // Replace the text in the document.
     doc->get_Range()->Replace(u"_CustomerName_", u"James Bond", System::MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));
 

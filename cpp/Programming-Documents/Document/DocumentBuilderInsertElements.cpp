@@ -178,18 +178,16 @@ namespace
         // ExEnd:InsertOleObjectwithOlePackage
         std::cout << "OleObject using DocumentBuilder inserted successfully into a document." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
-	
-	//void GetAccessToOLEObjectRawData(System::String const &inputDataDir)
-	//{
-	//	// ExStart:GetAccessToOLEObjectRawData
-	//	// Load document with OLE object.
-	//	System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilderInsertTextInputFormField_out.doc");
 
-	//	System::SharedPtr<Shape> oleShape = System::MakeObject<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-	//	System::ByteArrayPtr oleRawData = oleShape->get_OleFormat()->GetRawData();
-
-	//	// ExEnd:GetAccessToOLEObjectRawData
-	//}
+    void GetAccessToOLEObjectRawData(System::String const &inputDataDir)
+    {
+        // ExStart:GetAccessToOLEObjectRawData
+        // Load document with OLE object.
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"DocumentBuilderInsertOleObject.doc");
+        System::SharedPtr<Shape> oleShape = System::StaticCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        System::ByteArrayPtr oleRawData = oleShape->get_OleFormat()->GetRawData();
+        // ExEnd:GetAccessToOLEObjectRawData
+    }
 }
 
 void DocumentBuilderInsertElements()
@@ -206,6 +204,6 @@ void DocumentBuilderInsertElements()
     InsertTableOfContents(outputDataDir);
     InsertOleObject(outputDataDir);
     InsertOleObjectwithOlePackage(inputDataDir, outputDataDir);
-	//GetAccessToOLEObjectRawData(inputDataDir);
+    GetAccessToOLEObjectRawData(inputDataDir);
     std::cout << "DocumentBuilderInsertElements example finished." << std::endl << std::endl;
 }

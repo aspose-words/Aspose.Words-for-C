@@ -20,8 +20,6 @@
 #include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
-#include <Aspose.Words.Cpp/Model/Drawing/HorizontalRuleAlignment.h>
-#include <Aspose.Words.Cpp/Model/Drawing/HorizontalRuleFormat.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
@@ -142,27 +140,18 @@ namespace
         // ExEnd:GetActualShapeBoundsPoints
     }
 
-    void DocumentBuilderHorizontalRuleFormat(System::String const &outputDataDir)
+    void InsertOLEObjectAsIcon(System::String const &inputDataDir, System::String const &outputDataDir)
     {
-        std::cout << "DocumentBuilderHorizontalRuleFormat example started." << std::endl;
+        // ExStart:InsertOLEObjectAsIcon
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
 
-        // ExStart:DocumentBuilderInsertHorizontalRule
-        // Initialize document.
-        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        System::SharedPtr<Shape> shape = builder->InsertOleObjectAsIcon(inputDataDir + u"embedded.xlsx", false, inputDataDir + u"icon.ico", u"My embedded file");
 
-        System::SharedPtr<Shape> shape = builder->InsertHorizontalRule();
-        System::SharedPtr<HorizontalRuleFormat> horizontalRuleFormat = shape->get_HorizontalRuleFormat();
+        doc->Save(outputDataDir + u"WorkingWithShapes.InsertOLEObjectAsIcon.docx");
 
-        horizontalRuleFormat->set_Alignment(HorizontalRuleAlignment::Center);
-        horizontalRuleFormat->set_WidthPercent(70);
-        horizontalRuleFormat->set_Height(3);
-        horizontalRuleFormat->set_Color(System::Drawing::Color::get_Blue());
-        horizontalRuleFormat->set_NoShade(true);
-
-        builder->get_Document()->Save(outputDataDir + u"HorizontalRuleFormat.docx");
-
-        // ExEnd:DocumentBuilderInsertHorizontalRule
-        std::cout << "DocumentBuilderHorizontalRuleFormat example finished." << std::endl << std::endl;
+        std::cout << "The document has been saved with OLE Object as an Icon." << std::endl;
+        // ExEnd:InsertOLEObjectAsIcon
     }
 }
 
@@ -177,8 +166,8 @@ void WorkingWithShapes()
     InsertShapeUsingDocumentBuilder(outputDataDir);
     AddCornersSnipped(outputDataDir);
     GetActualShapeBoundsPoints(inputDataDir);
-    DocumentBuilderHorizontalRuleFormat(outputDataDir);
     //SpecifyVerticalAnchor(dataDir); // Source document is missing
     //DetectSmartArtShape(dataDir); // Source document is missing
+    InsertOLEObjectAsIcon(inputDataDir, outputDataDir);
     std::cout << "WorkingWithShapes example finished." << std::endl << std::endl;
 }

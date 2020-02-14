@@ -27,7 +27,7 @@ void ConvertDocumentToByte()
     // The bytes are now ready to be stored/transmitted.
     // Now reverse the steps to load the bytes back into a document object.
     System::SharedPtr<System::IO::MemoryStream> inStream = System::MakeObject<System::IO::MemoryStream>(docBytes);
-    
+
     // Load the stream into a new document object.
     System::SharedPtr<Document> loadDoc = System::MakeObject<Document>(inStream);
     // ExEnd:ConvertDocumentToByte

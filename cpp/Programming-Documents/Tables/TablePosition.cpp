@@ -55,11 +55,31 @@ namespace
                 std::cout << table->get_AbsoluteHorizontalDistance() << std::endl;
                 std::cout << table->get_AbsoluteVerticalDistance() << std::endl;
                 std::cout << table->get_AllowOverlap() << std::endl;
+                std::cout << System::ObjectExt::Box<VerticalAlignment>(table->get_RelativeVerticalAlignment())->ToString().ToUtf8String() << std::endl;
                 std::cout << ".............................." << std::endl;
             }
         }
         // ExEnd:GetFloatingTablePosition
         std::cout << "Get the Table position successfully." << std::endl;
+    }
+
+    void SetFloatingTablePosition(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        // ExStart:SetFloatingTablePosition
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"FloatingTablePosition.docx");
+
+        System::SharedPtr<Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
+
+        // sets absolute table horizontal position at 10pt.
+        table->set_AbsoluteHorizontalDistance(10);
+
+        // sets vertical table position to center of entity specified by Table.VerticalAnchor.
+        table->set_RelativeVerticalAlignment(VerticalAlignment::Center);
+
+        // Save the document to disk.
+        doc->Save(outputDataDir + u"TablePosition.SetFloatingTablePosition.docx");
+        // ExEnd:SetFloatingTablePosition
+        std::cout << "Set the Table position successfully." << std::endl;
     }
 }
 
@@ -68,7 +88,9 @@ void TablePosition()
     std::cout << "TablePosition example started." << std::endl;
     // The path to the documents directory.
     System::String inputDataDir = GetInputDataDir_WorkingWithTables();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithTables();
     GetTablePosition(inputDataDir);
     GetFloatingTablePosition(inputDataDir);
+    SetFloatingTablePosition(inputDataDir, outputDataDir);
     std::cout << "TablePosition example finished." << std::endl << std::endl;
 }

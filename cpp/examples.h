@@ -21,19 +21,19 @@ void Doc2Pdf();
 void ExportFontsAsBase64();
 void ExportResourcesUsingHtmlSaveOptions();
 //void ImageToPdf(); // System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
-void Load_Options(); // Cryptography isn't supported
+void Load_Options();
 void LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
 void LoadAndSaveToDisk();
 void LoadAndSaveToStream();
 void LoadTxt();
-//void OpenEncryptedDocument(); // Cryptography isn't supported
+void OpenEncryptedDocument();
 void PageSplitter();
 void SaveDocWithHtmlSaveOptions();
 void SaveOptionsHtmlFixed();
 void SpecifySaveOption();
 void SplitIntoHtmlPages();
-void WorkingWithDoc(); // Cryptography isn't supported + Source document is missing
-void WorkingWithOoxml(); // Cryptography isn't supported
+void WorkingWithDoc(); // Source document is missing
+void WorkingWithOoxml();
 void WorkingWithRTF();
 void WorkingWithTxt(); // Source document is missing
 void WorkingWithVbaMacros();
@@ -136,6 +136,7 @@ void ExtractContentBetweenParagraphStyles();
 void ExtractContentBetweenRuns();
 void ExtractContentUsingDocumentVisitor();
 void ExtractContentUsingField();
+void ExtractTableOfContents();
 void ExtractTextOnly();
 //void GenerateACustomBarCodeImage.Run(); // Depend from Aspose.BarCode
 void GetFontLineSpacing();
@@ -153,13 +154,13 @@ void Setuplanguagepreferences();
 void SetViewOption();
 //void SigningSignatureLine(); // Cryptography isn't supported
 void UpdateContentControls();
+void WriteAndFont();
 //void WorkingWithImportFormatOptions(); // Source document is missing
 void WorkingWithMarkdownFeatures();
 void WorkingWithRevisions();
+void WorkingWithRtfSaveOptions();
 void WorkingWithSaveOptions();
 void WorkingWithWebExtension();
-void WriteAndFont();
-void WorkingWithRtfSaveOptions();
 
 // EndNote and Footnote
 // =====================================================
@@ -304,7 +305,7 @@ void InsertTableFromHtml();
 void InsertTableUsingDocumentBuilder();
 void JoiningAndSplittingTable();
 void KeepTablesAndRowsBreaking();
-void MergedCells(); // error in test
+void MergedCells(); // raised NullReferenceException
 void RepeatRowsOnSubsequentPages();
 void SpecifyHeightAndWidth();
 void TablePosition();

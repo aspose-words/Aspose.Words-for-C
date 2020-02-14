@@ -102,7 +102,7 @@ void ProcessComments()
     // The path to the documents directories.
     System::String inputDataDir = GetInputDataDir_WorkingWithComments();
     System::String outputDataDir = GetOutputDataDir_WorkingWithComments();
-    
+
     // Open the document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.doc");
     
@@ -128,7 +128,7 @@ void ProcessComments()
     // Remove all comments.
     RemoveComments(doc);
     std::cout << "All comments are removed!" << std::endl;
-    
+
     System::String outputPath = outputDataDir + u"ProcessComments.doc";
     // Save the document.
     doc->Save(outputPath);

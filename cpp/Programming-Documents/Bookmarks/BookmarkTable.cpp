@@ -13,8 +13,8 @@
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkEnd.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/Bookmark.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
-//#include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
 
 
 using namespace Aspose::Words;
@@ -22,78 +22,77 @@ using namespace Aspose::Words::Tables;
 
 namespace
 {
-	void InsertBookmarkTable(System::String const &outputDataDir)
-	{
-		// ExStart:BookmarkTable
-		// Create empty document
-		System::SharedPtr<Document> doc = System::MakeObject<Document>();
-		System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+    void InsertBookmarkTable(System::String const &outputDataDir)
+    {
+        // ExStart:BookmarkTable
+        // Create empty document
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
-		System::SharedPtr<Table> table = builder->StartTable();
+        System::SharedPtr<Table> table = builder->StartTable();
 
-		// Insert a cell
-		builder->InsertCell();
+        // Insert a cell
+        builder->InsertCell();
 
-		// Start bookmark here after calling InsertCell
-		builder->StartBookmark(u"MyBookmark");
+        // Start bookmark here after calling InsertCell
+        builder->StartBookmark(u"MyBookmark");
 
-		builder->Write(u"This is row 1 cell 1");
+        builder->Write(u"This is row 1 cell 1");
 
-		// Insert a cell
-		builder->InsertCell();
-		builder->Write(u"This is row 1 cell 2");
+        // Insert a cell
+        builder->InsertCell();
+        builder->Write(u"This is row 1 cell 2");
 
-		builder->EndRow();
+        builder->EndRow();
 
-		// Insert a cell
-		builder->InsertCell();
-		builder->Writeln(u"This is row 2 cell 1");
+        // Insert a cell
+        builder->InsertCell();
+        builder->Writeln(u"This is row 2 cell 1");
 
-		// Insert a cell
-		builder->InsertCell();
-		builder->Writeln(u"This is row 2 cell 2");
+        // Insert a cell
+        builder->InsertCell();
+        builder->Writeln(u"This is row 2 cell 2");
 
-		builder->EndRow();
+        builder->EndRow();
 
-		builder->EndTable();
-		// End of bookmark
-		builder->EndBookmark(u"MyBookmark");
+        builder->EndTable();
+        // End of bookmark
+        builder->EndBookmark(u"MyBookmark");
 
-		System::String outputPath = outputDataDir + u"BookmarkTable.doc";
-		doc->Save(outputPath);
-		// ExEnd:BookmarkTable
-		std::cout << "Table bookmarked successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-	}
+        System::String outputPath = outputDataDir + u"BookmarkTable.doc";
+        doc->Save(outputPath);
+        // ExEnd:BookmarkTable
+        std::cout << "Table bookmarked successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 
-	//void BookmarkTableColumns(System::String const &inputDataDir)
-	//{
-	//	// ExStart:BookmarkTableColumns
-	//	// Create empty document
-	//	System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Bookmark.Table_out.doc");
-	//	
-	//	for (System::SharedPtr<Bookmark> bookmark : System::IterateOver<Bookmark>(doc->get_Range()->get_Bookmarks()))
-	//	{
-	//		//std::cout << "Bookmark: " << bookmark->get_Name << (bookmark->get_IsColumn() ? " (Column)" : "") << std::endl;
-	//		if (bookmark->get_IsColumn())
-	//		{
-	//			System::SharedPtr<Row> row = System::MakeObject<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
-	//			if (row != NULL && bookmark->get_FirstColumn() < row->get_Cells()->get_Count())
-	//			{
-	//				//std::cout << row->get_Cells()->idx_get(bookmark->get_FirstColumn())->GetText()->TrimEnd(ControlChar::CellChar) << std::endl;
-	//			}
-	//		}
-	//	}
-	//	// ExEnd:BookmarkTableColumns
-	//}
+    void BookmarkTableColumns(System::String const &inputDataDir)
+    {
+        // ExStart:BookmarkTableColumns
+        // Create empty document
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"BookmarkTable.doc");
+        for (System::SharedPtr<Bookmark> bookmark : System::IterateOver<Bookmark>(doc->get_Range()->get_Bookmarks()))
+        {
+            std::cout << "Bookmark: " << bookmark->get_Name().ToUtf8String() << (bookmark->get_IsColumn() ? " (Column)" : "") << std::endl;
+            if (bookmark->get_IsColumn())
+            {
+                System::SharedPtr<Row> row = System::StaticCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
+                if (row != nullptr && bookmark->get_FirstColumn() < row->get_Cells()->get_Count())
+                {
+                    std::cout << row->get_Cells()->idx_get(bookmark->get_FirstColumn())->GetText().TrimEnd(ControlChar::CellChar).ToUtf8String() << std::endl;
+                }
+            }
+        }
+        // ExEnd:BookmarkTableColumns
+    }
 }
 
 void BookmarkTable()
 {
     std::cout << "BookmarkTable example started." << std::endl;
-	// The path to the documents directory.
-	System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
-	System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
-	InsertBookmarkTable(outputDataDir);
-	//BookmarkTableColumns(inputDataDir);
+    // The path to the documents directory.
+    System::String inputDataDir = GetInputDataDir_WorkingWithBookmarks();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithBookmarks();
+    InsertBookmarkTable(outputDataDir);
+    BookmarkTableColumns(inputDataDir);
     std::cout << "BookmarkTable example finished." << std::endl << std::endl;
 }

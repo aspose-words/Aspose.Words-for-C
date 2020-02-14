@@ -36,7 +36,6 @@ namespace
             builder->Writeln(System::String(u"Level ") + i);
         }
 
-
         // Create a bulleted list based on one of the Microsoft Word list templates
         // and apply it to the current paragraph in the document builder.
         builder->get_ListFormat()->set_List(doc->get_Lists()->Add(ListTemplate::BulletDiamonds));

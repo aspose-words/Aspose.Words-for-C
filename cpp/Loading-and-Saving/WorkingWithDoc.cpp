@@ -9,7 +9,7 @@ using namespace Aspose::Words::Saving;
 
 namespace
 {
-    /*void EncryptDocumentWithPassword(System::String const &inputDataDir, System::String const &outputDataDir)
+    void EncryptDocumentWithPassword(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         //ExStart:EncryptDocumentWithPassword
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
@@ -19,7 +19,7 @@ namespace
         doc->Save(outputPath, docSaveOptions);
         //ExEnd:EncryptDocumentWithPassword
         std::cout << "The password of document is set using RC4 encryption method. " << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }*/
+    }
 
     void AlwaysCompressMetafiles(System::String const &inputDataDir, System::String const &outputDataDir)
     {
@@ -41,7 +41,7 @@ void WorkingWithDoc()
     System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
     System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
 
-    //EncryptDocumentWithPassword(inputDataDir, outputDataDir); // Cryptography isn't supported
+    EncryptDocumentWithPassword(inputDataDir, outputDataDir);
     AlwaysCompressMetafiles(inputDataDir, outputDataDir);
     //SavePictureBullet(dataDir); // Source document is missing
     std::cout << "WorkingWithTxt example finished." << std::endl << std::endl;
