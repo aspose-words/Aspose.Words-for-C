@@ -4,7 +4,7 @@
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/LoadOptions.h>
 
-/*using namespace Aspose::Words;
+using namespace Aspose::Words;
 
 void OpenEncryptedDocument()
 {
@@ -19,4 +19,4 @@ void OpenEncryptedDocument()
     // ExEnd:OpenEncryptedDocument
     std::cout << "Encrypted document loaded successfully." << std::endl;
     std::cout << "OpenEncryptedDocument example finished." << std::endl << std::endl;
-}*/
+}

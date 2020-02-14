@@ -2,8 +2,6 @@
 #include "examples.h"
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Saving/OdtSaveMeasureUnit.h>
-#include <Aspose.Words.Cpp/Model/Saving/OdtSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/RtfSaveOptions.h>
 
 using namespace Aspose::Words;

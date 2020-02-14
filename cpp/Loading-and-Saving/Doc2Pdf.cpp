@@ -1,7 +1,13 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
+#include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
+#include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
+#include <Aspose.Words.Cpp/Model/Saving/MetafileRenderingMode.h>
+#include <Aspose.Words.Cpp/Model/Saving/MetafileRenderingOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/PdfSaveOptions.h>
 
 using namespace Aspose::Words;
@@ -9,11 +15,60 @@ using namespace Aspose::Words::Saving;
 
 namespace
 {
+    class HandleDocumentWarnings : public IWarningCallback
+    {
+        RTTI_INFO_DECL();
+
+    public:
+        System::SharedPtr<WarningInfoCollection> mWarnings;
+        void Warning(System::SharedPtr<WarningInfo> info);
+        HandleDocumentWarnings();
+
+    protected:
+        System::Object::shared_members_type GetSharedMembers() override;
+    };
+
+    RTTI_INFO_IMPL_HASH(1974866495u, HandleDocumentWarnings, ThisTypeBaseTypesInfo);
+
+    void HandleDocumentWarnings::Warning(System::SharedPtr<WarningInfo> info)
+    {
+        //For now type of warnings about unsupported metafile records changed from DataLoss/UnexpectedContent to MinorFormattingLoss.
+        if (info->get_WarningType() == WarningType::MinorFormattingLoss)
+        {
+            std::cout << "Unsupported operation: " << info->get_Description().ToUtf8String() << std::endl;
+            mWarnings->Warning(info);
+        }
+    }
+
+    HandleDocumentWarnings::HandleDocumentWarnings() : mWarnings(System::MakeObject<WarningInfoCollection>())
+    {
+    }
+
+    System::Object::shared_members_type HandleDocumentWarnings::GetSharedMembers()
+    {
+        auto result = System::Object::GetSharedMembers();
+        result.Add("HandleDocumentWarnings::mWarnings", this->mWarnings);
+        return result;
+    }
+
+    void SaveDoc2Pdf(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        // ExStart:Doc2Pdf
+        // Load the document from disk.
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
+
+        System::String outputPath = outputDataDir + u"Doc2Pdf.SaveDoc2Pdf.pdf";
+        // Save the document in PDF format.
+        doc->Save(outputPath);
+        // ExEnd:Doc2Pdf
+        std::cout << "Document converted to PDF successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
+
     void DisplayDocTitleInWindowTitlebar(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:DisplayDocTitleInWindowTitlebar
         // Load the document from disk.
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Template.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
 
         System::SharedPtr<PdfSaveOptions> saveOptions = System::MakeObject<PdfSaveOptions>();
         saveOptions->set_DisplayDocTitle(true);
@@ -26,17 +81,29 @@ namespace
         std::cout << "Document converted to PDF successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void Doc2PdfImpl(System::String const &inputDataDir, System::String const &outputDataDir)
+    void PdfRenderWarnings(System::String const &inputDataDir, System::String const &outputDataDir)
     {
-        // ExStart:Doc2Pdf
         // Load the document from disk.
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Template.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"PdfRenderWarnings.doc");
 
-        System::String outputPath = outputDataDir + u"Doc2Pdf.Doc2PdfImpl.pdf";
-        // Save the document in PDF format.
-        doc->Save(outputPath);
-        // ExEnd:Doc2Pdf
-        std::cout << "Document converted to PDF successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+        // Set a SaveOptions object to not emulate raster operations.
+        System::SharedPtr<PdfSaveOptions> saveOptions = System::MakeObject<PdfSaveOptions>();
+        System::SharedPtr<MetafileRenderingOptions> metafileRenderingOptions = System::MakeObject<MetafileRenderingOptions>();
+        metafileRenderingOptions->set_EmulateRasterOperations(false);
+        metafileRenderingOptions->set_RenderingMode(MetafileRenderingMode::VectorWithFallback);
+        saveOptions->set_MetafileRenderingOptions(metafileRenderingOptions);
+
+        // If Aspose.Words cannot correctly render some of the metafile records to vector graphics then Aspose.Words renders this metafile to a bitmap. 
+        System::SharedPtr<HandleDocumentWarnings> callback = System::MakeObject<HandleDocumentWarnings>();
+        doc->set_WarningCallback(callback);
+
+        doc->Save(outputDataDir + u"Doc2Pdf.PdfRenderWarnings.pdf", saveOptions);
+
+        // While the file saves successfully, rendering warnings that occurred during saving are collected here.
+        for (auto warningInfo : System::IterateOver(callback->mWarnings))
+        {
+            System::Console::WriteLine(warningInfo->get_Description());
+        }
     }
 }
 
@@ -44,10 +111,11 @@ void Doc2Pdf()
 {
     std::cout << "Doc2Pdf example started." << std::endl;
     // The path to the documents directories.
-    System::String inputDataDir = GetInputDataDir_QuickStart();
-    System::String outputDataDir = GetOutputDataDir_QuickStart();
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
 
+    SaveDoc2Pdf(inputDataDir, outputDataDir);
     DisplayDocTitleInWindowTitlebar(inputDataDir, outputDataDir);
-    Doc2PdfImpl(inputDataDir, outputDataDir);
+    PdfRenderWarnings(inputDataDir, outputDataDir);
     std::cout << "Doc2Pdf example finished." << std::endl << std::endl;
 }

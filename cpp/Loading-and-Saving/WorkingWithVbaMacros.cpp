@@ -113,6 +113,6 @@ void WorkingWithVbaMacros()
     ReadVbaMacros(inputDataDir);
     ModifyVbaMacros(inputDataDir);
     CloneVbaProject(inputDataDir, outputDataDir);
-    // CloneVbaModule(inputDataDir, outputDataDir); // TODO: Doesnt' work
+    // CloneVbaModule(inputDataDir, outputDataDir); // raised NullReferenceException due to bad source document
     std::cout << "WorkingWithVbaMacros example finished." << std::endl << std::endl;
 }

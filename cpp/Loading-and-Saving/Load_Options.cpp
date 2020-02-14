@@ -17,6 +17,7 @@
 using namespace Aspose::Words;
 using namespace Aspose::Words::Markup;
 using namespace Aspose::Words::Saving;
+using namespace Aspose::Words::Settings;
 
 namespace
 {
@@ -38,16 +39,16 @@ namespace
         std::cout << "Update the fields with the dirty attribute successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    /*void LoadAndSaveEncryptedODT(System::String const &inputDataDir, System::String const &outputDataDir)
+    void LoadAndSaveEncryptedODT(System::String const &inputDataDir, System::String const &outputDataDir)
     {
-        // ExStart:LoadAndSaveEncryptedODT  
+        // ExStart:LoadAndSaveEncryptedODT
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"encrypted.odt", System::MakeObject<LoadOptions>(u"password"));
 
         System::String outputPath = outputDataDir + u"Load_Options.LoadAndSaveEncryptedODT.odt";
         doc->Save(outputPath, System::MakeObject<OdtSaveOptions>(u"newpassword"));
         // ExEnd:LoadAndSaveEncryptedODT 
         std::cout << "Load and save encrypted document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }*/
+    }
 
     void VerifyODTdocument(System::String const &inputDataDir)
     {
@@ -71,27 +72,17 @@ namespace
         // ExEnd:ConvertShapeToOfficeMath
     }
 
-    void AnnotationsAtBlockLevel(System::String const &inputDataDir, System::String const &outputDataDir)
+    void SetMSWordVersion(System::String const &inputDataDir, System::String const &outputDataDir)
     {
-        // ExStart:AnnotationsAtBlockLevel
-        System::SharedPtr<LoadOptions> options = System::MakeObject<LoadOptions>();
-        options->set_AnnotationsAtBlockLevel(true);
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"AnnotationsAtBlockLevel.docx", options);
-        System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
+        // ExStart:SetMSWordVersion  
+        System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
+        loadOptions->set_MswVersion(MsWordVersion::Word2003);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"document.doc", loadOptions);
 
-        System::SharedPtr<StructuredDocumentTag> sdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChildNodes(NodeType::StructuredDocumentTag, true)->idx_get(0));
-
-        System::SharedPtr<BookmarkStart> start = builder->StartBookmark(u"bm");
-        System::SharedPtr<BookmarkEnd> end = builder->EndBookmark(u"bm");
-
-        sdt->get_ParentNode()->InsertBefore(start, sdt);
-        sdt->get_ParentNode()->InsertAfter(end, sdt);
-
-        System::String outputPath = outputDataDir + u"Load_Options.AnnotationsAtBlockLevel.docx";
-        //Save the document into DOCX
-        doc->Save(outputPath, SaveFormat::Docx);
-        // ExEnd:AnnotationsAtBlockLevel
-        std::cout << "AnnotationsAtBlockLevel executed successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+        System::String outputPath = outputDataDir + u"Load_Options.SetMSWordVersion.docx";
+        doc->Save(outputPath);
+        // ExEnd:SetMSWordVersion 
+        std::cout << "Loaded with MS Word Version successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 }
 
@@ -102,9 +93,9 @@ void Load_Options()
     System::String inputDataDir = GetInputDataDir_QuickStart();
     System::String outputDataDir = GetOutputDataDir_QuickStart();
     LoadOptionsUpdateDirtyFields(inputDataDir, outputDataDir);
-    //LoadAndSaveEncryptedODT(inputDataDir, outputDataDir); // doesn't work properly
+    LoadAndSaveEncryptedODT(inputDataDir, outputDataDir);
     VerifyODTdocument(inputDataDir);
     ConvertShapeToOfficeMath(inputDataDir, outputDataDir);
-    AnnotationsAtBlockLevel(inputDataDir, outputDataDir);
+    SetMSWordVersion(inputDataDir, outputDataDir);
     std::cout << "Load_Options example finished." << std::endl << std::endl;
 }

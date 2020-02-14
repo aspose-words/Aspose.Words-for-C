@@ -13,17 +13,17 @@ using namespace Aspose::Words::Settings;
 
 namespace
 {
-    /*void EncryptDocxWithPassword(System::String const &dataDir)
+    void EncryptDocxWithPassword(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         //ExStart:EncryptDocxWithPassword
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(dataDir + u"Document.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
         System::SharedPtr<OoxmlSaveOptions> ooxmlSaveOptions = System::MakeObject<OoxmlSaveOptions>();
         ooxmlSaveOptions->set_Password(u"password");
-        System::String outputPath = dataDir + GetOutputFilePath(u"WorkingWithOoxml.EncryptDocxWithPassword.docx");
+        System::String outputPath = outputDataDir + u"WorkingWithOoxml.EncryptDocxWithPassword.docx";
         doc->Save(outputPath, ooxmlSaveOptions);
         //ExEnd:EncryptDocxWithPassword
         std::cout << "The password of document is set using ECMA376 Standard encryption algorithm." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }*/
+    }
 
     void SetOOXMLCompliance(System::String const &inputDataDir, System::String const &outputDataDir)
     {
@@ -81,7 +81,7 @@ void WorkingWithOoxml()
     // The path to the documents directories.
     System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
     System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
-    //EncryptDocxWithPassword(dataDir); // Cryptography isn't supported
+    EncryptDocxWithPassword(inputDataDir, outputDataDir);
     SetOOXMLCompliance(inputDataDir, outputDataDir);
     UpdateLastSavedTimeProperty(inputDataDir, outputDataDir);
     KeepLegacyControlChars(inputDataDir, outputDataDir);
