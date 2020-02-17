@@ -26,22 +26,22 @@ int main()
     ExportFontsAsBase64();
     ExportResourcesUsingHtmlSaveOptions();
     //ImageToPdf(); // System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
-    Load_Options(); // Cryptography isn't supported
+    Load_Options();
     LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
     LoadAndSaveToDisk();
     LoadAndSaveToStream();
     LoadTxt();
-    //OpenEncryptedDocument(); // Cryptography isn't supported
+    OpenEncryptedDocument();
     PageSplitter();
     SaveDocWithHtmlSaveOptions();
     SaveOptionsHtmlFixed();
     SpecifySaveOption();
     SplitIntoHtmlPages();
-    WorkingWithDoc(); // Cryptography isn't supported + Source document is missing
-    WorkingWithOoxml(); // Cryptography isn't supported
+    WorkingWithDoc(); // Source document is missing
+    WorkingWithOoxml();
     WorkingWithRTF();
     WorkingWithTxt(); // Source document is missing
-    WorkingWithVbaMacros();
+    WorkingWithVbaMacros(); // raised NullReferenceException due to bad source document
 
     // =====================================================
     // =====================================================
@@ -78,7 +78,7 @@ int main()
     // =====================================================
     AccessBookmarks();
     BookmarkNameAndText();
-    BookmarkTable();
+    BookmarkTable(); // Source document is missing
     CopyBookmarkedText();
     CreateBookmark();
     UntangleRowBookmarks();
@@ -141,6 +141,7 @@ int main()
     ExtractContentBetweenRuns();
     ExtractContentUsingDocumentVisitor();
     ExtractContentUsingField();
+    ExtractTableOfContents();
     ExtractTextOnly();
     //GenerateACustomBarCodeImage.Run(); // Depend from Aspose.BarCode
     GetFontLineSpacing();
@@ -158,13 +159,13 @@ int main()
     SetViewOption();
     //SigningSignatureLine(); // Cryptography isn't supported
     UpdateContentControls();
+    WriteAndFont();
     //WorkingWithImportFormatOptions(); // Source document is missing
     WorkingWithMarkdownFeatures();
     WorkingWithRevisions();
+    WorkingWithRtfSaveOptions();
     WorkingWithSaveOptions();
     WorkingWithWebExtension();
-    WriteAndFont();
-	WorkingWithRtfSaveOptions();
 
     // EndNote and Footnote
     // =====================================================
@@ -211,7 +212,7 @@ int main()
     ReplaceWithHTML();
     ReplaceWithRegex();
     ReplaceWithString();
-	UsingLegacyOrder();
+    UsingLegacyOrder();
 
     // Hyperlink
     // =====================================================
@@ -309,7 +310,7 @@ int main()
     InsertTableUsingDocumentBuilder();
     JoiningAndSplittingTable();
     KeepTablesAndRowsBreaking();
-    MergedCells(); // error in test
+    MergedCells(); // raised NullReferenceException
     RepeatRowsOnSubsequentPages();
     SpecifyHeightAndWidth();
     TablePosition();

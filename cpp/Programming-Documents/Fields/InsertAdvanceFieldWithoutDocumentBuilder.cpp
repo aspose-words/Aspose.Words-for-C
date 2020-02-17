@@ -28,7 +28,6 @@ void InsertAdvanceFieldWithoutDocumentBuilder()
     // Create instance of FieldAdvance class and lets build the above field code
     System::SharedPtr<FieldAdvance> field = System::DynamicCast<FieldAdvance>(para->AppendField(FieldType::FieldAdvance, false));
 
-
     // { ADVANCE \\d 10 " }
     field->set_DownOffset(u"10");
 

@@ -14,7 +14,7 @@ void ApplyLicense()
     // License is stored as an embedded resource
     try
     {
-        license->SetLicense(u"Aspose.Words.lic");
+        license->SetLicense(u"Aspose.Words.Cpp.lic");
         std::cout << "License set successfully." << std::endl;
     }
 

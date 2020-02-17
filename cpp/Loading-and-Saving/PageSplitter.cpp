@@ -62,7 +62,7 @@ namespace
     /// <summary>
     /// Provides methods for extracting nodes of a document which are rendered on a specified pages.
     /// </summary>
-    class PageNumberFinder 
+    class PageNumberFinder
     {
     public:
         System::SharedPtr<Document> GetDocument() const;
@@ -183,7 +183,7 @@ namespace
                 continue;
             }
 
-            for (auto iterator = iterators.first; iterator != iterators.second; ++ iterator)
+            for (auto iterator = iterators.first; iterator != iterators.second; ++iterator)
             {
                 TNodePtr node = iterator->second;
                 if (node->get_ParentNode() != nullptr &&
@@ -252,7 +252,7 @@ namespace
             int32_t endPage = GetPageEnd(node);
             for (int32_t page = startPage; page <= endPage; page++)
             {
-                reversePageLookup.insert({page, node});
+                reversePageLookup.insert({ page, node });
             }
         }
     }
@@ -391,7 +391,7 @@ namespace
     };
 
     SectionSplitter::SectionSplitter(PageNumberFinder& pageNumberFinder)
-        : pageNumberFinder(pageNumberFinder) { } 
+        : pageNumberFinder(pageNumberFinder) { }
 
     VisitorAction SectionSplitter::VisitParagraphStart(System::SharedPtr<Paragraph> paragraph)
     {
@@ -561,8 +561,8 @@ namespace
         std::vector<TNodePtr> splitList;
         int32_t startingPage = pageNumberFinder.GetPage(node);
         System::ArrayPtr<TNodePtr> childNodes = node->get_NodeType() == NodeType::Section ?
-                                                (System::DynamicCast<Section>(node))->get_Body()->get_ChildNodes()->ToArray() :
-                                                node->get_ChildNodes()->ToArray();
+            (System::DynamicCast<Section>(node))->get_Body()->get_ChildNodes()->ToArray() :
+            node->get_ChildNodes()->ToArray();
         for (TNodePtr childNode : childNodes)
         {
             int32_t pageNum = pageNumberFinder.GetPage(childNode);

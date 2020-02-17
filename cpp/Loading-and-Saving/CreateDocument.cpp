@@ -15,7 +15,7 @@ void CreateDocument()
 
     // Initialize a Document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
-    
+
     // Use a document builder to add content to the document.
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
     builder->Writeln(u"Hello World!");

@@ -373,6 +373,6 @@ void MergedCells()
     // Show how to prints the horizontal and vertical merge of a cell.
     PrintHorizontalAndVerticalMerged(inputDataDir);
     // This method converts cells which are horizontally merged by its width to the cell horizontally merged by flags
-    //ConvertToHorizontallyMergedCells(dataDir); // error in test
+    //ConvertToHorizontallyMergedCells(dataDir); // raised NullReferenceException
     std::cout << "MergedCells example finished." << std::endl << std::endl;
 }
