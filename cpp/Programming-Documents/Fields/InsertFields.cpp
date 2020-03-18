@@ -6,7 +6,7 @@
 
 using namespace Aspose::Words;
 
-void InsertField()
+void InsertFields()
 {
     std::cout << "InsertField example started." << std::endl;
     // ExStart:InsertField

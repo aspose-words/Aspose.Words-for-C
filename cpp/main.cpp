@@ -67,6 +67,7 @@ int main()
     //RemoveRowsFromTable(); // isn't compiled due to using of DataSet
     SimpleMailMerge();
     //XMLMailMerge(); // isn't compiled due to using of DataSet
+    MailMergeImageField();
 
     // =====================================================
     // =====================================================
@@ -188,7 +189,7 @@ int main()
     InsertAdvanceFieldWithoutDocumentBuilder();
     InsertASKFieldWithoutDocumentBuilder();
     InsertAuthorField();
-    InsertField();
+    InsertFields();
     InsertFieldNone();
     InsertFormFields();
     InsertIncludeFieldWithoutDocumentBuilder();
@@ -213,6 +214,7 @@ int main()
     ReplaceWithRegex();
     ReplaceWithString();
     UsingLegacyOrder();
+    IgnoreText();
 
     // Hyperlink
     // =====================================================

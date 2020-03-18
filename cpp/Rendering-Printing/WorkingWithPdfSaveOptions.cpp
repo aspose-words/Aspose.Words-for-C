@@ -94,6 +94,21 @@ namespace
         // ExEnd:ConversionToPDF17
         std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void UpdateIfLastPrinted(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        // ExStart:UpdateIfLastPrinted
+        // Open a document
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.docx");
+
+        System::SharedPtr<SaveOptions> options = System::MakeObject<PdfSaveOptions>();
+        options->set_UpdateLastPrintedProperty(false);
+
+        System::String outputPath = outputDataDir + u"WorkingWithPdfSaveOptions.UpdateIfLastPrinted.pdf";
+        doc->Save(outputPath, options);
+        // ExEnd:UpdateIfLastPrinted
+        std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void WorkingWithPdfSaveOptions()
@@ -108,5 +123,6 @@ void WorkingWithPdfSaveOptions()
     ScaleWmfFontsToMetafileSize(inputDataDir, outputDataDir);
     AdditionalTextPositioning(inputDataDir, outputDataDir);
     ConversionToPDF17(inputDataDir, outputDataDir);
+    UpdateIfLastPrinted(inputDataDir, outputDataDir);
     std::cout << "WorkingWithPdfSaveOptions example finished." << std::endl << std::endl;
 }

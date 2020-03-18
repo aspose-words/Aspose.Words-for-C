@@ -62,6 +62,7 @@ void NestedMailMergeCustom();
 //void RemoveRowsFromTable(); // isn't compiled due to using of DataSet
 void SimpleMailMerge();
 //void XMLMailMerge(); // isn't compiled due to using of DataSet
+void MailMergeImageField();
 
 // =====================================================
 // =====================================================
@@ -183,7 +184,7 @@ void GetFieldNames();
 void InsertAdvanceFieldWithoutDocumentBuilder();
 void InsertASKFieldWithoutDocumentBuilder();
 void InsertAuthorField();
-void InsertField();
+void InsertFields();
 void InsertFieldNone();
 void InsertFormFields();
 void InsertIncludeFieldWithoutDocumentBuilder();
@@ -208,6 +209,7 @@ void ReplaceWithHTML();
 void ReplaceWithRegex();
 void ReplaceWithString();
 void UsingLegacyOrder();
+void IgnoreText();
 
 // Hyperlink
 // =====================================================

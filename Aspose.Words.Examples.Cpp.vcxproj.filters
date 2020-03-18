@@ -522,9 +522,6 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\UseOfficeMathProperties.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Programming-Documents\Fields\InsertField.cpp">
-      <Filter>cpp\Programming-Documents\Fields</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertMergeFieldUsingDOM.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
@@ -814,6 +811,15 @@
     <ClCompile Include="cpp\Programming-Documents\Document\ExtractTableOfContents.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\IgnoreText.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertFields.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\MailMergeImageField.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
@@ -826,9 +832,9 @@
     <ClInclude Include="cpp\pch\pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
   </ItemGroup>
 </Project>
