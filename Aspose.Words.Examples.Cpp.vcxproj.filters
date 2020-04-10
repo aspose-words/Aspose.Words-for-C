@@ -820,6 +820,9 @@
     <ClCompile Include="cpp\Mail-Merge\MailMergeImageField.cpp">
       <Filter>cpp\Mail-Merge</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SaveDocumentToJPEG.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">

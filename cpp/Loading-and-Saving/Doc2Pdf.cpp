@@ -15,6 +15,7 @@ using namespace Aspose::Words::Saving;
 
 namespace
 {
+    // ExStart:RenderMetafileToBitmap
     class HandleDocumentWarnings : public IWarningCallback
     {
         RTTI_INFO_DECL();
@@ -50,6 +51,26 @@ namespace
         result.Add("HandleDocumentWarnings::mWarnings", this->mWarnings);
         return result;
     }
+    
+    void RenderMetafileToBitmap(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        // Load the document from disk.
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"PdfRenderWarnings.doc");
+
+        System::SharedPtr<MetafileRenderingOptions> metafileRenderingOptions = System::MakeObject<MetafileRenderingOptions>();
+        metafileRenderingOptions->set_EmulateRasterOperations(false);
+        metafileRenderingOptions->set_RenderingMode(MetafileRenderingMode::VectorWithFallback);
+
+        // If Aspose.Words cannot correctly render some of the metafile records to vector graphics then Aspose.Words renders this metafile to a bitmap. 
+        System::SharedPtr<HandleDocumentWarnings> callback = System::MakeObject<HandleDocumentWarnings>();
+        doc->set_WarningCallback(callback);
+
+        System::SharedPtr<PdfSaveOptions> saveOptions = System::MakeObject<PdfSaveOptions>();
+        saveOptions->set_MetafileRenderingOptions(metafileRenderingOptions);
+
+        doc->Save(outputDataDir + u"PdfSaveOptions.HandleRasterWarnings.pdf", saveOptions);
+    }
+    // ExEnd:RenderMetafileToBitmap
 
     void SaveDoc2Pdf(System::String const &inputDataDir, System::String const &outputDataDir)
     {
@@ -117,5 +138,6 @@ void Doc2Pdf()
     SaveDoc2Pdf(inputDataDir, outputDataDir);
     DisplayDocTitleInWindowTitlebar(inputDataDir, outputDataDir);
     PdfRenderWarnings(inputDataDir, outputDataDir);
+    RenderMetafileToBitmap(inputDataDir, outputDataDir);
     std::cout << "Doc2Pdf example finished." << std::endl << std::endl;
 }
