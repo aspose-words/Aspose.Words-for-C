@@ -153,6 +153,7 @@ namespace
 
     void RenderShapeToGraphics(System::String const &outputDataDir, System::SharedPtr<Shape> shape)
     {
+        // ExStart:RenderShapeToGraphics
         System::SharedPtr<ShapeRenderer> r = shape->GetShapeRenderer();
 
         // Find the size that the shape will be rendered to at the specified scale and resolution.
@@ -189,6 +190,7 @@ namespace
             imageHolder.GetObject()->Save(outputPath, System::Drawing::Imaging::ImageFormat::get_Png());
             std::cout << "Shape rendered to graphics successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
         }
+        // ExEnd:RenderShapeToGraphics
     }
 
     void RenderCellToImage(System::String const &outputDataDir, System::SharedPtr<Document> doc)
