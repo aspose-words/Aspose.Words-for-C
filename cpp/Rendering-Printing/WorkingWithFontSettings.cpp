@@ -7,12 +7,31 @@
 #include <Aspose.Words.Cpp/Model/Fonts/FontFallbackSettings.h>
 #include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
 #include <Aspose.Words.Cpp/Model/Fonts/FontSubstitutionSettings.h>
+#include <Aspose.Words.Cpp/Model/Fonts/TableSubstitutionRule.h>
+#include <Aspose.Words.Cpp/Model/Document/LoadOptions.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FolderFontSource.h>
+#include <Aspose.Words.Cpp/Model/Fonts/SystemFontSource.h>
+#include <Aspose.Words.Cpp/Model/Fonts/FontConfigSubstitutionRule.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fonts;
 
 namespace
 {
+    void FontSettingsWithLoadOptions(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        // ExStart:FontSettingsWithLoadOptions
+        System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
+        System::SharedPtr<TableSubstitutionRule> substitutionRule = fontSettings->get_SubstitutionSettings()->get_TableSubstitution();
+        
+        // If "UnknownFont1" font family is not available then substitute it by "Comic Sans MS".
+        substitutionRule->AddSubstitutes(u"UnknownFont1", System::MakeArray<System::String>({ u"Comic Sans MS" }));
+        
+        System::SharedPtr<LoadOptions> lo = System::MakeObject<LoadOptions>();
+        lo->set_FontSettings(fontSettings);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"MyDocument.docx", lo);
+        // ExEnd:FontSettingsWithLoadOptions
+    }
     void EnableDisableFontSubstitution(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:EnableDisableFontSubstitution
@@ -64,9 +83,32 @@ namespace
         // ExEnd:SetPredefinedFontFallbackSettings
         std::cout << "Document is rendered to PDF with font fallback." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void FontSettingsDefaultInstance(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        // ExStart:FontSettingsFontSource
+        // ExStart:FontSettingsDefaultInstance
+        System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>()->get_DefaultInstance();
+        // ExEnd:FontSettingsDefaultInstance   
+        fontSettings->SetFontsSources(System::MakeArray<System::SharedPtr<FontSourceBase>>(
+            {
+                System::MakeObject<SystemFontSource>(),
+                System::MakeObject<FolderFontSource>(u"/home/user/MyFonts", true)
+            }));
+        // ExEnd:FontSettingsFontSource
+
+        // init font settings
+        System::SharedPtr<LoadOptions> lo = System::MakeObject<LoadOptions>();
+        lo->set_FontSettings(fontSettings);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"MyDocument.docx", lo);
+        fontSettings->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Arial");
+        System::SharedPtr<FontFallbackSettings> settings = fontSettings->get_FallbackSettings();
+        
+    }
+
 }
 
-void SetFontSettings()
+void WorkingWithFontSettings()
 {
     std::cout << "SetFontSettings example started." << std::endl;
     // The path to the documents directories.

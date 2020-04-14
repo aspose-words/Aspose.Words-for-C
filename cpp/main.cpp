@@ -355,7 +355,7 @@ int main()
     RenderShape();
     ResourceSteamFontSource();
     //SaveAsMultipageTiff(); // saving into images don't work properly
-    SetFontSettings();
+    WorkingWithFontSettings();
     SetFontsFoldersMultipleFolders();
     SetFontsFoldersSystemAndCustomFolder();
     SetHorizontalAndVerticalImageResolution();

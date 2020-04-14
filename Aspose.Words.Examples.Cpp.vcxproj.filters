@@ -721,9 +721,6 @@
     <ClCompile Include="cpp\Rendering-Printing\SaveAsMultipageTiff.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Rendering-Printing\SetFontSettings.cpp">
-      <Filter>cpp\Rendering-Printing</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersMultipleFolders.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
@@ -821,6 +818,9 @@
       <Filter>cpp\Mail-Merge</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Rendering-Printing\SaveDocumentToJPEG.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\WorkingWithFontSettings.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
   </ItemGroup>

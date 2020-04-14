@@ -398,7 +398,7 @@
     <ClCompile Include="cpp\Rendering-Printing\ResourceSteamFontSource.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SaveAsMultipageTiff.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SaveDocumentToJPEG.cpp" />
-    <ClCompile Include="cpp\Rendering-Printing\SetFontSettings.cpp" />
+    <ClCompile Include="cpp\Rendering-Printing\WorkingWithFontSettings.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersMultipleFolders.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersSystemAndCustomFolder.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SetHorizontalAndVerticalImageResolution.cpp" />
