@@ -43,6 +43,35 @@ namespace
         }
         // ExEnd:GetListOfAvailableFonts
     }
+
+    void SetFontsFolder(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        // ExStart:SetFontsFolder
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
+        System::SharedPtr<FontSettings> fontSettings = System::MakeObject<FontSettings>();
+
+        // Retrieve the array of environment-dependent font sources that are searched by default. For example this will contain a "Windows\Fonts\" source on a Windows machines.
+        // We add this array to a new ArrayList to make adding or removing font entries much easier.
+        System::SharedPtr<TFontSourceBasePtrList> fontSources = System::MakeObject<TFontSourceBasePtrList>(fontSettings->GetFontsSources());
+
+        // Add a new folder source which will instruct Aspose.Words to search the following folder for fonts.
+        System::SharedPtr<FolderFontSource> folderFontSource = System::MakeObject<FolderFontSource>(u"C:\\MyFonts\\", true);
+        
+        // Add the custom folder which contains our fonts to the list of existing font sources.
+        fontSources->Add(folderFontSource);
+
+        // Convert the Arraylist of source back into a primitive array of FontSource objects.
+        System::ArrayPtr<TFontSourceBasePtr> updatedFontSources = fontSources->ToArray();
+
+        // Apply the new set of font sources to use.
+        fontSettings->SetFontsSources(updatedFontSources);
+        // Set font settings
+        doc->set_FontSettings(fontSettings);
+
+        System::String outputPath = outputDataDir + u"SetFontsFoldersSystemAndCustomFolder.pdf";
+        doc->Save(outputPath);
+        // ExEnd:SetFontsFolder
+    }
 }
 
 void WorkingWithFontSources()
@@ -50,6 +79,9 @@ void WorkingWithFontSources()
     std::cout << "WorkingWithFontSources example started." << std::endl;
     // The path to the documents directory.
     System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
+    System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
+
     GetListOfAvailableFonts(inputDataDir);
+    SetFontsFolder(inputDataDir, outputDataDir);
     std::cout << "WorkingWithFontSources example finished." << std::endl << std::endl;
 }

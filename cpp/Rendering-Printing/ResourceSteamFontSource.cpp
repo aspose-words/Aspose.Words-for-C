@@ -10,7 +10,7 @@
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fonts;
-
+// ExStart:ResourceSteamFontSource
 namespace
 {
     class ResourceSteamFontSourceExample : public StreamFontSource
@@ -46,3 +46,4 @@ void ResourceSteamFontSource()
     doc->Save(outputPath);
     std::cout << "ResourceSteamFontSource example finished." << std::endl << std::endl;
 }
+// ExEnd:ResourceSteamFontSource
