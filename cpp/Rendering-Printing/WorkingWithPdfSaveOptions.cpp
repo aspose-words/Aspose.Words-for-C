@@ -225,8 +225,8 @@ void WorkingWithPdfSaveOptions()
     AdditionalTextPositioning(inputDataDir, outputDataDir);
     ConversionToPDF17(inputDataDir, outputDataDir);
     UpdateIfLastPrinted(inputDataDir, outputDataDir);
-    PdfImageComppression(inputDataDir, outputDataDir);
-    ExportDocumentStructure(inputDataDir, outputDataDir);
+    // PdfImageComppression(inputDataDir, outputDataDir);
+    // ExportDocumentStructure(inputDataDir, outputDataDir);
     CustomPropertiesExport(inputDataDir, outputDataDir);
     SaveToPdfWithOutline(inputDataDir, outputDataDir);
     DownsamplingImages(inputDataDir, outputDataDir);
