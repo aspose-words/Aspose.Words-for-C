@@ -23,7 +23,7 @@
     <ProjectGuid>{A79C6233-6486-458B-85A3-F786DB595075}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AsposeWordsExamplesCpp</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
