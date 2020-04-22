@@ -78,6 +78,7 @@ void BookmarkTable();
 void CopyBookmarkedText();
 void CreateBookmark();
 void UntangleRowBookmarks();
+void ShowHideBookmarks();
 
 // Charts
 // =====================================================
@@ -359,3 +360,6 @@ void SpecifyDefaultFontWhenRendering();
 //WorkingWithFontResolution(); // Source document is missing
 void WorkingWithFontSources();
 void WorkingWithPdfSaveOptions();
+void SetFontsFolders();
+void SetFontsFoldersDefaultInstance();
+void SetFontsFoldersWithPriority();

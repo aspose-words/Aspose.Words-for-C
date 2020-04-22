@@ -9,7 +9,7 @@ using namespace Aspose::Words::Saving;
 
 namespace
 {
-    void EmbeddAllFonts(System::String const& inputDataDir, System::String const& outputDataDir)
+    void EmbedAllFonts(System::String const& inputDataDir, System::String const& outputDataDir)
     {
         // ExStart:EmbeddAllFonts
         // Open a Document
@@ -21,12 +21,12 @@ namespace
         options->set_EmbedFullFonts(true);
 
         // The output PDF will be embedded with all fonts found in the document.
-        System::String outputPath = outputDataDir + u"EmbeddedFontsInPDF.pdf";
+        System::String outputPath = outputDataDir + u"EmbeddedFontsInPDF.EmbedAllFonts_out.pdf";
         doc->Save(outputPath, options);
         // ExEnd:EmbeddAllFonts
     }
 
-    void EmbeddSubsetFonts(System::String const& inputDataDir, System::String const &outputDataDir)
+    void EmbedSubsetFonts(System::String const& inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:EmbeddSubsetFonts
         // Open a Document
@@ -38,7 +38,7 @@ namespace
 
         // The output PDF will contain subsets of the fonts in the document. Only the glyphs used
         // In the document are included in the PDF fonts.
-        System::String outputPath = outputDataDir + u"EmbeddedFontsInPDF.EmbeddSubsetFonts.pdf";
+        System::String outputPath = outputDataDir + u"EmbeddedFontsInPDF.EmbeddSubsetFonts_out.pdf";
         doc->Save(outputPath, options);
         // ExEnd:EmbeddSubsetFonts
         std::cout << "Subset Fonts embedded successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -55,7 +55,7 @@ namespace
         options->set_FontEmbeddingMode(PdfFontEmbeddingMode::EmbedNone);
 
         // The output PDF will be saved without embedding standard windows fonts.
-        System::String outputPath = outputDataDir + u"Rendering.DisableEmbedWindowsFonts.pdf";
+        System::String outputPath = outputDataDir + u"EmbeddedFontsInPDF.DisableEmbedWindowsFonts_out.pdf";
         doc->Save(outputPath, options);
         // ExEnd:SetFontEmbeddingMode
     }
@@ -68,8 +68,8 @@ void EmbeddedFontsInPDF()
     System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
     System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
     
-    EmbeddAllFonts(inputDataDir, outputDataDir);
-    EmbeddSubsetFonts(inputDataDir, outputDataDir);
+    EmbedAllFonts(inputDataDir, outputDataDir);
+    EmbedSubsetFonts(inputDataDir, outputDataDir);
     SetFontEmbeddingMode(inputDataDir, outputDataDir);
 
     std::cout << "All Fonts embedded successfully." << std::endl << "File saved at " << outputDataDir.ToUtf8String() << std::endl;
