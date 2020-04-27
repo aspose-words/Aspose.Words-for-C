@@ -7,6 +7,7 @@
 #include <Aspose.Words.Cpp/Model/Fonts/FontSourceBase.h>
 #include <Aspose.Words.Cpp/Model/Fonts/PhysicalFontInfo.h>
 #include <Aspose.Words.Cpp/Model/Fonts/SystemFontSource.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fonts;
