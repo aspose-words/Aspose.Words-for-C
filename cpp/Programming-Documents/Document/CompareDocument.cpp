@@ -4,6 +4,7 @@
 #include <Aspose.Words.Cpp/Model/Comparer/CompareOptions.h>
 #include <Aspose.Words.Cpp/Model/Comparer/ComparisonTargetType.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionCollection.h>
 
 using namespace Aspose::Words;
@@ -83,6 +84,22 @@ namespace
 
         std::cout << "Documents have compared successfully." << std::endl;
     }
+
+    void SpecifyComparisonGranularity(System::String const &inputDataDir)
+    {
+        // ExStart:SpecifyComparisonGranularity
+        System::SharedPtr<DocumentBuilder> builderA = System::MakeObject<DocumentBuilder>(System::MakeObject<Document>());
+        System::SharedPtr<DocumentBuilder> builderB = System::MakeObject<DocumentBuilder>(System::MakeObject<Document>());
+
+        builderA->Writeln(u"This is A simple word");
+        builderB->Writeln(u"This is B simple words");
+
+        System::SharedPtr<CompareOptions> co = System::MakeObject<CompareOptions>();
+        co->set_Granularity(Aspose::Words::Granularity::CharLevel);
+
+        builderA->get_Document()->Compare(builderB->get_Document(), u"author", System::DateTime::get_Now(), co);
+        // ExEnd:SpecifyComparisonGranularity
+    }
 }
 
 void CompareDocument()
@@ -94,5 +111,6 @@ void CompareDocument()
     CompareForEqual(inputDataDir);
     CompareDocumentWithCompareOptions(inputDataDir);
     CompareDocumentWithComparisonTarget(inputDataDir);
+    SpecifyComparisonGranularity(inputDataDir);
     std::cout << "CompareDocument example finished." << std::endl << std::endl;
 }

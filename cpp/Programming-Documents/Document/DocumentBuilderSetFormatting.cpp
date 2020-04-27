@@ -2,6 +2,8 @@
 #include "examples.h"
 
 #include <Aspose.Words.Cpp/Model/Text/Underline.h>
+#include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
@@ -271,6 +273,44 @@ namespace
         // ExEnd:DocumentBuilderApplyBordersAndShadingToParagraph
         std::cout << "Borders and shading using DocumentBuilder applied successfully to paragraph." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void ChangeAsianParagraphSpacingAndIndents(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        // ExStart:ChangeAsianParagraphSpacingAndIndents
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Input.docx");
+
+        System::SharedPtr<ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat();
+        format->set_CharacterUnitLeftIndent(10);
+        // ParagraphFormat.LeftIndent will be updated
+        format->set_CharacterUnitRightIndent(10);
+        // ParagraphFormat.RightIndent will be updated
+        format->set_CharacterUnitFirstLineIndent(20);
+        // ParagraphFormat.FirstLineIndent will be updated
+        format->set_LineUnitBefore(5);
+        // ParagraphFormat.SpaceBefore will be updated
+        format->set_LineUnitAfter(10);
+        // ParagraphFormat.SpaceAfter will be updated
+
+        const System::String outputPath = outputDataDir + u"ChangeAsianParagraphSpacingAndIndents_out.doc";
+        doc->Save(outputPath);
+        // ExEnd:ChangeAsianParagraphSpacingAndIndents
+        std::cout << "Spacing and Indents applied successfully to paragraph." << std::endl << "File saved at " <<  outputPath.ToUtf8String();
+    }
+
+    void SetSnapToGrid(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        // ExStart:SetSnapToGrid
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Input.docx");
+
+        System::SharedPtr<Paragraph> par = doc->get_FirstSection()->get_Body()->get_FirstParagraph();
+        par->get_ParagraphFormat()->set_SnapToGrid(true);
+        par->get_Runs()->idx_get(0)->get_Font()->set_SnapToGrid(true);
+
+        const System::String outputPath = outputDataDir + u"SetSnapToGrid_out.doc";
+        doc->Save(outputPath);
+        // ExEnd:SetSnapToGrid
+        std::cout << "SetSnapToGrid successfully to paragraph." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
+    }
 }
 
 void DocumentBuilderSetFormatting()
@@ -289,5 +329,7 @@ void DocumentBuilderSetFormatting()
     ApplyParagraphStyle(outputDataDir);
     ApplyBordersAndShadingToParagraph(outputDataDir);
     SetAsianTypographyLinebreakGroupProp(inputDataDir, outputDataDir);
+    ChangeAsianParagraphSpacingAndIndents(inputDataDir, outputDataDir);
+    SetSnapToGrid(inputDataDir, outputDataDir);
     std::cout << "DocumentBuilderSetFormatting example finished." << std::endl << std::endl;
 }

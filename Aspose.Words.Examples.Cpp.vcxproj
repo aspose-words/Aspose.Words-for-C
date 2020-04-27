@@ -204,6 +204,7 @@
     <ClCompile Include="cpp\Programming-Documents\Bookmarks\BookmarkTable.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Bookmarks\CopyBookmarkedText.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Bookmarks\CreateBookmark.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\ShowHideBookmarks.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Bookmarks\UntangleRowBookmarks.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Charts\ChartNumberFormat.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Charts\CreateChartUsingShape.cpp" />
@@ -398,6 +399,9 @@
     <ClCompile Include="cpp\Rendering-Printing\ResourceSteamFontSource.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SaveAsMultipageTiff.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SaveDocumentToJPEG.cpp" />
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFolders.cpp" />
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersDefaultInstance.cpp" />
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersWithPriority.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\WorkingWithFontSettings.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersMultipleFolders.cpp" />
     <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersSystemAndCustomFolder.cpp" />

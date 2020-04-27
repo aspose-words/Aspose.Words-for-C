@@ -823,6 +823,18 @@
     <ClCompile Include="cpp\Rendering-Printing\WorkingWithFontSettings.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\ShowHideBookmarks.cpp">
+      <Filter>cpp\Programming-Documents\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFolders.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersDefaultInstance.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersWithPriority.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">

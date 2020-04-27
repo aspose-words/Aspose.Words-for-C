@@ -81,6 +81,21 @@ namespace
         // ExEnd:SetFloatingTablePosition
         std::cout << "Set the Table position successfully." << std::endl;
     }
+
+    void SetRelativeHorizontalOrVerticalPosition(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        // ExStart:SetRelativeHorizontalOrVerticalPosition
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"FloatingTablePosition.docx");
+        System::SharedPtr<Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
+
+        table->set_HorizontalAnchor(Aspose::Words::Drawing::RelativeHorizontalPosition::Column);
+        table->set_VerticalAnchor(Aspose::Words::Drawing::RelativeVerticalPosition::Page);
+
+        // Save the document to disk.
+        doc->Save(outputDataDir + u"TablePosition.SetFloatingTablePosition_out.docx");
+        // ExEnd:SetRelativeHorizontalOrVerticalPosition
+        std::cout << "Set the Table position successfully." << std::endl;
+    }
 }
 
 void TablePosition()
@@ -92,5 +107,6 @@ void TablePosition()
     GetTablePosition(inputDataDir);
     GetFloatingTablePosition(inputDataDir);
     SetFloatingTablePosition(inputDataDir, outputDataDir);
+    SetRelativeHorizontalOrVerticalPosition(inputDataDir, outputDataDir);
     std::cout << "TablePosition example finished." << std::endl << std::endl;
 }

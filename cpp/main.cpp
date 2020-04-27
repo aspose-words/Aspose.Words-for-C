@@ -83,6 +83,7 @@ int main()
     CopyBookmarkedText();
     CreateBookmark();
     UntangleRowBookmarks();
+    ShowHideBookmarks();
 
     // Charts
     // =====================================================
@@ -364,6 +365,9 @@ int main()
     //WorkingWithFontResolution(); // Source document is missing
     WorkingWithFontSources();
     WorkingWithPdfSaveOptions();
+    SetFontsFolders();
+    SetFontsFoldersDefaultInstance();
+    SetFontsFoldersWithPriority();
 
     std::cout << "=====================================================" << std::endl << "Examples Finished." << std::endl;
 

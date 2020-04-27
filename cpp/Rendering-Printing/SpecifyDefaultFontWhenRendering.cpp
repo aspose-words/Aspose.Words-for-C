@@ -25,7 +25,7 @@ void SpecifyDefaultFontWhenRendering()
     fontSettings->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Arial Unicode MS");
     // Set font settings
     doc->set_FontSettings(fontSettings);
-    System::String outputPath = outputDataDir + u"SpecifyDefaultFontWhenRendering.pdf";
+    System::String outputPath = outputDataDir + u"Rendering.SpecifyDefaultFontWhenRendering.pdf";
     // Now the set default font is used in place of any missing fonts during any rendering calls.
     doc->Save(outputPath);
     // ExEnd:SpecifyDefaultFontWhenRendering 

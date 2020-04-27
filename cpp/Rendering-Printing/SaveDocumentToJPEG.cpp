@@ -44,6 +44,6 @@ void SaveDocumentToJPEG()
     System::String outputPath = outputDataDir + u"Rendering.JpegCustomOptions.jpg";
     doc->Save(outputPath, options);
     // ExEnd:SaveDocumentToJPEG
-    std::cout << "Document saved as JPEG successfully." << std::endl << "File saved at " << outputDataDir.ToUtf8String() << std::endl;
+    std::cout << "Document saved as JPEG successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "SaveDocumentToJPEG example finished." << std::endl << std::endl;
 }
