@@ -1,7 +1,4 @@
 #include "stdafx.h"
-
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
