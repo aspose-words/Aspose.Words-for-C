@@ -51,7 +51,7 @@ void UsingLegacyOrder()
     options->set_ReplacingCallback(System::MakeObject<ReplacingCallback>());
     options->set_UseLegacyOrder(true);
 
-    doc->get_Range()->Replace(System::MakeObject<Regex>(u"\[(.* ? )\]"), u"", options);
+    doc->get_Range()->Replace(System::MakeObject<Regex>(u"\\[(.* ? )\\]"), u"", options);
 
     System::String outputPath = outputDataDir + u"UsingLegacyOrder.doc";
     doc->Save(outputPath);
