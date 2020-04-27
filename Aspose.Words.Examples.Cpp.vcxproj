@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cpp\Loading-and-Saving\AccessAndVerifySignature.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\CheckFormat.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToByte.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToEPUB.cpp" />
@@ -170,6 +171,8 @@
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToPCL.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\CreateDocument.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\DetectDocumentSignatures.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\DigitallySignedPdf.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\DigitallySignedPdfUsingCertificateHolder.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\Doc2Pdf.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ExportFontsAsBase64.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ExportResourcesUsingHtmlSaveOptions.cpp" />
@@ -183,6 +186,7 @@
     <ClCompile Include="cpp\Loading-and-Saving\PageSplitter.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SaveDocWithHtmlSaveOptions.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SaveOptionsHtmlFixed.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\SigningSignatureLine.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SpecifySaveOption.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SplitIntoHtmlPages.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\WorkingWithDoc.cpp" />
