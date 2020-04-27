@@ -27,6 +27,7 @@ using namespace Aspose::Words::Fields;
 void ShowHideBookmarks()
 {
     std::cout << "ShowHideBookmarks example started." << std::endl;
+    // ExStart:ShowHideBookmarks
     typedef System::SharedPtr<System::Object> TObjectPtr;
 
     System::String bookmarkName = u"Bookmark2";
@@ -90,5 +91,6 @@ void ShowHideBookmarks()
     //builder.Write(showHide ? "true" : "false");
 
     doc->Save(outputDataDir + u"Updated_Document_out.doc");
+    // ExEnd:ShowHideBookmarks
     std::cout << "ShowHideBookmarks example finished." << std::endl << std::endl;
 }
