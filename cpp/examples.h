@@ -7,7 +7,7 @@
 // Loading and Saving
 // =====================================================
 // =====================================================
-//void AccessAndVerifySignature(); // Cryptography isn't supported
+void AccessAndVerifySignature();
 void CheckFormat();
 void ConvertDocumentToByte();
 void ConvertDocumentToEPUB();
@@ -15,8 +15,7 @@ void ConvertDocumentToHtmlWithRoundtrip();
 void ConvertDocumentToPCL();
 void CreateDocument();
 void DetectDocumentSignatures();
-//void DigitallySignedPdf(); // Cryptography isn't supported
-//void DigitallySignedPdfUsingCertificateHolder(); // Cryptography isn't supported
+void DigitallySignedPdfUsingCertificateHolder();
 void Doc2Pdf();
 void ExportFontsAsBase64();
 void ExportResourcesUsingHtmlSaveOptions();
@@ -154,7 +153,7 @@ void RichTextBoxContentControl();
 void SetCompatibilityOptions();
 void Setuplanguagepreferences();
 void SetViewOption();
-//void SigningSignatureLine(); // Cryptography isn't supported
+void SigningSignatureLine();
 void UpdateContentControls();
 void WriteAndFont();
 //void WorkingWithImportFormatOptions(); // Source document is missing

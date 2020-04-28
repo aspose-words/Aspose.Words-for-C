@@ -12,7 +12,7 @@ int main()
     // Loading and Saving
     // =====================================================
     // =====================================================
-    //AccessAndVerifySignature(); // Cryptography isn't supported
+    AccessAndVerifySignature();
     CheckFormat();
     ConvertDocumentToByte();
     ConvertDocumentToEPUB();
@@ -20,8 +20,7 @@ int main()
     ConvertDocumentToPCL();
     CreateDocument();
     DetectDocumentSignatures();
-    //DigitallySignedPdf(); // Cryptography isn't supported
-    //DigitallySignedPdfUsingCertificateHolder(); // Cryptography isn't supported
+    DigitallySignedPdfUsingCertificateHolder();
     Doc2Pdf();
     ExportFontsAsBase64();
     ExportResourcesUsingHtmlSaveOptions();
@@ -159,7 +158,7 @@ int main()
     SetCompatibilityOptions();
     Setuplanguagepreferences();
     SetViewOption();
-    //SigningSignatureLine(); // Cryptography isn't supported
+    SigningSignatureLine();
     UpdateContentControls();
     WriteAndFont();
     //WorkingWithImportFormatOptions(); // Source document is missing
