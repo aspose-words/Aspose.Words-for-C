@@ -20,7 +20,6 @@ int main()
     ConvertDocumentToPCL();
     CreateDocument();
     DetectDocumentSignatures();
-    DigitallySignedPdf();
     DigitallySignedPdfUsingCertificateHolder();
     Doc2Pdf();
     ExportFontsAsBase64();

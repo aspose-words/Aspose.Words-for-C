@@ -15,7 +15,6 @@ void ConvertDocumentToHtmlWithRoundtrip();
 void ConvertDocumentToPCL();
 void CreateDocument();
 void DetectDocumentSignatures();
-void DigitallySignedPdf();
 void DigitallySignedPdfUsingCertificateHolder();
 void Doc2Pdf();
 void ExportFontsAsBase64();

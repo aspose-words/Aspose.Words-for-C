@@ -171,7 +171,6 @@
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToPCL.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\CreateDocument.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\DetectDocumentSignatures.cpp" />
-    <ClCompile Include="cpp\Loading-and-Saving\DigitallySignedPdf.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\DigitallySignedPdfUsingCertificateHolder.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\Doc2Pdf.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ExportFontsAsBase64.cpp" />

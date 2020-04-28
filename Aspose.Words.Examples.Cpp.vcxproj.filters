@@ -835,9 +835,6 @@
     <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersWithPriority.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Loading-and-Saving\DigitallySignedPdf.cpp">
-      <Filter>cpp\Loading-and-Saving</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\DigitallySignedPdfUsingCertificateHolder.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
