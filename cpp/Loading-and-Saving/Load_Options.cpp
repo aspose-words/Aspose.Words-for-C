@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/enumerator_adapter.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkStart.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkEnd.h>
 #include <Aspose.Words.Cpp/Model/Document/FileFormatInfo.h>
@@ -13,6 +14,9 @@
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Saving/OdtSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
+#include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
+#include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Markup;
@@ -21,6 +25,52 @@ using namespace Aspose::Words::Settings;
 
 namespace
 {
+    //ExStart:DocumentLoadingWarningCallback
+    class DocumentLoadingWarningCallback : public IWarningCallback
+    {
+        public:
+            System::SharedPtr<WarningInfoCollection> mWarnings;
+            void Warning(System::SharedPtr<WarningInfo> info);
+            DocumentLoadingWarningCallback();
+
+        protected:
+            System::Object::shared_members_type GetSharedMembers() override;
+    };
+
+    //RTTI_INFO_IMPL_HASH(1974866485u, DocumentLoadingWarningCallback, ThisTypeBaseTypesInfo);
+
+    void DocumentLoadingWarningCallback::Warning(System::SharedPtr<WarningInfo> info)
+    {
+        // Prints warnings and their details as they arise during document loading.
+        std::cout << "WARNING: {info.WarningType}, source: {info.Source}" << std::endl;
+        std::cout << "\tDescription: {info.Description}" << std::endl;
+    }
+
+    DocumentLoadingWarningCallback::DocumentLoadingWarningCallback() : mWarnings(System::MakeObject<WarningInfoCollection>())
+    {
+    }
+
+    System::Object::shared_members_type DocumentLoadingWarningCallback::GetSharedMembers()
+    {
+        auto result = System::Object::GetSharedMembers();
+        result.Add("DocumentLoadingWarningCallback::mWarnings", this->mWarnings);
+        return result;
+    }
+    //ExEnd:DocumentLoadingWarningCallback
+    
+    void LoadOptionsWarningCallback(System::String const& inputDataDir)
+    {
+        //ExStart:LoadOptionsWarningCallback
+        // Create a new LoadOptions object and set its WarningCallback property. 
+        System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
+
+        System::SharedPtr<DocumentLoadingWarningCallback> callback = System::MakeObject<DocumentLoadingWarningCallback>();
+        loadOptions->set_WarningCallback(callback);
+
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"document.docx", loadOptions);
+        //ExEnd:LoadOptionsWarningCallback
+    }
+
     void LoadOptionsUpdateDirtyFields(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:LoadOptionsUpdateDirtyFields
@@ -56,6 +106,7 @@ namespace
         System::SharedPtr<FileFormatInfo> info = FileFormatUtil::DetectFileFormat(inputDataDir + u"encrypted.odt");
         std::cout << info->get_IsEncrypted() << std::endl;
         // ExEnd:VerifyODTdocument
+        std::cout << "Verified encrypted document successfully." << std::endl << std::endl;
     }
 
     void ConvertShapeToOfficeMath(System::String const &inputDataDir, System::String const &outputDataDir)
@@ -70,6 +121,7 @@ namespace
         //Save the document into DOCX
         doc->Save(outputPath, SaveFormat::Docx);
         // ExEnd:ConvertShapeToOfficeMath
+        std::cout << "Converted Shape To Office Math successfully." << std::endl << std::endl;
     }
 
     void SetMSWordVersion(System::String const &inputDataDir, System::String const &outputDataDir)
@@ -84,18 +136,45 @@ namespace
         // ExEnd:SetMSWordVersion 
         std::cout << "Loaded with MS Word Version successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+    void SetTempFolder(System::String const& inputDataDir)
+    {
+        //ExStart:SetTempFolder
+        // For complete examples and data files, please go to https://github.com/aspose-words/Aspose.Words-for-C
+        System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
+        loadOptions->set_TempFolder(u"C:/TempFolder/");
+
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"document.docx", loadOptions);
+        //ExEnd:SetTempFolder
+        std::cout << "Set Temp Folder successfully." << std::endl << std::endl;
+    }
+
+    void LoadOptionsEncoding(System::String const& inputDataDir)
+    {
+        //ExStart:LoadOptionsEncoding
+        // Set the Encoding attribute in a LoadOptions object to override the automatically chosen encoding with the one we know to be correct
+        System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
+        loadOptions->set_Encoding(System::Text::Encoding::get_UTF7());
+
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Encoded in UTF-7.txt", loadOptions);
+        //ExEnd:LoadOptionsEncoding
+        std::cout << "Set Encoding successfully." << std::endl << std::endl;
+    }
 }
 
 void Load_Options()
 {
     std::cout << "Load_Options example started." << std::endl;
     // The path to the documents directories.
-    System::String inputDataDir = GetInputDataDir_QuickStart();
-    System::String outputDataDir = GetOutputDataDir_QuickStart();
+    System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
     LoadOptionsUpdateDirtyFields(inputDataDir, outputDataDir);
     LoadAndSaveEncryptedODT(inputDataDir, outputDataDir);
     VerifyODTdocument(inputDataDir);
     ConvertShapeToOfficeMath(inputDataDir, outputDataDir);
     SetMSWordVersion(inputDataDir, outputDataDir);
+    LoadOptionsEncoding(inputDataDir);
+    LoadOptionsWarningCallback(inputDataDir);
+    SetTempFolder(inputDataDir);
     std::cout << "Load_Options example finished." << std::endl << std::endl;
 }
