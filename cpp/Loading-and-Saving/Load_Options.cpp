@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "examples.h"
-
+#include <system/type_info.h>
+#include <system/convert.h>
 #include <system/enumerator_adapter.h>
+#include <drawing/image_converter.h>
+#include <system/component_model/type_converter.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkStart.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkEnd.h>
 #include <Aspose.Words.Cpp/Model/Document/FileFormatInfo.h>
@@ -17,11 +20,17 @@
 #include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
+#include <Aspose.Words.Cpp/Model/Document/WarningType.h>
+#include <Aspose.Words.Cpp/Model/Loading/IResourceLoadingCallback.h>
+#include <Aspose.Words.Cpp/Model/Loading/ResourceLoadingAction.h>
+#include <Aspose.Words.Cpp/Model/Loading/ResourceLoadingArgs.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Markup;
 using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Settings;
+using namespace Aspose::Words::Loading;
+using namespace Aspose::Warnings;
 
 namespace
 {
@@ -42,8 +51,9 @@ namespace
     void DocumentLoadingWarningCallback::Warning(System::SharedPtr<WarningInfo> info)
     {
         // Prints warnings and their details as they arise during document loading.
-        std::cout << "WARNING: {info.WarningType}, source: {info.Source}" << std::endl;
-        std::cout << "\tDescription: {info.Description}" << std::endl;
+        std::cout << "WARNING: {info->get_WarningType} " << std::endl;
+        std::cout << "Source: {info->get_Source} " << std::endl;
+        std::cout << "\tDescription: {info->get_Description} " << std::endl;
     }
 
     DocumentLoadingWarningCallback::DocumentLoadingWarningCallback() : mWarnings(System::MakeObject<WarningInfoCollection>())
@@ -57,6 +67,58 @@ namespace
         return result;
     }
     //ExEnd:DocumentLoadingWarningCallback
+
+    //ExStart:HtmlLinkedResourceLoadingCallback
+    class HtmlLinkedResourceLoadingCallback : public IResourceLoadingCallback
+    {
+        public:
+            ResourceLoadingAction ResourceLoading(System::SharedPtr<ResourceLoadingArgs> args);
+            HtmlLinkedResourceLoadingCallback();
+    };
+
+    HtmlLinkedResourceLoadingCallback::HtmlLinkedResourceLoadingCallback()
+    {
+    }
+
+    ResourceLoadingAction HtmlLinkedResourceLoadingCallback::ResourceLoading(System::SharedPtr<ResourceLoadingArgs> args)
+    {
+        switch (args->get_ResourceType())
+        {
+            case ResourceType::CssStyleSheet:
+            {
+                std::cout << "External CSS Stylesheet found upon loading: " << args->get_OriginalUri().ToUtf8String() << std::endl;
+
+                // CSS file will don't used in the document
+                return ResourceLoadingAction::Skip;
+            }
+            case ResourceType::Image:
+            {
+                // Replaces all images with a substitute
+                System::String newImageFilename = u"Logo.jpg";
+                std::cout << "\tImage will be substituted with: " << newImageFilename.ToUtf8String() << std::endl;
+
+                System::SharedPtr<System::Drawing::Image> newImage = System::Drawing::Image::FromFile(GetInputDataDir_LoadingAndSaving() + newImageFilename);
+                System::SharedPtr<System::Drawing::ImageConverter> converter = System::MakeObject<System::Drawing::ImageConverter>();
+                auto imageBytes = System::DynamicCast<System::Array<uint8_t>>(converter->ConvertTo(nullptr, nullptr, newImage, System::ObjectExt::GetType<System::Array<uint8_t>>()));
+                //System::ArrayPtr<uint8_t> imageBytes = System::IO::File::ReadAllBytes(GetInputDataDir_LoadingAndSaving() + newImageFilename);
+                args->SetData(imageBytes);
+
+                // New images will be used instead of presented in the document
+                return ResourceLoadingAction::UserProvided;
+            }
+            case ResourceType::Document:
+            {
+                std::cout << "External document found upon loading: " << args->get_OriginalUri().ToUtf8String() << std::endl;
+
+                // Will be used as usual
+                return ResourceLoadingAction::Default;
+            }
+            default:
+                throw System::InvalidOperationException(u"Unexpected ResourceType value.");
+        }
+    }
+    
+    //ExEnd:HtmlLinkedResourceLoadingCallback
     
     void LoadOptionsWarningCallback(System::String const& inputDataDir)
     {
@@ -160,6 +222,21 @@ namespace
         //ExEnd:LoadOptionsEncoding
         std::cout << "Set Encoding successfully." << std::endl << std::endl;
     }
+
+    void LoadOptionsResourceLoadingCallback(System::String const& inputDataDir)
+    {
+        //ExStart:LoadOptionsResourceLoadingCallback
+        // Create a new LoadOptions object and set its ResourceLoadingCallback attribute as an instance of our IResourceLoadingCallback implementation
+        System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
+        loadOptions->set_ResourceLoadingCallback(System::MakeObject<HtmlLinkedResourceLoadingCallback>());
+
+        // When we open an Html document, external resources such as references to CSS stylesheet files and external images
+        // will be handled in a custom manner by the loading callback as the document is loaded
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Images.html", loadOptions);
+        doc->Save(inputDataDir + u"Document.LoadOptionsCallback_out.pdf");
+        //ExEnd:LoadOptionsResourceLoadingCallback
+        std::cout << "Load Options Resource Loading Callback successfully." << std::endl << std::endl;
+    }
 }
 
 void Load_Options()
@@ -176,5 +253,6 @@ void Load_Options()
     LoadOptionsEncoding(inputDataDir);
     LoadOptionsWarningCallback(inputDataDir);
     SetTempFolder(inputDataDir);
+    LoadOptionsResourceLoadingCallback(inputDataDir);
     std::cout << "Load_Options example finished." << std::endl << std::endl;
 }
