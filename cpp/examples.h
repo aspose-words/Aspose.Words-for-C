@@ -17,7 +17,9 @@ void CreateDocument();
 void DetectDocumentSignatures();
 void DigitallySignedPdfUsingCertificateHolder();
 void Doc2Pdf();
-//void ImageToPdf(); // System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
+void ExportFontsAsBase64();
+void ExportResourcesUsingHtmlSaveOptions();
+void ImageToPdf(); 
 void Load_Options();
 void LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
 void LoadAndSaveToDisk();
@@ -29,10 +31,10 @@ void SaveDocWithHtmlSaveOptions();
 void SaveOptionsHtmlFixed();
 void SpecifySaveOption();
 void SplitIntoHtmlPages();
-void WorkingWithDoc(); // Source document is missing
+void WorkingWithDoc(); 
 void WorkingWithOoxml();
 void WorkingWithRTF();
-void WorkingWithTxt(); // Source document is missing
+void WorkingWithTxt();
 void WorkingWithVbaMacros();
 
 // =====================================================
@@ -113,7 +115,7 @@ void CloningDocument();
 void ComboBoxContentControl();
 void CompareDocument();
 void CreateHeaderFooterUsingDocBuilder();
-void DocProperties(); // exception at execution
+void DocProperties(); 
 void DocumentBuilderBuildTable();
 void DocumentBuilderHorizontalRule();
 void DocumentBuilderInsertBookmark();
@@ -308,7 +310,7 @@ void InsertTableFromHtml();
 void InsertTableUsingDocumentBuilder();
 void JoiningAndSplittingTable();
 void KeepTablesAndRowsBreaking();
-void MergedCells(); // raised NullReferenceException
+void MergedCells(); 
 void RepeatRowsOnSubsequentPages();
 void SpecifyHeightAndWidth();
 void TablePosition();
@@ -342,7 +344,7 @@ void EmbeddedFontsInPDF();
 void EmbeddingWindowsStandardFonts();
 void EnumerateLayoutElements();
 void HyphenateWordsOfLanguages();
-void ImageColorFilters(); // saving into images don't work properly
+void ImageColorFilters(); 
 void LoadHyphenationDictionaryForLanguage();
 //void PrintProgressDialog(); // using of GUI
 //void Print_CachePrinterSettings; // using of GUI

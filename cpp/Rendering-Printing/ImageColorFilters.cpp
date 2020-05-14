@@ -185,12 +185,15 @@ void ImageColorFilters()
     System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
     // Open the document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile.Colors.docx");
-    //SaveColorTIFFwithLZW(doc, outputDataDir, 0.8f, 0.8f); // exception at execution
-    //SaveGrayscaleTIFFwithLZW(doc, outputDataDir, 0.8f, 0.8f); // exception at execution
-    //SaveBlackWhiteTIFFwithLZW(doc, outputDataDir, true); // exception at execution
-    //SaveBlackWhiteTIFFwithCITT4(doc, outputDataDir, true); // exception at execution
-    //SaveBlackWhiteTIFFwithRLE(doc, outputDataDir, true); // exception at execution
+#if 0
+    // Tiff support is limited and unstable
+    SaveColorTIFFwithLZW(doc, outputDataDir, 0.8f, 0.8f); 
+    SaveGrayscaleTIFFwithLZW(doc, outputDataDir, 0.8f, 0.8f); 
+    aveBlackWhiteTIFFwithLZW(doc, outputDataDir, true); 
+    SaveBlackWhiteTIFFwithCITT4(doc, outputDataDir, true); 
+    SaveBlackWhiteTIFFwithRLE(doc, outputDataDir, true); 
+    ExposeThresholdControlForTiffBinarization(doc, outputDataDir); 
+#endif
     SaveImageToOnebitPerPixel(doc, outputDataDir);
-    //ExposeThresholdControlForTiffBinarization(doc, outputDataDir); // exception at execution
     std::cout << "ImageColorFilters example finished." << std::endl << std::endl;
 }

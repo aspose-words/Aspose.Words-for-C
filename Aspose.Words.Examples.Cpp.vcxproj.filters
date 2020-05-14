@@ -843,6 +843,7 @@
     </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Document\WorkWithWatermark.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHTML.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
