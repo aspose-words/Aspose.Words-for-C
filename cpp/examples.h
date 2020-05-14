@@ -153,6 +153,9 @@ void Setuplanguagepreferences();
 void SetViewOption();
 void SigningSignatureLine();
 void UpdateContentControls();
+void ShowGrammaticalAndSpellingErrors();
+void WorkWithCleanupOptions();
+void WorkWithWatermark();
 void WriteAndFont();
 //void WorkingWithImportFormatOptions(); // Source document is missing
 void WorkingWithMarkdownFeatures();

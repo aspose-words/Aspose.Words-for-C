@@ -835,6 +835,14 @@
     <ClCompile Include="cpp\Loading-and-Saving\SigningSignatureLine.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ShowGrammaticalAndSpellingErrors.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkWithCleanupOptions.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkWithWatermark.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHTML.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>

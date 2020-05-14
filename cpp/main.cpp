@@ -6,6 +6,21 @@
 int main()
 {
     std::cout << "Examples:" << std::endl << "=====================================================" << std::endl << std::endl;
+    // =====================================================
+    // =====================================================
+    // Quick Start
+    // =====================================================
+    // =====================================================
+    AppendDocuments();
+    ApplyLicense();
+    ApplyLicenseFromFile();
+    ApplyLicenseFromStream();
+    //ApplyMeteredLicense(); // Metered license isn't supported
+    FindAndReplace();
+    HelloWorld();
+    UpdateFields();
+    WorkingWithNodes();
+
 
     // =====================================================
     // =====================================================
@@ -165,6 +180,9 @@ int main()
     WorkingWithRtfSaveOptions();
     WorkingWithSaveOptions();
     WorkingWithWebExtension();
+	WorkWithCleanupOptions();
+	WorkWithWatermark();
+	ShowGrammaticalAndSpellingErrors();
 
     // EndNote and Footnote
     // =====================================================
@@ -318,21 +336,6 @@ int main()
     // Theme
     // =====================================================
     ManipulateThemeProperties();
-
-    // =====================================================
-    // =====================================================
-    // Quick Start
-    // =====================================================
-    // =====================================================
-    AppendDocuments();
-    ApplyLicense();
-    ApplyLicenseFromFile();
-    ApplyLicenseFromStream();
-    //ApplyMeteredLicense(); // Metered license isn't supported
-    FindAndReplace();
-    HelloWorld();
-    UpdateFields();
-    WorkingWithNodes();
 
     // =====================================================
     // =====================================================
