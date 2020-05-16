@@ -11,14 +11,12 @@ void AccessAndVerifySignature();
 void CheckFormat();
 void ConvertDocumentToByte();
 void ConvertDocumentToEPUB();
-void ConvertDocumentToHtmlWithRoundtrip();
+void ConvertDocumentToHTML();
 void ConvertDocumentToPCL();
 void CreateDocument();
 void DetectDocumentSignatures();
 void DigitallySignedPdfUsingCertificateHolder();
 void Doc2Pdf();
-void ExportFontsAsBase64();
-void ExportResourcesUsingHtmlSaveOptions();
 //void ImageToPdf(); // System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
 void Load_Options();
 void LoadAndSaveHtmlFormFieldAsContentControlInDOCX();

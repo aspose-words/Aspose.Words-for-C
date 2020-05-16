@@ -10,15 +10,15 @@
 #include <Aspose.Words.Cpp/Model/Drawing/WrapType.h>
 #include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
 
-/*using namespace Aspose::Words;
+using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 
 namespace
 {
+    // ExStart:ConvertImageToPdf
     void ConvertImageToPdf(System::String const &inputFileName, System::String const &outputFileName)
     {
         std::cout << "Converting " << inputFileName.ToUtf8String() << " to PDF ...." << std::endl;
-        // ExStart:ConvertImageToPdf
         // Create Document and DocumentBuilder. 
         // The builder makes it simple to add content to the document.
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
@@ -67,8 +67,8 @@ namespace
 
         // Save the document to PDF.
         doc->Save(outputFileName);
-        // ExEnd:ConvertImageToPdf
     }
+    // ExEnd:ConvertImageToPdf
 }
 
 void ImageToPdf()
@@ -77,10 +77,12 @@ void ImageToPdf()
     // The path to the documents directory.
     System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
     System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
+    // ExStart:ImageToPdf
     ConvertImageToPdf(inputDataDir + u"Test.jpg", outputDataDir + u"ImageToPdf_Jpg.pdf");
     ConvertImageToPdf(inputDataDir + u"Test.png", outputDataDir + u"ImageToPdf_Png.pdf");
     ConvertImageToPdf(inputDataDir + u"Test.wmf", outputDataDir + u"ImageToPdf_Wmf.pdf");
     ConvertImageToPdf(inputDataDir + u"Test.tiff", outputDataDir + u"ImageToPdf_Tiff.pdf");
     ConvertImageToPdf(inputDataDir + u"Test.gif", outputDataDir + u"ImageToPdf_Gif.pdf");
+    // ExEnd:ImageToPdf
     std::cout << "ImageToPdf example finished." << std::endl << std::endl;
-}*/
+}

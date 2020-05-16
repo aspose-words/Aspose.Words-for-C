@@ -607,16 +607,7 @@
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToEPUB.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHtmlWithRoundtrip.cpp">
-      <Filter>cpp\Loading-and-Saving</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\Doc2Pdf.cpp">
-      <Filter>cpp\Loading-and-Saving</Filter>
-    </ClCompile>
-    <ClCompile Include="cpp\Loading-and-Saving\ExportFontsAsBase64.cpp">
-      <Filter>cpp\Loading-and-Saving</Filter>
-    </ClCompile>
-    <ClCompile Include="cpp\Loading-and-Saving\ExportResourcesUsingHtmlSaveOptions.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\ImageToPdf.cpp">
@@ -842,6 +833,9 @@
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\SigningSignatureLine.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHTML.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
   </ItemGroup>

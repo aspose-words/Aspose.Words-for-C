@@ -16,14 +16,12 @@ int main()
     CheckFormat();
     ConvertDocumentToByte();
     ConvertDocumentToEPUB();
-    ConvertDocumentToHtmlWithRoundtrip();
+    ConvertDocumentToHTML();
     ConvertDocumentToPCL();
     CreateDocument();
     DetectDocumentSignatures();
     DigitallySignedPdfUsingCertificateHolder();
     Doc2Pdf();
-    ExportFontsAsBase64();
-    ExportResourcesUsingHtmlSaveOptions();
     //ImageToPdf(); // System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
     Load_Options();
     LoadAndSaveHtmlFormFieldAsContentControlInDOCX();

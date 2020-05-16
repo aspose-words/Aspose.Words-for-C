@@ -99,14 +99,12 @@
     <ClCompile Include="cpp\Loading-and-Saving\CheckFormat.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToByte.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToEPUB.cpp" />
-    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHtmlWithRoundtrip.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHTML.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToPCL.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\CreateDocument.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\DetectDocumentSignatures.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\DigitallySignedPdfUsingCertificateHolder.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\Doc2Pdf.cpp" />
-    <ClCompile Include="cpp\Loading-and-Saving\ExportFontsAsBase64.cpp" />
-    <ClCompile Include="cpp\Loading-and-Saving\ExportResourcesUsingHtmlSaveOptions.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ImageToPdf.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveHtmlFormFieldAsContentControlInDOCX.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\LoadAndSaveToDisk.cpp" />
@@ -378,6 +376,7 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\CodePorting.Native.Cs2Cpp.API.20.4.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('packages\CodePorting.Native.Cs2Cpp.API.20.4.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
     <Import Project="packages\Aspose.Words.Cpp.20.4.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.20.4.0\build\native\aspose.words.cpp.targets')" />
+    <Import Project="packages\Aspose.Email.Cpp.20.3.0\build\native\aspose.email.cpp.targets" Condition="Exists('packages\Aspose.Email.Cpp.20.3.0\build\native\aspose.email.cpp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -385,5 +384,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\CodePorting.Native.Cs2Cpp.API.20.4.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CodePorting.Native.Cs2Cpp.API.20.4.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
     <Error Condition="!Exists('packages\Aspose.Words.Cpp.20.4.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.20.4.0\build\native\aspose.words.cpp.targets'))" />
+    <Error Condition="!Exists('packages\Aspose.Email.Cpp.20.3.0\build\native\aspose.email.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Email.Cpp.20.3.0\build\native\aspose.email.cpp.targets'))" />
   </Target>
 </Project>
