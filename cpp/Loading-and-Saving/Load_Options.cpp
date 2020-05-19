@@ -119,7 +119,8 @@ namespace
     }
     
     //ExEnd:HtmlLinkedResourceLoadingCallback
-    
+
+
     void LoadOptionsWarningCallback(System::String const& inputDataDir)
     {
         //ExStart:LoadOptionsWarningCallback
@@ -190,8 +191,9 @@ namespace
     {
         // ExStart:SetMSWordVersion  
         System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
-        loadOptions->set_MswVersion(MsWordVersion::Word2003);
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"document.doc", loadOptions);
+        // Change the loading version to Microsoft Word 2010.
+        loadOptions->set_MswVersion(MsWordVersion::Word2010);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"document.docx", loadOptions);
 
         System::String outputPath = outputDataDir + u"Load_Options.SetMSWordVersion.docx";
         doc->Save(outputPath);
@@ -250,7 +252,7 @@ void Load_Options()
     VerifyODTdocument(inputDataDir);
     ConvertShapeToOfficeMath(inputDataDir, outputDataDir);
     SetMSWordVersion(inputDataDir, outputDataDir);
-    LoadOptionsEncoding(inputDataDir);
+    //LoadOptionsEncoding(inputDataDir);
     LoadOptionsWarningCallback(inputDataDir);
     SetTempFolder(inputDataDir);
     LoadOptionsResourceLoadingCallback(inputDataDir);

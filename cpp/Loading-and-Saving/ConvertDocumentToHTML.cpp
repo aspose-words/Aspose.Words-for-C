@@ -3,11 +3,14 @@
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
-//#include <MailMessage.h>
-//#include <MailAddressCollection.h>
-//#include <cstdint>
-//#include <Clients/Smtp/SmtpClient/SmtpClient.h>
-//#include <Clients/SecurityOptions.h>
+
+#if 0
+#include <MailMessage.h>
+#include <MailAddressCollection.h>
+#include <cstdint>
+#include <Clients/Smtp/SmtpClient/SmtpClient.h>
+#include <Clients/SecurityOptions.h>
+#endif
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;
@@ -78,38 +81,40 @@ namespace
         std::cout << "ExportFontsAsBase64 example finished." << std::endl << std::endl;
     }
 
-    //void ConvertDocumentToMhtmlAndEmail(System::String const& inputDataDir, System::String const& outputDataDir)
-    //{
-    //    // ExStart: ConvertDocumentToMhtmlAndEmail
-    //    // For complete examples and data files, please go to https://github.com/aspose-words/Aspose.Words-for-C
-    //    // Load the document into Aspose.Words.
-    //    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Test File (docx).docx");
+#if 0
+    void ConvertDocumentToMhtmlAndEmail(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        // ExStart: ConvertDocumentToMhtmlAndEmail
+        // For complete examples and data files, please go to https://github.com/aspose-words/Aspose.Words-for-C
+        // Load the document into Aspose.Words.
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Test File (docx).docx");
 
-    //    // Save into a memory stream in MHTML format.
-    //    System::SharedPtr<System::IO::MemoryStream> stream = System::MakeObject<System::IO::MemoryStream>();
-    //    doc->Save(stream, SaveFormat::Mhtml);
+        // Save into a memory stream in MHTML format.
+        System::SharedPtr<System::IO::MemoryStream> stream = System::MakeObject<System::IO::MemoryStream>();
+        doc->Save(stream, SaveFormat::Mhtml);
 
-    //    // Rewind the stream to the beginning so Aspose.Email can read it.
-    //    stream->set_Position(0);
+        // Rewind the stream to the beginning so Aspose.Email can read it.
+        stream->set_Position(0);
 
-    //    // Create an Aspose.Network MIME email message from the stream.
-    //    System::SharedPtr<Aspose::Email::MailMessage > message = System::MakeObject<Aspose::Email::MailMessage>();
-    //    //message->Load(stream, System::MakeObject<Aspose::Email::MhtmlLoadOptions>());
+        // Create an Aspose.Network MIME email message from the stream.
+        System::SharedPtr<Aspose::Email::MailMessage > message = System::MakeObject<Aspose::Email::MailMessage>();
+        //message->Load(stream, System::MakeObject<Aspose::Email::MhtmlLoadOptions>());
 
-    //    message->set_From(u"sender@sender.com");
-    //    message->get_To()->Add(u"receiver@gmail.com");
-    //    message->set_Subject(u"Aspose.Words + Aspose.Email MHTML Test Message");
+        message->set_From(u"sender@sender.com");
+        message->get_To()->Add(u"receiver@gmail.com");
+        message->set_Subject(u"Aspose.Words + Aspose.Email MHTML Test Message");
 
-    //    // Send the message using Aspose.Email
-    //    System::SharedPtr<Aspose::Email::Clients::Smtp::SmtpClient> client = System::MakeObject<Aspose::Email::Clients::Smtp::SmtpClient>();
-    //    client->set_Host(u"mail.server.com");
-    //    client->set_Username(u"username");
-    //    client->set_Password(u"password");
-    //    client->set_Port(587);
-    //    client->Send(message);
-    //    // ExEnd: ConvertDocumentToMhtmlAndEmail
-    //    std::cout << "ConvertDocumentToMhtmlAndEmail example finished." << std::endl << std::endl;
-    //}
+        // Send the message using Aspose.Email
+        System::SharedPtr<Aspose::Email::Clients::Smtp::SmtpClient> client = System::MakeObject<Aspose::Email::Clients::Smtp::SmtpClient>();
+        client->set_Host(u"mail.server.com");
+        client->set_Username(u"username");
+        client->set_Password(u"password");
+        client->set_Port(587);
+        client->Send(message);
+        // ExEnd: ConvertDocumentToMhtmlAndEmail
+        std::cout << "ConvertDocumentToMhtmlAndEmail example finished." << std::endl << std::endl;
+    }
+#endif
 }
 
 void ConvertDocumentToHTML()
@@ -123,6 +128,9 @@ void ConvertDocumentToHTML()
     ConvertDocumentToHtmlWithRoundtrip(inputDataDir, outputDataDir);
     ExportResourcesUsingHtmlSaveOptions(inputDataDir, outputDataDir);
     ExportFontsAsBase64(inputDataDir, outputDataDir);
-    //ConvertDocumentToMhtmlAndEmail(inputDataDir, outputDataDir);
+#if 0
+    // Example depends on Aspose.Email for C++
+    ConvertDocumentToMhtmlAndEmail(inputDataDir, outputDataDir);
+#endif
     std::cout << "ConvertDocumentToEPUB example finished." << std::endl << std::endl;
 }
