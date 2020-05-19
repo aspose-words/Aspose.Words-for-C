@@ -15,11 +15,13 @@ namespace
     void AddJapaneseAsEditinglanguages(const System::String& inputDataDir)
     {
         // ExStart:AddJapaneseAsEditinglanguages
-        // The path to the documents directory.
+        // Create a new LoadOptions object.
         System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
+        // Set language preferences that will be used when document is loading.
         loadOptions->get_LanguagePreferences()->AddEditingLanguage(EditingLanguage::Japanese);
 
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"languagepreferences.docx", loadOptions);
+        // ExEnd:AddJapaneseAsEditinglanguages
 
         int32_t localeIdFarEast = doc->get_Styles()->get_DefaultFont()->get_LocaleIdFarEast();
         if (localeIdFarEast == static_cast<int32_t>(EditingLanguage::Japanese))
@@ -30,7 +32,6 @@ namespace
         {
             std::cout << "The document default FarEast language was set to another than Japanese language originally, so it is not overridden." << std::endl;
         }
-        // ExEnd:AddJapaneseAsEditinglanguages
     }
 
     void SetRussianAsDefaultEditingLanguage(const System::String& inputDataDir)

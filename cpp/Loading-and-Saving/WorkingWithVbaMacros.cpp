@@ -95,7 +95,7 @@ namespace
         destDoc->set_VbaProject(System::MakeObject<VbaProject>());
 
         // Clone a single module.
-        System::SharedPtr<VbaModule> copyModule = doc->get_VbaProject()->get_Modules()->idx_get(0)->Clone();
+        System::SharedPtr<VbaModule> copyModule = doc->get_VbaProject()->get_Modules()->idx_get(u"AsposeModule")->Clone();
         destDoc->get_VbaProject()->get_Modules()->Add(copyModule);
 
         destDoc->Save(outputDataDir + u"WorkingWithVbaMacros.CloneVbaModule.docm");
@@ -113,6 +113,6 @@ void WorkingWithVbaMacros()
     ReadVbaMacros(inputDataDir);
     ModifyVbaMacros(inputDataDir);
     CloneVbaProject(inputDataDir, outputDataDir);
-    // CloneVbaModule(inputDataDir, outputDataDir); // raised NullReferenceException due to bad source document
+    CloneVbaModule(inputDataDir, outputDataDir);
     std::cout << "WorkingWithVbaMacros example finished." << std::endl << std::endl;
 }

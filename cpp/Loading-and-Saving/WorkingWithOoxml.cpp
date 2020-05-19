@@ -73,6 +73,24 @@ namespace
         // ExEnd:KeepLegacyControlChars
         std::cout << "Updated Last Saved With Keeping Legacy Control Chars Successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+	void SetCompressionLevel(System::String const& inputDataDir, System::String const& outputDataDir)
+	{
+		// ExStart:SetCompressionLevel
+		System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
+
+		System::SharedPtr<OoxmlSaveOptions> so = System::MakeObject<OoxmlSaveOptions>(SaveFormat::Docx);
+		so->set_CompressionLevel(CompressionLevel::SuperFast);
+
+
+		// Save the document to disk.
+		System::String outputPath = outputDataDir + u"WorkingWithOoxml.SetCompressionLevel.docx";
+		// Save the document to disk.
+		doc->Save(outputPath, so);
+
+		// ExEnd:SetCompressionLevel
+		std::cout << "Document save with a Compression Level Successfully.\nFile saved at " << outputPath.ToUtf8String() << '\n';
+	}
 }
 
 void WorkingWithOoxml()
@@ -85,5 +103,6 @@ void WorkingWithOoxml()
     SetOOXMLCompliance(inputDataDir, outputDataDir);
     UpdateLastSavedTimeProperty(inputDataDir, outputDataDir);
     KeepLegacyControlChars(inputDataDir, outputDataDir);
+    SetCompressionLevel(inputDataDir, outputDataDir);
     std::cout << "WorkingWithOoxml example finished." << std::endl << std::endl;
 }

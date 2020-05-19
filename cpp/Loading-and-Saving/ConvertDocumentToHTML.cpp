@@ -3,11 +3,14 @@
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
+
+#if 0
 #include <MailMessage.h>
 #include <MailAddressCollection.h>
-//#include <cstdint>
+#include <cstdint>
 #include <Clients/Smtp/SmtpClient/SmtpClient.h>
-//#include <Clients/SecurityOptions.h>
+#include <Clients/SecurityOptions.h>
+#endif
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;
@@ -78,6 +81,7 @@ namespace
         std::cout << "ExportFontsAsBase64 example finished." << std::endl << std::endl;
     }
 
+#if 0
     void ConvertDocumentToMhtmlAndEmail(System::String const& inputDataDir, System::String const& outputDataDir)
     {
         // ExStart: ConvertDocumentToMhtmlAndEmail
@@ -110,6 +114,7 @@ namespace
         // ExEnd: ConvertDocumentToMhtmlAndEmail
         std::cout << "ConvertDocumentToMhtmlAndEmail example finished." << std::endl << std::endl;
     }
+#endif
 }
 
 void ConvertDocumentToHTML()
@@ -123,6 +128,9 @@ void ConvertDocumentToHTML()
     ConvertDocumentToHtmlWithRoundtrip(inputDataDir, outputDataDir);
     ExportResourcesUsingHtmlSaveOptions(inputDataDir, outputDataDir);
     ExportFontsAsBase64(inputDataDir, outputDataDir);
+#if 0
+    // Example depends on Aspose.Email for C++
     ConvertDocumentToMhtmlAndEmail(inputDataDir, outputDataDir);
+#endif
     std::cout << "ConvertDocumentToEPUB example finished." << std::endl << std::endl;
 }

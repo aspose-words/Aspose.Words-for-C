@@ -355,6 +355,22 @@ namespace
         // ExEnd:PrintHorizontalAndVerticalMerged
         std::cout << "Horizontal and vertical merged of a cell prints successfully." << std::endl;
     }
+
+	void ConvertToHorizontallyMergedCells(System::String const &inputDataDir, System::String const &outputDataDir)
+	{
+		// ExStart:ConvertToHorizontallyMergedCells         
+		System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TableXXX.doc");
+
+        auto table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
+		table->ConvertToHorizontallyMergedCells();   // Now merged cells have appropriate merge flags.
+
+        System::String outputPath = outputDataDir + u"HorizontallyMergedCells.doc";
+        // Save the document.
+        doc->Save(outputPath);
+		// ExEnd:ConvertToHorizontallyMergedCells
+
+        std::cout << "Now merged cells have appropriate merge flags.\nFile saved at " << outputPath.ToUtf8String() << '\n';
+	}
 }
 
 void MergedCells()
@@ -373,6 +389,9 @@ void MergedCells()
     // Show how to prints the horizontal and vertical merge of a cell.
     PrintHorizontalAndVerticalMerged(inputDataDir);
     // This method converts cells which are horizontally merged by its width to the cell horizontally merged by flags
-    //ConvertToHorizontallyMergedCells(dataDir); // raised NullReferenceException
+#if 0
+    // Source document is missing
+    ConvertToHorizontallyMergedCells(inputDataDir, outputDataDir); 
+#endif
     std::cout << "MergedCells example finished." << std::endl << std::endl;
 }

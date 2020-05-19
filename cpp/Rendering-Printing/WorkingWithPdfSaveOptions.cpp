@@ -211,6 +211,18 @@ namespace
         doc->Save(outputPath, options);
         // ExEnd:DownsamplingImages
     }
+
+	void SetImageInterpolation(System::String const& inputPath, System::String const& outputDataDir)
+	{
+		// ExStart:SetImageInterpolation
+        auto doc = System::MakeObject<Aspose::Words::Document>(inputPath);
+
+        System::SharedPtr<PdfSaveOptions> saveOptions = System::MakeObject<PdfSaveOptions>();
+		saveOptions->set_InterpolateImages(true);
+
+        doc->Save(outputDataDir, saveOptions);
+		// ExEnd:SetImageInterpolation
+	}
 }
 
 void WorkingWithPdfSaveOptions()

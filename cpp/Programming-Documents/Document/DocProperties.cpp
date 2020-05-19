@@ -68,7 +68,7 @@ namespace
         std::cout << "Personal information has removed from document successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    /*void ConfiguringLinkToContent(const System::String &inputDataDir)
+    void ConfiguringLinkToContent(const System::String &inputDataDir)
     {
         // ExStart:ConfiguringLinkToContent
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"test.docx");
@@ -80,7 +80,7 @@ namespace
         System::SharedPtr<DocumentProperty> customProperty = customProperties->AddLinkToContent(u"PropertyName", u"BookmarkName");
 
         // Also, accessing the custom document property can be performed by using the property name.
-        customProperty = customProperties->idx_get(customProperties->IndexOf(u"PropertyName"));
+        customProperty = customProperties->idx_get(u"PropertyName");
 
         // Check whether the property is linked to content.
         bool isLinkedToContent = customProperty->get_IsLinkToContent();
@@ -91,7 +91,7 @@ namespace
         // Get the value of the property.
         System::String value = customProperty->get_Value()->ToString();
         // ExEnd:ConfiguringLinkToContent
-    }*/
+    }
 }
 
 void DocProperties()
@@ -107,6 +107,9 @@ void DocProperties()
     // Removes a custom document property.
     CustomRemove(inputDataDir);
     RemovePersonalInformation(inputDataDir, outputDataDir);
-    //ConfiguringLinkToContent(inputDataDir); // exception at execution
+#if 0
+    // Source document doens't have required property
+    ConfiguringLinkToContent(inputDataDir);
+#endif
     std::cout << "DocProperties example finished." << std::endl << std::endl;
 }
