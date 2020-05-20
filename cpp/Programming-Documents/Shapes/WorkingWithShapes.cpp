@@ -166,8 +166,11 @@ void WorkingWithShapes()
     InsertShapeUsingDocumentBuilder(outputDataDir);
     AddCornersSnipped(outputDataDir);
     GetActualShapeBoundsPoints(inputDataDir);
-    //SpecifyVerticalAnchor(dataDir); // Source document is missing
-    //DetectSmartArtShape(dataDir); // Source document is missing
+#if 0
+    // Source document is missing
+    SpecifyVerticalAnchor(dataDir); 
+    DetectSmartArtShape(dataDir); 
+#endif
     InsertOLEObjectAsIcon(inputDataDir, outputDataDir);
     std::cout << "WorkingWithShapes example finished." << std::endl << std::endl;
 }

@@ -14,9 +14,9 @@ void LoadAndSaveToDisk()
     System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
     System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
     // Load the document from the absolute path on disk.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
+    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.docx");
     // ExEnd:OpenDocument
-    System::String outputPath = outputDataDir + u"LoadAndSaveToDisk.doc";
+    System::String outputPath = outputDataDir + u"LoadAndSaveToDisk.docx";
     // Save the document as DOC document.");
     doc->Save(outputPath);
     // ExEnd:LoadAndSave

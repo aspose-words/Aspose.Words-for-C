@@ -9,6 +9,24 @@ int main()
 
     // =====================================================
     // =====================================================
+    // Quick Start
+    // =====================================================
+    // =====================================================
+    AppendDocuments();
+    ApplyLicense();
+    ApplyLicenseFromFile();
+    ApplyLicenseFromStream();
+#if 0 // Metered license isn't supported
+    ApplyMeteredLicense(); 
+#endif 
+    FindAndReplace();
+    HelloWorld();
+    UpdateFields();
+    WorkingWithNodes();
+
+
+    // =====================================================
+    // =====================================================
     // Loading and Saving
     // =====================================================
     // =====================================================
@@ -22,7 +40,7 @@ int main()
     DetectDocumentSignatures();
     DigitallySignedPdfUsingCertificateHolder();
     Doc2Pdf();
-    //ImageToPdf(); // System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
+    ImageToPdf(); 
     Load_Options();
     LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
     LoadAndSaveToDisk();
@@ -34,36 +52,43 @@ int main()
     SaveOptionsHtmlFixed();
     SpecifySaveOption();
     SplitIntoHtmlPages();
-    WorkingWithDoc(); // Source document is missing
+    WorkingWithDoc();
     WorkingWithOoxml();
     WorkingWithRTF();
-    WorkingWithTxt(); // Source document is missing
-    WorkingWithVbaMacros(); // raised NullReferenceException due to bad source document
+    WorkingWithTxt();
+    WorkingWithVbaMacros(); 
 
     // =====================================================
     // =====================================================
     // Mail-Merge
     // =====================================================
     // =====================================================
-    //ApplyCustomLogicToEmptyRegions(); // isn't compiled due to using of DataSet
+#if 0
+    // DataSet isn't supported
+    ApplyCustomLogicToEmptyRegions(); 
+    MailMergeUsingMustacheSyntax();
+    RemoveEmptyRegions(); 
+    RemoveRowsFromTable(); 
+    XMLMailMerge(); 
+    NestedMailMerge(); 
+
+    // OleDbXXX & DataTable aren't supported
+    ExecuteWithRegionsDataTable(); 
+    MailMergeAlternatingRows(); 
+    MailMergeImageFromBlob();
+    MultipleDocsInMailMerge();
+    ProduceMultipleDocuments(); 
+
+    // Linq2Xml isn't supported
+    LINQtoXMLMailMerge();
+#endif 
     ExecuteArray();
-    //ExecuteWithRegionsDataTable(); // isn't compiled due to using of OleDbXXX & DataTable
     HandleMailMergeSwitches();
-    //LINQtoXMLMailMerge(); // isn't compiled due to using of Linq2Xml
-    //MailMergeAlternatingRows(); // isn't compiled due to using of DataTable
     MailMergeAndConditionalField();
     MailMergeCleanUp();
     MailMergeFormFields();
-    //MailMergeImageFromBlob(); // isn't compiled due to using of OleDbXXX & IDataReader
-    //MailMergeUsingMustacheSyntax.Run(); // isn't compiled due to using of DataSet
-    //MultipleDocsInMailMerge(); // isn't compiled due to using of OleDbXXX & DataTable
-    //NestedMailMerge(); // isn't compiled due to using of DataSet
     NestedMailMergeCustom();
-    //ProduceMultipleDocuments(); // isn't compiled due to using of OleDbXXX & DataTable
-    //RemoveEmptyRegions(); // isn't compiled due to using of DataSet
-    //RemoveRowsFromTable(); // isn't compiled due to using of DataSet
     SimpleMailMerge();
-    //XMLMailMerge(); // isn't compiled due to using of DataSet
     MailMergeImageField();
 
     // =====================================================
@@ -76,7 +101,7 @@ int main()
     // =====================================================
     AccessBookmarks();
     BookmarkNameAndText();
-    BookmarkTable(); // Source document is missing
+    BookmarkTable();
     CopyBookmarkedText();
     CreateBookmark();
     UntangleRowBookmarks();
@@ -118,7 +143,7 @@ int main()
     ComboBoxContentControl();
     CompareDocument();
     CreateHeaderFooterUsingDocBuilder();
-    DocProperties(); // exception at execution
+    DocProperties(); 
     DocumentBuilderBuildTable();
     DocumentBuilderHorizontalRule();
     DocumentBuilderInsertBookmark();
@@ -142,7 +167,10 @@ int main()
     ExtractContentUsingField();
     ExtractTableOfContents();
     ExtractTextOnly();
-    //GenerateACustomBarCodeImage.Run(); // Depend from Aspose.BarCode
+#if 0
+    // Depends on Aspose.BarCode
+    GenerateACustomBarCodeImage();
+#endif
     GetFontLineSpacing();
     GetVariables();
     InsertDoc();
@@ -159,12 +187,18 @@ int main()
     SigningSignatureLine();
     UpdateContentControls();
     WriteAndFont();
-    //WorkingWithImportFormatOptions(); // Source document is missing
+#if 0
+    // Source document is missing
+    WorkingWithImportFormatOptions();
+#endif
     WorkingWithMarkdownFeatures();
     WorkingWithRevisions();
     WorkingWithRtfSaveOptions();
     WorkingWithSaveOptions();
     WorkingWithWebExtension();
+    WorkWithCleanupOptions();
+    WorkWithWatermark();
+    ShowGrammaticalAndSpellingErrors();
 
     // EndNote and Footnote
     // =====================================================
@@ -230,7 +264,10 @@ int main()
     // Joining and Appending
     // =====================================================
     AppendDocumentManually();
-    // AppendWithImportFormatOptions(); // Source document is missing
+#if 0
+    // Source document is missing
+    AppendWithImportFormatOptions(); 
+#endif
     BaseDocument();
     ConvertNumPageFields();
     DifferentPageSetup();
@@ -274,12 +311,15 @@ int main()
     CopySection();
     DeleteHeaderFooterContent();
     DeleteSectionContent();
-    //ModifyPageSetupInAllSectionsOfDocument(); // Source document is missing
+#if 0
+    // Source document is missing
+    ModifyPageSetupInAllSectionsOfDocument(); 
+#endif
     SectionsAccessByIndex();
 
     // Shapes
     // =====================================================
-    WorkingWithShapes(); // Source document is missing
+    WorkingWithShapes(); 
 
     // StructuredDocumentTag 
     // =====================================================
@@ -301,7 +341,10 @@ int main()
     AutoFitTableToContents();
     AutoFitTableToFixedColumnWidths();
     AutoFitTableToWindow();
-    //BuildTableFromDataTable(); // isn't compiled due to using of DataTable
+#if 0
+    // DataTable isn't supported
+    BuildTableFromDataTable(); 
+#endif
     CloneTable();
     ExtractOrReplaceText();
     FindingIndex();
@@ -310,7 +353,7 @@ int main()
     InsertTableUsingDocumentBuilder();
     JoiningAndSplittingTable();
     KeepTablesAndRowsBreaking();
-    MergedCells(); // raised NullReferenceException
+    MergedCells(); 
     RepeatRowsOnSubsequentPages();
     SpecifyHeightAndWidth();
     TablePosition();
@@ -318,21 +361,6 @@ int main()
     // Theme
     // =====================================================
     ManipulateThemeProperties();
-
-    // =====================================================
-    // =====================================================
-    // Quick Start
-    // =====================================================
-    // =====================================================
-    AppendDocuments();
-    ApplyLicense();
-    ApplyLicenseFromFile();
-    ApplyLicenseFromStream();
-    //ApplyMeteredLicense(); // Metered license isn't supported
-    FindAndReplace();
-    HelloWorld();
-    UpdateFields();
-    WorkingWithNodes();
 
     // =====================================================
     // =====================================================
@@ -344,22 +372,32 @@ int main()
     EmbeddingWindowsStandardFonts();
     EnumerateLayoutElements();
     HyphenateWordsOfLanguages();
-    ImageColorFilters(); // saving into images don't work properly
+    ImageColorFilters(); 
     LoadHyphenationDictionaryForLanguage();
-    //PrintProgressDialog(); // using of GUI
-    //Print_CachePrinterSettings; // using of GUI
-    //ReadActiveXControlProperties(); // doesn't work due to using of OleControl
+#if 0
+    // GUI isn't supported
+    PrintProgressDialog();
+    Print_CachePrinterSettings;
+    // OleControl isn't supported
+    ReadActiveXControlProperties();
+#endif
     ReceiveNotificationsOfFont();
     RenderShape();
     ResourceSteamFontSource();
-    //SaveAsMultipageTiff(); // saving into images don't work properly
+#if 0
+    // Tiff support is limited and unstable
+    SaveAsMultipageTiff();
+#endif
     WorkingWithFontSettings();
     SetFontsFoldersMultipleFolders();
     SetFontsFoldersSystemAndCustomFolder();
     SetHorizontalAndVerticalImageResolution();
     SetTrueTypeFontsFolder();
     SpecifyDefaultFontWhenRendering();
-    //WorkingWithFontResolution(); // Source document is missing
+#if 0
+    // Source document is missing
+    WorkingWithFontResolution(); 
+#endif
     WorkingWithFontSources();
     WorkingWithPdfSaveOptions();
     SetFontsFolders();

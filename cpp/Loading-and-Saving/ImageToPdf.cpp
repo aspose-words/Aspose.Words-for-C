@@ -31,34 +31,17 @@ namespace
 
         try
         {
-            // Find which dimension the frames in this image represent. For example 
-            // The frames of a BMP or TIFF are "page dimension" whereas frames of a GIF image are "time dimension".
-            System::SharedPtr<System::Drawing::Imaging::FrameDimension> dimension = System::MakeObject<System::Drawing::Imaging::FrameDimension>(image->get_FrameDimensionsList()[0]);
+			// Insert a section break before each new page, in case of a multi-frame TIFF.
+			builder->InsertBreak(BreakType::SectionBreakNewPage);
 
-            // Get the number of frames in the image.
-            int32_t framesCount = image->GetFrameCount(dimension);
+			// We want the size of the page to be the same as the size of the image.
+			// Convert pixels to points to size the page to the actual image size.
+			System::SharedPtr<PageSetup> ps = builder->get_PageSetup();
+			ps->set_PageWidth(ConvertUtil::PixelToPoint(image->get_Width(), image->get_HorizontalResolution()));
+			ps->set_PageHeight(ConvertUtil::PixelToPoint(image->get_Height(), image->get_VerticalResolution()));
 
-            // Loop through all frames.
-            for (int32_t frameIdx = 0; frameIdx < framesCount; frameIdx++)
-            {
-                // Insert a section break before each new page, in case of a multi-frame TIFF.
-                if (frameIdx != 0)
-                {
-                    builder->InsertBreak(BreakType::SectionBreakNewPage);
-                }
-
-                // Select active frame.
-                image->SelectActiveFrame(dimension, frameIdx);
-
-                // We want the size of the page to be the same as the size of the image.
-                // Convert pixels to points to size the page to the actual image size.
-                System::SharedPtr<PageSetup> ps = builder->get_PageSetup();
-                ps->set_PageWidth(ConvertUtil::PixelToPoint(image->get_Width(), image->get_HorizontalResolution()));
-                ps->set_PageHeight(ConvertUtil::PixelToPoint(image->get_Height(), image->get_VerticalResolution()));
-
-                // Insert the image into the document and position it at the top left corner of the page.
-                builder->InsertImage(image, RelativeHorizontalPosition::Page, 0, RelativeVerticalPosition::Page, 0, ps->get_PageWidth(), ps->get_PageHeight(), WrapType::None);
-            }
+			// Insert the image into the document and position it at the top left corner of the page.
+			builder->InsertImage(image, RelativeHorizontalPosition::Page, 0, RelativeVerticalPosition::Page, 0, ps->get_PageWidth(), ps->get_PageHeight(), WrapType::None);
         }
         catch (...)
         {

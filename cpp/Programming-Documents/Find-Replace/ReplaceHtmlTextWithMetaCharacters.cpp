@@ -65,7 +65,6 @@ void ReplaceHtmlTextWithMetaCharacters()
 
     System::SharedPtr<FindReplaceOptions> findReplaceOptions = System::MakeObject<FindReplaceOptions>();
     findReplaceOptions->set_ReplacingCallback(System::MakeObject<FindAndInsertHtml>());
-    findReplaceOptions->set_PreserveMetaCharacters(true);
 
     doc->get_Range()->Replace(u"{PLACEHOLDER}", html, findReplaceOptions);
 
