@@ -28,26 +28,25 @@ namespace
 
         // Get first series.
         System::SharedPtr<ChartSeries> series0 = shape->get_Chart()->get_Series()->idx_get(0);
-        System::SharedPtr<ChartDataLabelCollection> dataLabelCollection = series0->get_DataLabels();
 
-        // Add data label to the first and second point of the first series.
-        System::SharedPtr<ChartDataLabel> chartDataLabel00 = dataLabelCollection->Add(0);
-        System::SharedPtr<ChartDataLabel> chartDataLabel01 = dataLabelCollection->Add(1);
+        System::SharedPtr<ChartDataLabelCollection> labels = series0->get_DataLabels();
 
         // Set properties.
-        chartDataLabel00->set_ShowLegendKey(true);
-        // By default, when you add data labels to the data points in a pie chart, leader lines are displayed for data labels that are
-        // Positioned far outside the end of data points. Leader lines create a visual connection between a data label and its 
-        // Corresponding data point.
-        chartDataLabel00->set_ShowLeaderLines(true);
-        chartDataLabel00->set_ShowCategoryName(false);
-        chartDataLabel00->set_ShowPercentage(false);
-        chartDataLabel00->set_ShowSeriesName(true);
-        chartDataLabel00->set_ShowValue(true);
-        chartDataLabel00->set_Separator(u"/");
-        chartDataLabel01->set_ShowValue(true);
+        labels->set_ShowLegendKey(true);
 
-        System::String outputPath = outputDataDir + u"WorkWithChartDataLabels.WorkWithChartDataLabel.docx";
+        // By default, when you add data labels to the data points in a pie chart, leader lines are displayed for data labels that are
+        // Positioned far outside the end of data points. Leader lines create a visual connection between a data label and its
+        // Corresponding data point.
+        labels->set_ShowLeaderLines(true);
+
+        labels->set_ShowCategoryName(false);
+        labels->set_ShowPercentage(false);
+        labels->set_ShowSeriesName(true);
+        labels->set_ShowValue(true);
+        labels->set_Separator(u"/");
+        labels->set_ShowValue(true);
+
+        System::String outputPath = outputDataDir + u"SimpleBarChart_out.docx";
         doc->Save(outputPath);
         // ExEnd:WorkWithChartDataLabel
         std::cout << "Simple bar chart created successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

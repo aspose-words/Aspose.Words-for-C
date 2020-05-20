@@ -7,19 +7,16 @@
 // Loading and Saving
 // =====================================================
 // =====================================================
-//void AccessAndVerifySignature(); // Cryptography isn't supported
+void AccessAndVerifySignature();
 void CheckFormat();
 void ConvertDocumentToByte();
 void ConvertDocumentToEPUB();
-void ConvertDocumentToHtmlWithRoundtrip();
+void ConvertDocumentToHTML();
 void ConvertDocumentToPCL();
 void CreateDocument();
 void DetectDocumentSignatures();
-//void DigitallySignedPdf(); // Cryptography isn't supported
-//void DigitallySignedPdfUsingCertificateHolder(); // Cryptography isn't supported
+void DigitallySignedPdfUsingCertificateHolder();
 void Doc2Pdf();
-void ExportFontsAsBase64();
-void ExportResourcesUsingHtmlSaveOptions();
 //void ImageToPdf(); // System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
 void Load_Options();
 void LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
@@ -62,6 +59,7 @@ void NestedMailMergeCustom();
 //void RemoveRowsFromTable(); // isn't compiled due to using of DataSet
 void SimpleMailMerge();
 //void XMLMailMerge(); // isn't compiled due to using of DataSet
+void MailMergeImageField();
 
 // =====================================================
 // =====================================================
@@ -77,6 +75,7 @@ void BookmarkTable();
 void CopyBookmarkedText();
 void CreateBookmark();
 void UntangleRowBookmarks();
+void ShowHideBookmarks();
 
 // Charts
 // =====================================================
@@ -152,7 +151,7 @@ void RichTextBoxContentControl();
 void SetCompatibilityOptions();
 void Setuplanguagepreferences();
 void SetViewOption();
-//void SigningSignatureLine(); // Cryptography isn't supported
+void SigningSignatureLine();
 void UpdateContentControls();
 void WriteAndFont();
 //void WorkingWithImportFormatOptions(); // Source document is missing
@@ -183,7 +182,7 @@ void GetFieldNames();
 void InsertAdvanceFieldWithoutDocumentBuilder();
 void InsertASKFieldWithoutDocumentBuilder();
 void InsertAuthorField();
-void InsertField();
+void InsertFields();
 void InsertFieldNone();
 void InsertFormFields();
 void InsertIncludeFieldWithoutDocumentBuilder();
@@ -208,6 +207,7 @@ void ReplaceWithHTML();
 void ReplaceWithRegex();
 void ReplaceWithString();
 void UsingLegacyOrder();
+void IgnoreText();
 
 // Hyperlink
 // =====================================================
@@ -348,7 +348,7 @@ void ReceiveNotificationsOfFont();
 void RenderShape();
 void ResourceSteamFontSource();
 //void SaveAsMultipageTiff(); // saving into images don't work properly
-void SetFontSettings();
+void WorkingWithFontSettings();
 void SetFontsFoldersMultipleFolders();
 void SetFontsFoldersSystemAndCustomFolder();
 void SetHorizontalAndVerticalImageResolution();
@@ -357,3 +357,6 @@ void SpecifyDefaultFontWhenRendering();
 //WorkingWithFontResolution(); // Source document is missing
 void WorkingWithFontSources();
 void WorkingWithPdfSaveOptions();
+void SetFontsFolders();
+void SetFontsFoldersDefaultInstance();
+void SetFontsFoldersWithPriority();

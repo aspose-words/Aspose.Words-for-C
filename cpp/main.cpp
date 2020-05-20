@@ -12,19 +12,16 @@ int main()
     // Loading and Saving
     // =====================================================
     // =====================================================
-    //AccessAndVerifySignature(); // Cryptography isn't supported
+    AccessAndVerifySignature();
     CheckFormat();
     ConvertDocumentToByte();
     ConvertDocumentToEPUB();
-    ConvertDocumentToHtmlWithRoundtrip();
+    ConvertDocumentToHTML();
     ConvertDocumentToPCL();
     CreateDocument();
     DetectDocumentSignatures();
-    //DigitallySignedPdf(); // Cryptography isn't supported
-    //DigitallySignedPdfUsingCertificateHolder(); // Cryptography isn't supported
+    DigitallySignedPdfUsingCertificateHolder();
     Doc2Pdf();
-    ExportFontsAsBase64();
-    ExportResourcesUsingHtmlSaveOptions();
     //ImageToPdf(); // System::Drawing::Image::get_FrameDimensionsList() isn't implemented in the asposecpp lib
     Load_Options();
     LoadAndSaveHtmlFormFieldAsContentControlInDOCX();
@@ -67,6 +64,7 @@ int main()
     //RemoveRowsFromTable(); // isn't compiled due to using of DataSet
     SimpleMailMerge();
     //XMLMailMerge(); // isn't compiled due to using of DataSet
+    MailMergeImageField();
 
     // =====================================================
     // =====================================================
@@ -82,6 +80,7 @@ int main()
     CopyBookmarkedText();
     CreateBookmark();
     UntangleRowBookmarks();
+    ShowHideBookmarks();
 
     // Charts
     // =====================================================
@@ -157,7 +156,7 @@ int main()
     SetCompatibilityOptions();
     Setuplanguagepreferences();
     SetViewOption();
-    //SigningSignatureLine(); // Cryptography isn't supported
+    SigningSignatureLine();
     UpdateContentControls();
     WriteAndFont();
     //WorkingWithImportFormatOptions(); // Source document is missing
@@ -188,7 +187,7 @@ int main()
     InsertAdvanceFieldWithoutDocumentBuilder();
     InsertASKFieldWithoutDocumentBuilder();
     InsertAuthorField();
-    InsertField();
+    InsertFields();
     InsertFieldNone();
     InsertFormFields();
     InsertIncludeFieldWithoutDocumentBuilder();
@@ -213,6 +212,7 @@ int main()
     ReplaceWithRegex();
     ReplaceWithString();
     UsingLegacyOrder();
+    IgnoreText();
 
     // Hyperlink
     // =====================================================
@@ -353,7 +353,7 @@ int main()
     RenderShape();
     ResourceSteamFontSource();
     //SaveAsMultipageTiff(); // saving into images don't work properly
-    SetFontSettings();
+    WorkingWithFontSettings();
     SetFontsFoldersMultipleFolders();
     SetFontsFoldersSystemAndCustomFolder();
     SetHorizontalAndVerticalImageResolution();
@@ -362,6 +362,9 @@ int main()
     //WorkingWithFontResolution(); // Source document is missing
     WorkingWithFontSources();
     WorkingWithPdfSaveOptions();
+    SetFontsFolders();
+    SetFontsFoldersDefaultInstance();
+    SetFontsFoldersWithPriority();
 
     std::cout << "=====================================================" << std::endl << "Examples Finished." << std::endl;
 

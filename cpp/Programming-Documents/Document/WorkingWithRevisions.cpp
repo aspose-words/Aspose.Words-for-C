@@ -90,12 +90,12 @@ namespace
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Revisions.docx");
 
         // Renders insert and delete revisions inline, format revisions in balloons.
-        doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(ShowInBalloons::Format);
+        doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(Aspose::Words::Layout::ShowInBalloons::Format);
 
         // Renders insert revisions inline, delete and format revisions in balloons.
-        //doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(ShowInBalloons::FormatAndDelete);
+        //doc.LayoutOptions.RevisionOptions.ShowInBalloons = ShowInBalloons.FormatAndDelete;
 
-        System::String outputPath = outputDataDir + u"WorkingWithRevisions.SetShowInBalloons.pdf";
+        System::String outputPath = outputDataDir + u"Revisions.ShowRevisionsInBalloons_out.pdf";
         doc->Save(outputPath);
         // ExEnd:SetShowInBalloons
         std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;

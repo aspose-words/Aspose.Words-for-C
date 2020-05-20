@@ -34,30 +34,17 @@ namespace
         chart->get_Series()->Clear();
 
         // Add new series
-        System::SharedPtr<ChartSeries> series0 = chart->get_Series()->Add(u"AW Series 0", System::MakeArray<System::String>({u"AW0", u"AW1", u"AW2"}), System::MakeArray<double>({2.5, 1.5, 3.5}));
+        System::SharedPtr<ChartSeries> series1 = chart->get_Series()->Add(u"AW Series 1", System::MakeArray<System::String>({u"AW0", u"AW1", u"AW2"}), System::MakeArray<double>({2.5, 1.5, 3.5}));
 
-        // Add DataLabel to the first point of the first series.
-        System::SharedPtr<ChartDataLabel> chartDataLabel0 = series0->get_DataLabels()->Add(0);
-        chartDataLabel0->set_ShowValue(true);
-
-        // Set currency format code.
-        chartDataLabel0->get_NumberFormat()->set_FormatCode(u"\"$\"#,##0.00");
-
-        System::SharedPtr<ChartDataLabel> chartDataLabel1 = series0->get_DataLabels()->Add(1);
-        chartDataLabel1->set_ShowValue(true);
-
-        // Set date format code.
-        chartDataLabel1->get_NumberFormat()->set_FormatCode(u"d/mm/yyyy");
-
-        System::SharedPtr<ChartDataLabel> chartDataLabel2 = series0->get_DataLabels()->Add(2);
-        chartDataLabel2->set_ShowValue(true);
-
-        // Set percentage format code.
-        chartDataLabel2->get_NumberFormat()->set_FormatCode(u"0.00%");
+        series1->set_HasDataLabels(true);
+        series1->get_DataLabels()->set_ShowValue(true);
+        series1->get_DataLabels()->idx_get(0)->get_NumberFormat()->set_FormatCode(u"\"$\"#,##0.00");
+        series1->get_DataLabels()->idx_get(1)->get_NumberFormat()->set_FormatCode(u"dd/mm/yyyy");
+        series1->get_DataLabels()->idx_get(2)->get_NumberFormat()->set_FormatCode(u"0.00%");
 
         // Or you can set format code to be linked to a source cell,
         // in this case NumberFormat will be reset to general and inherited from a source cell.
-        chartDataLabel2->get_NumberFormat()->set_IsLinkedToSource(true);
+        series1->get_DataLabels()->idx_get(2)->get_NumberFormat()->set_IsLinkedToSource(true);
 
         System::String outputPath = outputDataDir + u"ChartNumberFormat.docx";
         doc->Save(outputPath);

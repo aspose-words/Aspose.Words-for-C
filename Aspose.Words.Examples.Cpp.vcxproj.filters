@@ -522,9 +522,6 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\UseOfficeMathProperties.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Programming-Documents\Fields\InsertField.cpp">
-      <Filter>cpp\Programming-Documents\Fields</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Fields\InsertMergeFieldUsingDOM.cpp">
       <Filter>cpp\Programming-Documents\Fields</Filter>
     </ClCompile>
@@ -610,16 +607,7 @@
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToEPUB.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHtmlWithRoundtrip.cpp">
-      <Filter>cpp\Loading-and-Saving</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\Doc2Pdf.cpp">
-      <Filter>cpp\Loading-and-Saving</Filter>
-    </ClCompile>
-    <ClCompile Include="cpp\Loading-and-Saving\ExportFontsAsBase64.cpp">
-      <Filter>cpp\Loading-and-Saving</Filter>
-    </ClCompile>
-    <ClCompile Include="cpp\Loading-and-Saving\ExportResourcesUsingHtmlSaveOptions.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\ImageToPdf.cpp">
@@ -724,9 +712,6 @@
     <ClCompile Include="cpp\Rendering-Printing\SaveAsMultipageTiff.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Rendering-Printing\SetFontSettings.cpp">
-      <Filter>cpp\Rendering-Printing</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersMultipleFolders.cpp">
       <Filter>cpp\Rendering-Printing</Filter>
     </ClCompile>
@@ -813,6 +798,45 @@
     </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Document\ExtractTableOfContents.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\IgnoreText.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\InsertFields.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\MailMergeImageField.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SaveDocumentToJPEG.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\WorkingWithFontSettings.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Bookmarks\ShowHideBookmarks.cpp">
+      <Filter>cpp\Programming-Documents\Bookmarks</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFolders.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersDefaultInstance.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Rendering-Printing\SetFontsFoldersWithPriority.cpp">
+      <Filter>cpp\Rendering-Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\DigitallySignedPdfUsingCertificateHolder.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\AccessAndVerifySignature.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\SigningSignatureLine.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHTML.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
