@@ -101,7 +101,7 @@ namespace
 
     public:
         SpanVisitor(System::SharedPtr<Document> doc);
-        virtual VisitorAction VisitCellStart(System::SharedPtr<Cell> cell);
+        VisitorAction VisitCellStart(System::SharedPtr<Cell> cell) override;
     private:
         std::vector<TTableInfoPtr> mTables;
         System::SharedPtr<NodeCollection> mWordTables;

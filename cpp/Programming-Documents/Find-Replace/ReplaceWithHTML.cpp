@@ -24,7 +24,7 @@ namespace
 
     public:
         ReplaceWithHtmlEvaluator(System::SharedPtr<FindReplaceOptions> options);
-        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args);
+        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args) override;
 
     private:
         System::SharedPtr<FindReplaceOptions> mOptions;

@@ -22,7 +22,7 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e);
+        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e) override;
     };
 
     RTTI_INFO_IMPL_HASH(369195648u, ReplacingCallback, ThisTypeBaseTypesInfo);

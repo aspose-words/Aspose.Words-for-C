@@ -22,7 +22,7 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        TCultureInfoPtr GetCulture(System::String name, System::SharedPtr<Field> field);
+        TCultureInfoPtr GetCulture(System::String name, System::SharedPtr<Field> field) override;
     };
 
     RTTI_INFO_IMPL_HASH(2889170660u, FieldUpdateCultureProvider, ThisTypeBaseTypesInfo);

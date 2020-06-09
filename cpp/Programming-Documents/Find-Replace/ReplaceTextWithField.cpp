@@ -31,7 +31,7 @@ namespace
 
     public:
         ReplaceTextWithFieldHandler(FieldType type);
-        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args);
+        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args) override;
         std::vector<TNodePtr> FindAndSplitMatchRuns(System::SharedPtr<ReplacingArgs> args);
     private:
         FieldType mFieldType;

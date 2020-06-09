@@ -22,7 +22,7 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        virtual System::SharedPtr<System::IO::Stream> OpenFontDataStream();
+        System::SharedPtr<System::IO::Stream> OpenFontDataStream() override;
     };
 
     RTTI_INFO_IMPL_HASH(3895389092u, ResourceSteamFontSourceExample, ThisTypeBaseTypesInfo);

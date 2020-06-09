@@ -53,7 +53,8 @@ namespace
     class DataSourceRoot : public IMailMergeDataSourceRoot 
     {
         public: 
-            System::SharedPtr<IMailMergeDataSource> IMailMergeDataSourceRoot::GetDataSource(System::String s) {
+            System::SharedPtr<IMailMergeDataSource> IMailMergeDataSourceRoot::GetDataSource(System::String s) override
+            {
                 return System::MakeObject<DataSource>();
             }
 

@@ -77,10 +77,10 @@ namespace
 
     public:
         TocMailMergeDataSource(std::vector<TTopicPtr> const & topics);
-        System::String get_TableName();
-        bool MoveNext();
-        bool GetValue(System::String fieldName, System::SharedPtr<System::Object>& fieldValue);
-        System::SharedPtr<IMailMergeDataSource> GetChildDataSource(System::String tableName);
+        System::String get_TableName() override;
+        bool MoveNext() override;
+        bool GetValue(System::String fieldName, System::SharedPtr<System::Object>& fieldValue) override;
+        System::SharedPtr<IMailMergeDataSource> GetChildDataSource(System::String tableName) override;
 
     private:
         std::vector<TTopicPtr> mTopics;
@@ -140,8 +140,8 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        void FieldMerging(System::SharedPtr<FieldMergingArgs> e);
-        void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args);
+        void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override;
+        void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) override;
 
     private:
         System::SharedPtr<DocumentBuilder> mBuilder;

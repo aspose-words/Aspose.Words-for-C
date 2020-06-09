@@ -43,8 +43,6 @@ namespace
             DocumentLoadingWarningCallback();
     };
 
-    //RTTI_INFO_IMPL_HASH(1974866485u, DocumentLoadingWarningCallback, ThisTypeBaseTypesInfo);
-
     void DocumentLoadingWarningCallback::Warning(System::SharedPtr<WarningInfo> info)
     {
         // Prints warnings and their details as they arise during document loading.
@@ -56,14 +54,13 @@ namespace
     DocumentLoadingWarningCallback::DocumentLoadingWarningCallback() : mWarnings(System::MakeObject<WarningInfoCollection>())
     {
     }
-
     //ExEnd:DocumentLoadingWarningCallback
 
     //ExStart:HtmlLinkedResourceLoadingCallback
     class HtmlLinkedResourceLoadingCallback : public IResourceLoadingCallback
     {
         public:
-            ResourceLoadingAction ResourceLoading(System::SharedPtr<ResourceLoadingArgs> args);
+            ResourceLoadingAction ResourceLoading(System::SharedPtr<ResourceLoadingArgs> args) override;
             HtmlLinkedResourceLoadingCallback();
     };
 

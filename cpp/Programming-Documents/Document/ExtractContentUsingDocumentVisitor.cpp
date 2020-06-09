@@ -29,14 +29,14 @@ namespace
     public:
         MyDocToTxtWriter();
         System::String GetText();
-        virtual VisitorAction VisitRun(System::SharedPtr<Run> run);
-        virtual VisitorAction VisitFieldStart(System::SharedPtr<FieldStart> fieldStart);
-        virtual VisitorAction VisitFieldSeparator(System::SharedPtr<FieldSeparator> fieldSeparator);
-        virtual VisitorAction VisitFieldEnd(System::SharedPtr<FieldEnd> fieldEnd);
-        virtual VisitorAction VisitParagraphEnd(System::SharedPtr<Paragraph> paragraph);
-        virtual VisitorAction VisitBodyStart(System::SharedPtr<Body> body);
-        virtual VisitorAction VisitBodyEnd(System::SharedPtr<Body> body);
-        virtual VisitorAction VisitHeaderFooterStart(System::SharedPtr<HeaderFooter> headerFooter);
+        VisitorAction VisitRun(System::SharedPtr<Run> run) override;
+        VisitorAction VisitFieldStart(System::SharedPtr<FieldStart> fieldStart) override;
+        VisitorAction VisitFieldSeparator(System::SharedPtr<FieldSeparator> fieldSeparator) override;
+        VisitorAction VisitFieldEnd(System::SharedPtr<FieldEnd> fieldEnd) override;
+        VisitorAction VisitParagraphEnd(System::SharedPtr<Paragraph> paragraph) override;
+        VisitorAction VisitBodyStart(System::SharedPtr<Body> body) override;
+        VisitorAction VisitBodyEnd(System::SharedPtr<Body> body) override;
+        VisitorAction VisitHeaderFooterStart(System::SharedPtr<HeaderFooter> headerFooter) override;
     private:
         void AppendText(System::String text);
 

@@ -23,7 +23,7 @@ namespace
         RTTI_INFO_DECL();
 
     public:
-        void Warning(System::SharedPtr<WarningInfo> info);
+        void Warning(System::SharedPtr<WarningInfo> info) override;
     };
 
     RTTI_INFO_IMPL_HASH(2261567691u, HandleDocumentWarnings, ThisTypeBaseTypesInfo);
