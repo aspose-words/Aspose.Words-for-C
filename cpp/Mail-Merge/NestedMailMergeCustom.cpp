@@ -15,7 +15,7 @@ namespace
         typedef Order ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         Order(System::String const &name, int32_t quantity) : mName(name), mQuantity(quantity) {}
@@ -27,8 +27,6 @@ namespace
         int32_t mQuantity;
     };
 
-    RTTI_INFO_IMPL_HASH(1037674649u, Order, ThisTypeBaseTypesInfo);
-
     typedef System::SharedPtr<System::Collections::Generic::IList<System::SharedPtr<Order>>> TOrderIListPtr;
     typedef System::Collections::Generic::List<System::SharedPtr<Order>> TOrderList;
 
@@ -37,7 +35,7 @@ namespace
         typedef OrderMailMergeDataSource ThisType;
         typedef IMailMergeDataSource BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         OrderMailMergeDataSource(TOrderIListPtr orders) : mOrders(orders), mRecordIndex(-1) {}
@@ -50,8 +48,6 @@ namespace
         TOrderIListPtr mOrders;
         int32_t mRecordIndex;
     };
-
-    RTTI_INFO_IMPL_HASH(1802057101u, OrderMailMergeDataSource, ThisTypeBaseTypesInfo);
 
     bool OrderMailMergeDataSource::GetValue(System::String fieldName, System::SharedPtr<System::Object>& fieldValue)
     {
@@ -86,7 +82,7 @@ namespace
         typedef Customer ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         Customer(System::String const &fullName, System::String const &address) : mFullName(fullName), mAddress(address), mOrders(System::MakeObject<TOrderList>()) {}
@@ -99,8 +95,6 @@ namespace
         TOrderIListPtr mOrders;
     };
 
-    RTTI_INFO_IMPL_HASH(2350126451u, Customer, ThisTypeBaseTypesInfo);
-
     typedef System::SharedPtr<System::Collections::Generic::IList<System::SharedPtr<Customer>>> TCustomerIListPtr;
     typedef System::Collections::Generic::List<System::SharedPtr<Customer>> TCustomerList;
 
@@ -109,7 +103,7 @@ namespace
         typedef CustomerMailMergeDataSource ThisType;
         typedef IMailMergeDataSource BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         CustomerMailMergeDataSource(TCustomerIListPtr customers) : mCustomers(customers), mRecordIndex(-1) {}
@@ -123,8 +117,6 @@ namespace
         TCustomerIListPtr mCustomers;
         int32_t mRecordIndex;
     };
-
-    RTTI_INFO_IMPL_HASH(3643798579u, CustomerMailMergeDataSource, ThisTypeBaseTypesInfo);
 
     bool CustomerMailMergeDataSource::GetValue(System::String fieldName, System::SharedPtr<System::Object>& fieldValue)
     {

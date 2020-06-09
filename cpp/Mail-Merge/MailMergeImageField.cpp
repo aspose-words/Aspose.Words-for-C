@@ -27,14 +27,12 @@ namespace
         typedef ImageFieldMergingHandler ThisType;
         typedef IFieldMergingCallback BaseType;
         typedef System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override {}
         void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) override;
     };
-
-    RTTI_INFO_IMPL_HASH(273698781u, ImageFieldMergingHandler, ThisTypeBaseTypesInfo);
 
     void ImageFieldMergingHandler::ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> e)
     {

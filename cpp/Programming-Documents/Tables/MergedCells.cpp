@@ -31,7 +31,7 @@ namespace
         typedef CellInfo ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         CellInfo(int32_t colSpan, int32_t rowSpan) : mColSpan(colSpan), mRowSpan(rowSpan) {}
@@ -43,8 +43,6 @@ namespace
         int32_t mRowSpan;
     };
 
-    RTTI_INFO_IMPL_HASH(1673797985u, CellInfo, ThisTypeBaseTypesInfo);
-
     typedef System::SharedPtr<CellInfo> TCellInfoPtr;
 
     class RowInfo : public System::Object
@@ -52,7 +50,7 @@ namespace
         typedef RowInfo ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         RowInfo()
@@ -65,8 +63,6 @@ namespace
         std::vector<TCellInfoPtr> mCells;
     };
 
-    RTTI_INFO_IMPL_HASH(2224295735u, RowInfo, ThisTypeBaseTypesInfo);
-
     typedef System::SharedPtr<RowInfo> TRowInfoPtr;
 
     class TableInfo : public System::Object
@@ -74,7 +70,7 @@ namespace
         typedef TableInfo ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         TableInfo()
@@ -86,8 +82,6 @@ namespace
         std::vector<TRowInfoPtr> mRows;
     };
 
-    RTTI_INFO_IMPL_HASH(2175561643u, TableInfo, ThisTypeBaseTypesInfo);
-
     typedef System::SharedPtr<TableInfo> TTableInfoPtr;
 
     // ExEnd:HorizontalAndVerticalMergeHelperClasses
@@ -97,7 +91,7 @@ namespace
         typedef SpanVisitor ThisType;
         typedef DocumentVisitor BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         SpanVisitor(System::SharedPtr<Document> doc);
@@ -106,8 +100,6 @@ namespace
         std::vector<TTableInfoPtr> mTables;
         System::SharedPtr<NodeCollection> mWordTables;
     };
-
-    RTTI_INFO_IMPL_HASH(4097796275u, SpanVisitor, ThisTypeBaseTypesInfo);
 
     SpanVisitor::SpanVisitor(System::SharedPtr<Document> doc) : mWordTables(nullptr)
     {

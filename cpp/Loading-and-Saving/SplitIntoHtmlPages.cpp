@@ -38,7 +38,7 @@ namespace
         typedef Topic ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         Topic(System::String const &title, System::String const &filename);
@@ -49,8 +49,6 @@ namespace
         System::String mTitle;
         System::String mFilename;
     };
-
-    RTTI_INFO_IMPL_HASH(3130410972u, Topic, ThisTypeBaseTypesInfo);
 
     Topic::Topic(System::String const &title, System::String const &filename)
     {
@@ -73,7 +71,7 @@ namespace
         typedef TocMailMergeDataSource ThisType;
         typedef IMailMergeDataSource BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         TocMailMergeDataSource(std::vector<TTopicPtr> const & topics);
@@ -87,7 +85,6 @@ namespace
         int32_t mIndex;
     };
 
-    RTTI_INFO_IMPL_HASH(270249105u, TocMailMergeDataSource, ThisTypeBaseTypesInfo);
 
     TocMailMergeDataSource::TocMailMergeDataSource(std::vector<TTopicPtr> const &topics) : mIndex(-1), mTopics(topics)
     {
@@ -137,7 +134,7 @@ namespace
         typedef HandleTocMergeField ThisType;
         typedef IFieldMergingCallback BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override;
@@ -146,8 +143,6 @@ namespace
     private:
         System::SharedPtr<DocumentBuilder> mBuilder;
     };
-
-    RTTI_INFO_IMPL_HASH(2701695377u, HandleTocMergeField, ThisTypeBaseTypesInfo);
 
     void HandleTocMergeField::FieldMerging(System::SharedPtr<FieldMergingArgs> e)
     {
@@ -175,7 +170,7 @@ namespace
         typedef Worker ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         void Execute(System::String const &srcFileName, System::String const &tocTemplate, System::String const &dstDir);
@@ -192,8 +187,6 @@ namespace
         static void SaveHtmlTopic(System::SharedPtr<Section> section, TTopicPtr topic);
         void SaveTableOfContents(std::vector<TTopicPtr> const &topics);
     };
-
-    RTTI_INFO_IMPL_HASH(3546846289u, Worker, ThisTypeBaseTypesInfo);
 
     void Worker::Execute(System::String const &srcFileName, System::String  const &tocTemplate, System::String  const &dstDir)
     {

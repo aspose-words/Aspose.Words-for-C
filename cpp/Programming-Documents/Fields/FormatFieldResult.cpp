@@ -19,7 +19,7 @@ namespace
         typedef FieldResultFormatter ThisType;
         typedef IFieldResultFormatter BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         FieldResultFormatter(System::String numberFormat, System::String dateFormat);
@@ -32,8 +32,6 @@ namespace
         System::String mNumberFormat;
         System::String mDateFormat;
     };
-
-    RTTI_INFO_IMPL_HASH(2615486347u, FieldResultFormatter, ThisTypeBaseTypesInfo);
 
     FieldResultFormatter::FieldResultFormatter(System::String numberFormat, System::String dateFormat) : mNumberFormat(numberFormat), mDateFormat(dateFormat)
     {

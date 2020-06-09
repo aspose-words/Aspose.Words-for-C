@@ -20,7 +20,7 @@ namespace
         typedef IReplacingCallback BaseType;
 
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         ReplaceWithHtmlEvaluator(System::SharedPtr<FindReplaceOptions> options);
@@ -47,7 +47,6 @@ namespace
         return ReplaceAction::Replace;
     }
 
-    RTTI_INFO_IMPL_HASH(3215654403u, ReplaceWithHtmlEvaluator, ThisTypeBaseTypesInfo);
 }
 
 void ReplaceWithHTML()

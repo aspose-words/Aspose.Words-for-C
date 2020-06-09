@@ -27,7 +27,7 @@ namespace
         typedef ReplaceTextWithFieldHandler ThisType;
         typedef IReplacingCallback BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         ReplaceTextWithFieldHandler(FieldType type);
@@ -38,8 +38,6 @@ namespace
 
         System::SharedPtr<Run> SplitRun(System::SharedPtr<Run> run, int32_t position);
     };
-
-    RTTI_INFO_IMPL_HASH(3400996149u, ReplaceTextWithFieldHandler, ThisTypeBaseTypesInfo);
 
     ReplaceTextWithFieldHandler::ReplaceTextWithFieldHandler(FieldType type) : mFieldType((FieldType)0)
     {

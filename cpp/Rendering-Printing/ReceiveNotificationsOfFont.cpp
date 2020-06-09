@@ -20,13 +20,12 @@ namespace
         typedef IWarningCallback BaseType;
 
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         void Warning(System::SharedPtr<WarningInfo> info) override;
     };
 
-    RTTI_INFO_IMPL_HASH(2261567691u, HandleDocumentWarnings, ThisTypeBaseTypesInfo);
 
     void HandleDocumentWarnings::Warning(System::SharedPtr<WarningInfo> info)
     {

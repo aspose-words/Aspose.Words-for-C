@@ -24,7 +24,7 @@ namespace
         typedef DocumentVisitor BaseType;
 
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         MyDocToTxtWriter();
@@ -43,8 +43,6 @@ namespace
         System::SharedPtr<System::Text::StringBuilder> mBuilder;
         bool mIsSkipText;
     };
-
-    RTTI_INFO_IMPL_HASH(425291245u, MyDocToTxtWriter, ThisTypeBaseTypesInfo);
 
     MyDocToTxtWriter::MyDocToTxtWriter() : mIsSkipText(false)
     {

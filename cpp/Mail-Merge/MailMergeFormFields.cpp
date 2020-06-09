@@ -21,7 +21,7 @@ namespace
         typedef HandleMergeField ThisType;
         typedef IFieldMergingCallback BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override;
@@ -30,8 +30,6 @@ namespace
     private:
         System::SharedPtr<DocumentBuilder> mBuilder;
     };
-
-    RTTI_INFO_IMPL_HASH(1055131746u, HandleMergeField, ThisTypeBaseTypesInfo);
 
     void HandleMergeField::FieldMerging(System::SharedPtr<FieldMergingArgs> e)
     {

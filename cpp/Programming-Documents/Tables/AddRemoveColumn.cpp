@@ -26,7 +26,7 @@ namespace
         typedef Column ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         Column(System::SharedPtr<Table> table, int32_t columnIndex);
@@ -39,8 +39,6 @@ namespace
         int32_t mColumnIndex;
         System::SharedPtr<Table> mTable;
     };
-
-    RTTI_INFO_IMPL_HASH(3744029511u, Column, ThisTypeBaseTypesInfo);
 
     Column::Column(System::SharedPtr<Table> table, int32_t columnIndex) : mColumnIndex(0)
     {

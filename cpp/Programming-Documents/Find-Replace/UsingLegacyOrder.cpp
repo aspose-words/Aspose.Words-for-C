@@ -19,13 +19,11 @@ namespace
         typedef ReplacingCallback ThisType;
         typedef IReplacingCallback BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> e) override;
     };
-
-    RTTI_INFO_IMPL_HASH(369195648u, ReplacingCallback, ThisTypeBaseTypesInfo);
 
     ReplaceAction ReplacingCallback::Replacing(System::SharedPtr<ReplacingArgs> e)
     {
