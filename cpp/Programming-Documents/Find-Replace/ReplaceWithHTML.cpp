@@ -26,9 +26,6 @@ namespace
         ReplaceWithHtmlEvaluator(System::SharedPtr<FindReplaceOptions> options);
         ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args);
 
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         System::SharedPtr<FindReplaceOptions> mOptions;
     };
@@ -49,14 +46,6 @@ namespace
 
         return ReplaceAction::Replace;
     }
-
-    System::Object::shared_members_type ReplaceWithHtmlEvaluator::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("ReplaceWithHtmlEvaluator::mOptions", this->mOptions);
-        return result;
-    }
-
 
     RTTI_INFO_IMPL_HASH(3215654403u, ReplaceWithHtmlEvaluator, ThisTypeBaseTypesInfo);
 }

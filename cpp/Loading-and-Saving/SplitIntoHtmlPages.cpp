@@ -143,9 +143,6 @@ namespace
         void FieldMerging(System::SharedPtr<FieldMergingArgs> e);
         void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args);
 
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         System::SharedPtr<DocumentBuilder> mBuilder;
     };
@@ -173,13 +170,6 @@ namespace
 
     void HandleTocMergeField::ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) { }
 
-    System::Object::shared_members_type HandleTocMergeField::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("HandleTocMergeField::mBuilder", this->mBuilder);
-        return result;
-    }
-
     class Worker : public System::Object
     {
         typedef Worker ThisType;
@@ -189,10 +179,6 @@ namespace
 
     public:
         void Execute(System::String const &srcFileName, System::String const &tocTemplate, System::String const &dstDir);
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         System::SharedPtr<Document> mDoc;
         System::String mTocTemplate;
@@ -343,12 +329,6 @@ namespace
         tocDoc->Save(System::IO::Path::Combine(mDstDir, u"contents.html"));
     }
 
-    System::Object::shared_members_type Worker::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("Worker::mDoc", this->mDoc);
-        return result;
-    }
 }
 
 void SplitIntoHtmlPages()

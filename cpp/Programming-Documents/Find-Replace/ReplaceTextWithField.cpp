@@ -33,10 +33,6 @@ namespace
         ReplaceTextWithFieldHandler(FieldType type);
         ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args);
         std::vector<TNodePtr> FindAndSplitMatchRuns(System::SharedPtr<ReplacingArgs> args);
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         FieldType mFieldType;
 
@@ -114,13 +110,6 @@ namespace
         }
 
         return runs;
-    }
-
-    System::Object::shared_members_type ReplaceTextWithFieldHandler::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("ReplaceTextWithFieldHandler::mFieldType", this->mFieldType);
-        return result;
     }
 
     System::SharedPtr<Run> ReplaceTextWithFieldHandler::SplitRun(System::SharedPtr<Run> run, int32_t position)

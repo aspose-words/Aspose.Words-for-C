@@ -45,10 +45,6 @@ namespace
         bool GetValue(System::String fieldName, System::SharedPtr<System::Object>& fieldValue) override;
         bool MoveNext() override;
         System::SharedPtr<IMailMergeDataSource> GetChildDataSource(System::String tableName) override { return nullptr; }
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         bool get_IsEof() { return (mRecordIndex >= mOrders->get_Count()); }
         TOrderIListPtr mOrders;
@@ -85,13 +81,6 @@ namespace
         return (!get_IsEof());
     }
 
-    System::Object::shared_members_type OrderMailMergeDataSource::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("OrderMailMergeDataSource::mOrders", this->mOrders);
-        return result;
-    }
-
     class Customer : public System::Object
     {
         typedef Customer ThisType;
@@ -104,10 +93,6 @@ namespace
         System::String GetFullName() const { return mFullName; }
         System::String GetAddress() const { return mAddress; }
         TOrderIListPtr GetOrders() { return mOrders; }
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         System::String mFullName;
         System::String mAddress;
@@ -115,13 +100,6 @@ namespace
     };
 
     RTTI_INFO_IMPL_HASH(2350126451u, Customer, ThisTypeBaseTypesInfo);
-
-    System::Object::shared_members_type Customer::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("Customer::mOrders", this->mOrders);
-        return result;
-    }
 
     typedef System::SharedPtr<System::Collections::Generic::IList<System::SharedPtr<Customer>>> TCustomerIListPtr;
     typedef System::Collections::Generic::List<System::SharedPtr<Customer>> TCustomerList;
@@ -139,9 +117,6 @@ namespace
         bool GetValue(System::String fieldName, System::SharedPtr<System::Object>& fieldValue) override;
         bool MoveNext() override;
         System::SharedPtr<IMailMergeDataSource> GetChildDataSource(System::String tableName) override;
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
 
     private:
         bool get_IsEof() { return (mRecordIndex >= mCustomers->get_Count()); }
@@ -199,12 +174,6 @@ namespace
     }
     // ExEnd:GetChildDataSourceExample
 
-    System::Object::shared_members_type CustomerMailMergeDataSource::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("CustomerMailMergeDataSource::mCustomers", this->mCustomers);
-        return result;
-    }
 }
 
 void NestedMailMergeCustom()

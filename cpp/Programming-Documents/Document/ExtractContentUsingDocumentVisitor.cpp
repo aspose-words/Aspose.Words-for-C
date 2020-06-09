@@ -37,10 +37,6 @@ namespace
         virtual VisitorAction VisitBodyStart(System::SharedPtr<Body> body);
         virtual VisitorAction VisitBodyEnd(System::SharedPtr<Body> body);
         virtual VisitorAction VisitHeaderFooterStart(System::SharedPtr<HeaderFooter> headerFooter);
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         void AppendText(System::String text);
 
@@ -133,12 +129,6 @@ namespace
         }
     }
 
-    System::Object::shared_members_type MyDocToTxtWriter::GetSharedMembers()
-    {
-        auto result = DocumentVisitor::GetSharedMembers();
-        result.Add("MyDocToTxtWriter::mBuilder", this->mBuilder);
-        return result;
-    }
 }
 
 void ExtractContentUsingDocumentVisitor()

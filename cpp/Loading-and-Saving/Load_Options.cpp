@@ -39,11 +39,8 @@ namespace
     {
         public:
             System::SharedPtr<WarningInfoCollection> mWarnings;
-            void Warning(System::SharedPtr<WarningInfo> info);
+            void Warning(System::SharedPtr<WarningInfo> info) override;
             DocumentLoadingWarningCallback();
-
-        protected:
-            System::Object::shared_members_type GetSharedMembers() override;
     };
 
     //RTTI_INFO_IMPL_HASH(1974866485u, DocumentLoadingWarningCallback, ThisTypeBaseTypesInfo);
@@ -60,12 +57,6 @@ namespace
     {
     }
 
-    System::Object::shared_members_type DocumentLoadingWarningCallback::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("DocumentLoadingWarningCallback::mWarnings", this->mWarnings);
-        return result;
-    }
     //ExEnd:DocumentLoadingWarningCallback
 
     //ExStart:HtmlLinkedResourceLoadingCallback

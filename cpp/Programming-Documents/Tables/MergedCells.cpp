@@ -102,10 +102,6 @@ namespace
     public:
         SpanVisitor(System::SharedPtr<Document> doc);
         virtual VisitorAction VisitCellStart(System::SharedPtr<Cell> cell);
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         std::vector<TTableInfoPtr> mTables;
         System::SharedPtr<NodeCollection> mWordTables;
@@ -181,13 +177,6 @@ namespace
 
         std::cout << tabIdx << "." << rowIdx << "." << cellIdx << "colspan=" << colSpan << "\t rowspan=" << rowSpan << std::endl;
         return VisitorAction::Continue;
-    }
-
-    System::Object::shared_members_type SpanVisitor::GetSharedMembers()
-    {
-        auto result = DocumentVisitor::GetSharedMembers();
-        result.Add("SpanVisitor::mWordTables", this->mWordTables);
-        return result;
     }
 
     // ExStart:PrintCellMergeType

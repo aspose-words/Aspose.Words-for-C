@@ -35,10 +35,6 @@ namespace
         System::SharedPtr<Column> InsertColumnBefore();
         void Remove();
         System::String ToTxt();
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         int32_t mColumnIndex;
         System::SharedPtr<Table> mTable;
@@ -114,13 +110,6 @@ namespace
             builder->Append(cell->ToString(SaveFormat::Text));
         }
         return builder->ToString();
-    }
-
-    System::Object::shared_members_type Column::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("Column::mTable", this->mTable);
-        return result;
     }
 
     void RemoveColumn(System::SharedPtr<Document> doc)

@@ -27,9 +27,6 @@ namespace
         void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override;
         void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) override {}
 
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         System::SharedPtr<DocumentBuilder> mBuilder;
     };
@@ -73,13 +70,6 @@ namespace
             System::String textInputName = System::String::Format(u"{0}{1}",e->get_FieldName(),e->get_RecordIndex());
             mBuilder->InsertTextInput(textInputName, TextFormFieldType::Regular, u"", System::ObjectExt::Unbox<System::String>(e->get_FieldValue()), 0);
         }
-    }
-
-    System::Object::shared_members_type HandleMergeField::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("HandleMergeField::mBuilder", this->mBuilder);
-        return result;
     }
     // ExEnd:HandleMergeField
 }

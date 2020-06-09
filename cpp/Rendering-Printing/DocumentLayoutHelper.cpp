@@ -96,7 +96,6 @@ namespace
             }
             return childList;
         }
-        System::Object::shared_members_type GetSharedMembers() override;
 
         System::String mKind;
         int32_t mPageIndex;
@@ -200,16 +199,6 @@ namespace
         }
 
         return childList;
-    }
-
-    System::Object::shared_members_type LayoutEntity::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("LayoutEntity::mParentNode", this->mParentNode);
-        result.Add("LayoutEntity::mRectangle", this->mRectangle);
-        result.Add("LayoutEntity::mType", this->mType);
-        result.Add("LayoutEntity::mParent", this->mParent);
-        return result;
     }
 
     /// <summary>
@@ -650,10 +639,6 @@ namespace
         RenderedDocument(System::SharedPtr<Document> doc);
         std::vector<TRenderedPagePtr> GetPages();
         std::vector<TLayoutEntityPtr> GetLayoutEntitiesOfNode(TNodePtr node);
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         void ProcessLayoutElements(TLayoutEntityPtr current);
         void CollectLinesAndAddToMarkers();
@@ -800,14 +785,6 @@ namespace
                 mLayoutToNodeLookup.insert({entity, node});
             }
         }
-    }
-
-    System::Object::shared_members_type RenderedDocument::GetSharedMembers()
-    {
-        auto result = LayoutEntity::GetSharedMembers();
-        result.Add("RenderedDocument::mLayoutCollector", this->mLayoutCollector);
-        result.Add("RenderedDocument::mEnumerator", this->mEnumerator);
-        return result;
     }
 
     TLayoutEntityPtr CreateLayoutEntityFromType(System::SharedPtr<LayoutEnumerator> it)
