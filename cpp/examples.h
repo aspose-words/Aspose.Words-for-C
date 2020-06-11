@@ -36,6 +36,7 @@ void WorkingWithOoxml();
 void WorkingWithRTF();
 void WorkingWithTxt();
 void WorkingWithVbaMacros();
+void SpecifyMarkdownSaveOptions();
 
 // =====================================================
 // =====================================================

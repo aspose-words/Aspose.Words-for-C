@@ -57,6 +57,7 @@ int main()
     WorkingWithRTF();
     WorkingWithTxt();
     WorkingWithVbaMacros(); 
+    SpecifyMarkdownSaveOptions();
 
     // =====================================================
     // =====================================================

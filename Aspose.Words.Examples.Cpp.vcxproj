@@ -118,6 +118,7 @@
     <ClCompile Include="cpp\Loading-and-Saving\SaveDocWithHtmlSaveOptions.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SaveOptionsHtmlFixed.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SigningSignatureLine.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\SpecifyMarkdownSaveOptions.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SpecifySaveOption.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SplitIntoHtmlPages.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\WorkingWithDoc.cpp" />
