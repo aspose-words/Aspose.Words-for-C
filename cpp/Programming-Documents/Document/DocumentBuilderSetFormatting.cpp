@@ -11,6 +11,7 @@
 #include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/HeightRule.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Text/EmphasisMark.h>
 #include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/RowFormat.h>
 #include <Aspose.Words.Cpp/Model/Tables/Row.h>
@@ -311,6 +312,23 @@ namespace
         // ExEnd:SetSnapToGrid
         std::cout << "SetSnapToGrid successfully to paragraph." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+	void SetFontEmphasisMark(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+		// ExStart:SetFontEmphasisMark
+		auto document = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(document);
+
+		builder->get_Font()->set_EmphasisMark(EmphasisMark::UnderSolidCircle);
+
+		builder->Write(u"Emphasis text");
+		builder->Writeln();
+		builder->get_Font()->ClearFormatting();
+		builder->Write(u"Simple text");
+
+		document->Save(outputDataDir + u"FontEmphasisMark_out.doc");
+		// ExEnd:SetFontEmphasisMark
+    }
 }
 
 void DocumentBuilderSetFormatting()
@@ -331,5 +349,6 @@ void DocumentBuilderSetFormatting()
     SetAsianTypographyLinebreakGroupProp(inputDataDir, outputDataDir);
     ChangeAsianParagraphSpacingAndIndents(inputDataDir, outputDataDir);
     SetSnapToGrid(inputDataDir, outputDataDir);
+	SetFontEmphasisMark(inputDataDir, outputDataDir);
     std::cout << "DocumentBuilderSetFormatting example finished." << std::endl << std::endl;
 }
