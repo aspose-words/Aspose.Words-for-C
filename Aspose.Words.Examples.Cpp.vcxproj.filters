@@ -850,6 +850,9 @@
     <ClCompile Include="cpp\Programming-Documents\Document\SplitDocument.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithImportFormatOptions.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">

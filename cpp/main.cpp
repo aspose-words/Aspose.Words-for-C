@@ -187,10 +187,7 @@ int main()
     SigningSignatureLine();
     UpdateContentControls();
     WriteAndFont();
-#if 0
-    // Source document is missing
     WorkingWithImportFormatOptions();
-#endif
     WorkingWithMarkdownFeatures();
     WorkingWithRevisions();
     WorkingWithRtfSaveOptions();

@@ -159,7 +159,7 @@ void ShowGrammaticalAndSpellingErrors();
 void WorkWithCleanupOptions();
 void WorkWithWatermark();
 void WriteAndFont();
-//void WorkingWithImportFormatOptions(); // Source document is missing
+void WorkingWithImportFormatOptions();
 void WorkingWithMarkdownFeatures();
 void WorkingWithRevisions();
 void WorkingWithRtfSaveOptions();

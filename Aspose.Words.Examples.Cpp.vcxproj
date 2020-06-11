@@ -209,8 +209,10 @@
     <ClCompile Include="cpp\Programming-Documents\Document\Setuplanguagepreferences.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\SetViewOption.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\ShowGrammaticalAndSpellingErrors.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\SplitDocument.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\UpdateContentControls.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithFootnote.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithImportFormatOptions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithMarkdownFeatures.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRevisions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRtfSaveOptions.cpp" />
