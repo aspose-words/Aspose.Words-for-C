@@ -365,6 +365,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\examples.h" />
+    <ClInclude Include="cpp\Loading-and-Saving\PageSplitter.h" />
     <ClInclude Include="cpp\pch\aspose_pch.h" />
     <ClInclude Include="cpp\pch\pch.h" />
     <ClInclude Include="cpp\Programming-Documents\Document\Common.h" />

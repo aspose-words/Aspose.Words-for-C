@@ -847,10 +847,16 @@
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHTML.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\SplitDocument.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
       <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="cpp\Loading-and-Saving\PageSplitter.h">
+      <Filter>cpp\Loading-and-Saving</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

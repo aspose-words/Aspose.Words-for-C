@@ -199,6 +199,7 @@ int main()
     WorkWithCleanupOptions();
     WorkWithWatermark();
     ShowGrammaticalAndSpellingErrors();
+    SplitDocument();
 
     // EndNote and Footnote
     // =====================================================

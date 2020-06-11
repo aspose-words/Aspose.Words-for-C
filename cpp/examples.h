@@ -165,6 +165,7 @@ void WorkingWithRevisions();
 void WorkingWithRtfSaveOptions();
 void WorkingWithSaveOptions();
 void WorkingWithWebExtension();
+void SplitDocument();
 
 // EndNote and Footnote
 // =====================================================
