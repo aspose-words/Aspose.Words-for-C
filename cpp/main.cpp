@@ -57,6 +57,7 @@ int main()
     WorkingWithRTF();
     WorkingWithTxt();
     WorkingWithVbaMacros(); 
+    SpecifyMarkdownSaveOptions();
 
     // =====================================================
     // =====================================================
@@ -187,10 +188,7 @@ int main()
     SigningSignatureLine();
     UpdateContentControls();
     WriteAndFont();
-#if 0
-    // Source document is missing
     WorkingWithImportFormatOptions();
-#endif
     WorkingWithMarkdownFeatures();
     WorkingWithRevisions();
     WorkingWithRtfSaveOptions();
@@ -199,6 +197,7 @@ int main()
     WorkWithCleanupOptions();
     WorkWithWatermark();
     ShowGrammaticalAndSpellingErrors();
+    SplitDocument();
 
     // EndNote and Footnote
     // =====================================================

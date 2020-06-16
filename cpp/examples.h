@@ -36,6 +36,7 @@ void WorkingWithOoxml();
 void WorkingWithRTF();
 void WorkingWithTxt();
 void WorkingWithVbaMacros();
+void SpecifyMarkdownSaveOptions();
 
 // =====================================================
 // =====================================================
@@ -159,12 +160,13 @@ void ShowGrammaticalAndSpellingErrors();
 void WorkWithCleanupOptions();
 void WorkWithWatermark();
 void WriteAndFont();
-//void WorkingWithImportFormatOptions(); // Source document is missing
+void WorkingWithImportFormatOptions();
 void WorkingWithMarkdownFeatures();
 void WorkingWithRevisions();
 void WorkingWithRtfSaveOptions();
 void WorkingWithSaveOptions();
 void WorkingWithWebExtension();
+void SplitDocument();
 
 // EndNote and Footnote
 // =====================================================

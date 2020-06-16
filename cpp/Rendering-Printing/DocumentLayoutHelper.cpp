@@ -62,7 +62,7 @@ namespace
         typedef LayoutEntity ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
         friend class RenderedDocument;
 
     public:
@@ -82,21 +82,17 @@ namespace
         virtual void SetParentNode(TNodePtr value);
         template <typename T> std::vector<T> GetChildNodes()
         {
-            typedef LayoutEntity BaseT_LayoutEntity;
-            assert_is_base_of(BaseT_LayoutEntity, T);
-            assert_is_constructable(T);
-            T obj = System::MakeObject<T>();
             std::vector<T> childList;
             for (TLayoutEntityPtr entity : mChildEntities)
             {
-                if (System::ObjectExt::GetType(entity) == System::ObjectExt::GetType(obj))
+                auto obj = System::StaticCast_noexcept<typename T::Pointee_>(entity);
+                if (obj)
                 {
-                    childList.push_back(System::StaticCast<typename T::Pointee_>(entity));
+                    childList.push_back(obj);
                 }
             }
             return childList;
         }
-        System::Object::shared_members_type GetSharedMembers() override;
 
         System::String mKind;
         int32_t mPageIndex;
@@ -109,8 +105,6 @@ namespace
     private:
         TObjectPtr mLayoutObject;
     };
-
-    RTTI_INFO_IMPL_HASH(3019693939u, LayoutEntity, ThisTypeBaseTypesInfo);
 
     int32_t LayoutEntity::GetPageIndex()
     {
@@ -202,16 +196,6 @@ namespace
         return childList;
     }
 
-    System::Object::shared_members_type LayoutEntity::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("LayoutEntity::mParentNode", this->mParentNode);
-        result.Add("LayoutEntity::mRectangle", this->mRectangle);
-        result.Add("LayoutEntity::mType", this->mType);
-        result.Add("LayoutEntity::mParent", this->mParent);
-        return result;
-    }
-
     /// <summary>
     /// Represents an entity that contains lines and rows.
     /// </summary>
@@ -220,14 +204,12 @@ namespace
         typedef StoryLayoutEntity ThisType;
         typedef LayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         std::vector<TRenderedLinePtr> GetLines();
         std::vector<TRenderedRowPtr> GetRows();
     };
-
-    RTTI_INFO_IMPL_HASH(3178778940u, StoryLayoutEntity, ThisTypeBaseTypesInfo);
 
     std::vector<TRenderedLinePtr> StoryLayoutEntity::GetLines()
     {
@@ -247,15 +229,13 @@ namespace
         typedef RenderedLine ThisType;
         typedef LayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         System::String GetText() override;
         System::SharedPtr<Paragraph> GetParagraph();
         std::vector<TRenderedSpanPtr> GetSpans();
     };
-
-    RTTI_INFO_IMPL_HASH(3891846319u, RenderedLine, ThisTypeBaseTypesInfo);
 
     System::String RenderedLine::GetText()
     {
@@ -281,7 +261,7 @@ namespace
         typedef RenderedSpan ThisType;
         typedef LayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         RenderedSpan();
@@ -292,8 +272,6 @@ namespace
     private:
         System::String mText;
     };
-
-    RTTI_INFO_IMPL_HASH(822999877u, RenderedSpan, ThisTypeBaseTypesInfo);
 
     System::String RenderedSpan::GetKind()
     {
@@ -323,13 +301,11 @@ namespace
         typedef RenderedHeaderFooter ThisType;
         typedef StoryLayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         System::String GetKind();
     };
-
-    RTTI_INFO_IMPL_HASH(1631085443u, RenderedHeaderFooter, ThisTypeBaseTypesInfo);
 
     System::String RenderedHeaderFooter::GetKind()
     {
@@ -344,14 +320,12 @@ namespace
         typedef RenderedCell ThisType;
         typedef StoryLayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         System::SharedPtr<Cell> GetCell();
         TNodePtr GetParentNode() override;
     };
-
-    RTTI_INFO_IMPL_HASH(1128351613u, RenderedCell, ThisTypeBaseTypesInfo);
 
     System::SharedPtr<Cell> RenderedCell::GetCell()
     {
@@ -379,7 +353,7 @@ namespace
         typedef RenderedRow ThisType;
         typedef LayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         std::vector<TRenderedCellPtr> GetCells();
@@ -387,8 +361,6 @@ namespace
         System::SharedPtr<Table> GetTable();
         TNodePtr GetParentNode() override;
     };
-
-    RTTI_INFO_IMPL_HASH(1922289599u, RenderedRow, ThisTypeBaseTypesInfo);
 
     std::vector<TRenderedCellPtr> RenderedRow::GetCells()
     {
@@ -423,7 +395,7 @@ namespace
         typedef RenderedColumn ThisType;
         typedef StoryLayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         std::vector<TRenderedFootnotePtr> GetFootnotes();
@@ -432,8 +404,6 @@ namespace
         System::SharedPtr<Body> GetBody();
         TNodePtr GetParentNode() override;
     };
-
-    RTTI_INFO_IMPL_HASH(2461185489u, RenderedColumn, ThisTypeBaseTypesInfo);
 
     std::vector<TRenderedFootnotePtr> RenderedColumn::GetFootnotes()
     {
@@ -468,14 +438,12 @@ namespace
         typedef RenderedFootnote ThisType;
         typedef StoryLayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         System::SharedPtr<Footnote> GetFootnote();
         TNodePtr GetParentNode() override;
     };
-
-    RTTI_INFO_IMPL_HASH(4175017083u, RenderedFootnote, ThisTypeBaseTypesInfo);
 
     System::SharedPtr<Footnote> RenderedFootnote::GetFootnote()
     {
@@ -495,14 +463,12 @@ namespace
         typedef RenderedEndnote ThisType;
         typedef StoryLayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         System::SharedPtr<Footnote> GetEndnote();
         TNodePtr GetParentNode() override;
     };
-
-    RTTI_INFO_IMPL_HASH(31763922u, RenderedEndnote, ThisTypeBaseTypesInfo);
 
     System::SharedPtr<Footnote> RenderedEndnote::GetEndnote()
     {
@@ -522,13 +488,11 @@ namespace
         typedef RenderedTextBox ThisType;
         typedef StoryLayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         TNodePtr GetParentNode() override;
     };
-
-    RTTI_INFO_IMPL_HASH(374067683u, RenderedTextBox, ThisTypeBaseTypesInfo);
 
     TNodePtr RenderedTextBox::GetParentNode()
     {
@@ -545,14 +509,12 @@ namespace
         typedef RenderedComment ThisType;
         typedef StoryLayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         System::SharedPtr<Comment> GetComment();
         TNodePtr GetParentNode() override;
     };
-
-    RTTI_INFO_IMPL_HASH(2609978340u, RenderedComment, ThisTypeBaseTypesInfo);
 
     System::SharedPtr<Comment> RenderedComment::GetComment()
     {
@@ -572,14 +534,12 @@ namespace
         typedef RenderedNoteSeparator ThisType;
         typedef StoryLayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         System::SharedPtr<Footnote> GetFootnote();
         TNodePtr GetParentNode() override;
     };
-
-    RTTI_INFO_IMPL_HASH(425844120u, RenderedNoteSeparator, ThisTypeBaseTypesInfo);
 
     System::SharedPtr<Footnote> RenderedNoteSeparator::GetFootnote()
     {
@@ -599,7 +559,7 @@ namespace
         typedef RenderedPage ThisType;
         typedef LayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         std::vector<TRenderedColumnPtr> GetColumns();
@@ -608,8 +568,6 @@ namespace
         System::SharedPtr<Section> GetSection();
         TNodePtr GetParentNode() override;
     };
-
-    RTTI_INFO_IMPL_HASH(2652676586u, RenderedPage, ThisTypeBaseTypesInfo);
 
     std::vector<TRenderedColumnPtr> RenderedPage::GetColumns()
     {
@@ -644,16 +602,12 @@ namespace
         typedef RenderedDocument ThisType;
         typedef LayoutEntity BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         RenderedDocument(System::SharedPtr<Document> doc);
         std::vector<TRenderedPagePtr> GetPages();
         std::vector<TLayoutEntityPtr> GetLayoutEntitiesOfNode(TNodePtr node);
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         void ProcessLayoutElements(TLayoutEntityPtr current);
         void CollectLinesAndAddToMarkers();
@@ -664,8 +618,6 @@ namespace
         System::SharedPtr<LayoutEnumerator> mEnumerator;
         static std::unordered_map<TObjectPtr, TNodePtr> mLayoutToNodeLookup;
     };
-
-    RTTI_INFO_IMPL_HASH(3105141718u, RenderedDocument, ThisTypeBaseTypesInfo);
 
     std::unordered_map<TObjectPtr, TNodePtr> RenderedDocument::mLayoutToNodeLookup;
 
@@ -800,14 +752,6 @@ namespace
                 mLayoutToNodeLookup.insert({entity, node});
             }
         }
-    }
-
-    System::Object::shared_members_type RenderedDocument::GetSharedMembers()
-    {
-        auto result = LayoutEntity::GetSharedMembers();
-        result.Add("RenderedDocument::mLayoutCollector", this->mLayoutCollector);
-        result.Add("RenderedDocument::mEnumerator", this->mEnumerator);
-        return result;
     }
 
     TLayoutEntityPtr CreateLayoutEntityFromType(System::SharedPtr<LayoutEnumerator> it)

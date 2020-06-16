@@ -108,7 +108,7 @@ void DocProperties()
     CustomRemove(inputDataDir);
     RemovePersonalInformation(inputDataDir, outputDataDir);
 #if 0
-    // Source document doens't have required property
+    // Source document doesn't have required property
     ConfiguringLinkToContent(inputDataDir);
 #endif
     std::cout << "DocProperties example finished." << std::endl << std::endl;

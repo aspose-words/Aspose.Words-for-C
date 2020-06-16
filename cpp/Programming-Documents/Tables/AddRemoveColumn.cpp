@@ -26,7 +26,7 @@ namespace
         typedef Column ThisType;
         typedef System::Object BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         Column(System::SharedPtr<Table> table, int32_t columnIndex);
@@ -35,16 +35,10 @@ namespace
         System::SharedPtr<Column> InsertColumnBefore();
         void Remove();
         System::String ToTxt();
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         int32_t mColumnIndex;
         System::SharedPtr<Table> mTable;
     };
-
-    RTTI_INFO_IMPL_HASH(3744029511u, Column, ThisTypeBaseTypesInfo);
 
     Column::Column(System::SharedPtr<Table> table, int32_t columnIndex) : mColumnIndex(0)
     {
@@ -114,13 +108,6 @@ namespace
             builder->Append(cell->ToString(SaveFormat::Text));
         }
         return builder->ToString();
-    }
-
-    System::Object::shared_members_type Column::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("Column::mTable", this->mTable);
-        return result;
     }
 
     void RemoveColumn(System::SharedPtr<Document> doc)

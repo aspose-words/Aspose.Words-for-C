@@ -19,13 +19,11 @@ namespace
         typedef FieldUpdateCultureProvider ThisType;
         typedef IFieldUpdateCultureProvider BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
-        TCultureInfoPtr GetCulture(System::String name, System::SharedPtr<Field> field);
+        TCultureInfoPtr GetCulture(System::String name, System::SharedPtr<Field> field) override;
     };
-
-    RTTI_INFO_IMPL_HASH(2889170660u, FieldUpdateCultureProvider, ThisTypeBaseTypesInfo);
 
     TCultureInfoPtr FieldUpdateCultureProvider::GetCulture(System::String name, System::SharedPtr<Field> field)
     {
@@ -33,15 +31,15 @@ namespace
         {
             TCultureInfoPtr culture = System::MakeObject<System::Globalization::CultureInfo>(name, false);
             System::SharedPtr<System::Globalization::DateTimeFormatInfo> format = culture->get_DateTimeFormat();
-            format->set_MonthNames(System::MakeArray<System::String>({u"ìåñÿö 1", u"ìåñÿö 2", u"ìåñÿö 3", u"ìåñÿö 4", u"ìåñÿö 5", u"ìåñÿö 6", u"ìåñÿö 7", u"ìåñÿö 8", u"ìåñÿö 9", u"ìåñÿö 10", u"ìåñÿö 11", u"ìåñÿö 12", u""}));
+            format->set_MonthNames(System::MakeArray<System::String>({u"Ð¼ÐµÑÑÑ† 1", u"Ð¼ÐµÑÑÑ† 2", u"Ð¼ÐµÑÑÑ† 3", u"Ð¼ÐµÑÑÑ† 4", u"Ð¼ÐµÑÑÑ† 5", u"Ð¼ÐµÑÑÑ† 6", u"Ð¼ÐµÑÑÑ† 7", u"Ð¼ÐµÑÑÑ† 8", u"Ð¼ÐµÑÑÑ† 9", u"Ð¼ÐµÑÑÑ† 10", u"Ð¼ÐµÑÑÑ† 11", u"Ð¼ÐµÑÑÑ† 12", u""}));
             format->set_MonthGenitiveNames(format->get_MonthNames());
-            format->set_AbbreviatedMonthNames(System::MakeArray<System::String>({u"ìåñ 1", u"ìåñ 2", u"ìåñ 3", u"ìåñ 4", u"ìåñ 5", u"ìåñ 6", u"ìåñ 7", u"ìåñ 8", u"ìåñ 9", u"ìåñ 10", u"ìåñ 11", u"ìåñ 12", u""}));
+            format->set_AbbreviatedMonthNames(System::MakeArray<System::String>({u"Ð¼ÐµÑ 1", u"Ð¼ÐµÑ 2", u"Ð¼ÐµÑ 3", u"Ð¼ÐµÑ 4", u"Ð¼ÐµÑ 5", u"Ð¼ÐµÑ 6", u"Ð¼ÐµÑ 7", u"Ð¼ÐµÑ 8", u"Ð¼ÐµÑ 9", u"Ð¼ÐµÑ 10", u"Ð¼ÐµÑ 11", u"Ð¼ÐµÑ 12", u""}));
             format->set_AbbreviatedMonthGenitiveNames(format->get_AbbreviatedMonthNames());
-            format->set_DayNames(System::MakeArray<System::String>({u"äåíü íåäåëè 7", u"äåíü íåäåëè 1", u"äåíü íåäåëè 2", u"äåíü íåäåëè 3", u"äåíü íåäåëè 4", u"äåíü íåäåëè 5", u"äåíü íåäåëè 6"}));
-            format->set_AbbreviatedDayNames(System::MakeArray<System::String>({u"äåíü 7", u"äåíü 1", u"äåíü 2", u"äåíü 3", u"äåíü 4", u"äåíü 5", u"äåíü 6"}));
-            format->set_ShortestDayNames(System::MakeArray<System::String>({u"ä7", u"ä1", u"ä2", u"ä3", u"ä4", u"ä5", u"ä6"}));
-            format->set_AMDesignator(u"Äî ïîëóäíÿ");
-            format->set_PMDesignator(u"Ïîñëå ïîëóäíÿ");
+            format->set_DayNames(System::MakeArray<System::String>({u"Ð´ÐµÐ½ÑŒ Ð½ÐµÐ´ÐµÐ»Ð¸ 7", u"Ð´ÐµÐ½ÑŒ Ð½ÐµÐ´ÐµÐ»Ð¸ 1", u"Ð´ÐµÐ½ÑŒ Ð½ÐµÐ´ÐµÐ»Ð¸ 2", u"Ð´ÐµÐ½ÑŒ Ð½ÐµÐ´ÐµÐ»Ð¸ 3", u"Ð´ÐµÐ½ÑŒ Ð½ÐµÐ´ÐµÐ»Ð¸ 4", u"Ð´ÐµÐ½ÑŒ Ð½ÐµÐ´ÐµÐ»Ð¸ 5", u"Ð´ÐµÐ½ÑŒ Ð½ÐµÐ´ÐµÐ»Ð¸ 6"}));
+            format->set_AbbreviatedDayNames(System::MakeArray<System::String>({u"Ð´ÐµÐ½ÑŒ 7", u"Ð´ÐµÐ½ÑŒ 1", u"Ð´ÐµÐ½ÑŒ 2", u"Ð´ÐµÐ½ÑŒ 3", u"Ð´ÐµÐ½ÑŒ 4", u"Ð´ÐµÐ½ÑŒ 5", u"Ð´ÐµÐ½ÑŒ 6"}));
+            format->set_ShortestDayNames(System::MakeArray<System::String>({u"Ð´7", u"Ð´1", u"Ð´2", u"Ð´3", u"Ð´4", u"Ð´5", u"Ð´6"}));
+            format->set_AMDesignator(u"Æ’Ð¾ Ð¿Ð¾Ð»ÑƒÐ´Ð½Ñ");
+            format->set_PMDesignator(u"Ñ•Ð¾ÑÐ»Ðµ Ð¿Ð¾Ð»ÑƒÐ´Ð½Ñ");
             const System::String pattern = u"yyyy MM (MMMM) dd (dddd) hh:mm:ss tt";
             format->set_LongDatePattern(pattern);
             format->set_LongTimePattern(pattern);

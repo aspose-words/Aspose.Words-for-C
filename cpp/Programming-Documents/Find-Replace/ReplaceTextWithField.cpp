@@ -27,23 +27,17 @@ namespace
         typedef ReplaceTextWithFieldHandler ThisType;
         typedef IReplacingCallback BaseType;
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-        RTTI_INFO_DECL();
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
 
     public:
         ReplaceTextWithFieldHandler(FieldType type);
-        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args);
+        ReplaceAction Replacing(System::SharedPtr<ReplacingArgs> args) override;
         std::vector<TNodePtr> FindAndSplitMatchRuns(System::SharedPtr<ReplacingArgs> args);
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
-
     private:
         FieldType mFieldType;
 
         System::SharedPtr<Run> SplitRun(System::SharedPtr<Run> run, int32_t position);
     };
-
-    RTTI_INFO_IMPL_HASH(3400996149u, ReplaceTextWithFieldHandler, ThisTypeBaseTypesInfo);
 
     ReplaceTextWithFieldHandler::ReplaceTextWithFieldHandler(FieldType type) : mFieldType((FieldType)0)
     {
@@ -114,13 +108,6 @@ namespace
         }
 
         return runs;
-    }
-
-    System::Object::shared_members_type ReplaceTextWithFieldHandler::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("ReplaceTextWithFieldHandler::mFieldType", this->mFieldType);
-        return result;
     }
 
     System::SharedPtr<Run> ReplaceTextWithFieldHandler::SplitRun(System::SharedPtr<Run> run, int32_t position)

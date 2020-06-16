@@ -16,20 +16,16 @@ using namespace Aspose::Words::Saving;
 namespace
 {
     // ExStart:RenderMetafileToBitmap
-    class HandleDocumentWarnings : public IWarningCallback
-    {
-        RTTI_INFO_DECL();
-
+    class HandleDocumentWarnings : public IWarningCallback {
+        using ThisType = HandleDocumentWarnings;
+        using BaseType = IWarningCallback;
+        using ThisTypeBaseTypesInfo = ::System::BaseTypesInfo<BaseType>;
+		RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
     public:
         System::SharedPtr<WarningInfoCollection> mWarnings;
-        void Warning(System::SharedPtr<WarningInfo> info);
+        void Warning(System::SharedPtr<WarningInfo> info) override;
         HandleDocumentWarnings();
-
-    protected:
-        System::Object::shared_members_type GetSharedMembers() override;
     };
-
-    RTTI_INFO_IMPL_HASH(1974866495u, HandleDocumentWarnings, ThisTypeBaseTypesInfo);
 
     void HandleDocumentWarnings::Warning(System::SharedPtr<WarningInfo> info)
     {
@@ -43,13 +39,6 @@ namespace
 
     HandleDocumentWarnings::HandleDocumentWarnings() : mWarnings(System::MakeObject<WarningInfoCollection>())
     {
-    }
-
-    System::Object::shared_members_type HandleDocumentWarnings::GetSharedMembers()
-    {
-        auto result = System::Object::GetSharedMembers();
-        result.Add("HandleDocumentWarnings::mWarnings", this->mWarnings);
-        return result;
     }
     
     void RenderMetafileToBitmap(System::String const& inputDataDir, System::String const& outputDataDir)
