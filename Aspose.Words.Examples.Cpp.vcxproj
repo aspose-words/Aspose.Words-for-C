@@ -215,6 +215,7 @@
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithFootnote.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithImportFormatOptions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithMarkdownFeatures.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRevisionOptions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRevisions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRtfSaveOptions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithSaveOptions.cpp">

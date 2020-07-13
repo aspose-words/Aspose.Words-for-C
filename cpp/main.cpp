@@ -191,6 +191,7 @@ int main()
     WorkingWithImportFormatOptions();
     WorkingWithMarkdownFeatures();
     WorkingWithRevisions();
+	WorkingWithRevisionOptions();
     WorkingWithRtfSaveOptions();
     WorkingWithSaveOptions();
     WorkingWithWebExtension();
