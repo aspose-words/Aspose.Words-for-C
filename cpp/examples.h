@@ -163,6 +163,7 @@ void WriteAndFont();
 void WorkingWithImportFormatOptions();
 void WorkingWithMarkdownFeatures();
 void WorkingWithRevisions();
+void WorkingWithRevisionOptions();
 void WorkingWithRtfSaveOptions();
 void WorkingWithSaveOptions();
 void WorkingWithWebExtension();

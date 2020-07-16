@@ -84,23 +84,6 @@ namespace
         std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    void SetShowInBalloons(System::String const &inputDataDir, System::String const &outputDataDir)
-    {
-        // ExStart:SetShowInBalloons
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Revisions.docx");
-
-        // Renders insert and delete revisions inline, format revisions in balloons.
-        doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(Aspose::Words::Layout::ShowInBalloons::Format);
-
-        // Renders insert revisions inline, delete and format revisions in balloons.
-        //doc.LayoutOptions.RevisionOptions.ShowInBalloons = ShowInBalloons.FormatAndDelete;
-
-        System::String outputPath = outputDataDir + u"Revisions.ShowRevisionsInBalloons_out.pdf";
-        doc->Save(outputPath);
-        // ExEnd:SetShowInBalloons
-        std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }
-
     void GetRevisionGroupDetails(System::String const &inputDataDir)
     {
         // ExStart:GetRevisionGroupDetails
@@ -155,7 +138,6 @@ void WorkingWithRevisions()
     GetRevisionTypes(inputDataDir);
     GetRevisionGroups(inputDataDir);
     SetShowCommentsInPDF(inputDataDir, outputDataDir);
-    SetShowInBalloons(inputDataDir, outputDataDir);
     GetRevisionGroupDetails(inputDataDir);
     AccessRevisedVersion(inputDataDir);
     std::cout << "WorkingWithRevisions example finished." << std::endl << std::endl;

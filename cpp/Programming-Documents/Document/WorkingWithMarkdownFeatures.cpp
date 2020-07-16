@@ -3,6 +3,7 @@
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
@@ -10,6 +11,8 @@
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Styles/Style.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
+#include <system/enumerator_adapter.h>
 
 
 using namespace Aspose::Words;
@@ -141,6 +144,94 @@ namespace
         // ExEnd: ReadMarkdownDocument
         std::cout << "Read Markdown Document!" << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+
+	void UseWarningSourceMarkdown(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+		// ExStart: UseWarningSourceMarkdown
+        auto doc = System::MakeObject<Document>(inputDataDir + u"input.docx");
+    	auto warnings = System::MakeObject<WarningInfoCollection>();
+    	doc->set_WarningCallback(warnings);
+    	doc->Save(outputDataDir + u"UseWarningSourceMarkdown.md");
+
+		for (auto warningInfo : System::IterateOver(warnings))
+		{
+			if (warningInfo->get_Source() == WarningSource::Markdown)
+			{
+				std::cout << warningInfo->get_Description().ToUtf8String() << '\n';
+			}
+		}
+		// ExEnd: UseWarningSourceMarkdown
+    }
+
+	void CreateMarkdownDocument(System::String const &outputDataDir)
+    {
+        //ExStart:CreateMarkdownDocument
+        auto doc = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(doc);
+
+		// Specify the "Heading 1" style for the paragraph.
+		builder->get_ParagraphFormat()->set_StyleName(u"Heading 1");
+		builder->Writeln(u"Heading 1");
+
+		// Reset styles from the previous paragraph to not combine styles between paragraphs.
+		builder->get_ParagraphFormat()->set_StyleName(u"Normal");
+
+		// Insert horizontal rule.
+		builder->InsertHorizontalRule();
+
+		// Specify the ordered list.
+		builder->InsertParagraph();
+		builder->get_ListFormat()->ApplyNumberDefault();
+
+		// Specify the Italic emphasis for the text.
+		builder->get_Font()->set_Italic(true);
+		builder->Writeln(u"Italic Text");
+		builder->get_Font()->set_Italic(false);
+
+		// Specify the Bold emphasis for the text.
+		builder->get_Font()->set_Bold(true);
+		builder->Writeln(u"Bold Text");
+		builder->get_Font()->set_Bold(false);
+
+		// Specify the StrikeThrough emphasis for the text.
+		builder->get_Font()->set_StrikeThrough(true);
+		builder->Writeln(u"StrikeThrough Text");
+		builder->get_Font()->set_StrikeThrough(false);
+
+		// Stop paragraphs numbering.
+		builder->get_ListFormat()->RemoveNumbers();
+
+		// Specify the "Quote" style for the paragraph.
+		builder->get_ParagraphFormat()->set_StyleName(u"Quote");
+		builder->Writeln(u"A Quote block");
+
+		// Specify nesting Quote.
+        auto nestedQuote = doc->get_Styles()->Add(StyleType::Paragraph, u"Quote1");
+		nestedQuote->set_BaseStyleName(u"Quote");
+		builder->get_ParagraphFormat()->set_StyleName(u"Quote1");
+		builder->Writeln(u"A nested Quote block");
+
+		// Reset paragraph style to Normal to stop Quote blocks. 
+		builder->get_ParagraphFormat()->set_StyleName("Normal");
+
+		// Specify a Hyperlink for the desired text.
+		builder->get_Font()->set_Bold(true);
+		// Note, the text of hyperlink can be emphasized.
+		builder->InsertHyperlink(u"Aspose", u"https://www.aspose.com", false);
+		builder->get_Font()->set_Bold(false);
+
+		// Insert a simple table.
+		builder->StartTable();
+		builder->InsertCell();
+		builder->Write(u"Cell1");
+		builder->InsertCell();
+		builder->Write(u"Cell2");
+		builder->EndTable();
+
+		// Save your document as a Markdown file.
+		doc->Save(outputDataDir + "CreateMarkdownDocument.md");
+		//ExEnd:CreateMarkdownDocument
+    }
 }
 
 void WorkingWithMarkdownFeatures()
@@ -154,5 +245,7 @@ void WorkingWithMarkdownFeatures()
     MarkdownDocumentWithBlockQuotes(outputDataDir);
     MarkdownDocumentWithHorizontalRule(outputDataDir);
     ReadMarkdownDocument(inputDataDir, outputDataDir);
+    UseWarningSourceMarkdown(inputDataDir, outputDataDir);
+	CreateMarkdownDocument(outputDataDir);
     std::cout << "WorkingWithMarkdownFeatures example finished." << std::endl << std::endl;
 }

@@ -856,6 +856,9 @@
     <ClCompile Include="cpp\Loading-and-Saving\SpecifyMarkdownSaveOptions.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRevisionOptions.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">

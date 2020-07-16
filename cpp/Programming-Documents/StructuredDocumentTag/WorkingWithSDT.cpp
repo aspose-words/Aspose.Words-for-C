@@ -16,6 +16,9 @@
 #include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
 #include <Aspose.Words.Cpp/Model/Tables/Row.h>
 #include <Aspose.Words.Cpp/Model/Tables/Table.h>
+#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/StructuredDocumentTagRangeStart.h>
+#include <system/enumerator_adapter.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Markup;
@@ -131,6 +134,20 @@ namespace
         // ExEnd:CreatingTableRepeatingSectionMappedToCustomXmlPart
         System::Console::WriteLine(u"\nCreation of a Table Repeating Section Mapped To a Custom Xml Part is successfull.");
     }
+
+
+	void MultiSectionSDT(System::String const &inputDataDir, System::String const &outputDataDir)
+	{
+		// ExStart:MultiSectionSDT
+		auto doc = System::MakeObject<Document>(inputDataDir + u"input.docx");
+        auto tags = doc->GetChildNodes(NodeType::StructuredDocumentTagRangeStart, true);
+
+		for (auto tag : System::IterateOver<StructuredDocumentTagRangeStart>(tags))
+		{
+            std::cout << tag->get_Title().ToUtf8String() << '\n';
+		}
+		// ExEnd:MultiSectionSDT
+	}
 }
 
 void WorkingWithSDT()
@@ -144,5 +161,6 @@ void WorkingWithSDT()
     SetContentControlColor(inputDataDir, outputDataDir);
     SetContentControlStyle(inputDataDir, outputDataDir);
     CreatingTableRepeatingSectionMappedToCustomXmlPart(outputDataDir);
+	MultiSectionSDT(inputDataDir, outputDataDir);
     std::cout << "WorkingWithSDT example finished." << std::endl << std::endl;
 }
