@@ -240,7 +240,7 @@ void Load_Options()
     VerifyODTdocument(inputDataDir);
     ConvertShapeToOfficeMath(inputDataDir, outputDataDir);
     SetMSWordVersion(inputDataDir, outputDataDir);
-    //LoadOptionsEncoding(inputDataDir);
+    LoadOptionsEncoding(inputDataDir);
     LoadOptionsWarningCallback(inputDataDir);
     SetTempFolder(inputDataDir);
     LoadOptionsResourceLoadingCallback(inputDataDir);
