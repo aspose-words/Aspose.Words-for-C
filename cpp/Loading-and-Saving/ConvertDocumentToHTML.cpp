@@ -57,7 +57,7 @@ namespace
         System::SharedPtr<HtmlSaveOptions> saveOptions = System::MakeObject<HtmlSaveOptions>();
         saveOptions->set_CssStyleSheetType(CssStyleSheetType::External);
         saveOptions->set_ExportFontResources(true);
-        saveOptions->set_ResourceFolder(outputDataDir + u"\\Resources");
+        saveOptions->set_ResourceFolder(outputDataDir + u"Resources");
         
         doc->Save(outputDataDir + u"ExportResourcesUsingHtmlSaveOptions.html", saveOptions);
         // ExEnd:ExportResourcesUsingHtmlSaveOptions
