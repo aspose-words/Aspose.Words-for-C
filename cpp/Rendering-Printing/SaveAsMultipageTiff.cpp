@@ -5,7 +5,7 @@
 #include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
 
-/*using namespace Aspose::Words;
+using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;
 
 void SaveAsMultipageTiff()
@@ -17,7 +17,7 @@ void SaveAsMultipageTiff()
     System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
 
     // Open the document.
-    System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"TestFile Multipage TIFF.doc");
+    auto doc = System::MakeObject<Document>(inputDataDir + u"TestFile Multipage TIFF.doc");
 
     // ExStart:SaveAsTIFF
     // Save the document as multipage TIFF.
@@ -36,4 +36,4 @@ void SaveAsMultipageTiff()
     // ExEnd:SaveAsMultipageTiff
     std::cout << "Document saved as multi-page TIFF successfully." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     std::cout << "SaveAsMultipageTiff example finished." << std::endl << std::endl;
-}*/
+}

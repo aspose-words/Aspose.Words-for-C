@@ -384,10 +384,7 @@ int main()
     ReceiveNotificationsOfFont();
     RenderShape();
     ResourceSteamFontSource();
-#if 0
-    // Tiff support is limited and unstable
     SaveAsMultipageTiff();
-#endif
     WorkingWithFontSettings();
     SetFontsFoldersMultipleFolders();
     SetFontsFoldersSystemAndCustomFolder();
