@@ -9,8 +9,6 @@ A standalone C++ class library to load, save, format & convert Microsoft Word® 
   </a>
 </p>
 
-This repository contains [Examples](https://github.com/aspose-words/Aspose.Words-for-C) for [Aspose.Words for C++](https://products.aspose.com/words/cpp) to help you learn and write your own applications.
-
 ## Word File Processing via C++
 
 - Detect the file format and [check file format compatibility](https://docs.aspose.com/words/cpp/creating-or-loading-a-document/).
