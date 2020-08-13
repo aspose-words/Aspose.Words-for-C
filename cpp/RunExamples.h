@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <system/string.h>
+#include <system/exception.h>
 
 System::String GetInputDataDir_QuickStart();
 

@@ -1,10 +1,22 @@
 #include "stdafx.h"
 #include <iostream>
 
+#if defined(__GNUC__)
+#include <chrono>
+#include <thread>
+
+#include <Aspose.Words.Cpp/AsposeWordsLibrary.h>
+#endif
+
 #include "examples.h"
 
 int main()
 {
+#if defined(__GNUC__)
+	// Workaround for issue with pthread https://gcc.gnu.org/bugzilla/show_bug.cgi?id=60662
+	std::this_thread::sleep_for(std::chrono::milliseconds{1});
+#endif
+	
     std::cout << "Examples:" << std::endl << "=====================================================" << std::endl << std::endl;
 
     // =====================================================
@@ -402,6 +414,11 @@ int main()
     SetFontsFoldersWithPriority();
 
     std::cout << "=====================================================" << std::endl << "Examples Finished." << std::endl;
+
+#if defined(__GNUC__)
+	// Unload thread created by Aspose.Words for C++
+	Aspose::Words::AsposeWordsLibrary::PrepareForUnload();
+#endif 
 
     return 0;
 }

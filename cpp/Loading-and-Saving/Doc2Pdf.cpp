@@ -2,6 +2,7 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/console.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>

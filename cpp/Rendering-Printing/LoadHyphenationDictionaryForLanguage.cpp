@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/io/file.h>
+#include <system/io/stream.h>
+#include <system/io/file_stream.h>
 #include <Aspose.Words.Cpp/Layout/Hyphenation/Hyphenation.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 

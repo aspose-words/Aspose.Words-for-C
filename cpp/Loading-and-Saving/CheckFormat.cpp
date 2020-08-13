@@ -1,6 +1,8 @@
 ﻿#include "stdafx.h"
 #include "examples.h"
 
+#include <system/io/directory.h>
+#include <system/io/path.h>
 #include <Aspose.Words.Cpp/Model/Document/LoadFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/FileFormatUtil.h>
 #include <Aspose.Words.Cpp/Model/Document/FileFormatInfo.h>

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/io/file.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 

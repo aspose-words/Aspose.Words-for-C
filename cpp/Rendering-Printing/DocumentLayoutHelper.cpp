@@ -2,6 +2,7 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/environment.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutCollector.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutEntityType.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutEnumerator.h>

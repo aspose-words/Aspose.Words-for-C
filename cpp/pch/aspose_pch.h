@@ -26,7 +26,6 @@
 #include "system/details/value_init.h"
 #include "system/details/has_isnull.h"
 #include "system/details/format_builder.h"
-#include "system/details/optional.h"
 #include "system/details/format_parser.h"
 #include "system/weak_ptr.h"
 #include "system/event.h"

@@ -2,6 +2,7 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/io/file.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
 #include <Aspose.Words.Cpp/Model/Nodes/Node.h>

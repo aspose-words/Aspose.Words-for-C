@@ -132,7 +132,7 @@ namespace
 
         doc->Save(outputDataDir + u"WorkingWithSDT.CreatingTableRepeatingSectionMappedToCustomXmlPart.docx");
         // ExEnd:CreatingTableRepeatingSectionMappedToCustomXmlPart
-        System::Console::WriteLine(u"\nCreation of a Table Repeating Section Mapped To a Custom Xml Part is successfull.");
+        std::cout << "\nCreation of a Table Repeating Section Mapped To a Custom Xml Part is successfull." << '\n';
     }
 
 
