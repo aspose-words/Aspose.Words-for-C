@@ -355,7 +355,7 @@ void LoadHyphenationDictionaryForLanguage();
 void ReceiveNotificationsOfFont();
 void RenderShape();
 void ResourceSteamFontSource();
-//void SaveAsMultipageTiff(); // saving into images don't work properly
+void SaveAsMultipageTiff();
 void WorkingWithFontSettings();
 void SetFontsFoldersMultipleFolders();
 void SetFontsFoldersSystemAndCustomFolder();

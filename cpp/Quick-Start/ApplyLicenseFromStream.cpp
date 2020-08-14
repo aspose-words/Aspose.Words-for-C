@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/io/file.h>
+#include <system/io/memory_stream.h>
 #include <Aspose.Words.Cpp/Licensing/License.h>
 
 using namespace Aspose::Words;

@@ -4,6 +4,9 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/io/path.h>
+#include <system/io/directory.h>
+#include <system/io/search_option.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutCollector.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>

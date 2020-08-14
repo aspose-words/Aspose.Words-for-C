@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/io/file_stream.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/FindReplace/IReplacingCallback.h>
 #include <Aspose.Words.Cpp/Model/FindReplace/ReplacingArgs.h>

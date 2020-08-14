@@ -2,6 +2,7 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/io/path.h>
 #include <xml/xml_document.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>

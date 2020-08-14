@@ -26,10 +26,6 @@ namespace
 
         // Read the image from file, ensure it is disposed.
         System::SharedPtr<System::Drawing::Image> image = System::Drawing::Image::FromFile(inputFileName);
-        // Clearing resources under 'using' statement
-        System::Details::DisposeGuard<1> imageDisposeGuard({image});
-
-        try
         {
 			// Insert a section break before each new page, in case of a multi-frame TIFF.
 			builder->InsertBreak(BreakType::SectionBreakNewPage);
@@ -42,10 +38,6 @@ namespace
 
 			// Insert the image into the document and position it at the top left corner of the page.
 			builder->InsertImage(image, RelativeHorizontalPosition::Page, 0, RelativeVerticalPosition::Page, 0, ps->get_PageWidth(), ps->get_PageHeight(), WrapType::None);
-        }
-        catch (...)
-        {
-            imageDisposeGuard.SetCurrentException(std::current_exception());
         }
 
         // Save the document to PDF.

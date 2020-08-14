@@ -2,6 +2,8 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/text/regularexpressions/match.h>
+#include <system/text/regularexpressions/regex.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>

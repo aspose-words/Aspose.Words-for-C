@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/io/path.h>
+#include <system/io/directory.h>
 #include <Aspose.Words.Cpp/Model/Document/BreakType.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>

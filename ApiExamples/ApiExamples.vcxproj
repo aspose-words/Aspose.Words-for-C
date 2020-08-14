@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cpp\gtest\fused-src\gtest\gtest-skip-exception.h" />
+    <ClInclude Include="Cpp\gtest\fused-src\gtest\gtest-spi.h" />
+    <ClInclude Include="Cpp\gtest\fused-src\gtest\gtest.h" />
+    <ClInclude Include="Cpp\include\ExMossDoc2Pdf.h" />
+    <ClInclude Include="Cpp\include\ExMossRtf2Docx.h" />
+    <ClInclude Include="Cpp\include\TestData\TestBuilders\ColorItemTestBuilder.h" />
+    <ClInclude Include="Cpp\include\TestData\TestBuilders\DocumentTestBuilder.h" />
+    <ClInclude Include="Cpp\include\TestData\TestBuilders\ImageTestBuilder.h" />
+    <ClInclude Include="Cpp\include\TestData\TestBuilders\NumericTestBuilder.h" />
+    <ClInclude Include="Cpp\include\TestData\TestClasses\ClientTestClass.h" />
+    <ClInclude Include="Cpp\include\TestData\TestClasses\ColorItemTestClass.h" />
+    <ClInclude Include="Cpp\include\TestData\TestClasses\ContractTestClass.h" />
+    <ClInclude Include="Cpp\include\TestData\TestClasses\DocumentTestClass.h" />
+    <ClInclude Include="Cpp\include\TestData\TestClasses\ImageTestClass.h" />
+    <ClInclude Include="Cpp\include\TestData\TestClasses\ManagerTestClass.h" />
+    <ClInclude Include="Cpp\include\TestData\TestClasses\MessageTestClass.h" />
+    <ClInclude Include="Cpp\include\TestData\TestClasses\NumericTestClass.h" />
+    <ClInclude Include="Cpp\include\TestData\TestClasses\SignPersonTestClass.h" />
+    <ClInclude Include="Cpp\source\ApiExampleBase.h" />
+    <ClInclude Include="Cpp\source\DocumentHelper.h" />
+    <ClInclude Include="Cpp\source\ExAbsolutePositionTab.h" />
+    <ClInclude Include="Cpp\source\ExBookmarks.h" />
+    <ClInclude Include="Cpp\source\ExBookmarksOutlineLevelCollection.h" />
+    <ClInclude Include="Cpp\source\ExBorder.h" />
+    <ClInclude Include="Cpp\source\ExBorderCollection.h" />
+    <ClInclude Include="Cpp\source\ExBuildingBlocks.h" />
+    <ClInclude Include="Cpp\source\ExBuildVersion.h" />
+    <ClInclude Include="Cpp\source\ExCellFormat.h" />
+    <ClInclude Include="Cpp\source\ExCharts.h" />
+    <ClInclude Include="Cpp\source\ExComHelper.h" />
+    <ClInclude Include="Cpp\source\ExComment.h" />
+    <ClInclude Include="Cpp\source\ExCompatibilityOptions.h" />
+    <ClInclude Include="Cpp\source\ExControlChar.h" />
+    <ClInclude Include="Cpp\source\ExDigitalSignatureCollection.h" />
+    <ClInclude Include="Cpp\source\ExDigitalSignatureUtil.h" />
+    <ClInclude Include="Cpp\source\ExDocSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExDocument.h" />
+    <ClInclude Include="Cpp\source\ExDocumentBase.h" />
+    <ClInclude Include="Cpp\source\ExDocumentBuilder.h" />
+    <ClInclude Include="Cpp\source\ExDocumentBuilderImages.h" />
+    <ClInclude Include="Cpp\source\ExDocumentVisitor.h" />
+    <ClInclude Include="Cpp\source\ExDrawing.h" />
+    <ClInclude Include="Cpp\source\ExEditableRange.h" />
+    <ClInclude Include="Cpp\source\ExField.h" />
+    <ClInclude Include="Cpp\source\ExFieldOptions.h" />
+    <ClInclude Include="Cpp\source\ExFile.h" />
+    <ClInclude Include="Cpp\source\ExFont.h" />
+    <ClInclude Include="Cpp\source\ExFormFields.h" />
+    <ClInclude Include="Cpp\source\ExHeaderFooter.h" />
+    <ClInclude Include="Cpp\source\ExHtmlFixedSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExHtmlLoadOptions.h" />
+    <ClInclude Include="Cpp\source\ExHtmlSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExHyphenation.h" />
+    <ClInclude Include="Cpp\source\ExImage.h" />
+    <ClInclude Include="Cpp\source\ExImageSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExInline.h" />
+    <ClInclude Include="Cpp\source\ExInlineStory.h" />
+    <ClInclude Include="Cpp\source\ExLists.h" />
+    <ClInclude Include="Cpp\source\ExMailMerge.h" />
+    <ClInclude Include="Cpp\source\ExMailMergeCustom.h" />
+    <ClInclude Include="Cpp\source\ExMailMergeCustomNested.h" />
+    <ClInclude Include="Cpp\source\ExMailMergeEvent.h" />
+    <ClInclude Include="Cpp\source\ExNode.h" />
+    <ClInclude Include="Cpp\source\ExNodeImporter.h" />
+    <ClInclude Include="Cpp\source\ExOdtSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExOoxmlSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExPageSetup.h" />
+    <ClInclude Include="Cpp\source\ExParagraph.h" />
+    <ClInclude Include="Cpp\source\ExParagraphFormat.h" />
+    <ClInclude Include="Cpp\source\ExPclSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExPdfSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExProperties.h" />
+    <ClInclude Include="Cpp\source\ExPsSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExRange.h" />
+    <ClInclude Include="Cpp\source\ExRenameMergeFields.h" />
+    <ClInclude Include="Cpp\source\ExRendering.h" />
+    <ClInclude Include="Cpp\source\ExReplaceHyperlinks.h" />
+    <ClInclude Include="Cpp\source\ExRtfLoadOptions.h" />
+    <ClInclude Include="Cpp\source\ExRtfSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExSavingCallback.h" />
+    <ClInclude Include="Cpp\source\ExSection.h" />
+    <ClInclude Include="Cpp\source\ExShape.h" />
+    <ClInclude Include="Cpp\source\ExSignDocumentCustom.h" />
+    <ClInclude Include="Cpp\source\ExSmartTag.h" />
+    <ClInclude Include="Cpp\source\ExStructuredDocumentTag.h" />
+    <ClInclude Include="Cpp\source\ExStyles.h" />
+    <ClInclude Include="Cpp\source\ExSvgSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExTable.h" />
+    <ClInclude Include="Cpp\source\ExTableColumn.h" />
+    <ClInclude Include="Cpp\source\ExThemes.h" />
+    <ClInclude Include="Cpp\source\ExTxtLoadOptions.h" />
+    <ClInclude Include="Cpp\source\ExTxtSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExUtilityClasses.h" />
+    <ClInclude Include="Cpp\source\ExVariableCollection.h" />
+    <ClInclude Include="Cpp\source\ExViewOptions.h" />
+    <ClInclude Include="Cpp\source\ExXamlFixedSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExXamlFlowSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExXpsSaveOptions.h" />
+    <ClInclude Include="Cpp\source\TestUtil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Cpp\gtest\fused-src\gtest\gtest-all.cc">
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</IncludeInUnityFile>
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</IncludeInUnityFile>
+    </ClCompile>
+    <ClCompile Include="Cpp\gtest\fused-src\gtest\gtest_main.cc">
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</IncludeInUnityFile>
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</IncludeInUnityFile>
+    </ClCompile>
+    <ClCompile Include="Cpp\source\ApiExampleBase.cpp" />
+    <ClCompile Include="Cpp\source\DocumentHelper.cpp" />
+    <ClCompile Include="Cpp\source\ExAbsolutePositionTab.cpp" />
+    <ClCompile Include="Cpp\source\ExBookmarks.cpp" />
+    <ClCompile Include="Cpp\source\ExBookmarksOutlineLevelCollection.cpp" />
+    <ClCompile Include="Cpp\source\ExBorder.cpp" />
+    <ClCompile Include="Cpp\source\ExBorderCollection.cpp" />
+    <ClCompile Include="Cpp\source\ExBuildingBlocks.cpp" />
+    <ClCompile Include="Cpp\source\ExBuildVersion.cpp" />
+    <ClCompile Include="Cpp\source\ExCellFormat.cpp" />
+    <ClCompile Include="Cpp\source\ExCharts.cpp" />
+    <ClCompile Include="Cpp\source\ExComHelper.cpp" />
+    <ClCompile Include="Cpp\source\ExComment.cpp" />
+    <ClCompile Include="Cpp\source\ExCompatibilityOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExControlChar.cpp" />
+    <ClCompile Include="Cpp\source\ExDigitalSignatureCollection.cpp" />
+    <ClCompile Include="Cpp\source\ExDigitalSignatureUtil.cpp" />
+    <ClCompile Include="Cpp\source\ExDocSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExDocument.cpp" />
+    <ClCompile Include="Cpp\source\ExDocumentBase.cpp" />
+    <ClCompile Include="Cpp\source\ExDocumentBuilder.cpp" />
+    <ClCompile Include="Cpp\source\ExDocumentBuilderImages.cpp" />
+    <ClCompile Include="Cpp\source\ExDocumentVisitor.cpp" />
+    <ClCompile Include="Cpp\source\ExDrawing.cpp" />
+    <ClCompile Include="Cpp\source\ExEditableRange.cpp" />
+    <ClCompile Include="Cpp\source\ExField.cpp" />
+    <ClCompile Include="Cpp\source\ExFieldOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExFile.cpp" />
+    <ClCompile Include="Cpp\source\ExFont.cpp" />
+    <ClCompile Include="Cpp\source\ExFormFields.cpp" />
+    <ClCompile Include="Cpp\source\ExHeaderFooter.cpp" />
+    <ClCompile Include="Cpp\source\ExHtmlFixedSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExHtmlLoadOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExHtmlSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExHyphenation.cpp" />
+    <ClCompile Include="Cpp\source\ExImage.cpp" />
+    <ClCompile Include="Cpp\source\ExImageSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExInline.cpp" />
+    <ClCompile Include="Cpp\source\ExInlineStory.cpp" />
+    <ClCompile Include="Cpp\source\ExLists.cpp" />
+    <ClCompile Include="Cpp\source\ExMailMerge.cpp" />
+    <ClCompile Include="Cpp\source\ExMailMergeCustom.cpp" />
+    <ClCompile Include="Cpp\source\ExMailMergeCustomNested.cpp" />
+    <ClCompile Include="Cpp\source\ExMailMergeEvent.cpp" />
+    <ClCompile Include="Cpp\source\ExMossDoc2Pdf.cpp" />
+    <ClCompile Include="Cpp\source\ExMossRtf2Docx.cpp" />
+    <ClCompile Include="Cpp\source\ExNode.cpp" />
+    <ClCompile Include="Cpp\source\ExNodeImporter.cpp" />
+    <ClCompile Include="Cpp\source\ExOdtSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExOoxmlSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExPageSetup.cpp" />
+    <ClCompile Include="Cpp\source\ExParagraph.cpp" />
+    <ClCompile Include="Cpp\source\ExParagraphFormat.cpp" />
+    <ClCompile Include="Cpp\source\ExPclSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExPdfSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExProperties.cpp" />
+    <ClCompile Include="Cpp\source\ExPsSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExRange.cpp" />
+    <ClCompile Include="Cpp\source\ExRenameMergeFields.cpp" />
+    <ClCompile Include="Cpp\source\ExRendering.cpp" />
+    <ClCompile Include="Cpp\source\ExReplaceHyperlinks.cpp" />
+    <ClCompile Include="Cpp\source\ExRtfLoadOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExRtfSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExSavingCallback.cpp" />
+    <ClCompile Include="Cpp\source\ExSection.cpp" />
+    <ClCompile Include="Cpp\source\ExShape.cpp" />
+    <ClCompile Include="Cpp\source\ExSignDocumentCustom.cpp" />
+    <ClCompile Include="Cpp\source\ExSmartTag.cpp" />
+    <ClCompile Include="Cpp\source\ExStructuredDocumentTag.cpp" />
+    <ClCompile Include="Cpp\source\ExStyles.cpp" />
+    <ClCompile Include="Cpp\source\ExSvgSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExTable.cpp" />
+    <ClCompile Include="Cpp\source\ExTableColumn.cpp" />
+    <ClCompile Include="Cpp\source\ExThemes.cpp" />
+    <ClCompile Include="Cpp\source\ExTxtLoadOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExTxtSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExUtilityClasses.cpp" />
+    <ClCompile Include="Cpp\source\ExVariableCollection.cpp" />
+    <ClCompile Include="Cpp\source\ExViewOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExXamlFixedSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExXamlFlowSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExXpsSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\TestData\Common.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestBuilders\ColorItemTestBuilder.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestBuilders\DocumentTestBuilder.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestBuilders\ImageTestBuilder.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestBuilders\NumericTestBuilder.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestClasses\ClientTestClass.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestClasses\ColorItemTestClass.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestClasses\ContractTestClass.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestClasses\DocumentTestClass.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestClasses\ImageTestClass.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestClasses\ManagerTestClass.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestClasses\MessageTestClass.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestClasses\NumericTestClass.cpp" />
+    <ClCompile Include="Cpp\source\TestData\TestClasses\SignPersonTestClass.cpp" />
+    <ClCompile Include="Cpp\source\TestUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{49d066e2-fa49-48ea-a17f-4429d92f5846}</ProjectGuid>
+    <RootNamespace>ApiExamples</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <EnableUnitySupport>true</EnableUnitySupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Cpp\gtest\fused-src;$(ProjectDir)Cpp\include;$(ProjectDir)Cpp\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj /utf-8  /wd4250 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)Cpp\gtest\fused-src;$(ProjectDir)Cpp\include;$(ProjectDir)Cpp\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj /utf-8  /wd4250 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\CodePorting.Native.Cs2Cpp.API.20.8.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('packages\CodePorting.Native.Cs2Cpp.API.20.8.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
+    <Import Project="packages\Aspose.Words.Cpp.20.8.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.20.8.0\build\native\aspose.words.cpp.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\CodePorting.Native.Cs2Cpp.API.20.8.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CodePorting.Native.Cs2Cpp.API.20.8.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
+    <Error Condition="!Exists('packages\Aspose.Words.Cpp.20.8.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.20.8.0\build\native\aspose.words.cpp.targets'))" />
+  </Target>
+</Project>
