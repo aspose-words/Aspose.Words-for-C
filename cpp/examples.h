@@ -37,6 +37,7 @@ void WorkingWithRTF();
 void WorkingWithTxt();
 void WorkingWithVbaMacros();
 void SpecifyMarkdownSaveOptions();
+void WorkingWithVbaReferenceCollection();
 
 // =====================================================
 // =====================================================
@@ -186,6 +187,7 @@ void FormatFieldResult();
 void FormFieldsGetByName();
 void FormFieldsGetFormFieldsCollection();
 void FormFieldsWorkWithProperties();
+void FormFieldsFontFormatting();
 void GetFieldNames();
 void InsertAdvanceFieldWithoutDocumentBuilder();
 void InsertASKFieldWithoutDocumentBuilder();

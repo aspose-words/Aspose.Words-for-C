@@ -128,6 +128,7 @@
       <IncludeInUnityFile>false</IncludeInUnityFile>
     </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\WorkingWithVbaMacros.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\WorkingWithVbaReferenceCollection.cpp" />
     <ClCompile Include="cpp\Mail-Merge\ExecuteArray.cpp" />
     <ClCompile Include="cpp\Mail-Merge\HandleMailMergeSwitches.cpp" />
     <ClCompile Include="cpp\Mail-Merge\MailMergeAndConditionalField.cpp" />
@@ -234,6 +235,7 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\FieldsHelper.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FieldUpdateCulture.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FormatFieldResult.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsFontFormatting.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsGetByName.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsGetFormFieldsCollection.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsWorkWithProperties.cpp" />
