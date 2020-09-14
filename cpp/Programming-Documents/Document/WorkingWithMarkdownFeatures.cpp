@@ -148,7 +148,7 @@ namespace
 	void UseWarningSourceMarkdown(System::String const &inputDataDir, System::String const &outputDataDir)
     {
 		// ExStart: UseWarningSourceMarkdown
-        auto doc = System::MakeObject<Document>(inputDataDir + u"input.docx");
+        auto doc = System::MakeObject<Document>(inputDataDir + u"Input.docx");
     	auto warnings = System::MakeObject<WarningInfoCollection>();
     	doc->set_WarningCallback(warnings);
     	doc->Save(outputDataDir + u"UseWarningSourceMarkdown.md");
