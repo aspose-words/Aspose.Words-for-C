@@ -148,7 +148,7 @@ namespace
 	void UseWarningSourceMarkdown(System::String const &inputDataDir, System::String const &outputDataDir)
     {
 		// ExStart: UseWarningSourceMarkdown
-        auto doc = System::MakeObject<Document>(inputDataDir + u"input.docx");
+        auto doc = System::MakeObject<Document>(inputDataDir + u"Input.docx");
     	auto warnings = System::MakeObject<WarningInfoCollection>();
     	doc->set_WarningCallback(warnings);
     	doc->Save(outputDataDir + u"UseWarningSourceMarkdown.md");
@@ -212,7 +212,7 @@ namespace
 		builder->Writeln(u"A nested Quote block");
 
 		// Reset paragraph style to Normal to stop Quote blocks. 
-		builder->get_ParagraphFormat()->set_StyleName("Normal");
+		builder->get_ParagraphFormat()->set_StyleName(u"Normal");
 
 		// Specify a Hyperlink for the desired text.
 		builder->get_Font()->set_Bold(true);
@@ -229,7 +229,7 @@ namespace
 		builder->EndTable();
 
 		// Save your document as a Markdown file.
-		doc->Save(outputDataDir + "CreateMarkdownDocument.md");
+		doc->Save(outputDataDir + u"CreateMarkdownDocument.md");
 		//ExEnd:CreateMarkdownDocument
     }
 }

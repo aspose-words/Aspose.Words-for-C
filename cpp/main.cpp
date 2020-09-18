@@ -70,6 +70,7 @@ int main()
     WorkingWithTxt();
     WorkingWithVbaMacros(); 
     SpecifyMarkdownSaveOptions();
+	WorkingWithVbaReferenceCollection();
 
     // =====================================================
     // =====================================================
@@ -229,6 +230,10 @@ int main()
     FormFieldsGetByName();
     FormFieldsGetFormFieldsCollection();
     FormFieldsWorkWithProperties();
+#if 0
+    // Input document are missing
+	FormFieldsFontFormatting();
+#endif
     GetFieldNames();
     InsertAdvanceFieldWithoutDocumentBuilder();
     InsertASKFieldWithoutDocumentBuilder();

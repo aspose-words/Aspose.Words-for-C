@@ -118,7 +118,7 @@ namespace
         System::SharedPtr<DocumentLoadingWarningCallback> callback = System::MakeObject<DocumentLoadingWarningCallback>();
         loadOptions->set_WarningCallback(callback);
 
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"document.docx", loadOptions);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.docx", loadOptions);
         //ExEnd:LoadOptionsWarningCallback
     }
 
@@ -131,7 +131,7 @@ namespace
         lo->set_UpdateDirtyFields(true);
 
         //Load the Word document
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"input.docx", lo);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Input.docx", lo);
 
         System::String outputPath = outputDataDir + u"Load_Options.LoadOptionsUpdateDirtyFields.docx";
         //Save the document into DOCX
@@ -181,7 +181,7 @@ namespace
         System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
         // Change the loading version to Microsoft Word 2010.
         loadOptions->set_MswVersion(MsWordVersion::Word2010);
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"document.docx", loadOptions);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.docx", loadOptions);
 
         System::String outputPath = outputDataDir + u"Load_Options.SetMSWordVersion.docx";
         doc->Save(outputPath);
@@ -196,7 +196,7 @@ namespace
         System::SharedPtr<LoadOptions> loadOptions = System::MakeObject<LoadOptions>();
         loadOptions->set_TempFolder(u"C:/TempFolder/");
 
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"document.docx", loadOptions);
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.docx", loadOptions);
         //ExEnd:SetTempFolder
         std::cout << "Set Temp Folder successfully." << std::endl << std::endl;
     }

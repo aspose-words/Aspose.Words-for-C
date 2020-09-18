@@ -128,6 +128,7 @@
       <IncludeInUnityFile>false</IncludeInUnityFile>
     </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\WorkingWithVbaMacros.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\WorkingWithVbaReferenceCollection.cpp" />
     <ClCompile Include="cpp\Mail-Merge\ExecuteArray.cpp" />
     <ClCompile Include="cpp\Mail-Merge\HandleMailMergeSwitches.cpp" />
     <ClCompile Include="cpp\Mail-Merge\MailMergeAndConditionalField.cpp" />
@@ -234,6 +235,7 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\FieldsHelper.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FieldUpdateCulture.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FormatFieldResult.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsFontFormatting.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsGetByName.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsGetFormFieldsCollection.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsWorkWithProperties.cpp" />
@@ -382,14 +384,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\CodePorting.Native.Cs2Cpp.API.20.8.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('packages\CodePorting.Native.Cs2Cpp.API.20.8.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
-    <Import Project="packages\Aspose.Words.Cpp.20.8.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.20.8.0\build\native\aspose.words.cpp.targets')" />
+    <Import Project="packages\CodePorting.Native.Cs2Cpp.API.20.9.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('packages\CodePorting.Native.Cs2Cpp.API.20.9.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
+    <Import Project="packages\Aspose.Words.Cpp.20.9.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.20.9.0\build\native\aspose.words.cpp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\CodePorting.Native.Cs2Cpp.API.20.8.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CodePorting.Native.Cs2Cpp.API.20.8.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
-    <Error Condition="!Exists('packages\Aspose.Words.Cpp.20.8.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.20.8.0\build\native\aspose.words.cpp.targets'))" />
+    <Error Condition="!Exists('packages\CodePorting.Native.Cs2Cpp.API.20.9.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CodePorting.Native.Cs2Cpp.API.20.9.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
+    <Error Condition="!Exists('packages\Aspose.Words.Cpp.20.9.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.20.9.0\build\native\aspose.words.cpp.targets'))" />
   </Target>
 </Project>

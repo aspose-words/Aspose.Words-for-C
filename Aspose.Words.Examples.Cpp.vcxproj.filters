@@ -859,6 +859,12 @@
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRevisionOptions.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\FormFieldsFontFormatting.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\WorkingWithVbaReferenceCollection.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
