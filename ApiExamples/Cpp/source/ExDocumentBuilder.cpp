@@ -978,16 +978,16 @@ TEST_F(ExDocumentBuilder, InsertWatermark)
 void ExDocumentBuilder::InsertOleObject()
 {
     //ExStart
-    //ExFor:DocumentBuilder.InsertOleObject(String, Boolean, Boolean, Image)
-    //ExFor:DocumentBuilder.InsertOleObject(String, String, Boolean, Boolean, Image)
+    //ExFor:DocumentBuilder.InsertOleObject(String, Boolean, Boolean, Stream)
+    //ExFor:DocumentBuilder.InsertOleObject(String, String, Boolean, Boolean, Stream)
     //ExFor:DocumentBuilder.InsertOleObjectAsIcon(String, Boolean, String, String)
     //ExSummary:Shows how to insert an OLE object into a document.
     auto doc = MakeObject<Document>();
     auto builder = MakeObject<DocumentBuilder>(doc);
 
     // Insert ole object
-    SharedPtr<System::Drawing::Image> representingImage = System::Drawing::Image::FromFile(ImageDir + u"Logo.jpg");
-    builder->InsertOleObject(MyDir + u"Spreadsheet.xlsx", false, false, representingImage);
+    auto imageStream = System::MakeObject<System::IO::FileStream>(ImageDir + u"Logo.jpg", System::IO::FileMode::Open);
+    builder->InsertOleObject(MyDir + u"Spreadsheet.xlsx", false, false, imageStream);
 
     // Insert ole object with ProgId
     builder->InsertOleObject(MyDir + u"Spreadsheet.xlsx", u"Excel.Sheet", false, true, nullptr);
@@ -4005,13 +4005,10 @@ void ExDocumentBuilder::InsertOlePowerpoint()
 
                 {
                     auto stream = MakeObject<System::IO::MemoryStream>(imgBytes);
-                    {
-                        SharedPtr<System::Drawing::Image> image = System::Drawing::Image::FromStream(stream);
-                        // If we double click the image, the powerpoint presentation will open
-                        builder->InsertParagraph();
-                        builder->Writeln(u"Powerpoint Ole object:");
-                        builder->InsertOleObject(powerpointStream, u"OleObject.pptx", true, image);
-                    }
+                    // If we double click the image, the powerpoint presentation will open
+                    builder->InsertParagraph();
+                    builder->Writeln(u"Powerpoint Ole object:");
+                    builder->InsertOleObject(powerpointStream, u"OleObject.pptx", true, stream);
                 }
 
             }

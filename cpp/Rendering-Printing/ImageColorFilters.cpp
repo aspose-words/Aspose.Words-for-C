@@ -7,6 +7,8 @@
 #include <Aspose.Words.Cpp/Model/Saving/ImagePixelFormat.h>
 #include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
+#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
+#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageRange.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;
@@ -151,7 +153,10 @@ namespace
     {
         // ExStart:SaveImageToOnebitPerPixel
         System::SharedPtr<ImageSaveOptions> opt = System::MakeObject<ImageSaveOptions>(SaveFormat::Png);
-        opt->set_PageIndex(1);
+
+        auto pageSet = System::MakeObject<PageSet>(System::MakeArray<System::SharedPtr<PageRange>>({System::MakeObject<PageRange>(1,1)}));
+        opt->set_PageSet(pageSet);
+
         opt->set_ImageColorMode(ImageColorMode::BlackAndWhite);
         opt->set_PixelFormat(ImagePixelFormat::Format1bppIndexed);
 

@@ -1,13 +1,17 @@
 #include "stdafx.h"
 #include "examples.h"
+#include "MailMergeCommon.h"
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Fields/FormFields/TextFormFieldType.h>
+#include <Aspose.Words.Cpp/Model/Fields/Fields/MailMerge/MergeFieldImageDimension.h>
 #include <Aspose.Words.Cpp/Model/MailMerge/FieldMergingArgs.h>
 #include <Aspose.Words.Cpp/Model/MailMerge/IFieldMergingCallback.h>
 #include <Aspose.Words.Cpp/Model/MailMerge/ImageFieldMergingArgs.h>
+
 #include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
+
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;
@@ -25,7 +29,7 @@ namespace
 
     public:
         void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override;
-        void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) override {}
+        void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) override;
 
     private:
         System::SharedPtr<DocumentBuilder> mBuilder;
@@ -70,6 +74,16 @@ namespace
         }
     }
     // ExEnd:HandleMergeField
+
+
+	//ExStart:ImageFieldMerging
+	void HandleMergeField::ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args)
+    {
+        args->set_ImageFileName(u"Image.png");
+        args->get_ImageWidth()->set_Value(200);
+        args->set_ImageHeight(System::MakeObject<MergeFieldImageDimension>(200, MergeFieldImageDimensionUnit::Percent));
+    }
+    //ExEnd:ImageFieldMerging
 }
 
 void MailMergeFormFields()
@@ -91,16 +105,9 @@ void MailMergeFormFields()
     doc->get_MailMerge()->set_TrimWhitespaces(false);
 
     // This is the data for mail merge.
-    System::ArrayPtr<System::String> names = System::MakeArray<System::String>({u"RecipientName", u"SenderName", u"FaxNumber", u"PhoneNumber", u"Subject", u"Body", u"Urgent", u"ForReview", u"PleaseComment"});
-    System::ArrayPtr<TObjectPtr> values = System::MakeArray<TObjectPtr>({System::ObjectExt::Box<System::String>(u"Josh"),
-                                                                         System::ObjectExt::Box<System::String>(u"Jenny"),
-                                                                         System::ObjectExt::Box<System::String>(u"123456789"),
-                                                                         System::ObjectExt::Box<System::String>(u""),
-                                                                         System::ObjectExt::Box<System::String>(u"Hello"),
-                                                                         System::ObjectExt::Box<System::String>(u"<b>HTML Body Test message 1</b>"),
-                                                                         System::ObjectExt::Box<bool>(true),
-                                                                         System::ObjectExt::Box<bool>(false),
-                                                                         System::ObjectExt::Box<bool>(true)});
+    auto names = System::MakeArray<System::String>({u"RecipientName", u"SenderName", u"FaxNumber", u"PhoneNumber", u"Subject", u"Body", u"Urgent", u"ForReview", u"PleaseComment"});
+    auto values = Box<System::String, System::String,System::String, System::String, System::String, System::String, bool, bool, bool>
+	(u"Josh", u"Jenny", u"123456789", u"", u"Hello", u"<b>HTML Body Test message 1</b>", true, false, true);
 
     // Execute the mail merge.
     doc->get_MailMerge()->Execute(names, values);

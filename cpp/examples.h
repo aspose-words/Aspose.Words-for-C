@@ -38,6 +38,7 @@ void WorkingWithTxt();
 void WorkingWithVbaMacros();
 void SpecifyMarkdownSaveOptions();
 void WorkingWithVbaReferenceCollection();
+void WorkWithCHM();
 
 // =====================================================
 // =====================================================

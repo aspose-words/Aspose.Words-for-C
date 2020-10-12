@@ -18,6 +18,7 @@
 #include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
 #include <Aspose.Words.Cpp/Model/Markup/Sdt/StructuredDocumentTagRangeStart.h>
+#include <Aspose.Words.Cpp/Model/Markup/Sdt/XmlMapping.h>
 #include <system/enumerator_adapter.h>
 
 using namespace Aspose::Words;
@@ -148,6 +149,19 @@ namespace
 		}
 		// ExEnd:MultiSectionSDT
 	}
+
+    void StructuredDocumentTagRangeStartXmlMapping(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        // ExStart:StructuredDocumentTagRangeStartXmlMapping
+		auto doc = System::MakeObject<Document>(inputDataDir + u"StructuredDocumentTagRangeStartXmlMapping.docx");
+
+        auto sdtRangeStart = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, true));
+
+        sdtRangeStart->get_XmlMapping()->SetMapping(doc->get_CustomXmlParts()->idx_get(0), u"/Root/Element", nullptr);
+
+        doc->Save(outputDataDir + u"WorkingWithSDT.StructuredDocumentTagRangeStartXmlMapping.docx");
+        // ExEnd:StructuredDocumentTagRangeStartXmlMapping
+    }
 }
 
 void WorkingWithSDT()
@@ -162,5 +176,9 @@ void WorkingWithSDT()
     SetContentControlStyle(inputDataDir, outputDataDir);
     CreatingTableRepeatingSectionMappedToCustomXmlPart(outputDataDir);
 	MultiSectionSDT(inputDataDir, outputDataDir);
+#if 0
+    // Source document is missing
+    StructuredDocumentTagRangeStartXmlMapping(inputDataDir, outputDataDir);
+#endif 
     std::cout << "WorkingWithSDT example finished." << std::endl << std::endl;
 }

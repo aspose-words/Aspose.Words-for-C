@@ -100,6 +100,7 @@
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToByte.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToEPUB.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHTML.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToMarkdown.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToPCL.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\CreateDocument.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\DetectDocumentSignatures.cpp" />
@@ -118,7 +119,6 @@
     <ClCompile Include="cpp\Loading-and-Saving\SaveDocWithHtmlSaveOptions.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SaveOptionsHtmlFixed.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SigningSignatureLine.cpp" />
-    <ClCompile Include="cpp\Loading-and-Saving\SpecifyMarkdownSaveOptions.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SpecifySaveOption.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\SplitIntoHtmlPages.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\WorkingWithDoc.cpp" />
@@ -129,12 +129,14 @@
     </ClCompile>
     <ClCompile Include="cpp\Loading-and-Saving\WorkingWithVbaMacros.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\WorkingWithVbaReferenceCollection.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\WorkWithCHM.cpp" />
     <ClCompile Include="cpp\Mail-Merge\ExecuteArray.cpp" />
     <ClCompile Include="cpp\Mail-Merge\HandleMailMergeSwitches.cpp" />
     <ClCompile Include="cpp\Mail-Merge\MailMergeAndConditionalField.cpp" />
     <ClCompile Include="cpp\Mail-Merge\MailMergeCleanUp.cpp" />
     <ClCompile Include="cpp\Mail-Merge\MailMergeFormFields.cpp" />
     <ClCompile Include="cpp\Mail-Merge\MailMergeImageField.cpp" />
+    <ClCompile Include="cpp\Mail-Merge\MailMergeTemplate.cpp" />
     <ClCompile Include="cpp\Mail-Merge\NestedMailMergeCustom.cpp" />
     <ClCompile Include="cpp\Mail-Merge\SimpleMailMerge.cpp" />
     <ClCompile Include="cpp\main.cpp">
@@ -372,6 +374,7 @@
   <ItemGroup>
     <ClInclude Include="cpp\examples.h" />
     <ClInclude Include="cpp\Loading-and-Saving\PageSplitter.h" />
+    <ClInclude Include="cpp\Mail-Merge\MailMergeCommon.h" />
     <ClInclude Include="cpp\pch\aspose_pch.h" />
     <ClInclude Include="cpp\pch\pch.h" />
     <ClInclude Include="cpp\Programming-Documents\Document\Common.h" />
