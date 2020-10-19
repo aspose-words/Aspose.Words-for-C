@@ -17,17 +17,17 @@ void DigitallySignedPdfUsingCertificateHolder()
     // ExStart:DigitallySignedPdfUsingCertificateHolder
     // The path to the documents directory.
     System::String inputDataDir = GetInputDataDir_LoadingAndSaving();
-    System::String outputDataDir = GetInputDataDir_LoadingAndSaving();
-    
+    System::String outputDataDir = GetOutputDataDir_LoadingAndSaving();
+
     // Create a simple document from scratch.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
     System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
     builder->Writeln(u"Test Signed PDF.");
-    
+
     System::SharedPtr<PdfSaveOptions> options = System::MakeObject<PdfSaveOptions>();
     options->set_DigitalSignatureDetails(System::MakeObject<PdfDigitalSignatureDetails>(CertificateHolder::Create(inputDataDir + u"CioSrv1.pfx", u"cinD96..arellA"), u"reason", u"location", System::DateTime::get_Now()));
-    
-    System::String outputPath = outputDataDir + u"DigitallySignedPdfUsingCertificateHolder.Signed_out.pdf";
+
+    System::String outputPath = outputDataDir + u"DigitallySignedPdfUsingCertificateHolder.pdf";
     doc->Save(outputPath, options);
     // ExEnd:DigitallySignedPdfUsingCertificateHolder
     std::cout << "Digitally signed PDF file created successfully. " << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;

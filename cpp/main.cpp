@@ -16,7 +16,7 @@ int main()
 	// Workaround for issue with pthread https://gcc.gnu.org/bugzilla/show_bug.cgi?id=60662
 	std::this_thread::sleep_for(std::chrono::milliseconds{1});
 #endif
-	
+
     std::cout << "Examples:" << std::endl << "=====================================================" << std::endl << std::endl;
 
     // =====================================================
@@ -241,7 +241,10 @@ int main()
     InsertFields();
     InsertFieldNone();
     InsertFormFields();
+
+#if !defined(__GNUC__) || defined(NDEBUG) // WORDSCPP-1010 assertion failure
     InsertIncludeFieldWithoutDocumentBuilder();
+#endif
     InsertMailMergeAddressBlockFieldUsingDOM();
     InsertMergeFieldUsingDOM();
     InsertNestedFields();
@@ -384,7 +387,10 @@ int main()
     // Rendering and Printing
     // =====================================================
     // =====================================================
+#if !defined(__GNUC__) // WORDSCPP-1011 throw std::out_of_range without required fonts
     DocumentLayoutHelper();
+#endif
+
     EmbeddedFontsInPDF();
     EmbeddingWindowsStandardFonts();
     EnumerateLayoutElements();

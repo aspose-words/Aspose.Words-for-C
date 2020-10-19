@@ -20,6 +20,7 @@
 #include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
+#include <system/io/file.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
@@ -153,6 +154,26 @@ namespace
         std::cout << "The document has been saved with OLE Object as an Icon." << std::endl;
         // ExEnd:InsertOLEObjectAsIcon
     }
+
+
+    void InsertOLEObjectAsIconUsingStream(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        // ExStart:InsertOLEObjectAsIconUsingStream
+        auto doc = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(doc);
+
+        auto shape = builder->InsertOleObjectAsIcon(inputDataDir + u"embedded.xlsx", false, inputDataDir + u"icon.ico", u"My embedded file");
+
+        {
+            auto stream = System::MakeObject<System::IO::MemoryStream>(System::IO::File::ReadAllBytes(inputDataDir + u"embedded.xlsx"));
+            builder->InsertOleObjectAsIcon(stream, u"Package", inputDataDir + u"icon.ico", u"My embedded file");
+        }
+
+        doc->Save(outputDataDir + u"EmbeddeWithIconUsingStream_out.docx");
+
+        std::cout << "The document has been saved with OLE Object as an Icon.\n";
+        // ExEnd:InsertOLEObjectAsIconUsingStream
+    }
 }
 
 void WorkingWithShapes()
@@ -172,5 +193,6 @@ void WorkingWithShapes()
     DetectSmartArtShape(dataDir); 
 #endif
     InsertOLEObjectAsIcon(inputDataDir, outputDataDir);
+    InsertOLEObjectAsIconUsingStream(inputDataDir, outputDataDir);
     std::cout << "WorkingWithShapes example finished." << std::endl << std::endl;
 }

@@ -853,9 +853,6 @@
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithImportFormatOptions.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
     </ClCompile>
-    <ClCompile Include="cpp\Loading-and-Saving\SpecifyMarkdownSaveOptions.cpp">
-      <Filter>cpp\Loading-and-Saving</Filter>
-    </ClCompile>
     <ClCompile Include="cpp\Programming-Documents\Document\WorkingWithRevisionOptions.cpp">
       <Filter>cpp\Programming-Documents\Document</Filter>
     </ClCompile>
@@ -865,6 +862,15 @@
     <ClCompile Include="cpp\Loading-and-Saving\WorkingWithVbaReferenceCollection.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Mail-Merge\MailMergeTemplate.cpp">
+      <Filter>cpp\Mail-Merge</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToMarkdown.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\WorkWithCHM.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">
@@ -872,6 +878,9 @@
     </ClInclude>
     <ClInclude Include="cpp\Loading-and-Saving\PageSplitter.h">
       <Filter>cpp\Loading-and-Saving</Filter>
+    </ClInclude>
+    <ClInclude Include="cpp\Mail-Merge\MailMergeCommon.h">
+      <Filter>cpp\Mail-Merge</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

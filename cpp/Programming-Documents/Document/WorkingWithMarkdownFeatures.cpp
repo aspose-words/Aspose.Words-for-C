@@ -12,6 +12,7 @@
 #include <Aspose.Words.Cpp/Model/Styles/Style.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
+#include <Aspose.Words.Cpp/Model/Saving/MarkdownSaveOptions.h>
 #include <system/enumerator_adapter.h>
 
 
@@ -232,6 +233,40 @@ namespace
 		doc->Save(outputDataDir + u"CreateMarkdownDocument.md");
 		//ExEnd:CreateMarkdownDocument
     }
+
+	void ExportIntoMarkdownWithTableContentAlignment(System::String const& outputDataDir)
+    {
+		// ExStart:ExportIntoMarkdownWithTableContentAlignment
+        auto doc = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(doc);
+
+		// Create a new table with two cells.
+		builder->InsertCell();
+		builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
+		builder->Write(u"Cell1");
+		builder->InsertCell();
+		builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
+		builder->Write(u"Cell2");
+
+		auto saveOptions = System::MakeObject<Saving::MarkdownSaveOptions>();
+		// Makes all paragraphs inside table to be aligned to Left. 
+		saveOptions->set_TableContentAlignment(Saving::TableContentAlignment::Left);
+		doc->Save(outputDataDir + u"ExportIntoMarkdownWithTableContentAlignment.left.md", saveOptions);
+
+		// Makes all paragraphs inside table to be aligned to Right. 
+		saveOptions->set_TableContentAlignment(Saving::TableContentAlignment::Right);
+		doc->Save(outputDataDir + u"ExportIntoMarkdownWithTableContentAlignment.right.md", saveOptions);
+
+		// Makes all paragraphs inside table to be aligned to Center. 
+		saveOptions->set_TableContentAlignment(Saving::TableContentAlignment::Center);
+		doc->Save(outputDataDir + u"ExportIntoMarkdownWithTableContentAlignment.center.md", saveOptions);
+
+		// Makes all paragraphs inside table to be aligned automatically.
+		// The alignment in this case will be taken from the first paragraph in corresponding table column.
+		saveOptions->set_TableContentAlignment(Saving::TableContentAlignment::Auto);
+		doc->Save(outputDataDir + u"ExportIntoMarkdownWithTableContentAlignment.auto.md", saveOptions);
+		// ExEnd:ExportIntoMarkdownWithTableContentAlignment
+    }
 }
 
 void WorkingWithMarkdownFeatures()
@@ -247,5 +282,6 @@ void WorkingWithMarkdownFeatures()
     ReadMarkdownDocument(inputDataDir, outputDataDir);
     UseWarningSourceMarkdown(inputDataDir, outputDataDir);
 	CreateMarkdownDocument(outputDataDir);
+	ExportIntoMarkdownWithTableContentAlignment(outputDataDir);
     std::cout << "WorkingWithMarkdownFeatures example finished." << std::endl << std::endl;
 }

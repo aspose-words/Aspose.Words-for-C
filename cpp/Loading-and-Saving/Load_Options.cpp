@@ -213,7 +213,7 @@ namespace
         std::cout << "Set Encoding successfully." << std::endl << std::endl;
     }
 
-    void LoadOptionsResourceLoadingCallback(System::String const& inputDataDir)
+    void LoadOptionsResourceLoadingCallback(System::String const& inputDataDir, System::String const &outputDataDir)
     {
         //ExStart:LoadOptionsResourceLoadingCallback
         // Create a new LoadOptions object and set its ResourceLoadingCallback attribute as an instance of our IResourceLoadingCallback implementation
@@ -223,9 +223,19 @@ namespace
         // When we open an Html document, external resources such as references to CSS stylesheet files and external images
         // will be handled in a custom manner by the loading callback as the document is loaded
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Images.html", loadOptions);
-        doc->Save(inputDataDir + u"Document.LoadOptionsCallback_out.pdf");
+        doc->Save(outputDataDir + u"Load_Options.LoadOptionsResourceLoadingCallback.pdf");
         //ExEnd:LoadOptionsResourceLoadingCallback
         std::cout << "Load Options Resource Loading Callback successfully." << std::endl << std::endl;
+    }
+
+    void ConvertMetafilesToPng(System::String const& inputDataDir)
+    {
+        //ExStart:ConvertMetafilesToPng
+        auto lo = System::MakeObject<LoadOptions>();
+        lo->set_ConvertMetafilesToPng(true);
+
+        auto doc = System::MakeObject<Document>(inputDataDir + u"MetafileRendering.docx", lo);
+        //ExEnd:ConvertMetafilesToPng
     }
 }
 
@@ -243,6 +253,12 @@ void Load_Options()
     LoadOptionsEncoding(inputDataDir);
     LoadOptionsWarningCallback(inputDataDir);
     SetTempFolder(inputDataDir);
-    LoadOptionsResourceLoadingCallback(inputDataDir);
+    LoadOptionsResourceLoadingCallback(inputDataDir, outputDataDir);
+
+#if 0
+    // Source document is missing
+    ConvertMetafilesToPng(inputDataDir);
+#endif
+
     std::cout << "Load_Options example finished." << std::endl << std::endl;
 }

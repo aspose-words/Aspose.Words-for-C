@@ -21,7 +21,7 @@ namespace
         using ThisType = HandleDocumentWarnings;
         using BaseType = IWarningCallback;
         using ThisTypeBaseTypesInfo = ::System::BaseTypesInfo<BaseType>;
-		RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
+        RTTI_INFO(ThisType, ThisTypeBaseTypesInfo);
     public:
         System::SharedPtr<WarningInfoCollection> mWarnings;
         void Warning(System::SharedPtr<WarningInfo> info) override;
@@ -127,7 +127,10 @@ void Doc2Pdf()
 
     SaveDoc2Pdf(inputDataDir, outputDataDir);
     DisplayDocTitleInWindowTitlebar(inputDataDir, outputDataDir);
+
+#if !defined(__GNUC__) || defined(NDEBUG) // WORDSCPP-1010 assertion failure
     PdfRenderWarnings(inputDataDir, outputDataDir);
     RenderMetafileToBitmap(inputDataDir, outputDataDir);
+#endif 
     std::cout << "Doc2Pdf example finished." << std::endl << std::endl;
 }
