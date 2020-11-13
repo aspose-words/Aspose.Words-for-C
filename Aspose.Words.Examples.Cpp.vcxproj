@@ -102,6 +102,7 @@
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToHTML.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToMarkdown.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\ConvertDocumentToPCL.cpp" />
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertWordDocument.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\CreateDocument.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\DetectDocumentSignatures.cpp" />
     <ClCompile Include="cpp\Loading-and-Saving\DigitallySignedPdfUsingCertificateHolder.cpp" />

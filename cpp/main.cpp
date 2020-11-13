@@ -71,6 +71,7 @@ int main()
     WorkingWithVbaMacros(); 
     SpecifyMarkdownSaveOptions();
 	WorkingWithVbaReferenceCollection();
+    ConvertWordDocument();
 
     // =====================================================
     // =====================================================

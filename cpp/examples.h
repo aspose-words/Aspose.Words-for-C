@@ -39,6 +39,7 @@ void WorkingWithVbaMacros();
 void SpecifyMarkdownSaveOptions();
 void WorkingWithVbaReferenceCollection();
 void WorkWithCHM();
+void ConvertWordDocument();
 
 // =====================================================
 // =====================================================
