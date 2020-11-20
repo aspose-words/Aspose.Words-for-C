@@ -174,6 +174,18 @@ namespace
         std::cout << "The document has been saved with OLE Object as an Icon.\n";
         // ExEnd:InsertOLEObjectAsIconUsingStream
     }
+
+    void UpdateSmartArtDrawing(System::String const& inputDataDir)
+    {
+        auto doc = System::MakeObject<Document>(inputDataDir + u"SmartArt.docx");
+
+        // ExStart:UpdateSmartArtDrawing
+        auto shapes = doc->GetChildNodes(NodeType::Shape, true);
+        for (System::SharedPtr<Shape> shape : System::IterateOver<System::SharedPtr<Shape>>(shapes))
+            if (shape->get_HasSmartArt())
+                shape->UpdateSmartArtDrawing();
+        // ExEnd:UpdateSmartArtDrawing
+    }
 }
 
 void WorkingWithShapes()
@@ -194,5 +206,6 @@ void WorkingWithShapes()
 #endif
     InsertOLEObjectAsIcon(inputDataDir, outputDataDir);
     InsertOLEObjectAsIconUsingStream(inputDataDir, outputDataDir);
+    UpdateSmartArtDrawing(inputDataDir);
     std::cout << "WorkingWithShapes example finished." << std::endl << std::endl;
 }
