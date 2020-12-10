@@ -871,6 +871,9 @@
     <ClCompile Include="cpp\Loading-and-Saving\WorkWithCHM.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Loading-and-Saving\ConvertWordDocument.cpp">
+      <Filter>cpp\Loading-and-Saving</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">

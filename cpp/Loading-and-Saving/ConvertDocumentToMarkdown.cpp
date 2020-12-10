@@ -72,7 +72,7 @@ namespace
     {
         // ExStart:SetImagesFolder
         // Load the document from disk.
-        auto doc = System::MakeObject<Document>(u"https://www.webpagetest.org/pageimages.php");
+        auto doc = System::MakeObject<Document>(inputDataDir + u"Test.docx");
 
         auto so = System::MakeObject<MarkdownSaveOptions>();
         so->set_ImagesFolder(outputDataDir + u"\\Images");

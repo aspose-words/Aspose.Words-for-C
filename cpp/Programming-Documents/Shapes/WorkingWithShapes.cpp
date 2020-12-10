@@ -12,6 +12,7 @@
 #include <Aspose.Words.Cpp/Model/Drawing/TextPath.h>
 #include <Aspose.Words.Cpp/Model/Drawing/VerticalAlignment.h>
 #include <Aspose.Words.Cpp/Model/Drawing/WrapType.h>
+#include <Aspose.Words.Cpp/Model/Drawing/TextBox.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
@@ -141,6 +142,54 @@ namespace
         // ExEnd:GetActualShapeBoundsPoints
     }
 
+    void SpecifyVerticalAnchor(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        // ExStart:SpecifyVerticalAnchor
+        auto doc = System::MakeObject<Document>(inputDataDir + u"VerticalAnchor.docx");
+        auto shapes = doc->GetChildNodes(NodeType::Shape, true);
+        auto textBoxShape = System::DynamicCast<Shape>(shapes->idx_get(0));
+        if (textBoxShape)
+        {
+            textBoxShape->get_TextBox()->set_VerticalAnchor(TextBoxAnchor::Bottom);
+        }
+        doc->Save(outputDataDir + u"VerticalAnchor_out.docx");
+        // ExEnd:SpecifyVerticalAnchor
+    }
+
+    void DetectSmartArtShape(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        // ExStart:DetectSmartArtShape
+        auto doc = System::MakeObject<Document>(inputDataDir + u"SmartArt.docx");
+
+        int count = 0;
+
+        for (auto shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
+        {
+            if (shape->get_HasSmartArt())
+            {
+                count++;
+            }
+        }
+
+        std::cout << "The document has " << count << " shapes with SmartArt.\n";
+        // ExEnd:DetectSmartArtShape
+    }
+
+    void UpdateSmartArtDrawing(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        auto doc = System::MakeObject<Document>(inputDataDir + u"SmartArt.docx");
+
+        // ExStart:UpdateSmartArtDrawing
+        for (auto shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
+        {
+            if (shape->get_HasSmartArt())
+            {
+                shape->UpdateSmartArtDrawing();
+            }
+        }
+        // ExEnd:UpdateSmartArtDrawing
+    }
+
     void InsertOLEObjectAsIcon(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:InsertOLEObjectAsIcon
@@ -199,11 +248,9 @@ void WorkingWithShapes()
     InsertShapeUsingDocumentBuilder(outputDataDir);
     AddCornersSnipped(outputDataDir);
     GetActualShapeBoundsPoints(inputDataDir);
-#if 0
-    // Source document is missing
-    SpecifyVerticalAnchor(dataDir); 
-    DetectSmartArtShape(dataDir); 
-#endif
+    SpecifyVerticalAnchor(inputDataDir, outputDataDir); 
+    DetectSmartArtShape(inputDataDir, outputDataDir); 
+    UpdateSmartArtDrawing(inputDataDir, outputDataDir);
     InsertOLEObjectAsIcon(inputDataDir, outputDataDir);
     InsertOLEObjectAsIconUsingStream(inputDataDir, outputDataDir);
     UpdateSmartArtDrawing(inputDataDir);
