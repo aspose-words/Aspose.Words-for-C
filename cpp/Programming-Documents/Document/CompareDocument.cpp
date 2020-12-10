@@ -227,6 +227,140 @@ namespace
 
         // ExEnd:CompareWhenDocumentHasRevisions
     }
+
+    void ApplyCompareTwoDocuments(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+		//ExStart:ApplyCompareTwoDocuments
+		// The source document doc1.
+        auto doc1 = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(doc1);
+		builder->Writeln(u"This is the original document.");
+
+		// The target document doc2.
+        auto doc2 = System::MakeObject<Document>();
+        builder = System::MakeObject<DocumentBuilder>(doc2);
+		builder->Writeln(u"This is the edited document.");
+
+		// If either document has a revision, an exception will be thrown.
+		if (doc1->get_Revisions()->get_Count() == 0 && doc2->get_Revisions()->get_Count() == 0)
+		{
+            doc1->Compare(doc2, u"authorName", System::DateTime::get_Now());
+		}
+
+		// If doc1 and doc2 are different, doc1 now has some revisions after the comparison, which can now be viewed and processed.
+		if (doc1->get_Revisions()->get_Count() != 2) throw std::runtime_error("assertion failure");
+
+        for (auto r : System::IterateOver(doc1->get_Revisions()))
+        {
+            std::cout << "Revision type: " << System::ObjectExt::ToString(r->get_RevisionType()).ToUtf8String() << ", on a node of type \""
+                      << System::ObjectExt::ToString(r->get_ParentNode()->get_NodeType()) << "\"\n"
+                      << "\tChanged test: \"" << r->get_ParentNode()->GetText().ToUtf8String() << "\"\n"; 
+        }
+
+        // All the revisions in doc1 are differences between doc1 and doc2, so accepting them on doc1 transforms doc1 into doc2.
+        doc1->get_Revisions()->AcceptAll();
+
+		// doc1, when saved, now resembles doc2.
+        doc1->Save(outputDataDir + u"Document.Compare.docx");
+        doc1 = System::MakeObject<Document>(outputDataDir + u"Document.Compare.docx");
+
+		if (doc1->get_Revisions()->get_Count() != 0) throw std::runtime_error("assertion failure");
+		//ExEnd:ApplyCompareTwoDocuments
+	}
+
+    void SetAdvancedComparingProperties(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+		//ExStart:SetAdvancedComparingProperties
+		// Create the original document.
+		auto docOriginal = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(docOriginal);
+
+		// Insert paragraph text with an endnote.
+		builder->Writeln(u"Hello world! This is the first paragraph.");
+		builder->InsertFootnote(FootnoteType::Endnote, u"Original endnote text.");
+
+		// Insert a table.
+		builder->StartTable();
+		builder->InsertCell();
+		builder->Write(u"Original cell 1 text");
+		builder->InsertCell();
+		builder->Write(u"Original cell 2 text");
+		builder->EndTable();
+
+		// Insert a textbox.
+		auto textBox = builder->InsertShape(ShapeType::TextBox, 150, 20);
+		builder->MoveTo(textBox->get_FirstParagraph());
+		builder->Write(u"Original textbox contents");
+
+		// Insert a DATE field.
+		builder->MoveTo(docOriginal->get_FirstSection()->get_Body()->AppendParagraph(u""));
+		builder->InsertField(u" DATE ");
+
+		// Insert a comment.
+        auto newComment = System::MakeObject<Comment>(docOriginal, u"John Doe", u"J.D.", System::DateTime::get_Now());
+		newComment->SetText(u"Original comment.");
+		builder->get_CurrentParagraph()->AppendChild(newComment);
+
+		// Insert a header.
+		builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
+		builder->Writeln(u"Original header contents.");
+
+		// Create a clone of our document, which we will edit and later compare to the original.
+        auto docEdited = System::DynamicCast<Document>(docOriginal->Clone(true));
+		auto firstParagraph = docEdited->get_FirstSection()->get_Body()->get_FirstParagraph();
+
+		// Change the formatting of the first paragraph, change casing of original characters and add text.
+		firstParagraph->get_Runs()->idx_get(0)->set_Text(u"hello world! this is the first paragraph, after editing.");
+		firstParagraph->get_ParagraphFormat()->set_Style(docEdited->get_Styles()->idx_get(StyleIdentifier::Heading1));
+
+		// Edit the footnote.
+		auto footnote = System::DynamicCast<Footnote>(docEdited->GetChild(NodeType::Footnote, 0, true));
+		footnote->get_FirstParagraph()->get_Runs()->idx_get(1)->set_Text(u"Edited endnote text.");
+
+		// Edit the table.
+		auto table = System::DynamicCast<Tables::Table>(docEdited->GetChild(NodeType::Table, 0, true));
+		table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited Cell 2 contents");
+
+		// Edit the textbox.
+		textBox = System::DynamicCast<Shape>(docEdited->GetChild(NodeType::Shape, 0, true));
+		textBox->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited textbox contents");
+
+		// Edit the DATE field.
+		auto fieldDate = System::DynamicCast<Fields::FieldDate>(docEdited->get_Range()->get_Fields()->idx_get(0));
+		fieldDate->set_UseLunarCalendar(true);
+
+		// Edit the comment.
+		auto comment = System::DynamicCast<Comment>(docEdited->GetChild(NodeType::Comment, 0, true));
+		comment->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited comment.");
+
+		// Edit the header.
+		docEdited->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited header contents.");
+
+		// Apply different comparing options.
+		auto compareOptions = System::MakeObject<CompareOptions>();
+		compareOptions->set_IgnoreFormatting(false);
+		compareOptions->set_IgnoreCaseChanges(false);
+		compareOptions->set_IgnoreComments(false);
+		compareOptions->set_IgnoreTables(false);
+		compareOptions->set_IgnoreFields(false);
+		compareOptions->set_IgnoreFootnotes(false);
+		compareOptions->set_IgnoreTextboxes(false);
+		compareOptions->set_IgnoreHeadersAndFooters(false);
+		compareOptions->set_Target(ComparisonTargetType::New);
+
+		// compare both documents.
+		docOriginal->Compare(docEdited, u"John Doe", System::DateTime::get_Now(), compareOptions);
+		docOriginal->Save(outputDataDir + u"Document.CompareOptions.docx");
+
+		docOriginal = System::MakeObject<Document>(outputDataDir + u"Document.CompareOptions.docx");
+
+		// If you set compareOptions to ignore certain types of changes,
+		// then revisions done on those types of nodes will not appear in the output document.
+		// You can tell what kind of node a revision was done on by looking at the NodeType of the revision's parent nodes.
+
+		//ExEnd:SetAdvancedComparingProperties
+        }
+
 }
 
 void CompareDocument()
@@ -234,11 +368,14 @@ void CompareDocument()
     std::cout << "CompareDocument example started." << std::endl;
     // The path to the documents directory.
     System::String inputDataDir = GetInputDataDir_WorkingWithDocument();
+    System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     NormalComparison(inputDataDir);
     CompareForEqual(inputDataDir);
     CompareDocumentWithCompareOptions(inputDataDir);
     CompareDocumentWithComparisonTarget(inputDataDir);
     SpecifyComparisonGranularity(inputDataDir);
     CompareWhenDocumentHasRevisions(inputDataDir);
+	ApplyCompareTwoDocuments(inputDataDir, outputDataDir);
+	SetAdvancedComparingProperties(inputDataDir, outputDataDir);
     std::cout << "CompareDocument example finished." << std::endl << std::endl;
 }

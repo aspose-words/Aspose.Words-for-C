@@ -340,6 +340,7 @@
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\FindReplaceUsingMetaCharacters.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\IgnoreText.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceHtmlTextWithMetaCharacters.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceInHeaderAndFooter.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceTextWithField.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithEvaluator.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithHTML.cpp" />

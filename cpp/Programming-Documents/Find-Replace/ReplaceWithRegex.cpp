@@ -37,10 +37,13 @@ namespace
     void FindAndReplaceWithRegex(const System::String& inputDataDir, const System::String& outputDataDir)
     {
         // ExStart:ReplaceWithRegex
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Document.doc");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(doc);
+        builder->Writeln(u"sad mad bad");
 
         System::SharedPtr<FindReplaceOptions> options = System::MakeObject<FindReplaceOptions>();
 
+        // Replaces all occurrences of the words "sad" or "mad" to "bad".
         doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"[s|m]ad"), u"bad", options);
 
         const System::String outputPath = outputDataDir + u"FindAndReplaceWithRegex_out.doc";
