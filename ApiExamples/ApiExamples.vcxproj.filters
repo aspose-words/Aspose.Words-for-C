@@ -114,7 +114,13 @@
     <ClInclude Include="Cpp\source\ExCellFormat.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="Cpp\source\ExCertificateHolder.h">
+      <Filter>source</Filter>
+    </ClInclude>
     <ClInclude Include="Cpp\source\ExCharts.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpp\source\ExCleanupOptions.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="Cpp\source\ExComHelper.h">
@@ -201,7 +207,16 @@
     <ClInclude Include="Cpp\source\ExInlineStory.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="Cpp\source\ExLayout.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpp\source\ExLicense.h">
+      <Filter>source</Filter>
+    </ClInclude>
     <ClInclude Include="Cpp\source\ExLists.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpp\source\ExLoadOptions.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="Cpp\source\ExMailMerge.h">
@@ -243,6 +258,9 @@
     <ClInclude Include="Cpp\source\ExPdfSaveOptions.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="Cpp\source\ExPlainTextDocument.h">
+      <Filter>source</Filter>
+    </ClInclude>
     <ClInclude Include="Cpp\source\ExProperties.h">
       <Filter>source</Filter>
     </ClInclude>
@@ -259,6 +277,9 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="Cpp\source\ExReplaceHyperlinks.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpp\source\ExRevision.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="Cpp\source\ExRtfLoadOptions.h">
@@ -297,6 +318,9 @@
     <ClInclude Include="Cpp\source\ExTableColumn.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="Cpp\source\ExTabStop.h">
+      <Filter>source</Filter>
+    </ClInclude>
     <ClInclude Include="Cpp\source\ExThemes.h">
       <Filter>source</Filter>
     </ClInclude>
@@ -310,6 +334,9 @@
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="Cpp\source\ExVariableCollection.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpp\source\ExVbaProject.h">
       <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="Cpp\source\ExViewOptions.h">
@@ -407,7 +434,13 @@
     <ClCompile Include="Cpp\source\ExCellFormat.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Cpp\source\ExCertificateHolder.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
     <ClCompile Include="Cpp\source\ExCharts.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpp\source\ExCleanupOptions.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Cpp\source\ExComHelper.cpp">
@@ -494,7 +527,16 @@
     <ClCompile Include="Cpp\source\ExInlineStory.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Cpp\source\ExLayout.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpp\source\ExLicense.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
     <ClCompile Include="Cpp\source\ExLists.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpp\source\ExLoadOptions.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Cpp\source\ExMailMerge.cpp">
@@ -510,9 +552,6 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Cpp\source\ExMossDoc2Pdf.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="Cpp\source\ExMossRtf2Docx.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Cpp\source\ExNode.cpp">
@@ -542,6 +581,9 @@
     <ClCompile Include="Cpp\source\ExPdfSaveOptions.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Cpp\source\ExPlainTextDocument.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
     <ClCompile Include="Cpp\source\ExProperties.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -558,6 +600,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Cpp\source\ExReplaceHyperlinks.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpp\source\ExRevision.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Cpp\source\ExRtfLoadOptions.cpp">
@@ -596,6 +641,9 @@
     <ClCompile Include="Cpp\source\ExTableColumn.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Cpp\source\ExTabStop.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
     <ClCompile Include="Cpp\source\ExThemes.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -611,6 +659,9 @@
     <ClCompile Include="Cpp\source\ExVariableCollection.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="Cpp\source\ExVbaProject.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
     <ClCompile Include="Cpp\source\ExViewOptions.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -624,6 +675,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Cpp\source\TestUtil.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpp\source\version_compatibility.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

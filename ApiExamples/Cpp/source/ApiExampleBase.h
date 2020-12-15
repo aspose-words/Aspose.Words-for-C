@@ -5,10 +5,10 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/reflection/assembly.h>
 #include <system/object.h>
+#include <system/reflection/assembly.h>
+#include <system/shared_ptr.h>
+#include <system/string.h>
 #include <gtest/gtest.h>
 
 namespace ApiExamples {
@@ -18,10 +18,7 @@ namespace ApiExamples {
 /// </summary>
 class ApiExampleBase : public System::Object
 {
-    FRIEND_FUNCTION_System_MakeObject;
-    
 public:
-
     void OneTimeSetUp();
     void SetUp();
     void OneTimeTearDown();
@@ -31,9 +28,8 @@ public:
     /// </summary>
     /// <returns>True if being executed in Mono, false otherwise.</returns>
     static bool IsRunningOnMono();
-    
-protected:
 
+protected:
     /// <summary>
     /// Gets the path to the currently running executable.
     /// </summary>
@@ -71,20 +67,12 @@ protected:
     /// </summary>
     static System::String FontsDir;
     /// <summary>
-    /// Gets the url of the Aspose logo.
+    /// Gets the URL of the Aspose logo.
     /// </summary>
     static System::String AsposeLogoUrl;
-    
+
     /// <summary>
-    /// Checks when we need to skip precondition before test.
-    /// </summary>
-    static bool CheckForSkipSetUp();
-    /// <summary>
-    /// Checks when we need to skip post-condition after test.
-    /// </summary>
-    static bool CheckForSkipTearDown();
-    /// <summary>
-    /// Checks when we need to skip post-condition after test.
+    /// Checks when we need to ignore test on mono.
     /// </summary>
     static bool CheckForSkipMono();
     static void SetUnlimitedLicense();
@@ -96,13 +84,12 @@ protected:
     /// Returns the assembly directory correctly even if the assembly is shadow-copied.
     /// </summary>
     static System::String GetAssemblyDir(System::SharedPtr<System::Reflection::Assembly> assembly);
-    
-private:
 
-    static struct __StaticConstructor__ { __StaticConstructor__(); } s_constructor__;
-    
+private:
+    static struct __StaticConstructor__
+    {
+        __StaticConstructor__();
+    } s_constructor__;
 };
 
 } // namespace ApiExamples
-
-

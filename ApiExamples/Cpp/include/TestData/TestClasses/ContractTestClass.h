@@ -15,12 +15,6 @@ namespace TestClasses {
 
 class ContractTestClass : public System::Object
 {
-    typedef ContractTestClass ThisType;
-    typedef System::Object BaseType;
-    
-    typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-    RTTI_INFO_DECL();
-    
 public:
 
     System::SharedPtr<ManagerTestClass> get_Manager();
@@ -31,24 +25,19 @@ public:
     void set_Price(float value);
     System::DateTime get_Date();
     void set_Date(System::DateTime value);
-    
-    ContractTestClass();
-    
-protected:
 
-    System::Object::shared_members_type GetSharedMembers() override;
-    
+    ContractTestClass();
+
 private:
 
     System::SharedPtr<ManagerTestClass> pr_Manager;
     System::SharedPtr<ClientTestClass> pr_Client;
     float pr_Price;
     System::DateTime pr_Date;
-    
+
 };
 
 } // namespace TestClasses
 } // namespace TestData
 } // namespace ApiExamples
-
 

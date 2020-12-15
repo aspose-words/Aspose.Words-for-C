@@ -6,8 +6,6 @@ namespace TestData {
 
 namespace TestClasses {
 
-RTTI_INFO_IMPL_HASH(1659307295u, ::ApiExamples::TestData::TestClasses::ContractTestClass, ThisTypeBaseTypesInfo);
-
 System::SharedPtr<ManagerTestClass> ContractTestClass::get_Manager()
 {
     return pr_Manager;
@@ -50,17 +48,6 @@ void ContractTestClass::set_Date(System::DateTime value)
 
 ContractTestClass::ContractTestClass() : pr_Price(0)
 {
-}
-
-System::Object::shared_members_type ApiExamples::TestData::TestClasses::ContractTestClass::GetSharedMembers()
-{
-    auto result = System::Object::GetSharedMembers();
-
-    result.Add("ApiExamples::TestData::TestClasses::ContractTestClass::pr_Manager", this->pr_Manager);
-    result.Add("ApiExamples::TestData::TestClasses::ContractTestClass::pr_Client", this->pr_Client);
-    result.Add("ApiExamples::TestData::TestClasses::ContractTestClass::pr_Date", this->pr_Date);
-
-    return result;
 }
 
 } // namespace TestClasses

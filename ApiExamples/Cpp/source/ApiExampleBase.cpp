@@ -5,24 +5,19 @@
 //////////////////////////////////////////////////////////////////////////
 #include "ApiExampleBase.h"
 
-#include <testing/test_predicates.h>
-#include <system/uri.h>
-#include <system/threading/thread.h>
-#include <system/test_tools/test_tools.h>
-#include <system/test_tools/compare.h>
-#include <system/string_comparison.h>
-#include <system/string.h>
-#include <system/shared_ptr.h>
-#include <system/reflection/assembly.h>
-#include <system/object.h>
-#include <system/io/path.h>
-#include <system/io/file.h>
-#include <system/io/directory.h>
-#include <system/globalization/culture_info.h>
-#include <gtest/gtest-skip-exception.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Licensing/License.h>
+#include <system/globalization/culture_info.h>
+#include <system/io/directory.h>
+#include <system/io/file.h>
+#include <system/io/path.h>
+#include <system/object.h>
+#include <system/reflection/assembly.h>
+#include <system/shared_ptr.h>
+#include <system/string.h>
+#include <system/string_comparison.h>
+#include <system/threading/thread.h>
+#include <system/uri.h>
 
 using namespace Aspose::Words;
 namespace ApiExamples {
@@ -44,15 +39,7 @@ void ApiExampleBase::OneTimeSetUp()
 {
     System::Threading::Thread::get_CurrentThread()->set_CurrentCulture(System::Globalization::CultureInfo::get_InvariantCulture());
 
-    if (CheckForSkipMono() && IsRunningOnMono())
-    {
-        throw testing::SkipException();
-    }
-
-    if (!CheckForSkipSetUp())
-    {
-        SetUnlimitedLicense();
-    }
+    SetUnlimitedLicense();
 
     if (!System::IO::Directory::Exists(ArtifactsDir))
     {
@@ -66,25 +53,10 @@ void ApiExampleBase::SetUp()
 
 void ApiExampleBase::OneTimeTearDown()
 {
-    if (!CheckForSkipTearDown())
+    if (System::IO::Directory::Exists(ArtifactsDir))
     {
-        if (System::IO::Directory::Exists(ArtifactsDir))
-        {
-            System::IO::Directory::Delete(ArtifactsDir, true);
-        }
+        System::IO::Directory::Delete(ArtifactsDir, true);
     }
-}
-
-bool ApiExampleBase::CheckForSkipSetUp()
-{
-    // CPPDEFECT: Unit-test properties is not supported
-    return false;
-}
-
-bool ApiExampleBase::CheckForSkipTearDown()
-{
-    // CPPDEFECT: Unit-test properties is not supported
-    return false;
 }
 
 bool ApiExampleBase::CheckForSkipMono()
@@ -112,6 +84,7 @@ void ApiExampleBase::SetUnlimitedLicense()
         // binaries or you add the license to your project as an embedded resource.
         auto wordsLicense = System::MakeObject<License>();
         wordsLicense->SetLicense(testLicenseFileName);
+        // CPPDEFECT: Aspose.Pdf and Aspose.BarCode is not supported
     }
 }
 
@@ -138,18 +111,22 @@ ApiExampleBase::__StaticConstructor__::__StaticConstructor__()
 {
     ApiExampleBase::AssemblyDir = ApiExampleBase::GetAssemblyDir(System::Reflection::Assembly::GetExecutingAssembly());
     ApiExampleBase::CodeBaseDir = ApiExampleBase::GetCodeBaseDir(System::Reflection::Assembly::GetExecutingAssembly());
-    ApiExampleBase::ArtifactsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/Artifacts/")->get_LocalPath();
-    ApiExampleBase::LicenseDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"License/")->get_LocalPath();
+    ApiExampleBase::ArtifactsDir =
+        System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/Artifacts/")->get_LocalPath();
+    ApiExampleBase::LicenseDir =
+        System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"License/")->get_LocalPath();
     ApiExampleBase::GoldsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/Golds/")->get_LocalPath();
     ApiExampleBase::MyDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/")->get_LocalPath();
     ApiExampleBase::ImageDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/Images/")->get_LocalPath();
-    ApiExampleBase::DatabaseDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/Database/")->get_LocalPath();
+    ApiExampleBase::DatabaseDir =
+        System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/Database/")->get_LocalPath();
     ApiExampleBase::FontsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/MyFonts/")->get_LocalPath();
-    ApiExampleBase::AsposeLogoUrl = System::MakeObject<System::Uri>(u"https://www.aspose.cloud/templates/aspose/App_Themes/V3/images/words/header/aspose_words-for-net.png")->get_AbsoluteUri();
+    ApiExampleBase::AsposeLogoUrl =
+        System::MakeObject<System::Uri>(u"https://www.aspose.cloud/templates/aspose/App_Themes/V3/images/words/header/aspose_words-for-net.png")
+            ->get_AbsoluteUri();
 }
 
-namespace gtest_test
-{
+namespace gtest_test {
 
 class ApiExampleBase : public ::testing::Test
 {
@@ -172,7 +149,6 @@ protected:
         s_instance->OneTimeTearDown();
         s_instance = nullptr;
     };
-
 };
 
 System::SharedPtr<::ApiExamples::ApiExampleBase> ApiExampleBase::s_instance;

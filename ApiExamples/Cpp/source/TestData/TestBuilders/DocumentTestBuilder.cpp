@@ -10,6 +10,7 @@
 
 #include "TestData/TestClasses/DocumentTestClass.h"
 
+
 using namespace ApiExamples::TestData::TestClasses;
 using namespace Aspose::Words;
 namespace ApiExamples {
@@ -17,8 +18,6 @@ namespace ApiExamples {
 namespace TestData {
 
 namespace TestBuilders {
-
-RTTI_INFO_IMPL_HASH(3789440965u, ::ApiExamples::TestData::TestBuilders::DocumentTestBuilder, ThisTypeBaseTypesInfo);
 
 DocumentTestBuilder::DocumentTestBuilder()
 {
@@ -28,7 +27,7 @@ DocumentTestBuilder::DocumentTestBuilder()
     mDocumentString = System::String::Empty;
 }
 
-System::SharedPtr<DocumentTestBuilder> DocumentTestBuilder::WithDocument(System::SharedPtr<Aspose::Words::Document> doc)
+System::SharedPtr<DocumentTestBuilder> DocumentTestBuilder::WithDocument(System::SharedPtr<Document> doc)
 {
     mDocument = doc;
     return System::MakeSharedPtr(this);
@@ -52,24 +51,13 @@ System::SharedPtr<DocumentTestBuilder> DocumentTestBuilder::WithDocumentString(S
     return System::MakeSharedPtr(this);
 }
 
-System::SharedPtr<ApiExamples::TestData::TestClasses::DocumentTestClass> DocumentTestBuilder::Build()
+System::SharedPtr<DocumentTestClass> DocumentTestBuilder::Build()
 {
     return System::MakeObject<DocumentTestClass>(mDocument, mDocumentStream, mDocumentBytes, mDocumentString);
 }
 
 DocumentTestBuilder::~DocumentTestBuilder()
 {
-}
-
-System::Object::shared_members_type ApiExamples::TestData::TestBuilders::DocumentTestBuilder::GetSharedMembers()
-{
-    auto result = ApiExampleBase::GetSharedMembers();
-
-    result.Add("ApiExamples::TestData::TestBuilders::DocumentTestBuilder::mDocument", this->mDocument);
-    result.Add("ApiExamples::TestData::TestBuilders::DocumentTestBuilder::mDocumentStream", this->mDocumentStream);
-    result.Add("ApiExamples::TestData::TestBuilders::DocumentTestBuilder::mDocumentBytes", this->mDocumentBytes);
-
-    return result;
 }
 
 } // namespace TestBuilders
