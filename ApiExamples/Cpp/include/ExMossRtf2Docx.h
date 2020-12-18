@@ -5,20 +5,34 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
+#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <system/object.h>
+#include <system/shared_ptr.h>
 #include <system/string.h>
+
+using System::String;
+using System::SharedPtr;
+using System::ArrayPtr;
+using System::MakeObject;
+using System::MakeArray;
+
+using namespace Aspose::Words;
 
 namespace ApiExamples {
 
 class ExMossRtf2Docx
 {
-    typedef ExMossRtf2Docx ThisType;
-    
 public:
+    static void ConvertRtfToDocx(String inFileName, String outFileName)
+    {
+        // Load an RTF file into Aspose.Words.
+        auto doc = MakeObject<Document>(inFileName);
 
-    static void ConvertRtfToDocx(System::String inFileName, System::String outFileName);
-    
+        // Save the document in the OOXML format.
+        doc->Save(outFileName, SaveFormat::Docx);
+    }
 };
 
 } // namespace ApiExamples
-
-

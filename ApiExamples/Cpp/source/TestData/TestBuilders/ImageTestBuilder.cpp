@@ -11,6 +11,7 @@
 
 #include "TestData/TestClasses/ImageTestClass.h"
 
+
 using namespace ApiExamples::TestData::TestClasses;
 namespace ApiExamples {
 
@@ -18,14 +19,12 @@ namespace TestData {
 
 namespace TestBuilders {
 
-RTTI_INFO_IMPL_HASH(1733890263u, ::ApiExamples::TestData::TestBuilders::ImageTestBuilder, ThisTypeBaseTypesInfo);
-
 ImageTestBuilder::ImageTestBuilder()
 {
     //Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     System::Details::ThisProtector __local_self_ref(this);
     //---------------------------------------------------------Self Reference
-
+    
     mImage = System::Drawing::Image::FromFile(ImageDir + u"Transparent background logo.png");
     mImageStream = System::IO::Stream::Null;
     mImageBytes = System::MakeArray<uint8_t>(0, 0);
@@ -56,24 +55,13 @@ System::SharedPtr<ImageTestBuilder> ImageTestBuilder::WithImageString(System::St
     return System::MakeSharedPtr(this);
 }
 
-System::SharedPtr<ApiExamples::TestData::TestClasses::ImageTestClass> ImageTestBuilder::Build()
+System::SharedPtr<ImageTestClass> ImageTestBuilder::Build()
 {
     return System::MakeObject<ImageTestClass>(mImage, mImageStream, mImageBytes, mImageString);
 }
 
 ImageTestBuilder::~ImageTestBuilder()
 {
-}
-
-System::Object::shared_members_type ApiExamples::TestData::TestBuilders::ImageTestBuilder::GetSharedMembers()
-{
-    auto result = ApiExampleBase::GetSharedMembers();
-
-    result.Add("ApiExamples::TestData::TestBuilders::ImageTestBuilder::mImage", this->mImage);
-    result.Add("ApiExamples::TestData::TestBuilders::ImageTestBuilder::mImageStream", this->mImageStream);
-    result.Add("ApiExamples::TestData::TestBuilders::ImageTestBuilder::mImageBytes", this->mImageBytes);
-
-    return result;
 }
 
 } // namespace TestBuilders

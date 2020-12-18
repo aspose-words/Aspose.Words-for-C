@@ -11,8 +11,6 @@ namespace TestData {
 
 namespace TestClasses {
 
-RTTI_INFO_IMPL_HASH(2251799918u, ::ApiExamples::TestData::TestClasses::NumericTestClass, ThisTypeBaseTypesInfo);
-
 System::Nullable<int32_t> NumericTestClass::get_Value1()
 {
     return pr_Value1;
@@ -79,7 +77,7 @@ NumericTestClass::NumericTestClass(System::Nullable<int32_t> value1, double valu
     //Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     System::Details::ThisProtector __local_self_ref(this);
     //---------------------------------------------------------Self Reference
-
+    
     set_Value1(value1);
     set_Value2(value2);
     set_Value3(value3);
@@ -91,17 +89,6 @@ NumericTestClass::NumericTestClass(System::Nullable<int32_t> value1, double valu
 int32_t NumericTestClass::Sum(int32_t value1, int32_t value2)
 {
     int32_t result = value1 + value2;
-    return result;
-}
-
-System::Object::shared_members_type ApiExamples::TestData::TestClasses::NumericTestClass::GetSharedMembers()
-{
-    auto result = System::Object::GetSharedMembers();
-
-    result.Add("ApiExamples::TestData::TestClasses::NumericTestClass::pr_Value1", this->pr_Value1);
-    result.Add("ApiExamples::TestData::TestClasses::NumericTestClass::pr_Value4", this->pr_Value4);
-    result.Add("ApiExamples::TestData::TestClasses::NumericTestClass::pr_Date", this->pr_Date);
-
     return result;
 }
 

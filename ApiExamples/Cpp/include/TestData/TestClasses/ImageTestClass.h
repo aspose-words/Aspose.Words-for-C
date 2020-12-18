@@ -16,12 +16,6 @@ namespace TestClasses {
 
 class ImageTestClass : public System::Object
 {
-    typedef ImageTestClass ThisType;
-    typedef System::Object BaseType;
-    
-    typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-    RTTI_INFO_DECL();
-    
 public:
 
     System::SharedPtr<System::Drawing::Image> get_Image();
@@ -32,24 +26,19 @@ public:
     void set_ImageBytes(System::ArrayPtr<uint8_t> value);
     System::String get_ImageString();
     void set_ImageString(System::String value);
-    
-    ImageTestClass(System::SharedPtr<System::Drawing::Image> image, System::SharedPtr<System::IO::Stream> imageStream, System::ArrayPtr<uint8_t> imageBytes, System::String imageString);
-    
-protected:
 
-    System::Object::shared_members_type GetSharedMembers() override;
-    
+    ImageTestClass(System::SharedPtr<System::Drawing::Image> image, System::SharedPtr<System::IO::Stream> imageStream, System::ArrayPtr<uint8_t> imageBytes, System::String imageString);
+
 private:
 
     System::SharedPtr<System::Drawing::Image> pr_Image;
     System::SharedPtr<System::IO::Stream> pr_ImageStream;
     System::ArrayPtr<uint8_t> pr_ImageBytes;
     System::String pr_ImageString;
-    
+
 };
 
 } // namespace TestClasses
 } // namespace TestData
 } // namespace ApiExamples
-
 

@@ -53,7 +53,6 @@ namespace
     void IgnoreTextInsideDeleteRevisions()
     {
         // ExStart:IgnoreTextInsideDeleteRevisions
-        // Create new document.
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
         System::SharedPtr<DocumentBuilder> builder = System::MakeObject<DocumentBuilder>(doc);
 
@@ -62,13 +61,13 @@ namespace
         builder->Write(u"Text");
 
         // Remove first paragraph with tracking revisions.
-        doc->StartTrackRevisions(u"author", System::DateTime::get_Now());
+        doc->StartTrackRevisions(u"John Doe", System::DateTime::get_Now());
         doc->get_FirstSection()->get_Body()->get_FirstParagraph()->Remove();
         doc->StopTrackRevisions();
 
         System::SharedPtr<FindReplaceOptions> options = System::MakeObject<FindReplaceOptions>();
 
-        // Replace 'e' in document ignoring deleted text.
+        // Replace 'e' in document while deleted text.
         options->set_IgnoreDeleted(true);
         doc->get_Range()->Replace(System::MakeObject<Regex>(u"e"), u"*", options);
         std::cout << doc->GetText().ToUtf8String() << std::endl; // The output is: Deleted\rT*xt\f

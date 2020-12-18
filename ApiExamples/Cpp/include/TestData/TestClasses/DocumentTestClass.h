@@ -9,6 +9,8 @@
 
 namespace Aspose { namespace Words { class Document; } }
 
+using namespace Aspose::Words;
+
 namespace ApiExamples {
 
 namespace TestData {
@@ -17,12 +19,6 @@ namespace TestClasses {
 
 class DocumentTestClass : public System::Object
 {
-    typedef DocumentTestClass ThisType;
-    typedef System::Object BaseType;
-    
-    typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-    RTTI_INFO_DECL();
-    
 public:
 
     System::SharedPtr<Aspose::Words::Document> get_Document();
@@ -33,24 +29,19 @@ public:
     void set_DocumentBytes(System::ArrayPtr<uint8_t> value);
     System::String get_DocumentString();
     void set_DocumentString(System::String value);
-    
-    DocumentTestClass(System::SharedPtr<Aspose::Words::Document> doc, System::SharedPtr<System::IO::Stream> docStream, System::ArrayPtr<uint8_t> docBytes, System::String docString);
-    
-protected:
 
-    System::Object::shared_members_type GetSharedMembers() override;
-    
+    DocumentTestClass(System::SharedPtr<Aspose::Words::Document> doc, System::SharedPtr<System::IO::Stream> docStream, System::ArrayPtr<uint8_t> docBytes, System::String docString);
+
 private:
 
     System::SharedPtr<Aspose::Words::Document> pr_Document;
     System::SharedPtr<System::IO::Stream> pr_DocumentStream;
     System::ArrayPtr<uint8_t> pr_DocumentBytes;
     System::String pr_DocumentString;
-    
+
 };
 
 } // namespace TestClasses
 } // namespace TestData
 } // namespace ApiExamples
-
 

@@ -874,6 +874,9 @@
     <ClCompile Include="cpp\Loading-and-Saving\ConvertWordDocument.cpp">
       <Filter>cpp\Loading-and-Saving</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceInHeaderAndFooter.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">

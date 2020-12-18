@@ -13,12 +13,6 @@ namespace TestClasses {
 
 class NumericTestClass : public System::Object
 {
-    typedef NumericTestClass ThisType;
-    typedef System::Object BaseType;
-    
-    typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
-    RTTI_INFO_DECL();
-    
 public:
 
     System::Nullable<int32_t> get_Value1();
@@ -33,15 +27,11 @@ public:
     void set_Logical(bool value);
     System::DateTime get_Date();
     void set_Date(System::DateTime value);
-    
-    NumericTestClass(System::Nullable<int32_t> value1, double value2, int32_t value3, System::Nullable<int32_t> value4, bool logical, System::DateTime dateTime);
-    
-    int32_t Sum(int32_t value1, int32_t value2);
-    
-protected:
 
-    System::Object::shared_members_type GetSharedMembers() override;
-    
+    NumericTestClass(System::Nullable<int32_t> value1, double value2, int32_t value3, System::Nullable<int32_t> value4, bool logical, System::DateTime dateTime);
+
+    int32_t Sum(int32_t value1, int32_t value2);
+
 private:
 
     System::Nullable<int32_t> pr_Value1;
@@ -50,11 +40,10 @@ private:
     System::Nullable<int32_t> pr_Value4;
     bool pr_Logical;
     System::DateTime pr_Date;
-    
+
 };
 
 } // namespace TestClasses
 } // namespace TestData
 } // namespace ApiExamples
-
 

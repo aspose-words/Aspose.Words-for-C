@@ -9,6 +9,7 @@
 
 #include "TestData/TestClasses/ColorItemTestClass.h"
 
+
 using namespace ApiExamples::TestData::TestClasses;
 namespace ApiExamples {
 
@@ -16,14 +17,12 @@ namespace TestData {
 
 namespace TestBuilders {
 
-RTTI_INFO_IMPL_HASH(6816476u, ::ApiExamples::TestData::TestBuilders::ColorItemTestBuilder, ThisTypeBaseTypesInfo);
-
 ColorItemTestBuilder::ColorItemTestBuilder() : ColorCode(0), Value1(0), Value2(0), Value3(0)
 {
     //Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     System::Details::ThisProtector __local_self_ref(this);
     //---------------------------------------------------------Self Reference
-
+    
     Name = u"DefaultName";
     Color = System::Drawing::Color::get_Black();
     ColorCode = System::Drawing::Color::get_Black().ToArgb();
@@ -66,22 +65,13 @@ System::SharedPtr<ColorItemTestBuilder> ColorItemTestBuilder::WithColorCodeAndVa
     return System::MakeSharedPtr(this);
 }
 
-System::SharedPtr<ApiExamples::TestData::TestClasses::ColorItemTestClass> ColorItemTestBuilder::Build()
+System::SharedPtr<ColorItemTestClass> ColorItemTestBuilder::Build()
 {
     return System::MakeObject<ColorItemTestClass>(Name, Color, ColorCode, Value1, Value2, Value3);
 }
 
 ColorItemTestBuilder::~ColorItemTestBuilder()
 {
-}
-
-System::Object::shared_members_type ApiExamples::TestData::TestBuilders::ColorItemTestBuilder::GetSharedMembers()
-{
-    auto result = System::Object::GetSharedMembers();
-
-    result.Add("ApiExamples::TestData::TestBuilders::ColorItemTestBuilder::Color", this->Color);
-
-    return result;
 }
 
 } // namespace TestBuilders

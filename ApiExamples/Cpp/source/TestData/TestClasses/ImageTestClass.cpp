@@ -13,8 +13,6 @@ namespace TestData {
 
 namespace TestClasses {
 
-RTTI_INFO_IMPL_HASH(440842944u, ::ApiExamples::TestData::TestClasses::ImageTestClass, ThisTypeBaseTypesInfo);
-
 System::SharedPtr<System::Drawing::Image> ImageTestClass::get_Image()
 {
     return pr_Image;
@@ -60,22 +58,11 @@ ImageTestClass::ImageTestClass(System::SharedPtr<System::Drawing::Image> image, 
     //Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     System::Details::ThisProtector __local_self_ref(this);
     //---------------------------------------------------------Self Reference
-
+    
     set_Image(image);
     set_ImageStream(imageStream);
     set_ImageBytes(imageBytes);
     set_ImageString(imageString);
-}
-
-System::Object::shared_members_type ApiExamples::TestData::TestClasses::ImageTestClass::GetSharedMembers()
-{
-    auto result = System::Object::GetSharedMembers();
-
-    result.Add("ApiExamples::TestData::TestClasses::ImageTestClass::pr_Image", this->pr_Image);
-    result.Add("ApiExamples::TestData::TestClasses::ImageTestClass::pr_ImageStream", this->pr_ImageStream);
-    result.Add("ApiExamples::TestData::TestClasses::ImageTestClass::pr_ImageBytes", this->pr_ImageBytes);
-
-    return result;
 }
 
 } // namespace TestClasses

@@ -6,8 +6,6 @@ namespace TestData {
 
 namespace TestClasses {
 
-RTTI_INFO_IMPL_HASH(2046037350u, ::ApiExamples::TestData::TestClasses::ClientTestClass, ThisTypeBaseTypesInfo);
-
 System::String ClientTestClass::get_Name()
 {
     return pr_Name;

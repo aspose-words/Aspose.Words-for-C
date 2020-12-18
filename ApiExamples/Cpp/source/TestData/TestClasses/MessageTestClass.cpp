@@ -9,8 +9,6 @@ namespace TestData {
 
 namespace TestClasses {
 
-RTTI_INFO_IMPL_HASH(2167543284u, ::ApiExamples::TestData::TestClasses::MessageTestClass, ThisTypeBaseTypesInfo);
-
 System::String MessageTestClass::get_Name()
 {
     return pr_Name;
@@ -36,7 +34,7 @@ MessageTestClass::MessageTestClass(System::String name, System::String message)
     //Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     System::Details::ThisProtector __local_self_ref(this);
     //---------------------------------------------------------Self Reference
-
+    
     set_Name(name);
     set_Message(message);
 }

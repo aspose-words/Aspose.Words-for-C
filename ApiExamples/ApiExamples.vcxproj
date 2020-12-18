@@ -47,7 +47,9 @@
     <ClInclude Include="Cpp\source\ExBuildingBlocks.h" />
     <ClInclude Include="Cpp\source\ExBuildVersion.h" />
     <ClInclude Include="Cpp\source\ExCellFormat.h" />
+    <ClInclude Include="Cpp\source\ExCertificateHolder.h" />
     <ClInclude Include="Cpp\source\ExCharts.h" />
+    <ClInclude Include="Cpp\source\ExCleanupOptions.h" />
     <ClInclude Include="Cpp\source\ExComHelper.h" />
     <ClInclude Include="Cpp\source\ExComment.h" />
     <ClInclude Include="Cpp\source\ExCompatibilityOptions.h" />
@@ -76,7 +78,10 @@
     <ClInclude Include="Cpp\source\ExImageSaveOptions.h" />
     <ClInclude Include="Cpp\source\ExInline.h" />
     <ClInclude Include="Cpp\source\ExInlineStory.h" />
+    <ClInclude Include="Cpp\source\ExLayout.h" />
+    <ClInclude Include="Cpp\source\ExLicense.h" />
     <ClInclude Include="Cpp\source\ExLists.h" />
+    <ClInclude Include="Cpp\source\ExLoadOptions.h" />
     <ClInclude Include="Cpp\source\ExMailMerge.h" />
     <ClInclude Include="Cpp\source\ExMailMergeCustom.h" />
     <ClInclude Include="Cpp\source\ExMailMergeCustomNested.h" />
@@ -90,12 +95,14 @@
     <ClInclude Include="Cpp\source\ExParagraphFormat.h" />
     <ClInclude Include="Cpp\source\ExPclSaveOptions.h" />
     <ClInclude Include="Cpp\source\ExPdfSaveOptions.h" />
+    <ClInclude Include="Cpp\source\ExPlainTextDocument.h" />
     <ClInclude Include="Cpp\source\ExProperties.h" />
     <ClInclude Include="Cpp\source\ExPsSaveOptions.h" />
     <ClInclude Include="Cpp\source\ExRange.h" />
     <ClInclude Include="Cpp\source\ExRenameMergeFields.h" />
     <ClInclude Include="Cpp\source\ExRendering.h" />
     <ClInclude Include="Cpp\source\ExReplaceHyperlinks.h" />
+    <ClInclude Include="Cpp\source\ExRevision.h" />
     <ClInclude Include="Cpp\source\ExRtfLoadOptions.h" />
     <ClInclude Include="Cpp\source\ExRtfSaveOptions.h" />
     <ClInclude Include="Cpp\source\ExSavingCallback.h" />
@@ -108,11 +115,13 @@
     <ClInclude Include="Cpp\source\ExSvgSaveOptions.h" />
     <ClInclude Include="Cpp\source\ExTable.h" />
     <ClInclude Include="Cpp\source\ExTableColumn.h" />
+    <ClInclude Include="Cpp\source\ExTabStop.h" />
     <ClInclude Include="Cpp\source\ExThemes.h" />
     <ClInclude Include="Cpp\source\ExTxtLoadOptions.h" />
     <ClInclude Include="Cpp\source\ExTxtSaveOptions.h" />
     <ClInclude Include="Cpp\source\ExUtilityClasses.h" />
     <ClInclude Include="Cpp\source\ExVariableCollection.h" />
+    <ClInclude Include="Cpp\source\ExVbaProject.h" />
     <ClInclude Include="Cpp\source\ExViewOptions.h" />
     <ClInclude Include="Cpp\source\ExXamlFixedSaveOptions.h" />
     <ClInclude Include="Cpp\source\ExXamlFlowSaveOptions.h" />
@@ -138,7 +147,9 @@
     <ClCompile Include="Cpp\source\ExBuildingBlocks.cpp" />
     <ClCompile Include="Cpp\source\ExBuildVersion.cpp" />
     <ClCompile Include="Cpp\source\ExCellFormat.cpp" />
+    <ClCompile Include="Cpp\source\ExCertificateHolder.cpp" />
     <ClCompile Include="Cpp\source\ExCharts.cpp" />
+    <ClCompile Include="Cpp\source\ExCleanupOptions.cpp" />
     <ClCompile Include="Cpp\source\ExComHelper.cpp" />
     <ClCompile Include="Cpp\source\ExComment.cpp" />
     <ClCompile Include="Cpp\source\ExCompatibilityOptions.cpp" />
@@ -167,13 +178,15 @@
     <ClCompile Include="Cpp\source\ExImageSaveOptions.cpp" />
     <ClCompile Include="Cpp\source\ExInline.cpp" />
     <ClCompile Include="Cpp\source\ExInlineStory.cpp" />
+    <ClCompile Include="Cpp\source\ExLayout.cpp" />
+    <ClCompile Include="Cpp\source\ExLicense.cpp" />
     <ClCompile Include="Cpp\source\ExLists.cpp" />
+    <ClCompile Include="Cpp\source\ExLoadOptions.cpp" />
     <ClCompile Include="Cpp\source\ExMailMerge.cpp" />
     <ClCompile Include="Cpp\source\ExMailMergeCustom.cpp" />
     <ClCompile Include="Cpp\source\ExMailMergeCustomNested.cpp" />
     <ClCompile Include="Cpp\source\ExMailMergeEvent.cpp" />
     <ClCompile Include="Cpp\source\ExMossDoc2Pdf.cpp" />
-    <ClCompile Include="Cpp\source\ExMossRtf2Docx.cpp" />
     <ClCompile Include="Cpp\source\ExNode.cpp" />
     <ClCompile Include="Cpp\source\ExNodeImporter.cpp" />
     <ClCompile Include="Cpp\source\ExOdtSaveOptions.cpp" />
@@ -183,12 +196,14 @@
     <ClCompile Include="Cpp\source\ExParagraphFormat.cpp" />
     <ClCompile Include="Cpp\source\ExPclSaveOptions.cpp" />
     <ClCompile Include="Cpp\source\ExPdfSaveOptions.cpp" />
+    <ClCompile Include="Cpp\source\ExPlainTextDocument.cpp" />
     <ClCompile Include="Cpp\source\ExProperties.cpp" />
     <ClCompile Include="Cpp\source\ExPsSaveOptions.cpp" />
     <ClCompile Include="Cpp\source\ExRange.cpp" />
     <ClCompile Include="Cpp\source\ExRenameMergeFields.cpp" />
     <ClCompile Include="Cpp\source\ExRendering.cpp" />
     <ClCompile Include="Cpp\source\ExReplaceHyperlinks.cpp" />
+    <ClCompile Include="Cpp\source\ExRevision.cpp" />
     <ClCompile Include="Cpp\source\ExRtfLoadOptions.cpp" />
     <ClCompile Include="Cpp\source\ExRtfSaveOptions.cpp" />
     <ClCompile Include="Cpp\source\ExSavingCallback.cpp" />
@@ -201,11 +216,13 @@
     <ClCompile Include="Cpp\source\ExSvgSaveOptions.cpp" />
     <ClCompile Include="Cpp\source\ExTable.cpp" />
     <ClCompile Include="Cpp\source\ExTableColumn.cpp" />
+    <ClCompile Include="Cpp\source\ExTabStop.cpp" />
     <ClCompile Include="Cpp\source\ExThemes.cpp" />
     <ClCompile Include="Cpp\source\ExTxtLoadOptions.cpp" />
     <ClCompile Include="Cpp\source\ExTxtSaveOptions.cpp" />
     <ClCompile Include="Cpp\source\ExUtilityClasses.cpp" />
     <ClCompile Include="Cpp\source\ExVariableCollection.cpp" />
+    <ClCompile Include="Cpp\source\ExVbaProject.cpp" />
     <ClCompile Include="Cpp\source\ExViewOptions.cpp" />
     <ClCompile Include="Cpp\source\ExXamlFixedSaveOptions.cpp" />
     <ClCompile Include="Cpp\source\ExXamlFlowSaveOptions.cpp" />
@@ -225,6 +242,7 @@
     <ClCompile Include="Cpp\source\TestData\TestClasses\NumericTestClass.cpp" />
     <ClCompile Include="Cpp\source\TestData\TestClasses\SignPersonTestClass.cpp" />
     <ClCompile Include="Cpp\source\TestUtil.cpp" />
+    <ClCompile Include="Cpp\source\version_compatibility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -356,14 +374,14 @@
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\CodePorting.Native.Cs2Cpp.API.20.10.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('packages\CodePorting.Native.Cs2Cpp.API.20.10.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
-    <Import Project="packages\Aspose.Words.Cpp.20.10.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.20.10.0\build\native\aspose.words.cpp.targets')" />
+    <Import Project="packages\CodePorting.Native.Cs2Cpp.API.20.12.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('packages\CodePorting.Native.Cs2Cpp.API.20.12.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
+    <Import Project="packages\Aspose.Words.Cpp.20.12.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.20.12.0\build\native\aspose.words.cpp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\CodePorting.Native.Cs2Cpp.API.20.10.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CodePorting.Native.Cs2Cpp.API.20.10.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
-    <Error Condition="!Exists('packages\Aspose.Words.Cpp.20.10.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.20.10.0\build\native\aspose.words.cpp.targets'))" />
+    <Error Condition="!Exists('packages\CodePorting.Native.Cs2Cpp.API.20.12.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CodePorting.Native.Cs2Cpp.API.20.12.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
+    <Error Condition="!Exists('packages\Aspose.Words.Cpp.20.12.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.20.12.0\build\native\aspose.words.cpp.targets'))" />
   </Target>
 </Project>

@@ -12,8 +12,6 @@ namespace TestData {
 
 namespace TestClasses {
 
-RTTI_INFO_IMPL_HASH(1209971423u, ::ApiExamples::TestData::TestClasses::SignPersonTestClass, ThisTypeBaseTypesInfo);
-
 System::Guid SignPersonTestClass::get_PersonId()
 {
     return pr_PersonId;
@@ -59,21 +57,11 @@ SignPersonTestClass::SignPersonTestClass(System::Guid guid, System::String name,
     //Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     System::Details::ThisProtector __local_self_ref(this);
     //---------------------------------------------------------Self Reference
-
+    
     set_PersonId(guid);
     set_Name(name);
     set_Position(position);
     set_Image(image);
-}
-
-System::Object::shared_members_type ApiExamples::TestData::TestClasses::SignPersonTestClass::GetSharedMembers()
-{
-    auto result = System::Object::GetSharedMembers();
-
-    result.Add("ApiExamples::TestData::TestClasses::SignPersonTestClass::pr_PersonId", this->pr_PersonId);
-    result.Add("ApiExamples::TestData::TestClasses::SignPersonTestClass::pr_Image", this->pr_Image);
-
-    return result;
 }
 
 } // namespace TestClasses

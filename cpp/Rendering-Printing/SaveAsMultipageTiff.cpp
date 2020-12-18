@@ -4,6 +4,8 @@
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
+#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
+#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageRange.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;
@@ -26,8 +28,10 @@ void SaveAsMultipageTiff()
     // ExStart:SaveAsTIFFUsingImageSaveOptions
     // Create an ImageSaveOptions object to pass to the Save method
     System::SharedPtr<ImageSaveOptions> options = System::MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
-    options->set_PageIndex(0);
-    options->set_PageCount(2);
+
+	auto pageRange = System::MakeObject<PageRange>(0, 2);
+    auto pageSet = System::MakeObject<PageSet>( System::MakeArray<System::SharedPtr<PageRange>>({pageRange}));
+    options->set_PageSet(pageSet);
     options->set_TiffCompression(TiffCompression::Ccitt4);
     options->set_Resolution(160.0f);
     System::String outputPath = outputDataDir + u"SaveAsMultipageTiff.WithOptions.tiff";

@@ -8,14 +8,13 @@
 
 #include "TestData/TestClasses/NumericTestClass.h"
 
+
 using namespace ApiExamples::TestData::TestClasses;
 namespace ApiExamples {
 
 namespace TestData {
 
 namespace TestBuilders {
-
-RTTI_INFO_IMPL_HASH(577368709u, ::ApiExamples::TestData::TestBuilders::NumericTestBuilder, ThisTypeBaseTypesInfo);
 
 NumericTestBuilder::NumericTestBuilder() : mValue2(0), mValue3(0), mLogical(false)
 {
@@ -47,24 +46,13 @@ System::SharedPtr<NumericTestBuilder> NumericTestBuilder::WithValuesAndLogical(S
     return System::MakeSharedPtr(this);
 }
 
-System::SharedPtr<ApiExamples::TestData::TestClasses::NumericTestClass> NumericTestBuilder::Build()
+System::SharedPtr<NumericTestClass> NumericTestBuilder::Build()
 {
     return System::MakeObject<NumericTestClass>(mValue1, mValue2, mValue3, mValue4, mLogical, mDate);
 }
 
 NumericTestBuilder::~NumericTestBuilder()
 {
-}
-
-System::Object::shared_members_type ApiExamples::TestData::TestBuilders::NumericTestBuilder::GetSharedMembers()
-{
-    auto result = System::Object::GetSharedMembers();
-
-    result.Add("ApiExamples::TestData::TestBuilders::NumericTestBuilder::mValue1", this->mValue1);
-    result.Add("ApiExamples::TestData::TestBuilders::NumericTestBuilder::mValue4", this->mValue4);
-    result.Add("ApiExamples::TestData::TestBuilders::NumericTestBuilder::mDate", this->mDate);
-
-    return result;
 }
 
 } // namespace TestBuilders

@@ -7,14 +7,13 @@
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 
+
 using namespace Aspose::Words;
 namespace ApiExamples {
 
 namespace TestData {
 
 namespace TestClasses {
-
-RTTI_INFO_IMPL_HASH(1247856982u, ::ApiExamples::TestData::TestClasses::DocumentTestClass, ThisTypeBaseTypesInfo);
 
 System::SharedPtr<Aspose::Words::Document> DocumentTestClass::get_Document()
 {
@@ -61,22 +60,11 @@ DocumentTestClass::DocumentTestClass(System::SharedPtr<Aspose::Words::Document> 
     //Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     System::Details::ThisProtector __local_self_ref(this);
     //---------------------------------------------------------Self Reference
-
+    
     set_Document(doc);
     set_DocumentStream(docStream);
     set_DocumentBytes(docBytes);
     set_DocumentString(docString);
-}
-
-System::Object::shared_members_type ApiExamples::TestData::TestClasses::DocumentTestClass::GetSharedMembers()
-{
-    auto result = System::Object::GetSharedMembers();
-
-    result.Add("ApiExamples::TestData::TestClasses::DocumentTestClass::pr_Document", this->pr_Document);
-    result.Add("ApiExamples::TestData::TestClasses::DocumentTestClass::pr_DocumentStream", this->pr_DocumentStream);
-    result.Add("ApiExamples::TestData::TestClasses::DocumentTestClass::pr_DocumentBytes", this->pr_DocumentBytes);
-
-    return result;
 }
 
 } // namespace TestClasses

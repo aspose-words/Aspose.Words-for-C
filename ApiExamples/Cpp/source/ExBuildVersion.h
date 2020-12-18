@@ -5,18 +5,41 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
+#include <iostream>
+#include <Aspose.Words.Cpp/Model/Document/BuildVersionInfo.h>
+#include <system/test_tools/compare.h>
+#include <system/test_tools/test_tools.h>
+#include <system/text/regularexpressions/regex.h>
+#include <testing/test_predicates.h>
+
 #include "ApiExampleBase.h"
+
+using System::String;
+using System::SharedPtr;
+using System::ArrayPtr;
+using System::MakeObject;
+using System::MakeArray;
+
+using namespace Aspose::Words;
 
 namespace ApiExamples {
 
 class ExBuildVersion : public ApiExampleBase
 {
 public:
+    void PrintBuildVersionInfo()
+    {
+        //ExStart
+        //ExFor:BuildVersionInfo
+        //ExFor:BuildVersionInfo.Product
+        //ExFor:BuildVersionInfo.Version
+        //ExSummary:Shows how to display information about your installed version of Aspose.Words.
+        std::cout << "I am currently using " << BuildVersionInfo::get_Product() << ", version number " << BuildVersionInfo::get_Version() << "!" << std::endl;
+        //ExEnd
 
-    void PrintBuildVersionInfo();
-    
+        ASSERT_EQ(u"Aspose.Words for C++", BuildVersionInfo::get_Product());
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::IsMatch(BuildVersionInfo::get_Version(), u"[0-9]{2}.[0-9]{1,2}"));
+    }
 };
 
 } // namespace ApiExamples
-
-
