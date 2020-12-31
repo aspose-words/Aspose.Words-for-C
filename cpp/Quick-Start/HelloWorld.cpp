@@ -11,7 +11,7 @@ void HelloWorld()
     std::cout << "HelloWorld example started." << std::endl;
     // The path to the documents directory.
     System::String outputDataDir = GetOutputDataDir_QuickStart();
-
+    // ExStart:HelloWorld
     // Create a blank document.
     System::SharedPtr<Document> doc = System::MakeObject<Document>();
 
@@ -20,7 +20,7 @@ void HelloWorld()
 
     // Write a new paragraph in the document with the text "Hello World!"
     builder->Writeln(u"Hello World!");
-
+    // ExEnd:HelloWorld
     // Save the document in DOC format. The format to save as is inferred from the extension of the file name.
     // Aspose.Words supports saving any document in many more formats.
     System::String outputPath = outputDataDir + u"HelloWorld.docx";
