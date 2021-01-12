@@ -7,11 +7,13 @@
 #include <Aspose.Words.Cpp/Model/Lists/ListCollection.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListLevelAlignment.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListLevelCollection.h>
+#include <Aspose.Words.Cpp/Model/Lists/ListLevel.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListTemplate.h>
 #include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
 #include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
+#include <drawing/color.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Lists;

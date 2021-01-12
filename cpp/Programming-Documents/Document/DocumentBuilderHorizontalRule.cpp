@@ -6,6 +6,7 @@
 #include <Aspose.Words.Cpp/Model/Drawing/HorizontalRuleAlignment.h>
 #include <Aspose.Words.Cpp/Model/Drawing/HorizontalRuleFormat.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <drawing/color.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

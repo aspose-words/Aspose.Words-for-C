@@ -9,6 +9,7 @@
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Styles/ConditionalStyleCollection.h>
+#include <Aspose.Words.Cpp/Model/Styles/ConditionalStyle.h>
 #include <Aspose.Words.Cpp/Model/Styles/Style.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>

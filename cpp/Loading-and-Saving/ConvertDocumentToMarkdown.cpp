@@ -8,6 +8,7 @@
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <system/io/memory_stream.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

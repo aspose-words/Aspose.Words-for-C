@@ -3,6 +3,8 @@
 
 #include <system/enumerator_adapter.h>
 #include <system/environment.h>
+#include <drawing/rectangle_f.h>
+#include <drawing/bitmap.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutCollector.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutEntityType.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutEnumerator.h>

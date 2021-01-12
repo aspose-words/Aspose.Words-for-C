@@ -4,6 +4,7 @@
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/RW/Ole/VbaProject.h>
 #include <Aspose.Words.Cpp/RW/Ole/VbaReferenceCollection.h>
+#include <Aspose.Words.Cpp/RW/Ole/VbaReference.h>
 #include <system/enumerator_adapter.h>
 
 namespace

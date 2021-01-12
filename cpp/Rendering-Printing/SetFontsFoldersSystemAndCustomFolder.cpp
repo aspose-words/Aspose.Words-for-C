@@ -8,6 +8,7 @@
 #include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
+#include <system/collections/list.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fonts;

@@ -7,6 +7,7 @@
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionCollection.h>
+#include <Aspose.Words.Cpp/Model/Revisions/Revision.h>
 #include <Aspose.Words.Cpp/Model/Footnotes/FootnoteType.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>

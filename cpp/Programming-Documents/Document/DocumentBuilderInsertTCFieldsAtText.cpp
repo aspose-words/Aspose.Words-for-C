@@ -12,6 +12,9 @@
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <system/text/regularexpressions/regex.h>
+#include <system/text/regularexpressions/match.h>
+#include <drawing/color.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;

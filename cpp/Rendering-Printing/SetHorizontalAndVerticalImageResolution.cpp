@@ -3,6 +3,8 @@
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageRange.h>
+#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;
@@ -21,7 +23,9 @@ void SetHorizontalAndVerticalImageResolution()
     System::SharedPtr<ImageSaveOptions> options = System::MakeObject<ImageSaveOptions>(SaveFormat::Png);
     options->set_HorizontalResolution(300.0f);
     options->set_VerticalResolution(300.0f);
-    options->set_PageCount(1);
+
+    auto pageRange = System::MakeObject<PageRange>(0, 1);
+    options->set_PageSet(System::MakeObject<PageSet>(System::MakeArray<System::SharedPtr<PageRange>>({ pageRange })));
 
     doc->Save(outputDataDir + u"SetHorizontalAndVerticalImageResolution.png", options);
     // ExEnd:SetHorizontalAndVerticalImageResolution

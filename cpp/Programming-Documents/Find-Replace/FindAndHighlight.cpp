@@ -14,6 +14,9 @@
 #include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceOptions.h>
 #include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceDirection.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <drawing/color.h>
+#include <system/text/regularexpressions/regex.h>
+#include <system/text/regularexpressions/match.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;

@@ -9,6 +9,7 @@
 #include <Aspose.Words.Cpp/Model/Drawing/RelativeVerticalPosition.h>
 #include <Aspose.Words.Cpp/Model/Drawing/WrapType.h>
 #include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <drawing/image.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
