@@ -3,6 +3,7 @@
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
+#include <system/text/encoding.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;

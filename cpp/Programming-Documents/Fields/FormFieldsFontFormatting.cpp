@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 #include <system/string.h>
+#include <drawing/color.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/Fields/FormFields/FormFieldCollection.h>

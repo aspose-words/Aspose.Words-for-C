@@ -3,6 +3,7 @@
 #include "Common.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/diagnostics/debug.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Styles/Style.h>

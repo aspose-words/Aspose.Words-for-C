@@ -13,6 +13,7 @@
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 #include <Aspose.Words.Cpp/Model/Saving/MarkdownSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
 #include <system/enumerator_adapter.h>
 
 

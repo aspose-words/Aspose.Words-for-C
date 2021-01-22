@@ -4,7 +4,9 @@
 #include <system/convert.h>
 #include <system/enumerator_adapter.h>
 #include <drawing/image_converter.h>
+#include <drawing/image.h>
 #include <system/component_model/type_converter.h>
+#include <system/text/encoding.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkStart.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkEnd.h>
 #include <Aspose.Words.Cpp/Model/Document/FileFormatInfo.h>

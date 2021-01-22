@@ -19,6 +19,8 @@
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Sections/Story.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <system/text/regularexpressions/regex.h>
+#include <system/text/regularexpressions/match.h>
 
 using namespace System::Text::RegularExpressions;
 using namespace Aspose::Words;

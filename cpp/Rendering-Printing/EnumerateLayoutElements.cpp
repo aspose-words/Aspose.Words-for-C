@@ -4,6 +4,7 @@
 #include <drawing/bitmap.h>
 #include <drawing/pen.h>
 #include <drawing/pens.h>
+#include <drawing/graphics.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutEnumerator.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutEntityType.h>
 #include <Aspose.Words.Cpp/Model/Document/ConvertUtil.h>

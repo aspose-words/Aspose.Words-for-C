@@ -3,6 +3,7 @@
 
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <system/io/memory_stream.h>
 
 using namespace Aspose::Words;
 

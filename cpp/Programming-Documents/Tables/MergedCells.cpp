@@ -3,7 +3,10 @@
 
 #include <system/enumerator_adapter.h>
 #include <system/io/path.h>
+#include <system/io/memory_stream.h>
 #include <xml/xml_document.h>
+#include <drawing/point.h>
+#include <drawing/rectangle.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>

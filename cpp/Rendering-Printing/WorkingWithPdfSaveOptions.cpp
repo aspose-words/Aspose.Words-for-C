@@ -14,6 +14,7 @@ using namespace Aspose::Words::Saving;
 
 namespace
 {
+#if 0 //Deprecated
     void EscapeUriInPdf(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:EscapeUriInPdf
@@ -28,6 +29,7 @@ namespace
         // ExEnd:EscapeUriInPdf
         std::cout << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
+#endif 
 
     void ExportHeaderFooterBookmarks(System::String const &inputDataDir, System::String const &outputDataDir)
     {
@@ -231,7 +233,10 @@ void WorkingWithPdfSaveOptions()
     // The path to the documents directories.
     System::String inputDataDir = GetInputDataDir_RenderingAndPrinting();
     System::String outputDataDir = GetOutputDataDir_RenderingAndPrinting();
-    EscapeUriInPdf(inputDataDir, outputDataDir);
+
+    // Deprecated 
+    // EscapeUriInPdf(inputDataDir, outputDataDir);
+
     ExportHeaderFooterBookmarks(inputDataDir, outputDataDir);
     ScaleWmfFontsToMetafileSize(inputDataDir, outputDataDir);
     AdditionalTextPositioning(inputDataDir, outputDataDir);

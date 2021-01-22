@@ -2,6 +2,9 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/special_casts.h>
+#include <system/text/regularexpressions/regex.h>
+#include <system/text/regularexpressions/match.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
