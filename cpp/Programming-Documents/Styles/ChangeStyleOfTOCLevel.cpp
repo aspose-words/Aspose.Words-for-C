@@ -4,6 +4,7 @@
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
+#include <Aspose.Words.Cpp/Model/Styles/Style.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
 
 using namespace Aspose::Words;

@@ -4,6 +4,7 @@
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/MailMerge/IMailMergeDataSource.h>
 #include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
+#include <system/collections/list.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::MailMerging;

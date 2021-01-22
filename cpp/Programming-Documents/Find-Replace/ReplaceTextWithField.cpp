@@ -2,6 +2,8 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/text/regularexpressions/regex.h>
+#include <system/text/regularexpressions/match.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Fields/FieldType.h>

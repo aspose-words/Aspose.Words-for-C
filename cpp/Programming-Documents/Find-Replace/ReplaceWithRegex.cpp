@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "examples.h"
 
+#include <system/text/regularexpressions/regex.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>

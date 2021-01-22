@@ -13,6 +13,7 @@
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionType.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionGroupCollection.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionGroup.h>
+#include <Aspose.Words.Cpp/Model/Revisions/Revision.h>
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Text/ListFormat.h>

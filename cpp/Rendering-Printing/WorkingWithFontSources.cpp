@@ -2,6 +2,7 @@
 #include "examples.h"
 
 #include <system/enumerator_adapter.h>
+#include <system/collections/list.h>
 #include <Aspose.Words.Cpp/Model/Fonts/FolderFontSource.h>
 #include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
 #include <Aspose.Words.Cpp/Model/Fonts/FontSourceBase.h>

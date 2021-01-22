@@ -9,6 +9,9 @@
 #include <Aspose.Words.Cpp/Model/FindReplace/ReplacingArgs.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <system/text/regularexpressions/regex.h>
+#include <system/text/regularexpressions/match.h>
+#include <drawing/color.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;

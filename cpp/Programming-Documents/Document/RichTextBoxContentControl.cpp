@@ -11,6 +11,7 @@
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
+#include <drawing/color.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Markup;

@@ -55,12 +55,12 @@ namespace
         {
             // ExStart:ConvertDocumentToImage
             // Load the document from disk.
-            auto doc = System::MakeObject<Document>(inputDataDir + u"TestDoc.docx");
+            auto doc = System::MakeObject<Document>(inputDataDir + u"Rendering.doc");
 
             auto imageSaveOptions = System::MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);
 
             // Set the "PageSet" to "0" to convert only the first page of a document.
-            auto pageRange = System::MakeObject<PageRange>(0);
+            auto pageRange = System::MakeObject<PageRange>(0, 0);
             imageSaveOptions->set_PageSet(System::MakeObject<PageSet>(System::MakeArray<System::SharedPtr<PageRange>>({ pageRange })));
 
 
@@ -99,7 +99,9 @@ void ConvertWordDocument()
 
     ConvertDocumentToPNG(inputDataDir, outputDataDir);
     ConvertDocumentToImage(inputDataDir, outputDataDir);
+#if 0 // Aspose.Words for C++ doesn't support Pdf to Document conversation
     ConvertPdfToDocx(inputDataDir, outputDataDir);
+#endif
 
     std::cout << "ConvertWordDocument example finished." << std::endl;
 }

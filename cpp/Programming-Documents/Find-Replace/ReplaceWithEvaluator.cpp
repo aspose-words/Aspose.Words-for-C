@@ -7,6 +7,8 @@
 #include <Aspose.Words.Cpp/Model/FindReplace/IReplacingCallback.h>
 #include <Aspose.Words.Cpp/Model/FindReplace/FindReplaceOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <system/text/regularexpressions/regex.h>
+#include <system/text/regularexpressions/match.h>
 #include <cstdint>
 
 using namespace Aspose::Words;

@@ -2,9 +2,11 @@
 #include "examples.h"
 
 #include <drawing/bitmap.h>
+#include <drawing/graphics.h>
 #include <system/io/path.h>
 #include <system/io/file_mode.h>
 #include <system/io/file_stream.h>
+#include <system/io/memory_stream.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/FileFormatUtil.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Shape.h>

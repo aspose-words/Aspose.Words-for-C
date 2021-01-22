@@ -7,6 +7,7 @@
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <drawing/color.h>
 
 using namespace Aspose::Words;
 

@@ -22,6 +22,8 @@
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
 #include <system/io/file.h>
+#include <drawing/color.h>
+#include <system/io/memory_stream.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

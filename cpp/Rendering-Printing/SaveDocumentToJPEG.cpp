@@ -6,6 +6,8 @@
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
+#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageRange.h>
+#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
 
 using namespace System::IO;
 using namespace Aspose::Words;
@@ -37,8 +39,9 @@ void SaveDocumentToJPEG()
     // In this case we need to pass the desired SaveFormat to the ImageSaveOptions constructor 
     // to signal what type of image to save as.
     System::SharedPtr<ImageSaveOptions> options = System::MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
-    options->set_PageIndex(0);
-    options->set_PageCount(1);
+
+    auto pageRange = System::MakeObject<PageRange>(0, 1);
+    options->set_PageSet(System::MakeObject<PageSet>(System::MakeArray<System::SharedPtr<PageRange>>({ pageRange })));
     options->set_JpegQuality(80);
 
     System::String outputPath = outputDataDir + u"Rendering.JpegCustomOptions.jpg";

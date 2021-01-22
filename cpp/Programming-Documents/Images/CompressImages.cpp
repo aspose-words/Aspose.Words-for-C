@@ -13,6 +13,9 @@
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/ConvertUtil.h>
 #include <drawing/bitmap.h>
+#include <drawing/graphics.h>
+#include <system/io/memory_stream.h>
+#include <system/diagnostics/debug.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

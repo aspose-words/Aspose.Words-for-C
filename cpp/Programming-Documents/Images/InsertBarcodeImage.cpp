@@ -15,6 +15,7 @@
 #include <Aspose.Words.Cpp/Model/Text/TabLeader.h>
 #include <Aspose.Words.Cpp/Model/Text/TabStop.h>
 #include <Aspose.Words.Cpp/Model/Text/TabStopCollection.h>
+#include <drawing/image.h>
 
 using namespace Aspose::Words;
 

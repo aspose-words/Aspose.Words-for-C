@@ -35,25 +35,20 @@ void WorkWithSingleChartDataPoint()
     System::SharedPtr<ChartSeries> series1 = shape->get_Chart()->get_Series()->idx_get(1);
     System::SharedPtr<ChartDataPointCollection> dataPointCollection = series0->get_DataPoints();
 
-    // Add data point to the first and second point of the first series.
-    System::SharedPtr<ChartDataPoint> dataPoint00 = dataPointCollection->Add(0);
-    System::SharedPtr<ChartDataPoint> dataPoint01 = dataPointCollection->Add(1);
-
     // Set explosion.
-    dataPoint00->set_Explosion(50);
+    dataPointCollection->idx_get(0)->set_Explosion(50);
 
     // Set marker symbol and size.
-    dataPoint00->get_Marker()->set_Symbol(MarkerSymbol::Circle);
-    dataPoint00->get_Marker()->set_Size(15);
+    dataPointCollection->idx_get(0)->get_Marker()->set_Symbol(MarkerSymbol::Circle);
+    dataPointCollection->idx_get(0)->get_Marker()->set_Size(15);
 
-    dataPoint01->get_Marker()->set_Symbol(MarkerSymbol::Diamond);
-    dataPoint01->get_Marker()->set_Size(20);
+    dataPointCollection->idx_get(1)->get_Marker()->set_Symbol(MarkerSymbol::Diamond);
+    dataPointCollection->idx_get(1)->get_Marker()->set_Size(20);
 
     // Add data point to the third point of the second series.
-    System::SharedPtr<ChartDataPoint> dataPoint12 = series1->get_DataPoints()->Add(2);
-    dataPoint12->set_InvertIfNegative(true);
-    dataPoint12->get_Marker()->set_Symbol(MarkerSymbol::Star);
-    dataPoint12->get_Marker()->set_Size(20);
+    series1->get_DataPoints()->idx_get(2)->set_InvertIfNegative(true);
+    series1->get_DataPoints()->idx_get(2)->get_Marker()->set_Symbol(MarkerSymbol::Star);
+    series1->get_DataPoints()->idx_get(2)->get_Marker()->set_Size(20);
     System::String outputPath = outputDataDir + u"WorkWithSingleChartDataPoint.docx";
     doc->Save(outputPath);
     // ExEnd:WorkWithSingleChartDataPoint
