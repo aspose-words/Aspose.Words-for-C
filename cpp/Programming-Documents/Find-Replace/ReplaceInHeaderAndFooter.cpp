@@ -36,6 +36,10 @@ namespace
         // Replace text in the header of the Word document.
         header->get_Range()->Replace(u"Aspose.Words", u"Remove", options);
 
+        auto footer = headersFooters->idx_get(HeaderFooterType::FooterPrimary);
+        footer->get_Range()->Replace(u"(C) 2006 Aspose Pty Ltd.", u"Copyright (C) Aspose Pty Ltd.", options);
+
+
         // Save the Word document.
         doc->Save(outputDataDir + u"HeaderReplace.docx");
         // ExEnd:ReplaceTextInFooter

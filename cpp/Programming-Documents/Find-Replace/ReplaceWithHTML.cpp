@@ -16,6 +16,7 @@ using namespace System::Text::RegularExpressions;
 
 namespace
 {
+    // ExStart:ReplaceWithHtml
     class ReplaceWithHtmlEvaluator : public IReplacingCallback
     {
         typedef ReplaceWithHtmlEvaluator ThisType;
@@ -48,6 +49,23 @@ namespace
 
         return ReplaceAction::Replace;
     }
+
+    void ReplaceWithHtml(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        auto doc = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(doc);
+
+        builder->Writeln(u"Hello <CustomerName>,");
+
+        auto options = System::MakeObject<FindReplaceOptions>();
+        auto optionsReplacingCallback = System::MakeObject<ReplaceWithHtmlEvaluator>(options);
+
+        doc->get_Range()->Replace(new Regex(u" <CustomerName>,"), System::String::Empty, options);
+
+        // Save the modified document. 
+        doc->Save(outputDataDir + u"Range.ReplaceWithInsertHtml.doc");
+    }
+    // ExEnd:ReplaceWithHtml
 
     // ExStart:NumberHighlightCallback
     // Replace and Highlight Numbers.
