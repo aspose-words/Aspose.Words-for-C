@@ -44,6 +44,17 @@ namespace
         doc->Save(outputFileName);
     }
     // ExEnd:ConvertImageToPdf
+
+    void ConvertPdfToImage(System::String const& inputFileName, System::String const& outputFileName)
+    {
+        // ExStart:ConvertPdfToImage
+        // Load the document from disk.
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputFileName + u"TestDoc.pdf");
+
+        // Save the document in JPEG format.
+        doc->Save(outputFileName + u"SavePdf2Jpeg.jpeg");
+        // ExEnd:ConvertPdfToImage
+    }
 }
 
 void ImageToPdf()
@@ -59,5 +70,7 @@ void ImageToPdf()
     ConvertImageToPdf(inputDataDir + u"Test.tiff", outputDataDir + u"ImageToPdf_Tiff.pdf");
     ConvertImageToPdf(inputDataDir + u"Test.gif", outputDataDir + u"ImageToPdf_Gif.pdf");
     // ExEnd:ImageToPdf
+
+    ConvertPdfToImage(inputDataDir, outputDataDir);
     std::cout << "ImageToPdf example finished." << std::endl << std::endl;
 }
