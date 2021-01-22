@@ -72,6 +72,8 @@ void ImageToPdf()
     ConvertImageToPdf(inputDataDir + u"Test.gif", outputDataDir + u"ImageToPdf_Gif.pdf");
     // ExEnd:ImageToPdf
 
+#if 0 // Aspose.Words for C++ doesn't support Pdf To Doc
     ConvertPdfToImage(inputDataDir, outputDataDir);
+#endif
     std::cout << "ImageToPdf example finished." << std::endl << std::endl;
 }
