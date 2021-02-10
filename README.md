@@ -1,3 +1,4 @@
+![Nuget](https://img.shields.io/nuget/v/Aspose.Words.Cpp) ![Nuget](https://img.shields.io/nuget/dt/Aspose.Words.Cpp)
 # C++ API for Word Document Processing
 
 A standalone C++ class library to load, save, format & convert Microsoft Word® documents without Office Automation. [Aspose.Words for C++](https://products.aspose.com/words/cpp) is a powerful on premise API that can be used for a great range of document processing tasks such as; working with documents, sections, tables, bookmarks, fields, form fields, DocumentBuilder, ranges, comments, content control SDT, images, styles, charts, watermarks, lists, shapes, mail merge, rendering, printing and much more.
