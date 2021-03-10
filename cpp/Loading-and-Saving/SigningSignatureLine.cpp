@@ -10,14 +10,15 @@
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Drawing/SignatureLine.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Document/SignOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/DigitalSignatures/SignOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/SignatureLineOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DigitalSignatureUtil.h>
-#include <Aspose.Words.Cpp/Model/Document/CertificateHolder.h>
+#include <Aspose.Words.Cpp/Model/Document/DigitalSignatures/DigitalSignatureUtil.h>
+#include <Aspose.Words.Cpp/Model/Document/DigitalSignatures/CertificateHolder.h>
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::DigitalSignatures;
 using namespace Aspose::Words::Drawing;
 
 namespace
@@ -25,9 +26,9 @@ namespace
     void SimpleDocumentSigning(System::String inputDataDir, System::String outputDataDir)
     {
         // ExStart:SimpleDocumentSigning
-        System::SharedPtr<CertificateHolder> certHolder = CertificateHolder::Create(inputDataDir + u"signature.pfx", u"signature");
+        System::SharedPtr<DigitalSignatures::CertificateHolder> certHolder = DigitalSignatures::CertificateHolder::Create(inputDataDir + u"signature.pfx", u"signature");
         System::String outputPath = outputDataDir + u"SigningSignatureLine.SimpleDocumentSigning_out.docx";
-        DigitalSignatureUtil::Sign(inputDataDir + u"Document.Signed.docx", outputPath, certHolder);
+        DigitalSignatures::DigitalSignatureUtil::Sign(inputDataDir + u"Document.Signed.docx", outputPath, certHolder);
         
         // ExEnd:SimpleDocumentSigning
         std::cout << "Document is signed successfully. " << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
@@ -37,7 +38,7 @@ namespace
     {
         // ExStart:SigningEncryptedDocument
         
-        System::SharedPtr<SignOptions> signOptions = System::MakeObject<SignOptions>();
+        System::SharedPtr<DigitalSignatures::SignOptions> signOptions = System::MakeObject<DigitalSignatures::SignOptions>();
         signOptions->set_DecryptionPassword(u"decryptionPassword");
         
         System::SharedPtr<CertificateHolder> certHolder = CertificateHolder::Create(inputDataDir + u"signature.pfx", u"signature");

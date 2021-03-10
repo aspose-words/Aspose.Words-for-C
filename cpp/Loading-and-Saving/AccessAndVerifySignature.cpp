@@ -7,9 +7,9 @@
 #include <security/cryptography/x509_certificates/x509_certificate_2.h>
 #include <security/cryptography/x509_certificates/x500_distinguished_name.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DigitalSignatureCollection.h>
-#include <Aspose.Words.Cpp/Model/Document/DigitalSignature.h>
-#include <Aspose.Words.Cpp/Model/Document/CertificateHolder.h>
+#include <Aspose.Words.Cpp/Model/Document/DigitalSignatures/DigitalSignatureCollection.h>
+#include <Aspose.Words.Cpp/Model/Document/DigitalSignatures/DigitalSignature.h>
+#include <Aspose.Words.Cpp/Model/Document/DigitalSignatures/CertificateHolder.h>
 
 using namespace Aspose::Words;
 
