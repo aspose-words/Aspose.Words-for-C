@@ -207,6 +207,7 @@ void RenameMergeFields();
 void SpecifylocaleAtFieldlevel();
 void UpdateDocFields();
 void UseOfficeMathProperties();
+void FieldDisplayResults();
 
 // Find and Replace
 // =====================================================
@@ -220,6 +221,7 @@ void ReplaceWithRegex();
 void ReplaceWithString();
 void UsingLegacyOrder();
 void IgnoreText();
+void ReplaceTextInTable();
 
 // Hyperlink
 // =====================================================
@@ -237,7 +239,7 @@ void RemoveWatermark();
 // Joining and Appending
 // =====================================================
 void AppendDocumentManually();
-//void AppendWithImportFormatOptions(); // Source document is missing
+void AppendWithImportFormatOptions();
 void BaseDocument();
 void ConvertNumPageFields();
 void DifferentPageSetup();
@@ -281,7 +283,7 @@ void CloneSection();
 void CopySection();
 void DeleteHeaderFooterContent();
 void DeleteSectionContent();
-//void ModifyPageSetupInAllSectionsOfDocument(); // Source document is missing
+void ModifyPageSetupInAllSectionsOfDocument();
 void SectionsAccessByIndex();
 
 // Shapes
@@ -355,7 +357,7 @@ void ImageColorFilters();
 void LoadHyphenationDictionaryForLanguage();
 //void PrintProgressDialog(); // using of GUI
 //void Print_CachePrinterSettings; // using of GUI
-//void ReadActiveXControlProperties(); // doesn't work due to using of OleControl
+void ReadActiveXControlProperties(); // doesn't work due to using of OleControl
 void ReceiveNotificationsOfFont();
 void RenderShape();
 void ResourceSteamFontSource();

@@ -166,7 +166,7 @@ namespace
         std::cout << "Document converted to PNG successfully with 1 bit per pixel." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-    /*void ExposeThresholdControlForTiffBinarization(System::SharedPtr<Document> doc, System::String const &outputDataDir)
+    void ExposeThresholdControlForTiffBinarization(const System::SharedPtr<Document>& doc, System::String const &outputDataDir)
     {
         // ExStart:ExposeThresholdControlForTiffBinarization
         System::SharedPtr<ImageSaveOptions> options = System::MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -179,7 +179,7 @@ namespace
         doc->Save(outputPath, options);
         // ExEnd:ExposeThresholdControlForTiffBinarization
         std::cout << "Expose Threshold Control For Tiff Binarization." << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
-    }*/
+    }
 }
 
 void ImageColorFilters()
@@ -199,6 +199,7 @@ void ImageColorFilters()
     SaveBlackWhiteTIFFwithRLE(doc, outputDataDir, true); 
     ExposeThresholdControlForTiffBinarization(doc, outputDataDir); 
 #endif
+    ExposeThresholdControlForTiffBinarization(doc, outputDataDir); 
     SaveImageToOnebitPerPixel(doc, outputDataDir);
     std::cout << "ImageColorFilters example finished." << std::endl << std::endl;
 }

@@ -7,6 +7,7 @@
 #include <Aspose.Words.Cpp/Layout/Public/RevisionOptions.h>
 #include <Aspose.Words.Cpp/Layout/Public/ShowInBalloons.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListLabel.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListLevel.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionCollection.h>
@@ -19,6 +20,7 @@
 #include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
 
 
 using namespace Aspose::Words;
@@ -128,6 +130,105 @@ namespace
         }
         // ExEnd:AccessRevisedVersion
     }
+
+    void MoveNodeInTrackedDocument(const System::String& outputDataDir)
+    {
+        //ExStart:MoveNodeInTrackedDocument
+        auto doc = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(doc);
+        builder->Writeln(u"Paragraph 1");
+        builder->Writeln(u"Paragraph 2");
+        builder->Writeln(u"Paragraph 3");
+        builder->Writeln(u"Paragraph 4");
+        builder->Writeln(u"Paragraph 5");
+        builder->Writeln(u"Paragraph 6");
+        auto body = doc->get_FirstSection()->get_Body();
+        std::cout << "Paragraph count: " << body->get_Paragraphs()->get_Count() << '\n';
+
+        // Start tracking revisions.
+        doc->StartTrackRevisions(u"Author", System::DateTime(2020, 12, 23, 14, 0, 0));
+
+        // Generate revisions when moving a node from one location to another.
+        auto node = System::StaticCast<Node>(body->get_Paragraphs()->idx_get(3));
+        auto endNode = body->get_Paragraphs()->idx_get(5)->get_NextSibling();
+        auto referenceNode = System::StaticCast<Node>(body->get_Paragraphs()->idx_get(0));
+        while (node != endNode)
+        {
+            auto nextNode = node->get_NextSibling();
+            body->InsertBefore(node, referenceNode);
+            node = nextNode;
+        }
+
+        // Stop the process of tracking revisions.
+        doc->StopTrackRevisions();
+
+        // There are 3 additional paragraphs in the move-from range.
+        std::cout << "Paragraph count: " << body->get_Paragraphs()->get_Count() << '\n';
+        doc->Save(outputDataDir + u"WorkingWithRevisions.MoveNodeInTrackedDocument.docx");
+        //ExEnd:MoveNodeInTrackedDocument
+    }
+
+
+    void ShapeRevision(const System::String& inputDataDir)
+    {
+        //ExStart:ShapeRevision
+        auto doc = System::MakeObject<Document>();
+
+        // Insert an inline shape without tracking revisions.
+        std::cout << doc->get_TrackRevisions() << '\n';
+        auto shape = System::MakeObject<Drawing::Shape>(doc, Drawing::ShapeType::Cube);
+        shape->set_WrapType(Drawing::WrapType::Inline);
+        shape->set_Width(100.0);
+        shape->set_Height(100.0);
+        doc->get_FirstSection()->get_Body()->get_FirstParagraph()->AppendChild(shape);
+
+        // Start tracking revisions and then insert another shape.
+        doc->StartTrackRevisions(u"John Doe");
+        shape = System::MakeObject<Drawing::Shape>(doc, Drawing::ShapeType::Sun);
+        shape->set_WrapType(Drawing::WrapType::Inline);
+        shape->set_Width(100.0);
+        shape->set_Height(100.0);
+        doc->get_FirstSection()->get_Body()->get_FirstParagraph()->AppendChild(shape);
+
+        // Get the document's shape collection which includes just the two shapes we added.
+        std::vector<System::SharedPtr<Drawing::Shape>> shapes;
+        for (auto node : System::IterateOver<Drawing::Shape>(doc->GetChildNodes(NodeType::Shape, true)))
+        {
+            shapes.push_back(node);
+        }
+        std::cout << shapes.size() << '\n';
+
+        // Remove the first shape.
+        shapes[0]->Remove();
+
+        // Because we removed that shape while changes were being tracked, the shape counts as a delete revision.
+        std::cout << System::ObjectExt::ToString(shapes[0]->get_ShapeType()) << '\n'
+            << shapes[0]->get_IsDeleteRevision() << '\n';
+
+        // And we inserted another shape while tracking changes, so that shape will count as an insert revision.
+        std::cout << System::ObjectExt::ToString(shapes[1]->get_ShapeType()) << '\n'
+            << shapes[1]->get_IsInsertRevision() << '\n';
+
+        // The document has one shape that was moved, but shape move revisions will have two instances of that shape.
+        // One will be the shape at its arrival destination and the other will be the shape at its original location.
+        doc = System::MakeObject<Document>(inputDataDir + u"Revision shape.docx");
+
+        shapes.clear();
+        for (auto node : System::IterateOver<Drawing::Shape>(doc->GetChildNodes(NodeType::Shape, true)))
+        {
+            shapes.push_back(node);
+        }
+        std::cout << shapes.size() << '\n';
+
+        // This is the move to revision, also the shape at its arrival destination.
+        std::cout << shapes[0]->get_IsMoveFromRevision() << '\n'
+                  << shapes[0]->get_IsMoveToRevision() << '\n';
+
+        // This is the move from revision, which is the shape at its original location.
+        std::cout << shapes[1]->get_IsMoveFromRevision() << '\n'
+                  << shapes[1]->get_IsMoveToRevision() << '\n';
+        //ExEnd:ShapeRevision
+    }
 }
 
 void WorkingWithRevisions()
@@ -142,5 +243,7 @@ void WorkingWithRevisions()
     SetShowCommentsInPDF(inputDataDir, outputDataDir);
     GetRevisionGroupDetails(inputDataDir);
     AccessRevisedVersion(inputDataDir);
+    MoveNodeInTrackedDocument(outputDataDir);
+    ShapeRevision(inputDataDir);
     std::cout << "WorkingWithRevisions example finished." << std::endl << std::endl;
 }

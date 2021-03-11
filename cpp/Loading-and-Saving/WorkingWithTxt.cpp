@@ -2,11 +2,17 @@
 #include "examples.h"
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/TxtLeadingSpacesOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/TxtLoadOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/TxtTrailingSpacesOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/TxtListIndentation.h>
 #include <Aspose.Words.Cpp/Model/Saving/TxtSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/Body.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;
@@ -89,10 +95,35 @@ namespace
         std::cout << "Export text files with TxtExportHeadersFootersMode." << std::endl << "Files saved at " << outputDataDir.ToUtf8String() << std::endl;
     }
 
+
+    void DocumentTextDirection(System::String const &inputDataDir, System::String const &outputDataDir)
+    {
+        //ExStart:DocumentTextDirection
+        auto loadOptions = System::MakeObject<TxtLoadOptions>();
+        loadOptions->set_DocumentDirection(DocumentDirection::Auto);
+
+        auto doc = System::MakeObject<Document>(inputDataDir + u"Hebrew text.txt", loadOptions);
+
+        auto paragraph = doc->get_FirstSection()->get_Body()->get_FirstParagraph();
+        std::cout << paragraph->get_ParagraphFormat()->get_Bidi() << '\n';
+
+        doc->Save(outputDataDir + u"WorkingWithTxtLoadOptions.DocumentTextDirection.docx");
+        //ExEnd:DocumentTextDirection
+    }
+
     void UseTabCharacterPerLevelForListIndentation(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         //ExStart:UseTabCharacterPerLevelForListIndentation
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"input_document");
+        auto doc = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(doc);
+
+        // Create a list with three levels of indentation.
+        builder->get_ListFormat()->ApplyNumberDefault();
+        builder->Writeln(u"Item 1");
+        builder->get_ListFormat()->ListIndent();
+        builder->Writeln(u"Item 2");
+        builder->get_ListFormat()->ListIndent();
+        builder->Write(u"Item 3");
 
         System::SharedPtr<TxtSaveOptions> options = System::MakeObject<TxtSaveOptions>();
         options->get_ListIndentation()->set_Count(1);
@@ -105,7 +136,16 @@ namespace
     void UseSpaceCharacterPerLevelForListIndentation(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         //ExStart:UseSpaceCharacterPerLevelForListIndentation
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"input_document");
+        auto doc = System::MakeObject<Document>();
+        auto builder = System::MakeObject<DocumentBuilder>(doc);
+
+        // Create a list with three levels of indentation.
+        builder->get_ListFormat()->ApplyNumberDefault();
+        builder->Writeln(u"Item 1");
+        builder->get_ListFormat()->ListIndent();
+        builder->Writeln(u"Item 2");
+        builder->get_ListFormat()->ListIndent();
+        builder->Write(u"Item 3");
 
         System::SharedPtr<TxtSaveOptions> options = System::MakeObject<TxtSaveOptions>();
         options->get_ListIndentation()->set_Count(3);
@@ -141,11 +181,12 @@ void WorkingWithTxt()
     DetectNumberingWithWhitespaces(inputDataDir, outputDataDir);
     HandleSpacesOptions(inputDataDir, outputDataDir);
     ExportHeadersFootersMode(inputDataDir, outputDataDir);
+    DocumentTextDirection(inputDataDir, outputDataDir);
+
+    UseSpaceCharacterPerLevelForListIndentation(inputDataDir, outputDataDir);
+    UseTabCharacterPerLevelForListIndentation(inputDataDir, outputDataDir);
 #if 0
     // Source document is missing
-    DocumentTextDirection(inputDataDir, outputDataDir);
-    UseTabCharacterPerLevelForListIndentation(inputDataDir, outputDataDir);
-    UseSpaceCharacterPerLevelForListIndentation(inputDataDir, outputDataDir);
     DefaultLevelForListIndentation(inputDataDir, outputDataDir);
 #endif
     std::cout << "WorkingWithTxt example finished." << std::endl << std::endl;

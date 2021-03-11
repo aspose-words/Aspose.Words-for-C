@@ -11,6 +11,7 @@
 #include <Aspose.Words.Cpp/Model/FindReplace/ReplacingArgs.h>
 #include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
 #include <system/text/string_builder.h>
+#include <system/text/regularexpressions/regex.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Replacing;
