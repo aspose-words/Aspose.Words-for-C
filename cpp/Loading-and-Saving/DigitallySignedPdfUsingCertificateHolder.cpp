@@ -7,7 +7,7 @@
 #include <Aspose.Words.Cpp/Model/Saving/PdfDigitalSignatureDetails.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/CertificateHolder.h>
+#include <Aspose.Words.Cpp/Model/Document/DigitalSignatures/CertificateHolder.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Saving;
@@ -25,7 +25,7 @@ void DigitallySignedPdfUsingCertificateHolder()
     builder->Writeln(u"Test Signed PDF.");
 
     System::SharedPtr<PdfSaveOptions> options = System::MakeObject<PdfSaveOptions>();
-    options->set_DigitalSignatureDetails(System::MakeObject<PdfDigitalSignatureDetails>(CertificateHolder::Create(inputDataDir + u"CioSrv1.pfx", u"cinD96..arellA"), u"reason", u"location", System::DateTime::get_Now()));
+    options->set_DigitalSignatureDetails(System::MakeObject<PdfDigitalSignatureDetails>(DigitalSignatures::CertificateHolder::Create(inputDataDir + u"CioSrv1.pfx", u"cinD96..arellA"), u"reason", u"location", System::DateTime::get_Now()));
 
     System::String outputPath = outputDataDir + u"DigitallySignedPdfUsingCertificateHolder.pdf";
     doc->Save(outputPath, options);

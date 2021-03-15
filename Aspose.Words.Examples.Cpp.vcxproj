@@ -283,6 +283,7 @@
     <ClCompile Include="cpp\Programming-Documents\Document\PageNumbersOfNodes.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\ParagraphStyleSeparator.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\ProtectDocument.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Document\ReadActiveXControlProperties.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\RemoveBreaks.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\RemoveFooters.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Document\RemoveTOCFromDocument.cpp" />
@@ -312,6 +313,7 @@
     <ClCompile Include="cpp\Programming-Documents\Fields\ConvertFieldsInDocument.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\ConvertFieldsInParagraph.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\EvaluateIFCondition.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Fields\FieldDisplayResults.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FieldsHelper.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FieldUpdateCulture.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Fields\FormatFieldResult.cpp" />
@@ -341,6 +343,7 @@
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\IgnoreText.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceHtmlTextWithMetaCharacters.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceInHeaderAndFooter.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceTextInTable.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceTextWithField.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithEvaluator.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceWithHTML.cpp" />
@@ -355,6 +358,7 @@
     <ClCompile Include="cpp\Programming-Documents\Images\InsertBarcodeImage.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Images\RemoveWatermark.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Joining-Appending\AppendDocumentManually.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\AppendWithImportFormatOptions.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Joining-Appending\BaseDocument.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Joining-Appending\ConvertNumPageFields.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Joining-Appending\DifferentPageSetup.cpp" />
@@ -383,6 +387,7 @@
     <ClCompile Include="cpp\Programming-Documents\Sections\CopySection.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Sections\DeleteHeaderFooterContent.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Sections\DeleteSectionContent.cpp" />
+    <ClCompile Include="cpp\Programming-Documents\Sections\ModifyPageSetupInAllSectionsOfDocument.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Sections\SectionsAccessByIndex.cpp" />
     <ClCompile Include="cpp\Programming-Documents\Shapes\WorkingWithShapes.cpp" />
     <ClCompile Include="cpp\Programming-Documents\StructuredDocumentTag\WorkingWithSDT.cpp" />
@@ -466,14 +471,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="packages\CodePorting.Native.Cs2Cpp.API.21.2.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('packages\CodePorting.Native.Cs2Cpp.API.21.2.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
-    <Import Project="packages\Aspose.Words.Cpp.21.2.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.21.2.0\build\native\aspose.words.cpp.targets')" />
+    <Import Project="packages\CodePorting.Native.Cs2Cpp.API.21.3.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('packages\CodePorting.Native.Cs2Cpp.API.21.3.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
+    <Import Project="packages\Aspose.Words.Cpp.21.3.0\build\native\aspose.words.cpp.targets" Condition="Exists('packages\Aspose.Words.Cpp.21.3.0\build\native\aspose.words.cpp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\CodePorting.Native.Cs2Cpp.API.21.2.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CodePorting.Native.Cs2Cpp.API.21.2.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
-    <Error Condition="!Exists('packages\Aspose.Words.Cpp.21.2.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.21.2.0\build\native\aspose.words.cpp.targets'))" />
+    <Error Condition="!Exists('packages\CodePorting.Native.Cs2Cpp.API.21.3.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CodePorting.Native.Cs2Cpp.API.21.3.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
+    <Error Condition="!Exists('packages\Aspose.Words.Cpp.21.3.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Aspose.Words.Cpp.21.3.0\build\native\aspose.words.cpp.targets'))" />
   </Target>
 </Project>

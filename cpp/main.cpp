@@ -18,7 +18,7 @@ int main()
 #endif
 
     std::cout << "Examples:" << std::endl << "=====================================================" << std::endl << std::endl;
-
+    
     // =====================================================
     // =====================================================
     // Quick Start
@@ -255,6 +255,7 @@ int main()
     SpecifylocaleAtFieldlevel();
     UpdateDocFields();
     UseOfficeMathProperties();
+    FieldDisplayResults();
 
     // Find and Replace
     // =====================================================
@@ -268,6 +269,7 @@ int main()
     ReplaceWithString();
     UsingLegacyOrder();
     IgnoreText();
+    ReplaceTextInTable();
 
     // Hyperlink
     // =====================================================
@@ -285,10 +287,7 @@ int main()
     // Joining and Appending
     // =====================================================
     AppendDocumentManually();
-#if 0
-    // Source document is missing
     AppendWithImportFormatOptions(); 
-#endif
     BaseDocument();
     ConvertNumPageFields();
     DifferentPageSetup();
@@ -332,10 +331,7 @@ int main()
     CopySection();
     DeleteHeaderFooterContent();
     DeleteSectionContent();
-#if 0
-    // Source document is missing
     ModifyPageSetupInAllSectionsOfDocument(); 
-#endif
     SectionsAccessByIndex();
 
     // Shapes
@@ -402,9 +398,8 @@ int main()
     // GUI isn't supported
     PrintProgressDialog();
     Print_CachePrinterSettings;
-    // OleControl isn't supported
-    ReadActiveXControlProperties();
 #endif
+    ReadActiveXControlProperties();
     ReceiveNotificationsOfFont();
     RenderShape();
     ResourceSteamFontSource();

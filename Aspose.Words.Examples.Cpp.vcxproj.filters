@@ -877,6 +877,21 @@
     <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceInHeaderAndFooter.cpp">
       <Filter>cpp\Programming-Documents\Find-Replace</Filter>
     </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Find-Replace\ReplaceTextInTable.cpp">
+      <Filter>cpp\Programming-Documents\Find-Replace</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Joining-Appending\AppendWithImportFormatOptions.cpp">
+      <Filter>cpp\Programming-Documents\Joining-Appending</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Fields\FieldDisplayResults.cpp">
+      <Filter>cpp\Programming-Documents\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Document\ReadActiveXControlProperties.cpp">
+      <Filter>cpp\Programming-Documents\Document</Filter>
+    </ClCompile>
+    <ClCompile Include="cpp\Programming-Documents\Sections\ModifyPageSetupInAllSectionsOfDocument.cpp">
+      <Filter>cpp\Programming-Documents\Sections</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp\Programming-Documents\Fields\FieldsHelper.h">

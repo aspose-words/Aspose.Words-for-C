@@ -2,9 +2,9 @@
 #include "examples.h"
 #include <system/string.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/RW/Ole/VbaProject.h>
-#include <Aspose.Words.Cpp/RW/Ole/VbaReferenceCollection.h>
-#include <Aspose.Words.Cpp/RW/Ole/VbaReference.h>
+#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaProject.h>
+#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaReferenceCollection.h>
+#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaReference.h>
 #include <system/enumerator_adapter.h>
 
 namespace
@@ -45,15 +45,15 @@ System::String GetLibIdProjectPath(const System::String& libIdProject)
 /// <summary>
 /// Returns string representing LibId path of a specified reference. 
 /// </summary>
-System::String GetLibIdPath(const System::SharedPtr<Aspose::Words::VbaReference>& reference)
+System::String GetLibIdPath(const System::SharedPtr<Aspose::Words::Vba::VbaReference>& reference)
 {
 	switch (reference->get_Type())
 	{
-	case Aspose::Words::VbaReferenceType::Registered: 
-	case Aspose::Words::VbaReferenceType::Original: 
-	case Aspose::Words::VbaReferenceType::Control: 
+	case Aspose::Words::Vba::VbaReferenceType::Registered: 
+	case Aspose::Words::Vba::VbaReferenceType::Original: 
+	case Aspose::Words::Vba::VbaReferenceType::Control: 
 		return GetLibIdReferencePath(reference->get_LibId());
-	case Aspose::Words::VbaReferenceType::Project: 
+	case Aspose::Words::Vba::VbaReferenceType::Project: 
 		return GetLibIdProjectPath(reference->get_LibId());
 	default: ;
 		throw System::ArgumentOutOfRangeException();

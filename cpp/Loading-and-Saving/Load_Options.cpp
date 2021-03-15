@@ -236,7 +236,7 @@ namespace
         auto lo = System::MakeObject<LoadOptions>();
         lo->set_ConvertMetafilesToPng(true);
 
-        auto doc = System::MakeObject<Document>(inputDataDir + u"MetafileRendering.docx", lo);
+        auto doc = System::MakeObject<Document>(inputDataDir + u"ConvertMetafilesToPng.docx", lo);
         //ExEnd:ConvertMetafilesToPng
     }
 }
@@ -256,11 +256,7 @@ void Load_Options()
     LoadOptionsWarningCallback(inputDataDir);
     SetTempFolder(inputDataDir);
     LoadOptionsResourceLoadingCallback(inputDataDir, outputDataDir);
-
-#if 0
-    // Source document is missing
     ConvertMetafilesToPng(inputDataDir);
-#endif
 
     std::cout << "Load_Options example finished." << std::endl << std::endl;
 }

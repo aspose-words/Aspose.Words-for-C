@@ -118,7 +118,7 @@ namespace
     {
         // ExStart:PdfImageComppression
         // Open a document
-        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"SaveOptions.PdfImageCompression.rtf");
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Rendering.docx");
 
         System::SharedPtr<PdfSaveOptions> options = System::MakeObject<PdfSaveOptions>();
         options->set_ImageCompression(PdfImageCompression::Jpeg);
@@ -217,12 +217,12 @@ namespace
 	void SetImageInterpolation(System::String const& inputPath, System::String const& outputDataDir)
 	{
 		// ExStart:SetImageInterpolation
-        auto doc = System::MakeObject<Aspose::Words::Document>(inputPath);
+        auto doc = System::MakeObject<Aspose::Words::Document>(inputPath + u"Rendering.docx");
 
         System::SharedPtr<PdfSaveOptions> saveOptions = System::MakeObject<PdfSaveOptions>();
 		saveOptions->set_InterpolateImages(true);
 
-        doc->Save(outputDataDir, saveOptions);
+        doc->Save(outputDataDir + u"WorkingWithPdfSaveOptions.InterpolateImages.pdf", saveOptions);
 		// ExEnd:SetImageInterpolation
 	}
 }
@@ -242,10 +242,11 @@ void WorkingWithPdfSaveOptions()
     AdditionalTextPositioning(inputDataDir, outputDataDir);
     ConversionToPDF17(inputDataDir, outputDataDir);
     UpdateIfLastPrinted(inputDataDir, outputDataDir);
-    // PdfImageComppression(inputDataDir, outputDataDir);
+    PdfImageComppression(inputDataDir, outputDataDir);
     // ExportDocumentStructure(inputDataDir, outputDataDir);
     CustomPropertiesExport(inputDataDir, outputDataDir);
     SaveToPdfWithOutline(inputDataDir, outputDataDir);
     DownsamplingImages(inputDataDir, outputDataDir);
+    SetImageInterpolation(inputDataDir, outputDataDir);
     std::cout << "WorkingWithPdfSaveOptions example finished." << std::endl << std::endl;
 }

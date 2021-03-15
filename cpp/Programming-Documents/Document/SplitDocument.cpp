@@ -8,8 +8,11 @@
 
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/DocumentSplitCriteria.h>
 #include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
+
 
 #include "Loading-and-Saving/PageSplitter.h"
 
@@ -94,6 +97,31 @@ void SplitDocumentByPageRange(const System::String& inputDataDir, const System::
 	pageDoc->Save(outputDataDir + u"SplitDocumentByPageRangeOut.docx");
 	//ExEnd:SplitDocumentByPageRange
 }
+
+void SplitByHeadingsHtml(const System::String& inputDataDir, const System::String& outputDataDir)
+{
+    //ExStart:SplitDocumentByHeadingsHtml
+    auto doc = System::MakeObject<Document>(inputDataDir + u"Rendering.docx");
+	auto options = System::MakeObject<Saving::HtmlSaveOptions>();
+
+    // Split a document into smaller parts, in this instance split by heading.
+	options->set_DocumentSplitCriteria(Saving::DocumentSplitCriteria::HeadingParagraph);
+
+    doc->Save(outputDataDir + u"SplitDocument.ByHeadingsHtml.html", options);
+    //ExEnd:SplitDocumentByHeadingsHtml
+}
+
+void SplitBySectionsHtml(const System::String& inputDataDir, const System::String& outputDataDir)
+{
+    auto doc = System::MakeObject<Document>(inputDataDir + u"Rendering.docx");
+	auto options = System::MakeObject<Saving::HtmlSaveOptions>();
+
+    //ExStart:SplitDocumentBySectionsHtml
+	options->set_DocumentSplitCriteria(Saving::DocumentSplitCriteria::SectionBreak);
+    //ExEnd:SplitDocumentByHeadingsHtml
+
+    doc->Save(outputDataDir + u"SplitDocument.BySectionsHtml.html", options);
+}
 }
 
 
@@ -109,6 +137,8 @@ void SplitDocument()
 	SplitDocumentPageByPage(inputDataDir, outputDataDir);
 	MergeDocuments(inputDataDir, outputDataDir);
 	SplitDocumentByPageRange(inputDataDir, outputDataDir);
+	SplitByHeadingsHtml(inputDataDir, outputDataDir);
+	SplitBySectionsHtml(inputDataDir, outputDataDir);
 
     std::cout << "SplitDocument example finished.\n\n";
 }

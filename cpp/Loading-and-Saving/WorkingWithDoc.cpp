@@ -33,19 +33,19 @@ namespace
         std::cout << "The document is saved with AlwaysCompressMetafiles setting to false. " << std::endl << "File saved at " << outputPath.ToUtf8String() << std::endl;
     }
 
-        void SavePictureBullet(System::String const &inputDataDir, System::String const &outputDataDir)
-        {
-            //ExStart:SavePictureBullet
-			System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"in.doc");
-			System::SharedPtr<DocSaveOptions> saveOptions = System::DynamicCast<DocSaveOptions>(SaveOptions::CreateSaveOptions(SaveFormat::Doc));
+    void SavePictureBullet(System::String const& inputDataDir, System::String const& outputDataDir)
+    {
+        //ExStart:SavePictureBullet
+        System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"Image bullet points.docx");
+        System::SharedPtr<DocSaveOptions> saveOptions = System::DynamicCast<DocSaveOptions>(SaveOptions::CreateSaveOptions(SaveFormat::Doc));
 
-            saveOptions->set_SavePictureBullet(false);
-            auto outputPath = outputDataDir + u"out.doc";
-            doc->Save(outputPath, saveOptions);
-            //ExEnd:SavePictureBullet
+        saveOptions->set_SavePictureBullet(false);
+        auto outputPath = outputDataDir + u"WorkingWithDocSaveOptions.DoNotSavePictureBullet.docx";
+        doc->Save(outputPath, saveOptions);
+        //ExEnd:SavePictureBullet
 
-            std::cout << "The document is saved with SavePictureBullet setting to false. \nFile saved at " << outputPath.ToUtf8String() << '\n';
-        }
+        std::cout << "The document is saved with SavePictureBullet setting to false. \nFile saved at " << outputPath.ToUtf8String() << '\n';
+    }
 }
 
 void WorkingWithDoc()
@@ -57,9 +57,6 @@ void WorkingWithDoc()
 
     EncryptDocumentWithPassword(inputDataDir, outputDataDir);
     AlwaysCompressMetafiles(inputDataDir, outputDataDir);
-#if 0
-    // Source document is missing
-    SavePictureBullet(dataDir);
-#endif
+    SavePictureBullet(inputDataDir, outputDataDir);
     std::cout << "WorkingWithTxt example finished." << std::endl << std::endl;
 }

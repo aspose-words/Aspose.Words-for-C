@@ -64,7 +64,7 @@ namespace
         // ExEnd:CompareForEqual
     }
 
-    void CompareDocumentWithCompareOptions(System::String const &inputDataDir)
+    void CompareDocumentWithCompareOptions(System::String const &inputDataDir, System::String const &outputDataDir)
     {
         // ExStart:CompareDocumentWithCompareOptions
         // Create the original document
@@ -148,7 +148,7 @@ namespace
         compareOptions->set_Target(Aspose::Words::ComparisonTargetType::New);
 
         docOriginal->Compare(docEdited, u"John Doe", System::DateTime::get_Now(), compareOptions);
-        docOriginal->Save(inputDataDir + u"Document.CompareOptions.docx");
+        docOriginal->Save(outputDataDir + u"Document.CompareOptions.docx");
         // ExEnd:CompareDocumentWithCompareOptions
     }
 
@@ -185,7 +185,7 @@ namespace
         // ExEnd:SpecifyComparisonGranularity
     }
 
-    void CompareWhenDocumentHasRevisions(System::String const& inputDataDir)
+    void CompareWhenDocumentHasRevisions(System::String const& inputDataDir, System::String const& outputDataDir)
     {
         // ExStart:CompareWhenDocumentHasRevisions
         // The source document doc1
@@ -217,8 +217,8 @@ namespace
         doc1->get_Revisions()->AcceptAll();
 
         // doc1, when saved, now resembles doc2
-        doc1->Save(inputDataDir + u"Document.Compare.docx");
-        doc1 = System::MakeObject<Document>(inputDataDir + u"Document.Compare.docx");
+        doc1->Save(outputDataDir + u"Document.Compare.docx");
+        doc1 = System::MakeObject<Document>(outputDataDir + u"Document.Compare.docx");
 
         if (doc1->get_Revisions()->get_Count() == 0)
             std::cout << "Documents are equal" << std::endl;
@@ -372,10 +372,10 @@ void CompareDocument()
     System::String outputDataDir = GetOutputDataDir_WorkingWithDocument();
     NormalComparison(inputDataDir);
     CompareForEqual(inputDataDir);
-    CompareDocumentWithCompareOptions(inputDataDir);
+    CompareDocumentWithCompareOptions(inputDataDir, outputDataDir);
     CompareDocumentWithComparisonTarget(inputDataDir);
     SpecifyComparisonGranularity(inputDataDir);
-    CompareWhenDocumentHasRevisions(inputDataDir);
+    CompareWhenDocumentHasRevisions(inputDataDir, outputDataDir);
 	ApplyCompareTwoDocuments(inputDataDir, outputDataDir);
 	SetAdvancedComparingProperties(inputDataDir, outputDataDir);
     std::cout << "CompareDocument example finished." << std::endl << std::endl;

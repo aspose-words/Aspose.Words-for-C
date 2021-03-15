@@ -8,9 +8,9 @@
 #include <Aspose.Words.Cpp/Model/Document/TxtTrailingSpacesOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/TxtListIndentation.h>
 #include <Aspose.Words.Cpp/Model/Saving/TxtSaveOptions.h>
-#include <Aspose.Words.Cpp/RW/Ole/VbaModuleCollection.h>
-#include <Aspose.Words.Cpp/RW/Ole/VbaModule.h>
-#include <Aspose.Words.Cpp/RW/Ole/VbaProject.h>
+#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaModuleCollection.h>
+#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaModule.h>
+#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaProject.h>
 
 
 using namespace Aspose::Words;
@@ -24,14 +24,14 @@ namespace
         System::SharedPtr<Document> doc = System::MakeObject<Document>();
 
         // Create a new VBA project.
-        System::SharedPtr<VbaProject> project = System::MakeObject<VbaProject>();
+        System::SharedPtr<Vba::VbaProject> project = System::MakeObject<Vba::VbaProject>();
         project->set_Name(u"AsposeProject");
         doc->set_VbaProject(project);
 
         // Create a new module and specify a macro source code.
-        System::SharedPtr<VbaModule> vbModule = System::MakeObject<VbaModule>();
+        System::SharedPtr<Vba::VbaModule> vbModule = System::MakeObject<Vba::VbaModule>();
         vbModule->set_Name(u"AsposeModule");
-        vbModule->set_Type(VbaModuleType::ProceduralModule);
+        vbModule->set_Type(Vba::VbaModuleType::ProceduralModule);
         vbModule->set_SourceCode(u"New source code");
 
         // Add module to the VBA project.
@@ -48,7 +48,7 @@ namespace
 
         if (doc->get_VbaProject() != nullptr)
         {
-            for (System::SharedPtr<VbaModule> module : System::IterateOver(doc->get_VbaProject()->get_Modules()))
+            for (System::SharedPtr<Vba::VbaModule> module : System::IterateOver(doc->get_VbaProject()->get_Modules()))
             {
                 std::cout << module->get_SourceCode().ToUtf8String() << std::endl;
             }
@@ -60,7 +60,7 @@ namespace
     {
         //ExStart:ModifyVbaMacros
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"VbaProject.docm");
-        System::SharedPtr<VbaProject> project = doc->get_VbaProject();
+        System::SharedPtr<Vba::VbaProject> project = doc->get_VbaProject();
 
         System::String newSourceCode = u"Test change source code";
 
@@ -73,7 +73,7 @@ namespace
     {
         //ExStart:CloneVbaProject
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"VbaProject.docm");
-        System::SharedPtr<VbaProject> project = doc->get_VbaProject();
+        System::SharedPtr<Vba::VbaProject> project = doc->get_VbaProject();
 
         System::SharedPtr<Document> destDoc = System::MakeObject<Document>();
 
@@ -88,14 +88,14 @@ namespace
     {
         //ExStart:CloneVbaModule
         System::SharedPtr<Document> doc = System::MakeObject<Document>(inputDataDir + u"VbaProject.docm");
-        System::SharedPtr<VbaProject> project = doc->get_VbaProject();
+        System::SharedPtr<Vba::VbaProject> project = doc->get_VbaProject();
 
         System::SharedPtr<Document> destDoc = System::MakeObject<Document>();
 
-        destDoc->set_VbaProject(System::MakeObject<VbaProject>());
+        destDoc->set_VbaProject(System::MakeObject<Vba::VbaProject>());
 
         // Clone a single module.
-        System::SharedPtr<VbaModule> copyModule = doc->get_VbaProject()->get_Modules()->idx_get(u"AsposeModule")->Clone();
+        System::SharedPtr<Vba::VbaModule> copyModule = doc->get_VbaProject()->get_Modules()->idx_get(u"AsposeModule")->Clone();
         destDoc->get_VbaProject()->get_Modules()->Add(copyModule);
 
         destDoc->Save(outputDataDir + u"WorkingWithVbaMacros.CloneVbaModule.docm");
