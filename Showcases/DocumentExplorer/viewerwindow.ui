@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ViewerWindow</class>
+ <widget class="QMainWindow" name="ViewerWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Aspose.Words Rendering Demo</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/resources/images/ViewerWindow.ico</normaloff>:/resources/images/ViewerWindow.ico</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="styleSheet">
+       <string notr="true">QScrollArea { background-color: rgb(144, 153, 174) }</string>
+      </property>
+      <property name="widgetResizable">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>798</width>
+         <height>522</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QWidget { background-color: rgb(144, 153, 174) }</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="topMargin">
+         <number>50</number>
+        </property>
+        <property name="bottomMargin">
+         <number>50</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="imageLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="actionPreviousPage"/>
+    <addaction name="actionNextPage"/>
+    <addaction name="separator"/>
+    <addaction name="actionFirstPage"/>
+    <addaction name="actionLastPage"/>
+    <addaction name="separator"/>
+    <addaction name="actionGoToPage"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_View"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>24</width>
+     <height>24</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionOpen"/>
+   <addaction name="separator"/>
+   <addaction name="actionFirstPage"/>
+   <addaction name="actionPreviousPage"/>
+   <addaction name="actionNextPage"/>
+   <addaction name="actionLastPage"/>
+   <addaction name="actionGoToPage"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/actions/OpenDocument.png</normaloff>:/resources/images/actions/OpenDocument.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open a document</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="actionPreviousPage">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/actions/PreviousPage.png</normaloff>:/resources/images/actions/PreviousPage.png</iconset>
+   </property>
+   <property name="text">
+    <string>P&amp;revious Page</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to previous page</string>
+   </property>
+  </action>
+  <action name="actionNextPage">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/actions/NextPage.png</normaloff>:/resources/images/actions/NextPage.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Next Page</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to next page</string>
+   </property>
+  </action>
+  <action name="actionFirstPage">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/actions/FirstPage.png</normaloff>:/resources/images/actions/FirstPage.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;First Page</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to first page</string>
+   </property>
+  </action>
+  <action name="actionLastPage">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/actions/LastPage.png</normaloff>:/resources/images/actions/LastPage.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Last Page</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to last page</string>
+   </property>
+  </action>
+  <action name="actionGoToPage">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/images/actions/GoToPage.png</normaloff>:/resources/images/actions/GoToPage.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Go to Page...</string>
+   </property>
+   <property name="toolTip">
+    <string>Go to specified page</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
