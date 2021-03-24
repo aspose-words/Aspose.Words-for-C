@@ -7,3 +7,4 @@ Data/**/*_out.*
 Data/**/*_out
 Data.Output/
 *.vcxproj.user
+*.lic
