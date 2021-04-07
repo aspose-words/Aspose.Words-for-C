@@ -7,3 +7,10 @@ Data/**/*_out.*
 Data/**/*_out
 Data.Output/
 *.vcxproj.user
+Examples/Data/Artifacts
+Examples/DocsExamples/build
+Examples/DocsExamples/DocsExamples.sln.DotSettings.user
+Examples/ApiExamples/build
+/build
+*.lic
+*.user

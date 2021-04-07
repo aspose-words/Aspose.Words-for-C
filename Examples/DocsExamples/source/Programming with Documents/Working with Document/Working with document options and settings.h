@@ -1,0 +1,172 @@
+﻿#pragma once
+
+#include <cstdint>
+#include <iostream>
+#include <Aspose.Words.Cpp/Model/Document/CleanupOptions.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Loading/EditingLanguage.h>
+#include <Aspose.Words.Cpp/Model/Loading/LanguagePreferences.h>
+#include <Aspose.Words.Cpp/Model/Loading/LoadOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Model/Sections/Orientation.h>
+#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/Model/Sections/PaperSize.h>
+#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionLayoutMode.h>
+#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Model/Settings/ViewOptions.h>
+#include <Aspose.Words.Cpp/Model/Settings/ViewType.h>
+#include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Font.h>
+
+#include "DocsExamplesBase.h"
+
+using System::ArrayPtr;
+using System::MakeArray;
+using System::MakeObject;
+using System::SharedPtr;
+using System::String;
+
+using namespace Aspose::Words;
+using namespace Aspose::Words::Loading;
+using namespace Aspose::Words::Settings;
+
+namespace DocsExamples { namespace Programming_with_Documents { namespace Working_with_Document {
+
+class WorkingWithDocumentOptionsAndSettings : public DocsExamplesBase
+{
+public:
+    void OptimizeForMsWord()
+    {
+        //ExStart:OptimizeForMsWord
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+
+        doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2016);
+
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.OptimizeForMsWord.docx");
+        //ExEnd:OptimizeForMsWord
+    }
+
+    void ShowGrammaticalAndSpellingErrors()
+    {
+        //ExStart:ShowGrammaticalAndSpellingErrors
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+
+        doc->set_ShowGrammaticalErrors(true);
+        doc->set_ShowSpellingErrors(true);
+
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.ShowGrammaticalAndSpellingErrors.docx");
+        //ExEnd:ShowGrammaticalAndSpellingErrors
+    }
+
+    void CleanupUnusedStylesAndLists()
+    {
+        //ExStart:CleanupUnusedStylesandLists
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+
+        auto cleanupOptions = MakeObject<CleanupOptions>();
+        cleanupOptions->set_UnusedLists(false);
+        cleanupOptions->set_UnusedStyles(true);
+
+        // Cleans unused styles and lists from the document depending on given CleanupOptions.
+        doc->Cleanup(cleanupOptions);
+
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.CleanupUnusedStylesAndLists.docx");
+        //ExEnd:CleanupUnusedStylesandLists
+    }
+
+    void CleanupDuplicateStyle()
+    {
+        //ExStart:CleanupDuplicateStyle
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+
+        auto options = MakeObject<CleanupOptions>();
+        options->set_DuplicateStyle(true);
+
+        // Cleans duplicate styles from the document.
+        doc->Cleanup(options);
+
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.CleanupDuplicateStyle.docx");
+        //ExEnd:CleanupDuplicateStyle
+    }
+
+    void ViewOptions()
+    {
+        //ExStart:SetViewOption
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+
+        doc->get_ViewOptions()->set_ViewType(ViewType::PageLayout);
+        doc->get_ViewOptions()->set_ZoomPercent(50);
+
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.ViewOptions.docx");
+        //ExEnd:SetViewOption
+    }
+
+    void DocumentPageSetup()
+    {
+        //ExStart:DocumentPageSetup
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+
+        // Set the layout mode for a section allowing to define the document grid behavior.
+        // Note that the Document Grid tab becomes visible in the Page Setup dialog of MS Word
+        // if any Asian language is defined as editing language.
+        doc->get_FirstSection()->get_PageSetup()->set_LayoutMode(SectionLayoutMode::Grid);
+        doc->get_FirstSection()->get_PageSetup()->set_CharactersPerLine(30);
+        doc->get_FirstSection()->get_PageSetup()->set_LinesPerPage(10);
+
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.DocumentPageSetup.docx");
+        //ExEnd:DocumentPageSetup
+    }
+
+    void AddJapaneseAsEditingLanguages()
+    {
+        //ExStart:AddJapaneseAsEditinglanguages
+        auto loadOptions = MakeObject<LoadOptions>();
+
+        // Set language preferences that will be used when document is loading.
+        loadOptions->get_LanguagePreferences()->AddEditingLanguage(EditingLanguage::Japanese);
+        //ExEnd:AddJapaneseAsEditinglanguages
+
+        auto doc = MakeObject<Document>(MyDir + u"No default editing language.docx", loadOptions);
+
+        int localeIdFarEast = doc->get_Styles()->get_DefaultFont()->get_LocaleIdFarEast();
+        std::cout << (localeIdFarEast == (int)EditingLanguage::Japanese
+                          ? String(u"The document either has no any FarEast language set in defaults or it was set to Japanese originally.")
+                          : String(u"The document default FarEast language was set to another than Japanese language originally, so it is not overridden."))
+                  << std::endl;
+    }
+
+    void SetRussianAsDefaultEditingLanguage()
+    {
+        //ExStart:SetRussianAsDefaultEditingLanguage
+        auto loadOptions = MakeObject<LoadOptions>();
+        loadOptions->get_LanguagePreferences()->set_DefaultEditingLanguage(EditingLanguage::Russian);
+
+        auto doc = MakeObject<Document>(MyDir + u"No default editing language.docx", loadOptions);
+
+        int localeId = doc->get_Styles()->get_DefaultFont()->get_LocaleId();
+        std::cout << (localeId == (int)EditingLanguage::Russian
+                          ? String(u"The document either has no any language set in defaults or it was set to Russian originally.")
+                          : String(u"The document default language was set to another than Russian language originally, so it is not overridden."))
+                  << std::endl;
+        //ExEnd:SetRussianAsDefaultEditingLanguage
+    }
+
+    void SetPageSetupAndSectionFormatting()
+    {
+        //ExStart:DocumentBuilderSetPageSetupAndSectionFormatting
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->get_PageSetup()->set_Orientation(Orientation::Landscape);
+        builder->get_PageSetup()->set_LeftMargin(50);
+        builder->get_PageSetup()->set_PaperSize(PaperSize::Paper10x14);
+
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.SetPageSetupAndSectionFormatting.docx");
+        //ExEnd:DocumentBuilderSetPageSetupAndSectionFormatting
+    }
+};
+
+}}} // namespace DocsExamples::Programming_with_Documents::Working_with_Document
