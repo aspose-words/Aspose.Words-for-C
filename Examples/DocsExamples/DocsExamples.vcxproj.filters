@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="gtest">
+      <UniqueIdentifier>{2495910d-ca6f-4c63-8424-d6000f8dc7d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gtest\gtest">
+      <UniqueIdentifier>{3c040116-3775-468a-a76c-48b781da18d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gtest\gmock">
+      <UniqueIdentifier>{4dddc9dc-c052-4f97-a09d-fa36157d1a0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File Formats and Conversions">
+      <UniqueIdentifier>{3995bb76-dacf-45ac-be4a-eadc2bfdc935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LINQ Reporting Engine">
+      <UniqueIdentifier>{c42b0673-f40a-4e0b-b48b-eacb0250c664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mail Merge and Reporting">
+      <UniqueIdentifier>{bdc28a2c-ac68-4d39-8895-73e3feb33585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Programming with Documents">
+      <UniqueIdentifier>{23cb6b68-b310-48d7-a1a7-29f6d829744f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering and Printing">
+      <UniqueIdentifier>{86fa8f33-bf8d-479e-8ca8-96424c1f2a5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File Formats and Conversions\Load Options">
+      <UniqueIdentifier>{b5ef1de9-2975-4875-8427-368108a99a6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File Formats and Conversions\Save Options">
+      <UniqueIdentifier>{cccc9f9c-dc4f-47d3-9eae-f775d771e1a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LINQ Reporting Engine\Data Source Objects">
+      <UniqueIdentifier>{9b3ff0ec-1f83-4bb9-a6cd-382e63d462e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mail Merge and Reporting\Complex examples and helpers">
+      <UniqueIdentifier>{0d03ae23-af10-4f90-8154-d43a7f015638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Programming with Documents\Protect or Encrypt Document">
+      <UniqueIdentifier>{03c46655-59b5-4981-bd55-2ce1c9202993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Programming with Documents\Split Documents">
+      <UniqueIdentifier>{5df12d09-d500-4887-982a-0f1a35ca9fc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Programming with Documents\Working with Document">
+      <UniqueIdentifier>{f2f0ab0a-510f-4c12-84f8-67b8c55d9b21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Programming with Documents\Working with Tables">
+      <UniqueIdentifier>{e1a08109-a3bf-414a-986f-78e6105bd92b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Programming with Documents\Working with Graphic Elements">
+      <UniqueIdentifier>{e6397c9d-f1a2-4cdf-880b-0cf10ab56e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Programming with Documents\Contents Managment">
+      <UniqueIdentifier>{c01d4b85-abbd-42c0-bf3c-bb9c48829389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering and Printing\Complex examples and helpers">
+      <UniqueIdentifier>{885fdfe3-c196-446d-96a9-1f6d7af3f5f3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\gtest\gmock_main.cc">
+      <Filter>gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gtest\gmock-gtest-all.cc">
+      <Filter>gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DocsExamplesBase.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Working with FileFormat.cpp">
+      <Filter>File Formats and Conversions</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.cpp">
+      <Filter>File Formats and Conversions\Load Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Load Options\Working with LoadOptions.cpp">
+      <Filter>File Formats and Conversions\Load Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Load Options\Working with RtfLoadOptions.cpp">
+      <Filter>File Formats and Conversions\Load Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Load Options\Working with TxtLoadOptions.cpp">
+      <Filter>File Formats and Conversions\Load Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with DocSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with HtmlFixedSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with HtmlSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with ImageSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with MarkdownSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with OdtSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with OoxmlSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with PclSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with PdfSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with RtfSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with TxtSaveOptions.cpp">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Common.cpp">
+      <Filter>LINQ Reporting Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\BackgroundColor.cpp">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Client.cpp">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Contract.cpp">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Manager.cpp">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\PointData.cpp">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Sender.cpp">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mail Merge and Reporting\Base operations.cpp">
+      <Filter>Mail Merge and Reporting</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mail Merge and Reporting\Working with CleanupOptions.cpp">
+      <Filter>Mail Merge and Reporting</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mail Merge and Reporting\Working with Fields.cpp">
+      <Filter>Mail Merge and Reporting</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.cpp">
+      <Filter>Mail Merge and Reporting\Complex examples and helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Apply License.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Comments.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Fields.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Fonts.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Footnote and Endnote.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with FormFields.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Headers and Footers.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Hyphenation.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with List.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Markdown.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Node.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with OleObjects and ActiveX.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Revisions.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Section.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Textboxes.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with VBA Macros.cpp">
+      <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Charts.cpp">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Images.cpp">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with OfficeMath.cpp">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Shapes.cpp">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Watermark.cpp">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Tables\Working with table styles and formatting.cpp">
+      <Filter>Programming with Documents\Working with Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Tables\Working with Tables.cpp">
+      <Filter>Programming with Documents\Working with Tables</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Document\Add content using DocumentBuilder.cpp">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Document\Clone and combine documents.cpp">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Document\Compare documents.cpp">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Document\Document formatting.cpp">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Document\Join and append documents.cpp">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Document\Working with document options and settings.cpp">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Document\Working with document properties.cpp">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Document\Working with WebExtension.cpp">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Split Documents\Page splitter.cpp">
+      <Filter>Programming with Documents\Split Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Split Documents\Split document.cpp">
+      <Filter>Programming with Documents\Split Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Split Documents\Split into html pages.cpp">
+      <Filter>Programming with Documents\Split Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Protect or Encrypt Document\Document protection.cpp">
+      <Filter>Programming with Documents\Protect or Encrypt Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Protect or Encrypt Document\Working with DigitalSinatures.cpp">
+      <Filter>Programming with Documents\Protect or Encrypt Document</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Extract content.cpp">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Find and replace.cpp">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Remove content.cpp">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with Bookmarks.cpp">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with Ranges.cpp">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with SDT.cpp">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with styles and themes.cpp">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with table of content.cpp">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Rendering and Printing\Rendering shapes.cpp">
+      <Filter>Rendering and Printing</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Rendering and Printing\Complex examples and helpers\Enumerate layout elements.cpp">
+      <Filter>Rendering and Printing\Complex examples and helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Rendering and Printing\Complex examples and helpers\Page layout helper.cpp">
+      <Filter>Rendering and Printing\Complex examples and helpers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\gtest\gtest\gtest.h">
+      <Filter>gtest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gtest\gtest\gtest-skip-exception.h">
+      <Filter>gtest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gtest\gtest\gtest-spi.h">
+      <Filter>gtest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gtest\gmock\gmock.h">
+      <Filter>gtest\gmock</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DocsExamplesBase.h" />
+    <ClInclude Include="source\File Formats and Conversions\Base conversions.h">
+      <Filter>File Formats and Conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Working with FileFormat.h">
+      <Filter>File Formats and Conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.h">
+      <Filter>File Formats and Conversions\Load Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Load Options\Working with LoadOptions.h">
+      <Filter>File Formats and Conversions\Load Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Load Options\Working with RtfLoadOptions.h">
+      <Filter>File Formats and Conversions\Load Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Load Options\Working with TxtLoadOptions.h">
+      <Filter>File Formats and Conversions\Load Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with DocSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with HtmlFixedSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with HtmlSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with ImageSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with MarkdownSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with OdtSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with OoxmlSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with PclSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with PdfSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with RtfSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with TxtSaveOptions.h">
+      <Filter>File Formats and Conversions\Save Options</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Common.h">
+      <Filter>LINQ Reporting Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\BackgroundColor.h">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Client.h">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Contract.h">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Manager.h">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\PointData.h">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Sender.h">
+      <Filter>LINQ Reporting Engine\Data Source Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Mail Merge and Reporting\Base operations.h">
+      <Filter>Mail Merge and Reporting</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Mail Merge and Reporting\Working with CleanupOptions.h">
+      <Filter>Mail Merge and Reporting</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Mail Merge and Reporting\Working with Fields.h">
+      <Filter>Mail Merge and Reporting</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Mail Merge and Reporting\Working with XML data.h">
+      <Filter>Mail Merge and Reporting</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Mail Merge and Reporting\Complex examples and helpers\Create MailMerge template.h">
+      <Filter>Mail Merge and Reporting\Complex examples and helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.h">
+      <Filter>Mail Merge and Reporting\Complex examples and helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Apply License.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Comments.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Fields.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Fonts.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Footnote and Endnote.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with FormFields.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Headers and Footers.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Hyphenation.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with List.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Markdown.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Node.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with OleObjects and ActiveX.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Revisions.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Section.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Textboxes.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with VBA Macros.h">
+      <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Charts.h">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Images.h">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with OfficeMath.h">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Shapes.h">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Watermark.h">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Tables\Working with table styles and formatting.h">
+      <Filter>Programming with Documents\Working with Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Tables\Working with Tables.h">
+      <Filter>Programming with Documents\Working with Tables</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Document\Add content using DocumentBuilder.h">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Document\Clone and combine documents.h">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Document\Compare documents.h">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Document\Document formatting.h">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Document\Join and append documents.h">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Document\Working with document options and settings.h">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Document\Working with document properties.h">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Document\Working with WebExtension.h">
+      <Filter>Programming with Documents\Working with Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Split Documents\Page splitter.h">
+      <Filter>Programming with Documents\Split Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Split Documents\Split document.h">
+      <Filter>Programming with Documents\Split Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Split Documents\Split into html pages.h">
+      <Filter>Programming with Documents\Split Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Protect or Encrypt Document\Document protection.h">
+      <Filter>Programming with Documents\Protect or Encrypt Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Protect or Encrypt Document\Working with DigitalSinatures.h">
+      <Filter>Programming with Documents\Protect or Encrypt Document</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Extract content helper.h">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Extract content.h">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Find and replace.h">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Remove content.h">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with Bookmarks.h">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with Ranges.h">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with SDT.h">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with styles and themes.h">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with table of content.h">
+      <Filter>Programming with Documents\Contents Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Rendering and Printing\Rendering shapes.h">
+      <Filter>Rendering and Printing</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Rendering and Printing\Complex examples and helpers\Enumerate layout elements.h">
+      <Filter>Rendering and Printing\Complex examples and helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Rendering and Printing\Complex examples and helpers\Page layout helper.h">
+      <Filter>Rendering and Printing\Complex examples and helpers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

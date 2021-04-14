@@ -1,0 +1,699 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="gtest">
+      <UniqueIdentifier>{4ebd02ca-cfcb-439a-af6b-b8cdadda5a4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gtest\gtest">
+      <UniqueIdentifier>{72890ea8-9d2a-4c37-8113-905c5a5c982c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gtest\gmock">
+      <UniqueIdentifier>{94532a7f-12b9-404a-810a-53a673a1f073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{ca34c6a6-9927-4645-b146-26040d39ba31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\TestData">
+      <UniqueIdentifier>{2ed33383-7b85-4649-a519-45c416cf2405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\TestData\TestBuilders">
+      <UniqueIdentifier>{efab5ef8-3362-4049-9faa-8f848abc53f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\TestData\TestClasses">
+      <UniqueIdentifier>{68ab1a2b-4499-4408-b7dd-134216ddf794}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\gtest\gmock_main.cc">
+      <Filter>gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gtest\gmock-gtest-all.cc">
+      <Filter>gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestClasses\ClientTestClass.cpp">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestClasses\ColorItemTestClass.cpp">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestClasses\ContractTestClass.cpp">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestClasses\DocumentTestClass.cpp">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestClasses\ImageTestClass.cpp">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestClasses\ManagerTestClass.cpp">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestClasses\MessageTestClass.cpp">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestClasses\NumericTestClass.cpp">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestBuilders\ColorItemTestBuilder.cpp">
+      <Filter>source\TestData\TestBuilders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestBuilders\DocumentTestBuilder.cpp">
+      <Filter>source\TestData\TestBuilders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestBuilders\ImageTestBuilder.cpp">
+      <Filter>source\TestData\TestBuilders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\TestBuilders\NumericTestBuilder.cpp">
+      <Filter>source\TestData\TestBuilders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestData\Common.cpp">
+      <Filter>source\TestData</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ApiExampleBase.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DocumentHelper.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExAbsolutePositionTab.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExBookmarks.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExBookmarksOutlineLevelCollection.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExBorder.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExBorderCollection.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExBuildingBlocks.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExBuildVersion.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExCellFormat.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExCertificateHolder.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExCharts.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExCleanupOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExComment.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExCompatibilityOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExControlChar.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDigitalSignatureCollection.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDigitalSignatureUtil.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDocSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDocument.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDocumentBase.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDocumentBuilder.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDocumentBuilderImages.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDocumentProperties.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDocumentVisitor.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExDrawing.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExEditableRange.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExField.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExFieldOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExFile.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExFont.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExFontSettings.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExFormFields.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExHeaderFooter.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExHtmlFixedSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExHtmlLoadOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExHtmlSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExHyphenation.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExImage.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExImageSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExInline.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExInlineStory.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExLayout.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExLicense.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExLists.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExLoadOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExMailMerge.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExMailMergeCustom.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExMailMergeCustomNested.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExMailMergeEvent.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExMisc.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExMossDoc2Pdf.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExNode.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExNodeImporter.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExOdtSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExOoxmlSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExPageSetup.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExParagraph.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExParagraphFormat.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExPclSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExPdfSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExPlainTextDocument.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExPrinting.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExPsSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExRange.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExRenameMergeFields.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExRendering.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExReplaceHyperlinks.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExRevision.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExRtfLoadOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExRtfSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExSavingCallback.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExSection.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExShape.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExSignDocumentCustom.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExSmartTag.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExStructuredDocumentTag.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExStyles.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExSvgSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExTable.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExTableColumn.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExTabStop.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExThemes.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExTxtLoadOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExTxtSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExUtilityClasses.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExVariableCollection.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExVbaProject.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExViewOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExWordML2003SaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExXamlFixedSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExXamlFlowSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ExXpsSaveOptions.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TestUtil.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\gtest\gtest\gtest.h">
+      <Filter>gtest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gtest\gtest\gtest-skip-exception.h">
+      <Filter>gtest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gtest\gtest\gtest-spi.h">
+      <Filter>gtest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gtest\gmock\gmock.h">
+      <Filter>gtest\gmock</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestClasses\ClientTestClass.h">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestClasses\ColorItemTestClass.h">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestClasses\ContractTestClass.h">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestClasses\DocumentTestClass.h">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestClasses\ImageTestClass.h">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestClasses\ManagerTestClass.h">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestClasses\MessageTestClass.h">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestClasses\NumericTestClass.h">
+      <Filter>source\TestData\TestClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestBuilders\ColorItemTestBuilder.h">
+      <Filter>source\TestData\TestBuilders</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestBuilders\DocumentTestBuilder.h">
+      <Filter>source\TestData\TestBuilders</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestBuilders\ImageTestBuilder.h">
+      <Filter>source\TestData\TestBuilders</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\TestBuilders\NumericTestBuilder.h">
+      <Filter>source\TestData\TestBuilders</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestData\Common.h">
+      <Filter>source\TestData</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ApiExampleBase.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DocumentHelper.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExAbsolutePositionTab.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExBookmarks.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExBookmarksOutlineLevelCollection.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExBorder.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExBorderCollection.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExBuildingBlocks.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExBuildVersion.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExCellFormat.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExCertificateHolder.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExCharts.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExCleanupOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExComment.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExCompatibilityOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExControlChar.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDigitalSignatureCollection.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDigitalSignatureUtil.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDocSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDocument.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDocumentBase.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDocumentBuilder.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDocumentBuilderImages.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDocumentProperties.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDocumentVisitor.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExDrawing.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExEditableRange.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExField.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExFieldOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExFile.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExFont.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExFontSettings.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExFormFields.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExHeaderFooter.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExHtmlFixedSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExHtmlLoadOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExHtmlSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExHyphenation.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExImage.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExImageSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExInline.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExInlineStory.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExLayout.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExLicense.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExLists.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExLoadOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExMailMerge.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExMailMergeCustom.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExMailMergeCustomNested.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExMailMergeEvent.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExMisc.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExMossDoc2Pdf.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExMossRtf2Docx.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExNode.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExNodeImporter.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExOdtSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExOoxmlSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExPageSetup.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExParagraph.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExParagraphFormat.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExPclSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExPdfSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExPlainTextDocument.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExPrinting.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExPsSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExRange.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExRenameMergeFields.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExRendering.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExReplaceHyperlinks.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExRevision.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExRtfLoadOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExRtfSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExSavingCallback.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExSection.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExShape.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExSignDocumentCustom.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExSmartTag.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExStructuredDocumentTag.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExStyles.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExSvgSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExTable.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExTableColumn.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExTabStop.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExThemes.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExTxtLoadOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExTxtSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExUtilityClasses.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExVariableCollection.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExVbaProject.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExViewOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExWordML2003SaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExXamlFixedSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExXamlFlowSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ExXpsSaveOptions.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TestUtil.h">
+      <Filter>source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
+  </ItemGroup>
+</Project>

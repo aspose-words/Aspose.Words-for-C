@@ -1,0 +1,32 @@
+﻿#pragma once
+
+#include <cstdint>
+#include <drawing/image.h>
+#include <system/array.h>
+#include <system/io/stream.h>
+
+namespace ApiExamples { namespace TestData { namespace TestClasses {
+
+class ImageTestClass : public System::Object
+{
+public:
+    System::SharedPtr<System::Drawing::Image> get_Image();
+    void set_Image(System::SharedPtr<System::Drawing::Image> value);
+    System::SharedPtr<System::IO::Stream> get_ImageStream();
+    void set_ImageStream(System::SharedPtr<System::IO::Stream> value);
+    System::ArrayPtr<uint8_t> get_ImageBytes();
+    void set_ImageBytes(System::ArrayPtr<uint8_t> value);
+    System::String get_ImageString();
+    void set_ImageString(System::String value);
+
+    ImageTestClass(System::SharedPtr<System::Drawing::Image> image, System::SharedPtr<System::IO::Stream> imageStream, System::ArrayPtr<uint8_t> imageBytes,
+                   System::String imageString);
+
+private:
+    System::SharedPtr<System::Drawing::Image> pr_Image;
+    System::SharedPtr<System::IO::Stream> pr_ImageStream;
+    System::ArrayPtr<uint8_t> pr_ImageBytes;
+    System::String pr_ImageString;
+};
+
+}}} // namespace ApiExamples::TestData::TestClasses

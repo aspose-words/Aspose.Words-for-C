@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{980B8D48-6B65-4F76-B3B3-7FB34E72AF0B}</ProjectGuid>
+    <RootNamespace>DocsExamples</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <EnableUnitySupport>true</EnableUnitySupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <IncludeInUnityFile>true</IncludeInUnityFile>
+      <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <IncludeInUnityFile>true</IncludeInUnityFile>
+      <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <IncludeInUnityFile>true</IncludeInUnityFile>
+      <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <IncludeInUnityFile>true</IncludeInUnityFile>
+      <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\gtest\gmock-gtest-all.cc">
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</IncludeInUnityFile>
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</IncludeInUnityFile>
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</IncludeInUnityFile>
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</IncludeInUnityFile>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="..\gtest\gmock_main.cc">
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</IncludeInUnityFile>
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</IncludeInUnityFile>
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</IncludeInUnityFile>
+      <IncludeInUnityFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</IncludeInUnityFile>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="source\DocsExamplesBase.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Load Options\Working with LoadOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Load Options\Working with RtfLoadOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Load Options\Working with TxtLoadOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with DocSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with HtmlFixedSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with HtmlSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with ImageSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with MarkdownSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with OdtSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with OoxmlSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with PclSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with PdfSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with RtfSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Save Options\Working with TxtSaveOptions.cpp" />
+    <ClCompile Include="source\File Formats and Conversions\Working with FileFormat.cpp" />
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Common.cpp" />
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\BackgroundColor.cpp" />
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Client.cpp" />
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Contract.cpp" />
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Manager.cpp" />
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\PointData.cpp" />
+    <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Sender.cpp" />
+    <ClCompile Include="source\Mail Merge and Reporting\Base operations.cpp" />
+    <ClCompile Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.cpp" />
+    <ClCompile Include="source\Mail Merge and Reporting\Working with CleanupOptions.cpp" />
+    <ClCompile Include="source\Mail Merge and Reporting\Working with Fields.cpp" />
+    <ClCompile Include="source\Programming with Documents\Apply License.cpp" />
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Extract content.cpp" />
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Find and replace.cpp" />
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Remove content.cpp" />
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with Bookmarks.cpp" />
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with Ranges.cpp" />
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with SDT.cpp" />
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with styles and themes.cpp" />
+    <ClCompile Include="source\Programming with Documents\Contents Managment\Working with table of content.cpp" />
+    <ClCompile Include="source\Programming with Documents\Protect or Encrypt Document\Document protection.cpp" />
+    <ClCompile Include="source\Programming with Documents\Protect or Encrypt Document\Working with DigitalSinatures.cpp" />
+    <ClCompile Include="source\Programming with Documents\Split Documents\Page splitter.cpp" />
+    <ClCompile Include="source\Programming with Documents\Split Documents\Split document.cpp" />
+    <ClCompile Include="source\Programming with Documents\Split Documents\Split into html pages.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Comments.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Document\Add content using DocumentBuilder.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Document\Clone and combine documents.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Document\Compare documents.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Document\Document formatting.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Document\Join and append documents.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Document\Working with document options and settings.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Document\Working with document properties.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Document\Working with WebExtension.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Fields.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Fonts.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Footnote and Endnote.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with FormFields.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Charts.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Images.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with OfficeMath.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Shapes.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Watermark.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Headers and Footers.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Hyphenation.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with List.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Markdown.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Node.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with OleObjects and ActiveX.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Revisions.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Section.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Tables\Working with table styles and formatting.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Tables\Working with Tables.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Textboxes.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with VBA Macros.cpp" />
+    <ClCompile Include="source\Rendering and Printing\Complex examples and helpers\Enumerate layout elements.cpp" />
+    <ClCompile Include="source\Rendering and Printing\Complex examples and helpers\Page layout helper.cpp" />
+    <ClCompile Include="source\Rendering and Printing\Rendering shapes.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\gtest\gmock\gmock.h" />
+    <ClInclude Include="..\gtest\gtest\gtest-skip-exception.h" />
+    <ClInclude Include="..\gtest\gtest\gtest-spi.h" />
+    <ClInclude Include="..\gtest\gtest\gtest.h" />
+    <ClInclude Include="source\DocsExamplesBase.h" />
+    <ClInclude Include="source\File Formats and Conversions\Base conversions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Load Options\Working with LoadOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Load Options\Working with RtfLoadOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Load Options\Working with TxtLoadOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with DocSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with HtmlFixedSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with HtmlSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with ImageSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with MarkdownSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with OdtSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with OoxmlSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with PclSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with PdfSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with RtfSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Save Options\Working with TxtSaveOptions.h" />
+    <ClInclude Include="source\File Formats and Conversions\Working with FileFormat.h" />
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Common.h" />
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\BackgroundColor.h" />
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Client.h" />
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Contract.h" />
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Manager.h" />
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\PointData.h" />
+    <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Sender.h" />
+    <ClInclude Include="source\Mail Merge and Reporting\Base operations.h" />
+    <ClInclude Include="source\Mail Merge and Reporting\Complex examples and helpers\Create MailMerge template.h" />
+    <ClInclude Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.h" />
+    <ClInclude Include="source\Mail Merge and Reporting\Working with CleanupOptions.h" />
+    <ClInclude Include="source\Mail Merge and Reporting\Working with Fields.h" />
+    <ClInclude Include="source\Mail Merge and Reporting\Working with XML data.h" />
+    <ClInclude Include="source\Programming with Documents\Apply License.h" />
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Extract content helper.h" />
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Extract content.h" />
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Find and replace.h" />
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Remove content.h" />
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with Bookmarks.h" />
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with Ranges.h" />
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with SDT.h" />
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with styles and themes.h" />
+    <ClInclude Include="source\Programming with Documents\Contents Managment\Working with table of content.h" />
+    <ClInclude Include="source\Programming with Documents\Protect or Encrypt Document\Document protection.h" />
+    <ClInclude Include="source\Programming with Documents\Protect or Encrypt Document\Working with DigitalSinatures.h" />
+    <ClInclude Include="source\Programming with Documents\Split Documents\Page splitter.h" />
+    <ClInclude Include="source\Programming with Documents\Split Documents\Split document.h" />
+    <ClInclude Include="source\Programming with Documents\Split Documents\Split into html pages.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Comments.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Document\Add content using DocumentBuilder.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Document\Clone and combine documents.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Document\Compare documents.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Document\Document formatting.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Document\Join and append documents.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Document\Working with document options and settings.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Document\Working with document properties.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Document\Working with WebExtension.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Fields.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Fonts.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Footnote and Endnote.h" />
+    <ClInclude Include="source\Programming with Documents\Working with FormFields.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Charts.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Images.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with OfficeMath.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Shapes.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Watermark.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Headers and Footers.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Hyphenation.h" />
+    <ClInclude Include="source\Programming with Documents\Working with List.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Markdown.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Node.h" />
+    <ClInclude Include="source\Programming with Documents\Working with OleObjects and ActiveX.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Revisions.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Section.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Tables\Working with table styles and formatting.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Tables\Working with Tables.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Textboxes.h" />
+    <ClInclude Include="source\Programming with Documents\Working with VBA Macros.h" />
+    <ClInclude Include="source\Rendering and Printing\Complex examples and helpers\Enumerate layout elements.h" />
+    <ClInclude Include="source\Rendering and Printing\Complex examples and helpers\Page layout helper.h" />
+    <ClInclude Include="source\Rendering and Printing\Rendering shapes.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\packages\CodePorting.Native.Cs2Cpp.API.21.4.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('..\..\packages\CodePorting.Native.Cs2Cpp.API.21.4.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
+    <Import Project="..\..\packages\Aspose.Words.Cpp.21.4.0\build\native\aspose.words.cpp.targets" Condition="Exists('..\..\packages\Aspose.Words.Cpp.21.4.0\build\native\aspose.words.cpp.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\CodePorting.Native.Cs2Cpp.API.21.4.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CodePorting.Native.Cs2Cpp.API.21.4.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Aspose.Words.Cpp.21.4.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Aspose.Words.Cpp.21.4.0\build\native\aspose.words.cpp.targets'))" />
+  </Target>
+</Project>
