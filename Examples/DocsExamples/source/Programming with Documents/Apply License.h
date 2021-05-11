@@ -2,7 +2,7 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Licensing/License.h>
+#include <Aspose.Words.Cpp/License.h>
 #include <system/array.h>
 #include <system/exceptions.h>
 #include <system/io/file.h>

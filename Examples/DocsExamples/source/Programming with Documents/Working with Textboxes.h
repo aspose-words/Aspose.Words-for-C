@@ -1,10 +1,10 @@
 ﻿#pragma once
 
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
-#include <Aspose.Words.Cpp/Model/Drawing/TextBox.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Drawing/TextBox.h>
 #include <system/object.h>
 #include <gtest/gtest.h>
 

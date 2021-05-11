@@ -1,19 +1,18 @@
 ﻿#pragma once
-// CPPDEFECT: Aspose.Email is not supported
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
-#include <Aspose.Words.Cpp/Model/Document/ConvertUtil.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Drawing/RelativeHorizontalPosition.h>
-#include <Aspose.Words.Cpp/Model/Drawing/RelativeVerticalPosition.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Drawing/WrapType.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
+#include <Aspose.Words.Cpp/BreakType.h>
+#include <Aspose.Words.Cpp/ConvertUtil.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Drawing/RelativeHorizontalPosition.h>
+#include <Aspose.Words.Cpp/Drawing/RelativeVerticalPosition.h>
+#include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Drawing/WrapType.h>
+#include <Aspose.Words.Cpp/PageSetup.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <drawing/image.h>
 #include <drawing/imaging/frame_dimension.h>
 #include <system/array.h>

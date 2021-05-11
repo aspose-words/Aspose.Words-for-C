@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include <Aspose.Words.Cpp/Layout/Hyphenation/Hyphenation.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Hyphenation.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/io/file.h>
 #include <system/io/file_stream.h>
 #include <system/io/stream.h>

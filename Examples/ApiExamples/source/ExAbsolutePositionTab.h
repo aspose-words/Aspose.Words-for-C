@@ -6,16 +6,16 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>
-#include <Aspose.Words.Cpp/Model/Document/VisitorAction.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Text/AbsolutePositionTab.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/AbsolutePositionTab.h>
+#include <Aspose.Words.Cpp/Body.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentVisitor.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/VisitorAction.h>
 #include <system/exceptions.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>

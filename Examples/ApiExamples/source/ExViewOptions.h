@@ -6,14 +6,14 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
-#include <Aspose.Words.Cpp/Model/Settings/ViewOptions.h>
-#include <Aspose.Words.Cpp/Model/Settings/ViewType.h>
-#include <Aspose.Words.Cpp/Model/Settings/ZoomType.h>
+#include <Aspose.Words.Cpp/BreakType.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Settings/ViewOptions.h>
+#include <Aspose.Words.Cpp/Settings/ViewType.h>
+#include <Aspose.Words.Cpp/Settings/ZoomType.h>
 #include <system/array.h>
 #include <system/io/file.h>
 #include <system/io/memory_stream.h>

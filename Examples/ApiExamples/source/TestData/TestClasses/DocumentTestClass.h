@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Document.h>
 #include <system/array.h>
 #include <system/io/stream.h>
 

@@ -6,7 +6,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/BuildVersionInfo.h>
+#include <Aspose.Words.Cpp/BuildVersionInfo.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>
 #include <system/text/regularexpressions/regex.h>

@@ -1,15 +1,15 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Importing/ImportFormatMode.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Saving/DocumentSplitCriteria.h>
-#include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/ImportFormatMode.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/Saving/DocumentSplitCriteria.h>
+#include <Aspose.Words.Cpp/Saving/HtmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/SectionCollection.h>
 #include <system/date_time.h>
 #include <system/enum_helpers.h>
 #include <system/exceptions.h>

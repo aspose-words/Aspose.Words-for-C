@@ -6,14 +6,14 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkEnd.h>
-#include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkStart.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Saving/BookmarksOutlineLevelCollection.h>
-#include <Aspose.Words.Cpp/Model/Saving/OutlineOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/BookmarkEnd.h>
+#include <Aspose.Words.Cpp/BookmarkStart.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Saving/BookmarksOutlineLevelCollection.h>
+#include <Aspose.Words.Cpp/Saving/OutlineOptions.h>
+#include <Aspose.Words.Cpp/Saving/PdfSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>
 #include <testing/test_predicates.h>

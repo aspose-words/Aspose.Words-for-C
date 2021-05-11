@@ -1,13 +1,13 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Fields/Field.h>
-#include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
-#include <Aspose.Words.Cpp/Model/Fields/FormFields/TextFormFieldType.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/BreakType.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/Fields/FormField.h>
+#include <Aspose.Words.Cpp/Fields/TextFormFieldType.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
 #include <system/string.h>
 
 using namespace Aspose::Words;

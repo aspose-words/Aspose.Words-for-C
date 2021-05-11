@@ -7,13 +7,13 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/IResourceSavingCallback.h>
-#include <Aspose.Words.Cpp/Model/Saving/ResourceSavingArgs.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Saving/SvgSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SvgTextOutputMode.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/IResourceSavingCallback.h>
+#include <Aspose.Words.Cpp/Saving/ResourceSavingArgs.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Saving/SvgSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SvgTextOutputMode.h>
 #include <system/io/directory.h>
 
 #include "ApiExampleBase.h"

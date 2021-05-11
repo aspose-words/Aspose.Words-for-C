@@ -2,15 +2,15 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaModule.h>
-#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaModuleCollection.h>
-#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaModuleType.h>
-#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaProject.h>
-#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaReference.h>
-#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaReferenceCollection.h>
-#include <Aspose.Words.Cpp/RW/Ole/Vba/VbaReferenceType.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Vba/VbaModule.h>
+#include <Aspose.Words.Cpp/Vba/VbaModuleCollection.h>
+#include <Aspose.Words.Cpp/Vba/VbaModuleType.h>
+#include <Aspose.Words.Cpp/Vba/VbaProject.h>
+#include <Aspose.Words.Cpp/Vba/VbaReference.h>
+#include <Aspose.Words.Cpp/Vba/VbaReferenceCollection.h>
+#include <Aspose.Words.Cpp/Vba/VbaReferenceType.h>
 #include <system/array.h>
 #include <system/enumerator_adapter.h>
 #include <system/exceptions.h>

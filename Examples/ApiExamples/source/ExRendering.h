@@ -6,7 +6,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/Rendering/PageInfo.h>
 #include <drawing/bitmap.h>
 #include <drawing/color.h>

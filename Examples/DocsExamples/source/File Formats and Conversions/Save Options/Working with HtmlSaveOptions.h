@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/CssStyleSheetType.h>
-#include <Aspose.Words.Cpp/Model/Saving/HtmlMetafileFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/CssStyleSheetType.h>
+#include <Aspose.Words.Cpp/Saving/HtmlMetafileFormat.h>
+#include <Aspose.Words.Cpp/Saving/HtmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/io/directory.h>
 #include <system/io/path.h>
 

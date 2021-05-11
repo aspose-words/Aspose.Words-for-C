@@ -1,12 +1,12 @@
 ﻿#include "Rendering and Printing/Complex examples and helpers/Page layout helper.h"
 
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
-#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
-#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/CompositeNode.h>
+#include <Aspose.Words.Cpp/DocumentBase.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/ParagraphCollection.h>
+#include <Aspose.Words.Cpp/Range.h>
 #include <system/enumerator_adapter.h>
 #include <system/environment.h>
 #include <system/exceptions.h>

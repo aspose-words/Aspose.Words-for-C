@@ -1,13 +1,13 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Fields/Field.h>
-#include <Aspose.Words.Cpp/Model/MailMerge/IMailMergeDataSource.h>
-#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/MailMerging/IMailMergeDataSource.h>
+#include <Aspose.Words.Cpp/MailMerging/MailMerge.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/collections/list.h>
 #include <system/object_ext.h>
 #include <system/scope_guard.h>

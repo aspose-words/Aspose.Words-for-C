@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/ProtectionType.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/ProtectionType.h>
 
 #include "DocsExamplesBase.h"
 

@@ -6,19 +6,19 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ImageType.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Fields/Field.h>
-#include <Aspose.Words.Cpp/Model/Fields/Fields/MailMerge/FieldMergeField.h>
-#include <Aspose.Words.Cpp/Model/MailMerge/FieldMergingArgs.h>
-#include <Aspose.Words.Cpp/Model/MailMerge/IFieldMergingCallback.h>
-#include <Aspose.Words.Cpp/Model/MailMerge/ImageFieldMergingArgs.h>
-#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Drawing/ImageType.h>
+#include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/Fields/FieldMergeField.h>
+#include <Aspose.Words.Cpp/MailMerging/FieldMergingArgs.h>
+#include <Aspose.Words.Cpp/MailMerging/IFieldMergingCallback.h>
+#include <Aspose.Words.Cpp/MailMerging/ImageFieldMergingArgs.h>
+#include <Aspose.Words.Cpp/MailMerging/MailMerge.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/array.h>
 #include <system/exceptions.h>
 #include <system/object_ext.h>

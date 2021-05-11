@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Layout/Public/LayoutEntityType.h>
-#include <Aspose.Words.Cpp/Layout/Public/LayoutEnumerator.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Layout/LayoutEntityType.h>
+#include <Aspose.Words.Cpp/Layout/LayoutEnumerator.h>
 #include <drawing/graphics.h>
 #include <drawing/pen.h>
 #include <system/enum_helpers.h>

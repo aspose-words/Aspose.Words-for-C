@@ -2,9 +2,9 @@
 
 #include <functional>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/FileFormatInfo.h>
-#include <Aspose.Words.Cpp/Model/Document/FileFormatUtil.h>
-#include <Aspose.Words.Cpp/Model/Document/LoadFormat.h>
+#include <Aspose.Words.Cpp/FileFormatInfo.h>
+#include <Aspose.Words.Cpp/FileFormatUtil.h>
+#include <Aspose.Words.Cpp/LoadFormat.h>
 #include <system/array.h>
 #include <system/collections/ienumerable.h>
 #include <system/convert.h>

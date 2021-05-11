@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Loading/HtmlControlType.h>
-#include <Aspose.Words.Cpp/Model/Loading/HtmlLoadOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Loading/HtmlControlType.h>
+#include <Aspose.Words.Cpp/Loading/HtmlLoadOptions.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/array.h>
 #include <system/io/memory_stream.h>
 #include <system/text/encoding.h>

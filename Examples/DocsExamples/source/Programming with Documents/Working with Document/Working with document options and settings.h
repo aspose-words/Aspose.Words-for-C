@@ -2,24 +2,24 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/CleanupOptions.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Loading/EditingLanguage.h>
-#include <Aspose.Words.Cpp/Model/Loading/LanguagePreferences.h>
-#include <Aspose.Words.Cpp/Model/Loading/LoadOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/Orientation.h>
-#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
-#include <Aspose.Words.Cpp/Model/Sections/PaperSize.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Sections/SectionLayoutMode.h>
-#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
-#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
-#include <Aspose.Words.Cpp/Model/Settings/ViewOptions.h>
-#include <Aspose.Words.Cpp/Model/Settings/ViewType.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
-#include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/CleanupOptions.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Loading/EditingLanguage.h>
+#include <Aspose.Words.Cpp/Loading/LanguagePreferences.h>
+#include <Aspose.Words.Cpp/Loading/LoadOptions.h>
+#include <Aspose.Words.Cpp/Orientation.h>
+#include <Aspose.Words.Cpp/PageSetup.h>
+#include <Aspose.Words.Cpp/PaperSize.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/SectionLayoutMode.h>
+#include <Aspose.Words.Cpp/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Settings/ViewOptions.h>
+#include <Aspose.Words.Cpp/Settings/ViewType.h>
+#include <Aspose.Words.Cpp/StyleCollection.h>
 
 #include "DocsExamplesBase.h"
 

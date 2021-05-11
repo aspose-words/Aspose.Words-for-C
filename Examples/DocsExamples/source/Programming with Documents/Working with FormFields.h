@@ -1,13 +1,13 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
-#include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
-#include <Aspose.Words.Cpp/Model/Fields/FormFields/FormFieldCollection.h>
-#include <Aspose.Words.Cpp/Model/Text/Font.h>
-#include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Fields/FieldType.h>
+#include <Aspose.Words.Cpp/Fields/FormField.h>
+#include <Aspose.Words.Cpp/Fields/FormFieldCollection.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Range.h>
 #include <drawing/color.h>
 #include <system/array.h>
 

@@ -1,5 +1,4 @@
-﻿// CPPDEFECT: System.Data is not supported
-#include "Working with Tables.h"
+﻿#include "Working with Tables.h"
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

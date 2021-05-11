@@ -1,13 +1,13 @@
 ﻿#pragma once
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/CompressionLevel.h>
-#include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
-#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
-#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/CompressionLevel.h>
+#include <Aspose.Words.Cpp/Saving/OoxmlCompliance.h>
+#include <Aspose.Words.Cpp/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Settings/MsWordVersion.h>
 
 #include "DocsExamplesBase.h"
 

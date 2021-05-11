@@ -5,10 +5,10 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
-#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Settings/MsWordVersion.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>
 #include <testing/test_predicates.h>

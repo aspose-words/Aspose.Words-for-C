@@ -10,15 +10,15 @@
 //ExSummary:Shows how to find all hyperlinks in a Word document, and then change their URLs and display names.
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
-#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldStart.h>
-#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeList.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/CompositeNode.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Fields/FieldStart.h>
+#include <Aspose.Words.Cpp/Fields/FieldType.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeList.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/collections/ienumerable.h>
 #include <system/enumerator_adapter.h>
 #include <system/exceptions.h>

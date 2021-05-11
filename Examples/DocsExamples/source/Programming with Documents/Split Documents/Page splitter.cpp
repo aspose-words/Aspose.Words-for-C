@@ -1,14 +1,14 @@
 ﻿#include "Programming with Documents/Split Documents/Page splitter.h"
 
-#include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
-#include <Aspose.Words.Cpp/Model/Lists/ListLevel.h>
-#include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
-#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterCollection.h>
-#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
-#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
-#include <Aspose.Words.Cpp/Model/Sections/SectionStart.h>
-#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/DocumentBase.h>
+#include <Aspose.Words.Cpp/HeaderFooter.h>
+#include <Aspose.Words.Cpp/HeaderFooterCollection.h>
+#include <Aspose.Words.Cpp/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/Lists/ListFormat.h>
+#include <Aspose.Words.Cpp/Lists/ListLevel.h>
+#include <Aspose.Words.Cpp/PageSetup.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/SectionStart.h>
 #include <system/object_ext.h>
 #include <system/scope_guard.h>
 

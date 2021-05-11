@@ -2,16 +2,16 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Loading/DocumentDirection.h>
-#include <Aspose.Words.Cpp/Model/Loading/TxtLeadingSpacesOptions.h>
-#include <Aspose.Words.Cpp/Model/Loading/TxtLoadOptions.h>
-#include <Aspose.Words.Cpp/Model/Loading/TxtTrailingSpacesOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Body.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Loading/DocumentDirection.h>
+#include <Aspose.Words.Cpp/Loading/TxtLeadingSpacesOptions.h>
+#include <Aspose.Words.Cpp/Loading/TxtLoadOptions.h>
+#include <Aspose.Words.Cpp/Loading/TxtTrailingSpacesOptions.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Section.h>
 #include <system/array.h>
 #include <system/convert.h>
 #include <system/io/memory_stream.h>

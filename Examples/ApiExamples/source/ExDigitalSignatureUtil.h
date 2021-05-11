@@ -7,15 +7,15 @@
 
 #include <cstdint>
 #include <functional>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/CertificateHolder.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignature.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureCollection.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureType.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureUtil.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/SignOptions.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/IncorrectPasswordException.h>
-#include <Aspose.Words.Cpp/Model/Loading/LoadOptions.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/CertificateHolder.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/DigitalSignature.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/DigitalSignatureCollection.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/DigitalSignatureType.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/DigitalSignatureUtil.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/SignOptions.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/IncorrectPasswordException.h>
+#include <Aspose.Words.Cpp/Loading/LoadOptions.h>
 #include <system/date_time.h>
 #include <system/details/dispose_guard.h>
 #include <system/exceptions.h>

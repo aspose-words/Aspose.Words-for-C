@@ -1,13 +1,12 @@
 ﻿#pragma once
-// CPPDEFECT: System.Data is not supported
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Fields/Field.h>
-#include <Aspose.Words.Cpp/Model/Fields/Fields/MailMerge/FieldMergeField.h>
-#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
-#include <Aspose.Words.Cpp/Model/MailMerge/MailMergeCleanupOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/Fields/FieldMergeField.h>
+#include <Aspose.Words.Cpp/MailMerging/MailMerge.h>
+#include <Aspose.Words.Cpp/MailMerging/MailMergeCleanupOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/array.h>
 #include <system/enum_helpers.h>
 #include <system/exceptions.h>

@@ -2,12 +2,12 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Comparing/CompareOptions.h>
-#include <Aspose.Words.Cpp/Model/Comparing/ComparisonTargetType.h>
-#include <Aspose.Words.Cpp/Model/Comparing/Granularity.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Revisions/RevisionCollection.h>
+#include <Aspose.Words.Cpp/Comparing/CompareOptions.h>
+#include <Aspose.Words.Cpp/Comparing/ComparisonTargetType.h>
+#include <Aspose.Words.Cpp/Comparing/Granularity.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/RevisionCollection.h>
 #include <system/date_time.h>
 
 #include "DocsExamplesBase.h"

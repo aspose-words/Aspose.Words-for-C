@@ -7,15 +7,15 @@
 
 #include <cstdint>
 #include <functional>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/CertificateHolder.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureUtil.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/SignOptions.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/SignatureLineOptions.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Drawing/SignatureLine.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/CertificateHolder.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/DigitalSignatureUtil.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/SignOptions.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Drawing/SignatureLine.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/SignatureLineOptions.h>
 #include <drawing/image.h>
 #include <drawing/imaging/image_format.h>
 #include <system/array.h>

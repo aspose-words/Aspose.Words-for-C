@@ -6,21 +6,21 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Saving/OutlineOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Saving/XpsSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
-#include <Aspose.Words.Cpp/Model/Settings/MultiplePagesType.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/BreakType.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/PageSetup.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/OutlineOptions.h>
+#include <Aspose.Words.Cpp/Saving/PageSet.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Saving/XpsSaveOptions.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/SectionCollection.h>
+#include <Aspose.Words.Cpp/Settings/MultiplePagesType.h>
+#include <Aspose.Words.Cpp/StyleIdentifier.h>
 #include <system/array.h>
 #include <system/enumerator_adapter.h>
 #include <system/io/file_info.h>
@@ -49,7 +49,7 @@ public:
     {
         //ExStart
         //ExFor:XpsSaveOptions
-        //ExFor:XpsSaveOptions.#ctor
+        //ExFor:XpsSaveOptions.#ctor()
         //ExFor:XpsSaveOptions.OutlineOptions
         //ExFor:XpsSaveOptions.SaveFormat
         //ExSummary:Shows how to limit the headings' level that will appear in the outline of a saved XPS document.
