@@ -38,4 +38,9 @@ TEST_F(WorkingWithHyphenation, LoadHyphenationDictionaryForLanguage)
     s_instance->LoadHyphenationDictionaryForLanguage();
 }
 
+TEST_F(WorkingWithHyphenation, HyphenationCallback)
+{
+    s_instance->HyphenationCallback();
+}
+
 }}} // namespace DocsExamples::Programming_with_Documents::gtest_test

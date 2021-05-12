@@ -143,7 +143,7 @@ protected:
         watermark->set_Rotation(-40);
 
         // Remove the following two lines if you need a solid black text.
-        watermark->get_Fill()->set_Color(System::Drawing::Color::get_Gray());
+        watermark->get_Fill()->set_ForeColor(System::Drawing::Color::get_Gray());
         watermark->set_StrokeColor(System::Drawing::Color::get_Gray());
 
         // Place the watermark in the page center.

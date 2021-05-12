@@ -1327,12 +1327,12 @@ public:
 
         ASSERT_EQ(u"Test Signing", options->get_DigitalSignatureDetails()->get_Reason());
         ASSERT_EQ(u"My Office", options->get_DigitalSignatureDetails()->get_Location());
-        ASSERT_EQ(signingTime.ToUniversalTime(), options->get_DigitalSignatureDetails()->get_SignatureDate());
+        ASSERT_EQ(signingTime.ToUniversalTime(), options->get_DigitalSignatureDetails()->get_SignatureDate().ToUniversalTime());
 
         doc->Save(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignature.pdf", options);
         //ExEnd
 
-        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/FT /Sig/DR <<>>/F 132/Rect [0 0 0 0]/V 7 0 R/P 4 0 "
+        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 7 0 R/P 4 0 "
                                                               u"R/"
                                                               u"T("
                                                               u"þÿ\u0000A\u0000s\u0000p\u0000o\u0000s\u0000e\u0000D\u0000i\u0000g\u0000i\u0000t\u0000a\u0000l"
@@ -1388,7 +1388,7 @@ public:
         //ExEnd
 
         ASSERT_FALSE(FileFormatUtil::DetectFileFormat(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignatureTimestamp.pdf")->get_HasDigitalSignature());
-        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/FT /Sig/DR <<>>/F 132/Rect [0 0 0 0]/V 7 0 R/P 4 0 "
+        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 7 0 R/P 4 0 "
                                                               u"R/"
                                                               u"T("
                                                               u"þÿ\u0000A\u0000s\u0000p\u0000o\u0000s\u0000e\u0000D\u0000i\u0000g\u0000i\u0000t\u0000a\u0000l"

@@ -20,6 +20,8 @@ public:
 
     static void OneTimeTearDown();
 
+    static void SetUnlimitedLicense();
+
     /// <summary>
     /// Returns the code-base directory.
     /// </summary>
@@ -44,6 +46,11 @@ public:
     /// Gets the path of the demo database.
     /// </summary>
     static System::String DatabaseDir;
+
+    /// <summary>
+    /// Gets the path to the license used by the code examples.
+    /// </summary>
+    static System::String LicenseDir;
 
     /// <summary>
     /// Gets the path to the artifacts used by the code examples.

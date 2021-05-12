@@ -264,7 +264,7 @@ public:
             break;
 
         case CompressionLevel::Normal:
-            ASSERT_LT(1267000, fileInfo->get_Length());
+            ASSERT_LT(1266900, fileInfo->get_Length());
             break;
 
         case CompressionLevel::Fast:

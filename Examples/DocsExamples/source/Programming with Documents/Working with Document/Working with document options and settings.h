@@ -6,6 +6,7 @@
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Lists/ListCollection.h>
 #include <Aspose.Words.Cpp/Loading/EditingLanguage.h>
 #include <Aspose.Words.Cpp/Loading/LanguagePreferences.h>
 #include <Aspose.Words.Cpp/Loading/LoadOptions.h>
@@ -64,14 +65,24 @@ public:
     void CleanupUnusedStylesAndLists()
     {
         //ExStart:CleanupUnusedStylesandLists
-        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+        auto doc = MakeObject<Document>(MyDir + u"Unused styles.docx");
 
+        // Combined with the built-in styles, the document now has eight styles.
+        // A custom style is marked as "used" while there is any text within the document
+        // formatted in that style. This means that the 4 styles we added are currently unused.
+        std::cout << (String::Format(u"Count of styles before Cleanup: {0}\n", doc->get_Styles()->get_Count()) +
+                      String::Format(u"Count of lists before Cleanup: {0}", doc->get_Lists()->get_Count()))
+                  << std::endl;
+
+        // Cleans unused styles and lists from the document depending on given CleanupOptions.
         auto cleanupOptions = MakeObject<CleanupOptions>();
         cleanupOptions->set_UnusedLists(false);
         cleanupOptions->set_UnusedStyles(true);
-
-        // Cleans unused styles and lists from the document depending on given CleanupOptions.
         doc->Cleanup(cleanupOptions);
+
+        std::cout << (String::Format(u"Count of styles after Cleanup was decreased: {0}\n", doc->get_Styles()->get_Count()) +
+                      String::Format(u"Count of lists after Cleanup is the same: {0}", doc->get_Lists()->get_Count()))
+                  << std::endl;
 
         doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.CleanupUnusedStylesAndLists.docx");
         //ExEnd:CleanupUnusedStylesandLists
@@ -82,11 +93,16 @@ public:
         //ExStart:CleanupDuplicateStyle
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
-        auto options = MakeObject<CleanupOptions>();
-        options->set_DuplicateStyle(true);
+        // Count of styles before Cleanup.
+        std::cout << doc->get_Styles()->get_Count() << std::endl;
 
         // Cleans duplicate styles from the document.
+        auto options = MakeObject<CleanupOptions>();
+        options->set_DuplicateStyle(true);
         doc->Cleanup(options);
+
+        // Count of styles after Cleanup was decreased.
+        std::cout << doc->get_Styles()->get_Count() << std::endl;
 
         doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.CleanupDuplicateStyle.docx");
         //ExEnd:CleanupDuplicateStyle

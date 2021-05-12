@@ -158,7 +158,7 @@ public:
         watermark->set_VerticalAlignment(VerticalAlignment::Center);
         watermark->set_Rotation(-40);
 
-        watermark->get_Fill()->set_Color(System::Drawing::Color::get_Gray());
+        watermark->get_Fill()->set_ForeColor(System::Drawing::Color::get_Gray());
         watermark->set_StrokeColor(System::Drawing::Color::get_Gray());
 
         watermark->get_TextPath()->set_Text(u"watermarkText");

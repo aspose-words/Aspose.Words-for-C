@@ -280,7 +280,7 @@ public:
         // Get the list of fonts to call warning callback.
         SharedPtr<System::Collections::Generic::IList<SharedPtr<PhysicalFontInfo>>> fontInfos = source->GetAvailableFonts();
 
-        ASSERT_TRUE(callback->FontSubstitutionWarnings->idx_get(0)->get_Description().StartsWith(u"Error loading font from the folder \"bad folder?\":"));
+        ASSERT_TRUE(callback->FontSubstitutionWarnings->idx_get(0)->get_Description().Contains(u"Error loading font from the folder \"bad folder?\""));
     }
 
     class FontSourceWarningCollector : public IWarningCallback

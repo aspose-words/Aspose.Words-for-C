@@ -1,19 +1,23 @@
 ﻿#include "DocsExamplesBase.h"
 
 #include <cstdint>
+#include <Aspose.Words.Cpp/License.h>
 #include <system/globalization/culture_info.h>
 #include <system/io/directory.h>
+#include <system/io/file.h>
 #include <system/io/path.h>
 #include <system/string_comparison.h>
 #include <system/threading/thread.h>
 #include <system/uri.h>
 
+using namespace Aspose::Words;
 namespace DocsExamples {
 
 System::String DocsExamplesBase::MainDataDir;
 System::String DocsExamplesBase::MyDir;
 System::String DocsExamplesBase::ImagesDir;
 System::String DocsExamplesBase::DatabaseDir;
+System::String DocsExamplesBase::LicenseDir;
 System::String DocsExamplesBase::ArtifactsDir;
 System::String DocsExamplesBase::FontsDir;
 
@@ -27,6 +31,8 @@ DocsExamplesBase::__StaticConstructor__::__StaticConstructor__()
     DocsExamplesBase::MyDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(DocsExamplesBase::MainDataDir), u"Data/")->get_LocalPath();
     DocsExamplesBase::ImagesDir =
         System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(DocsExamplesBase::MainDataDir), u"Data/Images/")->get_LocalPath();
+    DocsExamplesBase::LicenseDir =
+        System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(DocsExamplesBase::MainDataDir), u"Data/License/")->get_LocalPath();
     DocsExamplesBase::DatabaseDir =
         System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(DocsExamplesBase::MainDataDir), u"Data/Database/")->get_LocalPath();
     DocsExamplesBase::FontsDir =
@@ -36,6 +42,8 @@ DocsExamplesBase::__StaticConstructor__::__StaticConstructor__()
 void DocsExamplesBase::OneTimeSetUp()
 {
     System::Threading::Thread::get_CurrentThread()->set_CurrentCulture(System::Globalization::CultureInfo::get_InvariantCulture());
+
+    SetUnlimitedLicense();
 
     if (!System::IO::Directory::Exists(ArtifactsDir))
     {
@@ -53,6 +61,22 @@ void DocsExamplesBase::OneTimeTearDown()
     if (System::IO::Directory::Exists(ArtifactsDir))
     {
         System::IO::Directory::Delete(ArtifactsDir, true);
+    }
+}
+
+void DocsExamplesBase::SetUnlimitedLicense()
+{
+    // This is where the test license is on my development machine.
+    System::String testLicenseFileName = System::IO::Path::Combine(LicenseDir, u"Aspose.Total.NET.lic");
+
+    if (System::IO::File::Exists(testLicenseFileName))
+    {
+        // This shows how to use an Aspose.Words license when you have purchased one.
+        // You don't have to specify full path as shown here. You can specify just the
+        // file name if you copy the license file into the same folder as your application
+        // binaries or you add the license to your project as an embedded resource.
+        auto wordsLicense = System::MakeObject<License>();
+        wordsLicense->SetLicense(testLicenseFileName);
     }
 }
 

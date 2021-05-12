@@ -145,7 +145,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Revisions.docx");
 
         // Do not render the comments in PDF.
-        doc->get_LayoutOptions()->set_ShowComments(false);
+        doc->get_LayoutOptions()->set_CommentDisplayMode(CommentDisplayMode::Hide);
 
         doc->Save(ArtifactsDir + u"WorkingWithRevisions.RemoveCommentsInPdf.pdf");
         //ExEnd:RemoveCommentsInPDF
