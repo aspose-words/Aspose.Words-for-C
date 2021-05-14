@@ -1,5 +1,4 @@
-﻿// CPPDEFECT: System.Data is not supported
-#include "Working with CleanupOptions.h"
+﻿#include "Working with CleanupOptions.h"
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;

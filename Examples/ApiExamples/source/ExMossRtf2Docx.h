@@ -5,9 +5,9 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/string.h>
 
 using System::ArrayPtr;

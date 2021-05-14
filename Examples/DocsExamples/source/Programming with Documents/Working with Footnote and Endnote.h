@@ -1,16 +1,16 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Footnotes/EndnoteOptions.h>
-#include <Aspose.Words.Cpp/Model/Footnotes/EndnotePosition.h>
-#include <Aspose.Words.Cpp/Model/Footnotes/Footnote.h>
-#include <Aspose.Words.Cpp/Model/Footnotes/FootnoteNumberingRule.h>
-#include <Aspose.Words.Cpp/Model/Footnotes/FootnoteOptions.h>
-#include <Aspose.Words.Cpp/Model/Footnotes/FootnotePosition.h>
-#include <Aspose.Words.Cpp/Model/Footnotes/FootnoteType.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Notes/EndnoteOptions.h>
+#include <Aspose.Words.Cpp/Notes/EndnotePosition.h>
+#include <Aspose.Words.Cpp/Notes/Footnote.h>
+#include <Aspose.Words.Cpp/Notes/FootnoteNumberingRule.h>
+#include <Aspose.Words.Cpp/Notes/FootnoteOptions.h>
+#include <Aspose.Words.Cpp/Notes/FootnotePosition.h>
+#include <Aspose.Words.Cpp/Notes/FootnoteType.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 
 #include "DocsExamplesBase.h"
 

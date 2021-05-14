@@ -2,19 +2,19 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/Collections/TaskPaneCollection.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/Collections/WebExtensionBindingCollection.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/Collections/WebExtensionPropertyCollection.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/Enums/TaskPaneDockState.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/Enums/WebExtensionBindingType.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/Enums/WebExtensionStoreType.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/TaskPane.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/WebExtension.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/WebExtensionBinding.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/WebExtensionProperty.h>
-#include <Aspose.Words.Cpp/Model/WebExtensions/WebExtensionReference.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/WebExtensions/TaskPane.h>
+#include <Aspose.Words.Cpp/WebExtensions/TaskPaneCollection.h>
+#include <Aspose.Words.Cpp/WebExtensions/TaskPaneDockState.h>
+#include <Aspose.Words.Cpp/WebExtensions/WebExtension.h>
+#include <Aspose.Words.Cpp/WebExtensions/WebExtensionBinding.h>
+#include <Aspose.Words.Cpp/WebExtensions/WebExtensionBindingCollection.h>
+#include <Aspose.Words.Cpp/WebExtensions/WebExtensionBindingType.h>
+#include <Aspose.Words.Cpp/WebExtensions/WebExtensionProperty.h>
+#include <Aspose.Words.Cpp/WebExtensions/WebExtensionPropertyCollection.h>
+#include <Aspose.Words.Cpp/WebExtensions/WebExtensionReference.h>
+#include <Aspose.Words.Cpp/WebExtensions/WebExtensionStoreType.h>
 #include <system/enumerator_adapter.h>
 
 #include "DocsExamplesBase.h"

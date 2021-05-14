@@ -6,18 +6,18 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
-#include <Aspose.Words.Cpp/Model/Sections/TextColumnCollection.h>
-#include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
+#include <Aspose.Words.Cpp/Body.h>
+#include <Aspose.Words.Cpp/ControlChar.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/PageSetup.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/SectionCollection.h>
+#include <Aspose.Words.Cpp/TextColumnCollection.h>
 #include <system/convert.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>

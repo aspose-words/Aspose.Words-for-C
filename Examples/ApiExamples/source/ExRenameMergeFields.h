@@ -5,17 +5,17 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Fields/Field.h>
-#include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
-#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldStart.h>
-#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/CompositeNode.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/Fields/FieldStart.h>
+#include <Aspose.Words.Cpp/Fields/FieldType.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/array.h>
 #include <system/collections/ienumerable.h>
 #include <system/enumerator_adapter.h>

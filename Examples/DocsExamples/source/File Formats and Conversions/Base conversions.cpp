@@ -1,5 +1,4 @@
-﻿// CPPDEFECT: Aspose.Email is not supported
-#include "Base conversions.h"
+﻿#include "Base conversions.h"
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;

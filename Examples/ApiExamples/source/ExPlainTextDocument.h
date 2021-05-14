@@ -5,15 +5,15 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/PlainTextDocument.h>
-#include <Aspose.Words.Cpp/Model/Loading/LoadOptions.h>
-#include <Aspose.Words.Cpp/Model/Properties/BuiltInDocumentProperties.h>
-#include <Aspose.Words.Cpp/Model/Properties/CustomDocumentProperties.h>
-#include <Aspose.Words.Cpp/Model/Properties/DocumentProperty.h>
-#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Loading/LoadOptions.h>
+#include <Aspose.Words.Cpp/PlainTextDocument.h>
+#include <Aspose.Words.Cpp/Properties/BuiltInDocumentProperties.h>
+#include <Aspose.Words.Cpp/Properties/CustomDocumentProperties.h>
+#include <Aspose.Words.Cpp/Properties/DocumentProperty.h>
+#include <Aspose.Words.Cpp/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/details/dispose_guard.h>
 #include <system/io/file_mode.h>
 #include <system/io/file_stream.h>

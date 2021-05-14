@@ -6,18 +6,18 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <functional>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ImageData.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ImageType.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Saving/RtfSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Drawing/ImageData.h>
+#include <Aspose.Words.Cpp/Drawing/ImageType.h>
+#include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/RtfSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/exceptions.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>

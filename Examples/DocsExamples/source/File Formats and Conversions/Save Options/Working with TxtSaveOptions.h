@@ -1,13 +1,13 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Saving/TxtListIndentation.h>
-#include <Aspose.Words.Cpp/Model/Saving/TxtSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Lists/ListFormat.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Saving/TxtListIndentation.h>
+#include <Aspose.Words.Cpp/Saving/TxtSaveOptions.h>
 
 #include "DocsExamplesBase.h"
 

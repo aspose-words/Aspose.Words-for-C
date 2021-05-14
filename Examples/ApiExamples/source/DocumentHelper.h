@@ -6,12 +6,12 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
-#include <Aspose.Words.Cpp/Model/Tables/Table.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/Tables/Table.h>
 #include <system/array.h>
 
 #include "ApiExampleBase.h"

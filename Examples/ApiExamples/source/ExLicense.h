@@ -5,7 +5,7 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-#include <Aspose.Words.Cpp/Licensing/License.h>
+#include <Aspose.Words.Cpp/License.h>
 #include <system/details/dispose_guard.h>
 #include <system/io/file.h>
 #include <system/io/file_stream.h>

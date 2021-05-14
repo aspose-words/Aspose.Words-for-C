@@ -1,13 +1,13 @@
 ﻿#pragma once
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Saving/MarkdownSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Saving/TableContentAlignment.h>
-#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/ParagraphAlignment.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Saving/MarkdownSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Saving/TableContentAlignment.h>
+#include <Aspose.Words.Cpp/Tables/Cell.h>
 #include <system/details/dispose_guard.h>
 #include <system/io/memory_stream.h>
 

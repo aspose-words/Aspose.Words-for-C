@@ -6,9 +6,9 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Saving/PdfSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/array.h>
 #include <system/date_time.h>
 #include <system/environment.h>

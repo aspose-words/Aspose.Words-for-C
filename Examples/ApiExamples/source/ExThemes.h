@@ -6,11 +6,11 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Themes/Theme.h>
-#include <Aspose.Words.Cpp/Model/Themes/ThemeColors.h>
-#include <Aspose.Words.Cpp/Model/Themes/ThemeFonts.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Themes/Theme.h>
+#include <Aspose.Words.Cpp/Themes/ThemeColors.h>
+#include <Aspose.Words.Cpp/Themes/ThemeFonts.h>
 #include <drawing/color.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>

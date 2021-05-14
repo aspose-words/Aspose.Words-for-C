@@ -1,8 +1,6 @@
 ﻿#pragma once
-// CPPDEFECT: System.Data is not supported
-// CPPDEFECT: System.Xml.Linq is not supported
 
-#include <Aspose.Words.Cpp/Model/MailMerge/IMailMergeDataSource.h>
+#include <Aspose.Words.Cpp/MailMerging/IMailMergeDataSource.h>
 #include <system/array.h>
 #include <system/collections/ienumerable_ng.h>
 #include <system/collections/ienumerator_ng.h>

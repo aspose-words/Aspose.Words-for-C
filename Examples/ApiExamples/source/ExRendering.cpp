@@ -3,7 +3,6 @@
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
-// CPPDEFECT: System.Windows.Forms is not supported
 #include "ExRendering.h"
 
 using namespace Aspose::Words;

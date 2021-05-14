@@ -1,20 +1,20 @@
 ﻿#include "Split into html pages.h"
 
-#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
-#include <Aspose.Words.Cpp/Model/Fields/Field.h>
-#include <Aspose.Words.Cpp/Model/Importing/ImportFormatMode.h>
-#include <Aspose.Words.Cpp/Model/MailMerge/MailMerge.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Properties/BuiltInDocumentProperties.h>
-#include <Aspose.Words.Cpp/Model/Saving/ExportHeadersFootersMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Body.h>
+#include <Aspose.Words.Cpp/BreakType.h>
+#include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/ImportFormatMode.h>
+#include <Aspose.Words.Cpp/MailMerging/MailMerge.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Properties/BuiltInDocumentProperties.h>
+#include <Aspose.Words.Cpp/Saving/ExportHeadersFootersMode.h>
+#include <Aspose.Words.Cpp/Saving/HtmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/SectionCollection.h>
+#include <Aspose.Words.Cpp/StyleIdentifier.h>
 #include <system/char.h>
 #include <system/enumerator_adapter.h>
 #include <system/exceptions.h>

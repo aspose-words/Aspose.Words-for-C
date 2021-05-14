@@ -6,19 +6,19 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
-#include <Aspose.Words.Cpp/Model/Tables/CellCollection.h>
-#include <Aspose.Words.Cpp/Model/Tables/CellFormat.h>
-#include <Aspose.Words.Cpp/Model/Tables/CellMerge.h>
-#include <Aspose.Words.Cpp/Model/Tables/Row.h>
-#include <Aspose.Words.Cpp/Model/Tables/RowCollection.h>
-#include <Aspose.Words.Cpp/Model/Tables/Table.h>
-#include <Aspose.Words.Cpp/Model/Tables/TableCollection.h>
+#include <Aspose.Words.Cpp/Body.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Tables/CellCollection.h>
+#include <Aspose.Words.Cpp/Tables/CellFormat.h>
+#include <Aspose.Words.Cpp/Tables/CellMerge.h>
+#include <Aspose.Words.Cpp/Tables/Row.h>
+#include <Aspose.Words.Cpp/Tables/RowCollection.h>
+#include <Aspose.Words.Cpp/Tables/Table.h>
+#include <Aspose.Words.Cpp/Tables/TableCollection.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>
 #include <testing/test_predicates.h>

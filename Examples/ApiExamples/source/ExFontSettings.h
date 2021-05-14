@@ -8,36 +8,36 @@
 #include <cstdint>
 #include <functional>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
-#include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
-#include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
-#include <Aspose.Words.Cpp/Model/Document/WarningSource.h>
-#include <Aspose.Words.Cpp/Model/Document/WarningType.h>
-#include <Aspose.Words.Cpp/Model/Fonts/DefaultFontSubstitutionRule.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FileFontSource.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FolderFontSource.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontConfigSubstitutionRule.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontFallbackSettings.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontInfoSubstitutionRule.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontSourceBase.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontSourceType.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontSubstitutionSettings.h>
-#include <Aspose.Words.Cpp/Model/Fonts/MemoryFontSource.h>
-#include <Aspose.Words.Cpp/Model/Fonts/PhysicalFontInfo.h>
-#include <Aspose.Words.Cpp/Model/Fonts/StreamFontSource.h>
-#include <Aspose.Words.Cpp/Model/Fonts/SystemFontSource.h>
-#include <Aspose.Words.Cpp/Model/Fonts/TableSubstitutionRule.h>
-#include <Aspose.Words.Cpp/Model/Loading/LoadOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Text/Font.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/Run.h>
-#include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Body.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Fonts/DefaultFontSubstitutionRule.h>
+#include <Aspose.Words.Cpp/Fonts/FileFontSource.h>
+#include <Aspose.Words.Cpp/Fonts/FolderFontSource.h>
+#include <Aspose.Words.Cpp/Fonts/FontConfigSubstitutionRule.h>
+#include <Aspose.Words.Cpp/Fonts/FontFallbackSettings.h>
+#include <Aspose.Words.Cpp/Fonts/FontInfoSubstitutionRule.h>
+#include <Aspose.Words.Cpp/Fonts/FontSettings.h>
+#include <Aspose.Words.Cpp/Fonts/FontSourceBase.h>
+#include <Aspose.Words.Cpp/Fonts/FontSourceType.h>
+#include <Aspose.Words.Cpp/Fonts/FontSubstitutionSettings.h>
+#include <Aspose.Words.Cpp/Fonts/MemoryFontSource.h>
+#include <Aspose.Words.Cpp/Fonts/PhysicalFontInfo.h>
+#include <Aspose.Words.Cpp/Fonts/StreamFontSource.h>
+#include <Aspose.Words.Cpp/Fonts/SystemFontSource.h>
+#include <Aspose.Words.Cpp/Fonts/TableSubstitutionRule.h>
+#include <Aspose.Words.Cpp/IWarningCallback.h>
+#include <Aspose.Words.Cpp/Loading/LoadOptions.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/RunCollection.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/WarningInfo.h>
+#include <Aspose.Words.Cpp/WarningInfoCollection.h>
+#include <Aspose.Words.Cpp/WarningSource.h>
+#include <Aspose.Words.Cpp/WarningType.h>
 #include <net/http_status_code.h>
 #include <system/array.h>
 #include <system/collections/ienumerable.h>
@@ -280,7 +280,7 @@ public:
         // Get the list of fonts to call warning callback.
         SharedPtr<System::Collections::Generic::IList<SharedPtr<PhysicalFontInfo>>> fontInfos = source->GetAvailableFonts();
 
-        ASSERT_TRUE(callback->FontSubstitutionWarnings->idx_get(0)->get_Description().StartsWith(u"Error loading font from the folder \"bad folder?\":"));
+        ASSERT_TRUE(callback->FontSubstitutionWarnings->idx_get(0)->get_Description().Contains(u"Error loading font from the folder \"bad folder?\""));
     }
 
     class FontSourceWarningCollector : public IWarningCallback
@@ -639,7 +639,7 @@ public:
         //ExStart
         //ExFor:FontSettings
         //ExFor:FontSettings.GetFontsSources()
-        //ExFor:FontSettings.SetFontsSources()
+        //ExFor:FontSettings.SetFontsSources(FontSourceBase[])
         //ExSummary:Shows how to add a font source to our existing font sources.
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -813,7 +813,7 @@ public:
         //ExFor:Fonts.FontSettings.SubstitutionSettings
         //ExFor:Fonts.FontSubstitutionSettings
         //ExFor:Fonts.SystemFontSource
-        //ExFor:Fonts.SystemFontSource.#ctor
+        //ExFor:Fonts.SystemFontSource.#ctor()
         //ExFor:Fonts.SystemFontSource.#ctor(Int32)
         //ExFor:Fonts.SystemFontSource.GetSystemFontFolders
         //ExFor:Fonts.SystemFontSource.Type

@@ -7,12 +7,12 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/IResourceSavingCallback.h>
-#include <Aspose.Words.Cpp/Model/Saving/ResourceSavingArgs.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Saving/XamlFixedSaveOptions.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/IResourceSavingCallback.h>
+#include <Aspose.Words.Cpp/Saving/ResourceSavingArgs.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Saving/XamlFixedSaveOptions.h>
 #include <system/array.h>
 #include <system/collections/list.h>
 #include <system/enumerator_adapter.h>

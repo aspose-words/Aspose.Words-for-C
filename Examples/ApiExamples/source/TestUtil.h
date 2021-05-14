@@ -4,28 +4,27 @@
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
-// CPPDEFECT: System.Data is not implemented
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ImageType.h>
-#include <Aspose.Words.Cpp/Model/Drawing/LayoutFlow.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
-#include <Aspose.Words.Cpp/Model/Drawing/TextBox.h>
-#include <Aspose.Words.Cpp/Model/Drawing/TextBoxWrapMode.h>
-#include <Aspose.Words.Cpp/Model/EditableRanges/EditableRange.h>
-#include <Aspose.Words.Cpp/Model/EditableRanges/EditorType.h>
-#include <Aspose.Words.Cpp/Model/Fields/Field.h>
-#include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
-#include <Aspose.Words.Cpp/Model/Footnotes/Footnote.h>
-#include <Aspose.Words.Cpp/Model/Footnotes/FootnoteType.h>
-#include <Aspose.Words.Cpp/Model/Lists/ListLevel.h>
-#include <Aspose.Words.Cpp/Model/Numbering/NumberStyle.h>
-#include <Aspose.Words.Cpp/Model/Tables/Table.h>
-#include <Aspose.Words.Cpp/Model/Text/TabAlignment.h>
-#include <Aspose.Words.Cpp/Model/Text/TabLeader.h>
-#include <Aspose.Words.Cpp/Model/Text/TabStop.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Drawing/ImageType.h>
+#include <Aspose.Words.Cpp/Drawing/LayoutFlow.h>
+#include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Drawing/TextBox.h>
+#include <Aspose.Words.Cpp/Drawing/TextBoxWrapMode.h>
+#include <Aspose.Words.Cpp/EditableRange.h>
+#include <Aspose.Words.Cpp/EditorType.h>
+#include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/Fields/FieldType.h>
+#include <Aspose.Words.Cpp/Lists/ListLevel.h>
+#include <Aspose.Words.Cpp/Notes/Footnote.h>
+#include <Aspose.Words.Cpp/Notes/FootnoteType.h>
+#include <Aspose.Words.Cpp/NumberStyle.h>
+#include <Aspose.Words.Cpp/TabAlignment.h>
+#include <Aspose.Words.Cpp/TabLeader.h>
+#include <Aspose.Words.Cpp/TabStop.h>
+#include <Aspose.Words.Cpp/Tables/Table.h>
 #include <net/http_status_code.h>
 #include <system/array.h>
 #include <system/date_time.h>

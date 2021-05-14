@@ -7,25 +7,25 @@
 
 #include <cstdint>
 #include <functional>
-#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Saving/ImageBinarizationMethod.h>
-#include <Aspose.Words.Cpp/Model/Saving/ImageColorMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/ImagePixelFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/MetafileRenderingMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/MetafileRenderingOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageRange.h>
-#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
-#include <Aspose.Words.Cpp/Model/Styles/Style.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
-#include <Aspose.Words.Cpp/Model/Text/Font.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/BreakType.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/ImageBinarizationMethod.h>
+#include <Aspose.Words.Cpp/Saving/ImageColorMode.h>
+#include <Aspose.Words.Cpp/Saving/ImagePixelFormat.h>
+#include <Aspose.Words.Cpp/Saving/ImageSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/MetafileRenderingMode.h>
+#include <Aspose.Words.Cpp/Saving/MetafileRenderingOptions.h>
+#include <Aspose.Words.Cpp/Saving/PageRange.h>
+#include <Aspose.Words.Cpp/Saving/PageSet.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Saving/TiffCompression.h>
+#include <Aspose.Words.Cpp/Style.h>
+#include <Aspose.Words.Cpp/StyleCollection.h>
 #include <drawing/color.h>
 #include <drawing/image.h>
 #include <system/array.h>
@@ -377,7 +377,7 @@ public:
         doc->Save(ArtifactsDir + u"ImageSaveOptions.EditImage.png", options);
         //ExEnd
 
-        TestUtil::VerifyImage(816, 1057, ArtifactsDir + u"ImageSaveOptions.EditImage.png");
+        TestUtil::VerifyImage(817, 1057, ArtifactsDir + u"ImageSaveOptions.EditImage.png");
     }
 
     void JpegQuality()

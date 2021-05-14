@@ -1,21 +1,21 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Styles/Style.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
-#include <Aspose.Words.Cpp/Model/Text/Font.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
-#include <Aspose.Words.Cpp/Model/Text/TabAlignment.h>
-#include <Aspose.Words.Cpp/Model/Text/TabLeader.h>
-#include <Aspose.Words.Cpp/Model/Text/TabStop.h>
-#include <Aspose.Words.Cpp/Model/Text/TabStopCollection.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Style.h>
+#include <Aspose.Words.Cpp/StyleCollection.h>
+#include <Aspose.Words.Cpp/StyleIdentifier.h>
+#include <Aspose.Words.Cpp/TabAlignment.h>
+#include <Aspose.Words.Cpp/TabLeader.h>
+#include <Aspose.Words.Cpp/TabStop.h>
+#include <Aspose.Words.Cpp/TabStopCollection.h>
 #include <system/enumerator_adapter.h>
 
 #include "DocsExamplesBase.h"

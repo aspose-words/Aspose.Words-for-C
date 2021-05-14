@@ -3,18 +3,17 @@
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
-// CPPDEFECT: System.Data is not implemented
 #include "TestUtil.h"
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ImageData.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ImageSize.h>
-#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldEnd.h>
-#include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldStart.h>
-#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
+#include <Aspose.Words.Cpp/CompositeNode.h>
+#include <Aspose.Words.Cpp/ControlChar.h>
+#include <Aspose.Words.Cpp/Drawing/ImageData.h>
+#include <Aspose.Words.Cpp/Drawing/ImageSize.h>
+#include <Aspose.Words.Cpp/Fields/FieldEnd.h>
+#include <Aspose.Words.Cpp/Fields/FieldStart.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
 #include <drawing/bitmap.h>
 #include <drawing/color.h>
 #include <drawing/image.h>
@@ -88,7 +87,6 @@ void TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode expectedH
 
 void TestUtil::TableMatchesQueryResult(System::SharedPtr<Tables::Table> expectedResult, System::String dbFilename, System::String sqlQuery)
 {
-    // CPPDEFECT: OleDbConnection is not implemented
 }
 
 void TestUtil::MailMergeMatchesQueryResultMultiple(System::String dbFilename, System::ArrayPtr<System::String> sqlQueries, System::SharedPtr<Document> doc,
@@ -102,7 +100,6 @@ void TestUtil::MailMergeMatchesQueryResultMultiple(System::String dbFilename, Sy
 
 void TestUtil::MailMergeMatchesQueryResult(System::String dbFilename, System::String sqlQuery, System::SharedPtr<Document> doc, bool onePagePerRow)
 {
-    // CPPDEFECT: OdbcConnection is not implemented
 }
 
 void TestUtil::MailMergeMatchesArray(System::ArrayPtr<System::ArrayPtr<System::String>> expectedResult, System::SharedPtr<Document> doc, bool onePagePerRow)

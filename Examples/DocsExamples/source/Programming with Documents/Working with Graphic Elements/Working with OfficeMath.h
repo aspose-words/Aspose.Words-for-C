@@ -1,13 +1,13 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Math/OfficeMath.h>
-#include <Aspose.Words.Cpp/Model/Math/OfficeMathDisplayType.h>
-#include <Aspose.Words.Cpp/Model/Math/OfficeMathJustification.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Math/OfficeMath.h>
+#include <Aspose.Words.Cpp/Math/OfficeMathDisplayType.h>
+#include <Aspose.Words.Cpp/Math/OfficeMathJustification.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/exceptions.h>
 
 #include "DocsExamplesBase.h"

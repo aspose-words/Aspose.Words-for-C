@@ -1,20 +1,20 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Lists/List.h>
-#include <Aspose.Words.Cpp/Model/Lists/ListCollection.h>
-#include <Aspose.Words.Cpp/Model/Lists/ListLevel.h>
-#include <Aspose.Words.Cpp/Model/Lists/ListLevelAlignment.h>
-#include <Aspose.Words.Cpp/Model/Lists/ListLevelCollection.h>
-#include <Aspose.Words.Cpp/Model/Lists/ListTemplate.h>
-#include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
-#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Text/Font.h>
-#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
+#include <Aspose.Words.Cpp/BreakType.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Lists/List.h>
+#include <Aspose.Words.Cpp/Lists/ListCollection.h>
+#include <Aspose.Words.Cpp/Lists/ListFormat.h>
+#include <Aspose.Words.Cpp/Lists/ListLevel.h>
+#include <Aspose.Words.Cpp/Lists/ListLevelAlignment.h>
+#include <Aspose.Words.Cpp/Lists/ListLevelCollection.h>
+#include <Aspose.Words.Cpp/Lists/ListTemplate.h>
+#include <Aspose.Words.Cpp/Saving/OoxmlCompliance.h>
+#include <Aspose.Words.Cpp/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <drawing/color.h>
 
 #include "DocsExamplesBase.h"

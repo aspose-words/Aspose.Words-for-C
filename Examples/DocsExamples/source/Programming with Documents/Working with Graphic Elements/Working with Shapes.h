@@ -3,37 +3,37 @@
 #include <cstdint>
 #include <functional>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Fill.h>
-#include <Aspose.Words.Cpp/Model/Drawing/GroupShape.h>
-#include <Aspose.Words.Cpp/Model/Drawing/HorizontalAlignment.h>
-#include <Aspose.Words.Cpp/Model/Drawing/RelativeHorizontalPosition.h>
-#include <Aspose.Words.Cpp/Model/Drawing/RelativeVerticalPosition.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
-#include <Aspose.Words.Cpp/Model/Drawing/TextBox.h>
-#include <Aspose.Words.Cpp/Model/Drawing/TextBoxAnchor.h>
-#include <Aspose.Words.Cpp/Model/Drawing/TextPath.h>
-#include <Aspose.Words.Cpp/Model/Drawing/VerticalAlignment.h>
-#include <Aspose.Words.Cpp/Model/Drawing/WrapType.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
-#include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
-#include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
-#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
-#include <Aspose.Words.Cpp/Model/Tables/Row.h>
-#include <Aspose.Words.Cpp/Model/Tables/RowFormat.h>
-#include <Aspose.Words.Cpp/Model/Tables/Table.h>
-#include <Aspose.Words.Cpp/Model/Text/HeightRule.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Drawing/Fill.h>
+#include <Aspose.Words.Cpp/Drawing/GroupShape.h>
+#include <Aspose.Words.Cpp/Drawing/HorizontalAlignment.h>
+#include <Aspose.Words.Cpp/Drawing/RelativeHorizontalPosition.h>
+#include <Aspose.Words.Cpp/Drawing/RelativeVerticalPosition.h>
+#include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Drawing/TextBox.h>
+#include <Aspose.Words.Cpp/Drawing/TextBoxAnchor.h>
+#include <Aspose.Words.Cpp/Drawing/TextPath.h>
+#include <Aspose.Words.Cpp/Drawing/VerticalAlignment.h>
+#include <Aspose.Words.Cpp/Drawing/WrapType.h>
+#include <Aspose.Words.Cpp/HeightRule.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
 #include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
+#include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/OoxmlCompliance.h>
+#include <Aspose.Words.Cpp/Saving/OoxmlSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Settings/CompatibilityOptions.h>
+#include <Aspose.Words.Cpp/Settings/MsWordVersion.h>
+#include <Aspose.Words.Cpp/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Tables/Row.h>
+#include <Aspose.Words.Cpp/Tables/RowFormat.h>
+#include <Aspose.Words.Cpp/Tables/Table.h>
 #include <drawing/color.h>
 #include <drawing/rectangle_f.h>
 #include <drawing/size.h>
@@ -158,7 +158,7 @@ public:
         watermark->set_VerticalAlignment(VerticalAlignment::Center);
         watermark->set_Rotation(-40);
 
-        watermark->get_Fill()->set_Color(System::Drawing::Color::get_Gray());
+        watermark->get_Fill()->set_ForeColor(System::Drawing::Color::get_Gray());
         watermark->set_StrokeColor(System::Drawing::Color::get_Gray());
 
         watermark->get_TextPath()->set_Text(u"watermarkText");

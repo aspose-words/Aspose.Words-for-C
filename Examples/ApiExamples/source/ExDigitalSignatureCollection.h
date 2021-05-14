@@ -7,11 +7,11 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/CertificateHolder.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignature.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureCollection.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureType.h>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureUtil.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/CertificateHolder.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/DigitalSignature.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/DigitalSignatureCollection.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/DigitalSignatureType.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/DigitalSignatureUtil.h>
 #include <security/cryptography/x509_certificates/x500_distinguished_name.h>
 #include <security/cryptography/x509_certificates/x509_certificate_2.h>
 #include <system/collections/ienumerator.h>

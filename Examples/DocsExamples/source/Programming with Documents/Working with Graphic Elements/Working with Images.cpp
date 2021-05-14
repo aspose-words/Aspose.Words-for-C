@@ -1,8 +1,8 @@
 ﻿#include "Programming with Documents/Working with Graphic Elements/Working with Images.h"
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Drawing/ImageType.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
+#include <Aspose.Words.Cpp/Drawing/ImageType.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
 #include <drawing/bitmap.h>
 #include <drawing/drawing2d/interpolation_mode.h>
 #include <drawing/graphics.h>

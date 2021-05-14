@@ -1,5 +1,4 @@
-﻿// CPPDEFECT: System.Data is not supported
-#include "Base operations.h"
+﻿#include "Base operations.h"
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::MailMerging;

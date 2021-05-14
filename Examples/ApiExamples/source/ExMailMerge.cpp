@@ -3,7 +3,6 @@
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
-// CPPDEFECT: System.Data is not supported
 #include "ExMailMerge.h"
 
 #include <system/test_tools/method_argument_tuple.h>

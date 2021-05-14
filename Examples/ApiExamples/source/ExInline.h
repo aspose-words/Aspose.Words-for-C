@@ -6,13 +6,13 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Revisions/Revision.h>
-#include <Aspose.Words.Cpp/Model/Revisions/RevisionCollection.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/Run.h>
-#include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/Revision.h>
+#include <Aspose.Words.Cpp/RevisionCollection.h>
+#include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/RunCollection.h>
 #include <system/array.h>
 #include <system/exceptions.h>
 #include <system/test_tools/compare.h>

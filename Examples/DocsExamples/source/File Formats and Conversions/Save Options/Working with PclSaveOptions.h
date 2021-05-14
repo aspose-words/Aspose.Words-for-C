@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/PclSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/PclSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 
 #include "DocsExamplesBase.h"
 

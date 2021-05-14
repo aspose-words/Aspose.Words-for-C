@@ -5,10 +5,10 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Loading/RtfLoadOptions.h>
-#include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Body.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Loading/RtfLoadOptions.h>
+#include <Aspose.Words.Cpp/Section.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>
 #include <testing/test_predicates.h>

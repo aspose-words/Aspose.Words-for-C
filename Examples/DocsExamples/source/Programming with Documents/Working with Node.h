@@ -2,20 +2,20 @@
 
 #include <cstdint>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
-#include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
-#include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Tables/Row.h>
-#include <Aspose.Words.Cpp/Model/Tables/Table.h>
-#include <Aspose.Words.Cpp/Model/Tables/TableCollection.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
-#include <Aspose.Words.Cpp/Model/Text/Run.h>
+#include <Aspose.Words.Cpp/Body.h>
+#include <Aspose.Words.Cpp/CompositeNode.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBase.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/NodeCollection.h>
+#include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/Tables/Row.h>
+#include <Aspose.Words.Cpp/Tables/Table.h>
+#include <Aspose.Words.Cpp/Tables/TableCollection.h>
 #include <system/enumerator_adapter.h>
 #include <system/exceptions.h>
 

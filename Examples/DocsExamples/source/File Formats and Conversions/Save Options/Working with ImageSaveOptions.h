@@ -1,18 +1,18 @@
 ﻿#pragma once
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/IPageSavingCallback.h>
-#include <Aspose.Words.Cpp/Model/Saving/ImageBinarizationMethod.h>
-#include <Aspose.Words.Cpp/Model/Saving/ImageColorMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/ImagePixelFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/PageSavingArgs.h>
-#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageRange.h>
-#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/IPageSavingCallback.h>
+#include <Aspose.Words.Cpp/Saving/ImageBinarizationMethod.h>
+#include <Aspose.Words.Cpp/Saving/ImageColorMode.h>
+#include <Aspose.Words.Cpp/Saving/ImagePixelFormat.h>
+#include <Aspose.Words.Cpp/Saving/ImageSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/PageRange.h>
+#include <Aspose.Words.Cpp/Saving/PageSavingArgs.h>
+#include <Aspose.Words.Cpp/Saving/PageSet.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Saving/TiffCompression.h>
 #include <system/array.h>
 #include <system/object.h>
 

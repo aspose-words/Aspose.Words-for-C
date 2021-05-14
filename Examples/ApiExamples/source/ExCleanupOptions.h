@@ -6,21 +6,21 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Model/Document/CleanupOptions.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Lists/List.h>
-#include <Aspose.Words.Cpp/Model/Lists/ListCollection.h>
-#include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Styles/Style.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleType.h>
-#include <Aspose.Words.Cpp/Model/Text/Font.h>
-#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Body.h>
+#include <Aspose.Words.Cpp/CleanupOptions.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Lists/List.h>
+#include <Aspose.Words.Cpp/Lists/ListCollection.h>
+#include <Aspose.Words.Cpp/Lists/ListFormat.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/ParagraphCollection.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/Style.h>
+#include <Aspose.Words.Cpp/StyleCollection.h>
+#include <Aspose.Words.Cpp/StyleType.h>
 #include <drawing/color.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>

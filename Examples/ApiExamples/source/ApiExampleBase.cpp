@@ -6,7 +6,7 @@
 #include "ApiExampleBase.h"
 
 #include <cstdint>
-#include <Aspose.Words.Cpp/Licensing/License.h>
+#include <Aspose.Words.Cpp/License.h>
 #include <system/globalization/culture_info.h>
 #include <system/io/directory.h>
 #include <system/io/file.h>
@@ -56,13 +56,11 @@ void ApiExampleBase::OneTimeTearDown()
 
 bool ApiExampleBase::CheckForSkipMono()
 {
-    // CPPDEFECT: Unit-test properties is not supported
     return false;
 }
 
 bool ApiExampleBase::IsRunningOnMono()
 {
-    // CPPDEFECT: Type.GetType is not implemented
     return false;
 }
 
@@ -79,7 +77,6 @@ void ApiExampleBase::SetUnlimitedLicense()
         // binaries or you add the license to your project as an embedded resource.
         auto wordsLicense = System::MakeObject<License>();
         wordsLicense->SetLicense(testLicenseFileName);
-        // CPPDEFECT: Aspose.Pdf and Aspose.BarCode is not supported
     }
 }
 

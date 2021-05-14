@@ -8,69 +8,69 @@
 #include <cstdint>
 #include <functional>
 #include <iostream>
-#include <Aspose.Words.Cpp/Model/DigitalSignatures/CertificateHolder.h>
-#include <Aspose.Words.Cpp/Model/Document/BreakType.h>
-#include <Aspose.Words.Cpp/Model/Document/Document.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/FileFormatInfo.h>
-#include <Aspose.Words.Cpp/Model/Document/FileFormatUtil.h>
-#include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
-#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
-#include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
-#include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
-#include <Aspose.Words.Cpp/Model/Document/WarningType.h>
-#include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Model/Fields/Field.h>
-#include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FolderFontSource.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontSourceBase.h>
-#include <Aspose.Words.Cpp/Model/Fonts/PhysicalFontInfo.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
-#include <Aspose.Words.Cpp/Model/Properties/BuiltInDocumentProperties.h>
-#include <Aspose.Words.Cpp/Model/Properties/CustomDocumentProperties.h>
-#include <Aspose.Words.Cpp/Model/Properties/DocumentProperty.h>
-#include <Aspose.Words.Cpp/Model/Saving/ColorMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/DmlEffectsRenderingMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/DmlRenderingMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/DownsampleOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/EmfPlusDualRenderingMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/HeaderFooterBookmarksExportMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/MetafileRenderingMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/MetafileRenderingOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/NumeralFormat.h>
-#include <Aspose.Words.Cpp/Model/Saving/OutlineOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfCompliance.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfCustomPropertiesExport.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfDigitalSignatureDetails.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfDigitalSignatureHashAlgorithm.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfDigitalSignatureTimestampSettings.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfEncryptionAlgorithm.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfEncryptionDetails.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfFontEmbeddingMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfImageColorSpaceExportMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfImageCompression.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfPageMode.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfPermissions.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfTextCompression.h>
-#include <Aspose.Words.Cpp/Model/Saving/PdfZoomBehavior.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
-#include <Aspose.Words.Cpp/Model/Sections/Section.h>
-#include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
-#include <Aspose.Words.Cpp/Model/Settings/MultiplePagesType.h>
-#include <Aspose.Words.Cpp/Model/Styles/Style.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
-#include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
-#include <Aspose.Words.Cpp/Model/Tables/Cell.h>
-#include <Aspose.Words.Cpp/Model/Tables/Row.h>
-#include <Aspose.Words.Cpp/Model/Tables/Table.h>
-#include <Aspose.Words.Cpp/Model/Text/Font.h>
-#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
-#include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/BreakType.h>
+#include <Aspose.Words.Cpp/DigitalSignatures/CertificateHolder.h>
+#include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/Fields/FormField.h>
+#include <Aspose.Words.Cpp/FileFormatInfo.h>
+#include <Aspose.Words.Cpp/FileFormatUtil.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Fonts/FolderFontSource.h>
+#include <Aspose.Words.Cpp/Fonts/FontSettings.h>
+#include <Aspose.Words.Cpp/Fonts/FontSourceBase.h>
+#include <Aspose.Words.Cpp/Fonts/PhysicalFontInfo.h>
+#include <Aspose.Words.Cpp/IWarningCallback.h>
+#include <Aspose.Words.Cpp/Node.h>
+#include <Aspose.Words.Cpp/PageSetup.h>
+#include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
+#include <Aspose.Words.Cpp/Properties/BuiltInDocumentProperties.h>
+#include <Aspose.Words.Cpp/Properties/CustomDocumentProperties.h>
+#include <Aspose.Words.Cpp/Properties/DocumentProperty.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/ColorMode.h>
+#include <Aspose.Words.Cpp/Saving/DmlEffectsRenderingMode.h>
+#include <Aspose.Words.Cpp/Saving/DmlRenderingMode.h>
+#include <Aspose.Words.Cpp/Saving/DownsampleOptions.h>
+#include <Aspose.Words.Cpp/Saving/EmfPlusDualRenderingMode.h>
+#include <Aspose.Words.Cpp/Saving/HeaderFooterBookmarksExportMode.h>
+#include <Aspose.Words.Cpp/Saving/MetafileRenderingMode.h>
+#include <Aspose.Words.Cpp/Saving/MetafileRenderingOptions.h>
+#include <Aspose.Words.Cpp/Saving/NumeralFormat.h>
+#include <Aspose.Words.Cpp/Saving/OutlineOptions.h>
+#include <Aspose.Words.Cpp/Saving/PageSet.h>
+#include <Aspose.Words.Cpp/Saving/PdfCompliance.h>
+#include <Aspose.Words.Cpp/Saving/PdfCustomPropertiesExport.h>
+#include <Aspose.Words.Cpp/Saving/PdfDigitalSignatureDetails.h>
+#include <Aspose.Words.Cpp/Saving/PdfDigitalSignatureHashAlgorithm.h>
+#include <Aspose.Words.Cpp/Saving/PdfDigitalSignatureTimestampSettings.h>
+#include <Aspose.Words.Cpp/Saving/PdfEncryptionAlgorithm.h>
+#include <Aspose.Words.Cpp/Saving/PdfEncryptionDetails.h>
+#include <Aspose.Words.Cpp/Saving/PdfFontEmbeddingMode.h>
+#include <Aspose.Words.Cpp/Saving/PdfImageColorSpaceExportMode.h>
+#include <Aspose.Words.Cpp/Saving/PdfImageCompression.h>
+#include <Aspose.Words.Cpp/Saving/PdfPageMode.h>
+#include <Aspose.Words.Cpp/Saving/PdfPermissions.h>
+#include <Aspose.Words.Cpp/Saving/PdfSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/PdfTextCompression.h>
+#include <Aspose.Words.Cpp/Saving/PdfZoomBehavior.h>
+#include <Aspose.Words.Cpp/Saving/SaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/SectionCollection.h>
+#include <Aspose.Words.Cpp/Settings/MultiplePagesType.h>
+#include <Aspose.Words.Cpp/Style.h>
+#include <Aspose.Words.Cpp/StyleCollection.h>
+#include <Aspose.Words.Cpp/StyleIdentifier.h>
+#include <Aspose.Words.Cpp/Tables/Cell.h>
+#include <Aspose.Words.Cpp/Tables/Row.h>
+#include <Aspose.Words.Cpp/Tables/Table.h>
+#include <Aspose.Words.Cpp/WarningInfo.h>
+#include <Aspose.Words.Cpp/WarningInfoCollection.h>
+#include <Aspose.Words.Cpp/WarningType.h>
 #include <system/array.h>
 #include <system/collections/ilist.h>
 #include <system/date_time.h>
@@ -1327,12 +1327,12 @@ public:
 
         ASSERT_EQ(u"Test Signing", options->get_DigitalSignatureDetails()->get_Reason());
         ASSERT_EQ(u"My Office", options->get_DigitalSignatureDetails()->get_Location());
-        ASSERT_EQ(signingTime.ToUniversalTime(), options->get_DigitalSignatureDetails()->get_SignatureDate());
+        ASSERT_EQ(signingTime.ToUniversalTime(), options->get_DigitalSignatureDetails()->get_SignatureDate().ToUniversalTime());
 
         doc->Save(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignature.pdf", options);
         //ExEnd
 
-        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/FT /Sig/DR <<>>/F 132/Rect [0 0 0 0]/V 7 0 R/P 4 0 "
+        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 7 0 R/P 4 0 "
                                                               u"R/"
                                                               u"T("
                                                               u"þÿ\u0000A\u0000s\u0000p\u0000o\u0000s\u0000e\u0000D\u0000i\u0000g\u0000i\u0000t\u0000a\u0000l"
@@ -1388,7 +1388,7 @@ public:
         //ExEnd
 
         ASSERT_FALSE(FileFormatUtil::DetectFileFormat(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignatureTimestamp.pdf")->get_HasDigitalSignature());
-        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/FT /Sig/DR <<>>/F 132/Rect [0 0 0 0]/V 7 0 R/P 4 0 "
+        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 7 0 R/P 4 0 "
                                                               u"R/"
                                                               u"T("
                                                               u"þÿ\u0000A\u0000s\u0000p\u0000o\u0000s\u0000e\u0000D\u0000i\u0000g\u0000i\u0000t\u0000a\u0000l"
