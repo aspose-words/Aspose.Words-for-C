@@ -259,21 +259,21 @@ public:
 
         SharedPtr<System::Collections::Generic::IList<SharedPtr<MailMergeRegionInfo>>> regions = doc->get_MailMerge()->GetRegionsByName(u"Region1");
         ASSERT_EQ(1, doc->get_MailMerge()->GetRegionsByName(u"Region1")->get_Count());
-        for (auto region : System::IterateOver(regions))
+        for (const auto& region : System::IterateOver(regions))
         {
             ASSERT_EQ(u"Region1", region->get_Name());
         }
 
         regions = doc->get_MailMerge()->GetRegionsByName(u"Region2");
         ASSERT_EQ(1, doc->get_MailMerge()->GetRegionsByName(u"Region2")->get_Count());
-        for (auto region : System::IterateOver(regions))
+        for (const auto& region : System::IterateOver(regions))
         {
             ASSERT_EQ(u"Region2", region->get_Name());
         }
 
         regions = doc->get_MailMerge()->GetRegionsByName(u"NestedRegion1");
         ASSERT_EQ(2, doc->get_MailMerge()->GetRegionsByName(u"NestedRegion1")->get_Count());
-        for (auto region : System::IterateOver(regions))
+        for (const auto& region : System::IterateOver(regions))
         {
             ASSERT_EQ(u"NestedRegion1", region->get_Name());
         }

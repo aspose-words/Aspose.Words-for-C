@@ -192,7 +192,7 @@ public:
 
         // Select all field start nodes so we can find the MERGEFIELDs.
         SharedPtr<NodeCollection> fieldStarts = doc->GetChildNodes(NodeType::FieldStart, true);
-        for (auto fieldStart : System::IterateOver(fieldStarts->LINQ_OfType<SharedPtr<FieldStart>>()))
+        for (const auto& fieldStart : System::IterateOver(fieldStarts->LINQ_OfType<SharedPtr<FieldStart>>()))
         {
             if (fieldStart->get_FieldType() == FieldType::FieldMergeField)
             {

@@ -90,7 +90,7 @@ public:
         auto paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
 
         SharedPtr<NodeCollection> children = paragraph->get_ChildNodes();
-        for (auto child : System::IterateOver(children))
+        for (const auto& child : System::IterateOver(children))
         {
             // A paragraph may contain children of various types such as runs, shapes, and others.
             if (child->get_NodeType() == NodeType::Run)
@@ -140,7 +140,7 @@ public:
         // Quick typed access to all Table child nodes contained in the Body.
         SharedPtr<TableCollection> tables = body->get_Tables();
 
-        for (auto table : System::IterateOver<Table>(tables))
+        for (const auto& table : System::IterateOver<Table>(tables))
         {
             // Quick typed access to the first row of the table.
             if (table->get_FirstRow() != nullptr)

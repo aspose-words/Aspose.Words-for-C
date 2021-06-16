@@ -9,6 +9,7 @@
 #include <Aspose.Words.Cpp/Drawing/Shape.h>
 #include <Aspose.Words.Cpp/Drawing/ShapeType.h>
 #include <Aspose.Words.Cpp/Drawing/WrapType.h>
+#include <Aspose.Words.Cpp/Layout/CommentDisplayMode.h>
 #include <Aspose.Words.Cpp/Layout/LayoutOptions.h>
 #include <Aspose.Words.Cpp/Layout/RevisionOptions.h>
 #include <Aspose.Words.Cpp/Layout/ShowInBalloons.h>
@@ -131,7 +132,7 @@ public:
         //ExStart:GetRevisionGroups
         auto doc = MakeObject<Document>(MyDir + u"Revisions.docx");
 
-        for (auto group : doc->get_Revisions()->get_Groups())
+        for (const auto& group : doc->get_Revisions()->get_Groups())
         {
             std::cout << String::Format(u"{0}, {1}:", group->get_Author(), group->get_RevisionType()) << std::endl;
             std::cout << group->get_Text() << std::endl;
@@ -179,7 +180,7 @@ public:
         //ExStart:GetRevisionGroupDetails
         auto doc = MakeObject<Document>(MyDir + u"Revisions.docx");
 
-        for (auto revision : System::IterateOver(doc->get_Revisions()))
+        for (const auto& revision : System::IterateOver(doc->get_Revisions()))
         {
             String groupText =
                 revision->get_Group() != nullptr ? String(u"Revision group text: ") + revision->get_Group()->get_Text() : u"Revision has no group";
@@ -202,7 +203,7 @@ public:
         // Switch to the revised version of the document.
         doc->set_RevisionsView(RevisionsView::Final);
 
-        for (auto revision : System::IterateOver(doc->get_Revisions()))
+        for (const auto& revision : System::IterateOver(doc->get_Revisions()))
         {
             if (revision->get_ParentNode()->get_NodeType() == NodeType::Paragraph)
             {

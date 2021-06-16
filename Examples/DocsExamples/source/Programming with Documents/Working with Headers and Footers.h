@@ -161,7 +161,7 @@ protected:
 
         section->get_HeadersFooters()->Clear();
 
-        for (auto headerFooter : System::IterateOver<HeaderFooter>(previousSection->get_HeadersFooters()))
+        for (const auto& headerFooter : System::IterateOver<HeaderFooter>(previousSection->get_HeadersFooters()))
         {
             section->get_HeadersFooters()->Add((System::StaticCast<Node>(headerFooter))->Clone(true));
         }

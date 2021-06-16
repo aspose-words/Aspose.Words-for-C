@@ -40,7 +40,7 @@ System::SharedPtr<Aspose::Words::Document> DocumentPageSplitter::GetDocumentOfPa
 System::SharedPtr<Aspose::Words::Document> DocumentPageSplitter::GetDocumentOfPageRange(int32_t startIndex, int32_t endIndex)
 {
     auto result = System::DynamicCast<Aspose::Words::Document>(System::StaticCast<Aspose::Words::Node>(get_Document())->Clone(false));
-    for (auto section : System::IterateOver(pageNumberFinder->RetrieveAllNodesOnPages(startIndex, endIndex, NodeType::Section)))
+    for (const auto& section : System::IterateOver(pageNumberFinder->RetrieveAllNodesOnPages(startIndex, endIndex, NodeType::Section)))
     {
         result->AppendChild(result->ImportNode(section, true));
     }
@@ -133,7 +133,7 @@ VisitorAction SectionSplitter::VisitSectionStart(System::SharedPtr<Section> sect
                                                              pageNumberFinder->PageSpan(previousSection));
         }
 
-        for (auto previousHeaderFooter : System::IterateOver<HeaderFooter>(previousHeaderFooters))
+        for (const auto& previousHeaderFooter : System::IterateOver<HeaderFooter>(previousHeaderFooters))
         {
             if (section->get_HeadersFooters()->idx_get(previousHeaderFooter->get_HeaderFooterType()) == nullptr)
             {
@@ -188,7 +188,7 @@ VisitorAction SectionSplitter::VisitParagraphEnd(System::SharedPtr<Paragraph> pa
         pageNumberFinder->AddPageNumbersForNode(run, currentEndPageNum, currentEndPageNum);
     }
 
-    for (auto clonePara : System::IterateOver<Paragraph>(SplitComposite(paragraph)))
+    for (const auto& clonePara : System::IterateOver<Paragraph>(SplitComposite(paragraph)))
     {
         // Remove list numbering from the cloned paragraph but leave the indent the same
         // as the paragraph is supposed to be part of the item before.
@@ -212,7 +212,7 @@ VisitorAction SectionSplitter::VisitParagraphEnd(System::SharedPtr<Paragraph> pa
 
 VisitorAction SectionSplitter::VisitSectionEnd(System::SharedPtr<Section> section)
 {
-    for (auto cloneSection : System::IterateOver<Section>(SplitComposite(section)))
+    for (const auto& cloneSection : System::IterateOver<Section>(SplitComposite(section)))
     {
         cloneSection->get_PageSetup()->set_SectionStart(SectionStart::NewPage);
         cloneSection->get_PageSetup()->set_RestartPageNumbering(true);
@@ -240,7 +240,7 @@ System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> S
 {
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> splitNodes =
         System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Node>>>();
-    for (auto splitNode : System::IterateOver(FindChildSplitPositions(composite)))
+    for (const auto& splitNode : System::IterateOver(FindChildSplitPositions(composite)))
     {
         splitNodes->Add(SplitCompositeAtNode(composite, splitNode));
     }
@@ -358,7 +358,7 @@ System::SharedPtr<CompositeNode> SectionSplitter::SplitCompositeAtNode(System::S
     int32_t currentEndPageNum = pageNumberFinder->GetPageEnd(baseNode);
     pageNumberFinder->AddPageNumbersForNode(baseNode, currentPageNum, currentEndPageNum - 1);
     pageNumberFinder->AddPageNumbersForNode(cloneNode, currentEndPageNum, currentEndPageNum);
-    for (auto childNode : System::IterateOver(cloneNode->GetChildNodes(NodeType::Any, true)))
+    for (const auto& childNode : System::IterateOver(cloneNode->GetChildNodes(NodeType::Any, true)))
     {
         pageNumberFinder->AddPageNumbersForNode(childNode, currentEndPageNum, currentEndPageNum);
     }

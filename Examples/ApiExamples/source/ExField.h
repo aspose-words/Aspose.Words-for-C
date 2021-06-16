@@ -776,9 +776,9 @@ public:
 
         SharedPtr<NodeCollection> paragraphCollection = doc->GetChildNodes(NodeType::Paragraph, true);
 
-        for (auto para : System::IterateOver(paragraphCollection->LINQ_OfType<SharedPtr<Paragraph>>()))
+        for (const auto& para : System::IterateOver(paragraphCollection->LINQ_OfType<SharedPtr<Paragraph>>()))
         {
-            for (auto run : System::IterateOver(para->get_Runs()->LINQ_OfType<SharedPtr<Run>>()))
+            for (const auto& run : System::IterateOver(para->get_Runs()->LINQ_OfType<SharedPtr<Run>>()))
             {
                 if (run->get_Text().Contains(ControlChar::PageBreak()))
                 {
@@ -798,7 +798,7 @@ public:
 
         SharedPtr<NodeCollection> fStart = doc->GetChildNodes(NodeType::FieldStart, true);
 
-        for (auto field : System::IterateOver(fStart->LINQ_OfType<SharedPtr<FieldStart>>()))
+        for (const auto& field : System::IterateOver(fStart->LINQ_OfType<SharedPtr<FieldStart>>()))
         {
             FieldType fType = field->get_FieldType();
             if (fType == FieldType::FieldTOC)
@@ -1424,7 +1424,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.AUTONUMOUT.docx");
 
-        for (auto field : System::IterateOver(doc->get_Range()->get_Fields()))
+        for (const auto& field : System::IterateOver(doc->get_Range()->get_Fields()))
         {
             TestUtil::VerifyField(FieldType::FieldAutoNumOutline, u" AUTONUMOUT ", String::Empty, field);
         }
@@ -6348,7 +6348,7 @@ public:
         builder->Writeln(u"שלום");
 
         // Set the horizontal text alignment for every paragraph in the document to RTL.
-        for (auto para : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
+        for (const auto& para : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
         {
             para->get_ParagraphFormat()->set_Bidi(true);
         }
@@ -6360,7 +6360,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.BIDIOUTLINE.docx");
 
-        for (auto fieldBidiOutline : System::IterateOver(doc->get_Range()->get_Fields()))
+        for (const auto& fieldBidiOutline : System::IterateOver(doc->get_Range()->get_Fields()))
         {
             TestUtil::VerifyField(FieldType::FieldBidiOutline, u" BIDIOUTLINE ", String::Empty, fieldBidiOutline);
         }

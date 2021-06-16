@@ -41,7 +41,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         String variables = u"";
-        for (auto entry : doc->get_Variables())
+        for (const auto& entry : doc->get_Variables())
         {
             String name = entry.get_Key();
             String value = entry.get_Value();
@@ -67,14 +67,14 @@ public:
         std::cout << "1. Document name: " << doc->get_OriginalFileName() << std::endl;
         std::cout << "2. Built-in Properties" << std::endl;
 
-        for (auto prop : System::IterateOver(doc->get_BuiltInDocumentProperties()))
+        for (const auto& prop : System::IterateOver(doc->get_BuiltInDocumentProperties()))
         {
             std::cout << prop->get_Name() << " : " << prop->get_Value() << std::endl;
         }
 
         std::cout << "3. Custom Properties" << std::endl;
 
-        for (auto prop : System::IterateOver(doc->get_CustomDocumentProperties()))
+        for (const auto& prop : System::IterateOver(doc->get_CustomDocumentProperties()))
         {
             std::cout << prop->get_Name() << " : " << prop->get_Value() << std::endl;
         }

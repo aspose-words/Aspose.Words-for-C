@@ -342,9 +342,9 @@ public:
     {
         SharedPtr<System::Collections::Generic::List<ArrayPtr<String>>> mailMergeData = MakeObject<System::Collections::Generic::List<ArrayPtr<String>>>();
 
-        for (auto customer : customers)
+        for (const auto& customer : customers)
         {
-            for (auto order : customer->get_Orders())
+            for (const auto& order : customer->get_Orders())
             {
                 mailMergeData->Add(MakeArray<String>({order->get_Name(), System::Convert::ToString(order->get_Quantity())}));
             }

@@ -116,7 +116,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Comments.docx");
 
         // Extract the information about the comments of all the authors.
-        for (auto comment : ExtractComments(doc))
+        for (const auto& comment : ExtractComments(doc))
         {
             std::cout << comment;
         }
@@ -126,7 +126,7 @@ public:
         std::cout << "Comments from \"pm\" are removed!" << std::endl;
 
         // Extract the information about the comments of the "ks" author.
-        for (auto comment : ExtractComments(doc, u"ks"))
+        for (const auto& comment : ExtractComments(doc, u"ks"))
         {
             std::cout << comment;
         }
@@ -148,7 +148,7 @@ private:
         SharedPtr<System::Collections::Generic::List<String>> collectedComments = MakeObject<System::Collections::Generic::List<String>>();
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
 
-        for (auto comment : System::IterateOver<Comment>(comments))
+        for (const auto& comment : System::IterateOver<Comment>(comments))
         {
             collectedComments->Add(comment->get_Author() + u" " + comment->get_DateTime() + u" " + comment->ToString(SaveFormat::Text));
         }
@@ -161,7 +161,7 @@ private:
         SharedPtr<System::Collections::Generic::List<String>> collectedComments = MakeObject<System::Collections::Generic::List<String>>();
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
 
-        for (auto comment : System::IterateOver<Comment>(comments))
+        for (const auto& comment : System::IterateOver<Comment>(comments))
         {
             if (comment->get_Author() == authorName)
             {
@@ -199,7 +199,7 @@ private:
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
 
         auto parentComment = System::DynamicCast<Comment>(comments->idx_get(0));
-        for (auto childComment : System::IterateOver<Comment>(parentComment->get_Replies()))
+        for (const auto& childComment : System::IterateOver<Comment>(parentComment->get_Replies()))
         {
             // Get comment parent and status.
             std::cout << childComment->get_Ancestor()->get_Id() << std::endl;

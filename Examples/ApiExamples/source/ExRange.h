@@ -673,9 +673,9 @@ public:
 
             auto importer = MakeObject<NodeImporter>(docToInsert, insertionDestination->get_Document(), ImportFormatMode::KeepSourceFormatting);
 
-            for (auto srcSection : System::IterateOver(docToInsert->get_Sections()->LINQ_OfType<SharedPtr<Section>>()))
+            for (const auto& srcSection : System::IterateOver(docToInsert->get_Sections()->LINQ_OfType<SharedPtr<Section>>()))
             {
-                for (auto srcNode : System::IterateOver(srcSection->get_Body()))
+                for (const auto& srcNode : System::IterateOver(srcSection->get_Body()))
                 {
                     // Skip the node if it is the last empty paragraph in a section.
                     if (srcNode->get_NodeType() == NodeType::Paragraph)

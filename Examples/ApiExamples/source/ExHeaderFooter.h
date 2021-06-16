@@ -219,7 +219,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Header and footer types.docx");
 
         // Iterate through each section and remove footers of every kind.
-        for (auto section : System::IterateOver(doc->LINQ_OfType<SharedPtr<Section>>()))
+        for (const auto& section : System::IterateOver(doc->LINQ_OfType<SharedPtr<Section>>()))
         {
             // There are three kinds of footer and header types.
             // 1 -  The "First" header/footer, which only appears on the first page of a section.
@@ -490,7 +490,7 @@ public:
 
         section->get_HeadersFooters()->Clear();
 
-        for (auto headerFooter : System::IterateOver(previousSection->get_HeadersFooters()->LINQ_OfType<SharedPtr<HeaderFooter>>()))
+        for (const auto& headerFooter : System::IterateOver(previousSection->get_HeadersFooters()->LINQ_OfType<SharedPtr<HeaderFooter>>()))
         {
             section->get_HeadersFooters()->Add(headerFooter->Clone(true));
         }

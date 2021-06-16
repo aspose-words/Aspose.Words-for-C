@@ -25,7 +25,7 @@ int32_t Resampler::Resample(System::SharedPtr<Document> doc, int32_t desiredPpi,
 {
     int32_t count = 0;
 
-    for (auto shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
+    for (const auto& shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
     {
         // It is important to use this method to get the picture shape size in points correctly,
         // even if it is inside a group shape.

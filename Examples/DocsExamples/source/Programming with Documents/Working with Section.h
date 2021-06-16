@@ -157,7 +157,7 @@ public:
 
         // It is important to understand that a document can contain many sections,
         // and each section has its page setup. In this case, we want to modify them all.
-        for (auto section : System::IterateOver<Section>(doc))
+        for (const auto& section : System::IterateOver<Section>(doc))
         {
             section->get_PageSetup()->set_PaperSize(PaperSize::Letter);
         }

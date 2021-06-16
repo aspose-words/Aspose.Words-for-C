@@ -3,7 +3,6 @@
 #include <cstdint>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBase.h>
-#include <Aspose.Words.Cpp/Drawing/Fill.h>
 #include <Aspose.Words.Cpp/Drawing/HorizontalAlignment.h>
 #include <Aspose.Words.Cpp/Drawing/RelativeHorizontalPosition.h>
 #include <Aspose.Words.Cpp/Drawing/RelativeVerticalPosition.h>
@@ -143,7 +142,7 @@ protected:
         watermark->set_Rotation(-40);
 
         // Remove the following two lines if you need a solid black text.
-        watermark->get_Fill()->set_ForeColor(System::Drawing::Color::get_Gray());
+        watermark->set_FillColor(System::Drawing::Color::get_Gray());
         watermark->set_StrokeColor(System::Drawing::Color::get_Gray());
 
         // Place the watermark in the page center.
@@ -158,7 +157,7 @@ protected:
         watermarkPara->AppendChild(watermark);
 
         // Insert the watermark into all headers of each document section.
-        for (auto sect : System::IterateOver<Section>(doc->get_Sections()))
+        for (const auto& sect : System::IterateOver<Section>(doc->get_Sections()))
         {
             // There could be up to three different headers in each section.
             // Since we want the watermark to appear on all pages, insert it into all headers.
@@ -185,9 +184,9 @@ protected:
 
     void RemoveWatermarkText(SharedPtr<Document> doc)
     {
-        for (auto hf : System::IterateOver<HeaderFooter>(doc->GetChildNodes(NodeType::HeaderFooter, true)))
+        for (const auto& hf : System::IterateOver<HeaderFooter>(doc->GetChildNodes(NodeType::HeaderFooter, true)))
         {
-            for (auto shape : System::IterateOver<Shape>(hf->GetChildNodes(NodeType::Shape, true)))
+            for (const auto& shape : System::IterateOver<Shape>(hf->GetChildNodes(NodeType::Shape, true)))
             {
                 if (shape->get_Name().Contains(u"WaterMark"))
                 {

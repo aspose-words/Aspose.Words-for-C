@@ -247,7 +247,7 @@ public:
 
         doc->Save(ArtifactsDir + u"WorkingWithMarkdown.UseWarningSource.md");
 
-        for (auto warningInfo : warnings)
+        for (const auto& warningInfo : warnings)
         {
             if (warningInfo->get_Source() == WarningSource::Markdown)
             {

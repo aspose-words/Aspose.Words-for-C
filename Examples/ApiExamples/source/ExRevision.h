@@ -227,7 +227,7 @@ public:
 
         ASSERT_EQ(7, doc->get_Revisions()->get_Groups()->get_Count());
 
-        for (auto group : doc->get_Revisions()->get_Groups())
+        for (const auto& group : doc->get_Revisions()->get_Groups())
         {
             std::cout << String::Format(u"Revision author: {0}; Revision type: {1} \n\tRevision text: {2}", group->get_Author(), group->get_RevisionType(),
                                         group->get_Text())

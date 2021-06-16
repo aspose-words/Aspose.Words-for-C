@@ -69,7 +69,7 @@ void DocumentLayoutHelper::WrapperToAccessLayoutEntities()
     std::cout << std::endl;
 
     // Loop through each page in the document and print how many lines appear on each page.
-    for (auto page : System::IterateOver(layoutDoc->get_Pages()))
+    for (const auto& page : System::IterateOver(layoutDoc->get_Pages()))
     {
         System::SharedPtr<LayoutCollection<System::SharedPtr<LayoutEntity>>> lines = page->GetChildEntities(LayoutEntityType::Line, true);
         std::cout << "Page " << page->get_PageIndex() << " has " << lines->get_Count() << " lines." << std::endl;
@@ -79,7 +79,7 @@ void DocumentLayoutHelper::WrapperToAccessLayoutEntities()
     // (except runs and nodes in the header and footer).
     std::cout << std::endl;
     std::cout << "The lines of the second paragraph:" << std::endl;
-    for (auto paragraphLine :
+    for (const auto& paragraphLine :
          System::IterateOver<RenderedLine>(layoutDoc->GetLayoutEntitiesOfNode(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1))))
     {
         std::cout << "\"" << paragraphLine->get_Text().Trim() << "\"" << std::endl;
@@ -115,7 +115,7 @@ LayoutEntityType LayoutEntity::get_Type()
 System::String LayoutEntity::get_Text()
 {
     auto builder = System::MakeObject<System::Text::StringBuilder>();
-    for (auto entity : mChildEntities)
+    for (const auto& entity : mChildEntities)
     {
         builder->Append(entity->get_Text());
     }
@@ -228,7 +228,7 @@ System::SharedPtr<LayoutCollection<System::SharedPtr<LayoutEntity>>> LayoutEntit
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<LayoutEntity>>> childList =
         System::MakeObject<System::Collections::Generic::List<System::SharedPtr<LayoutEntity>>>();
 
-    for (auto entity : mChildEntities)
+    for (const auto& entity : mChildEntities)
     {
         if ((entity->get_Type() & type) == entity->get_Type())
         {
@@ -290,7 +290,7 @@ System::SharedPtr<LayoutCollection<System::SharedPtr<LayoutEntity>>> RenderedDoc
         System::MakeObject<System::Collections::Generic::List<System::SharedPtr<LayoutEntity>>>();
 
     // Retrieve all entities from the layout document (inversion of LayoutEntityType.None).
-    for (auto entity : System::IterateOver(GetChildEntities(~LayoutEntityType::None, true)))
+    for (const auto& entity : System::IterateOver(GetChildEntities(~LayoutEntityType::None, true)))
     {
         if (entity->get_ParentNode() == node)
         {
@@ -340,14 +340,14 @@ void RenderedDocument::CollectLinesOfMarkersCore(LayoutEntityType type)
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<RenderedLine>>> collectedLines =
         System::MakeObject<System::Collections::Generic::List<System::SharedPtr<RenderedLine>>>();
 
-    for (auto page : System::IterateOver(get_Pages()))
+    for (const auto& page : System::IterateOver(get_Pages()))
     {
-        for (auto story : System::IterateOver(page->GetChildEntities(type, false)))
+        for (const auto& story : System::IterateOver(page->GetChildEntities(type, false)))
         {
-            for (auto line : System::IterateOver<RenderedLine>(story->GetChildEntities(LayoutEntityType::Line, true)))
+            for (const auto& line : System::IterateOver<RenderedLine>(story->GetChildEntities(LayoutEntityType::Line, true)))
             {
                 collectedLines->Add(line);
-                for (auto span : System::IterateOver(line->get_Spans()))
+                for (const auto& span : System::IterateOver(line->get_Spans()))
                 {
                     if (mLayoutToNodeLookup->ContainsKey(span->get_LayoutObject()))
                     {
@@ -360,7 +360,7 @@ void RenderedDocument::CollectLinesOfMarkersCore(LayoutEntityType type)
                                 node = (System::DynamicCast<Row>(node))->get_LastCell()->get_LastParagraph();
                             }
 
-                            for (auto collectedLine : collectedLines)
+                            for (const auto& collectedLine : collectedLines)
                             {
                                 collectedLine->SetParentNode(node);
                             }
@@ -380,7 +380,7 @@ void RenderedDocument::CollectLinesOfMarkersCore(LayoutEntityType type)
 
 void RenderedDocument::LinkLayoutMarkersToNodes(System::SharedPtr<Document> doc)
 {
-    for (auto node : System::IterateOver(doc->GetChildNodes(NodeType::Any, true)))
+    for (const auto& node : System::IterateOver(doc->GetChildNodes(NodeType::Any, true)))
     {
         System::SharedPtr<System::Object> entity = mLayoutCollector->GetEntity(node);
 

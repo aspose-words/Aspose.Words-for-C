@@ -60,7 +60,7 @@ public:
         SharedPtr<System::Collections::Generic::IEnumerable<String>> fileList =
             System::IO::Directory::GetFiles(MyDir)->LINQ_Where([](String name) { return !name.EndsWith(u"Corrupted document.docx"); });
         //ExEnd:GetListOfFilesInFolder
-        for (auto fileName : System::IterateOver(fileList))
+        for (const auto& fileName : System::IterateOver(fileList))
         {
             String nameOnly = System::IO::Path::GetFileName(fileName);
 

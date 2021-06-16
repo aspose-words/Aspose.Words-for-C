@@ -157,7 +157,7 @@ public:
         {
             SharedPtr<System::Collections::Generic::List<SharedPtr<Cell>>> columnCells = MakeObject<System::Collections::Generic::List<SharedPtr<Cell>>>();
 
-            for (auto row : System::IterateOver(mTable->get_Rows()->LINQ_OfType<SharedPtr<Row>>()))
+            for (const auto& row : System::IterateOver(mTable->get_Rows()->LINQ_OfType<SharedPtr<Row>>()))
             {
                 SharedPtr<Cell> cell = row->get_Cells()->idx_get(mColumnIndex);
                 if (cell != nullptr)

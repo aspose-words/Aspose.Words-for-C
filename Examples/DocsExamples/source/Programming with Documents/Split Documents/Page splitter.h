@@ -41,9 +41,6 @@
 namespace DocsExamples { namespace Programming_with_Documents { namespace Split_Documents {
 class PageNumberFinder;
 }}} // namespace DocsExamples::Programming_with_Documents::Split_Documents
-namespace DocsExamples { namespace Programming_with_Documents { namespace Split_Documents {
-class SectionSplitter;
-}}} // namespace DocsExamples::Programming_with_Documents::Split_Documents
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Layout;
@@ -135,7 +132,7 @@ public:
                     static_cast<std::function<bool(System::String item)>>([](System::String item) -> bool { return item.EndsWith(u".doc"); })))
                 ->LINQ_ToList();
 
-        for (auto fileName : fileNames)
+        for (const auto& fileName : fileNames)
         {
             SplitDocumentToPages(fileName);
         }
@@ -282,7 +279,7 @@ public:
                 continue;
             }
 
-            for (auto node : System::IterateOver(reversePageLookup->idx_get(page)))
+            for (const auto& node : System::IterateOver(reversePageLookup->idx_get(page)))
             {
                 if (node->get_ParentNode() != nullptr && (nodeType == NodeType::Any || node->get_NodeType() == nodeType) && !pageNodes->Contains(node))
                 {
@@ -300,7 +297,7 @@ public:
     /// </summary>
     void SplitNodesAcrossPages()
     {
-        for (auto paragraph : System::IterateOver<Paragraph>(get_Document()->GetChildNodes(NodeType::Paragraph, true)))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(get_Document()->GetChildNodes(NodeType::Paragraph, true)))
         {
             if (GetPage(paragraph) != GetPageEnd(paragraph))
             {
@@ -367,7 +364,7 @@ private:
             System::Collections::Generic::Dictionary<int, System::SharedPtr<System::Collections::Generic::IList<System::SharedPtr<Node>>>>>();
 
         // Add each node to a list that represent the nodes found on each page.
-        for (auto node : System::IterateOver(get_Document()->GetChildNodes(NodeType::Any, true)))
+        for (const auto& node : System::IterateOver(get_Document()->GetChildNodes(NodeType::Any, true)))
         {
             // Headers/Footers follow sections and are not split by themselves.
             if (IsHeaderFooterType(node))
@@ -391,7 +388,7 @@ private:
 
     void SplitRunsByWords(System::SharedPtr<Paragraph> paragraph)
     {
-        for (auto run : System::IterateOver<Aspose::Words::Run>(paragraph->get_Runs()))
+        for (const auto& run : System::IterateOver<Aspose::Words::Run>(paragraph->get_Runs()))
         {
             if (GetPage(run) == GetPageEnd(run))
             {
@@ -407,7 +404,7 @@ private:
         System::SharedPtr<System::Collections::Generic::List<System::String>> words = run->get_Text().Split(System::MakeArray<char16_t>({u' '}))->LINQ_ToList();
         words->Reverse();
 
-        for (auto word : words)
+        for (const auto& word : words)
         {
             int pos = run->get_Text().get_Length() - word.get_Length() - 1;
             if (pos > 1)

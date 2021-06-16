@@ -41,7 +41,7 @@ public:
 
         // Get styles collection from the document.
         SharedPtr<StyleCollection> styles = doc->get_Styles();
-        for (auto style : System::IterateOver(styles))
+        for (const auto& style : System::IterateOver(styles))
         {
             if (styleName == u"")
             {

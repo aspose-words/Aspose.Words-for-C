@@ -47,7 +47,7 @@ public:
         //ExStart:ChangeTOCTabStops
         auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
 
-        for (auto para : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
+        for (const auto& para : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
         {
             // Check if this paragraph is formatted using the TOC result based styles.
             // This is any style between TOC and TOC9.

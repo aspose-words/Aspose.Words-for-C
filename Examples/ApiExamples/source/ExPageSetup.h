@@ -276,7 +276,7 @@ public:
         ASSERT_EQ(SectionLayoutMode::LineGrid, doc->get_FirstSection()->get_PageSetup()->get_LayoutMode());
         ASSERT_EQ(15, doc->get_FirstSection()->get_PageSetup()->get_LinesPerPage());
 
-        for (auto paragraph : System::IterateOver<Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
         {
             ASSERT_TRUE(paragraph->get_ParagraphFormat()->get_SnapToGrid());
         }
@@ -664,7 +664,7 @@ public:
         doc = MakeObject<Document>(ArtifactsDir + u"PageSetup.PageBorders.docx");
         pageSetup = doc->get_FirstSection()->get_PageSetup();
 
-        for (auto border : System::IterateOver(pageSetup->get_Borders()))
+        for (const auto& border : System::IterateOver(pageSetup->get_Borders()))
         {
             ASSERT_EQ(LineStyle::DoubleWave, border->get_LineStyle());
             ASPOSE_ASSERT_EQ(2.0, border->get_LineWidth());

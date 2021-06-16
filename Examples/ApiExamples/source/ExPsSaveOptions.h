@@ -53,7 +53,7 @@ public:
 
         // If we are rendering the document as a booklet, we must set the "MultiplePages"
         // properties of the page setup objects of all sections to "MultiplePagesType.BookFoldPrinting".
-        for (auto s : System::IterateOver<Section>(doc->get_Sections()))
+        for (const auto& s : System::IterateOver<Section>(doc->get_Sections()))
         {
             s->get_PageSetup()->set_MultiplePages(MultiplePagesType::BookFoldPrinting);
         }

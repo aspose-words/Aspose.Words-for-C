@@ -30,9 +30,9 @@ SharedPtr<System::Collections::Generic::IEnumerable<SharedPtr<Data_Source_Object
 {
     //ExStart:GetClients
     auto clients = MakeObject<System::Collections::Generic::List<SharedPtr<Data_Source_Objects::Client>>>();
-    for (auto manager : System::IterateOver(GetManagers()))
+    for (const auto& manager : System::IterateOver(GetManagers()))
     {
-        for (auto contract : System::IterateOver(manager->get_Contracts()))
+        for (const auto& contract : System::IterateOver(manager->get_Contracts()))
         {
             clients->Add(contract->get_Client());
         }
@@ -207,9 +207,9 @@ SharedPtr<System::Collections::Generic::IEnumerable<SharedPtr<Data_Source_Object
 {
     //ExStart:GetContracts
     auto contracts = MakeObject<System::Collections::Generic::List<SharedPtr<Data_Source_Objects::Contract>>>();
-    for (auto manager : System::IterateOver(GetManagers()))
+    for (const auto& manager : System::IterateOver(GetManagers()))
     {
-        for (auto contract : System::IterateOver(manager->get_Contracts()))
+        for (const auto& contract : System::IterateOver(manager->get_Contracts()))
         {
             contracts->Add(contract);
         }

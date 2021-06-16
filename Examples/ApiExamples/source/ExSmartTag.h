@@ -142,7 +142,7 @@ public:
                 auto properties = MakeArray<String>(smartTag->get_Properties()->get_Count());
                 int index = 0;
 
-                for (auto cxp : System::IterateOver(smartTag->get_Properties()))
+                for (const auto& cxp : System::IterateOver(smartTag->get_Properties()))
                 {
                     properties[index++] = String::Format(u"\"{0}\" = \"{1}\"", cxp->get_Name(), cxp->get_Value());
                 }

@@ -545,17 +545,21 @@ public:
 
         if (allowNegativeIndent)
         {
-            ASSERT_TRUE(outDocContents.Contains(u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"margin-left:-41.65pt; border:0.75pt solid #000000; "
-                                                u"-aw-border:0.5pt single; border-collapse:collapse\">"));
-            ASSERT_TRUE(outDocContents.Contains(u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"margin-left:30.35pt; border:0.75pt solid #000000; "
-                                                u"-aw-border:0.5pt single; border-collapse:collapse\">"));
+            ASSERT_TRUE(outDocContents.Contains(
+                u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"margin-left:-41.65pt; border:0.75pt solid #000000; -aw-border:0.5pt single; "
+                u"-aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse\">"));
+            ASSERT_TRUE(outDocContents.Contains(
+                u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"margin-left:30.35pt; border:0.75pt solid #000000; -aw-border:0.5pt single; "
+                u"-aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse\">"));
         }
         else
         {
+            ASSERT_TRUE(
+                outDocContents.Contains(u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"border:0.75pt solid #000000; -aw-border:0.5pt single; "
+                                        u"-aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse\">"));
             ASSERT_TRUE(outDocContents.Contains(
-                u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"border:0.75pt solid #000000; -aw-border:0.5pt single; border-collapse:collapse\">"));
-            ASSERT_TRUE(outDocContents.Contains(u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"margin-left:30.35pt; border:0.75pt solid #000000; "
-                                                u"-aw-border:0.5pt single; border-collapse:collapse\">"));
+                u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"margin-left:30.35pt; border:0.75pt solid #000000; -aw-border:0.5pt single; "
+                u"-aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse\">"));
         }
         //ExEnd
     }
@@ -696,13 +700,15 @@ public:
         case HtmlVersion::Html5:
             ASSERT_TRUE(outDocContents.Contains(u"<a id=\"_Toc76372689\"></a>"));
             ASSERT_TRUE(outDocContents.Contains(u"<a id=\"_Toc76372689\"></a>"));
-            ASSERT_TRUE(outDocContents.Contains(u"<table style=\"border-collapse:collapse\">"));
+            ASSERT_TRUE(outDocContents.Contains(
+                u"<table style=\"-aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse\">"));
             break;
 
         case HtmlVersion::Xhtml:
             ASSERT_TRUE(outDocContents.Contains(u"<a name=\"_Toc76372689\"></a>"));
             ASSERT_TRUE(outDocContents.Contains(u"<ul type=\"disc\" style=\"margin:0pt; padding-left:0pt\">"));
-            ASSERT_TRUE(outDocContents.Contains(u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"border-collapse:collapse\">"));
+            ASSERT_TRUE(outDocContents.Contains(u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"-aw-border-insideh:0.5pt single #000000; "
+                                                u"-aw-border-insidev:0.5pt single #000000; border-collapse:collapse\""));
             break;
         }
         //ExEnd
@@ -1504,16 +1510,16 @@ public:
             break;
 
         case HtmlOfficeMathOutputMode::MathML:
-            ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, String(u"<p style=\"margin-top:0pt; margin-bottom:10pt\">") +
-                                                                                           u"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">" +
-                                                                                           u"<mi>i</mi>" + u"<mo>[+]</mo>" + u"<mi>b</mi>" + u"<mo>-</mo>" +
-                                                                                           u"<mi>c</mi>" + u"<mo>≥</mo>" + u".*" + u"</math>" + u"</p>")
+            ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(
+                            outDocContents, String(u"<p style=\"margin-top:0pt; margin-bottom:10pt; text-align:center\">") +
+                                                u"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">" + u"<mi>i</mi>" + u"<mo>[+]</mo>" + u"<mi>b</mi>" +
+                                                u"<mo>-</mo>" + u"<mi>c</mi>" + u"<mo>≥</mo>" + u".*" + u"</math>" + u"</p>")
                             ->get_Success());
             break;
 
         case HtmlOfficeMathOutputMode::Text:
             ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(
-                            outDocContents, String(u"<p style=\\\"margin-top:0pt; margin-bottom:10pt\\\">") +
+                            outDocContents, String(u"<p style=\\\"margin-top:0pt; margin-bottom:10pt; text-align:center\\\">") +
                                                 u"<span style=\\\"font-family:'Cambria Math'\\\">i[+]b-c≥iM[+]bM-cM </span>" + u"</p>")
                             ->get_Success());
             break;

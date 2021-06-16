@@ -199,7 +199,7 @@ public:
         //ExSummary:Shows how to get information about table column bookmarks.
         auto doc = MakeObject<Document>(MyDir + u"Table column bookmarks.doc");
 
-        for (auto bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
+        for (const auto& bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
         {
             // If a bookmark encloses columns of a table, it is a table column bookmark, and its IsColumn flag set to true.
             std::cout << "Bookmark: " << bookmark->get_Name() << (bookmark->get_IsColumn() ? String(u" (Column)") : String(u"")) << std::endl;

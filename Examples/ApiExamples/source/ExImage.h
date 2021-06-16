@@ -369,7 +369,7 @@ public:
 
         ASSERT_EQ(9, shapes->LINQ_OfType<SharedPtr<Shape>>()->LINQ_Count([](SharedPtr<Shape> s) { return s->get_HasImage(); }));
 
-        for (auto shape : System::IterateOver(shapes->LINQ_OfType<SharedPtr<Shape>>()))
+        for (const auto& shape : System::IterateOver(shapes->LINQ_OfType<SharedPtr<Shape>>()))
         {
             if (shape->get_HasImage())
             {

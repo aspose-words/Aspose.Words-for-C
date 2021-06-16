@@ -217,7 +217,7 @@ public:
 
         ASSERT_EQ(3, imageFileNames->get_Count());
 
-        for (auto imageFileName : imageFileNames)
+        for (const auto& imageFileName : imageFileNames)
         {
             TestUtil::VerifyImage(816, 1056, imageFileName);
         }

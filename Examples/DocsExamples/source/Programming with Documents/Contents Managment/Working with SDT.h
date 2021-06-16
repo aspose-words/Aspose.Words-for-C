@@ -92,7 +92,7 @@ public:
         //ExStart:ModifyContentControls
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
-        for (auto sdt : System::IterateOver<StructuredDocumentTag>(doc->GetChildNodes(NodeType::StructuredDocumentTag, true)))
+        for (const auto& sdt : System::IterateOver<StructuredDocumentTag>(doc->GetChildNodes(NodeType::StructuredDocumentTag, true)))
         {
             switch (sdt->get_SdtType())
             {
@@ -266,7 +266,7 @@ public:
 
         SharedPtr<NodeCollection> tags = doc->GetChildNodes(NodeType::StructuredDocumentTagRangeStart, true);
 
-        for (auto tag : System::IterateOver<StructuredDocumentTagRangeStart>(tags))
+        for (const auto& tag : System::IterateOver<StructuredDocumentTagRangeStart>(tags))
         {
             std::cout << tag->get_Title() << std::endl;
         }

@@ -1077,7 +1077,7 @@ public:
         //ExSummary:Shows how to access the raw data of an embedded OLE object.
         auto doc = MakeObject<Document>(MyDir + u"OLE objects.docx");
 
-        for (auto shape : System::IterateOver(doc->GetChildNodes(NodeType::Shape, true)))
+        for (const auto& shape : System::IterateOver(doc->GetChildNodes(NodeType::Shape, true)))
         {
             SharedPtr<OleFormat> oleFormat = (System::DynamicCast<Shape>(shape))->get_OleFormat();
             if (oleFormat != nullptr)
@@ -1439,7 +1439,7 @@ public:
         auto builder = MakeObject<DocumentBuilder>(doc);
         builder->InsertImage(ImageDir + u"Transparent background logo.png");
 
-        for (auto shape : System::IterateOver(doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<SharedPtr<Shape>>()))
+        for (const auto& shape : System::IterateOver(doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<SharedPtr<Shape>>()))
         {
             ASSERT_EQ(shapeMarkupLanguage, shape->get_MarkupLanguage());
         }
@@ -1585,7 +1585,7 @@ public:
         SharedPtr<NodeCollection> runs = doc->GetChildNodes(NodeType::Run, true);
         int num = 1;
 
-        for (auto run : System::IterateOver(runs->LINQ_OfType<SharedPtr<Run>>()))
+        for (const auto& run : System::IterateOver(runs->LINQ_OfType<SharedPtr<Run>>()))
         {
             auto watermark = MakeObject<Shape>(doc, ShapeType::TextPlainText);
             watermark->set_RelativeHorizontalPosition(RelativeHorizontalPosition::Page);
@@ -1617,7 +1617,7 @@ public:
 
         ASSERT_EQ(31, shapes->get_Count());
 
-        for (auto shape : shapes)
+        for (const auto& shape : shapes)
         {
             TestUtil::VerifyShape(ShapeType::TextPlainText, String::Format(u"Watermark_{0}", shapes->IndexOf(shape) + 1), 30.0, 30.0, 0.0, 0.0, shape);
         }
@@ -2542,7 +2542,7 @@ public:
         // We will render every shape to an image file in the local file system
         // while ignoring the group shapes since they have no appearance.
         // This will produce 6 image files.
-        for (auto shape : System::IterateOver(doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<SharedPtr<Shape>>()))
+        for (const auto& shape : System::IterateOver(doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<SharedPtr<Shape>>()))
         {
             SharedPtr<ShapeRenderer> renderer = shape->GetShapeRenderer();
             auto options = MakeObject<ImageSaveOptions>(SaveFormat::Png);

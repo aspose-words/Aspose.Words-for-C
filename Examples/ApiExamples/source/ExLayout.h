@@ -97,7 +97,7 @@ public:
 
         // We can see the numbers of the start and end pages of any node and their overall page spans.
         SharedPtr<NodeCollection> nodes = doc->GetChildNodes(NodeType::Any, true);
-        for (auto node : System::IterateOver(nodes))
+        for (const auto& node : System::IterateOver(nodes))
         {
             std::cout << String::Format(u"->  NodeType.{0}: ", node->get_NodeType()) << std::endl;
             std::cout << (String::Format(u"\tStarts on page {0}, ends on page {1},", layoutCollector->GetStartPageIndex(node),

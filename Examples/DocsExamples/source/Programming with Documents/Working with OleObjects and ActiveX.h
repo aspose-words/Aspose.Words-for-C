@@ -109,7 +109,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"ActiveX controls.docx");
 
         String properties = u"";
-        for (auto shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
+        for (const auto& shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
         {
             if (shape->get_OleFormat() == nullptr)
             {

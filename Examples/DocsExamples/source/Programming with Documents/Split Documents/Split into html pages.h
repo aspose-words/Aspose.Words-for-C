@@ -13,6 +13,7 @@
 #include <system/io/directory.h>
 #include <system/io/path.h>
 #include <system/scope_guard.h>
+#include <system/string.h>
 
 #include "DocsExamplesBase.h"
 

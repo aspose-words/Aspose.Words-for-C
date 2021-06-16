@@ -113,7 +113,7 @@ public:
         //ExEnd:BookmarkTable
 
         //ExStart:BookmarkTableColumns
-        for (auto bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
+        for (const auto& bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
         {
             std::cout << "Bookmark: " << bookmark->get_Name() << (bookmark->get_IsColumn() ? String(u" (Column)") : String(u"")) << std::endl;
 
@@ -301,7 +301,7 @@ protected:
 
     void Untangle(SharedPtr<Document> doc)
     {
-        for (auto bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
+        for (const auto& bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
         {
             // Get the parent row of both the bookmark and bookmark end node.
             auto row1 = System::DynamicCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));

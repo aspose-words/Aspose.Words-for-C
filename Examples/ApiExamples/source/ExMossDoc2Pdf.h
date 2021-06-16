@@ -122,6 +122,7 @@ public:
     static String gInFileName;
     static String gOutFileName;
     static SharedPtr<System::IO::StreamWriter> gLog;
+    ExMossDoc2Pdf() = delete;
 };
 
 } // namespace ApiExamples

@@ -774,7 +774,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Font.Bidi.docx");
 
-        for (auto run : System::IterateOver<Run>(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()))
+        for (const auto& run : System::IterateOver<Run>(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()))
         {
             switch (doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->IndexOf(run))
             {
@@ -907,7 +907,7 @@ public:
 
         // Convert all uses of one style to another,
         // using the above methods to reference old and new styles.
-        for (auto run : System::IterateOver(doc->GetChildNodes(NodeType::Run, true)->LINQ_OfType<SharedPtr<Run>>()))
+        for (const auto& run : System::IterateOver(doc->GetChildNodes(NodeType::Run, true)->LINQ_OfType<SharedPtr<Run>>()))
         {
             if (run->get_Font()->get_StyleName() == u"Emphasis")
             {
@@ -979,7 +979,7 @@ public:
         builder->Write(u"This text is in a custom style.");
 
         // Iterate over every run and add a double underline to every custom style.
-        for (auto run : System::IterateOver(doc->GetChildNodes(NodeType::Run, true)->LINQ_OfType<SharedPtr<Run>>()))
+        for (const auto& run : System::IterateOver(doc->GetChildNodes(NodeType::Run, true)->LINQ_OfType<SharedPtr<Run>>()))
         {
             SharedPtr<Style> charStyle = run->get_Font()->get_Style();
 
@@ -1014,7 +1014,7 @@ public:
         // Configure Aspose.Words to source fonts from a custom folder, and then print every available font.
         ArrayPtr<SharedPtr<FontSourceBase>> folderFontSource = MakeArray<SharedPtr<FontSourceBase>>({MakeObject<FolderFontSource>(FontsDir, true)});
 
-        for (auto fontInfo : System::IterateOver(folderFontSource[0]->GetAvailableFonts()))
+        for (const auto& fontInfo : System::IterateOver(folderFontSource[0]->GetAvailableFonts()))
         {
             std::cout << "FontFamilyName : " << fontInfo->get_FontFamilyName() << std::endl;
             std::cout << "FullFontName  : " << fontInfo->get_FullFontName() << std::endl;
@@ -1323,7 +1323,7 @@ public:
         ASSERT_EQ(20, doc->GetChildNodes(NodeType::Paragraph, true)->get_Count());
         ASSERT_EQ(1, doc->GetChildNodes(NodeType::Table, true)->get_Count());
 
-        for (auto node : System::IterateOver(doc->GetChildNodes(NodeType::Any, true)))
+        for (const auto& node : System::IterateOver(doc->GetChildNodes(NodeType::Any, true)))
         {
             if (System::ObjectExt::Is<FieldStart>(node))
             {

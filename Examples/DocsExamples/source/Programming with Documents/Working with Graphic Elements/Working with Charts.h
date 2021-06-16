@@ -438,17 +438,20 @@ public:
         SharedPtr<ChartSeries> series1 = chart->get_Series()->idx_get(1);
 
         SharedPtr<ChartDataPointCollection> dataPointCollection = series0->get_DataPoints();
+        SharedPtr<ChartDataPoint> dataPoint00 = dataPointCollection->idx_get(0);
+        SharedPtr<ChartDataPoint> dataPoint01 = dataPointCollection->idx_get(1);
 
-        dataPointCollection->idx_get(0)->set_Explosion(50);
-        dataPointCollection->idx_get(0)->get_Marker()->set_Symbol(MarkerSymbol::Circle);
-        dataPointCollection->idx_get(0)->get_Marker()->set_Size(15);
+        dataPoint00->set_Explosion(50);
+        dataPoint00->get_Marker()->set_Symbol(MarkerSymbol::Circle);
+        dataPoint00->get_Marker()->set_Size(15);
 
-        dataPointCollection->idx_get(1)->get_Marker()->set_Symbol(MarkerSymbol::Diamond);
-        dataPointCollection->idx_get(1)->get_Marker()->set_Size(20);
+        dataPoint01->get_Marker()->set_Symbol(MarkerSymbol::Diamond);
+        dataPoint01->get_Marker()->set_Size(20);
 
-        series1->get_DataPoints()->idx_get(2)->set_InvertIfNegative(true);
-        series1->get_DataPoints()->idx_get(2)->get_Marker()->set_Symbol(MarkerSymbol::Star);
-        series1->get_DataPoints()->idx_get(2)->get_Marker()->set_Size(20);
+        SharedPtr<ChartDataPoint> dataPoint12 = series1->get_DataPoints()->idx_get(2);
+        dataPoint12->set_InvertIfNegative(true);
+        dataPoint12->get_Marker()->set_Symbol(MarkerSymbol::Star);
+        dataPoint12->get_Marker()->set_Size(20);
 
         doc->Save(ArtifactsDir + u"WorkingWithCharts.SingleChartDataPoint.docx");
         //ExEnd:WorkWithSingleChartDataPoint

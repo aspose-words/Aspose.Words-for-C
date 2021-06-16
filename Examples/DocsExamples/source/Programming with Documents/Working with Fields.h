@@ -260,7 +260,7 @@ public:
         //ExStart:ReplaceHyperlinks
         auto doc = MakeObject<Document>(MyDir + u"Hyperlinks.docx");
 
-        for (auto field : System::IterateOver(doc->get_Range()->get_Fields()))
+        for (const auto& field : System::IterateOver(doc->get_Range()->get_Fields()))
         {
             if (field->get_Type() == FieldType::FieldHyperlink)
             {
@@ -292,7 +292,7 @@ public:
 
         // Select all field start nodes so we can find the merge fields.
         SharedPtr<NodeCollection> fieldStarts = doc->GetChildNodes(NodeType::FieldStart, true);
-        for (auto fieldStart : System::IterateOver<FieldStart>(fieldStarts))
+        for (const auto& fieldStart : System::IterateOver<FieldStart>(fieldStarts))
         {
             if (fieldStart->get_FieldType() == FieldType::FieldMergeField)
             {
@@ -628,7 +628,7 @@ public:
         document->UpdateFields();
         //ExEnd:UpdateDocFields
 
-        for (auto field : System::IterateOver(document->get_Range()->get_Fields()))
+        for (const auto& field : System::IterateOver(document->get_Range()->get_Fields()))
         {
             std::cout << field->get_DisplayResult() << std::endl;
         }
