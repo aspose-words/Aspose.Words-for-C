@@ -5,7 +5,6 @@
 #include <iostream>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Drawing/Fill.h>
 #include <Aspose.Words.Cpp/Drawing/GroupShape.h>
 #include <Aspose.Words.Cpp/Drawing/HorizontalAlignment.h>
 #include <Aspose.Words.Cpp/Drawing/RelativeHorizontalPosition.h>
@@ -158,7 +157,7 @@ public:
         watermark->set_VerticalAlignment(VerticalAlignment::Center);
         watermark->set_Rotation(-40);
 
-        watermark->get_Fill()->set_ForeColor(System::Drawing::Color::get_Gray());
+        watermark->set_FillColor(System::Drawing::Color::get_Gray());
         watermark->set_StrokeColor(System::Drawing::Color::get_Gray());
 
         watermark->get_TextPath()->set_Text(u"watermarkText");
@@ -241,7 +240,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"SmartArt.docx");
 
         //ExStart:UpdateSmartArtDrawing
-        for (auto shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
+        for (const auto& shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
         {
             if (shape->get_HasSmartArt())
             {

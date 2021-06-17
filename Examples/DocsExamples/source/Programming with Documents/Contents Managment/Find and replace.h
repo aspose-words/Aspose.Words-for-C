@@ -108,7 +108,7 @@ public:
             // If the fields you are inserting do not require this extra parameter, it can be removed from the string below.
             builder->InsertField(String::Format(u"{0} {1}", fieldName, args->get_Match()->get_Groups()->idx_get(0)));
 
-            for (auto run : runs)
+            for (const auto& run : runs)
             {
                 run->Remove();
             }
@@ -223,7 +223,7 @@ private:
             }
 
             // Now highlight all runs in the sequence.
-            for (auto run : runs)
+            for (const auto& run : runs)
             {
                 run->get_Font()->set_HighlightColor(System::Drawing::Color::get_Yellow());
             }

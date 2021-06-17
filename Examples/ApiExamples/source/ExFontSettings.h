@@ -406,7 +406,7 @@ public:
         auto reg = MakeObject<System::Text::RegularExpressions::Regex>(
             u"Font '28 Days Later' has not been found. Using (.*) font instead. Reason: default font setting.");
 
-        for (auto fontWarning : callback->FontWarnings)
+        for (const auto& fontWarning : callback->FontWarnings)
         {
             SharedPtr<System::Text::RegularExpressions::Match> match = reg->Match(fontWarning->get_Description());
             if (match->get_Success())

@@ -985,7 +985,7 @@ public:
         // properties of the page setup objects of all sections to "MultiplePagesType.BookFoldPrinting".
         if (renderTextAsBookfold)
         {
-            for (auto s : System::IterateOver<Section>(doc->get_Sections()))
+            for (const auto& s : System::IterateOver<Section>(doc->get_Sections()))
             {
                 s->get_PageSetup()->set_MultiplePages(MultiplePagesType::BookFoldPrinting);
             }
@@ -1111,10 +1111,10 @@ public:
                                          u"0>>/Dest[4 0 R /XYZ 85 68 0]>>",
                                          ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(
-                u"<</Type /Annot/Subtype /Link/Rect [85.05000305 68.19905853 88.66500092 79.69805908]/BS <</Type/Border/S/S/W 0>>/Dest[4 0 R /XYZ 202 733 0]>>",
+                u"<</Type /Annot/Subtype /Link/Rect [85.05000305 68.19904327 88.66500092 79.69804382]/BS <</Type/Border/S/S/W 0>>/Dest[4 0 R /XYZ 202 733 0]>>",
                 ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(
-                u"<</Type /Annot/Subtype /Link/Rect [85.05000305 56.70005798 88.66500092 68.19905853]/BS <</Type/Border/S/S/W 0>>/Dest[4 0 R /XYZ 258 711 0]>>",
+                u"<</Type /Annot/Subtype /Link/Rect [85.05000305 56.70004272 88.66500092 68.19904327]/BS <</Type/Border/S/S/W 0>>/Dest[4 0 R /XYZ 258 711 0]>>",
                 ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(u"<</Type /Annot/Subtype /Link/Rect [85.05000305 666.10205078 86.4940033 677.60107422]/BS <</Type/Border/S/S/W "
                                          u"0>>/Dest[4 0 R /XYZ 157 733 0]>>",

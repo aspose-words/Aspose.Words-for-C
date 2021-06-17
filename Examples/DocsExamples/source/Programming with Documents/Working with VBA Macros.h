@@ -61,7 +61,7 @@ public:
 
         if (doc->get_VbaProject() != nullptr)
         {
-            for (auto module_ : doc->get_VbaProject()->get_Modules())
+            for (const auto& module_ : doc->get_VbaProject()->get_Modules())
             {
                 std::cout << module_->get_SourceCode() << std::endl;
             }

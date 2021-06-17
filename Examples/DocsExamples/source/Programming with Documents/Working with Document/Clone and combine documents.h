@@ -216,9 +216,9 @@ protected:
 
             // Loop through all block-level nodes in the section's body,
             // then clone and insert every node that is not the last empty paragraph of a section.
-            for (auto srcSection : System::IterateOver(docToInsert->get_Sections()->LINQ_OfType<SharedPtr<Section>>()))
+            for (const auto& srcSection : System::IterateOver(docToInsert->get_Sections()->LINQ_OfType<SharedPtr<Section>>()))
             {
-                for (auto srcNode : System::IterateOver(srcSection->get_Body()))
+                for (const auto& srcNode : System::IterateOver(srcSection->get_Body()))
                 {
                     if (srcNode->get_NodeType() == NodeType::Paragraph)
                     {
@@ -283,7 +283,7 @@ private:
         // This object will be translating styles and lists during the import.
         auto importer = MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::UseDestinationStyles);
 
-        for (auto srcSection : System::IterateOver<Section>(srcDoc->get_Sections()))
+        for (const auto& srcSection : System::IterateOver<Section>(srcDoc->get_Sections()))
         {
             SharedPtr<Node> newNode = importer->ImportNode(srcSection, true);
 

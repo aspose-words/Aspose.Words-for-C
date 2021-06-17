@@ -71,7 +71,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"BorderCollection.GetBordersEnumerator.docx");
 
-        for (auto border : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
+        for (const auto& border : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
         {
             ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), border->get_Color().ToArgb());
             ASSERT_EQ(LineStyle::Wave, border->get_LineStyle());
@@ -94,11 +94,11 @@ public:
         ASPOSE_ASSERT_EQ(3.0, firstParagraphBorders->get_LineWidth());
 
         // Use the "ClearFormatting" method on each paragraph to remove all borders.
-        for (auto paragraph : System::IterateOver<Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
         {
             paragraph->get_ParagraphFormat()->get_Borders()->ClearFormatting();
 
-            for (auto border : System::IterateOver(paragraph->get_ParagraphFormat()->get_Borders()))
+            for (const auto& border : System::IterateOver(paragraph->get_ParagraphFormat()->get_Borders()))
             {
                 ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), border->get_Color().ToArgb());
                 ASSERT_EQ(LineStyle::None, border->get_LineStyle());
@@ -111,7 +111,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"BorderCollection.RemoveAllBorders.docx");
 
-        for (auto border : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
+        for (const auto& border : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
         {
             ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), border->get_Color().ToArgb());
             ASSERT_EQ(LineStyle::None, border->get_LineStyle());

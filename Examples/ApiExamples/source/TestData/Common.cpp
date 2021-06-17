@@ -201,9 +201,9 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<Te
 {
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<TestClasses::ClientTestClass>>> clients =
         System::MakeObject<System::Collections::Generic::List<System::SharedPtr<TestClasses::ClientTestClass>>>();
-    for (auto manager : System::IterateOver(GetManagers()))
+    for (const auto& manager : System::IterateOver(GetManagers()))
     {
-        for (auto contract : System::IterateOver(manager->get_Contracts()))
+        for (const auto& contract : System::IterateOver(manager->get_Contracts()))
         {
             clients->Add(contract->get_Client());
         }
@@ -215,7 +215,7 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<Te
 {
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<TestClasses::ContractTestClass>>> contracts =
         System::MakeObject<System::Collections::Generic::List<System::SharedPtr<TestClasses::ContractTestClass>>>();
-    for (auto manager : System::IterateOver(GetManagers()))
+    for (const auto& manager : System::IterateOver(GetManagers()))
     {
         contracts->AddRange(manager->get_Contracts());
     }

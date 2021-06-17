@@ -120,7 +120,7 @@ public:
             std::cout << "Top-level comment:" << std::endl;
             std::cout << "\t\"" << comment->GetText().Trim() << "\", by " << comment->get_Author() << std::endl;
             std::cout << "Has " << comment->get_Replies()->get_Count() << " replies" << std::endl;
-            for (auto commentReply : System::IterateOver<Comment>(comment->get_Replies()))
+            for (const auto& commentReply : System::IterateOver<Comment>(comment->get_Replies()))
             {
                 std::cout << "\t\"" << commentReply->GetText().Trim() << "\", by " << commentReply->get_Author() << std::endl;
             }
@@ -264,7 +264,7 @@ public:
             // Then, visit the comment, and any replies that it may have.
             comment->Accept(commentVisitor);
 
-            for (auto reply : System::IterateOver<Comment>(comment->get_Replies()))
+            for (const auto& reply : System::IterateOver<Comment>(comment->get_Replies()))
             {
                 reply->Accept(commentVisitor);
             }

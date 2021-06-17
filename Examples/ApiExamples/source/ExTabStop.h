@@ -65,7 +65,7 @@ public:
         paragraph->get_ParagraphFormat()->get_TabStops()->Add(ConvertUtil::MillimeterToPoint(100), TabAlignment::Left, TabLeader::Dashes);
 
         // Add tab stops at 5 cm to all paragraphs.
-        for (auto para : System::IterateOver(doc->GetChildNodes(NodeType::Paragraph, true)->LINQ_OfType<SharedPtr<Paragraph>>()))
+        for (const auto& para : System::IterateOver(doc->GetChildNodes(NodeType::Paragraph, true)->LINQ_OfType<SharedPtr<Paragraph>>()))
         {
             para->get_ParagraphFormat()->get_TabStops()->Add(ConvertUtil::MillimeterToPoint(50), TabAlignment::Left, TabLeader::Dashes);
         }

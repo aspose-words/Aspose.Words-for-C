@@ -288,7 +288,7 @@ public:
 
     void TestResourceLoadingCallback(SharedPtr<Document> doc)
     {
-        for (auto shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
+        for (const auto& shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
         {
             ASSERT_TRUE(shape->get_HasImage());
             ASSERT_FALSE(System::TestTools::IsEmpty(shape->get_ImageData()->get_ImageBytes()));

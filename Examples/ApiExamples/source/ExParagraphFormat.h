@@ -244,7 +244,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"ParagraphFormat.ParagraphSpacingSameStyle.docx");
 
-        for (auto paragraph : System::IterateOver<Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
         {
             SharedPtr<ParagraphFormat> format = paragraph->get_ParagraphFormat();
 

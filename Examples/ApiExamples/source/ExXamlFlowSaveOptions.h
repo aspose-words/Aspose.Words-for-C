@@ -77,7 +77,7 @@ public:
 
         doc->Save(ArtifactsDir + u"XamlFlowSaveOptions.ImageFolder.xaml", options);
 
-        for (auto resource : callback->get_Resources())
+        for (const auto& resource : callback->get_Resources())
         {
             std::cout << callback->get_ImagesFolderAlias() << "/" << resource << std::endl;
         }
@@ -127,7 +127,7 @@ public:
     void TestImageFolder(SharedPtr<ExXamlFlowSaveOptions::ImageUriPrinter> callback)
     {
         ASSERT_EQ(9, callback->get_Resources()->get_Count());
-        for (auto resource : callback->get_Resources())
+        for (const auto& resource : callback->get_Resources())
         {
             ASSERT_TRUE(System::IO::File::Exists(String::Format(u"{0}/{1}", callback->get_ImagesFolderAlias(), resource)));
         }

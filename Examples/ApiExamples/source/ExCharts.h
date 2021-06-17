@@ -603,7 +603,7 @@ public:
 
         // Apply data labels to every series in the chart.
         // These labels will appear next to each data point in the graph and display its value.
-        for (auto series : System::IterateOver(chart->get_Series()))
+        for (const auto& series : System::IterateOver(chart->get_Series()))
         {
             ApplyDataLabels(series, 4, u"000.0", u", ");
             ASSERT_EQ(4, series->get_DataLabels()->get_Count());
@@ -690,7 +690,7 @@ public:
         ASSERT_EQ(u"Series 3", chart->get_Series()->idx_get(2)->get_Name());
 
         // Emphasize the chart's data points by making them appear as diamond shapes.
-        for (auto series : System::IterateOver(chart->get_Series()))
+        for (const auto& series : System::IterateOver(chart->get_Series()))
         {
             ApplyDataPoints(series, 4, MarkerSymbol::Diamond, 15);
         }

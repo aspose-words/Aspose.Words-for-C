@@ -379,7 +379,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
 
-        for (auto field : System::IterateOver(doc->get_Range()->get_Fields()))
+        for (const auto& field : System::IterateOver(doc->get_Range()->get_Fields()))
         {
             if (field->get_Type() == FieldType::FieldHyperlink)
             {
@@ -428,7 +428,7 @@ public:
         SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> paragraphs = ParagraphsByStyleName(doc, paraStyle);
         std::cout << "Paragraphs with \"" << paraStyle << "\" styles (" << paragraphs->get_Count() << "):" << std::endl;
 
-        for (auto paragraph : paragraphs)
+        for (const auto& paragraph : paragraphs)
         {
             std::cout << paragraph->ToString(SaveFormat::Text);
         }
@@ -436,7 +436,7 @@ public:
         SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runs = RunsByStyleName(doc, runStyle);
         std::cout << "\nRuns with \"" << runStyle << "\" styles (" << runs->get_Count() << "):" << std::endl;
 
-        for (auto run : runs)
+        for (const auto& run : runs)
         {
             std::cout << run->get_Range()->get_Text() << std::endl;
         }
@@ -449,7 +449,7 @@ public:
             MakeObject<System::Collections::Generic::List<SharedPtr<Paragraph>>>();
         SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
 
-        for (auto paragraph : System::IterateOver<Paragraph>(paragraphs))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(paragraphs))
         {
             if (paragraph->get_ParagraphFormat()->get_Style()->get_Name() == styleName)
             {
@@ -465,7 +465,7 @@ public:
         SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runsWithStyle = MakeObject<System::Collections::Generic::List<SharedPtr<Run>>>();
         SharedPtr<NodeCollection> runs = doc->GetChildNodes(NodeType::Run, true);
 
-        for (auto run : System::IterateOver<Aspose::Words::Run>(runs))
+        for (const auto& run : System::IterateOver<Aspose::Words::Run>(runs))
         {
             if (run->get_Font()->get_Style()->get_Name() == styleName)
             {
@@ -507,7 +507,7 @@ public:
         SharedPtr<NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
         int imageIndex = 0;
 
-        for (auto shape : System::IterateOver<Shape>(shapes))
+        for (const auto& shape : System::IterateOver<Shape>(shapes))
         {
             if (shape->get_HasImage())
             {

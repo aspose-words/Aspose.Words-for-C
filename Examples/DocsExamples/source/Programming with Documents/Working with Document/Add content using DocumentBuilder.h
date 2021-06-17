@@ -493,7 +493,7 @@ public:
         ASSERT_EQ(0, paragraphs->IndexOf(builder->get_CurrentParagraph()));
 
         // You can move the cursor to any position in a paragraph.
-        builder->MoveToParagraph(2, 14);
+        builder->MoveToParagraph(2, 10);
         ASSERT_EQ(2, paragraphs->IndexOf(builder->get_CurrentParagraph()));
         builder->Writeln(u"This is a new third paragraph. ");
         ASSERT_EQ(3, paragraphs->IndexOf(builder->get_CurrentParagraph()));

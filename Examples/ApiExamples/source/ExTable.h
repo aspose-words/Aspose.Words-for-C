@@ -358,9 +358,9 @@ public:
     {
         int childTableCount = 0;
 
-        for (auto row : System::IterateOver(table->get_Rows()->LINQ_OfType<SharedPtr<Row>>()))
+        for (const auto& row : System::IterateOver(table->get_Rows()->LINQ_OfType<SharedPtr<Row>>()))
         {
-            for (auto Cell : System::IterateOver(row->get_Cells()->LINQ_OfType<SharedPtr<Cell>>()))
+            for (const auto& Cell : System::IterateOver(row->get_Cells()->LINQ_OfType<SharedPtr<Cell>>()))
             {
                 SharedPtr<TableCollection> childTables = Cell->get_Tables();
 
@@ -749,7 +749,7 @@ public:
         ASSERT_EQ(3, doc->GetChildNodes(NodeType::Table, true)->get_Count());
         ASSERT_EQ(table->get_Range()->get_Text(), tableClone->get_Range()->get_Text());
 
-        for (auto cell : System::IterateOver(tableClone->GetChildNodes(NodeType::Cell, true)->LINQ_OfType<SharedPtr<Cell>>()))
+        for (const auto& cell : System::IterateOver(tableClone->GetChildNodes(NodeType::Cell, true)->LINQ_OfType<SharedPtr<Cell>>()))
         {
             cell->RemoveAllChildren();
         }
@@ -769,7 +769,7 @@ public:
         // in one piece if a table spans two pages, which break up along that row.
         // If the row is too big to fit in one page, Microsoft Word will push it down to the next page.
         // Set the "AllowBreakAcrossPages" property to "true" to allow the row to break up across two pages.
-        for (auto row : System::IterateOver(table->LINQ_OfType<SharedPtr<Row>>()))
+        for (const auto& row : System::IterateOver(table->LINQ_OfType<SharedPtr<Row>>()))
         {
             row->get_RowFormat()->set_AllowBreakAcrossPages(allowBreakAcrossPages);
         }
@@ -850,9 +850,9 @@ public:
 
         // Enabling KeepWithNext for every paragraph in the table except for the
         // last ones in the last row will prevent the table from splitting across multiple pages.
-        for (auto cell : System::IterateOver(table->GetChildNodes(NodeType::Cell, true)->LINQ_OfType<SharedPtr<Cell>>()))
+        for (const auto& cell : System::IterateOver(table->GetChildNodes(NodeType::Cell, true)->LINQ_OfType<SharedPtr<Cell>>()))
         {
-            for (auto para : System::IterateOver(cell->get_Paragraphs()->LINQ_OfType<SharedPtr<Paragraph>>()))
+            for (const auto& para : System::IterateOver(cell->get_Paragraphs()->LINQ_OfType<SharedPtr<Paragraph>>()))
             {
                 ASSERT_TRUE(para->get_IsInCell());
 
@@ -869,7 +869,7 @@ public:
         doc = MakeObject<Document>(ArtifactsDir + u"Table.KeepTableTogether.docx");
         table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
 
-        for (auto para : System::IterateOver(table->GetChildNodes(NodeType::Paragraph, true)->LINQ_OfType<SharedPtr<Paragraph>>()))
+        for (const auto& para : System::IterateOver(table->GetChildNodes(NodeType::Paragraph, true)->LINQ_OfType<SharedPtr<Paragraph>>()))
         {
             if (para->get_IsEndOfCell() && (System::DynamicCast<Cell>(para->get_ParentNode()))->get_ParentRow()->get_IsLastRow())
             {
@@ -1065,9 +1065,9 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Table with merged cells.docx");
         SharedPtr<Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
 
-        for (auto row : System::IterateOver(table->get_Rows()->LINQ_OfType<SharedPtr<Row>>()))
+        for (const auto& row : System::IterateOver(table->get_Rows()->LINQ_OfType<SharedPtr<Row>>()))
         {
-            for (auto cell : System::IterateOver(row->get_Cells()->LINQ_OfType<SharedPtr<Cell>>()))
+            for (const auto& cell : System::IterateOver(row->get_Cells()->LINQ_OfType<SharedPtr<Cell>>()))
             {
                 std::cout << PrintCellMergeType(cell) << std::endl;
             }
@@ -1113,7 +1113,7 @@ public:
         doc->Save(ArtifactsDir + u"Table.MergeCellRange.doc");
 
         int mergedCellsCount = 0;
-        for (auto node : System::IterateOver(table->GetChildNodes(NodeType::Cell, true)))
+        for (const auto& node : System::IterateOver(table->GetChildNodes(NodeType::Cell, true)))
         {
             auto cell = System::DynamicCast<Cell>(node);
             if (cell->get_CellFormat()->get_HorizontalMerge() != CellMerge::None || cell->get_CellFormat()->get_VerticalMerge() != CellMerge::None)
@@ -1147,9 +1147,9 @@ public:
             System::Math::Min(startCellPos.get_X(), endCellPos.get_X()), System::Math::Min(startCellPos.get_Y(), endCellPos.get_Y()),
             System::Math::Abs(endCellPos.get_X() - startCellPos.get_X()) + 1, System::Math::Abs(endCellPos.get_Y() - startCellPos.get_Y()) + 1);
 
-        for (auto row : System::IterateOver(parentTable->get_Rows()->LINQ_OfType<SharedPtr<Row>>()))
+        for (const auto& row : System::IterateOver(parentTable->get_Rows()->LINQ_OfType<SharedPtr<Row>>()))
         {
-            for (auto cell : System::IterateOver(row->get_Cells()->LINQ_OfType<SharedPtr<Cell>>()))
+            for (const auto& cell : System::IterateOver(row->get_Cells()->LINQ_OfType<SharedPtr<Cell>>()))
             {
                 System::Drawing::Point currentPos(row->IndexOf(cell), parentTable->IndexOf(row));
 

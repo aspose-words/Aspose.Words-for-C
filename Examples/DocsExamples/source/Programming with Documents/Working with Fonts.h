@@ -424,7 +424,7 @@ public:
 
         ArrayPtr<SharedPtr<FontSourceBase>> updatedFontSources = fontSources->ToArray();
 
-        for (auto fontInfo : System::IterateOver(updatedFontSources[0]->GetAvailableFonts()))
+        for (const auto& fontInfo : System::IterateOver(updatedFontSources[0]->GetAvailableFonts()))
         {
             std::cout << (String(u"FontFamilyName : ") + fontInfo->get_FontFamilyName()) << std::endl;
             std::cout << (String(u"FullFontName  : ") + fontInfo->get_FullFontName()) << std::endl;

@@ -133,7 +133,7 @@ public:
 
         // We can remove a border at once by running the ClearFormatting method.
         // Running this method on every border of a paragraph will remove all its borders.
-        for (auto border : System::IterateOver(borders))
+        for (const auto& border : System::IterateOver(borders))
         {
             border->ClearFormatting();
         }
@@ -148,7 +148,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Border.ClearFormatting.docx");
 
-        for (auto testBorder : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
+        for (const auto& testBorder : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
         {
             ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), testBorder->get_Color().ToArgb());
             ASPOSE_ASSERT_EQ(0.0, testBorder->get_LineWidth());
@@ -186,7 +186,7 @@ public:
             ASSERT_FALSE(firstParagraphBorders->idx_get(i)->get_IsVisible());
         }
 
-        for (auto border : System::IterateOver(secondParagraphBorders))
+        for (const auto& border : System::IterateOver(secondParagraphBorders))
         {
             border->set_LineStyle(LineStyle::DotDash);
         }
@@ -208,12 +208,12 @@ public:
         doc = MakeObject<Document>(ArtifactsDir + u"Border.SharedElements.docx");
         SharedPtr<ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
 
-        for (auto testBorder : System::IterateOver(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Borders()))
+        for (const auto& testBorder : System::IterateOver(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Borders()))
         {
             ASSERT_EQ(LineStyle::None, testBorder->get_LineStyle());
         }
 
-        for (auto testBorder : System::IterateOver(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Borders()))
+        for (const auto& testBorder : System::IterateOver(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Borders()))
         {
             ASSERT_EQ(LineStyle::DotDash, testBorder->get_LineStyle());
         }
@@ -298,7 +298,7 @@ public:
         doc = MakeObject<Document>(ArtifactsDir + u"Border.VerticalBorders.docx");
         table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
 
-        for (auto row : System::IterateOver<Row>(table->GetChildNodes(NodeType::Row, true)))
+        for (const auto& row : System::IterateOver<Row>(table->GetChildNodes(NodeType::Row, true)))
         {
             ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), row->get_RowFormat()->get_Borders()->get_Horizontal()->get_Color().ToArgb());
             ASSERT_EQ(LineStyle::Dot, row->get_RowFormat()->get_Borders()->get_Horizontal()->get_LineStyle());

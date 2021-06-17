@@ -198,7 +198,7 @@ public:
             SharedPtr<System::Collections::Generic::List<SharedPtr<Cell>>> columnCells =
                 System::MakeObject<System::Collections::Generic::List<SharedPtr<Cell>>>();
 
-            for (auto row : System::IterateOver<Row>(mTable->get_Rows()))
+            for (const auto& row : System::IterateOver<Row>(mTable->get_Rows()))
             {
                 SharedPtr<Cell> cell = row->get_Cells()->idx_get(mColumnIndex);
                 if (cell != nullptr)
@@ -313,19 +313,19 @@ public:
             // Get collection of tables in the HTML document.
             SharedPtr<System::Xml::XmlNodeList> tables = xmlDoc->get_DocumentElement()->SelectNodes(u"// Table");
 
-            for (auto table : System::IterateOver(tables))
+            for (const auto& table : System::IterateOver(tables))
             {
                 auto tableInf = MakeObject<WorkingWithTables::TableInfo>();
                 // Get collection of rows in the table.
                 SharedPtr<System::Xml::XmlNodeList> rows = table->SelectNodes(u"tr");
 
-                for (auto row : System::IterateOver(rows))
+                for (const auto& row : System::IterateOver(rows))
                 {
                     auto rowInf = MakeObject<WorkingWithTables::RowInfo>();
                     // Get collection of cells.
                     SharedPtr<System::Xml::XmlNodeList> cells = row->SelectNodes(u"td");
 
-                    for (auto cell : System::IterateOver(cells))
+                    for (const auto& cell : System::IterateOver(cells))
                     {
                         // Determine row span and colspan of the current cell.
                         SharedPtr<System::Xml::XmlAttribute> colSpanAttr = cell->get_Attributes()->idx_get(u"colspan");
@@ -474,7 +474,7 @@ public:
 
         auto clonedRow = System::DynamicCast<Row>(table->get_LastRow()->Clone(true));
         // Remove all content from the cloned row's cells. This makes the row ready for new content to be inserted into.
-        for (auto cell : System::IterateOver<Cell>(clonedRow->get_Cells()))
+        for (const auto& cell : System::IterateOver<Cell>(clonedRow->get_Cells()))
         {
             cell->RemoveAllChildren();
         }
@@ -762,7 +762,7 @@ public:
         auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         // Disable breaking across pages for all rows in the table.
-        for (auto row : System::IterateOver<Row>(table->get_Rows()))
+        for (const auto& row : System::IterateOver<Row>(table->get_Rows()))
         {
             row->get_RowFormat()->set_AllowBreakAcrossPages(false);
         }
@@ -780,11 +780,11 @@ public:
 
         // We need to enable KeepWithNext for every paragraph in the table to keep it from breaking across a page,
         // except for the last paragraphs in the last row of the table.
-        for (auto cell : System::IterateOver<Cell>(table->GetChildNodes(NodeType::Cell, true)))
+        for (const auto& cell : System::IterateOver<Cell>(table->GetChildNodes(NodeType::Cell, true)))
         {
             cell->EnsureMinimum();
 
-            for (auto para : System::IterateOver<Paragraph>(cell->get_Paragraphs()))
+            for (const auto& para : System::IterateOver<Paragraph>(cell->get_Paragraphs()))
             {
                 if (!(cell->get_ParentRow()->get_IsLastRow() && para->get_IsEndOfCell()))
                 {
@@ -804,9 +804,9 @@ public:
 
         auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
-        for (auto row : System::IterateOver<Row>(table->get_Rows()))
+        for (const auto& row : System::IterateOver<Row>(table->get_Rows()))
         {
-            for (auto cell : System::IterateOver<Cell>(row->get_Cells()))
+            for (const auto& cell : System::IterateOver<Cell>(row->get_Cells()))
             {
                 std::cout << PrintCellMergeType(cell) << std::endl;
             }
@@ -950,9 +950,9 @@ public:
             System::Math::Min(startCellPos.get_X(), endCellPos.get_X()), System::Math::Min(startCellPos.get_Y(), endCellPos.get_Y()),
             System::Math::Abs(endCellPos.get_X() - startCellPos.get_X()) + 1, System::Math::Abs(endCellPos.get_Y() - startCellPos.get_Y()) + 1);
 
-        for (auto row : System::IterateOver<Row>(parentTable->get_Rows()))
+        for (const auto& row : System::IterateOver<Row>(parentTable->get_Rows()))
         {
-            for (auto cell : System::IterateOver<Cell>(row->get_Cells()))
+            for (const auto& cell : System::IterateOver<Cell>(row->get_Cells()))
             {
                 System::Drawing::Point currentPos(row->IndexOf(cell), parentTable->IndexOf(row));
 
@@ -1096,7 +1096,7 @@ public:
         //ExStart:GetFloatingTablePosition
         auto doc = MakeObject<Document>(MyDir + u"Table wrapped by text.docx");
 
-        for (auto table : System::IterateOver<Table>(doc->get_FirstSection()->get_Body()->get_Tables()))
+        for (const auto& table : System::IterateOver<Table>(doc->get_FirstSection()->get_Body()->get_Tables()))
         {
             // If the table is floating type, then print its positioning properties.
             if (table->get_TextWrapping() == TextWrapping::Around)

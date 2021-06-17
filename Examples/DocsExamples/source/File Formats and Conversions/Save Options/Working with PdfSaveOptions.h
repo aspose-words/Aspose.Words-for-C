@@ -104,7 +104,7 @@ public:
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.PdfRenderWarnings.pdf", saveOptions);
 
         // While the file saves successfully, rendering warnings that occurred during saving are collected here.
-        for (auto warningInfo : callback->mWarnings)
+        for (const auto& warningInfo : callback->mWarnings)
         {
             std::cout << warningInfo->get_Description() << std::endl;
         }

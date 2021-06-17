@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <cstdint>
+#include <functional>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/ImportFormatMode.h>
@@ -10,14 +11,18 @@
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Section.h>
 #include <Aspose.Words.Cpp/SectionCollection.h>
+#include <system/array.h>
 #include <system/date_time.h>
 #include <system/enum_helpers.h>
 #include <system/exceptions.h>
+#include <system/func.h>
+#include <system/io/directory.h>
 #include <system/io/directory_info.h>
 #include <system/io/file_system_info.h>
+#include <system/io/search_option.h>
+#include <system/linq/enumerable.h>
 
 #include "DocsExamplesBase.h"
-#include "Programming with Documents/Split Documents/Page splitter.h"
 
 using System::ArrayPtr;
 using System::MakeArray;
@@ -84,14 +89,13 @@ public:
         //ExStart:SplitDocumentPageByPage
         auto doc = MakeObject<Document>(MyDir + u"Big document.docx");
 
-        // Split nodes in the document into separate pages.
-        auto splitter = MakeObject<DocumentPageSplitter>(doc);
+        int pageCount = doc->get_PageCount();
 
-        // Save each page as a separate document.
-        for (int page = 1; page <= doc->get_PageCount(); page++)
+        for (int page = 0; page < pageCount; page++)
         {
-            SharedPtr<Document> pageDoc = splitter->GetDocumentOfPage(page);
-            pageDoc->Save(ArtifactsDir + String::Format(u"SplitDocument.PageByPage_{0}.docx", page));
+            // Save each page as a separate document.
+            SharedPtr<Document> extractedPage = doc->ExtractPages(page, 1);
+            extractedPage->Save(ArtifactsDir + String::Format(u"SplitDocument.PageByPage_{0}.docx", page + 1));
         }
         //ExEnd:SplitDocumentPageByPage
 
@@ -103,12 +107,9 @@ public:
         //ExStart:SplitDocumentByPageRange
         auto doc = MakeObject<Document>(MyDir + u"Big document.docx");
 
-        // Split nodes in the document into separate pages.
-        auto splitter = MakeObject<DocumentPageSplitter>(doc);
-
         // Get part of the document.
-        SharedPtr<Document> pageDoc = splitter->GetDocumentOfPageRange(3, 6);
-        pageDoc->Save(ArtifactsDir + u"SplitDocument.ByPageRange.docx");
+        SharedPtr<Document> extractedPages = doc->ExtractPages(3, 6);
+        extractedPages->Save(ArtifactsDir + u"SplitDocument.ByPageRange.docx");
         //ExEnd:SplitDocumentByPageRange
     }
 

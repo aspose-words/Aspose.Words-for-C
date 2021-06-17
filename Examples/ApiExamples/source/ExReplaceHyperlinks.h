@@ -239,7 +239,7 @@ public:
         // Use the "SelectNodes" method to find all the fields in the document via an XPath.
         SharedPtr<NodeList> fieldStarts = doc->SelectNodes(u"//FieldStart");
 
-        for (auto fieldStart : System::IterateOver(fieldStarts->LINQ_OfType<SharedPtr<FieldStart>>()))
+        for (const auto& fieldStart : System::IterateOver(fieldStarts->LINQ_OfType<SharedPtr<FieldStart>>()))
         {
             if (fieldStart->get_FieldType() == FieldType::FieldHyperlink)
             {

@@ -160,7 +160,7 @@ public:
         //ExStart:AccessAndVerifySignature
         auto doc = MakeObject<Document>(MyDir + u"Digitally signed.docx");
 
-        for (auto signature : doc->get_DigitalSignatures())
+        for (const auto& signature : doc->get_DigitalSignatures())
         {
             std::cout << "*** Signature Found ***" << std::endl;
             std::cout << (String(u"Is valid: ") + signature->get_IsValid()) << std::endl;

@@ -469,7 +469,7 @@ public:
         ASPOSE_ASSERT_EQ(listStyle, list1->get_Style());
 
         // Change the appearance of all list levels in our list.
-        for (auto level : list1->get_ListLevels())
+        for (const auto& level : list1->get_ListLevels())
         {
             level->get_Font()->set_Name(u"Verdana");
             level->get_Font()->set_Color(System::Drawing::Color::get_Blue());
@@ -592,7 +592,7 @@ public:
 
         ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::DynamicCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
 
-        for (auto paragraph : System::IterateOver<Paragraph>(paras))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(paras))
         {
             paragraph->get_ListFormat()->RemoveNumbers();
         }
@@ -620,7 +620,7 @@ public:
         doc->get_Lists()->Add(ListTemplate::NumberDefault);
         SharedPtr<List> list = doc->get_Lists()->idx_get(0);
 
-        for (auto paragraph : System::IterateOver(paras->LINQ_OfType<SharedPtr<Paragraph>>()))
+        for (const auto& paragraph : System::IterateOver(paras->LINQ_OfType<SharedPtr<Paragraph>>()))
         {
             paragraph->get_ListFormat()->set_List(list);
             paragraph->get_ListFormat()->set_ListLevelNumber(2);
@@ -656,7 +656,7 @@ public:
 
         SharedPtr<List> list = doc->get_Lists()->Add(ListTemplate::NumberUppercaseLetterDot);
 
-        for (auto paragraph : System::IterateOver(paras->LINQ_OfType<SharedPtr<Paragraph>>()))
+        for (const auto& paragraph : System::IterateOver(paras->LINQ_OfType<SharedPtr<Paragraph>>()))
         {
             paragraph->get_ListFormat()->set_List(list);
             paragraph->get_ListFormat()->set_ListLevelNumber(1);
@@ -787,7 +787,7 @@ public:
         auto dstDoc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(dstDoc);
 
-        for (auto srcList : srcDoc->get_Lists())
+        for (const auto& srcList : srcDoc->get_Lists())
         {
             SharedPtr<List> dstList = dstDoc->get_Lists()->AddCopy(srcList);
             AddListSample(builder, dstList);
@@ -815,7 +815,7 @@ public:
 
     void TestPrintOutAllLists(SharedPtr<Document> listSourceDoc, SharedPtr<Document> outDoc)
     {
-        for (auto list : outDoc->get_Lists())
+        for (const auto& list : outDoc->get_Lists())
         {
             for (int i = 0; i < list->get_ListLevels()->get_Count(); i++)
             {
@@ -912,7 +912,7 @@ public:
         list->get_ListLevels()->idx_get(2)->set_RestartAfterLevel(1);
 
         // Make labels of all list levels bold.
-        for (auto level : list->get_ListLevels())
+        for (const auto& level : list->get_ListLevels())
         {
             level->get_Font()->set_Bold(true);
         }

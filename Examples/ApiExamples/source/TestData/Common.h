@@ -25,6 +25,9 @@ public:
     static System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<TestClasses::ManagerTestClass>>> GetEmptyManagers();
     static System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<TestClasses::ClientTestClass>>> GetClients();
     static System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<TestClasses::ContractTestClass>>> GetContracts();
+
+public:
+    Common() = delete;
 };
 
 }} // namespace ApiExamples::TestData

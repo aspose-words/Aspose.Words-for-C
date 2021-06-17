@@ -184,7 +184,7 @@ public:
 
         ASSERT_EQ(3, paragraph->get_ChildNodes()->get_Count());
 
-        for (auto child : System::IterateOver(children))
+        for (const auto& child : System::IterateOver(children))
         {
             switch (child->get_NodeType())
             {
@@ -352,7 +352,7 @@ public:
         ASSERT_EQ(5, tables->idx_get(0)->get_Rows()->get_Count());
         ASSERT_EQ(4, tables->idx_get(1)->get_Rows()->get_Count());
 
-        for (auto table : System::IterateOver(tables->LINQ_OfType<SharedPtr<Table>>()))
+        for (const auto& table : System::IterateOver(tables->LINQ_OfType<SharedPtr<Table>>()))
         {
             if (table->get_FirstRow() != nullptr)
             {

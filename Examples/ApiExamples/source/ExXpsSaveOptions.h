@@ -110,7 +110,7 @@ public:
         // properties of the page setup objects of all sections to "MultiplePagesType.BookFoldPrinting".
         if (renderTextAsBookFold)
         {
-            for (auto s : System::IterateOver<Section>(doc->get_Sections()))
+            for (const auto& s : System::IterateOver<Section>(doc->get_Sections()))
             {
                 s->get_PageSetup()->set_MultiplePages(MultiplePagesType::BookFoldPrinting);
             }

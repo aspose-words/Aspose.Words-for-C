@@ -58,7 +58,7 @@ public:
         //ExStart:RemoveFooters
         auto doc = MakeObject<Document>(MyDir + u"Header and footer types.docx");
 
-        for (auto section : System::IterateOver<Section>(doc))
+        for (const auto& section : System::IterateOver<Section>(doc))
         {
             // Up to three different footers are possible in a section (for first, even and odd pages)
             // we check and delete all of them.
@@ -109,7 +109,7 @@ public:
         // This is a list to store the nodes found inside the specified TOC. They will be removed at the end of this method.
         SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> nodeList = MakeObject<System::Collections::Generic::List<SharedPtr<Node>>>();
 
-        for (auto start : System::IterateOver<FieldStart>(doc->GetChildNodes(NodeType::FieldStart, true)))
+        for (const auto& start : System::IterateOver<FieldStart>(doc->GetChildNodes(NodeType::FieldStart, true)))
         {
             if (start->get_FieldType() == FieldType::FieldTOC)
             {
@@ -144,7 +144,7 @@ public:
             }
         }
 
-        for (auto node : nodeList)
+        for (const auto& node : nodeList)
         {
             node->Remove();
         }
@@ -155,7 +155,7 @@ protected:
     {
         SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
 
-        for (auto para : System::IterateOver<Paragraph>(paragraphs))
+        for (const auto& para : System::IterateOver<Paragraph>(paragraphs))
         {
             // If the paragraph has a page break before the set, then clear it.
             if (para->get_ParagraphFormat()->get_PageBreakBefore())
@@ -164,7 +164,7 @@ protected:
             }
 
             // Check all runs in the paragraph for page breaks and remove them.
-            for (auto run : System::IterateOver<Aspose::Words::Run>(para->get_Runs()))
+            for (const auto& run : System::IterateOver<Aspose::Words::Run>(para->get_Runs()))
             {
                 if (run->get_Text().Contains(ControlChar::PageBreak()))
                 {

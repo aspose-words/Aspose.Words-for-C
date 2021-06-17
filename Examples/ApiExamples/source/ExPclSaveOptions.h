@@ -98,7 +98,7 @@ public:
 
         // Paper tray information is now preserved when saving document to PCL format.
         // Following information is transferred from document's model to PCL file.
-        for (auto section : System::IterateOver(doc->get_Sections()->LINQ_OfType<SharedPtr<Section>>()))
+        for (const auto& section : System::IterateOver(doc->get_Sections()->LINQ_OfType<SharedPtr<Section>>()))
         {
             section->get_PageSetup()->set_FirstPageTray(15);
             section->get_PageSetup()->set_OtherPagesTray(12);

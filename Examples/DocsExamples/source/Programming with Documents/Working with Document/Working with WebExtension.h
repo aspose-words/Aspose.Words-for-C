@@ -61,7 +61,7 @@ public:
 
         std::cout << "Task panes sources:\n" << std::endl;
 
-        for (auto taskPaneInfo : System::IterateOver(doc->get_WebExtensionTaskPanes()))
+        for (const auto& taskPaneInfo : doc->get_WebExtensionTaskPanes())
         {
             SharedPtr<WebExtensionReference> reference = taskPaneInfo->get_WebExtension()->get_Reference();
             std::cout << "Provider: \"" << reference->get_Store() << "\", version: \"" << reference->get_Version() << "\", catalog identifier: \""

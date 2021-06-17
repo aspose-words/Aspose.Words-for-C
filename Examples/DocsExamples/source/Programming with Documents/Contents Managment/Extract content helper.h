@@ -130,7 +130,7 @@ public:
         System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
 
         // Look through all paragraphs to find those with the specified style.
-        for (auto paragraph : System::IterateOver<Paragraph>(paragraphs))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(paragraphs))
         {
             if (paragraph->get_ParagraphFormat()->get_Style()->get_Name() == styleName)
             {
@@ -151,7 +151,7 @@ public:
         // Import each node from the list into the new document. Keep the original formatting of the node.
         auto importer = System::MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
 
-        for (auto node : nodes)
+        for (const auto& node : nodes)
         {
             System::SharedPtr<Node> importNode = importer->ImportNode(node, true);
             dstDoc->get_FirstSection()->get_Body()->AppendChild(importNode);

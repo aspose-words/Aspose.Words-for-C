@@ -692,7 +692,7 @@ public:
         //ExSummary:Shows how to validate and display information about each signature in a document.
         auto doc = MakeObject<Document>(MyDir + u"Digitally signed.docx");
 
-        for (auto signature : doc->get_DigitalSignatures())
+        for (const auto& signature : doc->get_DigitalSignatures())
         {
             std::cout << (signature->get_IsValid() ? String(u"Valid") : String(u"Invalid")) << " signature: " << std::endl;
             std::cout << "\tReason:\t" << signature->get_Comments() << std::endl;
@@ -794,7 +794,7 @@ public:
         };
 
         SharedPtr<System::Collections::Generic::List<String>> docFiles = System::IO::Directory::GetFiles(MyDir, u"*.doc")->LINQ_Where(isDocFile)->LINQ_ToList();
-        for (auto fileName : docFiles)
+        for (const auto& fileName : docFiles)
         {
             SharedPtr<FileFormatInfo> info = FileFormatUtil::DetectFileFormat(fileName);
             if (info->get_IsEncrypted())
@@ -1199,7 +1199,7 @@ public:
         // for every element that is different in the edited document.
         ASSERT_EQ(2, docOriginal->get_Revisions()->get_Count());
         //ExSkip
-        for (auto r : System::IterateOver(docOriginal->get_Revisions()))
+        for (const auto& r : System::IterateOver(docOriginal->get_Revisions()))
         {
             std::cout << String::Format(u"Revision type: {0}, on a node of type \"{1}\"", r->get_RevisionType(), r->get_ParentNode()->get_NodeType())
                       << std::endl;
@@ -2245,7 +2245,7 @@ public:
 
         ASSERT_EQ(vbaModules->LINQ_Count(), 3);
 
-        for (auto module_ : vbaModules)
+        for (const auto& module_ : vbaModules)
         {
             std::cout << "Module name: " << module_->get_Name() << ";\nModule code:\n" << module_->get_SourceCode() << "\n" << std::endl;
         }

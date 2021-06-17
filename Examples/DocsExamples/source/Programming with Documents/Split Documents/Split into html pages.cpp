@@ -67,7 +67,7 @@ System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph>>> topicStartParas =
         System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Paragraph>>>();
 
-    for (auto para : System::IterateOver<Paragraph>(paras))
+    for (const auto& para : System::IterateOver<Paragraph>(paras))
     {
         StyleIdentifier style = para->get_ParagraphFormat()->get_StyleIdentifier();
         if (style == StyleIdentifier::Heading1)
@@ -82,7 +82,7 @@ System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph
 void WordToHtmlConverter::InsertSectionBreaks(System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph>>> topicStartParas)
 {
     auto builder = System::MakeObject<DocumentBuilder>(mDoc);
-    for (auto para : topicStartParas)
+    for (const auto& para : topicStartParas)
     {
         System::SharedPtr<Section> section = para->get_ParentSection();
 

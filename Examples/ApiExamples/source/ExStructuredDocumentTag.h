@@ -126,7 +126,7 @@ public:
 
         SharedPtr<NodeCollection> tags = doc->GetChildNodes(NodeType::StructuredDocumentTag, true);
 
-        for (auto node : System::IterateOver(tags))
+        for (const auto& node : System::IterateOver(tags))
         {
             auto sdt = System::DynamicCast<StructuredDocumentTag>(node);
 
@@ -1029,12 +1029,12 @@ public:
         std::cout << "StructuredDocumentTagRangeStart values:" << std::endl;
         std::cout << "\t|Child nodes count: " << tag->get_ChildNodes()->get_Count() << "\n" << std::endl;
 
-        for (auto node : System::IterateOver(tag->get_ChildNodes()))
+        for (const auto& node : System::IterateOver(tag->get_ChildNodes()))
         {
             std::cout << String::Format(u"\t|Child node type: {0}", node->get_NodeType()) << std::endl;
         }
 
-        for (auto node : System::IterateOver(tag->GetChildNodes(NodeType::Run, true)))
+        for (const auto& node : System::IterateOver(tag->GetChildNodes(NodeType::Run, true)))
         {
             std::cout << "\t|Child node text: " << node->GetText() << std::endl;
         }

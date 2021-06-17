@@ -205,7 +205,7 @@ public:
         //ExStart:GetParagraphStyleSeparator
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
-        for (auto paragraph : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
         {
             if (paragraph->get_BreakIsStyleSeparator())
             {

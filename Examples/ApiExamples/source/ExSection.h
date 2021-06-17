@@ -335,7 +335,7 @@ public:
 
         // A Section is a composite node and can contain child nodes,
         // but only if those child nodes are of a "Body" or "HeaderFooter" node type.
-        for (auto node : System::IterateOver(section))
+        for (const auto& node : System::IterateOver(section))
         {
             switch (node->get_NodeType())
             {
@@ -540,7 +540,7 @@ public:
 
         // It is important to understand that a document can contain many sections,
         // and each section has its page setup. In this case, we want to modify them all.
-        for (auto section : System::IterateOver(doc->LINQ_OfType<SharedPtr<Section>>()))
+        for (const auto& section : System::IterateOver(doc->LINQ_OfType<SharedPtr<Section>>()))
         {
             section->get_PageSetup()->set_PaperSize(PaperSize::Letter);
         }

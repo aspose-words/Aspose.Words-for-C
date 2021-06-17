@@ -986,7 +986,7 @@ public:
         ASSERT_EQ(LineStyle::Engrave3D, table->get_Rows()->idx_get(0)->get_RowFormat()->get_Borders()->get_LineStyle());
         ASSERT_EQ(System::Drawing::Color::get_Orange().ToArgb(), table->get_Rows()->idx_get(0)->get_RowFormat()->get_Borders()->get_Color().ToArgb());
 
-        for (auto c : System::IterateOver<Cell>(table->get_Rows()->idx_get(0)->get_Cells()))
+        for (const auto& c : System::IterateOver<Cell>(table->get_Rows()->idx_get(0)->get_Cells()))
         {
             ASPOSE_ASSERT_EQ(150, c->get_CellFormat()->get_Width());
             ASSERT_EQ(CellVerticalAlignment::Center, c->get_CellFormat()->get_VerticalAlignment());
@@ -1000,7 +1000,7 @@ public:
         ASSERT_EQ(u"Row 2, Col 1\a", table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->GetText().Trim());
         ASSERT_EQ(u"Row 2, Col 2\a", table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->GetText().Trim());
 
-        for (auto c : System::IterateOver<Cell>(table->get_Rows()->idx_get(1)->get_Cells()))
+        for (const auto& c : System::IterateOver<Cell>(table->get_Rows()->idx_get(1)->get_Cells()))
         {
             ASPOSE_ASSERT_EQ(150, c->get_CellFormat()->get_Width());
             ASSERT_EQ(CellVerticalAlignment::Center, c->get_CellFormat()->get_VerticalAlignment());
@@ -1397,11 +1397,11 @@ public:
         ASSERT_EQ(HeightRule::AtLeast, table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule());
         ASPOSE_ASSERT_EQ(40.0, table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height());
 
-        for (auto c : System::IterateOver<Cell>(doc->GetChildNodes(NodeType::Cell, true)))
+        for (const auto& c : System::IterateOver<Cell>(doc->GetChildNodes(NodeType::Cell, true)))
         {
             ASSERT_EQ(ParagraphAlignment::Center, c->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
 
-            for (auto r : System::IterateOver<Run>(c->get_FirstParagraph()->get_Runs()))
+            for (const auto& r : System::IterateOver<Run>(c->get_FirstParagraph()->get_Runs()))
             {
                 ASSERT_EQ(u"Arial", r->get_Font()->get_Name());
 
@@ -1465,7 +1465,7 @@ public:
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.TableBordersAndShading.docx");
         table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
 
-        for (auto c : System::IterateOver<Cell>(table->get_FirstRow()))
+        for (const auto& c : System::IterateOver<Cell>(table->get_FirstRow()))
         {
             ASPOSE_ASSERT_EQ(0.5, c->get_CellFormat()->get_Borders()->get_Top()->get_LineWidth());
             ASPOSE_ASSERT_EQ(0.5, c->get_CellFormat()->get_Borders()->get_Bottom()->get_LineWidth());
@@ -1481,7 +1481,7 @@ public:
         ASSERT_EQ(System::Drawing::Color::get_Orange().ToArgb(),
                   table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb());
 
-        for (auto c : System::IterateOver<Cell>(table->get_LastRow()))
+        for (const auto& c : System::IterateOver<Cell>(table->get_LastRow()))
         {
             ASPOSE_ASSERT_EQ(4.0, c->get_CellFormat()->get_Borders()->get_Top()->get_LineWidth());
             ASPOSE_ASSERT_EQ(4.0, c->get_CellFormat()->get_Borders()->get_Bottom()->get_LineWidth());
@@ -2079,7 +2079,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.SetParagraphFormatting.docx");
 
-        for (auto paragraph : System::IterateOver<Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
         {
             ASSERT_EQ(ParagraphAlignment::Center, paragraph->get_ParagraphFormat()->get_Alignment());
             ASPOSE_ASSERT_EQ(100.0, paragraph->get_ParagraphFormat()->get_LeftIndent());
@@ -2781,7 +2781,7 @@ public:
 
         void PrintFormatInvocations()
         {
-            for (auto f : get_FormatInvocations())
+            for (const auto& f : get_FormatInvocations())
             {
                 std::cout << (String::Format(u"Invocation type:\t{0}\n", f->get_FormatInvocationType()) +
                               String::Format(u"\tOriginal value:\t\t{0}\n", f->get_Value()) +
@@ -3016,7 +3016,7 @@ public:
         doc->set_WarningCallback(warnings);
         doc->Save(ArtifactsDir + u"DocumentBuilder.EmphasesWarningSourceMarkdown.md");
 
-        for (auto warningInfo : warnings)
+        for (const auto& warningInfo : warnings)
         {
             if (warningInfo->get_Source() == WarningSource::Markdown)
             {
@@ -3343,7 +3343,7 @@ public:
         auto doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.MarkdownDocument.md");
         SharedPtr<ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
 
-        for (auto paragraph : System::IterateOver<Paragraph>(paragraphs))
+        for (const auto& paragraph : System::IterateOver<Paragraph>(paragraphs))
         {
             if (paragraph->get_Runs()->get_Count() != 0)
             {

@@ -87,7 +87,7 @@ public:
         // The document also stores metadata in its built-in properties.
         // Each built-in property is a member of the document's "BuiltInDocumentProperties" object.
         std::cout << "Built-in Properties:" << std::endl;
-        for (auto docProperty : System::IterateOver(doc->get_BuiltInDocumentProperties()))
+        for (const auto& docProperty : System::IterateOver(doc->get_BuiltInDocumentProperties()))
         {
             std::cout << docProperty->get_Name() << std::endl;
             std::cout << String::Format(u"\tType:\t{0}", docProperty->get_Type()) << std::endl;
@@ -95,7 +95,7 @@ public:
             // Some properties may store multiple values.
             if (System::ObjectExt::Is<System::Collections::Generic::ICollection<SharedPtr<System::Object>>>(docProperty->get_Value()))
             {
-                for (auto value : System::IterateOver(
+                for (const auto& value : System::IterateOver(
                          System::DynamicCast_noexcept<System::Collections::Generic::ICollection<SharedPtr<System::Object>>>(docProperty->get_Value())))
                 {
                     std::cout << "\tValue:\t\"" << value << "\"" << std::endl;
@@ -129,7 +129,7 @@ public:
         doc->get_CustomDocumentProperties()->Add(u"CustomProperty2", String(u"Value of custom document property #2"));
 
         std::cout << "Custom Properties:" << std::endl;
-        for (auto customDocumentProperty : System::IterateOver(doc->get_CustomDocumentProperties()))
+        for (const auto& customDocumentProperty : System::IterateOver(doc->get_CustomDocumentProperties()))
         {
             std::cout << customDocumentProperty->get_Name() << std::endl;
             std::cout << String::Format(u"\tType:\t{0}", customDocumentProperty->get_Type()) << std::endl;

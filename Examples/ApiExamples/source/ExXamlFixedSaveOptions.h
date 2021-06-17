@@ -75,7 +75,7 @@ public:
 
         doc->Save(ArtifactsDir + u"XamlFixedSaveOptions.ResourceFolder.xaml", options);
 
-        for (auto resource : callback->get_Resources())
+        for (const auto& resource : callback->get_Resources())
         {
             std::cout << resource << std::endl;
         }
@@ -117,7 +117,7 @@ public:
     void TestResourceFolder(SharedPtr<ExXamlFixedSaveOptions::ResourceUriPrinter> callback)
     {
         ASSERT_EQ(15, callback->get_Resources()->get_Count());
-        for (auto resource : callback->get_Resources())
+        for (const auto& resource : callback->get_Resources())
         {
             ASSERT_TRUE(System::IO::File::Exists(resource.Split(MakeArray<char16_t>({u'\t'}))->idx_get(1)));
         }

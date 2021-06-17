@@ -73,7 +73,7 @@ public:
 
         // Loop through all sections in the source document.
         // Section nodes are immediate children of the Document node so we can just enumerate the Document.
-        for (auto srcSection : System::IterateOver<Section>(srcDoc))
+        for (const auto& srcSection : System::IterateOver<Section>(srcDoc))
         {
             // Because we are copying a section from one document to another,
             // it is required to import the Section node into the destination document.
@@ -159,7 +159,7 @@ public:
 
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        for (auto section : System::IterateOver<Section>(doc->get_Sections()))
+        for (const auto& section : System::IterateOver<Section>(doc->get_Sections()))
         {
             // This section has its page numbering restarted to treat this as the start of a sub-document.
             // Any PAGENUM fields in this inner document must be converted to special PAGEREF fields to correct numbering.
@@ -260,7 +260,7 @@ public:
         srcDoc->get_FirstSection()->get_PageSetup()->set_Orientation(dstDoc->get_LastSection()->get_PageSetup()->get_Orientation());
 
         // Iterate through all sections in the source document.
-        for (auto para : System::IterateOver<Paragraph>(srcDoc->GetChildNodes(NodeType::Paragraph, true)))
+        for (const auto& para : System::IterateOver<Paragraph>(srcDoc->GetChildNodes(NodeType::Paragraph, true)))
         {
             para->get_ParagraphFormat()->set_KeepWithNext(true);
         }
@@ -327,7 +327,7 @@ public:
         // Set the source document to appear straight after the destination document's content.
         srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(SectionStart::Continuous);
 
-        for (auto para : System::IterateOver<Paragraph>(srcDoc->GetChildNodes(NodeType::Paragraph, true)))
+        for (const auto& para : System::IterateOver<Paragraph>(srcDoc->GetChildNodes(NodeType::Paragraph, true)))
         {
             para->get_ParagraphFormat()->set_KeepWithNext(true);
         }
@@ -365,7 +365,7 @@ public:
         // Keep track of the lists that are created.
         auto newLists = MakeObject<System::Collections::Generic::Dictionary<int, SharedPtr<Aspose::Words::Lists::List>>>();
 
-        for (auto para : System::IterateOver<Paragraph>(srcDoc->GetChildNodes(NodeType::Paragraph, true)))
+        for (const auto& para : System::IterateOver<Paragraph>(srcDoc->GetChildNodes(NodeType::Paragraph, true)))
         {
             if (para->get_IsListItem())
             {
@@ -497,7 +497,7 @@ public:
         auto importer = MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting, importFormatOptions);
 
         SharedPtr<ParagraphCollection> srcParas = srcDoc->get_FirstSection()->get_Body()->get_Paragraphs();
-        for (auto srcPara : System::IterateOver<Paragraph>(srcParas))
+        for (const auto& srcPara : System::IterateOver<Paragraph>(srcParas))
         {
             SharedPtr<Node> importedNode = importer->ImportNode(srcPara, false);
             dstDoc->get_FirstSection()->get_Body()->AppendChild(importedNode);
@@ -520,7 +520,7 @@ public:
         auto importer = MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting, importFormatOptions);
 
         SharedPtr<ParagraphCollection> srcParas = srcDoc->get_FirstSection()->get_Body()->get_Paragraphs();
-        for (auto srcPara : System::IterateOver<Paragraph>(srcParas))
+        for (const auto& srcPara : System::IterateOver<Paragraph>(srcParas))
         {
             SharedPtr<Node> importedNode = importer->ImportNode(srcPara, true);
             dstDoc->get_FirstSection()->get_Body()->AppendChild(importedNode);
@@ -570,7 +570,7 @@ public:
         auto dstDoc = MakeObject<Document>(MyDir + u"Northwind traders.docx");
 
         // Remove the headers and footers from each of the sections in the source document.
-        for (auto section : System::IterateOver<Section>(srcDoc->get_Sections()))
+        for (const auto& section : System::IterateOver<Section>(srcDoc->get_Sections()))
         {
             section->ClearHeadersFooters();
         }

@@ -31,6 +31,7 @@ public:
         // Save the document in the OOXML format.
         doc->Save(outFileName, SaveFormat::Docx);
     }
+    ExMossRtf2Docx() = delete;
 };
 
 } // namespace ApiExamples

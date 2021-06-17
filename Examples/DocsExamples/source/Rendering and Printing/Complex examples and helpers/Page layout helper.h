@@ -38,9 +38,6 @@ using System::SharedPtr;
 using System::String;
 
 namespace DocsExamples { namespace Complex_examples_and_helpers {
-class LayoutEntity;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
 class RenderedDocument;
 }} // namespace DocsExamples::Complex_examples_and_helpers
 namespace DocsExamples { namespace Complex_examples_and_helpers {
