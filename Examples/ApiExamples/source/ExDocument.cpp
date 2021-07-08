@@ -76,11 +76,6 @@ TEST_F(ExDocument, SaveToImageStream)
     s_instance->SaveToImageStream();
 }
 
-TEST_F(ExDocument, DetectPdfDocumentFormat)
-{
-    s_instance->DetectPdfDocumentFormat();
-}
-
 TEST_F(ExDocument, OpenFromStreamWithBaseUri)
 {
     s_instance->OpenFromStreamWithBaseUri();
