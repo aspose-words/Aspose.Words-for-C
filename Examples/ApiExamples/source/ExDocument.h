@@ -313,12 +313,6 @@ public:
         //ExEnd
     }
 
-    void DetectPdfDocumentFormat()
-    {
-        SharedPtr<FileFormatInfo> info = FileFormatUtil::DetectFileFormat(MyDir + u"Pdf Document.pdf");
-        ASSERT_EQ(info->get_LoadFormat(), LoadFormat::Pdf);
-    }
-
     void OpenFromStreamWithBaseUri()
     {
         //ExStart
