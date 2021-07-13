@@ -449,12 +449,12 @@ public:
         {
         case PdfTextCompression::None:
             ASSERT_LT(60000, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"PdfSaveOptions.TextCompression.pdf")->get_Length());
-            TestUtil::FileContainsString(u"5 0 obj\r\n<</Length 9 0 R>>stream", ArtifactsDir + u"PdfSaveOptions.TextCompression.pdf");
+            TestUtil::FileContainsString(u"12 0 obj\r\n<</Length 13 0 R>>stream", ArtifactsDir + u"PdfSaveOptions.TextCompression.pdf");
             break;
 
         case PdfTextCompression::Flate:
             ASSERT_GE(30000, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"PdfSaveOptions.TextCompression.pdf")->get_Length());
-            TestUtil::FileContainsString(u"5 0 obj\r\n<</Length 9 0 R/Filter /FlateDecode>>stream", ArtifactsDir + u"PdfSaveOptions.TextCompression.pdf");
+            TestUtil::FileContainsString(u"12 0 obj\r\n<</Length 13 0 R/Filter /FlateDecode>>stream", ArtifactsDir + u"PdfSaveOptions.TextCompression.pdf");
             break;
         }
     }
@@ -907,7 +907,7 @@ public:
             break;
 
         case PdfFontEmbeddingMode::EmbedNone:
-            ASSERT_GE(4000, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"PdfSaveOptions.EmbedWindowsFonts.pdf")->get_Length());
+            ASSERT_GE(4209, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"PdfSaveOptions.EmbedWindowsFonts.pdf")->get_Length());
             break;
         }
         //ExEnd
@@ -1055,23 +1055,23 @@ public:
         switch (pageMode)
         {
         case PdfPageMode::FullScreen:
-            TestUtil::FileContainsString(String::Format(u"<</Type /Catalog/Pages 3 0 R/PageMode /FullScreen/Lang({0})>>\r\n", docLocaleName),
+            TestUtil::FileContainsString(String::Format(u"<</Type /Catalog/Pages 3 0 R/PageMode /FullScreen/Lang({0})/Metadata 4 0 R>>\r\n", docLocaleName),
                                          ArtifactsDir + u"PdfSaveOptions.PageMode.pdf");
             break;
 
         case PdfPageMode::UseThumbs:
-            TestUtil::FileContainsString(String::Format(u"<</Type /Catalog/Pages 3 0 R/PageMode /UseThumbs/Lang({0})>>", docLocaleName),
+            TestUtil::FileContainsString(String::Format(u"<</Type /Catalog/Pages 3 0 R/PageMode /UseThumbs/Lang({0})/Metadata 4 0 R>>", docLocaleName),
                                          ArtifactsDir + u"PdfSaveOptions.PageMode.pdf");
             break;
 
         case PdfPageMode::UseOC:
-            TestUtil::FileContainsString(String::Format(u"<</Type /Catalog/Pages 3 0 R/PageMode /UseOC/Lang({0})>>\r\n", docLocaleName),
+            TestUtil::FileContainsString(String::Format(u"<</Type /Catalog/Pages 3 0 R/PageMode /UseOC/Lang({0})/Metadata 4 0 R>>\r\n", docLocaleName),
                                          ArtifactsDir + u"PdfSaveOptions.PageMode.pdf");
             break;
 
         case PdfPageMode::UseOutlines:
         case PdfPageMode::UseNone:
-            TestUtil::FileContainsString(String::Format(u"<</Type /Catalog/Pages 3 0 R/Lang({0})>>\r\n", docLocaleName),
+            TestUtil::FileContainsString(String::Format(u"<</Type /Catalog/Pages 3 0 R/Lang({0})/Metadata 4 0 R>>\r\n", docLocaleName),
                                          ArtifactsDir + u"PdfSaveOptions.PageMode.pdf");
             break;
         }
@@ -1099,28 +1099,28 @@ public:
         if (createNoteHyperlinks)
         {
             TestUtil::FileContainsString(u"<</Type /Annot/Subtype /Link/Rect [157.80099487 720.90106201 159.35600281 733.55004883]/BS <</Type/Border/S/S/W "
-                                         u"0>>/Dest[4 0 R /XYZ 85 677 0]>>",
+                                         u"0>>/Dest[5 0 R /XYZ 85 677 0]>>",
                                          ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(u"<</Type /Annot/Subtype /Link/Rect [202.16900635 720.90106201 206.06201172 733.55004883]/BS <</Type/Border/S/S/W "
-                                         u"0>>/Dest[4 0 R /XYZ 85 79 0]>>",
+                                         u"0>>/Dest[5 0 R /XYZ 85 79 0]>>",
                                          ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(u"<</Type /Annot/Subtype /Link/Rect [212.23199463 699.2510376 215.34199524 711.90002441]/BS <</Type/Border/S/S/W "
-                                         u"0>>/Dest[4 0 R /XYZ 85 654 0]>>",
+                                         u"0>>/Dest[5 0 R /XYZ 85 654 0]>>",
                                          ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(u"<</Type /Annot/Subtype /Link/Rect [258.15499878 699.2510376 262.04800415 711.90002441]/BS <</Type/Border/S/S/W "
-                                         u"0>>/Dest[4 0 R /XYZ 85 68 0]>>",
+                                         u"0>>/Dest[5 0 R /XYZ 85 68 0]>>",
                                          ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(
-                u"<</Type /Annot/Subtype /Link/Rect [85.05000305 68.19904327 88.66500092 79.69804382]/BS <</Type/Border/S/S/W 0>>/Dest[4 0 R /XYZ 202 733 0]>>",
+                u"<</Type /Annot/Subtype /Link/Rect [85.05000305 68.19904327 88.66500092 79.69804382]/BS <</Type/Border/S/S/W 0>>/Dest[5 0 R /XYZ 202 733 0]>>",
                 ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(
-                u"<</Type /Annot/Subtype /Link/Rect [85.05000305 56.70004272 88.66500092 68.19904327]/BS <</Type/Border/S/S/W 0>>/Dest[4 0 R /XYZ 258 711 0]>>",
+                u"<</Type /Annot/Subtype /Link/Rect [85.05000305 56.70004272 88.66500092 68.19904327]/BS <</Type/Border/S/S/W 0>>/Dest[5 0 R /XYZ 258 711 0]>>",
                 ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(u"<</Type /Annot/Subtype /Link/Rect [85.05000305 666.10205078 86.4940033 677.60107422]/BS <</Type/Border/S/S/W "
-                                         u"0>>/Dest[4 0 R /XYZ 157 733 0]>>",
+                                         u"0>>/Dest[5 0 R /XYZ 157 733 0]>>",
                                          ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
             TestUtil::FileContainsString(u"<</Type /Annot/Subtype /Link/Rect [85.05000305 643.10406494 87.93800354 654.60308838]/BS <</Type/Border/S/S/W "
-                                         u"0>>/Dest[4 0 R /XYZ 212 711 0]>>",
+                                         u"0>>/Dest[5 0 R /XYZ 212 711 0]>>",
                                          ArtifactsDir + u"PdfSaveOptions.NoteHyperlinks.pdf");
         }
         else
@@ -1240,14 +1240,14 @@ public:
         switch (dmlRenderingMode)
         {
         case DmlRenderingMode::DrawingML:
-            TestUtil::FileContainsString(u"<</Type /Page/Parent 3 0 R/Contents 5 0 R/MediaBox [0 0 612 792]/Resources<</Font<</FAAAAH 7 0 R/FAAABA 10 0 "
+            TestUtil::FileContainsString(u"<</Type /Page/Parent 3 0 R/Contents 6 0 R/MediaBox [0 0 612 792]/Resources<</Font<</FAAAAI 8 0 R/FAAABB 11 0 "
                                          u"R>>>>/Group <</Type/Group/S/Transparency/CS/DeviceRGB>>>>",
                                          ArtifactsDir + u"PdfSaveOptions.DrawingMLFallback.pdf");
             break;
 
         case DmlRenderingMode::Fallback:
-            TestUtil::FileContainsString(u"4 0 obj\r\n<</Type /Page/Parent 3 0 R/Contents 5 0 R/MediaBox [0 0 612 792]/Resources<</Font<</FAAAAH 7 0 R/FAAABC "
-                                         u"12 0 R>>/ExtGState<</GS1 9 0 R/GS2 10 0 R>>>>/Group ",
+            TestUtil::FileContainsString(u"5 0 obj\r\n<</Type /Page/Parent 3 0 R/Contents 6 0 R/MediaBox [0 0 612 792]/Resources<</Font<</FAAAAI 8 0 R/FAAABD "
+                                         u"13 0 R>>/ExtGState<</GS1 10 0 R/GS2 11 0 R>>>>/Group <</Type/Group/S/Transparency/CS/DeviceRGB>>>>",
                                          ArtifactsDir + u"PdfSaveOptions.DrawingMLFallback.pdf");
             break;
         }
@@ -1284,15 +1284,15 @@ public:
         if (exportDocumentStructure)
         {
             TestUtil::FileContainsString(
-                String(u"4 0 obj\r\n") +
-                    u"<</Type /Page/Parent 3 0 R/Contents 5 0 R/MediaBox [0 0 612 792]/Resources<</Font<</FAAAAH 7 0 R/FAAABB 11 0 R>>/ExtGState<</GS1 9 0 "
-                    u"R/GS2 13 0 R>>>>/Group <</Type/Group/S/Transparency/CS/DeviceRGB>>/StructParents 0/Tabs /S>>",
+                String(u"5 0 obj\r\n") +
+                    u"<</Type /Page/Parent 3 0 R/Contents 6 0 R/MediaBox [0 0 612 792]/Resources<</Font<</FAAAAI 8 0 R/FAAABC 12 0 R>>/ExtGState<</GS1 10 0 "
+                    u"R/GS2 14 0 R>>>>/Group <</Type/Group/S/Transparency/CS/DeviceRGB>>/StructParents 0/Tabs /S>>",
                 ArtifactsDir + u"PdfSaveOptions.ExportDocumentStructure.pdf");
         }
         else
         {
-            TestUtil::FileContainsString(String(u"4 0 obj\r\n") + u"<</Type /Page/Parent 3 0 R/Contents 5 0 R/MediaBox [0 0 612 792]/Resources<</Font<</FAAAAH "
-                                                                  u"7 0 R/FAAABA 10 0 R>>>>/Group <</Type/Group/S/Transparency/CS/DeviceRGB>>>>",
+            TestUtil::FileContainsString(String(u"5 0 obj\r\n") + u"<</Type /Page/Parent 3 0 R/Contents 6 0 R/MediaBox [0 0 612 792]/Resources<</Font<</FAAAAI "
+                                                                  u"8 0 R/FAAABB 11 0 R>>>>/Group <</Type/Group/S/Transparency/CS/DeviceRGB>>>>",
                                          ArtifactsDir + u"PdfSaveOptions.ExportDocumentStructure.pdf");
         }
     }
@@ -1332,11 +1332,11 @@ public:
         doc->Save(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignature.pdf", options);
         //ExEnd
 
-        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 7 0 R/P 4 0 "
+        TestUtil::FileContainsString(String(u"7 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 8 0 R/P 5 0 "
                                                               u"R/"
                                                               u"T("
                                                               u"þÿ\u0000A\u0000s\u0000p\u0000o\u0000s\u0000e\u0000D\u0000i\u0000g\u0000i\u0000t\u0000a\u0000l"
-                                                              u"\u0000S\u0000i\u0000g\u0000n\u0000a\u0000t\u0000u\u0000r\u0000e)/AP <</N 8 0 R>>>>",
+                                                              u"\u0000S\u0000i\u0000g\u0000n\u0000a\u0000t\u0000u\u0000r\u0000e)/AP <</N 9 0 R>>>>",
                                      ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignature.pdf");
 
         ASSERT_FALSE(FileFormatUtil::DetectFileFormat(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignature.pdf")->get_HasDigitalSignature());
@@ -1388,11 +1388,11 @@ public:
         //ExEnd
 
         ASSERT_FALSE(FileFormatUtil::DetectFileFormat(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignatureTimestamp.pdf")->get_HasDigitalSignature());
-        TestUtil::FileContainsString(String(u"6 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 7 0 R/P 4 0 "
+        TestUtil::FileContainsString(String(u"7 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 8 0 R/P 5 0 "
                                                               u"R/"
                                                               u"T("
                                                               u"þÿ\u0000A\u0000s\u0000p\u0000o\u0000s\u0000e\u0000D\u0000i\u0000g\u0000i\u0000t\u0000a\u0000l"
-                                                              u"\u0000S\u0000i\u0000g\u0000n\u0000a\u0000t\u0000u\u0000r\u0000e)/AP <</N 8 0 R>>>>",
+                                                              u"\u0000S\u0000i\u0000g\u0000n\u0000a\u0000t\u0000u\u0000r\u0000e)/AP <</N 9 0 R>>>>",
                                      ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignatureTimestamp.pdf");
     }
 

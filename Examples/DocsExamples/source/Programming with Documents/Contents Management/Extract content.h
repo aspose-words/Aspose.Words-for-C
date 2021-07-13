@@ -46,7 +46,7 @@
 #include <system/text/string_builder.h>
 
 #include "DocsExamplesBase.h"
-#include "Programming with Documents/Contents Managment/Extract content helper.h"
+#include "Programming with Documents/Contents Management/Extract content helper.h"
 
 using System::ArrayPtr;
 using System::MakeArray;
@@ -59,7 +59,7 @@ using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::Tables;
 
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management {
 
 class ExtractContent : public DocsExamplesBase
 {
@@ -522,4 +522,4 @@ public:
     }
 };
 
-}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment
+}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

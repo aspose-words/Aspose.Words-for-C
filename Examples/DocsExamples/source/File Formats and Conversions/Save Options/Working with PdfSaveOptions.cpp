@@ -110,9 +110,9 @@ TEST_F(WorkingWithPdfSaveOptions, ExportDocumentStructure)
     s_instance->ExportDocumentStructure();
 }
 
-TEST_F(WorkingWithPdfSaveOptions, PdfImageComppression)
+TEST_F(WorkingWithPdfSaveOptions, ImageCompression)
 {
-    s_instance->PdfImageComppression();
+    s_instance->ImageCompression();
 }
 
 TEST_F(WorkingWithPdfSaveOptions, UpdateLastPrintedProperty)

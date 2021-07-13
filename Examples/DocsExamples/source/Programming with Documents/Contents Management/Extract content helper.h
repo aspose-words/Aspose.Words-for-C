@@ -22,7 +22,7 @@
 
 using namespace Aspose::Words;
 
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management {
 
 class ExtractContentHelper : public System::Object
 {
@@ -364,4 +364,4 @@ private:
     }
 };
 
-}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment
+}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

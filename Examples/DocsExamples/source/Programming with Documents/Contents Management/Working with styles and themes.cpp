@@ -1,12 +1,12 @@
 ﻿#include "Working with styles and themes.h"
 
 using namespace Aspose::Words;
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment { namespace gtest_test {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management { namespace gtest_test {
 
 class WorkingWithStylesAndThemes : public ::testing::Test
 {
 protected:
-    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::WorkingWithStylesAndThemes> s_instance;
+    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::WorkingWithStylesAndThemes> s_instance;
 
     void SetUp() override
     {
@@ -15,7 +15,7 @@ protected:
 
     static void SetUpTestCase()
     {
-        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Managment::WorkingWithStylesAndThemes>();
+        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Management::WorkingWithStylesAndThemes>();
         s_instance->OneTimeSetUp();
     };
 
@@ -26,7 +26,7 @@ protected:
     };
 };
 
-System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::WorkingWithStylesAndThemes> WorkingWithStylesAndThemes::s_instance;
+System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::WorkingWithStylesAndThemes> WorkingWithStylesAndThemes::s_instance;
 
 TEST_F(WorkingWithStylesAndThemes, AccessStyles)
 {
@@ -53,4 +53,4 @@ TEST_F(WorkingWithStylesAndThemes, InsertStyleSeparator)
     s_instance->InsertStyleSeparator();
 }
 
-}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment::gtest_test
+}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management::gtest_test

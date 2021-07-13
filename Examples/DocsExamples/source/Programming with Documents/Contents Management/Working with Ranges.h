@@ -15,7 +15,7 @@ using System::String;
 
 using namespace Aspose::Words;
 
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management {
 
 class WorkingWithRanges : public DocsExamplesBase
 {
@@ -37,4 +37,4 @@ public:
     }
 };
 
-}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment
+}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

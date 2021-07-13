@@ -53,6 +53,7 @@
 #include <Aspose.Words.Cpp/ImportFormatMode.h>
 #include <Aspose.Words.Cpp/ImportFormatOptions.h>
 #include <Aspose.Words.Cpp/IncorrectPasswordException.h>
+#include <Aspose.Words.Cpp/Layout/CommentDisplayMode.h>
 #include <Aspose.Words.Cpp/Layout/LayoutOptions.h>
 #include <Aspose.Words.Cpp/Layout/RevisionColor.h>
 #include <Aspose.Words.Cpp/Layout/RevisionOptions.h>
@@ -623,7 +624,7 @@ public:
         auto srcDoc = MakeObject<Document>(MyDir + u"List source.docx");
         auto dstDoc = MakeObject<Document>(MyDir + u"List destination.docx");
 
-        ASSERT_EQ(2, dstDoc->get_Lists()->get_Count());
+        ASSERT_EQ(4, dstDoc->get_Lists()->get_Count());
 
         auto options = MakeObject<ImportFormatOptions>();
 
@@ -636,14 +637,7 @@ public:
         dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting, options);
         dstDoc->UpdateListLabels();
 
-        if (isKeepSourceNumbering)
-        {
-            ASSERT_EQ(3, dstDoc->get_Lists()->get_Count());
-        }
-        else
-        {
-            ASSERT_EQ(2, dstDoc->get_Lists()->get_Count());
-        }
+        ASSERT_EQ(isKeepSourceNumbering ? 5 : 4, dstDoc->get_Lists()->get_Count());
         //ExEnd
     }
 
@@ -656,13 +650,12 @@ public:
         auto srcDoc = MakeObject<Document>(MyDir + u"List with the same definition identifier - source.docx");
         auto dstDoc = MakeObject<Document>(MyDir + u"List with the same definition identifier - destination.docx");
 
-        auto importFormatOptions = MakeObject<ImportFormatOptions>();
-
         // Set the "KeepSourceNumbering" property to "true" to apply a different list definition ID
         // to identical styles as Aspose.Words imports them into destination documents.
+        auto importFormatOptions = MakeObject<ImportFormatOptions>();
         importFormatOptions->set_KeepSourceNumbering(true);
-        dstDoc->AppendDocument(srcDoc, ImportFormatMode::UseDestinationStyles, importFormatOptions);
 
+        dstDoc->AppendDocument(srcDoc, ImportFormatMode::UseDestinationStyles, importFormatOptions);
         dstDoc->UpdateListLabels();
         //ExEnd
 
@@ -670,6 +663,24 @@ public:
 
         ASSERT_TRUE(paraText.StartsWith(u"13->13")) << (paraText).ToUtf8String();
         ASSERT_EQ(u"1.", dstDoc->get_Sections()->idx_get(1)->get_Body()->get_LastParagraph()->get_ListLabel()->get_LabelString());
+    }
+
+    void MergePastedLists()
+    {
+        //ExStart
+        //ExFor:ImportFormatOptions.MergePastedLists
+        //ExSummary:Shows how to merge lists from a documents.
+        auto srcDoc = MakeObject<Document>(MyDir + u"List item.docx");
+        auto dstDoc = MakeObject<Document>(MyDir + u"List destination.docx");
+
+        auto options = MakeObject<ImportFormatOptions>();
+        options->set_MergePastedLists(true);
+
+        // Set the "MergePastedLists" property to "true" pasted lists will be merged with surrounding lists.
+        dstDoc->AppendDocument(srcDoc, ImportFormatMode::UseDestinationStyles, options);
+
+        dstDoc->Save(ArtifactsDir + u"Document.MergePastedLists.docx");
+        //ExEnd
     }
 
     void ValidateIndividualDocumentSignatures()
@@ -1132,7 +1143,7 @@ public:
         // We can call UpdateTableLayout() to fix some of these issues.
         doc->UpdateTableLayout();
 
-        ASSERT_EQ(u"Cell 1             Cell 2             Cell 3\r\n\r\n", doc->ToString(options));
+        ASSERT_EQ(u"Cell 1                                       Cell 2                                       Cell 3\r\n\r\n", doc->ToString(options));
         ASSERT_NEAR(155.0, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_Width(), 2.f);
         //ExEnd
     }
@@ -2115,11 +2126,12 @@ public:
         //ExEnd
     }
 
-    void ShowComments(bool showComments)
+    void ShowComments()
     {
         //ExStart
-        //ExFor:LayoutOptions.ShowComments
-        //ExSummary:Shows how to show/hide comments when saving a document to a rendered format.
+        //ExFor:LayoutOptions.CommentDisplayMode
+        //ExFor:CommentDisplayMode
+        //ExSummary:Shows how to show comments when saving a document to a rendered format.
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -2129,9 +2141,18 @@ public:
         comment->SetText(u"My comment.");
         builder->get_CurrentParagraph()->AppendChild(comment);
 
-        doc->get_LayoutOptions()->set_ShowComments(showComments);
+        // ShowInAnnotations is only available in Pdf1.7 and Pdf1.5 formats.
+        // In other formats, it will work similarly to Hide.
+        doc->get_LayoutOptions()->set_CommentDisplayMode(CommentDisplayMode::ShowInAnnotations);
 
-        doc->Save(ArtifactsDir + u"Document.ShowComments.pdf");
+        doc->Save(ArtifactsDir + u"Document.ShowCommentsInAnnotations.pdf");
+
+        // Note that it's required to rebuild the document page layout (via Document.UpdatePageLayout() method)
+        // after changing the Document.LayoutOptions values.
+        doc->get_LayoutOptions()->set_CommentDisplayMode(CommentDisplayMode::ShowInBalloons);
+        doc->UpdatePageLayout();
+
+        doc->Save(ArtifactsDir + u"Document.ShowCommentsInBalloons.pdf");
         //ExEnd
     }
 
@@ -2145,11 +2166,11 @@ public:
 
         ASSERT_EQ(18, template_->get_Styles()->get_Count());
         //ExSkip
-        ASSERT_EQ(8, target->get_Styles()->get_Count());
+        ASSERT_EQ(12, target->get_Styles()->get_Count());
         //ExSkip
 
         target->CopyStylesFromTemplate(template_);
-        ASSERT_EQ(18, target->get_Styles()->get_Count());
+        ASSERT_EQ(22, target->get_Styles()->get_Count());
         //ExSkip
         //ExEnd
     }

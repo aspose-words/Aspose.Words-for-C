@@ -5,12 +5,12 @@ using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::Replacing;
 using namespace Aspose::Words::Tables;
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment { namespace gtest_test {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management { namespace gtest_test {
 
 class FindAndReplace : public ::testing::Test
 {
 protected:
-    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::FindAndReplace> s_instance;
+    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::FindAndReplace> s_instance;
 
     void SetUp() override
     {
@@ -19,7 +19,7 @@ protected:
 
     static void SetUpTestCase()
     {
-        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Managment::FindAndReplace>();
+        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Management::FindAndReplace>();
         s_instance->OneTimeSetUp();
     };
 
@@ -30,7 +30,7 @@ protected:
     };
 };
 
-System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::FindAndReplace> FindAndReplace::s_instance;
+System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::FindAndReplace> FindAndReplace::s_instance;
 
 TEST_F(FindAndReplace, SimpleFindReplace)
 {
@@ -122,4 +122,4 @@ TEST_F(FindAndReplace, ReplaceTextInTable)
     s_instance->ReplaceTextInTable();
 }
 
-}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment::gtest_test
+}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management::gtest_test

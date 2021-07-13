@@ -27,6 +27,7 @@
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartDataLabelCollection.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartDataPoint.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartDataPointCollection.h>
+#include <Aspose.Words.Cpp/Drawing/Charts/ChartFormat.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartLegend.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartMarker.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartNumberFormat.h>
@@ -36,12 +37,16 @@
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartType.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/LegendPosition.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/MarkerSymbol.h>
+#include <Aspose.Words.Cpp/Drawing/Fill.h>
+#include <Aspose.Words.Cpp/Drawing/PresetTexture.h>
 #include <Aspose.Words.Cpp/Drawing/Shape.h>
 #include <Aspose.Words.Cpp/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Drawing/Stroke.h>
 #include <Aspose.Words.Cpp/Node.h>
 #include <Aspose.Words.Cpp/NodeType.h>
 #include <Aspose.Words.Cpp/ParagraphAlignment.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <drawing/color.h>
 #include <system/array.h>
 #include <system/collections/ienumerator.h>
 #include <system/date_time.h>
@@ -1234,6 +1239,111 @@ public:
         ASPOSE_ASSERT_EQ(1.0, axis->get_MinorUnit());
         ASPOSE_ASSERT_EQ(-10.0, axis->get_Scaling()->get_Minimum()->get_Value());
         ASPOSE_ASSERT_EQ(20.0, axis->get_Scaling()->get_Maximum()->get_Value());
+    }
+
+    void MarkerFormatting()
+    {
+        //ExStart
+        //ExFor:ChartMarker.Format
+        //ExFor:ChartFormat.Fill
+        //ExFor:ChartFormat.Stroke
+        //ExFor:Stroke.ForeColor
+        //ExFor:Stroke.BackColor
+        //ExFor:Stroke.Visible
+        //ExFor:Stroke.Transparency
+        //ExFor:Fill.PresetTextured(PresetTexture)
+        //ExSummary:Show how to set marker formatting.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<Shape> shape = builder->InsertChart(ChartType::Scatter, 432, 252);
+        SharedPtr<Chart> chart = shape->get_Chart();
+
+        // Delete default generated series.
+        chart->get_Series()->Clear();
+        SharedPtr<ChartSeries> series =
+            chart->get_Series()->Add(u"AW Series 1", MakeArray<double>({0.7, 1.8, 2.6, 3.9}), MakeArray<double>({2.7, 3.2, 0.8, 1.7}));
+
+        // Set marker formatting.
+        series->get_Marker()->set_Size(40);
+        series->get_Marker()->set_Symbol(MarkerSymbol::Square);
+        SharedPtr<ChartDataPointCollection> dataPoints = series->get_DataPoints();
+        dataPoints->idx_get(0)->get_Marker()->get_Format()->get_Fill()->PresetTextured(PresetTexture::Denim);
+        dataPoints->idx_get(0)->get_Marker()->get_Format()->get_Stroke()->set_ForeColor(System::Drawing::Color::get_Yellow());
+        dataPoints->idx_get(0)->get_Marker()->get_Format()->get_Stroke()->set_BackColor(System::Drawing::Color::get_Red());
+        dataPoints->idx_get(1)->get_Marker()->get_Format()->get_Fill()->PresetTextured(PresetTexture::WaterDroplets);
+        dataPoints->idx_get(1)->get_Marker()->get_Format()->get_Stroke()->set_ForeColor(System::Drawing::Color::get_Yellow());
+        dataPoints->idx_get(1)->get_Marker()->get_Format()->get_Stroke()->set_Visible(false);
+        dataPoints->idx_get(2)->get_Marker()->get_Format()->get_Fill()->PresetTextured(PresetTexture::GreenMarble);
+        dataPoints->idx_get(2)->get_Marker()->get_Format()->get_Stroke()->set_ForeColor(System::Drawing::Color::get_Yellow());
+        dataPoints->idx_get(3)->get_Marker()->get_Format()->get_Fill()->PresetTextured(PresetTexture::Oak);
+        dataPoints->idx_get(3)->get_Marker()->get_Format()->get_Stroke()->set_ForeColor(System::Drawing::Color::get_Yellow());
+        dataPoints->idx_get(3)->get_Marker()->get_Format()->get_Stroke()->set_Transparency(0.5);
+
+        doc->Save(ArtifactsDir + u"Charts.MarkerFormatting.docx");
+        //ExEnd
+    }
+
+    void SeriesColor()
+    {
+        //ExStart
+        //ExFor:ChartSeries.Format
+        //ExSummary:Sows how to set series color.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<Shape> shape = builder->InsertChart(ChartType::Column, 432, 252);
+
+        SharedPtr<Chart> chart = shape->get_Chart();
+        SharedPtr<ChartSeriesCollection> seriesColl = chart->get_Series();
+
+        // Delete default generated series.
+        seriesColl->Clear();
+
+        // Create category names array.
+        auto categories = MakeArray<String>({u"Category 1", u"Category 2"});
+
+        // Adding new series. Value and category arrays must be the same size.
+        SharedPtr<ChartSeries> series1 = seriesColl->Add(u"Series 1", categories, MakeArray<double>({1, 2}));
+        SharedPtr<ChartSeries> series2 = seriesColl->Add(u"Series 2", categories, MakeArray<double>({3, 4}));
+        SharedPtr<ChartSeries> series3 = seriesColl->Add(u"Series 3", categories, MakeArray<double>({5, 6}));
+
+        // Set series color.
+        series1->get_Format()->get_Fill()->set_ForeColor(System::Drawing::Color::get_Red());
+        series2->get_Format()->get_Fill()->set_ForeColor(System::Drawing::Color::get_Yellow());
+        series3->get_Format()->get_Fill()->set_ForeColor(System::Drawing::Color::get_Blue());
+
+        doc->Save(ArtifactsDir + u"Charts.SeriesColor.docx");
+        //ExEnd
+    }
+
+    void DataPointsFormatting()
+    {
+        //ExStart
+        //ExFor:ChartDataPoint.Format
+        //ExSummary:Shows how to set individual formatting for categories of a column chart.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<Shape> shape = builder->InsertChart(ChartType::Column, 432, 252);
+        SharedPtr<Chart> chart = shape->get_Chart();
+
+        // Delete default generated series.
+        chart->get_Series()->Clear();
+
+        // Adding new series.
+        SharedPtr<ChartSeries> series = chart->get_Series()->Add(u"Series 1", MakeArray<String>({u"Category 1", u"Category 2", u"Category 3", u"Category 4"}),
+                                                                 MakeArray<double>({1, 2, 3, 4}));
+
+        // Set column formatting.
+        SharedPtr<ChartDataPointCollection> dataPoints = series->get_DataPoints();
+        dataPoints->idx_get(0)->get_Format()->get_Fill()->PresetTextured(PresetTexture::Denim);
+        dataPoints->idx_get(1)->get_Format()->get_Fill()->set_ForeColor(System::Drawing::Color::get_Red());
+        dataPoints->idx_get(2)->get_Format()->get_Fill()->set_ForeColor(System::Drawing::Color::get_Yellow());
+        dataPoints->idx_get(3)->get_Format()->get_Fill()->set_ForeColor(System::Drawing::Color::get_Blue());
+
+        doc->Save(ArtifactsDir + u"Charts.DataPointsFormatting.docx");
+        //ExEnd
     }
 };
 

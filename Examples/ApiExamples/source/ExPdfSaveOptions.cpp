@@ -157,9 +157,9 @@ struct ExPdfSaveOptions_Compliance : public ExPdfSaveOptions,
     static std::vector<ParamType> TestCases()
     {
         return {
-            std::make_tuple(PdfCompliance::PdfA1b),
+            std::make_tuple(PdfCompliance::PdfA2u),
             std::make_tuple(PdfCompliance::Pdf17),
-            std::make_tuple(PdfCompliance::PdfA1a),
+            std::make_tuple(PdfCompliance::PdfA2a),
         };
     }
 };

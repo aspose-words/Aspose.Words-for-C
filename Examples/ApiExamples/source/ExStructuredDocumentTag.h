@@ -55,6 +55,7 @@
 #include <system/globalization/culture_info.h>
 #include <system/guid.h>
 #include <system/linq/enumerable.h>
+#include <system/object_ext.h>
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>
 #include <system/text/encoding.h>
@@ -141,12 +142,18 @@ public:
         //ExStart
         //ExFor:StructuredDocumentTag.#ctor(DocumentBase, SdtType, MarkupLevel)
         //ExFor:StructuredDocumentTag.Checked
+        //ExFor:StructuredDocumentTag.SetCheckedSymbol(System.Int32, System.String)
+        //ExFor:StructuredDocumentTag.SetUncheckedSymbol(System.Int32, System.String)
         //ExSummary:Show how to create a structured document tag in the form of a check box.
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         auto sdtCheckBox = MakeObject<StructuredDocumentTag>(doc, SdtType::Checkbox, MarkupLevel::Inline);
         sdtCheckBox->set_Checked(true);
+
+        // We can set the symbols used to represent the checked/unchecked state of a checkbox content control.
+        sdtCheckBox->SetCheckedSymbol(0x00A9, u"Times New Roman");
+        sdtCheckBox->SetUncheckedSymbol(0x00AE, u"Times New Roman");
 
         builder->InsertNode(sdtCheckBox);
 
@@ -155,11 +162,11 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"StructuredDocumentTag.CheckBox.docx");
 
-        ArrayPtr<SharedPtr<StructuredDocumentTag>> sdts =
+        ArrayPtr<SharedPtr<StructuredDocumentTag>> tags =
             doc->GetChildNodes(NodeType::StructuredDocumentTag, true)->LINQ_OfType<SharedPtr<StructuredDocumentTag>>()->LINQ_ToArray();
 
-        ASPOSE_ASSERT_EQ(true, sdts[0]->get_Checked());
-        ASSERT_EQ(sdts[0]->get_XmlMapping()->get_StoreItemId(), String::Empty);
+        ASPOSE_ASSERT_EQ(true, tags[0]->get_Checked());
+        ASSERT_EQ(tags[0]->get_XmlMapping()->get_StoreItemId(), String::Empty);
     }
 
     void Date()
@@ -582,6 +589,37 @@ public:
         ASSERT_EQ(u"Hello world!", tag->GetText().Trim());
         ASSERT_EQ(u"/root[1]/text[1]", tag->get_XmlMapping()->get_XPath());
         ASSERT_EQ(String::Empty, tag->get_XmlMapping()->get_PrefixMappings());
+        ASSERT_EQ(xmlPart->get_DataChecksum(), tag->get_XmlMapping()->get_CustomXmlPart()->get_DataChecksum());
+    }
+
+    void DataChecksum()
+    {
+        //ExStart
+        //ExFor:CustomXmlPart.DataChecksum
+        //ExSummary:Shows how the checksum is calculated in a runtime.
+        auto doc = MakeObject<Document>();
+
+        auto richText = MakeObject<StructuredDocumentTag>(doc, SdtType::RichText, MarkupLevel::Block);
+        doc->get_FirstSection()->get_Body()->AppendChild(richText);
+
+        // The checksum is read-only and computed using the data of the corresponding custom XML data part.
+        richText->get_XmlMapping()->SetMapping(
+            doc->get_CustomXmlParts()->Add(System::ObjectExt::ToString(System::Guid::NewGuid()), u"<root><text>ContentControl</text></root>"), u"/root/text",
+            u"");
+
+        int64_t checksum = richText->get_XmlMapping()->get_CustomXmlPart()->get_DataChecksum();
+        std::cout << checksum << std::endl;
+
+        richText->get_XmlMapping()->SetMapping(
+            doc->get_CustomXmlParts()->Add(System::ObjectExt::ToString(System::Guid::NewGuid()), u"<root><text>Updated ContentControl</text></root>"),
+            u"/root/text", u"");
+
+        int64_t updatedChecksum = richText->get_XmlMapping()->get_CustomXmlPart()->get_DataChecksum();
+        std::cout << updatedChecksum << std::endl;
+
+        // We changed the XmlPart of the tag, and the checksum was updated at runtime.
+        ASSERT_NE(checksum, updatedChecksum);
+        //ExEnd
     }
 
     void XmlMapping_()
@@ -974,11 +1012,13 @@ public:
         //ExFor:StructuredDocumentTagRangeStart
         //ExFor:StructuredDocumentTagRangeStart.Id
         //ExFor:StructuredDocumentTagRangeStart.Title
+        //ExFor:StructuredDocumentTagRangeStart.PlaceholderName
         //ExFor:StructuredDocumentTagRangeStart.IsShowingPlaceholderText
         //ExFor:StructuredDocumentTagRangeStart.LockContentControl
         //ExFor:StructuredDocumentTagRangeStart.LockContents
         //ExFor:StructuredDocumentTagRangeStart.Level
         //ExFor:StructuredDocumentTagRangeStart.RangeEnd
+        //ExFor:StructuredDocumentTagRangeStart.Color
         //ExFor:StructuredDocumentTagRangeStart.SdtType
         //ExFor:StructuredDocumentTagRangeStart.Tag
         //ExFor:StructuredDocumentTagRangeEnd
@@ -1001,12 +1041,14 @@ public:
         std::cout << "StructuredDocumentTagRangeStart values:" << std::endl;
         std::cout << "\t|Id: " << rangeStartTag->get_Id() << std::endl;
         std::cout << "\t|Title: " << rangeStartTag->get_Title() << std::endl;
+        std::cout << "\t|PlaceholderName: " << rangeStartTag->get_PlaceholderName() << std::endl;
         std::cout << String::Format(u"\t|IsShowingPlaceholderText: {0}", rangeStartTag->get_IsShowingPlaceholderText()) << std::endl;
         std::cout << String::Format(u"\t|LockContentControl: {0}", rangeStartTag->get_LockContentControl()) << std::endl;
         std::cout << String::Format(u"\t|LockContents: {0}", rangeStartTag->get_LockContents()) << std::endl;
         std::cout << String::Format(u"\t|Level: {0}", rangeStartTag->get_Level()) << std::endl;
         std::cout << String::Format(u"\t|NodeType: {0}", rangeStartTag->get_NodeType()) << std::endl;
         std::cout << "\t|RangeEnd: " << rangeStartTag->get_RangeEnd() << std::endl;
+        std::cout << "\t|Color: " << rangeStartTag->get_Color().ToArgb() << std::endl;
         std::cout << String::Format(u"\t|SdtType: {0}", rangeStartTag->get_SdtType()) << std::endl;
         std::cout << "\t|Tag: " << rangeStartTag->get_Tag() << "\n" << std::endl;
 
@@ -1040,6 +1082,56 @@ public:
         }
         //ExEnd
     }
+
+    //ExStart
+    //ExFor:StructuredDocumentTagRangeStart.#ctor(DocumentBase, SdtType)
+    //ExFor:StructuredDocumentTagRangeEnd.#ctor(DocumentBase, int)
+    //ExFor:StructuredDocumentTagRangeStart.RemoveSelfOnly
+    //ExFor:StructuredDocumentTagRangeStart.RemoveAllChildren
+    //ExSummary:Shows how to create/remove structured document tag and its content.
+    void SdtRangeExtendedMethods()
+    {
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->Writeln(u"StructuredDocumentTag element");
+
+        SharedPtr<StructuredDocumentTagRangeStart> rangeStart;
+        InsertStructuredDocumentTagRanges(doc, rangeStart);
+
+        // Removes ranged structured document tag, but keeps content inside.
+        rangeStart->RemoveSelfOnly();
+
+        rangeStart = System::DynamicCast<StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, false));
+        ASPOSE_ASSERT_EQ(nullptr, rangeStart);
+
+        auto rangeEnd = System::DynamicCast<StructuredDocumentTagRangeEnd>(doc->GetChild(NodeType::StructuredDocumentTagRangeEnd, 0, false));
+
+        ASPOSE_ASSERT_EQ(nullptr, rangeEnd);
+        ASSERT_EQ(u"StructuredDocumentTag element", doc->GetText().Trim());
+
+        InsertStructuredDocumentTagRanges(doc, rangeStart);
+
+        SharedPtr<Node> paragraphNode = rangeStart->LINQ_LastOrDefault();
+        ASPOSE_ASSERT_EQ(u"StructuredDocumentTag element",
+                         paragraphNode != nullptr ? System::ObjectExt::Box<String>(paragraphNode->GetText().Trim()) : nullptr);
+
+        // Removes ranged structured document tag and content inside.
+        rangeStart->RemoveAllChildren();
+
+        paragraphNode = rangeStart->LINQ_LastOrDefault();
+        ASPOSE_ASSERT_EQ(nullptr, paragraphNode != nullptr ? System::ObjectExt::Box<String>(paragraphNode->GetText()) : nullptr);
+    }
+
+    void InsertStructuredDocumentTagRanges(SharedPtr<Document> doc, SharedPtr<StructuredDocumentTagRangeStart>& rangeStart)
+    {
+        rangeStart = MakeObject<StructuredDocumentTagRangeStart>(doc, SdtType::PlainText);
+        auto rangeEnd = MakeObject<StructuredDocumentTagRangeEnd>(doc, rangeStart->get_Id());
+
+        doc->get_FirstSection()->get_Body()->InsertBefore(rangeStart, doc->get_FirstSection()->get_Body()->get_FirstParagraph());
+        doc->get_LastSection()->get_Body()->InsertAfter(rangeEnd, doc->get_FirstSection()->get_Body()->get_FirstParagraph());
+    }
+    //ExEnd
 };
 
 } // namespace ApiExamples

@@ -159,15 +159,11 @@ public:
         //ExStart:SetRevisionBarsPosition
         auto doc = MakeObject<Document>(MyDir + u"Revisions.docx");
 
-        // Renders insert and delete revisions inline, format revisions in balloons.
-        doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(ShowInBalloons::Format);
+        // Renders insert revisions inline, delete and format revisions in balloons.
+        doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(ShowInBalloons::FormatAndDelete);
         doc->get_LayoutOptions()->get_RevisionOptions()->set_MeasurementUnit(MeasurementUnits::Inches);
-
         // Renders revision bars on the right side of a page.
         doc->get_LayoutOptions()->get_RevisionOptions()->set_RevisionBarsPosition(HorizontalAlignment::Right);
-
-        // Renders insert revisions inline, delete and format revisions in balloons.
-        // doc.LayoutOptions.RevisionOptions.ShowInBalloons = ShowInBalloons.FormatAndDelete;
 
         doc->Save(ArtifactsDir + u"WorkingWithRevisions.ShowRevisionsInBalloons.pdf");
         //ExEnd:SetRevisionBarsPosition

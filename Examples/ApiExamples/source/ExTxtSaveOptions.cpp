@@ -168,4 +168,9 @@ TEST_P(ExTxtSaveOptions_PreserveTableLayout, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExTxtSaveOptions_PreserveTableLayout, ::testing::ValuesIn(ExTxtSaveOptions_PreserveTableLayout::TestCases()));
 
+TEST_F(ExTxtSaveOptions, MaxCharactersPerLine)
+{
+    s_instance->MaxCharactersPerLine();
+}
+
 }} // namespace ApiExamples::gtest_test
