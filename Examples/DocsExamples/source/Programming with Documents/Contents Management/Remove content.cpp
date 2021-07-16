@@ -2,12 +2,12 @@
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment { namespace gtest_test {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management { namespace gtest_test {
 
 class RemoveContent : public ::testing::Test
 {
 protected:
-    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::RemoveContent> s_instance;
+    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::RemoveContent> s_instance;
 
     void SetUp() override
     {
@@ -16,7 +16,7 @@ protected:
 
     static void SetUpTestCase()
     {
-        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Managment::RemoveContent>();
+        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Management::RemoveContent>();
         s_instance->OneTimeSetUp();
     };
 
@@ -27,7 +27,7 @@ protected:
     };
 };
 
-System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::RemoveContent> RemoveContent::s_instance;
+System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::RemoveContent> RemoveContent::s_instance;
 
 TEST_F(RemoveContent, RemovePageBreaks)
 {
@@ -44,4 +44,4 @@ TEST_F(RemoveContent, RemoveToc)
     s_instance->RemoveToc();
 }
 
-}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment::gtest_test
+}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management::gtest_test

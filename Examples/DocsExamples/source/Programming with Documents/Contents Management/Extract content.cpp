@@ -4,12 +4,12 @@ using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::Tables;
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment { namespace gtest_test {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management { namespace gtest_test {
 
 class ExtractContent : public ::testing::Test
 {
 protected:
-    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::ExtractContent> s_instance;
+    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::ExtractContent> s_instance;
 
     void SetUp() override
     {
@@ -18,7 +18,7 @@ protected:
 
     static void SetUpTestCase()
     {
-        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Managment::ExtractContent>();
+        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Management::ExtractContent>();
         s_instance->OneTimeSetUp();
     };
 
@@ -29,7 +29,7 @@ protected:
     };
 };
 
-System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::ExtractContent> ExtractContent::s_instance;
+System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::ExtractContent> ExtractContent::s_instance;
 
 TEST_F(ExtractContent, ExtractContentBetweenBlockLevelNodes)
 {
@@ -96,4 +96,4 @@ TEST_F(ExtractContent, ExtractImagesToFiles)
     s_instance->ExtractImagesToFiles();
 }
 
-}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment::gtest_test
+}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management::gtest_test

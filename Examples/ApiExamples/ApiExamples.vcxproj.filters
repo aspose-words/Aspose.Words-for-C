@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="gtest">
       <UniqueIdentifier>{4ebd02ca-cfcb-439a-af6b-b8cdadda5a4c}</UniqueIdentifier>
     </Filter>
@@ -694,6 +691,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

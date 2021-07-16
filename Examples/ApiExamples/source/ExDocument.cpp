@@ -162,6 +162,11 @@ TEST_F(ExDocument, KeepSourceNumberingSameListIds)
     s_instance->KeepSourceNumberingSameListIds();
 }
 
+TEST_F(ExDocument, MergePastedLists)
+{
+    s_instance->MergePastedLists();
+}
+
 TEST_F(ExDocument, ValidateIndividualDocumentSignatures)
 {
     s_instance->ValidateIndividualDocumentSignatures();
@@ -473,26 +478,10 @@ TEST_P(ExDocument_RemovePersonalInformation, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExDocument_RemovePersonalInformation, ::testing::ValuesIn(ExDocument_RemovePersonalInformation::TestCases()));
 
-using ExDocument_ShowComments_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExDocument::ShowComments)>::type;
-
-struct ExDocument_ShowComments : public ExDocument, public ApiExamples::ExDocument, public ::testing::WithParamInterface<ExDocument_ShowComments_Args>
+TEST_F(ExDocument, ShowComments)
 {
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExDocument_ShowComments, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->ShowComments(std::get<0>(params)));
+    s_instance->ShowComments();
 }
-
-INSTANTIATE_TEST_SUITE_P(, ExDocument_ShowComments, ::testing::ValuesIn(ExDocument_ShowComments::TestCases()));
 
 TEST_F(ExDocument, CopyTemplateStylesViaDocument)
 {

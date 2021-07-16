@@ -173,7 +173,7 @@ public:
         //ExSummary:Shows how to determine whether to preserve the document's "Last saved time" property when saving.
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
-        ASSERT_EQ(System::DateTime(2020, 7, 30, 5, 27, 0), doc->get_BuiltInDocumentProperties()->get_LastSavedTime());
+        ASSERT_EQ(System::DateTime(2021, 5, 11, 6, 32, 0), doc->get_BuiltInDocumentProperties()->get_LastSavedTime());
 
         // When we save the document to an OOXML format, we can create an OoxmlSaveOptions object
         // and then pass it to the document's saving method to modify how we save the document.
@@ -196,7 +196,7 @@ public:
         }
         else
         {
-            ASSERT_EQ(System::DateTime(2020, 7, 30, 5, 27, 0), lastSavedTimeNew);
+            ASSERT_EQ(System::DateTime(2021, 5, 11, 6, 32, 0), lastSavedTimeNew);
         }
         //ExEnd
     }

@@ -96,6 +96,7 @@
 #include <system/collections/ienumerable.h>
 #include <system/collections/list.h>
 #include <system/details/dispose_guard.h>
+#include <system/enum.h>
 #include <system/enum_helpers.h>
 #include <system/enumerator_adapter.h>
 #include <system/exceptions.h>
@@ -2619,6 +2620,37 @@ public:
 
         ASSERT_EQ(159, bounds.get_Width());
         ASSERT_EQ(30, bounds.get_Height());
+        //ExEnd
+    }
+
+    void ShapeTypes()
+    {
+        //ExStart
+        //ExFor:ShapeType
+        //ExSummary:Shows how Aspose.Words identify shapes.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->InsertShape(ShapeType::Heptagon, RelativeHorizontalPosition::RightMargin, 0, RelativeVerticalPosition::Page, 0, 0, 0, WrapType::None);
+
+        builder->InsertShape(ShapeType::Cloud, RelativeHorizontalPosition::RightMargin, 0, RelativeVerticalPosition::Page, 0, 0, 0, WrapType::None);
+
+        builder->InsertShape(ShapeType::MathPlus, RelativeHorizontalPosition::RightMargin, 0, RelativeVerticalPosition::Page, 0, 0, 0, WrapType::None);
+
+        // To correct identify shape types you need to work with shapes as DML.
+        auto saveOptions = MakeObject<OoxmlSaveOptions>(SaveFormat::Docx);
+        saveOptions->set_Compliance(OoxmlCompliance::Iso29500_2008_Transitional);
+
+        doc->Save(ArtifactsDir + u"ShapeTypes.docx", saveOptions);
+        doc = MakeObject<Document>(ArtifactsDir + u"ShapeTypes.docx");
+
+        ArrayPtr<SharedPtr<Shape>> shapes = doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<SharedPtr<Shape>>()->LINQ_ToArray();
+
+        for (SharedPtr<Shape> shape : shapes)
+        {
+            std::cout << System::EnumGetName(shape->get_ShapeType()) << std::endl;
+        }
+
         //ExEnd
     }
 };

@@ -50,4 +50,9 @@ TEST_F(ExLayout, PageLayoutCallback)
     s_instance->PageLayoutCallback();
 }
 
+TEST_F(ExLayout, RestartPageNumberingInContinuousSection)
+{
+    s_instance->RestartPageNumberingInContinuousSection();
+}
+
 }} // namespace ApiExamples::gtest_test

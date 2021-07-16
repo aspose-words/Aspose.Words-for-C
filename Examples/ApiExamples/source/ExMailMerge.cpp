@@ -113,4 +113,9 @@ TEST_F(ExMailMerge, GetRegionsByName)
     s_instance->GetRegionsByName();
 }
 
+TEST_F(ExMailMerge, RestartListsAtEachSection)
+{
+    s_instance->RestartListsAtEachSection();
+}
+
 }} // namespace ApiExamples::gtest_test

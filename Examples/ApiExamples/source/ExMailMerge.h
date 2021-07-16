@@ -278,6 +278,20 @@ public:
             ASSERT_EQ(u"NestedRegion1", region->get_Name());
         }
     }
+
+    void RestartListsAtEachSection()
+    {
+        //ExStart
+        //ExFor:MailMerge.RestartListsAtEachSection
+        //ExSummary:Shows how to control whether or not list numbering is restarted at each section when mail merge is performed.
+        auto doc = MakeObject<Document>(MyDir + u"Section breaks with numbering.docx");
+
+        doc->get_MailMerge()->set_RestartListsAtEachSection(false);
+        doc->get_MailMerge()->Execute(MakeArray<String>(0), MakeArray<SharedPtr<System::Object>>(0));
+
+        doc->Save(ArtifactsDir + u"MailMerge.RestartListsAtEachSection.pdf");
+        //ExEnd
+    }
 };
 
 } // namespace ApiExamples

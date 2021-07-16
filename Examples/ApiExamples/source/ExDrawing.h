@@ -20,6 +20,7 @@
 #include <Aspose.Words.Cpp/Drawing/DashStyle.h>
 #include <Aspose.Words.Cpp/Drawing/EndCap.h>
 #include <Aspose.Words.Cpp/Drawing/Fill.h>
+#include <Aspose.Words.Cpp/Drawing/FillType.h>
 #include <Aspose.Words.Cpp/Drawing/FlipOrientation.h>
 #include <Aspose.Words.Cpp/Drawing/GroupShape.h>
 #include <Aspose.Words.Cpp/Drawing/ImageData.h>
@@ -31,10 +32,14 @@
 #include <Aspose.Words.Cpp/Drawing/ShapeType.h>
 #include <Aspose.Words.Cpp/Drawing/Stroke.h>
 #include <Aspose.Words.Cpp/Drawing/TextBox.h>
+#include <Aspose.Words.Cpp/Font.h>
 #include <Aspose.Words.Cpp/Node.h>
 #include <Aspose.Words.Cpp/NodeCollection.h>
 #include <Aspose.Words.Cpp/NodeType.h>
 #include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/ParagraphCollection.h>
+#include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/RunCollection.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Section.h>
 #include <Aspose.Words.Cpp/VisitorAction.h>
@@ -43,12 +48,12 @@
 #include <drawing/image_format_converter.h>
 #include <drawing/imaging/image_format.h>
 #include <drawing/rotate_flip_type.h>
-#include <net/web_client.h>
 #include <system/array.h>
 #include <system/collections/ienumerable.h>
 #include <system/collections/ienumerator.h>
 #include <system/collections/list.h>
 #include <system/details/dispose_guard.h>
+#include <system/enum.h>
 #include <system/enum_helpers.h>
 #include <system/exceptions.h>
 #include <system/func.h>
@@ -158,22 +163,19 @@ public:
         filledInArrowImg->set_Top(160);
         filledInArrowImg->set_FlipOrientation(FlipOrientation::Both);
 
+        ArrayPtr<uint8_t> imageBytes = System::IO::File::ReadAllBytes(ImageDir + u"Logo.jpg");
+
         {
-            auto webClient = MakeObject<System::Net::WebClient>();
-            ArrayPtr<uint8_t> imageBytes = System::IO::File::ReadAllBytes(ImageDir + u"Logo.jpg");
+            auto stream = MakeObject<System::IO::MemoryStream>(imageBytes);
+            SharedPtr<System::Drawing::Image> image = System::Drawing::Image::FromStream(stream);
+            // When we flip the orientation of our arrow, we also flip the image that the arrow contains.
+            // Flip the image the other way to cancel this out before getting the shape to display it.
+            image->RotateFlip(System::Drawing::RotateFlipType::RotateNoneFlipXY);
 
-            {
-                auto stream = MakeObject<System::IO::MemoryStream>(imageBytes);
-                SharedPtr<System::Drawing::Image> image = System::Drawing::Image::FromStream(stream);
-                // When we flip the orientation of our arrow, we also flip the image that the arrow contains.
-                // Flip the image the other way to cancel this out before getting the shape to display it.
-                image->RotateFlip(System::Drawing::RotateFlipType::RotateNoneFlipXY);
+            filledInArrowImg->get_ImageData()->SetImage(image);
+            filledInArrowImg->get_Stroke()->set_JoinStyle(JoinStyle::Round);
 
-                filledInArrowImg->get_ImageData()->SetImage(image);
-                filledInArrowImg->get_Stroke()->set_JoinStyle(JoinStyle::Round);
-
-                builder->InsertNode(filledInArrowImg);
-            }
+            builder->InsertNode(filledInArrowImg);
         }
 
         doc->Save(ArtifactsDir + u"Drawing.VariousShapes.docx");
@@ -232,19 +234,44 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
+        ArrayPtr<uint8_t> imageBytes = System::IO::File::ReadAllBytes(ImageDir + u"Logo.jpg");
+
         {
-            auto webClient = MakeObject<System::Net::WebClient>();
-            ArrayPtr<uint8_t> imageBytes = System::IO::File::ReadAllBytes(ImageDir + u"Logo.jpg");
+            auto stream = MakeObject<System::IO::MemoryStream>(imageBytes);
+            SharedPtr<System::Drawing::Image> image = System::Drawing::Image::FromStream(stream);
 
-            {
-                auto stream = MakeObject<System::IO::MemoryStream>(imageBytes);
-                SharedPtr<System::Drawing::Image> image = System::Drawing::Image::FromStream(stream);
-
-                // The image in the URL is a .gif. Inserting it into a document converts it into a .png.
-                SharedPtr<Shape> imgShape = builder->InsertImage(image);
-                ASSERT_EQ(ImageType::Jpeg, imgShape->get_ImageData()->get_ImageType());
-            }
+            // The image in the URL is a .gif. Inserting it into a document converts it into a .png.
+            SharedPtr<Shape> imgShape = builder->InsertImage(image);
+            ASSERT_EQ(ImageType::Jpeg, imgShape->get_ImageData()->get_ImageType());
         }
+
+        //ExEnd
+    }
+
+    void FillSolid()
+    {
+        //ExStart
+        //ExFor:Fill.Color()
+        //ExFor:Fill.Color(Color)
+        //ExSummary:Shows how to convert any of the fills back to solid fill.
+        auto doc = MakeObject<Document>(MyDir + u"Two color gradient.docx");
+
+        // Get Fill object for Font of the first Run.
+        SharedPtr<Fill> fill = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0)->get_Font()->get_Fill();
+
+        // Check Fill properties of the Font.
+        std::cout << String::Format(u"The type of the fill is: {0}", fill->get_FillType()) << std::endl;
+        std::cout << "The foreground color of the fill is: " << fill->get_ForeColor() << std::endl;
+        std::cout << "The fill is transparent at " << (fill->get_Transparency() * 100) << "%" << std::endl;
+
+        // Change type of the fill to Solid with uniform green color.
+        fill->Solid(System::Drawing::Color::get_Green());
+        std::cout << "\nThe fill is changed:" << std::endl;
+        std::cout << String::Format(u"The type of the fill is: {0}", fill->get_FillType()) << std::endl;
+        std::cout << "The foreground color of the fill is: " << fill->get_ForeColor() << std::endl;
+        std::cout << "The fill transparency is " << (fill->get_Transparency() * 100) << "%" << std::endl;
+
+        doc->Save(ArtifactsDir + u"Drawing.FillSolid.docx");
         //ExEnd
     }
 

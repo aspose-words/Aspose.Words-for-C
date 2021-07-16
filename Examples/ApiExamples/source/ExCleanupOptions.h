@@ -48,6 +48,7 @@ public:
         //ExFor:CleanupOptions
         //ExFor:CleanupOptions.UnusedLists
         //ExFor:CleanupOptions.UnusedStyles
+        //ExFor:CleanupOptions.UnusedBuiltinStyles
         //ExSummary:Shows how to remove all unused custom styles from a document.
         auto doc = MakeObject<Document>();
 
@@ -76,17 +77,18 @@ public:
         auto cleanupOptions = MakeObject<CleanupOptions>();
         cleanupOptions->set_UnusedLists(true);
         cleanupOptions->set_UnusedStyles(true);
+        cleanupOptions->set_UnusedBuiltinStyles(true);
 
         doc->Cleanup(cleanupOptions);
 
-        ASSERT_EQ(6, doc->get_Styles()->get_Count());
+        ASSERT_EQ(4, doc->get_Styles()->get_Count());
 
         // Removing every node that a custom style is applied to marks it as "unused" again.
         // Rerun the Cleanup method to remove them.
         doc->get_FirstSection()->get_Body()->RemoveAllChildren();
         doc->Cleanup(cleanupOptions);
 
-        ASSERT_EQ(4, doc->get_Styles()->get_Count());
+        ASSERT_EQ(2, doc->get_Styles()->get_Count());
         //ExEnd
     }
 

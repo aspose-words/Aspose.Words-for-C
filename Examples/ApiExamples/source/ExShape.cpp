@@ -501,4 +501,9 @@ TEST_F(ExShape, SkipMono_OfficeMathRenderer)
     s_instance->OfficeMathRenderer_();
 }
 
+TEST_F(ExShape, ShapeTypes)
+{
+    s_instance->ShapeTypes();
+}
+
 }} // namespace ApiExamples::gtest_test

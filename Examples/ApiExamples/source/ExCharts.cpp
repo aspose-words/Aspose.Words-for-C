@@ -171,4 +171,19 @@ TEST_F(ExCharts, AxisDisplayUnit)
     s_instance->AxisDisplayUnit_();
 }
 
+TEST_F(ExCharts, MarkerFormatting)
+{
+    s_instance->MarkerFormatting();
+}
+
+TEST_F(ExCharts, SeriesColor)
+{
+    s_instance->SeriesColor();
+}
+
+TEST_F(ExCharts, DataPointsFormatting)
+{
+    s_instance->DataPointsFormatting();
+}
+
 }} // namespace ApiExamples::gtest_test

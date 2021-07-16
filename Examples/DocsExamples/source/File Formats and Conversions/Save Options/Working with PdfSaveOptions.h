@@ -18,7 +18,6 @@
 #include <Aspose.Words.Cpp/Saving/PdfCustomPropertiesExport.h>
 #include <Aspose.Words.Cpp/Saving/PdfDigitalSignatureDetails.h>
 #include <Aspose.Words.Cpp/Saving/PdfFontEmbeddingMode.h>
-#include <Aspose.Words.Cpp/Saving/PdfImageColorSpaceExportMode.h>
 #include <Aspose.Words.Cpp/Saving/PdfImageCompression.h>
 #include <Aspose.Words.Cpp/Saving/PdfSaveOptions.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
@@ -300,7 +299,7 @@ public:
         //ExEnd:ExportDocumentStructure
     }
 
-    void PdfImageComppression()
+    void ImageCompression()
     {
         //ExStart:PdfImageComppression
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
@@ -311,13 +310,12 @@ public:
 
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.PdfImageCompression.pdf", saveOptions);
 
-        auto saveOptionsA1B = MakeObject<PdfSaveOptions>();
-        saveOptionsA1B->set_Compliance(PdfCompliance::PdfA1b);
-        saveOptionsA1B->set_ImageCompression(PdfImageCompression::Jpeg);
-        saveOptionsA1B->set_JpegQuality(100);
-        saveOptionsA1B->set_ImageColorSpaceExportMode(PdfImageColorSpaceExportMode::SimpleCmyk);
+        auto saveOptionsA2U = MakeObject<PdfSaveOptions>();
+        saveOptionsA2U->set_Compliance(PdfCompliance::PdfA2u);
+        saveOptionsA2U->set_ImageCompression(PdfImageCompression::Jpeg);
+        saveOptionsA2U->set_JpegQuality(100);
 
-        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.PdfImageCompression.Pdf_A1b.pdf", saveOptionsA1B);
+        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.PdfImageCompression_A2u.pdf", saveOptionsA2U);
         //ExEnd:PdfImageComppression
     }
 

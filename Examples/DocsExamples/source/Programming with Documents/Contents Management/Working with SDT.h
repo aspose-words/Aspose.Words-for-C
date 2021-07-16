@@ -52,7 +52,7 @@ using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Markup;
 using namespace Aspose::Words::Tables;
 
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management {
 
 class WorkingWithSdt : public DocsExamplesBase
 {
@@ -297,4 +297,4 @@ public:
     }
 };
 
-}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment
+}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

@@ -220,4 +220,14 @@ TEST_F(ExImageSaveOptions, Resolution)
     s_instance->Resolution();
 }
 
+TEST_F(ExImageSaveOptions, ExportVariousPageRanges)
+{
+    s_instance->ExportVariousPageRanges();
+}
+
+TEST_F(ExImageSaveOptions, RenderInkObject)
+{
+    s_instance->RenderInkObject();
+}
+
 }} // namespace ApiExamples::gtest_test

@@ -34,7 +34,7 @@ using System::String;
 using namespace Aspose::Words;
 using namespace Aspose::Words::Fields;
 
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management {
 
 class RemoveContent : public DocsExamplesBase
 {
@@ -187,4 +187,4 @@ protected:
     }
 };
 
-}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment
+}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

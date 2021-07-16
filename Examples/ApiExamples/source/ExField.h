@@ -4551,7 +4551,7 @@ public:
         //ExSummary:Shows how to display the file size of a document with a FILESIZE field.
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
-        ASSERT_EQ(16222, doc->get_BuiltInDocumentProperties()->get_Bytes());
+        ASSERT_EQ(18105, doc->get_BuiltInDocumentProperties()->get_Bytes());
 
         auto builder = MakeObject<DocumentBuilder>(doc);
         builder->MoveToDocumentEnd();
@@ -4564,7 +4564,7 @@ public:
         field->Update();
 
         ASSERT_EQ(u" FILESIZE ", field->GetFieldCode());
-        ASSERT_EQ(u"16222", field->get_Result());
+        ASSERT_EQ(u"18105", field->get_Result());
 
         // 2 -  Kilobytes:
         builder->InsertParagraph();
@@ -4573,7 +4573,7 @@ public:
         field->Update();
 
         ASSERT_EQ(u" FILESIZE  \\k", field->GetFieldCode());
-        ASSERT_EQ(u"16", field->get_Result());
+        ASSERT_EQ(u"18", field->get_Result());
 
         // 3 -  Megabytes:
         builder->InsertParagraph();
@@ -4593,7 +4593,7 @@ public:
 
         field = System::DynamicCast<FieldFileSize>(doc->get_Range()->get_Fields()->idx_get(0));
 
-        TestUtil::VerifyField(FieldType::FieldFileSize, u" FILESIZE ", u"16222", field);
+        TestUtil::VerifyField(FieldType::FieldFileSize, u" FILESIZE ", u"18105", field);
 
         // These fields will need to be updated to produce an accurate result.
         doc->UpdateFields();

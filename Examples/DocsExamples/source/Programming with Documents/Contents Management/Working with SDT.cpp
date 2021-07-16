@@ -4,12 +4,12 @@ using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Markup;
 using namespace Aspose::Words::Tables;
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment { namespace gtest_test {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management { namespace gtest_test {
 
 class WorkingWithSdt : public ::testing::Test
 {
 protected:
-    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::WorkingWithSdt> s_instance;
+    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::WorkingWithSdt> s_instance;
 
     void SetUp() override
     {
@@ -18,7 +18,7 @@ protected:
 
     static void SetUpTestCase()
     {
-        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Managment::WorkingWithSdt>();
+        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Contents_Management::WorkingWithSdt>();
         s_instance->OneTimeSetUp();
     };
 
@@ -29,7 +29,7 @@ protected:
     };
 };
 
-System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Managment::WorkingWithSdt> WorkingWithSdt::s_instance;
+System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::WorkingWithSdt> WorkingWithSdt::s_instance;
 
 TEST_F(WorkingWithSdt, CheckBoxTypeContentControl)
 {
@@ -91,4 +91,4 @@ TEST_F(WorkingWithSdt, StructuredDocumentTagRangeStartXmlMapping)
     s_instance->StructuredDocumentTagRangeStartXmlMapping();
 }
 
-}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment::gtest_test
+}}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management::gtest_test

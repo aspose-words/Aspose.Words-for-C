@@ -49,7 +49,7 @@ using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Tables;
 
-namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Managment {
+namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management {
 
 class WorkingWithBookmarks : public DocsExamplesBase
 {
@@ -330,4 +330,4 @@ protected:
     }
 };
 
-}}} // namespace DocsExamples::Programming_with_Documents::Contents_Managment
+}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

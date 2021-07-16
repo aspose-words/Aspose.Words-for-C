@@ -44,6 +44,11 @@ TEST_F(ExDrawing, TypeOfImage)
     s_instance->TypeOfImage();
 }
 
+TEST_F(ExDrawing, FillSolid)
+{
+    s_instance->FillSolid();
+}
+
 TEST_F(ExDrawing, SaveAllImages)
 {
     s_instance->SaveAllImages();

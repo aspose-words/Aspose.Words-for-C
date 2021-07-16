@@ -372,7 +372,7 @@ public:
 
         // This document has one section with a few child nodes containing and displaying all the document's contents.
         ASSERT_EQ(1, doc->get_Sections()->get_Count());
-        ASSERT_EQ(19, doc->get_Sections()->idx_get(0)->GetChildNodes(NodeType::Any, true)->get_Count());
+        ASSERT_EQ(17, doc->get_Sections()->idx_get(0)->GetChildNodes(NodeType::Any, true)->get_Count());
         ASSERT_EQ(u"Hello World!\r\rHello Word!\r\r\rHello World!", doc->GetText().Trim());
 
         // Clear the collection of sections, which will remove all of the document's children.

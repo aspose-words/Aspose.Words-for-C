@@ -130,6 +130,11 @@ TEST_F(ExStructuredDocumentTag, CreatingCustomXml)
     s_instance->CreatingCustomXml();
 }
 
+TEST_F(ExStructuredDocumentTag, DataChecksum)
+{
+    s_instance->DataChecksum();
+}
+
 TEST_F(ExStructuredDocumentTag, XmlMapping)
 {
     s_instance->XmlMapping_();
@@ -216,6 +221,11 @@ TEST_F(ExStructuredDocumentTag, MultiSectionTags)
 TEST_F(ExStructuredDocumentTag, SdtChildNodes)
 {
     s_instance->SdtChildNodes();
+}
+
+TEST_F(ExStructuredDocumentTag, SdtRangeExtendedMethods)
+{
+    s_instance->SdtRangeExtendedMethods();
 }
 
 }} // namespace ApiExamples::gtest_test

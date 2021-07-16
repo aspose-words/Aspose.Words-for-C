@@ -18,6 +18,7 @@
 #include <Aspose.Words.Cpp/Saving/ImageColorMode.h>
 #include <Aspose.Words.Cpp/Saving/ImagePixelFormat.h>
 #include <Aspose.Words.Cpp/Saving/ImageSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/ImlRenderingMode.h>
 #include <Aspose.Words.Cpp/Saving/MetafileRenderingMode.h>
 #include <Aspose.Words.Cpp/Saving/MetafileRenderingOptions.h>
 #include <Aspose.Words.Cpp/Saving/PageRange.h>
@@ -522,6 +523,24 @@ public:
 
         imageOptions->set_PageSet(pageSet);
         doc->Save(ArtifactsDir + u"ImageSaveOptions.ExportVariousPageRanges.tiff", imageOptions);
+        //ExEnd
+    }
+
+    void RenderInkObject()
+    {
+        //ExStart
+        //ExFor:SaveOptions.ImlRenderingMode
+        //ExFor:ImlRenderingMode
+        //ExSummary:Shows how to render Ink object.
+        auto doc = MakeObject<Document>(MyDir + u"Ink object.docx");
+
+        // Set 'ImlRenderingMode.InkML' ignores fall-back shape of ink (InkML) object and renders InkML itself.
+        // If the rendering result is unsatisfactory,
+        // please use 'ImlRenderingMode.Fallback' to get a result similar to previous versions.
+        auto saveOptions = MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);
+        saveOptions->set_ImlRenderingMode(ImlRenderingMode::InkML);
+
+        doc->Save(ArtifactsDir + u"ImageSaveOptions.RenderInkObject.jpeg", saveOptions);
         //ExEnd
     }
 };
