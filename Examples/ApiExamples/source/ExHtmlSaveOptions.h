@@ -844,14 +844,14 @@ public:
             ASSERT_TRUE(outDocContents.Contains(u"Content-ID: <document.html>"));
             ASSERT_TRUE(outDocContents.Contains(u"<link href=3D\"cid:styles.css\" type=3D\"text/css\" rel=3D\"stylesheet\" />"));
             ASSERT_TRUE(outDocContents.Contains(u"@font-face { font-family:'Arial Black'; src:url('cid:ariblk.ttf') }"));
-            ASSERT_TRUE(outDocContents.Contains(u"<img src=3D\"cid:image.003.jpeg\" width=3D\"351\" height=3D\"180\" alt=3D\"\" />"));
+            ASSERT_TRUE(outDocContents.Contains(u"<img src=3D\"cid:image.003.jpeg\" width=3D\"350\" height=3D\"180\" alt=3D\"\" />"));
         }
         else
         {
             ASSERT_TRUE(outDocContents.Contains(u"Content-Location: document.html"));
             ASSERT_TRUE(outDocContents.Contains(u"<link href=3D\"styles.css\" type=3D\"text/css\" rel=3D\"stylesheet\" />"));
             ASSERT_TRUE(outDocContents.Contains(u"@font-face { font-family:'Arial Black'; src:url('ariblk.ttf') }"));
-            ASSERT_TRUE(outDocContents.Contains(u"<img src=3D\"image.003.jpeg\" width=3D\"351\" height=3D\"180\" alt=3D\"\" />"));
+            ASSERT_TRUE(outDocContents.Contains(u"<img src=3D\"image.003.jpeg\" width=3D\"350\" height=3D\"180\" alt=3D\"\" />"));
         }
         //ExEnd
     }
@@ -1287,7 +1287,7 @@ public:
                 u"<li style=\"margin-left:30.2pt; padding-left:5.8pt; -aw-font-family:'Courier New'; -aw-font-weight:normal; -aw-number-format:'o'\">"));
 
             ASSERT_TRUE(
-                outDocContents.Contains(String(u"<img src=\"HtmlSaveOptions.RoundTripInformation.003.jpeg\" width=\"351\" height=\"180\" alt=\"\" ") +
+                outDocContents.Contains(String(u"<img src=\"HtmlSaveOptions.RoundTripInformation.003.jpeg\" width=\"350\" height=\"180\" alt=\"\" ") +
                                         u"style=\"-aw-left-pos:0pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:0pt; -aw-wrap-type:inline\" />"));
 
             ASSERT_TRUE(outDocContents.Contains(String(u"<span>Page number </span>") + u"<span style=\"-aw-field-start:true\"></span>" +
@@ -1308,7 +1308,7 @@ public:
 
             ASSERT_TRUE(outDocContents.Contains(u"<li style=\"margin-left:30.2pt; padding-left:5.8pt\">"));
 
-            ASSERT_TRUE(outDocContents.Contains(u"<img src=\"HtmlSaveOptions.RoundTripInformation.003.jpeg\" width=\"351\" height=\"180\" alt=\"\" />"));
+            ASSERT_TRUE(outDocContents.Contains(u"<img src=\"HtmlSaveOptions.RoundTripInformation.003.jpeg\" width=\"350\" height=\"180\" alt=\"\" />"));
 
             ASSERT_TRUE(outDocContents.Contains(u"<span>Page number 1</span>"));
 

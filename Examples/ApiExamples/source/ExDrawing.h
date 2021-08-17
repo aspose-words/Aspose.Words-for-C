@@ -252,7 +252,7 @@ public:
     {
         //ExStart
         //ExFor:Fill.Color()
-        //ExFor:Fill.Color(Color)
+        //ExFor:Fill.Solid(Color)
         //ExSummary:Shows how to convert any of the fills back to solid fill.
         auto doc = MakeObject<Document>(MyDir + u"Two color gradient.docx");
 

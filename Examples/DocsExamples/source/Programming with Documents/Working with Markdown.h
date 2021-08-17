@@ -4,11 +4,17 @@
 #include <Aspose.Words.Cpp/Body.h>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Drawing/ImageData.h>
 #include <Aspose.Words.Cpp/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Drawing/ShapeType.h>
+#include <Aspose.Words.Cpp/Drawing/WrapType.h>
 #include <Aspose.Words.Cpp/Fields/Field.h>
 #include <Aspose.Words.Cpp/Font.h>
 #include <Aspose.Words.Cpp/IWarningCallback.h>
+#include <Aspose.Words.Cpp/Lists/List.h>
 #include <Aspose.Words.Cpp/Lists/ListFormat.h>
+#include <Aspose.Words.Cpp/Lists/ListLevel.h>
+#include <Aspose.Words.Cpp/Lists/ListLevelCollection.h>
 #include <Aspose.Words.Cpp/Paragraph.h>
 #include <Aspose.Words.Cpp/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
@@ -17,7 +23,6 @@
 #include <Aspose.Words.Cpp/StyleCollection.h>
 #include <Aspose.Words.Cpp/StyleType.h>
 #include <Aspose.Words.Cpp/Tables/Cell.h>
-#include <Aspose.Words.Cpp/Tables/Table.h>
 #include <Aspose.Words.Cpp/WarningInfo.h>
 #include <Aspose.Words.Cpp/WarningInfoCollection.h>
 #include <Aspose.Words.Cpp/WarningSource.h>
@@ -32,80 +37,269 @@ using System::SharedPtr;
 using System::String;
 
 using namespace Aspose::Words;
+using namespace Aspose::Words::Drawing;
 
 namespace DocsExamples { namespace Programming_with_Documents {
 
 class WorkingWithMarkdown : public DocsExamplesBase
 {
 public:
-    void CreateMarkdownDocument()
+    void BoldText()
     {
-        //ExStart:CreateMarkdownDocument
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
+        //ExStart:BoldText
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
 
-        // Specify the "Heading 1" style for the paragraph.
-        builder->get_ParagraphFormat()->set_StyleName(u"Heading 1");
-        builder->Writeln(u"Heading 1");
+        // Make the text Bold.
+        builder->get_Font()->set_Bold(true);
+        builder->Writeln(u"This text will be Bold");
+        //ExEnd:BoldText
+    }
 
-        // Reset styles from the previous paragraph to not combine styles between paragraphs.
-        builder->get_ParagraphFormat()->set_StyleName(u"Normal");
+    void ItalicText()
+    {
+        //ExStart:ItalicText
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        // Make the text Italic.
+        builder->get_Font()->set_Italic(true);
+        builder->Writeln(u"This text will be Italic");
+        //ExEnd:ItalicText
+    }
+
+    void Strikethrough()
+    {
+        //ExStart:Strikethrough
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        // Make the text Strikethrough.
+        builder->get_Font()->set_StrikeThrough(true);
+        builder->Writeln(u"This text will be StrikeThrough");
+        //ExEnd:Strikethrough
+    }
+
+    void InlineCode()
+    {
+        //ExStart:InlineCode
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        // Number of backticks is missed, one backtick will be used by default.
+        SharedPtr<Style> inlineCode1BackTicks = builder->get_Document()->get_Styles()->Add(StyleType::Character, u"InlineCode");
+        builder->get_Font()->set_Style(inlineCode1BackTicks);
+        builder->Writeln(u"Text with InlineCode style with 1 backtick");
+
+        // There will be 3 backticks.
+        SharedPtr<Style> inlineCode3BackTicks = builder->get_Document()->get_Styles()->Add(StyleType::Character, u"InlineCode.3");
+        builder->get_Font()->set_Style(inlineCode3BackTicks);
+        builder->Writeln(u"Text with InlineCode style with 3 backtick");
+        //ExEnd:InlineCode
+    }
+
+    void Autolink()
+    {
+        //ExStart:Autolink
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        // Insert hyperlink.
+        builder->InsertHyperlink(u"https://www.aspose.com", u"https://www.aspose.com", false);
+        builder->InsertHyperlink(u"email@aspose.com", u"mailto:email@aspose.com", false);
+        //ExEnd:Autolink
+    }
+
+    void Link()
+    {
+        //ExStart:Link
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        // Insert hyperlink.
+        builder->InsertHyperlink(u"Aspose", u"https://www.aspose.com", false);
+        //ExEnd:Link
+    }
+
+    void Image()
+    {
+        //ExStart:Image
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        // Insert image.
+        auto shape = MakeObject<Shape>(builder->get_Document(), ShapeType::Image);
+        shape->set_WrapType(WrapType::Inline);
+        shape->get_ImageData()->set_SourceFullName(u"/attachment/1456/pic001.png");
+        shape->get_ImageData()->set_Title(u"title");
+        builder->InsertNode(shape);
+        //ExEnd:Image
+    }
+
+    void HorizontalRule()
+    {
+        //ExStart:HorizontalRule
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
 
         // Insert horizontal rule.
         builder->InsertHorizontalRule();
+        //ExEnd:HorizontalRule
+    }
 
-        // Specify the ordered list.
-        builder->InsertParagraph();
-        builder->get_ListFormat()->ApplyNumberDefault();
+    void Heading()
+    {
+        //ExStart:Heading
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
 
-        // Specify the Italic emphasis for the text.
-        builder->get_Font()->set_Italic(true);
-        builder->Writeln(u"Italic Text");
+        // By default Heading styles in Word may have Bold and Italic formatting.
+        // If we do not want to be emphasized, set these properties explicitly to false.
+        builder->get_Font()->set_Bold(false);
         builder->get_Font()->set_Italic(false);
 
-        // Specify the Bold emphasis for the text.
-        builder->get_Font()->set_Bold(true);
-        builder->Writeln(u"Bold Text");
+        builder->get_ParagraphFormat()->set_StyleName(u"Heading 1");
+        builder->Writeln(u"This is an H1 tag");
+        //ExEnd:Heading
+    }
+
+    void SetextHeading()
+    {
+        //ExStart:SetextHeading
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        builder->get_ParagraphFormat()->set_StyleName(u"Heading 1");
+        builder->Writeln(u"This is an H1 tag");
+
+        // Reset styles from the previous paragraph to not combine styles between paragraphs.
         builder->get_Font()->set_Bold(false);
+        builder->get_Font()->set_Italic(false);
 
-        // Specify the StrikeThrough emphasis for the text.
-        builder->get_Font()->set_StrikeThrough(true);
-        builder->Writeln(u"StrikeThrough Text");
-        builder->get_Font()->set_StrikeThrough(false);
+        SharedPtr<Style> setexHeading1 = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"SetexHeading1");
+        builder->get_ParagraphFormat()->set_Style(setexHeading1);
+        builder->get_Document()->get_Styles()->idx_get(u"SetexHeading1")->set_BaseStyleName(u"Heading 1");
+        builder->Writeln(u"Setex Heading level 1");
 
-        // Stop paragraphs numbering.
-        builder->get_ListFormat()->RemoveNumbers();
+        builder->get_ParagraphFormat()->set_Style(builder->get_Document()->get_Styles()->idx_get(u"Heading 3"));
+        builder->Writeln(u"This is an H3 tag");
 
-        // Specify the "Quote" style for the paragraph.
+        // Reset styles from the previous paragraph to not combine styles between paragraphs.
+        builder->get_Font()->set_Bold(false);
+        builder->get_Font()->set_Italic(false);
+
+        SharedPtr<Style> setexHeading2 = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"SetexHeading2");
+        builder->get_ParagraphFormat()->set_Style(setexHeading2);
+        builder->get_Document()->get_Styles()->idx_get(u"SetexHeading2")->set_BaseStyleName(u"Heading 3");
+
+        // Setex heading level will be reset to 2 if the base paragraph has a Heading level greater than 2.
+        builder->Writeln(u"Setex Heading level 2");
+        //ExEnd:SetextHeading
+    }
+
+    void IndentedCode()
+    {
+        //ExStart:IndentedCode
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        SharedPtr<Style> indentedCode = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"IndentedCode");
+        builder->get_ParagraphFormat()->set_Style(indentedCode);
+        builder->Writeln(u"This is an indented code");
+        //ExEnd:IndentedCode
+    }
+
+    void FencedCode()
+    {
+        //ExStart:FencedCode
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        SharedPtr<Style> fencedCode = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"FencedCode");
+        builder->get_ParagraphFormat()->set_Style(fencedCode);
+        builder->Writeln(u"This is an fenced code");
+
+        SharedPtr<Style> fencedCodeWithInfo = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"FencedCode.C#");
+        builder->get_ParagraphFormat()->set_Style(fencedCodeWithInfo);
+        builder->Writeln(u"This is a fenced code with info string");
+        //ExEnd:FencedCode
+    }
+
+    void Quote()
+    {
+        //ExStart:Quote
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        // By default a document stores blockquote style for the first level.
         builder->get_ParagraphFormat()->set_StyleName(u"Quote");
-        builder->Writeln(u"A Quote block");
+        builder->Writeln(u"Blockquote");
 
-        // Specify nesting Quote.
-        SharedPtr<Style> nestedQuote = doc->get_Styles()->Add(StyleType::Paragraph, u"Quote1");
-        nestedQuote->set_BaseStyleName(u"Quote");
-        builder->get_ParagraphFormat()->set_StyleName(u"Quote1");
-        builder->Writeln(u"A nested Quote block");
+        // Create styles for nested levels through style inheritance.
+        SharedPtr<Style> quoteLevel2 = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"Quote1");
+        builder->get_ParagraphFormat()->set_Style(quoteLevel2);
+        builder->get_Document()->get_Styles()->idx_get(u"Quote1")->set_BaseStyleName(u"Quote");
+        builder->Writeln(u"1. Nested blockquote");
+        //ExEnd:Quote
+    }
 
-        // Reset paragraph style to Normal to stop Quote blocks.
-        builder->get_ParagraphFormat()->set_StyleName(u"Normal");
+    void BulletedList()
+    {
+        //ExStart:BulletedList
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
 
-        // Specify a Hyperlink for the desired text.
-        builder->get_Font()->set_Bold(true);
-        // Note, the text of hyperlink can be emphasized.
-        builder->InsertHyperlink(u"Aspose", u"https://www.aspose.com", false);
-        builder->get_Font()->set_Bold(false);
+        builder->get_ListFormat()->ApplyBulletDefault();
+        builder->get_ListFormat()->get_List()->get_ListLevels()->idx_get(0)->set_NumberFormat(u"-");
 
-        // Insert a simple table.
-        builder->StartTable();
+        builder->Writeln(u"Item 1");
+        builder->Writeln(u"Item 2");
+
+        builder->get_ListFormat()->ListIndent();
+
+        builder->Writeln(u"Item 2a");
+        builder->Writeln(u"Item 2b");
+        //ExEnd:BulletedList
+    }
+
+    void OrderedList()
+    {
+        //ExStart:OrderedList
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->get_ListFormat()->ApplyBulletDefault();
+        builder->get_ListFormat()->get_List()->get_ListLevels()->idx_get(0)->set_NumberFormat(String::Format(u"{0}.", (char16_t)0));
+        builder->get_ListFormat()->get_List()->get_ListLevels()->idx_get(1)->set_NumberFormat(String::Format(u"{0}.", (char16_t)1));
+
+        builder->Writeln(u"Item 1");
+        builder->Writeln(u"Item 2");
+
+        builder->get_ListFormat()->ListIndent();
+
+        builder->Writeln(u"Item 2a");
+        builder->Writeln(u"Item 2b");
+        //ExEnd:OrderedList
+    }
+
+    void Table()
+    {
+        //ExStart:Table
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        // Add the first row.
         builder->InsertCell();
-        builder->Write(u"Cell1");
+        builder->Writeln(u"a");
         builder->InsertCell();
-        builder->Write(u"Cell2");
-        builder->EndTable();
+        builder->Writeln(u"b");
 
-        // Save your document as a Markdown file.
-        doc->Save(ArtifactsDir + u"WorkingWithMarkdown.CreateMarkdownDocument.md");
-        //ExEnd:CreateMarkdownDocument
+        // Add the second row.
+        builder->InsertCell();
+        builder->Writeln(u"c");
+        builder->InsertCell();
+        builder->Writeln(u"d");
+        //ExEnd:Table
     }
 
     void ReadMarkdownDocument()
@@ -154,87 +348,6 @@ public:
 
         builder->get_Document()->Save(ArtifactsDir + u"WorkingWithMarkdown.Emphases.md");
         //ExEnd:Emphases
-    }
-
-    void Headings()
-    {
-        //ExStart:Headings
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        // By default Heading styles in Word may have bold and italic formatting.
-        // If we do not want the text to be emphasized, set these properties explicitly to false.
-        builder->get_Font()->set_Bold(false);
-        builder->get_Font()->set_Italic(false);
-
-        builder->Writeln(u"The following produces headings:");
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 1"));
-        builder->Writeln(u"Heading1");
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 2"));
-        builder->Writeln(u"Heading2");
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 3"));
-        builder->Writeln(u"Heading3");
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 4"));
-        builder->Writeln(u"Heading4");
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 5"));
-        builder->Writeln(u"Heading5");
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 6"));
-        builder->Writeln(u"Heading6");
-
-        // Note that the emphases are also allowed inside Headings.
-        builder->get_Font()->set_Bold(true);
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 1"));
-        builder->Writeln(u"Bold Heading1");
-
-        doc->Save(ArtifactsDir + u"WorkingWithMarkdown.Headings.md");
-        //ExEnd:Headings
-    }
-
-    void BlockQuotes()
-    {
-        //ExStart:BlockQuotes
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        builder->Writeln(u"We support blockquotes in Markdown:");
-
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Quote"));
-        builder->Writeln(u"Lorem");
-        builder->Writeln(u"ipsum");
-
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Normal"));
-        builder->Writeln(u"The quotes can be of any level and can be nested:");
-
-        SharedPtr<Style> quoteLevel3 = doc->get_Styles()->Add(StyleType::Paragraph, u"Quote2");
-        builder->get_ParagraphFormat()->set_Style(quoteLevel3);
-        builder->Writeln(u"Quote level 3");
-
-        SharedPtr<Style> quoteLevel4 = doc->get_Styles()->Add(StyleType::Paragraph, u"Quote3");
-        builder->get_ParagraphFormat()->set_Style(quoteLevel4);
-        builder->Writeln(u"Nested quote level 4");
-
-        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Quote"));
-        builder->Writeln();
-        builder->Writeln(u"Back to first level");
-
-        SharedPtr<Style> quoteLevel1WithHeading = doc->get_Styles()->Add(StyleType::Paragraph, u"Quote Heading 3");
-        builder->get_ParagraphFormat()->set_Style(quoteLevel1WithHeading);
-        builder->Write(u"Headings are allowed inside Quotes");
-
-        doc->Save(ArtifactsDir + u"WorkingWithMarkdown.BlockQuotes.md");
-        //ExEnd:BlockQuotes
-    }
-
-    void HorizontalRule()
-    {
-        //ExStart:HorizontalRule
-        auto builder = MakeObject<DocumentBuilder>(MakeObject<Document>());
-
-        builder->Writeln(u"We support Horizontal rules (Thematic breaks) in Markdown:");
-        builder->InsertHorizontalRule();
-
-        builder->get_Document()->Save(ArtifactsDir + u"WorkingWithMarkdown.HorizontalRuleExample.md");
-        //ExEnd:HorizontalRule
     }
 
     void UseWarningSource()

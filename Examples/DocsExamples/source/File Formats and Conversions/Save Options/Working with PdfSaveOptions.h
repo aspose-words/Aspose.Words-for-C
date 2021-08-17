@@ -301,7 +301,7 @@ public:
 
     void ImageCompression()
     {
-        //ExStart:PdfImageComppression
+        //ExStart:PdfImageCompression
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
@@ -316,7 +316,7 @@ public:
         saveOptionsA2U->set_JpegQuality(100);
 
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.PdfImageCompression_A2u.pdf", saveOptionsA2U);
-        //ExEnd:PdfImageComppression
+        //ExEnd:PdfImageCompression
     }
 
     void UpdateLastPrintedProperty()

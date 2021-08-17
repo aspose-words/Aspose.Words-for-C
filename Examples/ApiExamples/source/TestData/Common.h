@@ -10,9 +10,6 @@
 namespace ApiExamples { namespace TestData { namespace TestClasses {
 class ManagerTestClass;
 }}} // namespace ApiExamples::TestData::TestClasses
-namespace ApiExamples { namespace TestData { namespace TestClasses {
-class ContractTestClass;
-}}} // namespace ApiExamples::TestData::TestClasses
 
 using namespace ApiExamples::TestData::TestClasses;
 
