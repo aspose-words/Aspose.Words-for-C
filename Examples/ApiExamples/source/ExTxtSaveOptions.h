@@ -378,7 +378,7 @@ public:
         }
         else
         {
-            ASSERT_EQ(String(u"Row 1, cell 1\r\n") + u"Row 1, cell 2\r\n" + u"Row 2, cell 1\r\n" + u"Row 2, cell 2\r\n\r\n", docText);
+            ASSERT_EQ(String(u"Row 1, cell 1\r") + u"Row 1, cell 2\r" + u"Row 2, cell 1\r" + u"Row 2, cell 2\r\r\n", docText);
         }
         //ExEnd
     }

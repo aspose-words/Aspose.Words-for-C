@@ -41,7 +41,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         String variables = u"";
-        for (const auto& entry : doc->get_Variables())
+        for (auto entry : doc->get_Variables())
         {
             String name = entry.get_Key();
             String value = entry.get_Value();

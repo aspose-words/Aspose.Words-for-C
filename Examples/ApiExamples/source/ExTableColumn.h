@@ -217,7 +217,7 @@ public:
         SharedPtr<ExTableColumn::Column> column = ExTableColumn::Column::FromIndex(table, 0);
         std::cout << column->ToTxt() << std::endl;
 
-        ASSERT_EQ(u"\r\nRow 1\r\nRow 2\r\nRow 3\r\n", column->ToTxt());
+        ASSERT_EQ(u"\rRow 1\rRow 2\rRow 3\r", column->ToTxt());
     }
 };
 

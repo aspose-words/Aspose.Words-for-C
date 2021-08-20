@@ -12,9 +12,6 @@
 namespace DocsExamples { namespace LINQ_Reporting_Engine { namespace Helpers { namespace Data_Source_Objects {
 class Manager;
 }}}} // namespace DocsExamples::LINQ_Reporting_Engine::Helpers::Data_Source_Objects
-namespace DocsExamples { namespace LINQ_Reporting_Engine { namespace Helpers { namespace Data_Source_Objects {
-class Contract;
-}}}} // namespace DocsExamples::LINQ_Reporting_Engine::Helpers::Data_Source_Objects
 
 using namespace DocsExamples::LINQ_Reporting_Engine::Helpers::Data_Source_Objects;
 
