@@ -70,7 +70,7 @@ class FindAndReplace : public DocsExamplesBase
 public:
     class FindAndInsertHtml final : public IReplacingCallback
     {
-    public:
+    private:
         ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
         {
             SharedPtr<Node> currentNode = e->get_MatchNode();
@@ -180,7 +180,7 @@ public:
 private:
     class ReplaceEvaluatorFindAndHighlight : public IReplacingCallback
     {
-    public:
+    private:
         /// <summary>
         /// This method is called by the Aspose.Words find and replace engine for each match.
         /// This method highlights the match string, even if it spans multiple runs.
@@ -258,6 +258,13 @@ private:
     class MyReplaceEvaluator : public IReplacingCallback
     {
     public:
+        MyReplaceEvaluator() : mMatchNumber(0)
+        {
+        }
+
+    private:
+        int mMatchNumber;
+
         /// <summary>
         /// This is called during a replace operation each time a match is found.
         /// This method appends a number to the match string and returns it as a replacement string.
@@ -269,13 +276,6 @@ private:
 
             return ReplaceAction::Replace;
         }
-
-        MyReplaceEvaluator() : mMatchNumber(0)
-        {
-        }
-
-    private:
-        int mMatchNumber;
     };
 
     class ReplaceWithHtmlEvaluator : public IReplacingCallback
@@ -285,6 +285,9 @@ private:
         {
             mOptions = options;
         }
+
+    private:
+        SharedPtr<FindReplaceOptions> mOptions;
 
         /// <summary>
         /// NOTE: This is a simplistic method that will only work well when the match
@@ -301,14 +304,11 @@ private:
 
             return ReplaceAction::Replace;
         }
-
-    private:
-        SharedPtr<FindReplaceOptions> mOptions;
     };
 
     class ReplacingCallback : public IReplacingCallback
     {
-    public:
+    private:
         ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
         {
             std::cout << e->get_Match()->get_Value();

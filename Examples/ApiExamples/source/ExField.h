@@ -457,6 +457,10 @@ public:
             mFieldSwitches = switches;
         }
 
+    private:
+        String mFieldText;
+        String mFieldSwitches;
+
         ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
         {
             auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
@@ -472,10 +476,6 @@ public:
 
             return ReplaceAction::Skip;
         }
-
-    private:
-        String mFieldText;
-        String mFieldSwitches;
     };
 
     void FieldLocale()

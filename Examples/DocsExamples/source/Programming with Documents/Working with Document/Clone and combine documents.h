@@ -55,7 +55,7 @@ class CloneAndCombineDocuments : public DocsExamplesBase
 private:
     class InsertDocumentAtMailMergeHandler : public IFieldMergingCallback
     {
-    public:
+    private:
         void FieldMerging(SharedPtr<FieldMergingArgs> args) override
         {
             if (args->get_DocumentFieldName() == u"Document_1")
@@ -89,7 +89,7 @@ private:
 
     class InsertDocumentAtMailMergeBlobHandler : public IFieldMergingCallback
     {
-    public:
+    private:
         /// <summary>
         /// This handler makes special processing for the "Document_1" field.
         /// The field value contains the path to load the document.
@@ -126,7 +126,7 @@ private:
 
     class InsertDocumentAtReplaceHandler : public IReplacingCallback
     {
-    public:
+    private:
         ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
         {
             auto subDoc = MakeObject<Document>(MyDir + u"Document insertion 2.docx");

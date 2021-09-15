@@ -83,18 +83,18 @@ public:
     class ResourceUriPrinter : public IResourceSavingCallback
     {
     public:
-        void ResourceSaving(SharedPtr<ResourceSavingArgs> args) override
-        {
-            std::cout << "Resource #" << ++mSavedResourceCount << " \"" << args->get_ResourceFileName() << "\"" << std::endl;
-            std::cout << (String(u"\t") + args->get_ResourceFileUri()) << std::endl;
-        }
-
         ResourceUriPrinter() : mSavedResourceCount(0)
         {
         }
 
     private:
         int mSavedResourceCount;
+
+        void ResourceSaving(SharedPtr<ResourceSavingArgs> args) override
+        {
+            std::cout << "Resource #" << ++mSavedResourceCount << " \"" << args->get_ResourceFileName() << "\"" << std::endl;
+            std::cout << (String(u"\t") + args->get_ResourceFileUri()) << std::endl;
+        }
     };
     //ExEnd
 };

@@ -51,11 +51,6 @@ public:
         class DataSource : public IMailMergeDataSource
         {
         public:
-            String get_TableName() override
-            {
-                return TableName();
-            }
-
             bool MoveNext() override
             {
                 bool result = next;
@@ -83,6 +78,11 @@ public:
         private:
             bool next;
 
+            String get_TableName() override
+            {
+                return TableName();
+            }
+
             String TableName()
             {
                 return u"example";
@@ -99,7 +99,7 @@ public:
 
     class HandleMergeImageFieldFromBlob : public IFieldMergingCallback
     {
-    public:
+    private:
         void FieldMerging(SharedPtr<FieldMergingArgs> args) override
         {
             ASPOSE_UNUSED(args);
@@ -121,7 +121,7 @@ public:
 
     class MailMergeSwitches : public IFieldMergingCallback
     {
-    public:
+    private:
         void FieldMerging(SharedPtr<FieldMergingArgs> e) override
         {
             if (e->get_FieldName().StartsWith(u"HTML"))
@@ -149,7 +149,9 @@ public:
 private:
     class HandleMergeField : public IFieldMergingCallback
     {
-    public:
+    private:
+        SharedPtr<DocumentBuilder> mBuilder;
+
         /// <summary>
         /// This handler is called for every mail merge field found in the document,
         /// for every record found in the data source.
@@ -193,14 +195,11 @@ private:
             args->get_ImageWidth()->set_Value(200);
             args->set_ImageHeight(MakeObject<MergeFieldImageDimension>(200, MergeFieldImageDimensionUnit::Percent));
         }
-
-    private:
-        SharedPtr<DocumentBuilder> mBuilder;
     };
 
     class ImageFieldMergingHandler : public IFieldMergingCallback
     {
-    public:
+    private:
         void FieldMerging(SharedPtr<FieldMergingArgs> args) override
         {
             ASPOSE_UNUSED(args);

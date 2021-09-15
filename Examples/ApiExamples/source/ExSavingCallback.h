@@ -203,6 +203,11 @@ public:
             mDocumentSplitCriteria = documentSplitCriteria;
         }
 
+    private:
+        int mCount;
+        String mOutFileName;
+        DocumentSplitCriteria mDocumentSplitCriteria;
+
         void DocumentPartSaving(SharedPtr<DocumentPartSavingArgs> args) override
         {
             // We can access the entire source document via the "Document" property.
@@ -245,11 +250,6 @@ public:
             ASSERT_TRUE(args->get_DocumentPartStream()->get_CanWrite());
             ASSERT_FALSE(args->get_KeepDocumentPartStreamOpen());
         }
-
-    private:
-        int mCount;
-        String mOutFileName;
-        DocumentSplitCriteria mDocumentSplitCriteria;
     };
 
     /// <summary>
@@ -262,6 +262,10 @@ public:
         {
             mOutFileName = outFileName;
         }
+
+    private:
+        int mCount;
+        String mOutFileName;
 
         void ImageSaving(SharedPtr<ImageSavingArgs> args) override
         {
@@ -279,10 +283,6 @@ public:
             ASSERT_TRUE(args->get_IsImageAvailable());
             ASSERT_FALSE(args->get_KeepImageStreamOpen());
         }
-
-    private:
-        int mCount;
-        String mOutFileName;
     };
     //ExEnd
 

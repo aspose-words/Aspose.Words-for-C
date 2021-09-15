@@ -81,7 +81,7 @@ public:
     /// </summary>
     class HandleMergeFieldInsertHtml : public IFieldMergingCallback
     {
-    public:
+    private:
         /// <summary>
         /// Called when a mail merge merges data into a MERGEFIELD.
         /// </summary>

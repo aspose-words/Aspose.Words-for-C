@@ -107,6 +107,10 @@ public:
             pr_Resources = MakeObject<System::Collections::Generic::List<String>>();
         }
 
+    private:
+        String pr_ImagesFolderAlias;
+        SharedPtr<System::Collections::Generic::List<String>> pr_Resources;
+
         void ImageSaving(SharedPtr<ImageSavingArgs> args) override
         {
             get_Resources()->Add(args->get_ImageFileName());
@@ -117,10 +121,6 @@ public:
                                                                      System::IO::FileMode::Create));
             args->set_KeepImageStreamOpen(false);
         }
-
-    private:
-        String pr_ImagesFolderAlias;
-        SharedPtr<System::Collections::Generic::List<String>> pr_Resources;
     };
     //ExEnd
 

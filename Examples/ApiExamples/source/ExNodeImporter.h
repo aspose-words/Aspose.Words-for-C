@@ -202,7 +202,7 @@ public:
     /// </summary>
     class InsertDocumentAtMailMergeHandler : public IFieldMergingCallback
     {
-    public:
+    private:
         void FieldMerging(SharedPtr<FieldMergingArgs> args) override
         {
             if (args->get_DocumentFieldName() == u"Document_1")

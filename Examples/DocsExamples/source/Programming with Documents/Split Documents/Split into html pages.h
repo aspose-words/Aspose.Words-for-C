@@ -31,12 +31,11 @@ class WordToHtmlConverter : public System::Object
 private:
     class HandleTocMergeField : public IFieldMergingCallback
     {
-    public:
-        void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override;
-        void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) override;
-
     private:
         System::SharedPtr<DocumentBuilder> mBuilder;
+
+        void FieldMerging(System::SharedPtr<FieldMergingArgs> e) override;
+        void ImageFieldMerging(System::SharedPtr<ImageFieldMergingArgs> args) override;
     };
 
 public:
