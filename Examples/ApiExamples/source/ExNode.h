@@ -532,7 +532,7 @@ public:
     /// </summary>
     class NodeChangingPrinter : public INodeChangingCallback
     {
-    public:
+    private:
         void NodeInserting(SharedPtr<NodeChangingArgs> args) override
         {
             ASSERT_EQ(NodeChangingAction::Insert, args->get_Action());

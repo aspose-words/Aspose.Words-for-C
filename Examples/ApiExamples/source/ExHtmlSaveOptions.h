@@ -644,7 +644,7 @@ public:
     /// </summary>
     class HandleFontSaving : public IFontSavingCallback
     {
-    public:
+    private:
         void FontSaving(SharedPtr<FontSavingArgs> args) override
         {
             std::cout << "Font:\t" << args->get_FontFamilyName();
@@ -1621,6 +1621,13 @@ public:
     class ImageShapePrinter : public IImageSavingCallback
     {
     public:
+        ImageShapePrinter() : mImageCount(0)
+        {
+        }
+
+    private:
+        int mImageCount;
+
         void ImageSaving(SharedPtr<ImageSavingArgs> args) override
         {
             args->set_KeepImageStreamOpen(false);
@@ -1637,13 +1644,6 @@ public:
             std::cout << String::Format(u"\tWrap type:\t{0}", args->get_CurrentShape()->get_WrapType()) << std::endl;
             std::cout << "Output filename:\t" << args->get_ImageFileName() << "\n" << std::endl;
         }
-
-        ImageShapePrinter() : mImageCount(0)
-        {
-        }
-
-    private:
-        int mImageCount;
     };
     //ExEnd
 

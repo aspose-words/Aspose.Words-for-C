@@ -36,9 +36,10 @@ namespace ApiExamples {
 
 class ExMailMergeCustom : public ApiExampleBase
 {
-public:
+private:
     class EmployeeListMailMergeSource;
 
+public:
     //ExStart
     //ExFor:IMailMergeDataSource
     //ExFor:IMailMergeDataSource.TableName

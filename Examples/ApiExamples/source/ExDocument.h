@@ -506,6 +506,18 @@ public:
     class HandleNodeChangingFontChanger : public INodeChangingCallback
     {
     public:
+        String GetLog()
+        {
+            return mLog->ToString();
+        }
+
+        HandleNodeChangingFontChanger() : mLog(MakeObject<System::Text::StringBuilder>())
+        {
+        }
+
+    private:
+        SharedPtr<System::Text::StringBuilder> mLog;
+
         void NodeInserted(SharedPtr<NodeChangingArgs> args) override
         {
             mLog->AppendLine(String::Format(u"\tType:\t{0}", args->get_Node()->get_NodeType()));
@@ -539,18 +551,6 @@ public:
         {
             mLog->AppendLine(String::Format(u"\n{0:dd/MM/yyyy HH:mm:ss:fff}\tNode removal:", System::DateTime::get_Now()));
         }
-
-        String GetLog()
-        {
-            return mLog->ToString();
-        }
-
-        HandleNodeChangingFontChanger() : mLog(MakeObject<System::Text::StringBuilder>())
-        {
-        }
-
-    private:
-        SharedPtr<System::Text::StringBuilder> mLog;
     };
     //ExEnd
 
@@ -1346,59 +1346,6 @@ public:
 
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"OriginalEdited endnote text.",
                                  System::DynamicCast<Footnote>(docOriginal->GetChild(NodeType::Footnote, 0, true)));
-
-        // If we set compareOptions to ignore certain types of changes,
-        // then revisions done on those types of nodes will not appear in the output document.
-        // We can tell what kind of node a revision was done by looking at the NodeType of the revision's parent nodes.
-        ASPOSE_ASSERT_NE(compareOptions->get_IgnoreFormatting(),
-                         docOriginal->get_Revisions()->LINQ_Any(
-                             static_cast<System::Func<SharedPtr<Revision>, bool>>(static_cast<std::function<bool(SharedPtr<Revision> rev)>>(
-                                 [](SharedPtr<Revision> rev) -> bool { return rev->get_RevisionType() == RevisionType::FormatChange; }))));
-        ASPOSE_ASSERT_NE(
-            compareOptions->get_IgnoreCaseChanges(),
-            docOriginal->get_Revisions()->LINQ_Any(static_cast<System::Func<SharedPtr<Revision>, bool>>(static_cast<std::function<bool(SharedPtr<Revision> s)>>(
-                [](SharedPtr<Revision> s) -> bool { return s->get_ParentNode()->GetText().Contains(u"hello"); }))));
-        ASPOSE_ASSERT_NE(compareOptions->get_IgnoreComments(),
-                         docOriginal->get_Revisions()->LINQ_Any(
-                             static_cast<System::Func<SharedPtr<Revision>, bool>>(static_cast<std::function<bool(SharedPtr<Revision> rev)>>(
-                                 [](SharedPtr<Revision> rev) -> bool { return HasParentOfType(rev, NodeType::Comment); }))));
-        ASPOSE_ASSERT_NE(compareOptions->get_IgnoreTables(), docOriginal->get_Revisions()->LINQ_Any(static_cast<System::Func<SharedPtr<Revision>, bool>>(
-                                                                 static_cast<std::function<bool(SharedPtr<Revision> rev)>>(
-                                                                     [](SharedPtr<Revision> rev) -> bool { return HasParentOfType(rev, NodeType::Table); }))));
-        ASPOSE_ASSERT_NE(compareOptions->get_IgnoreFields(),
-                         docOriginal->get_Revisions()->LINQ_Any(
-                             static_cast<System::Func<SharedPtr<Revision>, bool>>(static_cast<std::function<bool(SharedPtr<Revision> rev)>>(
-                                 [](SharedPtr<Revision> rev) -> bool { return HasParentOfType(rev, NodeType::FieldStart); }))));
-        ASPOSE_ASSERT_NE(compareOptions->get_IgnoreFootnotes(),
-                         docOriginal->get_Revisions()->LINQ_Any(
-                             static_cast<System::Func<SharedPtr<Revision>, bool>>(static_cast<std::function<bool(SharedPtr<Revision> rev)>>(
-                                 [](SharedPtr<Revision> rev) -> bool { return HasParentOfType(rev, NodeType::Footnote); }))));
-        ASPOSE_ASSERT_NE(compareOptions->get_IgnoreTextboxes(),
-                         docOriginal->get_Revisions()->LINQ_Any(
-                             static_cast<System::Func<SharedPtr<Revision>, bool>>(static_cast<std::function<bool(SharedPtr<Revision> rev)>>(
-                                 [](SharedPtr<Revision> rev) -> bool { return HasParentOfType(rev, NodeType::Shape); }))));
-        ASPOSE_ASSERT_NE(compareOptions->get_IgnoreHeadersAndFooters(),
-                         docOriginal->get_Revisions()->LINQ_Any(
-                             static_cast<System::Func<SharedPtr<Revision>, bool>>(static_cast<std::function<bool(SharedPtr<Revision> rev)>>(
-                                 [](SharedPtr<Revision> rev) -> bool { return HasParentOfType(rev, NodeType::HeaderFooter); }))));
-    }
-
-    /// <summary>
-    /// Returns true if the passed revision has a parent node with the type specified by parentType.
-    /// </summary>
-    static bool HasParentOfType(SharedPtr<Revision> revision, NodeType parentType)
-    {
-        SharedPtr<Node> n = revision->get_ParentNode();
-        while (n->get_ParentNode() != nullptr)
-        {
-            if (n->get_NodeType() == parentType)
-            {
-                return true;
-            }
-            n = n->get_ParentNode();
-        }
-
-        return false;
     }
 
     void IgnoreDmlUniqueId(bool isIgnoreDmlUniqueId)

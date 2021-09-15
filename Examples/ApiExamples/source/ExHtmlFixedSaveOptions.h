@@ -543,6 +543,19 @@ public:
     class ResourceUriPrinter : public IResourceSavingCallback
     {
     public:
+        String GetText()
+        {
+            return mText->ToString();
+        }
+
+        ResourceUriPrinter() : mSavedResourceCount(0), mText(MakeObject<System::Text::StringBuilder>())
+        {
+        }
+
+    private:
+        int mSavedResourceCount;
+        SharedPtr<System::Text::StringBuilder> mText;
+
         void ResourceSaving(SharedPtr<ResourceSavingArgs> args) override
         {
             // If we set a folder alias in the SaveOptions object, we will be able to print it from here.
@@ -563,19 +576,6 @@ public:
             args->set_ResourceStream(MakeObject<System::IO::FileStream>(args->get_ResourceFileUri(), System::IO::FileMode::Create));
             args->set_KeepResourceStreamOpen(false);
         }
-
-        String GetText()
-        {
-            return mText->ToString();
-        }
-
-        ResourceUriPrinter() : mSavedResourceCount(0), mText(MakeObject<System::Text::StringBuilder>())
-        {
-        }
-
-    private:
-        int mSavedResourceCount;
-        SharedPtr<System::Text::StringBuilder> mText;
     };
     //ExEnd
 

@@ -99,6 +99,9 @@ public:
             pr_Resources = MakeObject<System::Collections::Generic::List<String>>();
         }
 
+    private:
+        SharedPtr<System::Collections::Generic::List<String>> pr_Resources;
+
         void ResourceSaving(SharedPtr<ResourceSavingArgs> args) override
         {
             get_Resources()->Add(String::Format(u"Resource \"{0}\"\n\t{1}", args->get_ResourceFileName(), args->get_ResourceFileUri()));
@@ -108,9 +111,6 @@ public:
             args->set_ResourceStream(MakeObject<System::IO::FileStream>(args->get_ResourceFileUri(), System::IO::FileMode::Create));
             args->set_KeepResourceStreamOpen(false);
         }
-
-    private:
-        SharedPtr<System::Collections::Generic::List<String>> pr_Resources;
     };
     //ExEnd
 

@@ -38,40 +38,18 @@ using System::SharedPtr;
 using System::String;
 
 namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedDocument;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-template <typename> class LayoutCollection;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedPage;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedLine;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedRow;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedSpan;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedColumn;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedComment;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedCell;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedFootnote;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedEndnote;
-}} // namespace DocsExamples::Complex_examples_and_helpers
-namespace DocsExamples { namespace Complex_examples_and_helpers {
 class RenderedNoteSeparator;
+class RenderedEndnote;
+class RenderedFootnote;
+class RenderedCell;
+class RenderedComment;
+class RenderedColumn;
+class RenderedSpan;
+class RenderedRow;
+class RenderedLine;
+class RenderedPage;
+template <typename> class LayoutCollection;
+class RenderedDocument;
 }} // namespace DocsExamples::Complex_examples_and_helpers
 
 using namespace Aspose::Words;
@@ -263,14 +241,6 @@ public:
     }
 
     /// <summary>
-    /// Provides a simple "foreach" style iteration over the collection of nodes.
-    /// </summary>
-    SharedPtr<System::Collections::Generic::IEnumerator<T>> GetEnumerator() override
-    {
-        return mBaseList->GetEnumerator();
-    }
-
-    /// <summary>
     /// Retrieves the entity at the given index.
     /// </summary>
     /// <remarks><para>The index is zero-based.</para>
@@ -308,6 +278,14 @@ protected:
 
 private:
     SharedPtr<System::Collections::Generic::List<T>> mBaseList;
+
+    /// <summary>
+    /// Provides a simple "foreach" style iteration over the collection of nodes.
+    /// </summary>
+    SharedPtr<System::Collections::Generic::IEnumerator<T>> GetEnumerator() override
+    {
+        return mBaseList->GetEnumerator();
+    }
 };
 
 /// <summary>

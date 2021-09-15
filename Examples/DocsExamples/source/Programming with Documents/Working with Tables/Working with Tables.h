@@ -311,7 +311,7 @@ public:
             xmlDoc->Load(htmlStream);
 
             // Get collection of tables in the HTML document.
-            SharedPtr<System::Xml::XmlNodeList> tables = xmlDoc->get_DocumentElement()->SelectNodes(u"// Table");
+            SharedPtr<System::Xml::XmlNodeList> tables = xmlDoc->get_DocumentElement()->GetElementsByTagName(u"table");
 
             for (const auto& table : System::IterateOver(tables))
             {

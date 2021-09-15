@@ -337,15 +337,6 @@ public:
     class TextFindAndReplacementLogger : public IReplacingCallback
     {
     public:
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
-        {
-            mLog->AppendLine(String::Format(u"\"{0}\" converted to \"{1}\" ", args->get_Match()->get_Value(), args->get_Replacement()) +
-                             String::Format(u"{0} characters into a {1} node.", args->get_MatchOffset(), args->get_MatchNode()->get_NodeType()));
-
-            args->set_Replacement(String::Format(u"(Old value:\"{0}\") {1}", args->get_Match()->get_Value(), args->get_Replacement()));
-            return ReplaceAction::Replace;
-        }
-
         String GetLog()
         {
             return mLog->ToString();
@@ -357,6 +348,15 @@ public:
 
     private:
         SharedPtr<System::Text::StringBuilder> mLog;
+
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
+        {
+            mLog->AppendLine(String::Format(u"\"{0}\" converted to \"{1}\" ", args->get_Match()->get_Value(), args->get_Replacement()) +
+                             String::Format(u"{0} characters into a {1} node.", args->get_MatchOffset(), args->get_MatchNode()->get_NodeType()));
+
+            args->set_Replacement(String::Format(u"(Old value:\"{0}\") {1}", args->get_Match()->get_Value(), args->get_Replacement()));
+            return ReplaceAction::Replace;
+        }
     };
     //ExEnd
 
@@ -578,18 +578,18 @@ public:
             return mMatches;
         }
 
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
-        {
-            get_Matches()->Add(e->get_Match()->get_Value());
-            return ReplaceAction::Replace;
-        }
-
         TextReplacementTracker() : mMatches(MakeObject<System::Collections::Generic::List<String>>())
         {
         }
 
     private:
         SharedPtr<System::Collections::Generic::List<String>> mMatches;
+
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
+        {
+            get_Matches()->Add(e->get_Match()->get_Value());
+            return ReplaceAction::Replace;
+        }
     };
     //ExEnd
 
@@ -646,7 +646,7 @@ public:
 
     class InsertDocumentAtReplaceHandler : public IReplacingCallback
     {
-    public:
+    private:
         ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
         {
             auto subDoc = MakeObject<Document>(MyDir + u"Document.docx");
@@ -764,18 +764,18 @@ public:
             return mMatches;
         }
 
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
-        {
-            get_Matches()->Add(e->get_Match()->get_Value());
-            return ReplaceAction::Replace;
-        }
-
         TextReplacementRecorder() : mMatches(MakeObject<System::Collections::Generic::List<String>>())
         {
         }
 
     private:
         SharedPtr<System::Collections::Generic::List<String>> mMatches;
+
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
+        {
+            get_Matches()->Add(e->get_Match()->get_Value());
+            return ReplaceAction::Replace;
+        }
     };
     //ExEnd
 };
