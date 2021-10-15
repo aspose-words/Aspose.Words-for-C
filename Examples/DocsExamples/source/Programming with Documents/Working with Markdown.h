@@ -176,10 +176,10 @@ public:
         builder->get_Font()->set_Bold(false);
         builder->get_Font()->set_Italic(false);
 
-        SharedPtr<Style> setexHeading1 = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"SetexHeading1");
+        SharedPtr<Style> setexHeading1 = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"SetextHeading1");
         builder->get_ParagraphFormat()->set_Style(setexHeading1);
-        builder->get_Document()->get_Styles()->idx_get(u"SetexHeading1")->set_BaseStyleName(u"Heading 1");
-        builder->Writeln(u"Setex Heading level 1");
+        builder->get_Document()->get_Styles()->idx_get(u"SetextHeading1")->set_BaseStyleName(u"Heading 1");
+        builder->Writeln(u"Setext Heading level 1");
 
         builder->get_ParagraphFormat()->set_Style(builder->get_Document()->get_Styles()->idx_get(u"Heading 3"));
         builder->Writeln(u"This is an H3 tag");
@@ -188,12 +188,12 @@ public:
         builder->get_Font()->set_Bold(false);
         builder->get_Font()->set_Italic(false);
 
-        SharedPtr<Style> setexHeading2 = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"SetexHeading2");
+        SharedPtr<Style> setexHeading2 = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"SetextHeading2");
         builder->get_ParagraphFormat()->set_Style(setexHeading2);
-        builder->get_Document()->get_Styles()->idx_get(u"SetexHeading2")->set_BaseStyleName(u"Heading 3");
+        builder->get_Document()->get_Styles()->idx_get(u"SetextHeading2")->set_BaseStyleName(u"Heading 3");
 
         // Setex heading level will be reset to 2 if the base paragraph has a Heading level greater than 2.
-        builder->Writeln(u"Setex Heading level 2");
+        builder->Writeln(u"Setext Heading level 2");
         //ExEnd:SetextHeading
     }
 

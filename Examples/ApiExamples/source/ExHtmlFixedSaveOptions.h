@@ -391,11 +391,11 @@ public:
         // The size of the optimized version of the document is almost a third of the size of the unoptimized document.
         if (optimizeOutput)
         {
-            ASSERT_NEAR(58000, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
+            ASSERT_NEAR(57220, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
         }
         else
         {
-            ASSERT_NEAR(161100, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
+            ASSERT_NEAR(160535, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
         }
         //ExEnd
     }

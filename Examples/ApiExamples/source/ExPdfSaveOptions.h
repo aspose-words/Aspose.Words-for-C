@@ -907,7 +907,7 @@ public:
             break;
 
         case PdfFontEmbeddingMode::EmbedNone:
-            ASSERT_GE(4209, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"PdfSaveOptions.EmbedWindowsFonts.pdf")->get_Length());
+            ASSERT_GE(4212, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"PdfSaveOptions.EmbedWindowsFonts.pdf")->get_Length());
             break;
         }
         //ExEnd

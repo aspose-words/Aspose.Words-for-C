@@ -36,7 +36,7 @@ namespace ApiExamples {
 
 class ExMailMergeCustom : public ApiExampleBase
 {
-private:
+public:
     class EmployeeListMailMergeSource;
 
 public:

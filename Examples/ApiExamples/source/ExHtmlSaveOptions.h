@@ -56,6 +56,7 @@
 #include <Aspose.Words.Cpp/StyleCollection.h>
 #include <Aspose.Words.Cpp/Tables/Cell.h>
 #include <Aspose.Words.Cpp/Tables/PreferredWidth.h>
+#include <Aspose.Words.Cpp/Loading/HtmlLoadOptions.h>
 #include <drawing/image.h>
 #include <drawing/rectangle_f.h>
 #include <drawing/size.h>
@@ -100,6 +101,7 @@ using namespace Aspose::Words::Layout;
 using namespace Aspose::Words::Lists;
 using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Tables;
+using namespace Aspose::Words::Loading;
 
 namespace ApiExamples {
 
@@ -1430,12 +1432,19 @@ public:
         //ExStart
         //ExFor:HtmlMetafileFormat
         //ExFor:HtmlSaveOptions.MetafileFormat
+        //ExFor:HtmlLoadOptions.ConvertSvgToEmf
         //ExSummary:Shows how to convert SVG objects to a different format when saving HTML documents.
         String html =
             u"<html>\r\n                    <svg xmlns='http://www.w3.org/2000/svg' width='500' height='40' viewBox='0 0 500 40'>\r\n                        "
             u"<text x='0' y='35' font-family='Verdana' font-size='35'>Hello world!</text>\r\n                    </svg>\r\n                </html>";
 
-        auto doc = MakeObject<Document>(MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(html)));
+        // Use 'ConvertSvgToEmf' to turn back the legacy behavior
+        // where all SVG images loaded from an HTML document were converted to EMF.
+        // Now SVG images are loaded without conversion
+        // if the MS Word version specified in load options supports SVG images natively.
+        auto loadOptions = MakeObject<HtmlLoadOptions>();
+        loadOptions->set_ConvertSvgToEmf(true);
+        auto doc = MakeObject<Document>(MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(html)), loadOptions);
 
         // This document contains a <svg> element in the form of text.
         // When we save the document to HTML, we can pass a SaveOptions object
