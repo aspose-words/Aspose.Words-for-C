@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.21.0 FATAL_ERROR)
+
+set(VCPKG_OVERLAY_TRIPLETS "custom-triplets")
 
 project(ApiExamples CXX)
 
-find_package(CodePorting.Native.Cs2Cpp REQUIRED CONFIG PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../.. NO_DEFAULT_PATH)
-find_package(Aspose.Words.Cpp REQUIRED CONFIG PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../.. NO_DEFAULT_PATH)
+find_package(aspose-words-cpp CONFIG REQUIRED)
 find_package(Threads REQUIRED)
 
 file(GLOB_RECURSE SRC_FILES "source/*.cpp" "source/*.h")
@@ -21,23 +22,34 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(GroupSources) 
 GroupSources(${PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}")
 
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    execute_process(COMMAND ${CMAKE_CXX_COMPILER} -fuse-ld=gold -Wl,--version ERROR_QUIET OUTPUT_VARIABLE LD_VERSION)
+    if ("${LD_VERSION}" MATCHES "GNU gold")
+        target_link_options(ApiExamples PRIVATE -fuse-ld=gold -Wl,--fatal-warnings)
+    endif()
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    execute_process(COMMAND ${CMAKE_CXX_COMPILER} -fuse-ld=lld -Wl,--version ERROR_QUIET OUTPUT_VARIABLE LD_VERSION)
+    if ("${LD_VERSION}" MATCHES "LLD")
+        target_link_options(ApiExamples PRIVATE -fuse-ld=lld -Wl,--fatal-warnings)
+    endif()
+endif()
 
 enable_testing()
 
-file(TO_NATIVE_PATH "${Aspose.Words.Cpp_DIR}/lib/${CMAKE_VS_PLATFORM_NAME}" Aspose.Words.Cpp_DLL_PATH)
-file(TO_NATIVE_PATH "${CodePorting.Native.Cs2Cpp_DIR}/lib" CodePorting.Native.Cs2Cpp_DLL_PATH)
 file(TO_NATIVE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" VS_WOKRING_DIRECTORY)
 
 add_test(NAME ApiExamples COMMAND ApiExamples WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 if (WIN32)
-    set_property(TEST ApiExamples PROPERTY ENVIRONMENT "PATH=%PATH%\;${Aspose.Words.Cpp_DLL_PATH}\\$<CONFIG>\;${CodePorting.Native.Cs2Cpp_DLL_PATH}")
+  add_custom_command(TARGET ApiExamples POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_RUNTIME_DLLS:ApiExamples> $<TARGET_FILE_DIR:ApiExamples>
+    COMMAND_EXPAND_LISTS
+  )
 endif()
 
 set_directory_properties(PROPERTIES VS_STARTUP_PROJECT ApiExamples)
 
 set_target_properties(ApiExamples PROPERTIES 
 # Setup Visual Studio Project Properties
-    VS_DEBUGGER_ENVIRONMENT "PATH=${Aspose.Words.Cpp_DLL_PATH}\\$<CONFIG>;${CodePorting.Native.Cs2Cpp_DLL_PATH};$(Path)"
     VS_DEBUGGER_WORKING_DIRECTORY "${VS_WOKRING_DIRECTORY}"
 # Setup Unity Build
     UNITY_BUILD TRUE
