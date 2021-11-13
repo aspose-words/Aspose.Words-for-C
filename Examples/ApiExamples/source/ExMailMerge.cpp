@@ -118,4 +118,9 @@ TEST_F(ExMailMerge, RestartListsAtEachSection)
     s_instance->RestartListsAtEachSection();
 }
 
+TEST_F(ExMailMerge, RemoveLastEmptyParagraph)
+{
+    s_instance->RemoveLastEmptyParagraph();
+}
+
 }} // namespace ApiExamples::gtest_test

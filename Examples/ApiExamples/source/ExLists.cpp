@@ -116,4 +116,9 @@ TEST_F(ExLists, IgnoreOnJenkins_CreatePictureBullet)
     s_instance->CreatePictureBullet();
 }
 
+TEST_F(ExLists, CustomNumberStyleFormat)
+{
+    s_instance->CustomNumberStyleFormat();
+}
+
 }} // namespace ApiExamples::gtest_test

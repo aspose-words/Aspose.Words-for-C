@@ -60,4 +60,9 @@ TEST_F(ExDocumentBuilderImages, InsertImageFromByteArray)
     s_instance->InsertImageFromByteArray();
 }
 
+TEST_F(ExDocumentBuilderImages, InsertGif)
+{
+    s_instance->InsertGif();
+}
+
 }} // namespace ApiExamples::gtest_test

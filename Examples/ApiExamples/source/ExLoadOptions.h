@@ -4,6 +4,7 @@
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
+// CPPDEFECT: Aspose.Pdf is not supported
 
 #include <cstdint>
 #include <iostream>
@@ -34,6 +35,7 @@
 #include <Aspose.Words.Cpp/Paragraph.h>
 #include <Aspose.Words.Cpp/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/SaveOptions.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Section.h>
 #include <Aspose.Words.Cpp/Settings/MsWordVersion.h>
@@ -69,6 +71,7 @@ using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Fonts;
 using namespace Aspose::Words::Loading;
+using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Settings;
 
 namespace ApiExamples {
@@ -394,6 +397,24 @@ public:
         loadOptions->set_Encoding(System::Text::Encoding::GetEncoding(u"windows-1251"));
 
         auto doc = MakeObject<Document>(MyDir + u"HTML help.chm", loadOptions);
+    }
+
+    void FlatOpcXmlMappingOnly(bool isFlatOpcXmlMappingOnly)
+    {
+        //ExStart
+        //ExFor:SaveOptions.FlatOpcXmlMappingOnly
+        //ExSummary:Shows how to binding structured document tags to any format.
+        // If true - SDT will contain raw HTML text.
+        // If false - mapped HTML will parsed and resulting document will be inserted into SDT content.
+        auto loadOptions = MakeObject<LoadOptions>();
+        loadOptions->set_FlatOpcXmlMappingOnly(isFlatOpcXmlMappingOnly);
+        auto doc = MakeObject<Document>(MyDir + u"Structured document tag with HTML content.docx", loadOptions);
+
+        SharedPtr<SaveOptions> saveOptions = SaveOptions::CreateSaveOptions(SaveFormat::Pdf);
+        saveOptions->set_FlatOpcXmlMappingOnly(isFlatOpcXmlMappingOnly);
+
+        doc->Save(ArtifactsDir + u"LoadOptions.FlatOpcXmlMappingOnly.pdf", saveOptions);
+        //ExEnd
     }
 };
 

@@ -615,4 +615,9 @@ TEST_F(ExDocument, AllowEmbeddingPostScriptFonts)
     s_instance->AllowEmbeddingPostScriptFonts();
 }
 
+TEST_F(ExDocument, Frameset)
+{
+    s_instance->Frameset();
+}
+
 }} // namespace ApiExamples::gtest_test

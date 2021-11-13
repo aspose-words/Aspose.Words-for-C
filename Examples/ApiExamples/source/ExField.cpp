@@ -546,7 +546,7 @@ TEST_F(ExField, FieldSetRef)
     s_instance->FieldSetRef();
 }
 
-TEST_F(ExField, DISABLED_FieldTemplate)
+TEST_F(ExField, FieldTemplate)
 {
     s_instance->FieldTemplate_();
 }
@@ -668,6 +668,11 @@ TEST_F(ExField, ComparisonExpressionEvaluatorNestedFields)
 TEST_F(ExField, ComparisonExpressionEvaluatorHeaderFooterFields)
 {
     s_instance->ComparisonExpressionEvaluatorHeaderFooterFields();
+}
+
+TEST_F(ExField, FieldUpdatingCallbackTest)
+{
+    s_instance->FieldUpdatingCallbackTest();
 }
 
 }} // namespace ApiExamples::gtest_test

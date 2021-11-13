@@ -3,6 +3,7 @@
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
+// CPPDEFECT: Aspose.Pdf is not supported
 #include "ExPdfSaveOptions.h"
 
 #include <system/test_tools/method_argument_tuple.h>
@@ -748,6 +749,11 @@ INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_SetNumeralFormat, ::testing::ValuesI
 TEST_F(ExPdfSaveOptions, ExportPageSet)
 {
     s_instance->ExportPageSet();
+}
+
+TEST_F(ExPdfSaveOptions, ExportLanguageToSpanTag)
+{
+    s_instance->ExportLanguageToSpanTag();
 }
 
 }} // namespace ApiExamples::gtest_test

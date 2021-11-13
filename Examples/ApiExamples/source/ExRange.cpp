@@ -9,6 +9,7 @@
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
+using namespace Aspose::Words::Notes;
 using namespace Aspose::Words::Replacing;
 namespace ApiExamples { namespace gtest_test {
 
@@ -149,6 +150,27 @@ TEST_P(ExRange_IgnoreFields, Test)
 }
 
 INSTANTIATE_TEST_SUITE_P(, ExRange_IgnoreFields, ::testing::ValuesIn(ExRange_IgnoreFields::TestCases()));
+
+using ExRange_IgnoreFootnote_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExRange::IgnoreFootnote)>::type;
+
+struct ExRange_IgnoreFootnote : public ExRange, public ApiExamples::ExRange, public ::testing::WithParamInterface<ExRange_IgnoreFootnote_Args>
+{
+    static std::vector<ParamType> TestCases()
+    {
+        return {
+            std::make_tuple(true),
+            std::make_tuple(false),
+        };
+    }
+};
+
+TEST_P(ExRange_IgnoreFootnote, Test)
+{
+    const auto& params = GetParam();
+    ASSERT_NO_FATAL_FAILURE(s_instance->IgnoreFootnote(std::get<0>(params)));
+}
+
+INSTANTIATE_TEST_SUITE_P(, ExRange_IgnoreFootnote, ::testing::ValuesIn(ExRange_IgnoreFootnote::TestCases()));
 
 TEST_F(ExRange, UpdateFieldsInRange)
 {

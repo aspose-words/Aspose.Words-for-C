@@ -24,6 +24,8 @@
 #include <Aspose.Words.Cpp/NodeCollection.h>
 #include <Aspose.Words.Cpp/NodeImporter.h>
 #include <Aspose.Words.Cpp/NodeType.h>
+#include <Aspose.Words.Cpp/Notes/Footnote.h>
+#include <Aspose.Words.Cpp/Notes/FootnoteType.h>
 #include <Aspose.Words.Cpp/Paragraph.h>
 #include <Aspose.Words.Cpp/ParagraphAlignment.h>
 #include <Aspose.Words.Cpp/ParagraphCollection.h>
@@ -36,6 +38,8 @@
 #include <Aspose.Words.Cpp/Replacing/ReplaceAction.h>
 #include <Aspose.Words.Cpp/Replacing/ReplacingArgs.h>
 #include <Aspose.Words.Cpp/Run.h>
+#include <Aspose.Words.Cpp/RunCollection.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Section.h>
 #include <Aspose.Words.Cpp/SectionCollection.h>
@@ -66,6 +70,7 @@ using System::String;
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
+using namespace Aspose::Words::Notes;
 using namespace Aspose::Words::Replacing;
 
 namespace ApiExamples {
@@ -235,6 +240,48 @@ public:
                                          : String(u"Greetings world!\r\u0013QUOTE\u0014Greetings again!\u0015"),
                   doc->GetText().Trim());
         //ExEnd
+    }
+
+    void IgnoreFootnote(bool isIgnoreFootnotes)
+    {
+        //ExStart
+        //ExFor:FindReplaceOptions.IgnoreFootnotes
+        //ExSummary:Shows how to ignore footnotes during a find-and-replace operation.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->Write(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+        builder->InsertFootnote(FootnoteType::Footnote, u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+
+        builder->InsertParagraph();
+
+        builder->Write(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+        builder->InsertFootnote(FootnoteType::Endnote, u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+
+        // Set the "IgnoreFootnotes" flag to "true" to get the find-and-replace
+        // operation to ignore text inside footnotes.
+        // Set the "IgnoreFootnotes" flag to "false" to get the find-and-replace
+        // operation to also search for text inside footnotes.
+        auto options = MakeObject<FindReplaceOptions>();
+        options->set_IgnoreFootnotes(isIgnoreFootnotes);
+        doc->get_Range()->Replace(u"Lorem ipsum", u"Replaced Lorem ipsum", options);
+        //ExEnd
+
+        SharedPtr<ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
+
+        for (const auto& para : System::IterateOver<Paragraph>(paragraphs))
+        {
+            ASSERT_EQ(u"Replaced Lorem ipsum", para->get_Runs()->idx_get(0)->get_Text());
+        }
+
+        SharedPtr<System::Collections::Generic::List<SharedPtr<Footnote>>> footnotes =
+            doc->GetChildNodes(NodeType::Footnote, true)->LINQ_Cast<SharedPtr<Footnote>>()->LINQ_ToList();
+        ASSERT_EQ(isIgnoreFootnotes ? String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
+                                    : String(u"Replaced Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                  footnotes->idx_get(0)->ToString(SaveFormat::Text).Trim());
+        ASSERT_EQ(isIgnoreFootnotes ? String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
+                                    : String(u"Replaced Lorem ipsum dolor sit amet, consectetur adipiscing elit."),
+                  footnotes->idx_get(1)->ToString(SaveFormat::Text).Trim());
     }
 
     void UpdateFieldsInRange()

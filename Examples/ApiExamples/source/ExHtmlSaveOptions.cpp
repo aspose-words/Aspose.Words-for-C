@@ -13,6 +13,7 @@ using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::Layout;
 using namespace Aspose::Words::Lists;
+using namespace Aspose::Words::Loading;
 using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Tables;
 namespace ApiExamples { namespace gtest_test {
