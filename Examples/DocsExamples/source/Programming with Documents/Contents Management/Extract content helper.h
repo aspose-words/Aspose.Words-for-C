@@ -248,7 +248,7 @@ private:
 
         // cloneNode is a clone of blockLevelNode. If node != blockLevelNode, blockLevelAncestor
         // is the node's ancestor that means it is a composite node.
-        System::Diagnostics::Debug::Assert(cloneNode->get_IsComposite());
+        CODEPORTING_DEBUG_ASSERT1(cloneNode->get_IsComposite());
 
         // If a marker is a FieldStart node check if it's to be included or not.
         // We assume for simplicity that the FieldStart and FieldEnd appear in the same paragraph.

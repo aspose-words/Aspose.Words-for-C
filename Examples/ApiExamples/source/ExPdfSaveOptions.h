@@ -4,6 +4,7 @@
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
+// CPPDEFECT: Aspose.Pdf is not supported
 
 #include <cstdint>
 #include <functional>
@@ -907,7 +908,7 @@ public:
             break;
 
         case PdfFontEmbeddingMode::EmbedNone:
-            ASSERT_GE(4212, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"PdfSaveOptions.EmbedWindowsFonts.pdf")->get_Length());
+            ASSERT_GE(4217, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"PdfSaveOptions.EmbedWindowsFonts.pdf")->get_Length());
             break;
         }
         //ExEnd
@@ -1073,6 +1074,9 @@ public:
         case PdfPageMode::UseNone:
             TestUtil::FileContainsString(String::Format(u"<</Type /Catalog/Pages 3 0 R/Lang({0})/Metadata 4 0 R>>\r\n", docLocaleName),
                                          ArtifactsDir + u"PdfSaveOptions.PageMode.pdf");
+            break;
+
+        default:
             break;
         }
     }
@@ -1531,6 +1535,25 @@ public:
         options->set_PageSet(PageSet::get_All());
 
         doc->Save(ArtifactsDir + u"PdfSaveOptions.ExportPageSet.All.pdf", options);
+        //ExEnd
+    }
+
+    void ExportLanguageToSpanTag()
+    {
+        //ExStart
+        //ExFor:PdfSaveOptions.ExportLanguageToSpanTag
+        //ExSummary:Shows how to create a "Span" tag in the document structure to export the text language.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->Writeln(u"Hello world!");
+        builder->Writeln(u"Hola mundo!");
+
+        auto saveOptions = MakeObject<PdfSaveOptions>();
+        saveOptions->set_ExportDocumentStructure(true);
+        saveOptions->set_ExportLanguageToSpanTag(true);
+
+        doc->Save(ArtifactsDir + u"PdfSaveOptions.ExportLanguageToSpanTag.pdf", saveOptions);
         //ExEnd
     }
 };

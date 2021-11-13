@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <functional>
 #include <iostream>
+#include <Aspose.Words.Cpp/Body.h>
 #include <Aspose.Words.Cpp/BreakType.h>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBase.h>
@@ -28,9 +29,11 @@
 #include <Aspose.Words.Cpp/NodeType.h>
 #include <Aspose.Words.Cpp/NumberStyle.h>
 #include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/SaveFormat.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Section.h>
 #include <Aspose.Words.Cpp/Style.h>
 #include <Aspose.Words.Cpp/StyleCollection.h>
 #include <Aspose.Words.Cpp/StyleIdentifier.h>
@@ -1028,6 +1031,39 @@ public:
         doc = MakeObject<Document>(ArtifactsDir + u"Lists.CreatePictureBullet.docx");
 
         ASSERT_TRUE(doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0)->get_ImageData()->get_HasImage());
+    }
+
+    void CustomNumberStyleFormat()
+    {
+        //ExStart
+        //ExFor:ListLevel.CustomNumberStyleFormat
+        //ExFor:ListLevel.GetEffectiveValue(Int32, NumberStyle, String)
+        //ExSummary:Shows how to get the format for a list with the custom number style.
+        auto doc = MakeObject<Document>(MyDir + u"List with leading zero.docx");
+
+        SharedPtr<ListLevel> listLevel = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ListFormat()->get_ListLevel();
+
+        String customNumberStyleFormat = String::Empty;
+
+        if (listLevel->get_NumberStyle() == NumberStyle::Custom)
+        {
+            customNumberStyleFormat = listLevel->get_CustomNumberStyleFormat();
+        }
+
+        ASSERT_EQ(u"001, 002, 003, ...", customNumberStyleFormat);
+
+        // We can get value for the specified index of the list item.
+        ASSERT_EQ(u"iv", ListLevel::GetEffectiveValue(4, NumberStyle::LowercaseRoman, nullptr));
+        ASSERT_EQ(u"005", ListLevel::GetEffectiveValue(5, NumberStyle::Custom, customNumberStyleFormat));
+        //ExEnd
+
+        ASSERT_THROW(static_cast<std::function<String()>>([&customNumberStyleFormat]() -> String
+                                                          { return ListLevel::GetEffectiveValue(5, NumberStyle::LowercaseRoman, customNumberStyleFormat); })(),
+                     System::ArgumentException);
+        ASSERT_THROW(static_cast<std::function<String()>>([]() -> String { return ListLevel::GetEffectiveValue(5, NumberStyle::Custom, nullptr); })(),
+                     System::ArgumentException);
+        ASSERT_THROW(static_cast<std::function<String()>>([]() -> String { return ListLevel::GetEffectiveValue(5, NumberStyle::Custom, u"...."); })(),
+                     System::ArgumentException);
     }
 };
 

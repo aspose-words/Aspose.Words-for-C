@@ -128,6 +128,7 @@
 #include <Aspose.Words.Cpp/Fields/GeneralFormat.h>
 #include <Aspose.Words.Cpp/Fields/GeneralFormatCollection.h>
 #include <Aspose.Words.Cpp/Fields/IComparisonExpressionEvaluator.h>
+#include <Aspose.Words.Cpp/Fields/IFieldUpdatingCallback.h>
 #include <Aspose.Words.Cpp/Fields/IFieldUserPromptRespondent.h>
 #include <Aspose.Words.Cpp/Fields/UserInformation.h>
 #include <Aspose.Words.Cpp/Font.h>
@@ -178,6 +179,7 @@
 #include <net/http_status_code.h>
 #include <system/collections/ienumerable.h>
 #include <system/collections/ienumerator.h>
+#include <system/collections/ilist.h>
 #include <system/collections/list.h>
 #include <system/convert.h>
 #include <system/date_time.h>
@@ -5514,9 +5516,14 @@ public:
         //ExStart
         //ExFor:FieldTemplate
         //ExFor:FieldTemplate.IncludeFullPath
+        //ExFor:FieldOptions.TemplateName
         //ExSummary:Shows how to use a TEMPLATE field to display the local file system location of a document's template.
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
+
+        // We can set a template name using by the fields. This property is used when the "doc.AttachedTemplate" is empty.
+        // If this property is empty the default template file name "Normal.dotm" is used.
+        doc->get_FieldOptions()->set_TemplateName(String::Empty);
 
         auto field = System::DynamicCast<FieldTemplate>(builder->InsertField(FieldType::FieldTemplate, false));
         ASSERT_EQ(u" TEMPLATE ", field->GetFieldCode());
@@ -5539,7 +5546,7 @@ public:
 
         field = System::DynamicCast<FieldTemplate>(doc->get_Range()->get_Fields()->idx_get(1));
         ASSERT_EQ(u" TEMPLATE  \\p", field->GetFieldCode());
-        ASSERT_TRUE(field->get_Result().EndsWith(u"\\Microsoft\\Templates\\Normal.dotm"));
+        ASSERT_EQ(u"Normal.dotm", field->get_Result());
     }
 
     void FieldSymbol_()
@@ -6587,6 +6594,72 @@ public:
             ->AssertInvocationArguments(1, u"2", u"=", u"3")
             ->AssertInvocationArguments(2, u"3", u"=", u"3");
     }
+
+    //ExStart
+    //ExFor:IFieldUpdatingCallback
+    //ExFor:IFieldUpdatingCallback.FieldUpdating(Field)
+    //ExFor:IFieldUpdatingCallback.FieldUpdated(Field)
+    //ExSummary:Shows how to use callback methods during a field update.
+    void FieldUpdatingCallbackTest()
+    {
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->InsertField(u" DATE \\@ \"dddd, d MMMM yyyy\" ");
+        builder->InsertField(u" TIME ");
+        builder->InsertField(u" REVNUM ");
+        builder->InsertField(u" AUTHOR  \"John Doe\" ");
+        builder->InsertField(u" SUBJECT \"My Subject\" ");
+        builder->InsertField(u" QUOTE \"Hello world!\" ");
+
+        auto callback = MakeObject<ExField::FieldUpdatingCallback>();
+        doc->get_FieldOptions()->set_FieldUpdatingCallback(callback);
+
+        doc->UpdateFields();
+
+        ASSERT_TRUE(callback->get_FieldUpdatedCalls()->Contains(u"Updating John Doe"));
+    }
+
+    /// <summary>
+    /// Implement this interface if you want to have your own custom methods called during a field update.
+    /// </summary>
+    class FieldUpdatingCallback : public IFieldUpdatingCallback
+    {
+    public:
+        SharedPtr<System::Collections::Generic::IList<String>> get_FieldUpdatedCalls()
+        {
+            return pr_FieldUpdatedCalls;
+        }
+
+        FieldUpdatingCallback()
+        {
+            pr_FieldUpdatedCalls = MakeObject<System::Collections::Generic::List<String>>();
+        }
+
+    private:
+        SharedPtr<System::Collections::Generic::IList<String>> pr_FieldUpdatedCalls;
+
+        /// <summary>
+        /// A user defined method that is called just before a field is updated.
+        /// </summary>
+        void FieldUpdating(SharedPtr<Field> field) override
+        {
+            if (field->get_Type() == FieldType::FieldAuthor)
+            {
+                auto fieldAuthor = System::DynamicCast<FieldAuthor>(field);
+                fieldAuthor->set_AuthorName(u"Updating John Doe");
+            }
+        }
+
+        /// <summary>
+        /// A user defined method that is called just after a field is updated.
+        /// </summary>
+        void FieldUpdated(SharedPtr<Field> field) override
+        {
+            get_FieldUpdatedCalls()->Add(field->get_Result());
+        }
+    };
+    //ExEnd
 };
 
 } // namespace ApiExamples

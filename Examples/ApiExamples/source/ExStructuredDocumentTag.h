@@ -18,6 +18,7 @@
 #include <Aspose.Words.Cpp/Markup/CustomXmlPartCollection.h>
 #include <Aspose.Words.Cpp/Markup/CustomXmlSchemaCollection.h>
 #include <Aspose.Words.Cpp/Markup/MarkupLevel.h>
+#include <Aspose.Words.Cpp/Markup/SdtAppearance.h>
 #include <Aspose.Words.Cpp/Markup/SdtCalendarType.h>
 #include <Aspose.Words.Cpp/Markup/SdtDateStorageFormat.h>
 #include <Aspose.Words.Cpp/Markup/SdtListItem.h>
@@ -220,6 +221,7 @@ public:
         //ExFor:StructuredDocumentTag.Tag
         //ExFor:StructuredDocumentTag.Title
         //ExFor:StructuredDocumentTag.RemoveSelfOnly
+        //ExFor:StructuredDocumentTag.Appearance
         //ExSummary:Shows how to create a structured document tag in a plain text box and modify its appearance.
         auto doc = MakeObject<Document>();
 
@@ -252,6 +254,10 @@ public:
         // Set the "Multiline" property to "true" to allow the tag to contain multiple lines of content.
         tag->set_Multiline(true);
 
+        // Set the "Appearance" property to "SdtAppearance.Tags" to show tags around content.
+        // By default structured document tag shows as BoundingBox.
+        tag->set_Appearance(SdtAppearance::Tags);
+
         auto builder = MakeObject<DocumentBuilder>(doc);
         builder->InsertNode(tag);
 
@@ -276,6 +282,7 @@ public:
         ASSERT_EQ(u"Arial", tag->get_ContentsFont()->get_Name());
         ASSERT_EQ(u"Arial Black", tag->get_EndCharacterFont()->get_Name());
         ASSERT_TRUE(tag->get_Multiline());
+        ASSERT_EQ(SdtAppearance::Tags, tag->get_Appearance());
     }
 
     void IsTemporary(bool isTemporary)

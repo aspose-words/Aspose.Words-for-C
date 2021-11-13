@@ -32,6 +32,11 @@ protected:
 
 System::SharedPtr<::DocsExamples::Programming_with_Documents::Working_with_Document::AddContentUsingDocumentBuilder> AddContentUsingDocumentBuilder::s_instance;
 
+TEST_F(AddContentUsingDocumentBuilder, CreateNewDocument)
+{
+    s_instance->CreateNewDocument();
+}
+
 TEST_F(AddContentUsingDocumentBuilder, DocumentBuilderInsertBookmark)
 {
     s_instance->DocumentBuilderInsertBookmark();

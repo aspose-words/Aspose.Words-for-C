@@ -310,6 +310,21 @@ public:
             }
         }
     }
+
+    void ExportGeneratorName()
+    {
+        //ExStart
+        //ExFor:SaveOptions.ExportGeneratorName
+        //ExSummary:Shows how to disable adding name and version of Aspose.Words into produced files.
+        auto doc = MakeObject<Document>();
+
+        // Use https://docs.aspose.com/words/net/generator-or-producer-name-included-in-output-documents/ to know how to check the result.
+        auto saveOptions = MakeObject<OoxmlSaveOptions>();
+        saveOptions->set_ExportGeneratorName(false);
+
+        doc->Save(ArtifactsDir + u"OoxmlSaveOptions.ExportGeneratorName.docx", saveOptions);
+        //ExEnd
+    }
 };
 
 } // namespace ApiExamples

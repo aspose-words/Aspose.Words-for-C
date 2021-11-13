@@ -195,6 +195,8 @@ public:
         // Setex heading level will be reset to 2 if the base paragraph has a Heading level greater than 2.
         builder->Writeln(u"Setext Heading level 2");
         //ExEnd:SetextHeading
+
+        builder->get_Document()->Save(ArtifactsDir + u"Test.md");
     }
 
     void IndentedCode()

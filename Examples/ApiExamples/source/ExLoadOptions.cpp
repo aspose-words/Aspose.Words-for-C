@@ -3,6 +3,7 @@
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
+// CPPDEFECT: Aspose.Pdf is not supported
 #include "ExLoadOptions.h"
 
 #include <system/test_tools/method_argument_tuple.h>
@@ -11,6 +12,7 @@ using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Fonts;
 using namespace Aspose::Words::Loading;
+using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Settings;
 namespace ApiExamples { namespace gtest_test {
 
@@ -112,5 +114,28 @@ TEST_F(ExLoadOptions, OpenChmFile)
 {
     s_instance->OpenChmFile();
 }
+
+using ExLoadOptions_FlatOpcXmlMappingOnly_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExLoadOptions::FlatOpcXmlMappingOnly)>::type;
+
+struct ExLoadOptions_FlatOpcXmlMappingOnly : public ExLoadOptions,
+                                             public ApiExamples::ExLoadOptions,
+                                             public ::testing::WithParamInterface<ExLoadOptions_FlatOpcXmlMappingOnly_Args>
+{
+    static std::vector<ParamType> TestCases()
+    {
+        return {
+            std::make_tuple(true),
+            std::make_tuple(false),
+        };
+    }
+};
+
+TEST_P(ExLoadOptions_FlatOpcXmlMappingOnly, Test)
+{
+    const auto& params = GetParam();
+    ASSERT_NO_FATAL_FAILURE(s_instance->FlatOpcXmlMappingOnly(std::get<0>(params)));
+}
+
+INSTANTIATE_TEST_SUITE_P(, ExLoadOptions_FlatOpcXmlMappingOnly, ::testing::ValuesIn(ExLoadOptions_FlatOpcXmlMappingOnly::TestCases()));
 
 }} // namespace ApiExamples::gtest_test

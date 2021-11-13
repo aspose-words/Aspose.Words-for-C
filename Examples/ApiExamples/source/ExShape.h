@@ -21,6 +21,10 @@
 #include <Aspose.Words.Cpp/Drawing/EndCap.h>
 #include <Aspose.Words.Cpp/Drawing/Fill.h>
 #include <Aspose.Words.Cpp/Drawing/FlipOrientation.h>
+#include <Aspose.Words.Cpp/Drawing/GradientStop.h>
+#include <Aspose.Words.Cpp/Drawing/GradientStopCollection.h>
+#include <Aspose.Words.Cpp/Drawing/GradientStyle.h>
+#include <Aspose.Words.Cpp/Drawing/GradientVariant.h>
 #include <Aspose.Words.Cpp/Drawing/GroupShape.h>
 #include <Aspose.Words.Cpp/Drawing/HorizontalAlignment.h>
 #include <Aspose.Words.Cpp/Drawing/ImageData.h>
@@ -32,6 +36,8 @@
 #include <Aspose.Words.Cpp/Drawing/Ole/OleControl.h>
 #include <Aspose.Words.Cpp/Drawing/OleFormat.h>
 #include <Aspose.Words.Cpp/Drawing/OlePackage.h>
+#include <Aspose.Words.Cpp/Drawing/PatternType.h>
+#include <Aspose.Words.Cpp/Drawing/PresetTexture.h>
 #include <Aspose.Words.Cpp/Drawing/RelativeHorizontalPosition.h>
 #include <Aspose.Words.Cpp/Drawing/RelativeVerticalPosition.h>
 #include <Aspose.Words.Cpp/Drawing/Shape.h>
@@ -45,6 +51,7 @@
 #include <Aspose.Words.Cpp/Drawing/TextBoxWrapMode.h>
 #include <Aspose.Words.Cpp/Drawing/TextPath.h>
 #include <Aspose.Words.Cpp/Drawing/TextPathAlignment.h>
+#include <Aspose.Words.Cpp/Drawing/TextureAlignment.h>
 #include <Aspose.Words.Cpp/Drawing/VerticalAlignment.h>
 #include <Aspose.Words.Cpp/Drawing/WrapSide.h>
 #include <Aspose.Words.Cpp/Drawing/WrapType.h>
@@ -863,6 +870,203 @@ public:
         ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), shape->get_FillColor().ToArgb());
         ASSERT_EQ(System::Drawing::Color::get_CadetBlue().ToArgb(), shape->get_StrokeColor().ToArgb());
         ASSERT_NEAR(0.3, shape->get_Fill()->get_Opacity(), 0.01);
+    }
+
+    void TextureFill()
+    {
+        //ExStart
+        //ExFor:Fill.TextureAlignment
+        //ExFor:TextureAlignment
+        //ExSummary:Shows how to fill and tiling the texture inside the shape.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<Shape> shape = builder->InsertShape(ShapeType::Rectangle, 80, 80);
+
+        // Apply texture alignment to the shape fill.
+        shape->get_Fill()->PresetTextured(PresetTexture::Canvas);
+        shape->get_Fill()->set_TextureAlignment(TextureAlignment::TopRight);
+
+        // Use the compliance option to define the shape using DML if you want to get "TextureAlignment"
+        // property after the document saves.
+        auto saveOptions = MakeObject<OoxmlSaveOptions>();
+        saveOptions->set_Compliance(OoxmlCompliance::Iso29500_2008_Strict);
+
+        doc->Save(ArtifactsDir + u"Shape.TextureFill.docx", saveOptions);
+        //ExEnd
+
+        doc = MakeObject<Document>(ArtifactsDir + u"Shape.TextureFill.docx");
+
+        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+
+        ASSERT_EQ(TextureAlignment::TopRight, shape->get_Fill()->get_TextureAlignment());
+    }
+
+    void GradientFill()
+    {
+        //ExStart
+        //ExFor:Fill.OneColorGradient(Color, GradientStyle, GradientVariant, Double)
+        //ExFor:Fill.OneColorGradient(GradientStyle, GradientVariant, Double)
+        //ExFor:Fill.TwoColorGradient(Color, Color, GradientStyle, GradientVariant)
+        //ExFor:Fill.TwoColorGradient(GradientStyle, GradientVariant)
+        //ExFor:Fill.GradientStyle
+        //ExFor:Fill.GradientVariant
+        //ExFor:Fill.GradientAngle
+        //ExFor:GradientStyle
+        //ExFor:GradientVariant
+        //ExSummary:Shows how to fill a shape with a gradients.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<Shape> shape = builder->InsertShape(ShapeType::Rectangle, 80, 80);
+        // Apply One-color gradient fill to the shape with ForeColor of gradient fill.
+        shape->get_Fill()->OneColorGradient(System::Drawing::Color::get_Red(), GradientStyle::Horizontal, GradientVariant::Variant2, 0.1);
+
+        ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), shape->get_Fill()->get_ForeColor().ToArgb());
+        ASSERT_EQ(GradientStyle::Horizontal, shape->get_Fill()->get_GradientStyle());
+        ASSERT_EQ(GradientVariant::Variant2, shape->get_Fill()->get_GradientVariant());
+        ASPOSE_ASSERT_EQ(270, shape->get_Fill()->get_GradientAngle());
+
+        shape = builder->InsertShape(ShapeType::Rectangle, 80, 80);
+        // Apply Two-color gradient fill to the shape.
+        shape->get_Fill()->TwoColorGradient(GradientStyle::FromCorner, GradientVariant::Variant4);
+        // Change BackColor of gradient fill.
+        shape->get_Fill()->set_BackColor(System::Drawing::Color::get_Yellow());
+        // Note that changes "GradientAngle" for "GradientStyle.FromCorner/GradientStyle.FromCenter"
+        // gradient fill don't get any effect, it will work only for linear gradient.
+        shape->get_Fill()->set_GradientAngle(15);
+
+        ASSERT_EQ(System::Drawing::Color::get_Yellow().ToArgb(), shape->get_Fill()->get_BackColor().ToArgb());
+        ASSERT_EQ(GradientStyle::FromCorner, shape->get_Fill()->get_GradientStyle());
+        ASSERT_EQ(GradientVariant::Variant4, shape->get_Fill()->get_GradientVariant());
+        ASPOSE_ASSERT_EQ(0, shape->get_Fill()->get_GradientAngle());
+
+        // Use the compliance option to define the shape using DML if you want to get "GradientStyle",
+        // "GradientVariant" and "GradientAngle" properties after the document saves.
+        auto saveOptions = MakeObject<OoxmlSaveOptions>();
+        saveOptions->set_Compliance(OoxmlCompliance::Iso29500_2008_Strict);
+
+        doc->Save(ArtifactsDir + u"Shape.GradientFill.docx", saveOptions);
+        //ExEnd
+
+        doc = MakeObject<Document>(ArtifactsDir + u"Shape.GradientFill.docx");
+        auto firstShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+
+        ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), firstShape->get_Fill()->get_ForeColor().ToArgb());
+        ASSERT_EQ(GradientStyle::Horizontal, firstShape->get_Fill()->get_GradientStyle());
+        ASSERT_EQ(GradientVariant::Variant2, firstShape->get_Fill()->get_GradientVariant());
+        ASPOSE_ASSERT_EQ(270, firstShape->get_Fill()->get_GradientAngle());
+
+        auto secondShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+
+        ASSERT_EQ(System::Drawing::Color::get_Yellow().ToArgb(), secondShape->get_Fill()->get_BackColor().ToArgb());
+        ASSERT_EQ(GradientStyle::FromCorner, secondShape->get_Fill()->get_GradientStyle());
+        ASSERT_EQ(GradientVariant::Variant4, secondShape->get_Fill()->get_GradientVariant());
+        ASPOSE_ASSERT_EQ(0, secondShape->get_Fill()->get_GradientAngle());
+    }
+
+    void GradientStops()
+    {
+        //ExStart
+        //ExFor:Fill.GradientStops
+        //ExFor:GradientStopCollection
+        //ExFor:GradientStopCollection.Insert(System.Int32, GradientStop)
+        //ExFor:GradientStopCollection.Add(GradientStop)
+        //ExFor:GradientStopCollection.RemoveAt(System.Int32)
+        //ExFor:GradientStopCollection.Remove(GradientStop)
+        //ExFor:GradientStopCollection.Item(System.Int32)
+        //ExFor:GradientStopCollection.Count
+        //ExFor:GradientStop.#ctor(Color, Double)
+        //ExFor:GradientStop.#ctor(Color, Double, Double)
+        //ExFor:GradientStop.Color
+        //ExFor:GradientStop.Position
+        //ExFor:GradientStop.Transparency
+        //ExFor:GradientStop.Remove
+        //ExSummary:Shows how to add gradient stops to the gradient fill.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<Shape> shape = builder->InsertShape(ShapeType::Rectangle, 80, 80);
+        shape->get_Fill()->TwoColorGradient(System::Drawing::Color::get_Green(), System::Drawing::Color::get_Red(), GradientStyle::Horizontal,
+                                            GradientVariant::Variant2);
+
+        // Get gradient stops collection.
+        SharedPtr<GradientStopCollection> gradientStops = shape->get_Fill()->get_GradientStops();
+
+        // Change first gradient stop.
+        gradientStops->idx_get(0)->set_Color(System::Drawing::Color::get_Aqua());
+        gradientStops->idx_get(0)->set_Position(0.1);
+        gradientStops->idx_get(0)->set_Transparency(0.25);
+
+        // Add new gradient stop to the end of collection.
+        auto gradientStop = MakeObject<GradientStop>(System::Drawing::Color::get_Brown(), 0.5);
+        gradientStops->Add(gradientStop);
+
+        // Remove gradient stop at index 1.
+        gradientStops->RemoveAt(1);
+        // And insert new gradient stop at the same index 1.
+        gradientStops->Insert(1, MakeObject<GradientStop>(System::Drawing::Color::get_Chocolate(), 0.75, 0.3));
+
+        // Remove last gradient stop in the collection.
+        gradientStop = gradientStops->idx_get(2);
+        gradientStops->Remove(gradientStop);
+
+        ASSERT_EQ(2, gradientStops->get_Count());
+
+        ASSERT_EQ(System::Drawing::Color::get_Aqua().ToArgb(), gradientStops->idx_get(0)->get_Color().ToArgb());
+        ASSERT_NEAR(0.1, gradientStops->idx_get(0)->get_Position(), 0.01);
+        ASSERT_NEAR(0.25, gradientStops->idx_get(0)->get_Transparency(), 0.01);
+
+        ASSERT_EQ(System::Drawing::Color::get_Chocolate().ToArgb(), gradientStops->idx_get(1)->get_Color().ToArgb());
+        ASSERT_NEAR(0.75, gradientStops->idx_get(1)->get_Position(), 0.01);
+        ASSERT_NEAR(0.3, gradientStops->idx_get(1)->get_Transparency(), 0.01);
+
+        // Use the compliance option to define the shape using DML
+        // if you want to get "GradientStops" property after the document saves.
+        auto saveOptions = MakeObject<OoxmlSaveOptions>();
+        saveOptions->set_Compliance(OoxmlCompliance::Iso29500_2008_Strict);
+
+        doc->Save(ArtifactsDir + u"Shape.GradientStops.docx", saveOptions);
+        //ExEnd
+
+        doc = MakeObject<Document>(ArtifactsDir + u"Shape.GradientStops.docx");
+
+        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        gradientStops = shape->get_Fill()->get_GradientStops();
+
+        ASSERT_EQ(2, gradientStops->get_Count());
+
+        ASSERT_EQ(System::Drawing::Color::get_Aqua().ToArgb(), gradientStops->idx_get(0)->get_Color().ToArgb());
+        ASSERT_NEAR(0.1, gradientStops->idx_get(0)->get_Position(), 0.01);
+        ASSERT_NEAR(0.25, gradientStops->idx_get(0)->get_Transparency(), 0.01);
+
+        ASSERT_EQ(System::Drawing::Color::get_Chocolate().ToArgb(), gradientStops->idx_get(1)->get_Color().ToArgb());
+        ASSERT_NEAR(0.75, gradientStops->idx_get(1)->get_Position(), 0.01);
+        ASSERT_NEAR(0.3, gradientStops->idx_get(1)->get_Transparency(), 0.01);
+    }
+
+    void FillPattern()
+    {
+        //ExStart
+        //ExFor:Fill.Patterned(PatternType)
+        //ExFor:Fill.Patterned(PatternType, Color, Color)
+        //ExSummary:Shows how to set pattern for a shape.
+        auto doc = MakeObject<Document>(MyDir + u"Shape stroke pattern border.docx");
+
+        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        SharedPtr<Fill> fill = shape->get_Fill();
+
+        std::cout << String::Format(u"Pattern value is: {0}", fill->get_Pattern()) << std::endl;
+
+        // There are several ways specified fill to a pattern.
+        // 1 -  Apply pattern to the shape fill:
+        fill->Patterned(PatternType::DiagonalBrick);
+
+        // 2 -  Apply pattern with foreground and background colors to the shape fill:
+        fill->Patterned(PatternType::DiagonalBrick, System::Drawing::Color::get_Aqua(), System::Drawing::Color::get_Bisque());
+
+        doc->Save(ArtifactsDir + u"Shape.FillPattern.docx");
+        //ExEnd
     }
 
     void Title()
@@ -2631,7 +2835,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        builder->InsertShape(ShapeType::Heptagon, RelativeHorizontalPosition::RightMargin, 0, RelativeVerticalPosition::Page, 0, 0, 0, WrapType::None);
+        builder->InsertShape(ShapeType::Heptagon, RelativeHorizontalPosition::Page, 0, RelativeVerticalPosition::Page, 0, 0, 0, WrapType::None);
 
         builder->InsertShape(ShapeType::Cloud, RelativeHorizontalPosition::RightMargin, 0, RelativeVerticalPosition::Page, 0, 0, 0, WrapType::None);
 
@@ -2641,8 +2845,8 @@ public:
         auto saveOptions = MakeObject<OoxmlSaveOptions>(SaveFormat::Docx);
         saveOptions->set_Compliance(OoxmlCompliance::Iso29500_2008_Transitional);
 
-        doc->Save(ArtifactsDir + u"ShapeTypes.docx", saveOptions);
-        doc = MakeObject<Document>(ArtifactsDir + u"ShapeTypes.docx");
+        doc->Save(ArtifactsDir + u"Shape.ShapeTypes.docx", saveOptions);
+        doc = MakeObject<Document>(ArtifactsDir + u"Shape.ShapeTypes.docx");
 
         ArrayPtr<SharedPtr<Shape>> shapes = doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<SharedPtr<Shape>>()->LINQ_ToArray();
 
@@ -2651,6 +2855,32 @@ public:
             std::cout << System::EnumGetName(shape->get_ShapeType()) << std::endl;
         }
 
+        //ExEnd
+    }
+
+    void IsDecorative()
+    {
+        //ExStart
+        //ExFor:ShapeBase.IsDecorative
+        //ExSummary:Shows how to set that the shape is decorative.
+        auto doc = MakeObject<Document>(MyDir + u"Decorative shapes.docx");
+
+        auto shape = System::DynamicCast<Shape>(doc->GetChildNodes(NodeType::Shape, true)->idx_get(0));
+        ASSERT_TRUE(shape->get_IsDecorative());
+
+        // If "AlternativeText" is not empty, the shape cannot be decorative.
+        // That's why our value has changed to 'false'.
+        shape->set_AlternativeText(u"Alternative text.");
+        ASSERT_FALSE(shape->get_IsDecorative());
+
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->MoveToDocumentEnd();
+        // Create a new shape as decorative.
+        shape = builder->InsertShape(ShapeType::Rectangle, 100, 100);
+        shape->set_IsDecorative(true);
+
+        doc->Save(ArtifactsDir + u"Shape.IsDecorative.docx");
         //ExEnd
     }
 };

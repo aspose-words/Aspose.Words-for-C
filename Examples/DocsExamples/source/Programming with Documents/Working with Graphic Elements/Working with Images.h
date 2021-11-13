@@ -205,7 +205,7 @@ public:
         auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         double imagePpi = shape->get_ImageData()->get_ImageSize()->get_WidthPixels() / ConvertUtil::PointToInch(shape->get_SizeInPoints().get_Width());
 
-        System::Diagnostics::Debug::Assert(imagePpi < 150, u"Image was not resampled successfully.");
+        CODEPORTING_DEBUG_ASSERT2(imagePpi < 150, u"Image was not resampled successfully.");
     }
 
 protected:

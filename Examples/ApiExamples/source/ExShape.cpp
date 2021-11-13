@@ -145,6 +145,26 @@ TEST_F(ExShape, Fill)
     s_instance->Fill_();
 }
 
+TEST_F(ExShape, TextureFill)
+{
+    s_instance->TextureFill();
+}
+
+TEST_F(ExShape, GradientFill)
+{
+    s_instance->GradientFill();
+}
+
+TEST_F(ExShape, GradientStops)
+{
+    s_instance->GradientStops();
+}
+
+TEST_F(ExShape, FillPattern)
+{
+    s_instance->FillPattern();
+}
+
 TEST_F(ExShape, Title)
 {
     s_instance->Title();
@@ -504,6 +524,11 @@ TEST_F(ExShape, SkipMono_OfficeMathRenderer)
 TEST_F(ExShape, ShapeTypes)
 {
     s_instance->ShapeTypes();
+}
+
+TEST_F(ExShape, IsDecorative)
+{
+    s_instance->IsDecorative();
 }
 
 }} // namespace ApiExamples::gtest_test

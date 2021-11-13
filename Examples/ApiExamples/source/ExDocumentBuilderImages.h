@@ -391,6 +391,24 @@ public:
         ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 0.1);
         ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 0.1);
     }
+
+    void InsertGif()
+    {
+        //ExStart
+        //ExFor:DocumentBuilder.InsertImage(String)
+        //ExSummary:Shows how to insert gif image to the document.
+        auto builder = MakeObject<DocumentBuilder>();
+
+        // We can insert gif image using path or bytes array.
+        // It works only if DocumentBuilder optimized to Word version 2010 or higher.
+        // Note, that access to the image bytes causes conversion Gif to Png.
+        SharedPtr<Shape> gifImage = builder->InsertImage(ImageDir + u"Graphics Interchange Format.gif");
+
+        gifImage = builder->InsertImage(System::IO::File::ReadAllBytes(ImageDir + u"Graphics Interchange Format.gif"));
+
+        builder->get_Document()->Save(ArtifactsDir + u"InsertGif.docx");
+        //ExEnd
+    }
 };
 
 } // namespace ApiExamples

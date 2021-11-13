@@ -38,18 +38,18 @@ using System::SharedPtr;
 using System::String;
 
 namespace DocsExamples { namespace Complex_examples_and_helpers {
-class RenderedNoteSeparator;
+template <typename> class LayoutCollection;
+class RenderedCell;
+class RenderedColumn;
+class RenderedComment;
+class RenderedDocument;
 class RenderedEndnote;
 class RenderedFootnote;
-class RenderedCell;
-class RenderedComment;
-class RenderedColumn;
-class RenderedSpan;
-class RenderedRow;
 class RenderedLine;
+class RenderedNoteSeparator;
 class RenderedPage;
-template <typename> class LayoutCollection;
-class RenderedDocument;
+class RenderedRow;
+class RenderedSpan;
 }} // namespace DocsExamples::Complex_examples_and_helpers
 
 using namespace Aspose::Words;

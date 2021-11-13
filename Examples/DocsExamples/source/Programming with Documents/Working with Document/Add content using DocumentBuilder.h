@@ -112,6 +112,19 @@ public:
     };
 
 public:
+    void CreateNewDocument()
+    {
+        //ExStart:CreateNewDocument
+        auto doc = MakeObject<Document>();
+
+        // Use a document builder to add content to the document.
+        auto builder = MakeObject<DocumentBuilder>(doc);
+        builder->Writeln(u"Hello World!");
+
+        doc->Save(ArtifactsDir + u"AddContentUsingDocumentBuilder.CreateNewDocument.docx");
+        //ExEnd:CreateNewDocument
+    }
+
     void DocumentBuilderInsertBookmark()
     {
         //ExStart:DocumentBuilderInsertBookmark
@@ -122,7 +135,7 @@ public:
         builder->Writeln(u"This is just a fine bookmark.");
         builder->EndBookmark(u"FineBookmark");
 
-        doc->Save(ArtifactsDir + u"WorkingWithBookmarks.DocumentBuilderInsertBookmark.docx");
+        doc->Save(ArtifactsDir + u"AddContentUsingDocumentBuilder.DocumentBuilderInsertBookmark.docx");
         //ExEnd:DocumentBuilderInsertBookmark
     }
 

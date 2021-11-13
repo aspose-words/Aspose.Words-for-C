@@ -31,6 +31,7 @@
 #include <Aspose.Words.Cpp/Lists/ListCollection.h>
 #include <Aspose.Words.Cpp/Lists/ListFormat.h>
 #include <Aspose.Words.Cpp/Lists/ListTemplate.h>
+#include <Aspose.Words.Cpp/Loading/HtmlLoadOptions.h>
 #include <Aspose.Words.Cpp/PageSetup.h>
 #include <Aspose.Words.Cpp/PaperSize.h>
 #include <Aspose.Words.Cpp/Paragraph.h>
@@ -56,7 +57,6 @@
 #include <Aspose.Words.Cpp/StyleCollection.h>
 #include <Aspose.Words.Cpp/Tables/Cell.h>
 #include <Aspose.Words.Cpp/Tables/PreferredWidth.h>
-#include <Aspose.Words.Cpp/Loading/HtmlLoadOptions.h>
 #include <drawing/image.h>
 #include <drawing/rectangle_f.h>
 #include <drawing/size.h>
@@ -99,9 +99,9 @@ using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::Layout;
 using namespace Aspose::Words::Lists;
+using namespace Aspose::Words::Loading;
 using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Tables;
-using namespace Aspose::Words::Loading;
 
 namespace ApiExamples {
 
@@ -1444,6 +1444,7 @@ public:
         // if the MS Word version specified in load options supports SVG images natively.
         auto loadOptions = MakeObject<HtmlLoadOptions>();
         loadOptions->set_ConvertSvgToEmf(true);
+
         auto doc = MakeObject<Document>(MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(html)), loadOptions);
 
         // This document contains a <svg> element in the form of text.

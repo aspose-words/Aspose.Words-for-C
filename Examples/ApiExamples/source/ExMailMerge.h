@@ -6,6 +6,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include <cstdint>
+#include <Aspose.Words.Cpp/Body.h>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Fields/Field.h>
@@ -13,12 +14,15 @@
 #include <Aspose.Words.Cpp/Fields/FieldCollection.h>
 #include <Aspose.Words.Cpp/Fields/FieldGreetingLine.h>
 #include <Aspose.Words.Cpp/Fields/FieldMergeField.h>
+#include <Aspose.Words.Cpp/HtmlInsertOptions.h>
 #include <Aspose.Words.Cpp/MailMerging/MailMerge.h>
 #include <Aspose.Words.Cpp/MailMerging/MailMergeCleanupOptions.h>
 #include <Aspose.Words.Cpp/MailMerging/MailMergeRegionInfo.h>
 #include <Aspose.Words.Cpp/Paragraph.h>
+#include <Aspose.Words.Cpp/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Range.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Section.h>
 #include <system/array.h>
 #include <system/collections/ilist.h>
 #include <system/enum_helpers.h>
@@ -55,6 +59,7 @@ public:
         //ExFor:MailMerge.GetRegionsByName(System.String)
         //ExFor:MailMerge.RegionEndTag
         //ExFor:MailMerge.RegionStartTag
+        //ExFor:MailMergeRegionInfo.ParentRegion
         //ExSummary:Shows how to create, list, and read mail merge regions.
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -83,11 +88,11 @@ public:
         ASSERT_EQ(u"Column1", mergeFieldNames[0]);
         ASSERT_EQ(u"Column2", mergeFieldNames[1]);
 
-        // Insert a region with the same name as an existing region, which will make it a duplicate.
-        // Multiple mail merge regions cannot share a single row/paragraph.
-        builder->InsertParagraph();
+        // Insert a region with the same name inside the existing region, which will make it a parent.
+        // Now a "Column2" field will be inside a new region.
+        builder->MoveToField(regions->idx_get(0)->get_Fields()->idx_get(1), false);
         builder->InsertField(u" MERGEFIELD TableStart:MailMergeRegion1");
-        builder->InsertField(u" MERGEFIELD Column3");
+        builder->MoveToField(regions->idx_get(0)->get_Fields()->idx_get(1), true);
         builder->InsertField(u" MERGEFIELD TableEnd:MailMergeRegion1");
 
         // If we look up the name of duplicate regions using the "GetRegionsByName" method,
@@ -95,10 +100,12 @@ public:
         regions = doc->get_MailMerge()->GetRegionsByName(u"MailMergeRegion1");
 
         ASSERT_EQ(2, regions->get_Count());
+        // Check that the second region now has a parent region.
+        ASSERT_EQ(u"MailMergeRegion1", regions->idx_get(1)->get_ParentRegion()->get_Name());
 
         mergeFieldNames = doc->get_MailMerge()->GetFieldNamesForRegion(u"MailMergeRegion1", 1);
 
-        ASSERT_EQ(u"Column3", mergeFieldNames[0]);
+        ASSERT_EQ(u"Column2", mergeFieldNames[0]);
         //ExEnd
     }
 
@@ -291,6 +298,34 @@ public:
 
         doc->Save(ArtifactsDir + u"MailMerge.RestartListsAtEachSection.pdf");
         //ExEnd
+    }
+
+    void RemoveLastEmptyParagraph()
+    {
+        //ExStart
+        //ExFor:DocumentBuilder.InsertHtml(String, HtmlInsertOptions)
+        //ExSummary:Shows how to use options while inserting html.
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->InsertField(u" MERGEFIELD Name ");
+        builder->InsertParagraph();
+        builder->InsertField(u" MERGEFIELD EMAIL ");
+        builder->InsertParagraph();
+
+        // By default "DocumentBuilder.InsertHtml" inserts a HTML fragment that ends with a block-level HTML element,
+        // it normally closes that block-level element and inserts a paragraph break.
+        // As a result, a new empty paragraph appears after inserted document.
+        // If we specify "HtmlInsertOptions.RemoveLastEmptyParagraph", those extra empty paragraphs will be removed.
+        builder->MoveToMergeField(u"NAME");
+        builder->InsertHtml(u"<p>John Smith</p>", HtmlInsertOptions::UseBuilderFormatting | HtmlInsertOptions::RemoveLastEmptyParagraph);
+        builder->MoveToMergeField(u"EMAIL");
+        builder->InsertHtml(u"<p>jsmith@example.com</p>", HtmlInsertOptions::UseBuilderFormatting);
+
+        doc->Save(ArtifactsDir + u"MailMerge.RemoveLastEmptyParagraph.docx");
+        //ExEnd
+
+        ASSERT_EQ(4, doc->get_FirstSection()->get_Body()->get_Paragraphs()->get_Count());
     }
 };
 

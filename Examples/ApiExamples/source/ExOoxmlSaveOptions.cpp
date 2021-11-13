@@ -150,4 +150,9 @@ TEST_F(ExOoxmlSaveOptions, CheckFileSignatures)
     s_instance->CheckFileSignatures();
 }
 
+TEST_F(ExOoxmlSaveOptions, ExportGeneratorName)
+{
+    s_instance->ExportGeneratorName();
+}
+
 }} // namespace ApiExamples::gtest_test
