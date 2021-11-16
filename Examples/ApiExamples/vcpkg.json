@@ -4,7 +4,7 @@
   "dependencies": [
     {
       "name" : "aspose-words-cpp",
-      "version>=" : "21.11"
+      "version>=" : "21.11#2"
     }
   ],
   "builtin-baseline": "2169ab765b49cfc5cd7eddfc8ff3e579326776f8"
