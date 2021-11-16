@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.21.0 FATAL_ERROR)
 
-set(VCPKG_OVERLAY_TRIPLETS "custom-triplets")
+set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_CURRENT_SOURCE_DIR}/custom-triplets")
 
 project(ApiExamples CXX)
 
