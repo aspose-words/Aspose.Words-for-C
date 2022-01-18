@@ -53,6 +53,45 @@ public:
         doc->Save(ArtifactsDir + u"RemoveContent.RemovePageBreaks.docx");
     }
 
+    //ExStart:RemovePageBreaks
+    void RemovePageBreaks(SharedPtr<Document> doc)
+    {
+        SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
+
+        for (const auto& para : System::IterateOver<Paragraph>(paragraphs))
+        {
+            // If the paragraph has a page break before the set, then clear it.
+            if (para->get_ParagraphFormat()->get_PageBreakBefore())
+            {
+                para->get_ParagraphFormat()->set_PageBreakBefore(false);
+            }
+
+            // Check all runs in the paragraph for page breaks and remove them.
+            for (const auto& run : System::IterateOver<Aspose::Words::Run>(para->get_Runs()))
+            {
+                if (run->get_Text().Contains(ControlChar::PageBreak()))
+                {
+                    run->set_Text(run->get_Text().Replace(ControlChar::PageBreak(), String::Empty));
+                }
+            }
+        }
+    }
+    //ExEnd:RemovePageBreaks
+
+    //ExStart:RemoveSectionBreaks
+    void RemoveSectionBreaks(SharedPtr<Document> doc)
+    {
+        // Loop through all sections starting from the section that precedes the last one and moving to the first section.
+        for (int i = doc->get_Sections()->get_Count() - 2; i >= 0; i--)
+        {
+            // Copy the content of the current section to the beginning of the last section.
+            doc->get_LastSection()->PrependContent(doc->get_Sections()->idx_get(i));
+            // Remove the copied section.
+            doc->get_Sections()->idx_get(i)->Remove();
+        }
+    }
+    //ExEnd:RemoveSectionBreaks
+
     void RemoveFooters()
     {
         //ExStart:RemoveFooters
@@ -86,6 +125,7 @@ public:
         //ExEnd:RemoveFooters
     }
 
+    //ExStart:RemoveTOCFromDocument
     void RemoveToc()
     {
         auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
@@ -149,42 +189,7 @@ public:
             node->Remove();
         }
     }
-
-protected:
-    void RemovePageBreaks(SharedPtr<Document> doc)
-    {
-        SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
-
-        for (const auto& para : System::IterateOver<Paragraph>(paragraphs))
-        {
-            // If the paragraph has a page break before the set, then clear it.
-            if (para->get_ParagraphFormat()->get_PageBreakBefore())
-            {
-                para->get_ParagraphFormat()->set_PageBreakBefore(false);
-            }
-
-            // Check all runs in the paragraph for page breaks and remove them.
-            for (const auto& run : System::IterateOver<Aspose::Words::Run>(para->get_Runs()))
-            {
-                if (run->get_Text().Contains(ControlChar::PageBreak()))
-                {
-                    run->set_Text(run->get_Text().Replace(ControlChar::PageBreak(), String::Empty));
-                }
-            }
-        }
-    }
-
-    void RemoveSectionBreaks(SharedPtr<Document> doc)
-    {
-        // Loop through all sections starting from the section that precedes the last one and moving to the first section.
-        for (int i = doc->get_Sections()->get_Count() - 2; i >= 0; i--)
-        {
-            // Copy the content of the current section to the beginning of the last section.
-            doc->get_LastSection()->PrependContent(doc->get_Sections()->idx_get(i));
-            // Remove the copied section.
-            doc->get_Sections()->idx_get(i)->Remove();
-        }
-    }
+    //ExEnd:RemoveTOCFromDocument
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

@@ -55,7 +55,6 @@
 #include <system/io/path.h>
 #include <system/math.h>
 #include <system/primitive_types.h>
-#include <system/scope_guard.h>
 #include <system/text/string_builder.h>
 #include <xml/xml_attribute.h>
 #include <xml/xml_attribute_collection.h>
@@ -85,6 +84,44 @@ public:
     class CellInfo;
 
 public:
+    void RemoveColumn()
+    {
+        //ExStart:RemoveColumn
+        auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
+
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+
+        SharedPtr<WorkingWithTables::Column> column = WorkingWithTables::Column::FromIndex(table, 2);
+        column->Remove();
+        //ExEnd:RemoveColumn
+    }
+
+    void InsertBlankColumn()
+    {
+        //ExStart:InsertBlankColumn
+        auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
+
+        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+
+        //ExStart:GetPlainText
+        SharedPtr<WorkingWithTables::Column> column = WorkingWithTables::Column::FromIndex(table, 0);
+        // Print the plain text of the column to the screen.
+        std::cout << column->ToTxt() << std::endl;
+        //ExEnd:GetPlainText
+
+        // Create a new column to the left of this column.
+        // This is the same as using the "Insert Column Before" command in Microsoft Word.
+        SharedPtr<WorkingWithTables::Column> newColumn = column->InsertColumnBefore();
+
+        for (SharedPtr<Cell> cell : newColumn->get_Cells())
+        {
+            cell->get_FirstParagraph()->AppendChild(MakeObject<Run>(doc, String(u"Column Text ") + newColumn->IndexOf(cell)));
+        }
+
+        //ExEnd:InsertBlankColumn
+    }
+
+    //ExStart:ColumnClass
     /// <summary>
     /// Represents a facade object for a column of a table in a Microsoft Word document.
     /// </summary>
@@ -210,203 +247,7 @@ public:
             return columnCells;
         }
     };
-
-    /// <summary>
-    /// Helper class that contains collection of rowinfo for each row.
-    /// </summary>
-    class TableInfo : public System::Object
-    {
-    public:
-        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::RowInfo>>> get_Rows()
-        {
-            return mRows;
-        }
-
-        TableInfo() : mRows(MakeObject<System::Collections::Generic::List<SharedPtr<WorkingWithTables::RowInfo>>>())
-        {
-        }
-
-    private:
-        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::RowInfo>>> mRows;
-    };
-
-    /// <summary>
-    /// Helper class that contains collection of cellinfo for each cell.
-    /// </summary>
-    class RowInfo : public System::Object
-    {
-    public:
-        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::CellInfo>>> get_Cells()
-        {
-            return mCells;
-        }
-
-        RowInfo() : mCells(MakeObject<System::Collections::Generic::List<SharedPtr<WorkingWithTables::CellInfo>>>())
-        {
-        }
-
-    private:
-        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::CellInfo>>> mCells;
-    };
-
-    /// <summary>
-    /// Helper class that contains info about cell. currently here is only colspan and rowspan.
-    /// </summary>
-    class CellInfo : public System::Object
-    {
-    public:
-        int get_ColSpan()
-        {
-            return pr_ColSpan;
-        }
-
-        int get_RowSpan()
-        {
-            return pr_RowSpan;
-        }
-
-        CellInfo(int colSpan, int rowSpan) : pr_ColSpan(0), pr_RowSpan(0)
-        {
-            // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            System::Details::ThisProtector __local_self_ref(this);
-            //---------------------------------------------------------Self Reference
-
-            pr_ColSpan = colSpan;
-            pr_RowSpan = rowSpan;
-        }
-
-    private:
-        int pr_ColSpan;
-        int pr_RowSpan;
-    };
-
-    class SpanVisitor : public DocumentVisitor
-    {
-    public:
-        /// <summary>
-        /// Creates new SpanVisitor instance.
-        /// </summary>
-        /// <param name="doc">
-        /// Is document which we should parse.
-        /// </param>
-        SpanVisitor(SharedPtr<Document> doc) : mTables(MakeObject<System::Collections::Generic::List<SharedPtr<WorkingWithTables::TableInfo>>>())
-        {
-            // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            System::Details::ThisProtector __local_self_ref(this);
-            //---------------------------------------------------------Self Reference
-
-            mWordTables = doc->GetChildNodes(NodeType::Table, true);
-
-            // We will parse HTML to determine the rowspan and colspan of each cell.
-            auto htmlStream = MakeObject<System::IO::MemoryStream>();
-
-            auto options = MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-            options->set_ImagesFolder(System::IO::Path::GetTempPath());
-
-            doc->Save(htmlStream, options);
-
-            // Load HTML into the XML document.
-            auto xmlDoc = MakeObject<System::Xml::XmlDocument>();
-            htmlStream->set_Position(0);
-            xmlDoc->Load(htmlStream);
-
-            // Get collection of tables in the HTML document.
-            SharedPtr<System::Xml::XmlNodeList> tables = xmlDoc->get_DocumentElement()->GetElementsByTagName(u"table");
-
-            for (const auto& table : System::IterateOver(tables))
-            {
-                auto tableInf = MakeObject<WorkingWithTables::TableInfo>();
-                // Get collection of rows in the table.
-                SharedPtr<System::Xml::XmlNodeList> rows = table->SelectNodes(u"tr");
-
-                for (const auto& row : System::IterateOver(rows))
-                {
-                    auto rowInf = MakeObject<WorkingWithTables::RowInfo>();
-                    // Get collection of cells.
-                    SharedPtr<System::Xml::XmlNodeList> cells = row->SelectNodes(u"td");
-
-                    for (const auto& cell : System::IterateOver(cells))
-                    {
-                        // Determine row span and colspan of the current cell.
-                        SharedPtr<System::Xml::XmlAttribute> colSpanAttr = cell->get_Attributes()->idx_get(u"colspan");
-                        SharedPtr<System::Xml::XmlAttribute> rowSpanAttr = cell->get_Attributes()->idx_get(u"rowspan");
-
-                        int colSpan = colSpanAttr == nullptr ? 0 : System::Int32::Parse(colSpanAttr->get_Value());
-                        int rowSpan = rowSpanAttr == nullptr ? 0 : System::Int32::Parse(rowSpanAttr->get_Value());
-
-                        auto cellInf = MakeObject<WorkingWithTables::CellInfo>(colSpan, rowSpan);
-                        rowInf->get_Cells()->Add(cellInf);
-                    }
-
-                    tableInf->get_Rows()->Add(rowInf);
-                }
-
-                mTables->Add(tableInf);
-            }
-        }
-
-        VisitorAction VisitCellStart(SharedPtr<Cell> cell) override
-        {
-            int tabIdx = mWordTables->IndexOf(cell->get_ParentRow()->get_ParentTable());
-            int rowIdx = cell->get_ParentRow()->get_ParentTable()->IndexOf(cell->get_ParentRow());
-            int cellIdx = cell->get_ParentRow()->IndexOf(cell);
-
-            int colSpan = 0;
-            int rowSpan = 0;
-            if (tabIdx < mTables->get_Count() && rowIdx < mTables->idx_get(tabIdx)->get_Rows()->get_Count() &&
-                cellIdx < mTables->idx_get(tabIdx)->get_Rows()->idx_get(rowIdx)->get_Cells()->get_Count())
-            {
-                colSpan = mTables->idx_get(tabIdx)->get_Rows()->idx_get(rowIdx)->get_Cells()->idx_get(cellIdx)->get_ColSpan();
-                rowSpan = mTables->idx_get(tabIdx)->get_Rows()->idx_get(rowIdx)->get_Cells()->idx_get(cellIdx)->get_RowSpan();
-            }
-
-            std::cout << tabIdx << "." << rowIdx << "." << cellIdx << " colspan=" << colSpan << "\t rowspan=" << rowSpan << std::endl;
-
-            return VisitorAction::Continue;
-        }
-
-    private:
-        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::TableInfo>>> mTables;
-        SharedPtr<NodeCollection> mWordTables;
-    };
-
-public:
-    void RemoveColumn()
-    {
-        //ExStart:RemoveColumn
-        auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
-
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
-
-        SharedPtr<WorkingWithTables::Column> column = WorkingWithTables::Column::FromIndex(table, 2);
-        column->Remove();
-        //ExEnd:RemoveColumn
-    }
-
-    void InsertBlankColumn()
-    {
-        //ExStart:InsertBlankColumn
-        auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
-
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
-
-        //ExStart:GetPlainText
-        SharedPtr<WorkingWithTables::Column> column = WorkingWithTables::Column::FromIndex(table, 0);
-        // Print the plain text of the column to the screen.
-        std::cout << column->ToTxt() << std::endl;
-        //ExEnd:GetPlainText
-
-        // Create a new column to the left of this column.
-        // This is the same as using the "Insert Column Before" command in Microsoft Word.
-        SharedPtr<WorkingWithTables::Column> newColumn = column->InsertColumnBefore();
-
-        for (SharedPtr<Cell> cell : newColumn->get_Cells())
-        {
-            cell->get_FirstParagraph()->AppendChild(MakeObject<Run>(doc, String(u"Column Text ") + newColumn->IndexOf(cell)));
-        }
-
-        //ExEnd:InsertBlankColumn
-    }
+    //ExEnd:ColumnClass
 
     void AutoFitTableToContents()
     {
@@ -814,6 +655,7 @@ public:
         //ExEnd:CheckCellsMerged
     }
 
+    //ExStart:PrintCellMergeType
     String PrintCellMergeType(SharedPtr<Cell> cell)
     {
         bool isHorizontallyMerged = cell->get_CellFormat()->get_HorizontalMerge() != CellMerge::None;
@@ -839,6 +681,7 @@ public:
 
         return String::Format(u"The cell at {0} is not merged", cellLocation);
     }
+    //ExEnd:PrintCellMergeType
 
     void VerticalMerge()
     {
@@ -936,6 +779,7 @@ public:
         //ExEnd:ConvertToHorizontallyMergedCells
     }
 
+    //ExStart:MergeCells
     void MergeCells(SharedPtr<Cell> startCell, SharedPtr<Cell> endCell)
     {
         SharedPtr<Table> parentTable = startCell->get_ParentRow()->get_ParentTable();
@@ -966,6 +810,160 @@ public:
             }
         }
     }
+    //ExEnd:MergeCells
+
+    //ExStart:HorizontalAndVerticalMergeHelperClasses
+    /// <summary>
+    /// Helper class that contains collection of rowinfo for each row.
+    /// </summary>
+    class TableInfo : public System::Object
+    {
+    public:
+        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::RowInfo>>> get_Rows()
+        {
+            return mRows;
+        }
+
+        TableInfo() : mRows(MakeObject<System::Collections::Generic::List<SharedPtr<WorkingWithTables::RowInfo>>>())
+        {
+        }
+
+    private:
+        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::RowInfo>>> mRows;
+    };
+
+    /// <summary>
+    /// Helper class that contains collection of cellinfo for each cell.
+    /// </summary>
+    class RowInfo : public System::Object
+    {
+    public:
+        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::CellInfo>>> get_Cells()
+        {
+            return mCells;
+        }
+
+        RowInfo() : mCells(MakeObject<System::Collections::Generic::List<SharedPtr<WorkingWithTables::CellInfo>>>())
+        {
+        }
+
+    private:
+        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::CellInfo>>> mCells;
+    };
+
+    /// <summary>
+    /// Helper class that contains info about cell. currently here is only colspan and rowspan.
+    /// </summary>
+    class CellInfo : public System::Object
+    {
+    public:
+        int get_ColSpan()
+        {
+            return pr_ColSpan;
+        }
+
+        int get_RowSpan()
+        {
+            return pr_RowSpan;
+        }
+
+        CellInfo(int colSpan, int rowSpan) : pr_ColSpan(0), pr_RowSpan(0)
+        {
+            pr_ColSpan = colSpan;
+            pr_RowSpan = rowSpan;
+        }
+
+    private:
+        int pr_ColSpan;
+        int pr_RowSpan;
+    };
+
+    class SpanVisitor : public DocumentVisitor
+    {
+    public:
+        /// <summary>
+        /// Creates new SpanVisitor instance.
+        /// </summary>
+        /// <param name="doc">
+        /// Is document which we should parse.
+        /// </param>
+        SpanVisitor(SharedPtr<Document> doc) : mTables(MakeObject<System::Collections::Generic::List<SharedPtr<WorkingWithTables::TableInfo>>>())
+        {
+            mWordTables = doc->GetChildNodes(NodeType::Table, true);
+
+            // We will parse HTML to determine the rowspan and colspan of each cell.
+            auto htmlStream = MakeObject<System::IO::MemoryStream>();
+
+            auto options = MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
+            options->set_ImagesFolder(System::IO::Path::GetTempPath());
+
+            doc->Save(htmlStream, options);
+
+            // Load HTML into the XML document.
+            auto xmlDoc = MakeObject<System::Xml::XmlDocument>();
+            htmlStream->set_Position(0);
+            xmlDoc->Load(htmlStream);
+
+            // Get collection of tables in the HTML document.
+            SharedPtr<System::Xml::XmlNodeList> tables = xmlDoc->get_DocumentElement()->GetElementsByTagName(u"table");
+
+            for (const auto& table : System::IterateOver(tables))
+            {
+                auto tableInf = MakeObject<WorkingWithTables::TableInfo>();
+                // Get collection of rows in the table.
+                SharedPtr<System::Xml::XmlNodeList> rows = table->SelectNodes(u"tr");
+
+                for (const auto& row : System::IterateOver(rows))
+                {
+                    auto rowInf = MakeObject<WorkingWithTables::RowInfo>();
+                    // Get collection of cells.
+                    SharedPtr<System::Xml::XmlNodeList> cells = row->SelectNodes(u"td");
+
+                    for (const auto& cell : System::IterateOver(cells))
+                    {
+                        // Determine row span and colspan of the current cell.
+                        SharedPtr<System::Xml::XmlAttribute> colSpanAttr = cell->get_Attributes()->idx_get(u"colspan");
+                        SharedPtr<System::Xml::XmlAttribute> rowSpanAttr = cell->get_Attributes()->idx_get(u"rowspan");
+
+                        int colSpan = colSpanAttr == nullptr ? 0 : System::Int32::Parse(colSpanAttr->get_Value());
+                        int rowSpan = rowSpanAttr == nullptr ? 0 : System::Int32::Parse(rowSpanAttr->get_Value());
+
+                        auto cellInf = MakeObject<WorkingWithTables::CellInfo>(colSpan, rowSpan);
+                        rowInf->get_Cells()->Add(cellInf);
+                    }
+
+                    tableInf->get_Rows()->Add(rowInf);
+                }
+
+                mTables->Add(tableInf);
+            }
+        }
+
+        VisitorAction VisitCellStart(SharedPtr<Cell> cell) override
+        {
+            int tabIdx = mWordTables->IndexOf(cell->get_ParentRow()->get_ParentTable());
+            int rowIdx = cell->get_ParentRow()->get_ParentTable()->IndexOf(cell->get_ParentRow());
+            int cellIdx = cell->get_ParentRow()->IndexOf(cell);
+
+            int colSpan = 0;
+            int rowSpan = 0;
+            if (tabIdx < mTables->get_Count() && rowIdx < mTables->idx_get(tabIdx)->get_Rows()->get_Count() &&
+                cellIdx < mTables->idx_get(tabIdx)->get_Rows()->idx_get(rowIdx)->get_Cells()->get_Count())
+            {
+                colSpan = mTables->idx_get(tabIdx)->get_Rows()->idx_get(rowIdx)->get_Cells()->idx_get(cellIdx)->get_ColSpan();
+                rowSpan = mTables->idx_get(tabIdx)->get_Rows()->idx_get(rowIdx)->get_Cells()->idx_get(cellIdx)->get_RowSpan();
+            }
+
+            std::cout << tabIdx << "." << rowIdx << "." << cellIdx << " colspan=" << colSpan << "\t rowspan=" << rowSpan << std::endl;
+
+            return VisitorAction::Continue;
+        }
+
+    private:
+        SharedPtr<System::Collections::Generic::List<SharedPtr<WorkingWithTables::TableInfo>>> mTables;
+        SharedPtr<NodeCollection> mWordTables;
+    };
+    //ExEnd:HorizontalAndVerticalMergeHelperClasses
 
     void RepeatRowsOnSubsequentPages()
     {

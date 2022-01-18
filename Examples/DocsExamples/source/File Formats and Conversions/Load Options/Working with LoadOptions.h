@@ -44,60 +44,6 @@ namespace DocsExamples { namespace File_Formats_and_Conversions { namespace Load
 class WorkingWithLoadOptions : public DocsExamplesBase
 {
 public:
-    class DocumentLoadingWarningCallback : public IWarningCallback
-    {
-    public:
-        void Warning(SharedPtr<WarningInfo> info) override
-        {
-            // Prints warnings and their details as they arise during document loading.
-            std::cout << String::Format(u"WARNING: {0}, source: {1}", info->get_WarningType(), info->get_Source()) << std::endl;
-            std::cout << "\tDescription: " << info->get_Description() << std::endl;
-        }
-    };
-
-private:
-    class HtmlLinkedResourceLoadingCallback : public IResourceLoadingCallback
-    {
-    public:
-        ResourceLoadingAction ResourceLoading(SharedPtr<ResourceLoadingArgs> args) override
-        {
-            switch (args->get_ResourceType())
-            {
-            case ResourceType::CssStyleSheet: {
-                std::cout << "External CSS Stylesheet found upon loading: " << args->get_OriginalUri() << std::endl;
-
-                // CSS file will don't used in the document.
-                return ResourceLoadingAction::Skip;
-            }
-
-            case ResourceType::Image: {
-                // Replaces all images with a substitute.
-                SharedPtr<System::Drawing::Image> newImage = System::Drawing::Image::FromFile(ImagesDir + u"Logo.jpg");
-
-                auto converter = MakeObject<System::Drawing::ImageConverter>();
-                ArrayPtr<uint8_t> imageBytes =
-                    System::DynamicCast<System::Array<uint8_t>>(converter->ConvertTo(newImage, System::ObjectExt::GetType<System::Array<uint8_t>>()));
-
-                args->SetData(imageBytes);
-
-                // New images will be used instead of presented in the document.
-                return ResourceLoadingAction::UserProvided;
-            }
-
-            case ResourceType::Document: {
-                std::cout << "External document found upon loading: " << args->get_OriginalUri() << std::endl;
-
-                // Will be used as usual.
-                return ResourceLoadingAction::Default;
-            }
-
-            default:
-                throw System::InvalidOperationException(u"Unexpected ResourceType value.");
-            }
-        }
-    };
-
-public:
     void UpdateDirtyFields()
     {
         //ExStart:UpdateDirtyFields
@@ -167,6 +113,19 @@ public:
         //ExEnd:WarningCallback
     }
 
+    //ExStart:DocumentLoadingWarningCallback
+    class DocumentLoadingWarningCallback : public IWarningCallback
+    {
+    public:
+        void Warning(SharedPtr<WarningInfo> info) override
+        {
+            // Prints warnings and their details as they arise during document loading.
+            std::cout << String::Format(u"WARNING: {0}, source: {1}", info->get_WarningType(), info->get_Source()) << std::endl;
+            std::cout << "\tDescription: " << info->get_Description() << std::endl;
+        }
+    };
+    //ExEnd:DocumentLoadingWarningCallback
+
     void ResourceLoadingCallback()
     {
         //ExStart:ResourceLoadingCallback
@@ -180,6 +139,49 @@ public:
         doc->Save(ArtifactsDir + u"WorkingWithLoadOptions.ResourceLoadingCallback.pdf");
         //ExEnd:ResourceLoadingCallback
     }
+
+    //ExStart:HtmlLinkedResourceLoadingCallback
+    class HtmlLinkedResourceLoadingCallback : public IResourceLoadingCallback
+    {
+    public:
+        ResourceLoadingAction ResourceLoading(SharedPtr<ResourceLoadingArgs> args) override
+        {
+            switch (args->get_ResourceType())
+            {
+            case ResourceType::CssStyleSheet: {
+                std::cout << "External CSS Stylesheet found upon loading: " << args->get_OriginalUri() << std::endl;
+
+                // CSS file will don't used in the document.
+                return ResourceLoadingAction::Skip;
+            }
+
+            case ResourceType::Image: {
+                // Replaces all images with a substitute.
+                SharedPtr<System::Drawing::Image> newImage = System::Drawing::Image::FromFile(ImagesDir + u"Logo.jpg");
+
+                auto converter = MakeObject<System::Drawing::ImageConverter>();
+                ArrayPtr<uint8_t> imageBytes =
+                    System::DynamicCast<System::Array<uint8_t>>(converter->ConvertTo(newImage, System::ObjectExt::GetType<System::Array<uint8_t>>()));
+
+                args->SetData(imageBytes);
+
+                // New images will be used instead of presented in the document.
+                return ResourceLoadingAction::UserProvided;
+            }
+
+            case ResourceType::Document: {
+                std::cout << "External document found upon loading: " << args->get_OriginalUri() << std::endl;
+
+                // Will be used as usual.
+                return ResourceLoadingAction::Default;
+            }
+
+            default:
+                throw System::InvalidOperationException(u"Unexpected ResourceType value.");
+            }
+        }
+    };
+    //ExEnd:HtmlLinkedResourceLoadingCallback
 
     void LoadWithEncoding()
     {

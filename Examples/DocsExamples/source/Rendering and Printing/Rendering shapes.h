@@ -98,6 +98,7 @@ public:
         //ExEnd:RenderShapeAsJpeg
     }
 
+    //ExStart:RenderShapeToGraphics
     void RenderShapeToGraphics()
     {
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
@@ -136,6 +137,7 @@ public:
             image->Save(ArtifactsDir + u"RenderShape.RenderShapeToGraphics.png", System::Drawing::Imaging::ImageFormat::get_Png());
         }
     }
+    //ExEnd:RenderShapeToGraphics
 
     void RenderCellToImage()
     {
@@ -188,7 +190,8 @@ public:
             auto image = MakeObject<System::Drawing::Bitmap>(shapeRenderedSize.get_Width(), shapeRenderedSize.get_Height());
             {
                 SharedPtr<System::Drawing::Graphics> graphics = System::Drawing::Graphics::FromImage(image);
-                // Render shape onto the graphics object using the RenderToScale or RenderToSize methods of ShapeRenderer class.
+                // Render shape onto the graphics object using the RenderToScale
+                // or RenderToSize methods of ShapeRenderer class.
             }
         }
         //ExEnd:FindShapeSizes

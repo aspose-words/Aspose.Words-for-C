@@ -10,7 +10,6 @@
 #include <system/enumerator_adapter.h>
 #include <system/environment.h>
 #include <system/exceptions.h>
-#include <system/scope_guard.h>
 #include <system/text/string_builder.h>
 
 using namespace Aspose::Words;
@@ -262,10 +261,6 @@ System::SharedPtr<LayoutCollection<System::SharedPtr<RenderedPage>>> RenderedDoc
 RenderedDocument::RenderedDocument(System::SharedPtr<Document> doc)
     : mLayoutToNodeLookup(System::MakeObject<System::Collections::Generic::Dictionary<System::SharedPtr<System::Object>, System::SharedPtr<Node>>>())
 {
-    // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    System::Details::ThisProtector __local_self_ref(this);
-    //---------------------------------------------------------Self Reference
-
     mLayoutCollector = System::MakeObject<LayoutCollector>(doc);
     mEnumerator = System::MakeObject<LayoutEnumerator>(doc);
 
@@ -441,10 +436,6 @@ RenderedSpan::RenderedSpan()
 
 RenderedSpan::RenderedSpan(System::String text)
 {
-    // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    System::Details::ThisProtector __local_self_ref(this);
-    //---------------------------------------------------------Self Reference
-
     // Assign empty text if the span text is null (this can happen with shape spans).
     pr_Text = text != nullptr ? text : System::String::Empty;
 }

@@ -146,7 +146,7 @@ public:
         //ExEnd:CreateHeaderFooterUsingDocBuilder
     }
 
-protected:
+    //ExStart:CopyHeadersFootersFromPreviousSection
     /// <summary>
     /// Clones and copies headers/footers form the previous section to the specified section.
     /// </summary>
@@ -166,6 +166,7 @@ protected:
             section->get_HeadersFooters()->Add((System::StaticCast<Node>(headerFooter))->Clone(true));
         }
     }
+    //ExEnd:CopyHeadersFootersFromPreviousSection
 };
 
 }} // namespace DocsExamples::Programming_with_Documents

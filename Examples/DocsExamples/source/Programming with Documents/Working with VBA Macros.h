@@ -130,8 +130,7 @@ public:
         doc->Save(ArtifactsDir + u"WorkingWithVba.RemoveBrokenRef.docm");
         //ExEnd:RemoveReferenceFromCollectionOfReferences
     }
-
-protected:
+    //ExStart:GetLibIdAndReferencePath
     /// <summary>
     /// Returns string representing LibId path of a specified reference.
     /// </summary>
@@ -182,6 +181,7 @@ protected:
     {
         return (libIdProject != nullptr) ? libIdProject.Substring(3) : u"";
     }
+    //ExEnd:GetLibIdAndReferencePath
 };
 
 }} // namespace DocsExamples::Programming_with_Documents

@@ -28,6 +28,7 @@ namespace DocsExamples { namespace Mail_Merge_and_Reporting {
 
 class WorkingWithCleanupOptions : public DocsExamplesBase
 {
+
 public:
     void CleanupParagraphsWithPunctuationMarks()
     {

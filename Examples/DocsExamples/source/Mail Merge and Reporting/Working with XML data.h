@@ -6,7 +6,6 @@
 #include <system/collections/ienumerator_ng.h>
 #include <system/object_ext.h>
 #include <system/reflection/property_info.h>
-#include <system/scope_guard.h>
 #include <system/type_info.h>
 
 #include "DocsExamplesBase.h"
@@ -24,6 +23,7 @@ namespace DocsExamples { namespace Mail_Merge_and_Reporting {
 
 class WorkingWithXmlData : public DocsExamplesBase
 {
+
 public:
     /// <summary>
     /// Aspose.Words do not accept LINQ queries as input for mail merge directly
@@ -53,10 +53,6 @@ public:
         //ExStart:MyMailMergeDataSourceConstructor
         MyMailMergeDataSource(SharedPtr<System::Collections::IEnumerable> data)
         {
-            // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            System::Details::ThisProtector __local_self_ref(this);
-            //---------------------------------------------------------Self Reference
-
             mEnumerator = data->GetEnumerator();
         }
 
@@ -69,10 +65,6 @@ public:
         //ExStart:MyMailMergeDataSourceConstructorWithDataTable
         MyMailMergeDataSource(SharedPtr<System::Collections::IEnumerable> data, String tableName)
         {
-            // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            System::Details::ThisProtector __local_self_ref(this);
-            //---------------------------------------------------------Self Reference
-
             mEnumerator = data->GetEnumerator();
             pr_TableName = tableName;
         }

@@ -74,7 +74,7 @@ void TestUtil::ImageContainsTransparency(System::String filename)
         }
     }
 
-    FAIL() << (System::String::Format(u"The image from \"{0}\" does not contain any transparency.", filename)).ToUtf8String();
+    FAIL() << (System::String::Format(u"The image from \"{0}\" does not contain any transparency.", filename));
 }
 
 void TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode expectedHttpStatusCode, System::String webAddress)
@@ -143,8 +143,7 @@ void TestUtil::MailMergeMatchesArray(System::ArrayPtr<System::ArrayPtr<System::S
         FAIL() << (System::String::Format(u"String \"{0}\" not found in {1}.", e->get_Message(),
                                           (doc->get_OriginalFileName() == nullptr
                                                ? u"a virtual document"
-                                               : doc->get_OriginalFileName().Split(System::MakeArray<char16_t>({u'\\'}))->LINQ_Last())))
-                      .ToUtf8String();
+                                               : doc->get_OriginalFileName().Split(System::MakeArray<char16_t>({u'\\'}))->LINQ_Last())));
     }
 }
 
@@ -182,8 +181,7 @@ void TestUtil::StreamContainsString(System::String expected, System::SharedPtr<S
     }
 
     FAIL() << (System::String::Format(u"String \"{0}\" not found in the provided source.",
-                                      (expected.get_Length() <= 100 ? expected : expected.Substring(0, 100) + u"...")))
-                  .ToUtf8String();
+                                      (expected.get_Length() <= 100 ? expected : expected.Substring(0, 100) + u"...")));
 }
 
 void TestUtil::VerifyField(FieldType expectedType, System::String expectedFieldCode, System::String expectedResult, System::SharedPtr<Field> field)

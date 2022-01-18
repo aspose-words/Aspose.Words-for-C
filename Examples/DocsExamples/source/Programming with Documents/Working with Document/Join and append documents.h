@@ -145,6 +145,7 @@ public:
         //ExEnd:ConvertNumPageFields
     }
 
+    //ExStart:ConvertNumPageFieldsToPageRef
     void ConvertNumPageFieldsToPageRef(SharedPtr<Document> doc)
     {
         // This is the prefix for each bookmark, which signals where page numbering restarts.
@@ -237,6 +238,45 @@ public:
             }
         }
     }
+    //ExEnd:ConvertNumPageFieldsToPageRef
+
+    //ExStart:GetRemoveField
+    void RemoveField(SharedPtr<FieldStart> fieldStart)
+    {
+        bool isRemoving = true;
+
+        SharedPtr<Node> currentNode = fieldStart;
+        while (currentNode != nullptr && isRemoving)
+        {
+            if (currentNode->get_NodeType() == NodeType::FieldEnd)
+            {
+                isRemoving = false;
+            }
+
+            SharedPtr<Node> nextNode = currentNode->NextPreOrder(currentNode->get_Document());
+            currentNode->Remove();
+            currentNode = nextNode;
+        }
+    }
+
+    String GetFieldCode(SharedPtr<FieldStart> fieldStart)
+    {
+        auto builder = MakeObject<System::Text::StringBuilder>();
+
+        for (SharedPtr<Node> node = fieldStart;
+             node != nullptr && node->get_NodeType() != NodeType::FieldSeparator && node->get_NodeType() != NodeType::FieldEnd;
+             node = node->NextPreOrder(node->get_Document()))
+        {
+            // Use text only of Run nodes to avoid duplication.
+            if (node->get_NodeType() == NodeType::Run)
+            {
+                builder->Append(node->GetText());
+            }
+        }
+
+        return builder->ToString();
+    }
+    //ExEnd:GetRemoveField
 
     void DifferentPageSetup()
     {
@@ -600,43 +640,6 @@ public:
 
         dstDoc->Save(ArtifactsDir + u"JoinAndAppendDocuments.UnlinkHeadersFooters.docx");
         //ExEnd:UnlinkHeadersFooters
-    }
-
-protected:
-    void RemoveField(SharedPtr<FieldStart> fieldStart)
-    {
-        bool isRemoving = true;
-
-        SharedPtr<Node> currentNode = fieldStart;
-        while (currentNode != nullptr && isRemoving)
-        {
-            if (currentNode->get_NodeType() == NodeType::FieldEnd)
-            {
-                isRemoving = false;
-            }
-
-            SharedPtr<Node> nextNode = currentNode->NextPreOrder(currentNode->get_Document());
-            currentNode->Remove();
-            currentNode = nextNode;
-        }
-    }
-
-    String GetFieldCode(SharedPtr<FieldStart> fieldStart)
-    {
-        auto builder = MakeObject<System::Text::StringBuilder>();
-
-        for (SharedPtr<Node> node = fieldStart;
-             node != nullptr && node->get_NodeType() != NodeType::FieldSeparator && node->get_NodeType() != NodeType::FieldEnd;
-             node = node->NextPreOrder(node->get_Document()))
-        {
-            // Use text only of Run nodes to avoid duplication.
-            if (node->get_NodeType() == NodeType::Run)
-            {
-                builder->Append(node->GetText());
-            }
-        }
-
-        return builder->ToString();
     }
 };
 

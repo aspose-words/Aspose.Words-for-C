@@ -52,95 +52,6 @@ namespace DocsExamples { namespace Programming_with_Documents { namespace Workin
 
 class CloneAndCombineDocuments : public DocsExamplesBase
 {
-private:
-    class InsertDocumentAtMailMergeHandler : public IFieldMergingCallback
-    {
-    private:
-        void FieldMerging(SharedPtr<FieldMergingArgs> args) override
-        {
-            if (args->get_DocumentFieldName() == u"Document_1")
-            {
-                // Use document builder to navigate to the merge field with the specified name.
-                auto builder = MakeObject<DocumentBuilder>(args->get_Document());
-                builder->MoveToMergeField(args->get_DocumentFieldName());
-
-                // The name of the document to load and insert is stored in the field value.
-                auto subDoc = MakeObject<Document>(System::ObjectExt::Unbox<String>(args->get_FieldValue()));
-
-                InsertDocument(builder->get_CurrentParagraph(), subDoc);
-
-                // The paragraph that contained the merge field might be empty now, and you probably want to delete it.
-                if (!builder->get_CurrentParagraph()->get_HasChildNodes())
-                {
-                    builder->get_CurrentParagraph()->Remove();
-                }
-
-                // Indicate to the mail merge engine that we have inserted what we wanted.
-                args->set_Text(nullptr);
-            }
-        }
-
-        void ImageFieldMerging(SharedPtr<ImageFieldMergingArgs> args) override
-        {
-            ASPOSE_UNUSED(args);
-            // Do nothing.
-        }
-    };
-
-    class InsertDocumentAtMailMergeBlobHandler : public IFieldMergingCallback
-    {
-    private:
-        /// <summary>
-        /// This handler makes special processing for the "Document_1" field.
-        /// The field value contains the path to load the document.
-        /// We load the document and insert it into the current merge field.
-        /// </summary>
-        void FieldMerging(SharedPtr<FieldMergingArgs> e) override
-        {
-            if (e->get_DocumentFieldName() == u"Document_1")
-            {
-                auto builder = MakeObject<DocumentBuilder>(e->get_Document());
-                builder->MoveToMergeField(e->get_DocumentFieldName());
-
-                auto stream = MakeObject<System::IO::MemoryStream>(System::DynamicCast<System::Array<uint8_t>>(e->get_FieldValue()));
-                auto subDoc = MakeObject<Document>(stream);
-
-                InsertDocument(builder->get_CurrentParagraph(), subDoc);
-
-                // The paragraph that contained the merge field might be empty now, and you probably want to delete it.
-                if (!builder->get_CurrentParagraph()->get_HasChildNodes())
-                {
-                    builder->get_CurrentParagraph()->Remove();
-                }
-
-                e->set_Text(nullptr);
-            }
-        }
-
-        void ImageFieldMerging(SharedPtr<ImageFieldMergingArgs> args) override
-        {
-            ASPOSE_UNUSED(args);
-            // Do nothing.
-        }
-    };
-
-    class InsertDocumentAtReplaceHandler : public IReplacingCallback
-    {
-    private:
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
-        {
-            auto subDoc = MakeObject<Document>(MyDir + u"Document insertion 2.docx");
-
-            // Insert a document after the paragraph, containing the match text.
-            auto para = System::DynamicCast<Paragraph>(args->get_MatchNode()->get_ParentNode());
-            InsertDocument(para, subDoc);
-
-            // Remove the paragraph with the match text.
-            para->Remove();
-            return ReplaceAction::Skip;
-        }
-    };
-
 public:
     void CloningDocument()
     {
@@ -197,7 +108,6 @@ public:
         //ExEnd:InsertDocumentAtMailMerge
     }
 
-protected:
     /// <summary>
     /// Inserts content of the external document after the specified node.
     /// Section breaks and section formatting of the inserted document are ignored.
@@ -241,8 +151,9 @@ protected:
             throw System::ArgumentException(u"The destination node should be either a paragraph or table.");
         }
     }
+    //ExEnd:InsertDocument
 
-private:
+    //ExStart:InsertDocumentWithSectionFormatting
     /// <summary>
     /// Inserts content of the external document after the specified node.
     /// </summary>
@@ -262,7 +173,7 @@ private:
         auto currentSection = System::DynamicCast<Section>(insertAfterNode->GetAncestor(NodeType::Section));
 
         // Don't clone the content inside the section, we just want the properties of the section retained.
-        auto cloneSection = System::DynamicCast<Section>(System::StaticCast<Aspose::Words::Node>(currentSection)->Clone(false));
+        auto cloneSection = System::DynamicCast<Section>(currentSection->Clone(false));
 
         // However, make sure the clone section has a body but no empty first paragraph.
         cloneSection->EnsureMinimum();
@@ -291,6 +202,101 @@ private:
             currentSection = System::DynamicCast<Section>(newNode);
         }
     }
+    //ExEnd:InsertDocumentWithSectionFormatting
+
+    //ExStart:InsertDocumentAtMailMergeHandler
+    class InsertDocumentAtMailMergeHandler : public IFieldMergingCallback
+    {
+    private:
+        void FieldMerging(SharedPtr<FieldMergingArgs> args) override
+        {
+            if (args->get_DocumentFieldName() == u"Document_1")
+            {
+                // Use document builder to navigate to the merge field with the specified name.
+                auto builder = MakeObject<DocumentBuilder>(args->get_Document());
+                builder->MoveToMergeField(args->get_DocumentFieldName());
+
+                // The name of the document to load and insert is stored in the field value.
+                auto subDoc = MakeObject<Document>(System::ObjectExt::Unbox<String>(args->get_FieldValue()));
+
+                InsertDocument(builder->get_CurrentParagraph(), subDoc);
+
+                // The paragraph that contained the merge field might be empty now, and you probably want to delete it.
+                if (!builder->get_CurrentParagraph()->get_HasChildNodes())
+                {
+                    builder->get_CurrentParagraph()->Remove();
+                }
+
+                // Indicate to the mail merge engine that we have inserted what we wanted.
+                args->set_Text(nullptr);
+            }
+        }
+
+        void ImageFieldMerging(SharedPtr<ImageFieldMergingArgs> args) override
+        {
+            ASPOSE_UNUSED(args);
+            // Do nothing.
+        }
+    };
+    //ExEnd:InsertDocumentAtMailMergeHandler
+
+    //ExStart:InsertDocumentAtMailMergeBlobHandler
+    class InsertDocumentAtMailMergeBlobHandler : public IFieldMergingCallback
+    {
+    private:
+        /// <summary>
+        /// This handler makes special processing for the "Document_1" field.
+        /// The field value contains the path to load the document.
+        /// We load the document and insert it into the current merge field.
+        /// </summary>
+        void FieldMerging(SharedPtr<FieldMergingArgs> e) override
+        {
+            if (e->get_DocumentFieldName() == u"Document_1")
+            {
+                auto builder = MakeObject<DocumentBuilder>(e->get_Document());
+                builder->MoveToMergeField(e->get_DocumentFieldName());
+
+                auto stream = MakeObject<System::IO::MemoryStream>(System::DynamicCast<System::Array<uint8_t>>(e->get_FieldValue()));
+                auto subDoc = MakeObject<Document>(stream);
+
+                InsertDocument(builder->get_CurrentParagraph(), subDoc);
+
+                // The paragraph that contained the merge field might be empty now, and you probably want to delete it.
+                if (!builder->get_CurrentParagraph()->get_HasChildNodes())
+                {
+                    builder->get_CurrentParagraph()->Remove();
+                }
+
+                e->set_Text(nullptr);
+            }
+        }
+
+        void ImageFieldMerging(SharedPtr<ImageFieldMergingArgs> args) override
+        {
+            ASPOSE_UNUSED(args);
+            // Do nothing.
+        }
+    };
+    //ExEnd:InsertDocumentAtMailMergeBlobHandler
+
+    //ExStart:InsertDocumentAtReplaceHandler
+    class InsertDocumentAtReplaceHandler : public IReplacingCallback
+    {
+    private:
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
+        {
+            auto subDoc = MakeObject<Document>(MyDir + u"Document insertion 2.docx");
+
+            // Insert a document after the paragraph, containing the match text.
+            auto para = System::DynamicCast<Paragraph>(args->get_MatchNode()->get_ParentNode());
+            InsertDocument(para, subDoc);
+
+            // Remove the paragraph with the match text.
+            para->Remove();
+            return ReplaceAction::Skip;
+        }
+    };
+    //ExEnd:InsertDocumentAtReplaceHandler
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Working_with_Document

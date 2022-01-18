@@ -102,27 +102,15 @@ public:
         MergeDocuments();
     }
 
-    void ByPageRange()
-    {
-        //ExStart:SplitDocumentByPageRange
-        auto doc = MakeObject<Document>(MyDir + u"Big document.docx");
-
-        // Get part of the document.
-        SharedPtr<Document> extractedPages = doc->ExtractPages(3, 6);
-        extractedPages->Save(ArtifactsDir + u"SplitDocument.ByPageRange.docx");
-        //ExEnd:SplitDocumentByPageRange
-    }
-
-protected:
+    //ExStart:MergeSplitDocuments
     void MergeDocuments()
     {
         // Find documents using for merge.
         ArrayPtr<SharedPtr<System::IO::FileSystemInfo>> documentPaths =
             MakeObject<System::IO::DirectoryInfo>(ArtifactsDir)
                 ->GetFileSystemInfos(u"SplitDocument.PageByPage_*.docx")
-                ->LINQ_OrderBy(static_cast<System::Func<SharedPtr<System::IO::FileSystemInfo>, System::DateTime>>(
-                    static_cast<std::function<System::DateTime(SharedPtr<System::IO::FileSystemInfo> f)>>(
-                        [](SharedPtr<System::IO::FileSystemInfo> f) -> System::DateTime { return f->get_CreationTime(); })))
+                ->LINQ_OrderBy(System::Func<SharedPtr<System::IO::FileSystemInfo>, System::DateTime>([](SharedPtr<System::IO::FileSystemInfo> f)
+                                                                                                     { return f->get_CreationTime(); }))
                 ->LINQ_ToArray();
         String sourceDocumentPath =
             System::IO::Directory::GetFiles(ArtifactsDir, u"SplitDocument.PageByPage_1.docx", System::IO::SearchOption::TopDirectoryOnly)->idx_get(0);
@@ -148,6 +136,18 @@ protected:
         }
 
         mergedDoc->Save(ArtifactsDir + u"SplitDocument.MergeDocuments.docx");
+    }
+    //ExEnd:MergeSplitDocuments
+
+    void ByPageRange()
+    {
+        //ExStart:SplitDocumentByPageRange
+        auto doc = MakeObject<Document>(MyDir + u"Big document.docx");
+
+        // Get part of the document.
+        SharedPtr<Document> extractedPages = doc->ExtractPages(3, 6);
+        extractedPages->Save(ArtifactsDir + u"SplitDocument.ByPageRange.docx");
+        //ExEnd:SplitDocumentByPageRange
     }
 };
 

@@ -102,6 +102,7 @@ public:
         //ExEnd:EnumerateChildNodes
     }
 
+    //ExStart:RecurseAllNodes
     void RecurseAllNodes()
     {
         auto doc = MakeObject<Document>(MyDir + u"Paragraphs.docx");
@@ -128,6 +129,7 @@ public:
             }
         }
     }
+    //ExEnd:RecurseAllNodes
 
     void TypedAccess()
     {

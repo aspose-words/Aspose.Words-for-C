@@ -10,7 +10,6 @@
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/collections/list.h>
 #include <system/object_ext.h>
-#include <system/scope_guard.h>
 
 #include "DocsExamplesBase.h"
 
@@ -32,6 +31,50 @@ public:
     class OrderMailMergeDataSource;
 
 public:
+    void CustomMailMerge()
+    {
+        //ExStart:NestedMailMergeCustom
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+        builder->InsertField(u" MERGEFIELD TableStart:Customer");
+
+        builder->Write(u"Full name:\t");
+        builder->InsertField(u" MERGEFIELD FullName ");
+        builder->Write(u"\nAddress:\t");
+        builder->InsertField(u" MERGEFIELD Address ");
+        builder->Write(u"\nOrders:\n");
+
+        builder->InsertField(u" MERGEFIELD TableStart:Order");
+
+        builder->Write(u"\tItem name:\t");
+        builder->InsertField(u" MERGEFIELD Name ");
+        builder->Write(u"\n\tQuantity:\t");
+        builder->InsertField(u" MERGEFIELD Quantity ");
+        builder->InsertParagraph();
+
+        builder->InsertField(u" MERGEFIELD TableEnd:Order");
+
+        builder->InsertField(u" MERGEFIELD TableEnd:Customer");
+
+        SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Customer>>> customers =
+            MakeObject<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Customer>>>();
+        customers->Add(MakeObject<NestedMailMergeCustom::Customer>(u"Thomas Hardy", u"120 Hanover Sq., London"));
+        customers->Add(MakeObject<NestedMailMergeCustom::Customer>(u"Paolo Accorti", u"Via Monte Bianco 34, Torino"));
+
+        customers->idx_get(0)->get_Orders()->Add(MakeObject<NestedMailMergeCustom::Order>(u"Rugby World Cup Cap", 2));
+        customers->idx_get(0)->get_Orders()->Add(MakeObject<NestedMailMergeCustom::Order>(u"Rugby World Cup Ball", 1));
+        customers->idx_get(1)->get_Orders()->Add(MakeObject<NestedMailMergeCustom::Order>(u"Rugby World Cup Guide", 1));
+
+        // To be able to mail merge from your data source,
+        // it must be wrapped into an object that implements the IMailMergeDataSource interface.
+        auto customersDataSource = MakeObject<NestedMailMergeCustom::CustomerMailMergeDataSource>(customers);
+
+        doc->get_MailMerge()->ExecuteWithRegions(customersDataSource);
+
+        doc->Save(ArtifactsDir + u"NestedMailMergeCustom.CustomMailMerge.docx");
+        //ExEnd:NestedMailMergeCustom
+    }
+
     /// <summary>
     /// An example of a "data entity" class in your application.
     /// </summary>
@@ -70,10 +113,6 @@ public:
 
         Customer(String aFullName, String anAddress)
         {
-            // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            System::Details::ThisProtector __local_self_ref(this);
-            //---------------------------------------------------------Self Reference
-
             set_FullName(aFullName);
             set_Address(anAddress);
             set_Orders(MakeObject<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Order>>>());
@@ -113,10 +152,6 @@ public:
 
         Order(String oName, int oQuantity) : pr_Quantity(0)
         {
-            // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            System::Details::ThisProtector __local_self_ref(this);
-            //---------------------------------------------------------Self Reference
-
             set_Name(oName);
             set_Quantity(oQuantity);
         }
@@ -281,51 +316,6 @@ public:
         SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Order>>> mOrders;
         int mRecordIndex;
     };
-
-public:
-    void CustomMailMerge()
-    {
-        //ExStart:NestedMailMergeCustom
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-        builder->InsertField(u" MERGEFIELD TableStart:Customer");
-
-        builder->Write(u"Full name:\t");
-        builder->InsertField(u" MERGEFIELD FullName ");
-        builder->Write(u"\nAddress:\t");
-        builder->InsertField(u" MERGEFIELD Address ");
-        builder->Write(u"\nOrders:\n");
-
-        builder->InsertField(u" MERGEFIELD TableStart:Order");
-
-        builder->Write(u"\tItem name:\t");
-        builder->InsertField(u" MERGEFIELD Name ");
-        builder->Write(u"\n\tQuantity:\t");
-        builder->InsertField(u" MERGEFIELD Quantity ");
-        builder->InsertParagraph();
-
-        builder->InsertField(u" MERGEFIELD TableEnd:Order");
-
-        builder->InsertField(u" MERGEFIELD TableEnd:Customer");
-
-        SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Customer>>> customers =
-            MakeObject<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Customer>>>();
-        customers->Add(MakeObject<NestedMailMergeCustom::Customer>(u"Thomas Hardy", u"120 Hanover Sq., London"));
-        customers->Add(MakeObject<NestedMailMergeCustom::Customer>(u"Paolo Accorti", u"Via Monte Bianco 34, Torino"));
-
-        customers->idx_get(0)->get_Orders()->Add(MakeObject<NestedMailMergeCustom::Order>(u"Rugby World Cup Cap", 2));
-        customers->idx_get(0)->get_Orders()->Add(MakeObject<NestedMailMergeCustom::Order>(u"Rugby World Cup Ball", 1));
-        customers->idx_get(1)->get_Orders()->Add(MakeObject<NestedMailMergeCustom::Order>(u"Rugby World Cup Guide", 1));
-
-        // To be able to mail merge from your data source,
-        // it must be wrapped into an object that implements the IMailMergeDataSource interface.
-        auto customersDataSource = MakeObject<NestedMailMergeCustom::CustomerMailMergeDataSource>(customers);
-
-        doc->get_MailMerge()->ExecuteWithRegions(customersDataSource);
-
-        doc->Save(ArtifactsDir + u"NestedMailMergeCustom.CustomMailMerge.docx");
-        //ExEnd:NestedMailMergeCustom
-    }
 };
 
 }}} // namespace DocsExamples::Mail_Merge_and_Reporting::Custom_examples

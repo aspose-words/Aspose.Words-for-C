@@ -663,7 +663,7 @@ public:
 
         String paraText = dstDoc->get_Sections()->idx_get(1)->get_Body()->get_LastParagraph()->GetText();
 
-        ASSERT_TRUE(paraText.StartsWith(u"13->13")) << (paraText).ToUtf8String();
+        ASSERT_TRUE(paraText.StartsWith(u"13->13")) << (paraText);
         ASSERT_EQ(u"1.", dstDoc->get_Sections()->idx_get(1)->get_Body()->get_LastParagraph()->get_ListLabel()->get_LabelString());
     }
 
@@ -2560,13 +2560,13 @@ public:
         else
         {
             ASSERT_EQ(RevisionType::Deletion, groups->idx_get(0)->get_RevisionType());
-            ASSERT_EQ(u"Alpha Lorem ", groups->idx_get(0)->get_Text());
+            ASSERT_EQ(u"Alpha Lorem", groups->idx_get(0)->get_Text());
 
             ASSERT_EQ(RevisionType::Deletion, groups->idx_get(1)->get_RevisionType());
             ASSERT_EQ(u",", groups->idx_get(1)->get_Text());
 
             ASSERT_EQ(RevisionType::Insertion, groups->idx_get(2)->get_RevisionType());
-            ASSERT_EQ(u"Lorems ", groups->idx_get(2)->get_Text());
+            ASSERT_EQ(u"Lorems", groups->idx_get(2)->get_Text());
 
             ASSERT_EQ(RevisionType::Insertion, groups->idx_get(3)->get_RevisionType());
             ASSERT_EQ(u"- \"", groups->idx_get(3)->get_Text());

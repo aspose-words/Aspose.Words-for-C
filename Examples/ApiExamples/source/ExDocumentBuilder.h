@@ -1596,6 +1596,7 @@ public:
         ASSERT_EQ(u"Run 2. \rRun 1. \rRun 3.", doc->GetText().Trim());
         ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_LastParagraph(), builder->get_CurrentParagraph());
         //ExSkip
+
         //ExEnd
     }
 
