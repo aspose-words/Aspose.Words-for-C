@@ -405,14 +405,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\..\packages\CodePorting.Native.Cs2Cpp.API.21.11.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('..\..\packages\CodePorting.Native.Cs2Cpp.API.21.11.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
-    <Import Project="..\..\packages\Aspose.Words.Cpp.21.11.0\build\native\aspose.words.cpp.targets" Condition="Exists('..\..\packages\Aspose.Words.Cpp.21.11.0\build\native\aspose.words.cpp.targets')" />
+    <Import Project="..\..\packages\CodePorting.Native.Cs2Cpp.API.21.12.0\build\native\CodePorting.Native.Cs2Cpp.API.targets" Condition="Exists('..\..\packages\CodePorting.Native.Cs2Cpp.API.21.12.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" />
+    <Import Project="..\..\packages\Aspose.Words.Cpp.21.12.0\build\native\aspose.words.cpp.targets" Condition="Exists('..\..\packages\Aspose.Words.Cpp.21.12.0\build\native\aspose.words.cpp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\CodePorting.Native.Cs2Cpp.API.21.11.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CodePorting.Native.Cs2Cpp.API.21.11.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Aspose.Words.Cpp.21.11.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Aspose.Words.Cpp.21.11.0\build\native\aspose.words.cpp.targets'))" />
+    <Error Condition="!Exists('..\..\packages\CodePorting.Native.Cs2Cpp.API.21.12.0\build\native\CodePorting.Native.Cs2Cpp.API.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CodePorting.Native.Cs2Cpp.API.21.12.0\build\native\CodePorting.Native.Cs2Cpp.API.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Aspose.Words.Cpp.21.12.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Aspose.Words.Cpp.21.12.0\build\native\aspose.words.cpp.targets'))" />
   </Target>
 </Project>
