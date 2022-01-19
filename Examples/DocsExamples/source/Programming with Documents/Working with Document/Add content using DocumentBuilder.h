@@ -80,38 +80,6 @@ namespace DocsExamples { namespace Programming_with_Documents { namespace Workin
 class AddContentUsingDocumentBuilder : public DocsExamplesBase
 {
 public:
-    class InsertTCFieldHandler final : public IReplacingCallback
-    {
-    public:
-        /// <summary>
-        /// The display text and switches to use for each TC field. Display name can be an empty string or null.
-        /// </summary>
-        InsertTCFieldHandler(String text, String switches)
-        {
-            mFieldText = text;
-            mFieldSwitches = switches;
-        }
-
-    private:
-        String mFieldText;
-        String mFieldSwitches;
-
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
-        {
-            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
-            builder->MoveTo(args->get_MatchNode());
-
-            // If the user-specified text to be used in the field as display text, then use that,
-            // otherwise use the match string as the display text.
-            String insertText = !String::IsNullOrEmpty(mFieldText) ? mFieldText : args->get_Match()->get_Value();
-
-            builder->InsertField(String::Format(u"TC \"{0}\" {1}", insertText, mFieldSwitches));
-
-            return ReplaceAction::Skip;
-        }
-    };
-
-public:
     void CreateNewDocument()
     {
         //ExStart:CreateNewDocument
@@ -417,6 +385,39 @@ public:
         doc->get_Range()->Replace(MakeObject<System::Text::RegularExpressions::Regex>(u"The Beginning"), u"", options);
         //ExEnd:InsertTCFieldsAtText
     }
+
+    //ExStart:InsertTCFieldHandler
+    class InsertTCFieldHandler final : public IReplacingCallback
+    {
+    public:
+        /// <summary>
+        /// The display text and switches to use for each TC field. Display name can be an empty string or null.
+        /// </summary>
+        InsertTCFieldHandler(String text, String switches)
+        {
+            mFieldText = text;
+            mFieldSwitches = switches;
+        }
+
+    private:
+        String mFieldText;
+        String mFieldSwitches;
+
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
+        {
+            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
+            builder->MoveTo(args->get_MatchNode());
+
+            // If the user-specified text to be used in the field as display text, then use that,
+            // otherwise use the match string as the display text.
+            String insertText = !String::IsNullOrEmpty(mFieldText) ? mFieldText : args->get_Match()->get_Value();
+
+            builder->InsertField(String::Format(u"TC \"{0}\" {1}", insertText, mFieldSwitches));
+
+            return ReplaceAction::Skip;
+        }
+    };
+    //ExEnd:InsertTCFieldHandler
 
     void CursorPosition()
     {

@@ -59,63 +59,6 @@ namespace DocsExamples { namespace Programming_with_Documents {
 class WorkingWithFonts : public DocsExamplesBase
 {
 public:
-    class HandleDocumentWarnings : public IWarningCallback
-    {
-    public:
-        /// <summary>
-        /// Our callback only needs to implement the "Warning" method. This method is called whenever there is a
-        /// Potential issue during document procssing. The callback can be set to listen for warnings generated
-        /// during document load and/or document save.
-        /// </summary>
-        void Warning(SharedPtr<WarningInfo> info) override
-        {
-            // We are only interested in fonts being substituted.
-            if (info->get_WarningType() == WarningType::FontSubstitution)
-            {
-                std::cout << (String(u"Font substitution: ") + info->get_Description()) << std::endl;
-            }
-        }
-    };
-
-    class ResourceSteamFontSource : public StreamFontSource
-    {
-    public:
-        SharedPtr<System::IO::Stream> OpenFontDataStream() override
-        {
-            return System::Reflection::Assembly::GetExecutingAssembly()->GetManifestResourceStream(u"resourceName");
-        }
-
-    protected:
-        virtual ~ResourceSteamFontSource()
-        {
-        }
-    };
-
-    class DocumentSubstitutionWarnings : public IWarningCallback
-    {
-    public:
-        SharedPtr<WarningInfoCollection> FontWarnings;
-
-        /// <summary>
-        /// Our callback only needs to implement the "Warning" method.
-        /// This method is called whenever there is a potential issue during document processing.
-        /// The callback can be set to listen for warnings generated during document load and/or document save.
-        /// </summary>
-        void Warning(SharedPtr<WarningInfo> info) override
-        {
-            // We are only interested in fonts being substituted.
-            if (info->get_WarningType() == WarningType::FontSubstitution)
-            {
-                FontWarnings->Warning(info);
-            }
-        }
-
-        DocumentSubstitutionWarnings() : FontWarnings(MakeObject<WarningInfoCollection>())
-        {
-        }
-    };
-
-public:
     void FontFormatting()
     {
         //ExStart:WriteAndFont
@@ -475,6 +418,27 @@ public:
         //ExEnd:ReceiveWarningNotification
     }
 
+    //ExStart:HandleDocumentWarnings
+    class HandleDocumentWarnings : public IWarningCallback
+    {
+    public:
+        /// <summary>
+        /// Our callback only needs to implement the "Warning" method. This method is called whenever there is a
+        /// Potential issue during document procssing. The callback can be set to listen for warnings generated
+        /// during document load and/or document save.
+        /// </summary>
+        void Warning(SharedPtr<WarningInfo> info) override
+        {
+            // We are only interested in fonts being substituted.
+            if (info->get_WarningType() == WarningType::FontSubstitution)
+            {
+                std::cout << (String(u"Font substitution: ") + info->get_Description()) << std::endl;
+            }
+        }
+    };
+    //ExEnd:HandleDocumentWarnings
+
+    //ExStart:ResourceSteamFontSourceExample
     void ResourceSteamFontSourceExample()
     {
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
@@ -485,6 +449,22 @@ public:
         doc->Save(ArtifactsDir + u"WorkingWithFonts.SetFontsFolders.pdf");
     }
 
+    class ResourceSteamFontSource : public StreamFontSource
+    {
+    public:
+        SharedPtr<System::IO::Stream> OpenFontDataStream() override
+        {
+            return System::Reflection::Assembly::GetExecutingAssembly()->GetManifestResourceStream(u"resourceName");
+        }
+
+    protected:
+        virtual ~ResourceSteamFontSource()
+        {
+        }
+    };
+    //ExEnd:ResourceSteamFontSourceExample
+
+    //ExStart:GetSubstitutionWithoutSuffixes
     void GetSubstitutionWithoutSuffixes()
     {
         auto doc = MakeObject<Document>(MyDir + u"Get substitution without suffixes.docx");
@@ -506,6 +486,31 @@ public:
         ASSERT_EQ(u"Font 'DINOT-Regular' has not been found. Using 'DINOT' font instead. Reason: font name substitution.",
                   substitutionWarningHandler->FontWarnings->idx_get(0)->get_Description());
     }
+
+    class DocumentSubstitutionWarnings : public IWarningCallback
+    {
+    public:
+        SharedPtr<WarningInfoCollection> FontWarnings;
+
+        /// <summary>
+        /// Our callback only needs to implement the "Warning" method.
+        /// This method is called whenever there is a potential issue during document processing.
+        /// The callback can be set to listen for warnings generated during document load and/or document save.
+        /// </summary>
+        void Warning(SharedPtr<WarningInfo> info) override
+        {
+            // We are only interested in fonts being substituted.
+            if (info->get_WarningType() == WarningType::FontSubstitution)
+            {
+                FontWarnings->Warning(info);
+            }
+        }
+
+        DocumentSubstitutionWarnings() : FontWarnings(MakeObject<WarningInfoCollection>())
+        {
+        }
+    };
+    //ExEnd:GetSubstitutionWithoutSuffixes
 };
 
 }} // namespace DocsExamples::Programming_with_Documents

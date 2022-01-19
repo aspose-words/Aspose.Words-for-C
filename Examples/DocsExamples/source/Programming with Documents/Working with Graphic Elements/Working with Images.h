@@ -175,6 +175,32 @@ public:
         //ExEnd:InsertBarcodeImage
     }
 
+    //ExStart:InsertBarcodeIntoFooter
+    void InsertBarcodeIntoFooter(SharedPtr<DocumentBuilder> builder, SharedPtr<Section> section, HeaderFooterType footerType)
+    {
+        // Move to the footer type in the specific section.
+        builder->MoveToSection(section->get_Document()->IndexOf(section));
+        builder->MoveToHeaderFooter(footerType);
+
+        // Insert the barcode, then move to the next line and insert the ID along with the page number.
+        // Use pageId if you need to insert a different barcode on each page. 0 = First page, 1 = Second page etc.
+        builder->InsertImage(System::Drawing::Image::FromFile(ImagesDir + u"Barcode.png"));
+        builder->Writeln();
+        builder->Write(u"1234567890");
+        builder->InsertField(u"PAGE");
+
+        // Create a right-aligned tab at the right margin.
+        double tabPos = section->get_PageSetup()->get_PageWidth() - section->get_PageSetup()->get_RightMargin() - section->get_PageSetup()->get_LeftMargin();
+        builder->get_CurrentParagraph()->get_ParagraphFormat()->get_TabStops()->Add(MakeObject<TabStop>(tabPos, TabAlignment::Right, TabLeader::None));
+
+        // Move to the right-hand side of the page and insert the page and page total.
+        builder->Write(ControlChar::Tab());
+        builder->InsertField(u"PAGE");
+        builder->Write(u" of ");
+        builder->InsertField(u"NUMPAGES");
+    }
+    //ExEnd:InsertBarcodeIntoFooter
+
     void CompressImages()
     {
         auto doc = MakeObject<Document>(MyDir + u"Images.docx");
@@ -206,31 +232,6 @@ public:
         double imagePpi = shape->get_ImageData()->get_ImageSize()->get_WidthPixels() / ConvertUtil::PointToInch(shape->get_SizeInPoints().get_Width());
 
         CODEPORTING_DEBUG_ASSERT2(imagePpi < 150, u"Image was not resampled successfully.");
-    }
-
-protected:
-    void InsertBarcodeIntoFooter(SharedPtr<DocumentBuilder> builder, SharedPtr<Section> section, HeaderFooterType footerType)
-    {
-        // Move to the footer type in the specific section.
-        builder->MoveToSection(section->get_Document()->IndexOf(section));
-        builder->MoveToHeaderFooter(footerType);
-
-        // Insert the barcode, then move to the next line and insert the ID along with the page number.
-        // Use pageId if you need to insert a different barcode on each page. 0 = First page, 1 = Second page etc.
-        builder->InsertImage(System::Drawing::Image::FromFile(ImagesDir + u"Barcode.png"));
-        builder->Writeln();
-        builder->Write(u"1234567890");
-        builder->InsertField(u"PAGE");
-
-        // Create a right-aligned tab at the right margin.
-        double tabPos = section->get_PageSetup()->get_PageWidth() - section->get_PageSetup()->get_RightMargin() - section->get_PageSetup()->get_LeftMargin();
-        builder->get_CurrentParagraph()->get_ParagraphFormat()->get_TabStops()->Add(MakeObject<TabStop>(tabPos, TabAlignment::Right, TabLeader::None));
-
-        // Move to the right-hand side of the page and insert the page and page total.
-        builder->Write(ControlChar::Tab());
-        builder->InsertField(u"PAGE");
-        builder->Write(u" of ");
-        builder->InsertField(u"NUMPAGES");
     }
 };
 

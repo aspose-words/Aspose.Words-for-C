@@ -30,31 +30,6 @@ namespace DocsExamples { namespace Programming_with_Documents {
 class WorkingWithHyphenation : public DocsExamplesBase
 {
 public:
-    class CustomHyphenationCallback : public IHyphenationCallback
-    {
-    public:
-        void RequestDictionary(String language) override
-        {
-            String dictionaryFolder = MyDir;
-            String dictionaryFullFileName;
-            if (language == u"en-US")
-            {
-                dictionaryFullFileName = System::IO::Path::Combine(dictionaryFolder, u"hyph_en_US.dic");
-            }
-            else if (language == u"de-CH")
-            {
-                dictionaryFullFileName = System::IO::Path::Combine(dictionaryFolder, u"hyph_de_CH.dic");
-            }
-            else
-            {
-                throw System::Exception(String::Format(u"Missing hyphenation dictionary for {0}.", language));
-            }
-            // Register dictionary for requested language.
-            Hyphenation::RegisterDictionary(language, dictionaryFullFileName);
-        }
-    };
-
-public:
     void HyphenateWordsOfLanguages()
     {
         //ExStart:HyphenateWordsOfLanguages
@@ -79,6 +54,7 @@ public:
         //ExEnd:LoadHyphenationDictionaryForLanguage
     }
 
+    //ExStart:CustomHyphenation
     void HyphenationCallback()
     {
 
@@ -100,6 +76,31 @@ public:
             }
         }
     }
+
+    class CustomHyphenationCallback : public IHyphenationCallback
+    {
+    public:
+        void RequestDictionary(String language) override
+        {
+            String dictionaryFolder = MyDir;
+            String dictionaryFullFileName;
+            if (language == u"en-US")
+            {
+                dictionaryFullFileName = System::IO::Path::Combine(dictionaryFolder, u"hyph_en_US.dic");
+            }
+            else if (language == u"de-CH")
+            {
+                dictionaryFullFileName = System::IO::Path::Combine(dictionaryFolder, u"hyph_de_CH.dic");
+            }
+            else
+            {
+                throw System::Exception(String::Format(u"Missing hyphenation dictionary for {0}.", language));
+            }
+            // Register dictionary for requested language.
+            Hyphenation::RegisterDictionary(language, dictionaryFullFileName);
+        }
+    };
+    //ExEnd:CustomHyphenation
 };
 
 }} // namespace DocsExamples::Programming_with_Documents

@@ -18,9 +18,10 @@ namespace DocsExamples { namespace Mail_Merge_and_Reporting { namespace Custom_e
 class CreateMailMergeTemplate : public System::Object
 {
 public:
-    System::SharedPtr<Document> Template()
+    //ExStart:CreateMailMergeTemplate
+    SharedPtr<Document> Template()
     {
-        auto builder = System::MakeObject<DocumentBuilder>();
+        auto builder = MakeObject<DocumentBuilder>();
 
         // Insert a text input field the unique name of this field is "Hello", the other parameters define
         // what type of FormField it is, the format of the text, the field result and the maximum text length (0 = no limit)
@@ -62,6 +63,7 @@ public:
 
         return builder->get_Document();
     }
+    //ExEnd:CreateMailMergeTemplate
 };
 
 }}} // namespace DocsExamples::Mail_Merge_and_Reporting::Custom_examples

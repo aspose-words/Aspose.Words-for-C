@@ -110,6 +110,7 @@ public:
         //ExEnd:RemoveWatermarkFromDocument
     }
 
+    //ExStart:AddWatermark
     void AddAndRemoveWatermark()
     {
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
@@ -121,7 +122,6 @@ public:
         doc->Save(ArtifactsDir + u"WorkWithWatermark.RemoveWatermark.docx");
     }
 
-protected:
     /// <summary>
     /// Inserts a watermark into a document.
     /// </summary>
@@ -181,7 +181,9 @@ protected:
         // Insert a clone of the watermark into the header.
         header->AppendChild(watermarkPara->Clone(true));
     }
+    //ExEnd:AddWatermark
 
+    //ExStart:RemoveWatermark
     void RemoveWatermarkText(SharedPtr<Document> doc)
     {
         for (const auto& hf : System::IterateOver<HeaderFooter>(doc->GetChildNodes(NodeType::HeaderFooter, true)))
@@ -195,6 +197,7 @@ protected:
             }
         }
     }
+    //ExEnd:RemoveWatermark
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Working_with_Graphic_Elements

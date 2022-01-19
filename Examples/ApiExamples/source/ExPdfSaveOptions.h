@@ -1336,11 +1336,7 @@ public:
         doc->Save(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignature.pdf", options);
         //ExEnd
 
-        TestUtil::FileContainsString(String(u"7 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 8 0 R/P 5 0 "
-                                                              u"R/"
-                                                              u"T("
-                                                              u"þÿ\u0000A\u0000s\u0000p\u0000o\u0000s\u0000e\u0000D\u0000i\u0000g\u0000i\u0000t\u0000a\u0000l"
-                                                              u"\u0000S\u0000i\u0000g\u0000n\u0000a\u0000t\u0000u\u0000r\u0000e)/AP <</N 9 0 R>>>>",
+        TestUtil::FileContainsString(String(u"7 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/T",
                                      ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignature.pdf");
 
         ASSERT_FALSE(FileFormatUtil::DetectFileFormat(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignature.pdf")->get_HasDigitalSignature());
@@ -1392,11 +1388,7 @@ public:
         //ExEnd
 
         ASSERT_FALSE(FileFormatUtil::DetectFileFormat(ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignatureTimestamp.pdf")->get_HasDigitalSignature());
-        TestUtil::FileContainsString(String(u"7 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/DR <<>>/F 132/V 8 0 R/P 5 0 "
-                                                              u"R/"
-                                                              u"T("
-                                                              u"þÿ\u0000A\u0000s\u0000p\u0000o\u0000s\u0000e\u0000D\u0000i\u0000g\u0000i\u0000t\u0000a\u0000l"
-                                                              u"\u0000S\u0000i\u0000g\u0000n\u0000a\u0000t\u0000u\u0000r\u0000e)/AP <</N 9 0 R>>>>",
+        TestUtil::FileContainsString(String(u"7 0 obj\r\n") + u"<</Type /Annot/Subtype /Widget/Rect [0 0 0 0]/FT /Sig/T",
                                      ArtifactsDir + u"PdfSaveOptions.PdfDigitalSignatureTimestamp.pdf");
     }
 

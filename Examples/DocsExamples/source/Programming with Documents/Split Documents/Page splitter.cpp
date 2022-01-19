@@ -10,7 +10,6 @@
 #include <Aspose.Words.Cpp/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/SectionStart.h>
 #include <system/object_ext.h>
-#include <system/scope_guard.h>
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Layout;
@@ -25,10 +24,6 @@ System::SharedPtr<Aspose::Words::Document> DocumentPageSplitter::get_Document()
 
 DocumentPageSplitter::DocumentPageSplitter(System::SharedPtr<Aspose::Words::Document> source)
 {
-    // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    System::Details::ThisProtector __local_self_ref(this);
-    //---------------------------------------------------------Self Reference
-
     pageNumberFinder = PageNumberFinderFactory::Create(source);
 }
 

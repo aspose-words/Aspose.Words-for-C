@@ -12,7 +12,6 @@
 #include <system/collections/list.h>
 #include <system/io/directory.h>
 #include <system/io/path.h>
-#include <system/scope_guard.h>
 #include <system/string.h>
 
 #include "DocsExamplesBase.h"
@@ -106,40 +105,29 @@ public:
 class Topic : public System::Object
 {
 public:
+    Topic(System::String title, System::String fileName)
+    {
+        pr_Title = title;
+        pr_FileName = fileName;
+    }
+
+    System::String pr_Title;
     System::String get_Title()
     {
         return pr_Title;
     }
 
+    System::String pr_FileName;
     System::String get_FileName()
     {
         return pr_FileName;
     }
-
-    Topic(System::String title, System::String fileName)
-    {
-        // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        System::Details::ThisProtector __local_self_ref(this);
-        //---------------------------------------------------------Self Reference
-
-        pr_Title = title;
-        pr_FileName = fileName;
-    }
-
-private:
-    System::String pr_Title;
-    System::String pr_FileName;
 };
 
 class TocMailMergeDataSource : public IMailMergeDataSource
 {
 public:
-    System::String get_TableName() override
-    {
-        return u"TOC";
-    }
-
-    TocMailMergeDataSource(System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Topic>>> topics) : mIndex(0)
+    TocMailMergeDataSource(System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Topic>>> topics)
     {
         mTopics = topics;
         mIndex = -1;
@@ -169,13 +157,17 @@ public:
         return false;
     }
 
+    System::String get_TableName() override
+    {
+        return u"TOC";
+    }
+
     System::SharedPtr<IMailMergeDataSource> GetChildDataSource(System::String tableName) override
     {
         ASPOSE_UNUSED(tableName);
         return nullptr;
     }
 
-private:
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Topic>>> mTopics;
     int mIndex;
 };

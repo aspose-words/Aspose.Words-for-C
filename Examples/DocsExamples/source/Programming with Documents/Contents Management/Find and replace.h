@@ -68,116 +68,39 @@ namespace DocsExamples { namespace Programming_with_Documents { namespace Conten
 class FindAndReplace : public DocsExamplesBase
 {
 public:
-    class FindAndInsertHtml final : public IReplacingCallback
+    void SimpleFindReplace()
     {
-    private:
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
-        {
-            SharedPtr<Node> currentNode = e->get_MatchNode();
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
 
-            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast_noexcept<Document>(e->get_MatchNode()->get_Document()));
-            builder->MoveTo(currentNode);
-            builder->InsertHtml(e->get_Replacement());
+        builder->Writeln(u"Hello _CustomerName_,");
+        std::cout << (String(u"Original document text: ") + doc->get_Range()->get_Text()) << std::endl;
 
-            currentNode->Remove();
+        doc->get_Range()->Replace(u"_CustomerName_", u"James Bond", MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));
 
-            return ReplaceAction::Skip;
-        }
-    };
+        std::cout << (String(u"Document text after replace: ") + doc->get_Range()->get_Text()) << std::endl;
 
-    class ReplaceTextWithFieldHandler : public IReplacingCallback
+        // Save the modified document
+        doc->Save(ArtifactsDir + u"FindAndReplace.SimpleFindReplace.docx");
+    }
+
+    void FindAndHighlight()
     {
-    public:
-        ReplaceTextWithFieldHandler(FieldType type) : mFieldType(((Aspose::Words::Fields::FieldType)0))
-        {
-            mFieldType = type;
-        }
+        //ExStart:FindAndHighlight
+        auto doc = MakeObject<Document>(MyDir + u"Find and highlight.docx");
 
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
-        {
-            SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runs = FindAndSplitMatchRuns(args);
+        auto options = MakeObject<FindReplaceOptions>();
+        options->set_ReplacingCallback(MakeObject<FindAndReplace::ReplaceEvaluatorFindAndHighlight>());
+        options->set_Direction(FindReplaceDirection::Backward);
 
-            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
-            builder->MoveTo(runs->idx_get(runs->get_Count() - 1));
+        auto regex = MakeObject<System::Text::RegularExpressions::Regex>(u"your document", System::Text::RegularExpressions::RegexOptions::IgnoreCase);
+        doc->get_Range()->Replace(regex, u"", options);
 
-            // Calculate the field's name from the FieldType enumeration by removing
-            // the first instance of "Field" from the text. This works for almost all of the field types.
-            String fieldName = System::ObjectExt::ToString(mFieldType).ToUpper().Substring(5);
+        doc->Save(ArtifactsDir + u"FindAndReplace.FindAndHighlight.docx");
+        //ExEnd:FindAndHighlight
+    }
 
-            // Insert the field into the document using the specified field type and the matched text as the field name.
-            // If the fields you are inserting do not require this extra parameter, it can be removed from the string below.
-            builder->InsertField(String::Format(u"{0} {1}", fieldName, args->get_Match()->get_Groups()->idx_get(0)));
-
-            for (const auto& run : runs)
-            {
-                run->Remove();
-            }
-
-            return ReplaceAction::Skip;
-        }
-
-        /// <summary>
-        /// Finds and splits the match runs and returns them in an List.
-        /// </summary>
-        SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> FindAndSplitMatchRuns(SharedPtr<ReplacingArgs> args)
-        {
-            // This is a Run node that contains either the beginning or the complete match.
-            SharedPtr<Node> currentNode = args->get_MatchNode();
-
-            // The first (and may be the only) run can contain text before the match,
-            // In this case it is necessary to split the run.
-            if (args->get_MatchOffset() > 0)
-            {
-                currentNode = SplitRun(System::DynamicCast<Aspose::Words::Run>(currentNode), args->get_MatchOffset());
-            }
-
-            // This array is used to store all nodes of the match for further removing.
-            SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runs = MakeObject<System::Collections::Generic::List<SharedPtr<Run>>>();
-
-            // Find all runs that contain parts of the match string.
-            int remainingLength = args->get_Match()->get_Value().get_Length();
-            while (remainingLength > 0 && currentNode != nullptr && currentNode->GetText().get_Length() <= remainingLength)
-            {
-                runs->Add(System::DynamicCast<Aspose::Words::Run>(currentNode));
-                remainingLength -= currentNode->GetText().get_Length();
-
-                do
-                {
-                    currentNode = currentNode->get_NextSibling();
-                } while (currentNode != nullptr && currentNode->get_NodeType() != NodeType::Run);
-            }
-
-            // Split the last run that contains the match if there is any text left.
-            if (currentNode != nullptr && remainingLength > 0)
-            {
-                SplitRun(System::DynamicCast<Aspose::Words::Run>(currentNode), remainingLength);
-                runs->Add(System::DynamicCast<Aspose::Words::Run>(currentNode));
-            }
-
-            return runs;
-        }
-
-    private:
-        FieldType mFieldType;
-
-        /// <summary>
-        /// Splits text of the specified run into two runs.
-        /// Inserts the new run just after the specified run.
-        /// </summary>
-        SharedPtr<Run> SplitRun(SharedPtr<Run> run, int position)
-        {
-            auto afterRun = System::DynamicCast<Aspose::Words::Run>(run->Clone(true));
-
-            afterRun->set_Text(run->get_Text().Substring(position));
-            run->set_Text(run->get_Text().Substring(0, position));
-
-            run->get_ParentNode()->InsertAfter(afterRun, run);
-
-            return afterRun;
-        }
-    };
-
-private:
+    //ExStart:ReplaceEvaluatorFindAndHighlight
     class ReplaceEvaluatorFindAndHighlight : public IReplacingCallback
     {
     private:
@@ -232,122 +155,24 @@ private:
             return ReplaceAction::Skip;
         }
     };
+    //ExEnd:ReplaceEvaluatorFindAndHighlight
 
-    class ReplaceLog : public IReplacingCallback
+    //ExStart:SplitRun
+    /// <summary>
+    /// Splits text of the specified run into two runs.
+    /// Inserts the new run just after the specified run.
+    /// </summary>
+    static SharedPtr<Run> SplitRun(SharedPtr<Run> run, int position)
     {
-    public:
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
-        {
-            mTextBuilder->AppendLine(args->get_MatchNode()->GetText());
-            return ReplaceAction::Skip;
-        }
+        auto afterRun = System::DynamicCast<Aspose::Words::Run>(run->Clone(true));
+        afterRun->set_Text(run->get_Text().Substring(position));
 
-        void ClearText()
-        {
-            mTextBuilder->Clear();
-        }
+        run->set_Text(run->get_Text().Substring(0, position));
+        run->get_ParentNode()->InsertAfter(afterRun, run);
 
-        ReplaceLog() : mTextBuilder(MakeObject<System::Text::StringBuilder>())
-        {
-        }
-
-    private:
-        SharedPtr<System::Text::StringBuilder> mTextBuilder;
-    };
-
-    class MyReplaceEvaluator : public IReplacingCallback
-    {
-    public:
-        MyReplaceEvaluator() : mMatchNumber(0)
-        {
-        }
-
-    private:
-        int mMatchNumber;
-
-        /// <summary>
-        /// This is called during a replace operation each time a match is found.
-        /// This method appends a number to the match string and returns it as a replacement string.
-        /// </summary>
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
-        {
-            e->set_Replacement(System::Convert::ToString(e->get_Match()) + System::Convert::ToString(mMatchNumber));
-            mMatchNumber++;
-
-            return ReplaceAction::Replace;
-        }
-    };
-
-    class ReplaceWithHtmlEvaluator : public IReplacingCallback
-    {
-    public:
-        ReplaceWithHtmlEvaluator(SharedPtr<FindReplaceOptions> options)
-        {
-            mOptions = options;
-        }
-
-    private:
-        SharedPtr<FindReplaceOptions> mOptions;
-
-        /// <summary>
-        /// NOTE: This is a simplistic method that will only work well when the match
-        /// starts at the beginning of a run.
-        /// </summary>
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
-        {
-            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
-            builder->MoveTo(args->get_MatchNode());
-
-            // Replace '<CustomerName>' text with a red bold name.
-            builder->InsertHtml(u"<b><font color='red'>James Bond, </font></b>");
-            args->set_Replacement(u"");
-
-            return ReplaceAction::Replace;
-        }
-    };
-
-    class ReplacingCallback : public IReplacingCallback
-    {
-    private:
-        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
-        {
-            std::cout << e->get_Match()->get_Value();
-            return ReplaceAction::Replace;
-        }
-    };
-
-public:
-    void SimpleFindReplace()
-    {
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        builder->Writeln(u"Hello _CustomerName_,");
-        std::cout << (String(u"Original document text: ") + doc->get_Range()->get_Text()) << std::endl;
-
-        doc->get_Range()->Replace(u"_CustomerName_", u"James Bond", MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));
-
-        std::cout << (String(u"Document text after replace: ") + doc->get_Range()->get_Text()) << std::endl;
-
-        // Save the modified document
-        doc->Save(ArtifactsDir + u"FindAndReplace.SimpleFindReplace.docx");
+        return afterRun;
     }
-
-    void FindAndHighlight()
-    {
-        //ExStart:FindAndHighlight
-        auto doc = MakeObject<Document>(MyDir + u"Find and highlight.docx");
-
-        auto options = MakeObject<FindReplaceOptions>();
-        options->set_ReplacingCallback(MakeObject<FindAndReplace::ReplaceEvaluatorFindAndHighlight>());
-        options->set_Direction(FindReplaceDirection::Backward);
-
-        auto regex = MakeObject<System::Text::RegularExpressions::Regex>(u"your document", System::Text::RegularExpressions::RegexOptions::IgnoreCase);
-        doc->get_Range()->Replace(regex, u"", options);
-
-        doc->Save(ArtifactsDir + u"FindAndReplace.FindAndHighlight.docx");
-        //ExEnd:FindAndHighlight
-    }
+    //ExEnd:SplitRun
 
     void MetaCharactersInSearchPattern()
     {
@@ -505,6 +330,25 @@ public:
         //ExEnd:ReplaceHtmlTextWithMetaCharacters
     }
 
+    //ExStart:ReplaceHtmlFindAndInsertHtml
+    class FindAndInsertHtml final : public IReplacingCallback
+    {
+    private:
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
+        {
+            SharedPtr<Node> currentNode = e->get_MatchNode();
+
+            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast_noexcept<Document>(e->get_MatchNode()->get_Document()));
+            builder->MoveTo(currentNode);
+            builder->InsertHtml(e->get_Replacement());
+
+            currentNode->Remove();
+
+            return ReplaceAction::Skip;
+        }
+    };
+    //ExEnd:ReplaceHtmlFindAndInsertHtml
+
     void ReplaceTextInFooter()
     {
         //ExStart:ReplaceTextInFooter
@@ -523,6 +367,7 @@ public:
         //ExEnd:ReplaceTextInFooter
     }
 
+    //ExStart:ShowChangesForHeaderAndFooterOrders
     void ShowChangesForHeaderAndFooterOrders()
     {
         auto logger = MakeObject<FindAndReplace::ReplaceLog>();
@@ -544,6 +389,29 @@ public:
         doc->get_Range()->Replace(MakeObject<System::Text::RegularExpressions::Regex>(u"(header|footer)"), u"", options);
     }
 
+    class ReplaceLog : public IReplacingCallback
+    {
+    public:
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
+        {
+            mTextBuilder->AppendLine(args->get_MatchNode()->GetText());
+            return ReplaceAction::Skip;
+        }
+
+        void ClearText()
+        {
+            mTextBuilder->Clear();
+        }
+
+        ReplaceLog() : mTextBuilder(MakeObject<System::Text::StringBuilder>())
+        {
+        }
+
+    private:
+        SharedPtr<System::Text::StringBuilder> mTextBuilder;
+    };
+    //ExEnd:ShowChangesForHeaderAndFooterOrders
+
     void ReplaceTextWithField()
     {
         auto doc = MakeObject<Document>(MyDir + u"Replace text with fields.docx");
@@ -555,6 +423,98 @@ public:
 
         doc->Save(ArtifactsDir + u"FindAndReplace.ReplaceTextWithField.docx");
     }
+
+    class ReplaceTextWithFieldHandler : public IReplacingCallback
+    {
+    public:
+        ReplaceTextWithFieldHandler(FieldType type) : mFieldType(((Aspose::Words::Fields::FieldType)0))
+        {
+            mFieldType = type;
+        }
+
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
+        {
+            SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runs = FindAndSplitMatchRuns(args);
+
+            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
+            builder->MoveTo(runs->idx_get(runs->get_Count() - 1));
+
+            // Calculate the field's name from the FieldType enumeration by removing
+            // the first instance of "Field" from the text. This works for almost all of the field types.
+            String fieldName = System::ObjectExt::ToString(mFieldType).ToUpper().Substring(5);
+
+            // Insert the field into the document using the specified field type and the matched text as the field name.
+            // If the fields you are inserting do not require this extra parameter, it can be removed from the string below.
+            builder->InsertField(String::Format(u"{0} {1}", fieldName, args->get_Match()->get_Groups()->idx_get(0)));
+
+            for (const auto& run : runs)
+            {
+                run->Remove();
+            }
+
+            return ReplaceAction::Skip;
+        }
+
+        /// <summary>
+        /// Finds and splits the match runs and returns them in an List.
+        /// </summary>
+        SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> FindAndSplitMatchRuns(SharedPtr<ReplacingArgs> args)
+        {
+            // This is a Run node that contains either the beginning or the complete match.
+            SharedPtr<Node> currentNode = args->get_MatchNode();
+
+            // The first (and may be the only) run can contain text before the match,
+            // In this case it is necessary to split the run.
+            if (args->get_MatchOffset() > 0)
+            {
+                currentNode = SplitRun(System::DynamicCast<Aspose::Words::Run>(currentNode), args->get_MatchOffset());
+            }
+
+            // This array is used to store all nodes of the match for further removing.
+            SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runs = MakeObject<System::Collections::Generic::List<SharedPtr<Run>>>();
+
+            // Find all runs that contain parts of the match string.
+            int remainingLength = args->get_Match()->get_Value().get_Length();
+            while (remainingLength > 0 && currentNode != nullptr && currentNode->GetText().get_Length() <= remainingLength)
+            {
+                runs->Add(System::DynamicCast<Aspose::Words::Run>(currentNode));
+                remainingLength -= currentNode->GetText().get_Length();
+
+                do
+                {
+                    currentNode = currentNode->get_NextSibling();
+                } while (currentNode != nullptr && currentNode->get_NodeType() != NodeType::Run);
+            }
+
+            // Split the last run that contains the match if there is any text left.
+            if (currentNode != nullptr && remainingLength > 0)
+            {
+                SplitRun(System::DynamicCast<Aspose::Words::Run>(currentNode), remainingLength);
+                runs->Add(System::DynamicCast<Aspose::Words::Run>(currentNode));
+            }
+
+            return runs;
+        }
+
+    private:
+        FieldType mFieldType;
+
+        /// <summary>
+        /// Splits text of the specified run into two runs.
+        /// Inserts the new run just after the specified run.
+        /// </summary>
+        SharedPtr<Run> SplitRun(SharedPtr<Run> run, int position)
+        {
+            auto afterRun = System::DynamicCast<Aspose::Words::Run>(run->Clone(true));
+
+            afterRun->set_Text(run->get_Text().Substring(position));
+            run->set_Text(run->get_Text().Substring(0, position));
+
+            run->get_ParentNode()->InsertAfter(afterRun, run);
+
+            return afterRun;
+        }
+    };
 
     void ReplaceWithEvaluator()
     {
@@ -573,6 +533,32 @@ public:
         //ExEnd:ReplaceWithEvaluator
     }
 
+    //ExStart:MyReplaceEvaluator
+    class MyReplaceEvaluator : public IReplacingCallback
+    {
+    public:
+        MyReplaceEvaluator() : mMatchNumber(0)
+        {
+        }
+
+    private:
+        int mMatchNumber;
+
+        /// <summary>
+        /// This is called during a replace operation each time a match is found.
+        /// This method appends a number to the match string and returns it as a replacement string.
+        /// </summary>
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
+        {
+            e->set_Replacement(System::Convert::ToString(e->get_Match()) + System::Convert::ToString(mMatchNumber));
+            mMatchNumber++;
+
+            return ReplaceAction::Replace;
+        }
+    };
+    //ExEnd:MyReplaceEvaluator
+
+    //ExStart:ReplaceWithHtml
     void ReplaceWithHtml()
     {
         auto doc = MakeObject<Document>();
@@ -587,6 +573,35 @@ public:
 
         doc->Save(ArtifactsDir + u"FindAndReplace.ReplaceWithHtml.docx");
     }
+
+    class ReplaceWithHtmlEvaluator : public IReplacingCallback
+    {
+    public:
+        ReplaceWithHtmlEvaluator(SharedPtr<FindReplaceOptions> options)
+        {
+            mOptions = options;
+        }
+
+    private:
+        SharedPtr<FindReplaceOptions> mOptions;
+
+        /// <summary>
+        /// NOTE: This is a simplistic method that will only work well when the match
+        /// starts at the beginning of a run.
+        /// </summary>
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
+        {
+            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
+            builder->MoveTo(args->get_MatchNode());
+
+            // Replace '<CustomerName>' text with a red bold name.
+            builder->InsertHtml(u"<b><font color='red'>James Bond, </font></b>");
+            args->set_Replacement(u"");
+
+            return ReplaceAction::Replace;
+        }
+    };
+    //ExEnd:ReplaceWithHtml
 
     void ReplaceWithRegex()
     {
@@ -635,6 +650,7 @@ public:
         //ExEnd:ReplaceWithString
     }
 
+    //ExStart:UsingLegacyOrder
     void UsingLegacyOrder()
     {
         auto doc = MakeObject<Document>();
@@ -656,6 +672,17 @@ public:
         doc->Save(ArtifactsDir + u"FindAndReplace.UsingLegacyOrder.docx");
     }
 
+    class ReplacingCallback : public IReplacingCallback
+    {
+    private:
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> e) override
+        {
+            std::cout << e->get_Match()->get_Value();
+            return ReplaceAction::Replace;
+        }
+    };
+    //ExEnd:UsingLegacyOrder
+
     void ReplaceTextInTable()
     {
         //ExStart:ReplaceText
@@ -668,22 +695,6 @@ public:
 
         doc->Save(ArtifactsDir + u"FindAndReplace.ReplaceTextInTable.docx");
         //ExEnd:ReplaceText
-    }
-
-protected:
-    /// <summary>
-    /// Splits text of the specified run into two runs.
-    /// Inserts the new run just after the specified run.
-    /// </summary>
-    static SharedPtr<Run> SplitRun(SharedPtr<Run> run, int position)
-    {
-        auto afterRun = System::DynamicCast<Aspose::Words::Run>(run->Clone(true));
-        afterRun->set_Text(run->get_Text().Substring(position));
-
-        run->set_Text(run->get_Text().Substring(0, position));
-        run->get_ParentNode()->InsertAfter(afterRun, run);
-
-        return afterRun;
     }
 };
 

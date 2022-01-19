@@ -31,16 +31,6 @@ namespace DocsExamples { namespace File_Formats_and_Conversions { namespace Save
 
 class WorkingWithImageSaveOptions : public DocsExamplesBase
 {
-private:
-    class HandlePageSavingCallback : public IPageSavingCallback
-    {
-    public:
-        void PageSaving(SharedPtr<PageSavingArgs> args) override
-        {
-            args->set_PageFileName(String::Format(ArtifactsDir + u"Page_{0}.png", args->get_PageIndex()));
-        }
-    };
-
 public:
     void ExposeThresholdControlForTiffBinarization()
     {
@@ -113,6 +103,7 @@ public:
         //ExEnd:GetJpegPageRange
     }
 
+    //ExStart:PageSavingCallback
     static void PageSavingCallback()
     {
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
@@ -123,6 +114,16 @@ public:
 
         doc->Save(ArtifactsDir + u"WorkingWithImageSaveOptions.PageSavingCallback.png", imageSaveOptions);
     }
+
+    class HandlePageSavingCallback : public IPageSavingCallback
+    {
+    public:
+        void PageSaving(SharedPtr<PageSavingArgs> args) override
+        {
+            args->set_PageFileName(String::Format(ArtifactsDir + u"Page_{0}.png", args->get_PageIndex()));
+        }
+    };
+    //ExEnd:PageSavingCallback
 };
 
 }}} // namespace DocsExamples::File_Formats_and_Conversions::Save_Options

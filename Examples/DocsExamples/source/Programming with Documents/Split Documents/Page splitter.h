@@ -179,13 +179,15 @@ class PageNumberFinder : public System::Object
     friend class SectionSplitter;
 
 public:
-    /// <summary>
-    /// Gets the document this instance works with.
-    /// </summary>
-    System::SharedPtr<Aspose::Words::Document> get_Document()
-    {
-        return collector->get_Document();
-    }
+    // Maps node to a start/end page numbers.
+    // This is used to override baseline page numbers provided by the collector when the document is split.
+    System::SharedPtr<System::Collections::Generic::IDictionary<System::SharedPtr<Node>, int>> nodeStartPageLookup;
+    System::SharedPtr<System::Collections::Generic::IDictionary<System::SharedPtr<Node>, int>> nodeEndPageLookup;
+    System::SharedPtr<LayoutCollector> collector;
+
+    // Maps page number to a list of nodes found on that page.
+    System::SharedPtr<System::Collections::Generic::IDictionary<int, System::SharedPtr<System::Collections::Generic::IList<System::SharedPtr<Node>>>>>
+        reversePageLookup;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PageNumberFinder"></see> class.
@@ -196,6 +198,14 @@ public:
           nodeEndPageLookup(System::MakeObject<System::Collections::Generic::Dictionary<System::SharedPtr<Node>, int>>())
     {
         this->collector = collector;
+    }
+
+    /// <summary>
+    /// Gets the document this instance works with.
+    /// </summary>
+    System::SharedPtr<Aspose::Words::Document> get_Document()
+    {
+        return collector->get_Document();
     }
 
     /// <summary>
@@ -311,7 +321,6 @@ public:
         get_Document()->Accept(System::MakeObject<SectionSplitter>(System::MakeSharedPtr(this)));
     }
 
-protected:
     /// <summary>
     /// This is called by <see cref="SectionSplitter"></see> to update page numbers of split nodes.
     /// </summary>
@@ -336,17 +345,6 @@ protected:
             nodeEndPageLookup->idx_set(node, endPage);
         }
     }
-
-    virtual ~PageNumberFinder()
-    {
-    }
-
-private:
-    System::SharedPtr<System::Collections::Generic::IDictionary<System::SharedPtr<Node>, int>> nodeStartPageLookup;
-    System::SharedPtr<System::Collections::Generic::IDictionary<System::SharedPtr<Node>, int>> nodeEndPageLookup;
-    System::SharedPtr<LayoutCollector> collector;
-    System::SharedPtr<System::Collections::Generic::IDictionary<int, System::SharedPtr<System::Collections::Generic::IList<System::SharedPtr<Node>>>>>
-        reversePageLookup;
 
     bool IsHeaderFooterType(System::SharedPtr<Node> node)
     {
@@ -434,6 +432,9 @@ private:
         nodeStartPageLookup->Clear();
         nodeEndPageLookup->Clear();
     }
+    virtual ~PageNumberFinder()
+    {
+    }
 };
 
 class PageNumberFinderFactory : public System::Object
@@ -452,6 +453,9 @@ public:
 class SplitPageBreakCorrector : public System::Object
 {
 public:
+    static const System::String PageBreakStr;
+    static const char16_t PageBreak;
+
     static void ProcessSection(System::SharedPtr<Section> section)
     {
         if (section->get_ChildNodes()->get_Count() == 0)
@@ -483,10 +487,6 @@ public:
             paragraph->RemoveChild(run);
         }
     }
-
-private:
-    static const System::String PageBreakStr;
-    static const char16_t PageBreak;
 
     void ProcessLastParagraph(System::SharedPtr<Paragraph> paragraph)
     {

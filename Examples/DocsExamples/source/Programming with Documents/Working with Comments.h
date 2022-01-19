@@ -142,7 +142,7 @@ public:
         //ExEnd:ProcessComments
     }
 
-private:
+    //ExStart:ExtractComments
     SharedPtr<System::Collections::Generic::List<String>> ExtractComments(SharedPtr<Document> doc)
     {
         SharedPtr<System::Collections::Generic::List<String>> collectedComments = MakeObject<System::Collections::Generic::List<String>>();
@@ -155,7 +155,9 @@ private:
 
         return collectedComments;
     }
+    //ExEnd:ExtractComments
 
+    //ExStart:ExtractCommentsByAuthor
     SharedPtr<System::Collections::Generic::List<String>> ExtractComments(SharedPtr<Document> doc, String authorName)
     {
         SharedPtr<System::Collections::Generic::List<String>> collectedComments = MakeObject<System::Collections::Generic::List<String>>();
@@ -171,14 +173,18 @@ private:
 
         return collectedComments;
     }
+    //ExEnd:ExtractCommentsByAuthor
 
+    //ExStart:RemoveComments
     void RemoveComments(SharedPtr<Document> doc)
     {
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
 
         comments->Clear();
     }
+    //ExEnd:RemoveComments
 
+    //ExStart:RemoveCommentsByAuthor
     void RemoveComments(SharedPtr<Document> doc, String authorName)
     {
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
@@ -193,7 +199,9 @@ private:
             }
         }
     }
+    //ExEnd:RemoveCommentsByAuthor
 
+    //ExStart:CommentResolvedandReplies
     void CommentResolvedAndReplies(SharedPtr<Document> doc)
     {
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
@@ -209,6 +217,7 @@ private:
             childComment->set_Done(true);
         }
     }
+    //ExEnd:CommentResolvedandReplies
 };
 
 }} // namespace DocsExamples::Programming_with_Documents

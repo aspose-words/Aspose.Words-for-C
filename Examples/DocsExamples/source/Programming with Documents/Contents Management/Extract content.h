@@ -63,138 +63,6 @@ namespace DocsExamples { namespace Programming_with_Documents { namespace Conten
 
 class ExtractContent : public DocsExamplesBase
 {
-protected:
-    /// <summary>
-    /// Simple implementation of saving a document in the plain text format. Implemented as a Visitor.
-    /// </summary>
-    class MyDocToTxtWriter : public DocumentVisitor
-    {
-    public:
-        MyDocToTxtWriter() : mIsSkipText(false)
-        {
-            mIsSkipText = false;
-            mBuilder = MakeObject<System::Text::StringBuilder>();
-        }
-
-        /// <summary>
-        /// Gets the plain text of the document that was accumulated by the visitor.
-        /// </summary>
-        String GetText()
-        {
-            return mBuilder->ToString();
-        }
-
-        /// <summary>
-        /// Called when a Run node is encountered in the document.
-        /// </summary>
-        VisitorAction VisitRun(SharedPtr<Run> run) override
-        {
-            AppendText(run->get_Text());
-
-            // Let the visitor continue visiting other nodes.
-            return VisitorAction::Continue;
-        }
-
-        /// <summary>
-        /// Called when a FieldStart node is encountered in the document.
-        /// </summary>
-        VisitorAction VisitFieldStart(SharedPtr<FieldStart> fieldStart) override
-        {
-            ASPOSE_UNUSED(fieldStart);
-            // In Microsoft Word, a field code (such as "MERGEFIELD FieldName") follows
-            // after a field start character. We want to skip field codes and output field.
-            // Result only, therefore we use a flag to suspend the output while inside a field code.
-            // Note this is a very simplistic implementation and will not work very well.
-            // If you have nested fields in a document.
-            mIsSkipText = true;
-
-            return VisitorAction::Continue;
-        }
-
-        /// <summary>
-        /// Called when a FieldSeparator node is encountered in the document.
-        /// </summary>
-        VisitorAction VisitFieldSeparator(SharedPtr<FieldSeparator> fieldSeparator) override
-        {
-            ASPOSE_UNUSED(fieldSeparator);
-            // Once reached a field separator node, we enable the output because we are
-            // now entering the field result nodes.
-            mIsSkipText = false;
-
-            return VisitorAction::Continue;
-        }
-
-        /// <summary>
-        /// Called when a FieldEnd node is encountered in the document.
-        /// </summary>
-        VisitorAction VisitFieldEnd(SharedPtr<FieldEnd> fieldEnd) override
-        {
-            ASPOSE_UNUSED(fieldEnd);
-            // Make sure we enable the output when reached a field end because some fields
-            // do not have field separator and do not have field result.
-            mIsSkipText = false;
-
-            return VisitorAction::Continue;
-        }
-
-        /// <summary>
-        /// Called when visiting of a Paragraph node is ended in the document.
-        /// </summary>
-        VisitorAction VisitParagraphEnd(SharedPtr<Paragraph> paragraph) override
-        {
-            ASPOSE_UNUSED(paragraph);
-            // When outputting to plain text we output Cr+Lf characters.
-            AppendText(ControlChar::CrLf());
-
-            return VisitorAction::Continue;
-        }
-
-        VisitorAction VisitBodyStart(SharedPtr<Body> body) override
-        {
-            ASPOSE_UNUSED(body);
-            // We can detect beginning and end of all composite nodes such as Section, Body,
-            // Table, Paragraph etc and provide custom handling for them.
-            mBuilder->Append(u"*** Body Started ***\r\n");
-
-            return VisitorAction::Continue;
-        }
-
-        VisitorAction VisitBodyEnd(SharedPtr<Body> body) override
-        {
-            ASPOSE_UNUSED(body);
-            mBuilder->Append(u"*** Body Ended ***\r\n");
-            return VisitorAction::Continue;
-        }
-
-        /// <summary>
-        /// Called when a HeaderFooter node is encountered in the document.
-        /// </summary>
-        VisitorAction VisitHeaderFooterStart(SharedPtr<HeaderFooter> headerFooter) override
-        {
-            ASPOSE_UNUSED(headerFooter);
-            // Returning this value from a visitor method causes visiting of this
-            // Node to stop and move on to visiting the next sibling node
-            // The net effect in this example is that the text of headers and footers
-            // Is not included in the resulting output
-            return VisitorAction::SkipThisNode;
-        }
-
-    private:
-        SharedPtr<System::Text::StringBuilder> mBuilder;
-        bool mIsSkipText;
-
-        /// <summary>
-        /// Adds text to the current output. Honors the enabled/disabled output flag.
-        /// </summary>
-        void AppendText(String text)
-        {
-            if (!mIsSkipText)
-            {
-                mBuilder->Append(text);
-            }
-        }
-    };
-
 public:
     void ExtractContentBetweenBlockLevelNodes()
     {
@@ -353,6 +221,139 @@ public:
         //ExEnd:ExtractContentUsingDocumentVisitor
     }
 
+    //ExStart:MyDocToTxtWriter
+    /// <summary>
+    /// Simple implementation of saving a document in the plain text format. Implemented as a Visitor.
+    /// </summary>
+    class MyDocToTxtWriter : public DocumentVisitor
+    {
+    public:
+        MyDocToTxtWriter() : mIsSkipText(false)
+        {
+            mIsSkipText = false;
+            mBuilder = MakeObject<System::Text::StringBuilder>();
+        }
+
+        /// <summary>
+        /// Gets the plain text of the document that was accumulated by the visitor.
+        /// </summary>
+        String GetText()
+        {
+            return mBuilder->ToString();
+        }
+
+        /// <summary>
+        /// Called when a Run node is encountered in the document.
+        /// </summary>
+        VisitorAction VisitRun(SharedPtr<Run> run) override
+        {
+            AppendText(run->get_Text());
+
+            // Let the visitor continue visiting other nodes.
+            return VisitorAction::Continue;
+        }
+
+        /// <summary>
+        /// Called when a FieldStart node is encountered in the document.
+        /// </summary>
+        VisitorAction VisitFieldStart(SharedPtr<FieldStart> fieldStart) override
+        {
+            ASPOSE_UNUSED(fieldStart);
+            // In Microsoft Word, a field code (such as "MERGEFIELD FieldName") follows
+            // after a field start character. We want to skip field codes and output field.
+            // Result only, therefore we use a flag to suspend the output while inside a field code.
+            // Note this is a very simplistic implementation and will not work very well.
+            // If you have nested fields in a document.
+            mIsSkipText = true;
+
+            return VisitorAction::Continue;
+        }
+
+        /// <summary>
+        /// Called when a FieldSeparator node is encountered in the document.
+        /// </summary>
+        VisitorAction VisitFieldSeparator(SharedPtr<FieldSeparator> fieldSeparator) override
+        {
+            ASPOSE_UNUSED(fieldSeparator);
+            // Once reached a field separator node, we enable the output because we are
+            // now entering the field result nodes.
+            mIsSkipText = false;
+
+            return VisitorAction::Continue;
+        }
+
+        /// <summary>
+        /// Called when a FieldEnd node is encountered in the document.
+        /// </summary>
+        VisitorAction VisitFieldEnd(SharedPtr<FieldEnd> fieldEnd) override
+        {
+            ASPOSE_UNUSED(fieldEnd);
+            // Make sure we enable the output when reached a field end because some fields
+            // do not have field separator and do not have field result.
+            mIsSkipText = false;
+
+            return VisitorAction::Continue;
+        }
+
+        /// <summary>
+        /// Called when visiting of a Paragraph node is ended in the document.
+        /// </summary>
+        VisitorAction VisitParagraphEnd(SharedPtr<Paragraph> paragraph) override
+        {
+            ASPOSE_UNUSED(paragraph);
+            // When outputting to plain text we output Cr+Lf characters.
+            AppendText(ControlChar::CrLf());
+
+            return VisitorAction::Continue;
+        }
+
+        VisitorAction VisitBodyStart(SharedPtr<Body> body) override
+        {
+            ASPOSE_UNUSED(body);
+            // We can detect beginning and end of all composite nodes such as Section, Body,
+            // Table, Paragraph etc and provide custom handling for them.
+            mBuilder->Append(u"*** Body Started ***\r\n");
+
+            return VisitorAction::Continue;
+        }
+
+        VisitorAction VisitBodyEnd(SharedPtr<Body> body) override
+        {
+            ASPOSE_UNUSED(body);
+            mBuilder->Append(u"*** Body Ended ***\r\n");
+            return VisitorAction::Continue;
+        }
+
+        /// <summary>
+        /// Called when a HeaderFooter node is encountered in the document.
+        /// </summary>
+        VisitorAction VisitHeaderFooterStart(SharedPtr<HeaderFooter> headerFooter) override
+        {
+            ASPOSE_UNUSED(headerFooter);
+            // Returning this value from a visitor method causes visiting of this
+            // Node to stop and move on to visiting the next sibling node
+            // The net effect in this example is that the text of headers and footers
+            // Is not included in the resulting output
+            return VisitorAction::SkipThisNode;
+        }
+
+    private:
+        SharedPtr<System::Text::StringBuilder> mBuilder;
+        bool mIsSkipText;
+
+        /// <summary>
+        /// Adds text to the current output. Honors the enabled/disabled output flag.
+        /// </summary>
+        void AppendText(String text)
+        {
+            if (!mIsSkipText)
+            {
+                mBuilder->Append(text);
+            }
+        }
+    };
+    //ExEnd:MyDocToTxtWriter
+
     void ExtractContentUsingField()
     {
         //ExStart:ExtractContentUsingField
@@ -443,6 +444,7 @@ public:
         //ExEnd:ExtractContentBasedOnStyles
     }
 
+    //ExStart:ParagraphsByStyleName
     SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> ParagraphsByStyleName(SharedPtr<Document> doc, String styleName)
     {
         SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> paragraphsWithStyle =
@@ -459,7 +461,9 @@ public:
 
         return paragraphsWithStyle;
     }
+    //ExEnd:ParagraphsByStyleName
 
+    //ExStart:RunsByStyleName
     SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> RunsByStyleName(SharedPtr<Document> doc, String styleName)
     {
         SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runsWithStyle = MakeObject<System::Collections::Generic::List<SharedPtr<Run>>>();
@@ -475,6 +479,7 @@ public:
 
         return runsWithStyle;
     }
+    //ExEnd:RunsByStyleName
 
     void ExtractPrintText()
     {

@@ -20,6 +20,12 @@
 #include <system/exceptions.h>
 #include <system/object_ext.h>
 
+using System::ArrayPtr;
+using System::MakeArray;
+using System::MakeObject;
+using System::SharedPtr;
+using System::String;
+
 using namespace Aspose::Words;
 
 namespace DocsExamples { namespace Programming_with_Documents { namespace Contents_Management {
@@ -27,21 +33,20 @@ namespace DocsExamples { namespace Programming_with_Documents { namespace Conten
 class ExtractContentHelper : public System::Object
 {
 public:
-    static System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> ExtractContent(System::SharedPtr<Node> startNode,
-                                                                                                         System::SharedPtr<Node> endNode, bool isInclusive)
+    //ExStart:CommonExtractContent
+    static SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> ExtractContent(SharedPtr<Node> startNode, SharedPtr<Node> endNode, bool isInclusive)
     {
         // First, check that the nodes passed to this method are valid for use.
         VerifyParameterNodes(startNode, endNode);
 
         // Create a list to store the extracted nodes.
-        System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> nodes =
-            System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Node>>>();
+        SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> nodes = MakeObject<System::Collections::Generic::List<SharedPtr<Node>>>();
 
         // If either marker is part of a comment, including the comment itself, we need to move the pointer
         // forward to the Comment Node found after the CommentRangeEnd node.
         if (endNode->get_NodeType() == NodeType::CommentRangeEnd && isInclusive)
         {
-            System::SharedPtr<Node> node = FindNextNode(NodeType::Comment, endNode->get_NextSibling());
+            SharedPtr<Node> node = FindNextNode(NodeType::Comment, endNode->get_NextSibling());
             if (node != nullptr)
             {
                 endNode = node;
@@ -49,8 +54,8 @@ public:
         }
 
         // Keep a record of the original nodes passed to this method to split marker nodes if needed.
-        System::SharedPtr<Node> originalStartNode = startNode;
-        System::SharedPtr<Node> originalEndNode = endNode;
+        SharedPtr<Node> originalStartNode = startNode;
+        SharedPtr<Node> originalEndNode = endNode;
 
         // Extract content based on block-level nodes (paragraphs and tables). Traverse through parent nodes to find them.
         // We will split the first and last nodes' content, depending if the marker nodes are inline.
@@ -60,7 +65,7 @@ public:
         bool isExtracting = true;
         bool isStartingNode = true;
         // The current node we are extracting from the document.
-        System::SharedPtr<Node> currNode = startNode;
+        SharedPtr<Node> currNode = startNode;
 
         // Begin extracting content. Process all block-level nodes and specifically split the first
         // and last nodes when needed, so paragraph formatting is retained.
@@ -69,7 +74,7 @@ public:
         while (isExtracting)
         {
             // Clone the current node and its children to obtain a copy.
-            System::SharedPtr<Node> cloneNode = currNode->Clone(true);
+            SharedPtr<Node> cloneNode = currNode->Clone(true);
             bool isEndingNode = System::ObjectExt::Equals(currNode, endNode);
 
             if (isStartingNode || isEndingNode)
@@ -119,15 +124,15 @@ public:
         // Return the nodes between the node markers.
         return nodes;
     }
+    //ExEnd:CommonExtractContent
 
-    static System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph>>> ParagraphsByStyleName(System::SharedPtr<Document> doc,
-                                                                                                                     System::String styleName)
+    static SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> ParagraphsByStyleName(SharedPtr<Document> doc, System::String styleName)
     {
         // Create an array to collect paragraphs of the specified style.
-        System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph>>> paragraphsWithStyle =
-            System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Paragraph>>>();
+        SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> paragraphsWithStyle =
+            MakeObject<System::Collections::Generic::List<SharedPtr<Paragraph>>>();
 
-        System::SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
+        SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
 
         // Look through all paragraphs to find those with the specified style.
         for (const auto& paragraph : System::IterateOver<Paragraph>(paragraphs))
@@ -141,27 +146,28 @@ public:
         return paragraphsWithStyle;
     }
 
-    static System::SharedPtr<Document> GenerateDocument(System::SharedPtr<Document> srcDoc,
-                                                        System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> nodes)
+    //ExStart:CommonGenerateDocument
+    static SharedPtr<Document> GenerateDocument(SharedPtr<Document> srcDoc, SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> nodes)
     {
-        auto dstDoc = System::MakeObject<Document>();
+        auto dstDoc = MakeObject<Document>();
         // Remove the first paragraph from the empty document.
         dstDoc->get_FirstSection()->get_Body()->RemoveAllChildren();
 
         // Import each node from the list into the new document. Keep the original formatting of the node.
-        auto importer = System::MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
+        auto importer = MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
 
         for (const auto& node : nodes)
         {
-            System::SharedPtr<Node> importNode = importer->ImportNode(node, true);
+            SharedPtr<Node> importNode = importer->ImportNode(node, true);
             dstDoc->get_FirstSection()->get_Body()->AppendChild(importNode);
         }
 
         return dstDoc;
     }
+    //ExEnd:CommonGenerateDocument
 
-private:
-    static void VerifyParameterNodes(System::SharedPtr<Node> startNode, System::SharedPtr<Node> endNode)
+    //ExStart:CommonExtractContentHelperMethods
+    static void VerifyParameterNodes(SharedPtr<Node> startNode, SharedPtr<Node> endNode)
     {
         // The order in which these checks are done is important.
         if (startNode == nullptr)
@@ -205,7 +211,7 @@ private:
         }
     }
 
-    static System::SharedPtr<Node> FindNextNode(NodeType nodeType, System::SharedPtr<Node> fromNode)
+    static SharedPtr<Node> FindNextNode(NodeType nodeType, SharedPtr<Node> fromNode)
     {
         if (fromNode == nullptr || fromNode->get_NodeType() == nodeType)
         {
@@ -214,7 +220,7 @@ private:
 
         if (fromNode->get_IsComposite())
         {
-            System::SharedPtr<Node> node = FindNextNode(nodeType, (System::DynamicCast<CompositeNode>(fromNode))->get_FirstChild());
+            SharedPtr<Node> node = FindNextNode(nodeType, (System::DynamicCast<CompositeNode>(fromNode))->get_FirstChild());
             if (node != nullptr)
             {
                 return node;
@@ -224,7 +230,7 @@ private:
         return FindNextNode(nodeType, fromNode->get_NextSibling());
     }
 
-    bool IsInline(System::SharedPtr<Node> node)
+    bool IsInline(SharedPtr<Node> node)
     {
         // Test if the node is a descendant of a Paragraph or Table node and is not a paragraph
         // or a table a paragraph inside a comment class that is decent of a paragraph is possible.
@@ -232,9 +238,8 @@ private:
                !(node->get_NodeType() == NodeType::Paragraph || node->get_NodeType() == NodeType::Table);
     }
 
-    static void ProcessMarker(System::SharedPtr<Node> cloneNode, System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> nodes,
-                              System::SharedPtr<Node> node, System::SharedPtr<Node> blockLevelAncestor, bool isInclusive, bool isStartMarker, bool canAdd,
-                              bool forceAdd)
+    static void ProcessMarker(SharedPtr<Node> cloneNode, SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> nodes, SharedPtr<Node> node,
+                              SharedPtr<Node> blockLevelAncestor, bool isInclusive, bool isStartMarker, bool canAdd, bool forceAdd)
     {
         // If we are dealing with a block-level node, see if it should be included and add it to the list.
         if (node == blockLevelAncestor)
@@ -266,13 +271,13 @@ private:
         }
 
         // Support a case if the marker node is on the third level of the document body or lower.
-        System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> nodeBranch = FillSelfAndParents(node, blockLevelAncestor);
+        SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> nodeBranch = FillSelfAndParents(node, blockLevelAncestor);
 
         // Process the corresponding node in our cloned node by index.
-        System::SharedPtr<Node> currentCloneNode = cloneNode;
+        SharedPtr<Node> currentCloneNode = cloneNode;
         for (int i = nodeBranch->get_Count() - 1; i >= 0; i--)
         {
-            System::SharedPtr<Node> currentNode = nodeBranch->idx_get(i);
+            SharedPtr<Node> currentNode = nodeBranch->idx_get(i);
             int nodeIndex = currentNode->get_ParentNode()->IndexOf(currentNode);
             currentCloneNode = (System::DynamicCast<CompositeNode>(currentCloneNode))->get_ChildNodes()->idx_get(nodeIndex);
 
@@ -286,15 +291,15 @@ private:
         }
     }
 
-    static void RemoveNodesOutsideOfRange(System::SharedPtr<Node> markerNode, bool isInclusive, bool isStartMarker)
+    static void RemoveNodesOutsideOfRange(SharedPtr<Node> markerNode, bool isInclusive, bool isStartMarker)
     {
         bool isProcessing = true;
         bool isRemoving = isStartMarker;
-        System::SharedPtr<Node> nextNode = markerNode->get_ParentNode()->get_FirstChild();
+        SharedPtr<Node> nextNode = markerNode->get_ParentNode()->get_FirstChild();
 
         while (isProcessing && nextNode != nullptr)
         {
-            System::SharedPtr<Node> currentNode = nextNode;
+            SharedPtr<Node> currentNode = nextNode;
             bool isSkip = false;
 
             if (System::ObjectExt::Equals(currentNode, markerNode))
@@ -325,12 +330,10 @@ private:
         }
     }
 
-    static System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> FillSelfAndParents(System::SharedPtr<Node> node,
-                                                                                                             System::SharedPtr<Node> tillNode)
+    static SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> FillSelfAndParents(SharedPtr<Node> node, SharedPtr<Node> tillNode)
     {
-        System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> list =
-            System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Node>>>();
-        System::SharedPtr<Node> currentNode = node;
+        SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> list = MakeObject<System::Collections::Generic::List<SharedPtr<Node>>>();
+        SharedPtr<Node> currentNode = node;
 
         while (currentNode != tillNode)
         {
@@ -341,20 +344,20 @@ private:
         return list;
     }
 
-    static void IncludeNextParagraph(System::SharedPtr<Node> node, System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Node>>> nodes)
+    static void IncludeNextParagraph(SharedPtr<Node> node, SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> nodes)
     {
         auto paragraph = System::DynamicCast<Paragraph>(FindNextNode(NodeType::Paragraph, node->get_NextSibling()));
         if (paragraph != nullptr)
         {
             // Move to the first child to include paragraphs without content.
-            System::SharedPtr<Node> markerNode = paragraph->get_HasChildNodes() ? paragraph->get_FirstChild() : paragraph;
-            System::SharedPtr<Node> rootNode = GetAncestorInBody(paragraph);
+            SharedPtr<Node> markerNode = paragraph->get_HasChildNodes() ? paragraph->get_FirstChild() : paragraph;
+            SharedPtr<Node> rootNode = GetAncestorInBody(paragraph);
 
             ProcessMarker(rootNode->Clone(true), nodes, markerNode, rootNode, markerNode == paragraph, false, true, true);
         }
     }
 
-    static System::SharedPtr<Node> GetAncestorInBody(System::SharedPtr<Node> startNode)
+    static SharedPtr<Node> GetAncestorInBody(SharedPtr<Node> startNode)
     {
         while (startNode->get_ParentNode()->get_NodeType() != NodeType::Body)
         {
@@ -362,6 +365,7 @@ private:
         }
         return startNode;
     }
+    //ExEnd:CommonExtractContentHelperMethods
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

@@ -378,7 +378,6 @@ public:
     void OptimizeGraphicsOutput(bool optimizeOutput)
     {
         //ExStart
-        //ExFor:FixedPageSaveOptions.OptimizeOutput
         //ExFor:HtmlFixedSaveOptions.OptimizeOutput
         //ExSummary:Shows how to simplify a document when saving it to HTML by removing various redundant objects.
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
@@ -389,14 +388,8 @@ public:
         doc->Save(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html", saveOptions);
 
         // The size of the optimized version of the document is almost a third of the size of the unoptimized document.
-        if (optimizeOutput)
-        {
-            ASSERT_NEAR(57220, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
-        }
-        else
-        {
-            ASSERT_NEAR(160535, MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
-        }
+        ASSERT_NEAR(optimizeOutput ? 57220 : 159000,
+                    MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
         //ExEnd
     }
 

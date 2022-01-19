@@ -45,6 +45,45 @@ namespace DocsExamples { namespace File_Formats_and_Conversions { namespace Save
 class WorkingWithPdfSaveOptions : public DocsExamplesBase
 {
 public:
+    void DisplayDocTitleInWindowTitlebar()
+    {
+        //ExStart:DisplayDocTitleInWindowTitlebar
+        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
+
+        auto saveOptions = MakeObject<PdfSaveOptions>();
+        saveOptions->set_DisplayDocTitle(true);
+
+        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.DisplayDocTitleInWindowTitlebar.pdf", saveOptions);
+        //ExEnd:DisplayDocTitleInWindowTitlebar
+    }
+
+    //ExStart:PdfRenderWarnings
+    void PdfRenderWarnings()
+    {
+        auto doc = MakeObject<Document>(MyDir + u"WMF with image.docx");
+
+        auto metafileRenderingOptions = MakeObject<MetafileRenderingOptions>();
+        metafileRenderingOptions->set_EmulateRasterOperations(false);
+        metafileRenderingOptions->set_RenderingMode(MetafileRenderingMode::VectorWithFallback);
+
+        auto saveOptions = MakeObject<PdfSaveOptions>();
+        saveOptions->set_MetafileRenderingOptions(metafileRenderingOptions);
+
+        // If Aspose.Words cannot correctly render some of the metafile records
+        // to vector graphics then Aspose.Words renders this metafile to a bitmap.
+        auto callback = MakeObject<WorkingWithPdfSaveOptions::HandleDocumentWarnings>();
+        doc->set_WarningCallback(callback);
+
+        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.PdfRenderWarnings.pdf", saveOptions);
+
+        // While the file saves successfully, rendering warnings that occurred during saving are collected here.
+        for (const auto& warningInfo : callback->mWarnings)
+        {
+            std::cout << warningInfo->get_Description() << std::endl;
+        }
+    }
+
+    //ExStart:RenderMetafileToBitmap
     class HandleDocumentWarnings : public IWarningCallback
     {
     public:
@@ -70,44 +109,8 @@ public:
         {
         }
     };
-
-public:
-    void DisplayDocTitleInWindowTitlebar()
-    {
-        //ExStart:DisplayDocTitleInWindowTitlebar
-        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
-
-        auto saveOptions = MakeObject<PdfSaveOptions>();
-        saveOptions->set_DisplayDocTitle(true);
-
-        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.DisplayDocTitleInWindowTitlebar.pdf", saveOptions);
-        //ExEnd:DisplayDocTitleInWindowTitlebar
-    }
-
-    void PdfRenderWarnings()
-    {
-        auto doc = MakeObject<Document>(MyDir + u"WMF with image.docx");
-
-        auto metafileRenderingOptions = MakeObject<MetafileRenderingOptions>();
-        metafileRenderingOptions->set_EmulateRasterOperations(false);
-        metafileRenderingOptions->set_RenderingMode(MetafileRenderingMode::VectorWithFallback);
-
-        auto saveOptions = MakeObject<PdfSaveOptions>();
-        saveOptions->set_MetafileRenderingOptions(metafileRenderingOptions);
-
-        // If Aspose.Words cannot correctly render some of the metafile records
-        // to vector graphics then Aspose.Words renders this metafile to a bitmap.
-        auto callback = MakeObject<WorkingWithPdfSaveOptions::HandleDocumentWarnings>();
-        doc->set_WarningCallback(callback);
-
-        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.PdfRenderWarnings.pdf", saveOptions);
-
-        // While the file saves successfully, rendering warnings that occurred during saving are collected here.
-        for (const auto& warningInfo : callback->mWarnings)
-        {
-            std::cout << warningInfo->get_Description() << std::endl;
-        }
-    }
+    //ExEnd:RenderMetafileToBitmap
+    //ExEnd:PdfRenderWarnings
 
     void DigitallySignedPdfUsingCertificateHolder()
     {

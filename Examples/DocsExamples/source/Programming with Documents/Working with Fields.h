@@ -54,7 +54,6 @@
 #include <system/globalization/date_time_format_info.h>
 #include <system/linq/enumerable.h>
 #include <system/object_ext.h>
-#include <system/scope_guard.h>
 #include <system/text/regularexpressions/group.h>
 #include <system/text/regularexpressions/group_collection.h>
 #include <system/text/regularexpressions/match.h>
@@ -76,148 +75,6 @@ namespace DocsExamples { namespace Programming_with_Documents {
 
 class WorkingWithFields : public DocsExamplesBase
 {
-public:
-    /// <summary>
-    /// Represents a facade object for a merge field in a Microsoft Word document.
-    /// </summary>
-    class MergeField : public System::Object
-    {
-    public:
-        /// <summary>
-        /// Gets the name of the merge field.
-        /// </summary>
-        String get_Name()
-        {
-            return (System::DynamicCast<FieldStart>(mFieldStart))->GetField()->get_Result().Replace(u"«", u"").Replace(u"»", u"");
-        }
-
-        /// <summary>
-        /// Sets the name of the merge field.
-        /// </summary>
-        void set_Name(String value)
-        {
-            // Merge field name is stored in the field result which is a Run
-            // node between field separator and field end.
-            auto fieldResult = System::DynamicCast<Aspose::Words::Run>(mFieldSeparator->get_NextSibling());
-            fieldResult->set_Text(String::Format(u"«{0}»", value));
-
-            // But sometimes the field result can consist of more than one run, delete these runs.
-            RemoveSameParent(fieldResult->get_NextSibling(), mFieldEnd);
-
-            UpdateFieldCode(value);
-        }
-
-        MergeField(SharedPtr<FieldStart> fieldStart)
-            : gRegex(MakeObject<System::Text::RegularExpressions::Regex>(u"\\s*(?<start>MERGEFIELD\\s|)(\\s|)(?<name>\\S+)\\s+"))
-        {
-            // Self Reference+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            System::Details::ThisProtector __local_self_ref(this);
-            //---------------------------------------------------------Self Reference
-
-            if (fieldStart == nullptr)
-            {
-                throw System::ArgumentNullException(u"fieldStart");
-            }
-            if (fieldStart->get_FieldType() != FieldType::FieldMergeField)
-            {
-                throw System::ArgumentException(u"Field start type must be FieldMergeField.");
-            }
-
-            mFieldStart = fieldStart;
-
-            // Find the field separator node.
-            mFieldSeparator = fieldStart->GetField()->get_Separator();
-            if (mFieldSeparator == nullptr)
-            {
-                throw System::InvalidOperationException(u"Cannot find field separator.");
-            }
-
-            mFieldEnd = fieldStart->GetField()->get_End();
-        }
-
-    private:
-        SharedPtr<Node> mFieldStart;
-        SharedPtr<Node> mFieldSeparator;
-        SharedPtr<Node> mFieldEnd;
-        SharedPtr<System::Text::RegularExpressions::Regex> gRegex;
-
-        void UpdateFieldCode(String fieldName)
-        {
-            // Field code is stored in a Run node between field start and field separator.
-            auto fieldCode = System::DynamicCast<Aspose::Words::Run>(mFieldStart->get_NextSibling());
-
-            SharedPtr<System::Text::RegularExpressions::Match> match =
-                gRegex->Match((System::DynamicCast<FieldStart>(mFieldStart))->GetField()->GetFieldCode());
-
-            String newFieldCode = String::Format(u" {0}{1} ", match->get_Groups()->idx_get(u"start")->get_Value(), fieldName);
-            fieldCode->set_Text(newFieldCode);
-
-            // But sometimes the field code can consist of more than one run, delete these runs.
-            RemoveSameParent(fieldCode->get_NextSibling(), mFieldSeparator);
-        }
-
-        /// <summary>
-        /// Removes nodes from start up to but not including the end node.
-        /// Start and end are assumed to have the same parent.
-        /// </summary>
-        void RemoveSameParent(SharedPtr<Node> startNode, SharedPtr<Node> endNode)
-        {
-            if (endNode != nullptr && startNode->get_ParentNode() != endNode->get_ParentNode())
-            {
-                throw System::ArgumentException(u"Start and end nodes are expected to have the same parent.");
-            }
-
-            SharedPtr<Node> curChild = startNode;
-            while (curChild != nullptr && curChild != endNode)
-            {
-                SharedPtr<Node> nextChild = curChild->get_NextSibling();
-                curChild->Remove();
-                curChild = nextChild;
-            }
-        }
-    };
-
-private:
-    class FieldUpdateCultureProvider : public IFieldUpdateCultureProvider
-    {
-    public:
-        SharedPtr<System::Globalization::CultureInfo> GetCulture(String name, SharedPtr<Field> field) override
-        {
-            ASPOSE_UNUSED(field);
-            if (name == u"ru-RU")
-            {
-                auto culture = MakeObject<System::Globalization::CultureInfo>(name, false);
-                SharedPtr<System::Globalization::DateTimeFormatInfo> format = culture->get_DateTimeFormat();
-                format->set_MonthNames(MakeArray<String>({u"месяц 1", u"месяц 2", u"месяц 3", u"месяц 4", u"месяц 5", u"месяц 6", u"месяц 7", u"месяц 8",
-                                                          u"месяц 9", u"месяц 10", u"месяц 11", u"месяц 12", u""}));
-                format->set_MonthGenitiveNames(format->get_MonthNames());
-                format->set_AbbreviatedMonthNames(MakeArray<String>(
-                    {u"мес 1", u"мес 2", u"мес 3", u"мес 4", u"мес 5", u"мес 6", u"мес 7", u"мес 8", u"мес 9", u"мес 10", u"мес 11", u"мес 12", u""}));
-                format->set_AbbreviatedMonthGenitiveNames(format->get_AbbreviatedMonthNames());
-                format->set_DayNames(MakeArray<String>(
-                    {u"день недели 7", u"день недели 1", u"день недели 2", u"день недели 3", u"день недели 4", u"день недели 5", u"день недели 6"}));
-                format->set_AbbreviatedDayNames(MakeArray<String>({u"день 7", u"день 1", u"день 2", u"день 3", u"день 4", u"день 5", u"день 6"}));
-                format->set_ShortestDayNames(MakeArray<String>({u"д7", u"д1", u"д2", u"д3", u"д4", u"д5", u"д6"}));
-                format->set_AMDesignator(u"До полудня");
-                format->set_PMDesignator(u"После полудня");
-                const String pattern = u"yyyy MM (MMMM) dd (dddd) hh:mm:ss tt";
-                format->set_LongDatePattern(pattern);
-                format->set_LongTimePattern(pattern);
-                format->set_ShortDatePattern(pattern);
-                format->set_ShortTimePattern(pattern);
-                return culture;
-            }
-            else if (name == u"en-US")
-            {
-                return MakeObject<System::Globalization::CultureInfo>(name, false);
-            }
-            else
-            {
-                return nullptr;
-            }
-        }
-    };
-
 public:
     void ChangeFieldUpdateCultureSource()
     {
@@ -304,6 +161,104 @@ public:
         doc->Save(ArtifactsDir + u"WorkingWithFields.RenameMergeFields.doc");
         //ExEnd:RenameMergeFields
     }
+
+    //ExStart:MergeField
+    /// <summary>
+    /// Represents a facade object for a merge field in a Microsoft Word document.
+    /// </summary>
+    class MergeField : public System::Object
+    {
+    public:
+        /// <summary>
+        /// Gets the name of the merge field.
+        /// </summary>
+        String get_Name()
+        {
+            return (System::DynamicCast<FieldStart>(mFieldStart))->GetField()->get_Result().Replace(u"«", u"").Replace(u"»", u"");
+        }
+
+        /// <summary>
+        /// Sets the name of the merge field.
+        /// </summary>
+        void set_Name(String value)
+        {
+            // Merge field name is stored in the field result which is a Run
+            // node between field separator and field end.
+            auto fieldResult = System::DynamicCast<Aspose::Words::Run>(mFieldSeparator->get_NextSibling());
+            fieldResult->set_Text(String::Format(u"«{0}»", value));
+
+            // But sometimes the field result can consist of more than one run, delete these runs.
+            RemoveSameParent(fieldResult->get_NextSibling(), mFieldEnd);
+
+            UpdateFieldCode(value);
+        }
+
+        MergeField(SharedPtr<FieldStart> fieldStart)
+            : gRegex(MakeObject<System::Text::RegularExpressions::Regex>(u"\\s*(?<start>MERGEFIELD\\s|)(\\s|)(?<name>\\S+)\\s+"))
+        {
+            if (fieldStart == nullptr)
+            {
+                throw System::ArgumentNullException(u"fieldStart");
+            }
+            if (fieldStart->get_FieldType() != FieldType::FieldMergeField)
+            {
+                throw System::ArgumentException(u"Field start type must be FieldMergeField.");
+            }
+
+            mFieldStart = fieldStart;
+
+            // Find the field separator node.
+            mFieldSeparator = fieldStart->GetField()->get_Separator();
+            if (mFieldSeparator == nullptr)
+            {
+                throw System::InvalidOperationException(u"Cannot find field separator.");
+            }
+
+            mFieldEnd = fieldStart->GetField()->get_End();
+        }
+
+    private:
+        SharedPtr<Node> mFieldStart;
+        SharedPtr<Node> mFieldSeparator;
+        SharedPtr<Node> mFieldEnd;
+        SharedPtr<System::Text::RegularExpressions::Regex> gRegex;
+
+        void UpdateFieldCode(String fieldName)
+        {
+            // Field code is stored in a Run node between field start and field separator.
+            auto fieldCode = System::DynamicCast<Aspose::Words::Run>(mFieldStart->get_NextSibling());
+
+            SharedPtr<System::Text::RegularExpressions::Match> match =
+                gRegex->Match((System::DynamicCast<FieldStart>(mFieldStart))->GetField()->GetFieldCode());
+
+            String newFieldCode = String::Format(u" {0}{1} ", match->get_Groups()->idx_get(u"start")->get_Value(), fieldName);
+            fieldCode->set_Text(newFieldCode);
+
+            // But sometimes the field code can consist of more than one run, delete these runs.
+            RemoveSameParent(fieldCode->get_NextSibling(), mFieldSeparator);
+        }
+
+        /// <summary>
+        /// Removes nodes from start up to but not including the end node.
+        /// Start and end are assumed to have the same parent.
+        /// </summary>
+        void RemoveSameParent(SharedPtr<Node> startNode, SharedPtr<Node> endNode)
+        {
+            if (endNode != nullptr && startNode->get_ParentNode() != endNode->get_ParentNode())
+            {
+                throw System::ArgumentException(u"Start and end nodes are expected to have the same parent.");
+            }
+
+            SharedPtr<Node> curChild = startNode;
+            while (curChild != nullptr && curChild != endNode)
+            {
+                SharedPtr<Node> nextChild = curChild->get_NextSibling();
+                curChild->Remove();
+                curChild = nextChild;
+            }
+        }
+    };
+    //ExEnd:MergeField
 
     void RemoveField()
     {
@@ -618,6 +573,48 @@ public:
         doc->Save(ArtifactsDir + u"WorkingWithFields.FieldUpdateCulture.pdf");
         //ExEnd:FieldUpdateCultureProvider
     }
+
+    //ExStart:FieldUpdateCultureProviderGetCulture
+    class FieldUpdateCultureProvider : public IFieldUpdateCultureProvider
+    {
+    public:
+        SharedPtr<System::Globalization::CultureInfo> GetCulture(String name, SharedPtr<Field> field) override
+        {
+            ASPOSE_UNUSED(field);
+            if (name == u"ru-RU")
+            {
+                auto culture = MakeObject<System::Globalization::CultureInfo>(name, false);
+                SharedPtr<System::Globalization::DateTimeFormatInfo> format = culture->get_DateTimeFormat();
+                format->set_MonthNames(MakeArray<String>({u"месяц 1", u"месяц 2", u"месяц 3", u"месяц 4", u"месяц 5", u"месяц 6", u"месяц 7", u"месяц 8",
+                                                          u"месяц 9", u"месяц 10", u"месяц 11", u"месяц 12", u""}));
+                format->set_MonthGenitiveNames(format->get_MonthNames());
+                format->set_AbbreviatedMonthNames(MakeArray<String>(
+                    {u"мес 1", u"мес 2", u"мес 3", u"мес 4", u"мес 5", u"мес 6", u"мес 7", u"мес 8", u"мес 9", u"мес 10", u"мес 11", u"мес 12", u""}));
+                format->set_AbbreviatedMonthGenitiveNames(format->get_AbbreviatedMonthNames());
+                format->set_DayNames(MakeArray<String>(
+                    {u"день недели 7", u"день недели 1", u"день недели 2", u"день недели 3", u"день недели 4", u"день недели 5", u"день недели 6"}));
+                format->set_AbbreviatedDayNames(MakeArray<String>({u"день 7", u"день 1", u"день 2", u"день 3", u"день 4", u"день 5", u"день 6"}));
+                format->set_ShortestDayNames(MakeArray<String>({u"д7", u"д1", u"д2", u"д3", u"д4", u"д5", u"д6"}));
+                format->set_AMDesignator(u"До полудня");
+                format->set_PMDesignator(u"После полудня");
+                const String pattern = u"yyyy MM (MMMM) dd (dddd) hh:mm:ss tt";
+                format->set_LongDatePattern(pattern);
+                format->set_LongTimePattern(pattern);
+                format->set_ShortDatePattern(pattern);
+                format->set_ShortTimePattern(pattern);
+                return culture;
+            }
+            else if (name == u"en-US")
+            {
+                return MakeObject<System::Globalization::CultureInfo>(name, false);
+            }
+            else
+            {
+                return nullptr;
+            }
+        }
+    };
+    //ExEnd:FieldUpdateCultureProviderGetCulture
 
     void FieldDisplayResults()
     {

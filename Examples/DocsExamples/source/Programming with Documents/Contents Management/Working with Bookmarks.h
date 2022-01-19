@@ -151,6 +151,46 @@ public:
         dstDoc->Save(ArtifactsDir + u"WorkingWithBookmarks.CopyBookmarkedText.docx");
     }
 
+    /// <summary>
+    /// Copies content of the bookmark and adds it to the end of the specified node.
+    /// The destination node can be in a different document.
+    /// </summary>
+    /// <param name="importer">Maintains the import context.</param>
+    /// <param name="srcBookmark">The input bookmark.</param>
+    /// <param name="dstNode">Must be a node that can contain paragraphs (such as a Story).</param>
+    void AppendBookmarkedText(SharedPtr<NodeImporter> importer, SharedPtr<Bookmark> srcBookmark, SharedPtr<CompositeNode> dstNode)
+    {
+        // This is the paragraph that contains the beginning of the bookmark.
+        auto startPara = System::DynamicCast<Paragraph>(srcBookmark->get_BookmarkStart()->get_ParentNode());
+
+        // This is the paragraph that contains the end of the bookmark.
+        auto endPara = System::DynamicCast<Paragraph>(srcBookmark->get_BookmarkEnd()->get_ParentNode());
+
+        if (startPara == nullptr || endPara == nullptr)
+        {
+            throw System::InvalidOperationException(u"Parent of the bookmark start or end is not a paragraph, cannot handle this scenario yet.");
+        }
+
+        // Limit ourselves to a reasonably simple scenario.
+        if (startPara->get_ParentNode() != endPara->get_ParentNode())
+        {
+            throw System::InvalidOperationException(u"Start and end paragraphs have different parents, cannot handle this scenario yet.");
+        }
+
+        // We want to copy all paragraphs from the start paragraph up to (and including) the end paragraph,
+        // therefore the node at which we stop is one after the end paragraph.
+        SharedPtr<Node> endNode = endPara->get_NextSibling();
+
+        for (SharedPtr<Node> curNode = startPara; curNode != endNode; curNode = curNode->get_NextSibling())
+        {
+            // This creates a copy of the current node and imports it (makes it valid) in the context
+            // of the destination document. Importing means adjusting styles and list identifiers correctly.
+            SharedPtr<Node> newNode = importer->ImportNode(curNode, true);
+
+            dstNode->AppendChild(newNode);
+        }
+    }
+
     void CreateBookmark()
     {
         //ExStart:CreateBookmark
@@ -186,6 +226,7 @@ public:
         //ExEnd:ShowHideBookmarks
     }
 
+    //ExStart:ShowHideBookmarkedContent
     void ShowHideBookmarkedContent(SharedPtr<Document> doc, String bookmarkName, bool showHide)
     {
         SharedPtr<Bookmark> bm = doc->get_Range()->get_Bookmarks()->idx_get(bookmarkName);
@@ -238,6 +279,7 @@ public:
 
         doc->get_MailMerge()->Execute(MakeArray<String>({bookmarkName}), MakeArray<SharedPtr<System::Object>>({System::ObjectExt::Box<bool>(showHide)}));
     }
+    //ExEnd:ShowHideBookmarkedContent
 
     void UntangleRowBookmarks()
     {
@@ -256,47 +298,6 @@ public:
         }
 
         doc->Save(ArtifactsDir + u"WorkingWithBookmarks.UntangleRowBookmarks.docx");
-    }
-
-protected:
-    /// <summary>
-    /// Copies content of the bookmark and adds it to the end of the specified node.
-    /// The destination node can be in a different document.
-    /// </summary>
-    /// <param name="importer">Maintains the import context.</param>
-    /// <param name="srcBookmark">The input bookmark.</param>
-    /// <param name="dstNode">Must be a node that can contain paragraphs (such as a Story).</param>
-    void AppendBookmarkedText(SharedPtr<NodeImporter> importer, SharedPtr<Bookmark> srcBookmark, SharedPtr<CompositeNode> dstNode)
-    {
-        // This is the paragraph that contains the beginning of the bookmark.
-        auto startPara = System::DynamicCast<Paragraph>(srcBookmark->get_BookmarkStart()->get_ParentNode());
-
-        // This is the paragraph that contains the end of the bookmark.
-        auto endPara = System::DynamicCast<Paragraph>(srcBookmark->get_BookmarkEnd()->get_ParentNode());
-
-        if (startPara == nullptr || endPara == nullptr)
-        {
-            throw System::InvalidOperationException(u"Parent of the bookmark start or end is not a paragraph, cannot handle this scenario yet.");
-        }
-
-        // Limit ourselves to a reasonably simple scenario.
-        if (startPara->get_ParentNode() != endPara->get_ParentNode())
-        {
-            throw System::InvalidOperationException(u"Start and end paragraphs have different parents, cannot handle this scenario yet.");
-        }
-
-        // We want to copy all paragraphs from the start paragraph up to (and including) the end paragraph,
-        // therefore the node at which we stop is one after the end paragraph.
-        SharedPtr<Node> endNode = endPara->get_NextSibling();
-
-        for (SharedPtr<Node> curNode = startPara; curNode != endNode; curNode = curNode->get_NextSibling())
-        {
-            // This creates a copy of the current node and imports it (makes it valid) in the context
-            // of the destination document. Importing means adjusting styles and list identifiers correctly.
-            SharedPtr<Node> newNode = importer->ImportNode(curNode, true);
-
-            dstNode->AppendChild(newNode);
-        }
     }
 
     void Untangle(SharedPtr<Document> doc)
