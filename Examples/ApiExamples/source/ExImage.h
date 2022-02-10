@@ -111,7 +111,7 @@ public:
 
         // 2 -  Pass a URL which points to an image.
         builder->Write(u"Image from a URL: ");
-        builder->InsertImage(AsposeLogoUrl);
+        builder->InsertImage(ImageUrl);
         builder->Writeln();
 
         doc->Save(ArtifactsDir + u"Image.FromUrl.docx");
@@ -122,7 +122,7 @@ public:
 
         ASSERT_EQ(2, shapes->get_Count());
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, System::DynamicCast<Shape>(shapes->idx_get(0)));
-        TestUtil::VerifyImageInShape(320, 320, ImageType::Png, System::DynamicCast<Shape>(shapes->idx_get(1)));
+        TestUtil::VerifyImageInShape(5184, 3456, ImageType::Jpeg, System::DynamicCast<Shape>(shapes->idx_get(1)));
     }
 
     void FromStream()

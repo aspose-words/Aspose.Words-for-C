@@ -67,9 +67,9 @@ protected:
     /// </summary>
     static System::String FontsDir;
     /// <summary>
-    /// Gets the URL of the Aspose logo.
+    /// Gets the URL of the test image.
     /// </summary>
-    static System::String AsposeLogoUrl;
+    static System::String ImageUrl;
 
     /// <summary>
     /// Checks when we need to ignore test on mono.

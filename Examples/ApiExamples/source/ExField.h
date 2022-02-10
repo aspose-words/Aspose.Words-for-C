@@ -3048,7 +3048,6 @@ public:
     {
         //ExStart
         //ExFor:FieldIndex.PageRangeSeparator
-        //ExFor:FieldXE.HasPageRangeBookmarkName
         //ExFor:FieldXE.PageRangeBookmarkName
         //ExSummary:Shows how to specify a bookmark's spanned pages as a page range for an INDEX field entry.
         auto doc = MakeObject<Document>();
@@ -3078,7 +3077,7 @@ public:
         indexEntry->set_PageRangeBookmarkName(u"MyBookmark");
 
         ASSERT_EQ(u" XE  \"My entry\" \\r MyBookmark", indexEntry->GetFieldCode());
-        ASSERT_TRUE(indexEntry->get_HasPageRangeBookmarkName());
+        ASSERT_EQ(u"MyBookmark", indexEntry->get_PageRangeBookmarkName());
 
         // Insert a bookmark that starts on page 3 and ends on page 5.
         // The INDEX entry for the XE field that references this bookmark will display this page range.
@@ -3107,7 +3106,6 @@ public:
         TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  \"My entry\" \\r MyBookmark", String::Empty, indexEntry);
         ASSERT_EQ(u"My entry", indexEntry->get_Text());
         ASSERT_EQ(u"MyBookmark", indexEntry->get_PageRangeBookmarkName());
-        ASSERT_TRUE(indexEntry->get_HasPageRangeBookmarkName());
     }
 
     void FieldIndexCrossReferenceSeparator()

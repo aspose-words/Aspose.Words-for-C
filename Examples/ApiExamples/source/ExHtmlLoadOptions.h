@@ -117,12 +117,12 @@ public:
 
         // Load such a document and verify that a shape with image data has been created.
         // This linked image will require a web request to load, which will have to complete within our time limit.
-        String html = String(u"<html>\n    <img src=\"") + AsposeLogoUrl + u"\" alt=\"Aspose logo\" style=\"width:400px;height:400px;\">\n</html>";
+        String html = String(u"<html>\n    <img src=\"") + ImageUrl + u"\" alt=\"Aspose logo\" style=\"width:400px;height:400px;\">\n</html>";
 
         auto doc = MakeObject<Document>(MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(html)), options);
         auto imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
-        ASSERT_EQ(7498, imageShape->get_ImageData()->get_ImageBytes()->get_Length());
+        ASSERT_EQ(1109843, imageShape->get_ImageData()->get_ImageBytes()->get_Length());
         ASSERT_EQ(0, warningCallback->Warnings()->get_Count());
 
         // Set an unreasonable timeout limit and try load the document again.
@@ -137,7 +137,7 @@ public:
         // We can also configure a custom callback to pick up any warnings from timed out web requests.
         ASSERT_EQ(WarningSource::Html, warningCallback->Warnings()->idx_get(0)->get_Source());
         ASSERT_EQ(WarningType::DataLoss, warningCallback->Warnings()->idx_get(0)->get_WarningType());
-        ASSERT_EQ(String::Format(u"Couldn't load a resource from \'{0}\'.", AsposeLogoUrl), warningCallback->Warnings()->idx_get(0)->get_Description());
+        ASSERT_EQ(String::Format(u"Couldn't load a resource from \'{0}\'.", ImageUrl), warningCallback->Warnings()->idx_get(0)->get_Description());
 
         ASSERT_EQ(WarningSource::Html, warningCallback->Warnings()->idx_get(1)->get_Source());
         ASSERT_EQ(WarningType::DataLoss, warningCallback->Warnings()->idx_get(1)->get_WarningType());
