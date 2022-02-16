@@ -1824,7 +1824,7 @@ public:
                              200.0, 200.0, WrapType::Square);
 
         // 2 -  From a URL:
-        builder->InsertImage(AsposeLogoUrl, RelativeHorizontalPosition::Margin, 100.0, RelativeVerticalPosition::Margin, 250.0, 200.0, 200.0, WrapType::Square);
+        builder->InsertImage(ImageUrl, RelativeHorizontalPosition::Margin, 100.0, RelativeVerticalPosition::Margin, 250.0, 200.0, 200.0, WrapType::Square);
 
         doc->Save(ArtifactsDir + u"DocumentBuilder.InsertFloatingImage.docx");
         //ExEnd
@@ -1843,7 +1843,7 @@ public:
 
         image = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
-        TestUtil::VerifyImageInShape(320, 320, ImageType::Png, image);
+        TestUtil::VerifyImageInShape(5184, 3456, ImageType::Jpeg, image);
         ASPOSE_ASSERT_EQ(100.0, image->get_Left());
         ASPOSE_ASSERT_EQ(250.0, image->get_Top());
         ASPOSE_ASSERT_EQ(200.0, image->get_Width());

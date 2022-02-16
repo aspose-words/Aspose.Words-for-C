@@ -236,7 +236,7 @@ public:
                 footer->Remove();
             }
 
-            // 3 -  The "Even" header/footer, which appears on odd even pages.
+            // 3 -  The "Even" header/footer, which appears on even pages.
             footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterEven);
             if (footer != nullptr)
             {

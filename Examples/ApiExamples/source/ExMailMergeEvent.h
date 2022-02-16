@@ -125,7 +125,7 @@ public:
         // A URI can be a web URL that points to an image, or a local file system filename of an image file.
         ArrayPtr<String> columns = MakeArray<String>({u"logo_FromWeb", u"logo_FromFileSystem"});
         ArrayPtr<SharedPtr<System::Object>> URIs =
-            MakeArray<SharedPtr<System::Object>>({System::ObjectExt::Box<String>(AsposeLogoUrl), System::ObjectExt::Box<String>(ImageDir + u"Logo.jpg")});
+            MakeArray<SharedPtr<System::Object>>({System::ObjectExt::Box<String>(ImageUrl), System::ObjectExt::Box<String>(ImageDir + u"Logo.jpg")});
 
         // Execute a mail merge on a data source with one row.
         doc->get_MailMerge()->Execute(columns, URIs);
@@ -141,7 +141,7 @@ public:
 
         imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
-        TestUtil::VerifyImageInShape(320, 320, ImageType::Png, imageShape);
+        TestUtil::VerifyImageInShape(5184, 3456, ImageType::Jpeg, imageShape);
     }
 };
 

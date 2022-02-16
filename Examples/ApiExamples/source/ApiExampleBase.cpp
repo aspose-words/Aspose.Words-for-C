@@ -27,7 +27,7 @@ System::String ApiExampleBase::MyDir;
 System::String ApiExampleBase::ImageDir;
 System::String ApiExampleBase::DatabaseDir;
 System::String ApiExampleBase::FontsDir;
-System::String ApiExampleBase::AsposeLogoUrl;
+System::String ApiExampleBase::ImageUrl;
 
 ApiExampleBase::__StaticConstructor__ ApiExampleBase::s_constructor__;
 
@@ -112,8 +112,8 @@ ApiExampleBase::__StaticConstructor__::__StaticConstructor__()
     ApiExampleBase::DatabaseDir =
         System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/Database/")->get_LocalPath();
     ApiExampleBase::FontsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::CodeBaseDir), u"Data/MyFonts/")->get_LocalPath();
-    ApiExampleBase::AsposeLogoUrl =
-        System::MakeObject<System::Uri>(u"https://www.aspose.cloud/templates/aspose/App_Themes/V3/images/words/header/aspose_words-for-net.png")
+    ApiExampleBase::ImageUrl =
+        System::MakeObject<System::Uri>(u"https://images.pexels.com/photos/239548/pexels-photo-239548.jpeg")
             ->get_AbsoluteUri();
 }
 
