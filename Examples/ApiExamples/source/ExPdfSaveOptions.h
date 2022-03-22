@@ -48,7 +48,6 @@
 #include <Aspose.Words.Cpp/Saving/PdfDigitalSignatureDetails.h>
 #include <Aspose.Words.Cpp/Saving/PdfDigitalSignatureHashAlgorithm.h>
 #include <Aspose.Words.Cpp/Saving/PdfDigitalSignatureTimestampSettings.h>
-#include <Aspose.Words.Cpp/Saving/PdfEncryptionAlgorithm.h>
 #include <Aspose.Words.Cpp/Saving/PdfEncryptionDetails.h>
 #include <Aspose.Words.Cpp/Saving/PdfFontEmbeddingMode.h>
 #include <Aspose.Words.Cpp/Saving/PdfImageColorSpaceExportMode.h>
@@ -1428,7 +1427,6 @@ public:
         //ExFor:PdfEncryptionDetails.#ctor
         //ExFor:PdfSaveOptions.EncryptionDetails
         //ExFor:PdfEncryptionDetails.Permissions
-        //ExFor:PdfEncryptionDetails.EncryptionAlgorithm
         //ExFor:PdfEncryptionDetails.OwnerPassword
         //ExFor:PdfEncryptionDetails.UserPassword
         //ExFor:PdfEncryptionAlgorithm
@@ -1440,7 +1438,7 @@ public:
 
         builder->Writeln(u"Hello world!");
 
-        auto encryptionDetails = MakeObject<PdfEncryptionDetails>(u"password", String::Empty, PdfEncryptionAlgorithm::RC4_128);
+        auto encryptionDetails = MakeObject<PdfEncryptionDetails>(u"password", String::Empty);
 
         // Start by disallowing all permissions.
         encryptionDetails->set_Permissions(PdfPermissions::DisallowAll);
