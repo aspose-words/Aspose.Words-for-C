@@ -3,7 +3,7 @@
     {
       "kind": "git",
       "repository": "https://github.com/aspose-words/Aspose.Words-for-CPP-vcpkg-registry.git",
-      "baseline": "466a1c5d9a6ad099f847b17c79f9cc4da1bcac5a",
+      "baseline": "ad8d6eec6213dab7db862bef243fa0e71263ab4c",
       "packages": [
         "codeporting-native-cs2cpp-api",
         "aspose-words-cpp",
