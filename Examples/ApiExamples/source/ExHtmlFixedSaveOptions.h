@@ -299,7 +299,7 @@ public:
             System::Text::RegularExpressions::Regex::Match(
                 outDocContents, String(u"<div class=\"myprefixdiv myprefixpage\" style=\"width:595[.]3pt; height:841[.]9pt;\">") +
                                     u"<div class=\"myprefixdiv\" style=\"left:85[.]05pt; top:36pt; clip:rect[(]0pt,510[.]25pt,74[.]95pt,-85.05pt[)];\">" +
-                                    u"<span class=\"myprefixspan myprefixtext001\" style=\"font-size:11pt; left:294[.]73pt; top:0[.]36pt;\">")
+                                    u"<span class=\"myprefixspan myprefixtext001\" style=\"font-size:11pt; left:294[.]73pt; top:0[.]36pt; line-height:12[.]29pt;\">")
                 ->get_Success());
 
         outDocContents = System::IO::File::ReadAllText(ArtifactsDir + u"HtmlFixedSaveOptions.AddCssClassNamesPrefix/styles.css");
@@ -388,7 +388,7 @@ public:
         doc->Save(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html", saveOptions);
 
         // The size of the optimized version of the document is almost a third of the size of the unoptimized document.
-        ASSERT_NEAR(optimizeOutput ? 57220 : 159000,
+        ASSERT_NEAR(optimizeOutput ? 62470 : 191726,
                     MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
         //ExEnd
     }

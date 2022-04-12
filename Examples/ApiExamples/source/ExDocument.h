@@ -1117,39 +1117,6 @@ public:
         //ExEnd
     }
 
-    void UpdateTableLayout()
-    {
-        //ExStart
-        //ExFor:Document.UpdateTableLayout
-        //ExSummary:Shows how to preserve a table's layout when saving to .txt.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        SharedPtr<Table> table = builder->StartTable();
-        builder->InsertCell();
-        builder->Write(u"Cell 1");
-        builder->InsertCell();
-        builder->Write(u"Cell 2");
-        builder->InsertCell();
-        builder->Write(u"Cell 3");
-        builder->EndTable();
-
-        // Use a TxtSaveOptions object to preserve the table's layout when converting the document to plaintext.
-        auto options = MakeObject<TxtSaveOptions>();
-        options->set_PreserveTableLayout(true);
-
-        // Previewing the appearance of the document in .txt form shows that the table will not be represented accurately.
-        ASPOSE_ASSERT_EQ(0.0, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_Width());
-        ASSERT_EQ(u"CCC\r\neee\r\nlll\r\nlll\r\n   \r\n123\r\n\r\n", doc->ToString(options));
-
-        // We can call UpdateTableLayout() to fix some of these issues.
-        doc->UpdateTableLayout();
-
-        ASSERT_EQ(u"Cell 1                                       Cell 2                                       Cell 3\r\n\r\n", doc->ToString(options));
-        ASSERT_NEAR(155.0, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_Width(), 2.f);
-        //ExEnd
-    }
-
     void GetOriginalFileInfo()
     {
         //ExStart

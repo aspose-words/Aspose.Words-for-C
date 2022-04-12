@@ -3606,7 +3606,6 @@ public:
 
         ASSERT_EQ(u"https://vimeo.com/52477838", shape->get_HRef());
 
-        System::Net::ServicePointManager::set_SecurityProtocol(System::Net::SecurityProtocolType::Tls12);
         TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode::OK, shape->get_HRef());
     }
 

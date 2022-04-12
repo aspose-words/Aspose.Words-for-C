@@ -378,7 +378,7 @@ public:
         doc->Save(ArtifactsDir + u"ImageSaveOptions.EditImage.png", options);
         //ExEnd
 
-        TestUtil::VerifyImage(817, 1057, ArtifactsDir + u"ImageSaveOptions.EditImage.png");
+        TestUtil::VerifyImage(816, 1056, ArtifactsDir + u"ImageSaveOptions.EditImage.png");
     }
 
     void JpegQuality()
