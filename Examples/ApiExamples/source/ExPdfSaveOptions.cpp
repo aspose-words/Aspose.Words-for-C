@@ -689,7 +689,7 @@ TEST_F(ExPdfSaveOptions, PdfDigitalSignature)
     s_instance->PdfDigitalSignature();
 }
 
-TEST_F(ExPdfSaveOptions, PdfDigitalSignatureTimestamp)
+TEST_F(ExPdfSaveOptions, DISABLED_PdfDigitalSignatureTimestamp)
 {
     s_instance->PdfDigitalSignatureTimestamp();
 }

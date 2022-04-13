@@ -741,7 +741,7 @@ public:
         if (showDoctypeDeclaration)
         {
             ASSERT_TRUE(outDocContents.Contains(String(u"<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\r\n") +
-                                                u"<!DOCTYPE html\r\nPUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\r\n       "
+                                                u"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" "
                                                 u"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n" +
                                                 u"<html xmlns=\"http://www.w3.org/1999/xhtml\">"));
         }
@@ -1680,10 +1680,10 @@ public:
                           u"\t\t<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />\r\n" +
                           String::Format(u"\t\t<meta name=\"generator\" content=\"{0} {1}\" />\r\n", BuildVersionInfo::get_Product(),
                                          BuildVersionInfo::get_Version()) +
-                          u"\t\t<title></title>\r\n" + u"\t</head>\r\n" + u"\t<body style=\"font-family:'Times New Roman'; font-size:12pt\">\r\n" +
+                          u"\t\t<title>\r\n\t\t</title>\r\n" + u"\t</head>\r\n" + u"\t<body style=\"font-family:'Times New Roman'; font-size:12pt\">\r\n" +
                           u"\t\t<div>\r\n" + u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">\r\n" + u"\t\t\t\t<span>Hello world!</span>\r\n" +
                           u"\t\t\t</p>\r\n" + u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">\r\n" +
-                          u"\t\t\t\t<span style=\"-aw-import:ignore\">&#xa0;</span>\r\n" + u"\t\t\t</p>\r\n" + u"\t\t</div>\r\n" + u"\t</body>\r\n</html>\r\n",
+                          u"\t\t\t\t<span style=\"-aw-import:ignore\">&#xa0;</span>\r\n" + u"\t\t\t</p>\r\n" + u"\t\t</div>\r\n" + u"\t</body>\r\n</html>",
                       html);
         }
         else

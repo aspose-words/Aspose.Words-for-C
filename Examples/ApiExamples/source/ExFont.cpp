@@ -251,7 +251,7 @@ TEST_F(ExFont, HasDmlEffect)
     s_instance->HasDmlEffect();
 }
 
-TEST_F(ExFont, IgnoreOnJenkins_CheckScanUserFontsFolder)
+TEST_F(ExFont, DISABLED_IgnoreOnJenkins_CheckScanUserFontsFolder)
 {
     RecordProperty("category", "IgnoreOnJenkins");
 

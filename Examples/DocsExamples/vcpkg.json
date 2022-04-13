@@ -1,10 +1,10 @@
 {
   "name": "api-examples",
-  "version-string": "22.3",
+  "version-string": "22.4",
   "dependencies": [
     {
       "name" : "aspose-words-cpp",
-      "version>=" : "22.3"
+      "version>=" : "22.4"
     }
   ],
   "builtin-baseline": "2169ab765b49cfc5cd7eddfc8ff3e579326776f8"

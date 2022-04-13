@@ -237,11 +237,6 @@ TEST_F(ExDocument, TableStyleToDirectFormatting)
     s_instance->TableStyleToDirectFormatting();
 }
 
-TEST_F(ExDocument, UpdateTableLayout)
-{
-    s_instance->UpdateTableLayout();
-}
-
 TEST_F(ExDocument, GetOriginalFileInfo)
 {
     s_instance->GetOriginalFileInfo();

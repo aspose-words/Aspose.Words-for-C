@@ -560,7 +560,7 @@ TEST_F(ExDocumentBuilder, MarkdownDocumentTests)
     s_instance->MarkdownDocumentTests();
 }
 
-TEST_F(ExDocumentBuilder, InsertOnlineVideo)
+TEST_F(ExDocumentBuilder, DISABLED_InsertOnlineVideo)
 {
     s_instance->InsertOnlineVideo();
 }
