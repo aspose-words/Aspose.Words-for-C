@@ -141,7 +141,7 @@ public:
         builder->Write(u"Hello world!");
 
         auto saveOptions = MakeObject<HtmlSaveOptions>(saveFormat);
-        saveOptions->set_ExportTextBoxAsSvg(isTextBoxAsSvg);
+        saveOptions->set_ExportShapesAsSvg(isTextBoxAsSvg);
 
         doc->Save(ArtifactsDir + u"HtmlSaveOptions.ExportTextBoxAsSvgEpub" + FileFormatUtil::SaveFormatToExtension(saveFormat), saveOptions);
 
@@ -1228,7 +1228,7 @@ public:
         // If we set the "ExportTextBoxAsSvg" flag to "false",
         // the save operation will convert shapes with text into images.
         auto options = MakeObject<HtmlSaveOptions>();
-        options->set_ExportTextBoxAsSvg(exportTextBoxAsSvg);
+        options->set_ExportShapesAsSvg(exportTextBoxAsSvg);
 
         doc->Save(ArtifactsDir + u"HtmlSaveOptions.ExportTextBox.html", options);
 
