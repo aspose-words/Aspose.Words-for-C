@@ -1429,7 +1429,6 @@ public:
         //ExFor:PdfEncryptionDetails.Permissions
         //ExFor:PdfEncryptionDetails.OwnerPassword
         //ExFor:PdfEncryptionDetails.UserPassword
-        //ExFor:PdfEncryptionAlgorithm
         //ExFor:PdfPermissions
         //ExFor:PdfEncryptionDetails
         //ExSummary:Shows how to set permissions on a saved PDF document.

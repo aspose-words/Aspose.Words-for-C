@@ -586,12 +586,9 @@ public:
     //ExFor:ChartDataLabel.ShowValue
     //ExFor:ChartDataLabel.IsHidden
     //ExFor:ChartDataLabelCollection
-    //ExFor:ChartDataLabelCollection.Add(System.Int32)
-    //ExFor:ChartDataLabelCollection.Clear
     //ExFor:ChartDataLabelCollection.Count
     //ExFor:ChartDataLabelCollection.GetEnumerator
     //ExFor:ChartDataLabelCollection.Item(System.Int32)
-    //ExFor:ChartDataLabelCollection.RemoveAt(System.Int32)
     //ExSummary:Shows how to apply labels to data points in a line chart.
     void DataLabels()
     {
