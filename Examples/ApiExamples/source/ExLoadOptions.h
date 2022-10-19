@@ -399,23 +399,6 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"HTML help.chm", loadOptions);
     }
 
-    void FlatOpcXmlMappingOnly(bool isFlatOpcXmlMappingOnly)
-    {
-        //ExStart
-        //ExFor:SaveOptions.FlatOpcXmlMappingOnly
-        //ExSummary:Shows how to binding structured document tags to any format.
-        // If true - SDT will contain raw HTML text.
-        // If false - mapped HTML will parsed and resulting document will be inserted into SDT content.
-        auto loadOptions = MakeObject<LoadOptions>();
-        loadOptions->set_FlatOpcXmlMappingOnly(isFlatOpcXmlMappingOnly);
-        auto doc = MakeObject<Document>(MyDir + u"Structured document tag with HTML content.docx", loadOptions);
-
-        SharedPtr<SaveOptions> saveOptions = SaveOptions::CreateSaveOptions(SaveFormat::Pdf);
-        saveOptions->set_FlatOpcXmlMappingOnly(isFlatOpcXmlMappingOnly);
-
-        doc->Save(ArtifactsDir + u"LoadOptions.FlatOpcXmlMappingOnly.pdf", saveOptions);
-        //ExEnd
-    }
 };
 
 } // namespace ApiExamples
