@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.21 FATAL_ERROR)
 
-set(VCPKG_OVERLAY_TRIPLETS "${CMAKE_CURRENT_SOURCE_DIR}/custom-triplets")
-
 project(DocsExamples CXX)
 
 find_package(aspose-words-cpp CONFIG REQUIRED)
