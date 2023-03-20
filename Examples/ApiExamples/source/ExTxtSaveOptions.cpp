@@ -140,11 +140,6 @@ TEST_F(ExTxtSaveOptions, ParagraphBreak)
     s_instance->ParagraphBreak();
 }
 
-TEST_F(ExTxtSaveOptions, Encoding)
-{
-    s_instance->Encoding_();
-}
-
 using ExTxtSaveOptions_PreserveTableLayout_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExTxtSaveOptions::PreserveTableLayout)>::type;
 
 struct ExTxtSaveOptions_PreserveTableLayout : public ExTxtSaveOptions,

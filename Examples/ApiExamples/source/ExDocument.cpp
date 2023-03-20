@@ -81,11 +81,6 @@ TEST_F(ExDocument, OpenFromStreamWithBaseUri)
     s_instance->OpenFromStreamWithBaseUri();
 }
 
-TEST_F(ExDocument, DISABLED_InsertHtmlFromWebPage)
-{
-    s_instance->InsertHtmlFromWebPage();
-}
-
 TEST_F(ExDocument, LoadEncrypted)
 {
     s_instance->LoadEncrypted();
@@ -326,11 +321,6 @@ TEST_F(ExDocument, HyphenationOptionsExceptions)
 TEST_F(ExDocument, OoxmlComplianceVersion)
 {
     s_instance->OoxmlComplianceVersion();
-}
-
-TEST_F(ExDocument, DISABLED_ImageSaveOptions)
-{
-    s_instance->ImageSaveOptions_();
 }
 
 TEST_F(ExDocument, Cleanup)

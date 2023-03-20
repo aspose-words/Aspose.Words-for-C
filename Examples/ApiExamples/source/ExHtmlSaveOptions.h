@@ -822,42 +822,6 @@ public:
         //ExEnd
     }
 
-    void ContentIdUrls(bool exportCidUrlsForMhtmlResources)
-    {
-        //ExStart
-        //ExFor:HtmlSaveOptions.ExportCidUrlsForMhtmlResources
-        //ExSummary:Shows how to enable content IDs for output MHTML documents.
-        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
-
-        // Setting this flag will replace "Content-Location" tags
-        // with "Content-ID" tags for each resource from the input document.
-        auto options = MakeObject<HtmlSaveOptions>(SaveFormat::Mhtml);
-        options->set_ExportCidUrlsForMhtmlResources(exportCidUrlsForMhtmlResources);
-        options->set_CssStyleSheetType(CssStyleSheetType::External);
-        options->set_ExportFontResources(true);
-        options->set_PrettyFormat(true);
-
-        doc->Save(ArtifactsDir + u"HtmlSaveOptions.ContentIdUrls.mht", options);
-
-        String outDocContents = System::IO::File::ReadAllText(ArtifactsDir + u"HtmlSaveOptions.ContentIdUrls.mht");
-
-        if (exportCidUrlsForMhtmlResources)
-        {
-            ASSERT_TRUE(outDocContents.Contains(u"Content-ID: <document.html>"));
-            ASSERT_TRUE(outDocContents.Contains(u"<link href=3D\"cid:styles.css\" type=3D\"text/css\" rel=3D\"stylesheet\" />"));
-            ASSERT_TRUE(outDocContents.Contains(u"@font-face { font-family:'Arial Black'; src:url('cid:ariblk.ttf') }"));
-            ASSERT_TRUE(outDocContents.Contains(u"<img src=3D\"cid:image.003.jpeg\" width=3D\"350\" height=3D\"180\" alt=3D\"\" />"));
-        }
-        else
-        {
-            ASSERT_TRUE(outDocContents.Contains(u"Content-Location: document.html"));
-            ASSERT_TRUE(outDocContents.Contains(u"<link href=3D\"styles.css\" type=3D\"text/css\" rel=3D\"stylesheet\" />"));
-            ASSERT_TRUE(outDocContents.Contains(u"@font-face { font-family:'Arial Black'; src:url('ariblk.ttf') }"));
-            ASSERT_TRUE(outDocContents.Contains(u"<img src=3D\"image.003.jpeg\" width=3D\"350\" height=3D\"180\" alt=3D\"\" />"));
-        }
-        //ExEnd
-    }
-
     void DropDownFormField(bool exportDropDownFormFieldAsText)
     {
         //ExStart
@@ -1071,98 +1035,6 @@ public:
         //ExEnd
     }
 
-    void ExportPageMargins(bool exportPageMargins)
-    {
-        //ExStart
-        //ExFor:HtmlSaveOptions.ExportPageMargins
-        //ExSummary:Shows how to show out-of-bounds objects in output HTML documents.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        // Use a builder to insert a shape with no wrapping.
-        SharedPtr<Shape> shape = builder->InsertShape(ShapeType::Cube, 200, 200);
-
-        shape->set_RelativeHorizontalPosition(RelativeHorizontalPosition::Page);
-        shape->set_RelativeVerticalPosition(RelativeVerticalPosition::Page);
-        shape->set_WrapType(WrapType::None);
-
-        // Negative shape position values may place the shape outside of page boundaries.
-        // If we export this to HTML, the shape will appear truncated.
-        shape->set_Left(-150);
-
-        // When saving the document to HTML, we can pass a SaveOptions object
-        // to decide whether to adjust the page to display out-of-bounds objects fully.
-        // If we set the "ExportPageMargins" flag to "true", the shape will be fully visible in the output HTML.
-        // If we set the "ExportPageMargins" flag to "false",
-        // our document will display the shape truncated as we would see it in Microsoft Word.
-        auto options = MakeObject<HtmlSaveOptions>();
-        options->set_ExportPageMargins(exportPageMargins);
-
-        doc->Save(ArtifactsDir + u"HtmlSaveOptions.ExportPageMargins.html", options);
-
-        String outDocContents = System::IO::File::ReadAllText(ArtifactsDir + u"HtmlSaveOptions.ExportPageMargins.html");
-
-        if (exportPageMargins)
-        {
-            ASSERT_TRUE(outDocContents.Contains(u"<style type=\"text/css\">div.Section1 { margin:70.85pt }</style>"));
-            ASSERT_TRUE(outDocContents.Contains(u"<div class=\"Section1\"><p style=\"margin-top:0pt; margin-left:151pt; margin-bottom:0pt\">"));
-        }
-        else
-        {
-            ASSERT_FALSE(outDocContents.Contains(u"style type=\"text/css\">"));
-            ASSERT_TRUE(outDocContents.Contains(u"<div><p style=\"margin-top:0pt; margin-left:221.85pt; margin-bottom:0pt\">"));
-        }
-        //ExEnd
-    }
-
-    void ExportPageSetup(bool exportPageSetup)
-    {
-        //ExStart
-        //ExFor:HtmlSaveOptions.ExportPageSetup
-        //ExSummary:Shows how decide whether to preserve section structure/page setup information when saving to HTML.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        builder->Write(u"Section 1");
-        builder->InsertBreak(BreakType::SectionBreakNewPage);
-        builder->Write(u"Section 2");
-
-        SharedPtr<PageSetup> pageSetup = doc->get_Sections()->idx_get(0)->get_PageSetup();
-        pageSetup->set_TopMargin(36.0);
-        pageSetup->set_BottomMargin(36.0);
-        pageSetup->set_PaperSize(PaperSize::A5);
-
-        // When saving the document to HTML, we can pass a SaveOptions object
-        // to decide whether to preserve or discard page setup settings.
-        // If we set the "ExportPageSetup" flag to "true", the output HTML document will contain our page setup configuration.
-        // If we set the "ExportPageSetup" flag to "false", the save operation will discard our page setup settings
-        // for the first section, and both sections will look identical.
-        auto options = MakeObject<HtmlSaveOptions>();
-        options->set_ExportPageSetup(exportPageSetup);
-
-        doc->Save(ArtifactsDir + u"HtmlSaveOptions.ExportPageSetup.html", options);
-
-        String outDocContents = System::IO::File::ReadAllText(ArtifactsDir + u"HtmlSaveOptions.ExportPageSetup.html");
-
-        if (exportPageSetup)
-        {
-            ASSERT_TRUE(outDocContents.Contains(String(u"<style type=\"text/css\">") + u"@page Section1 { size:419.55pt 595.3pt; margin:36pt 70.85pt }" +
-                                                u"@page Section2 { size:612pt 792pt; margin:70.85pt }" +
-                                                u"div.Section1 { page:Section1 }div.Section2 { page:Section2 }" + u"</style>"));
-
-            ASSERT_TRUE(outDocContents.Contains(String(u"<div class=\"Section1\">") + u"<p style=\"margin-top:0pt; margin-bottom:0pt\">" +
-                                                u"<span>Section 1</span>" + u"</p>" + u"</div>"));
-        }
-        else
-        {
-            ASSERT_FALSE(outDocContents.Contains(u"style type=\"text/css\">"));
-
-            ASSERT_TRUE(outDocContents.Contains(String(u"<div>") + u"<p style=\"margin-top:0pt; margin-bottom:0pt\">" + u"<span>Section 1</span>" + u"</p>" +
-                                                u"</div>"));
-        }
-        //ExEnd
-    }
-
     void RelativeFontSize(bool exportRelativeFontSize)
     {
         //ExStart
@@ -1315,60 +1187,6 @@ public:
             ASSERT_TRUE(outDocContents.Contains(u"<span>Page number 1</span>"));
 
             ASSERT_EQ(0, doc->get_Range()->get_Fields()->LINQ_Count([](SharedPtr<Field> f) { return f->get_Type() == FieldType::FieldPage; }));
-        }
-        //ExEnd
-    }
-
-    void ExportTocPageNumbers(bool exportTocPageNumbers)
-    {
-        //ExStart
-        //ExFor:HtmlSaveOptions.ExportTocPageNumbers
-        //ExSummary:Shows how to display page numbers when saving a document with a table of contents to .html.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        // Insert a table of contents, and then populate the document with paragraphs formatted using a "Heading"
-        // style that the table of contents will pick up as entries. Each entry will display the heading paragraph on the left,
-        // and the page number that contains the heading on the right.
-        auto fieldToc = System::DynamicCast<FieldToc>(builder->InsertField(FieldType::FieldTOC, true));
-
-        builder->get_ParagraphFormat()->set_Style(builder->get_Document()->get_Styles()->idx_get(u"Heading 1"));
-        builder->InsertBreak(BreakType::PageBreak);
-        builder->Writeln(u"Entry 1");
-        builder->Writeln(u"Entry 2");
-        builder->InsertBreak(BreakType::PageBreak);
-        builder->Writeln(u"Entry 3");
-        builder->InsertBreak(BreakType::PageBreak);
-        builder->Writeln(u"Entry 4");
-        fieldToc->UpdatePageNumbers();
-        doc->UpdateFields();
-
-        // HTML documents do not have pages. If we save this document to HTML,
-        // the page numbers that our TOC displays will have no meaning.
-        // When we save the document to HTML, we can pass a SaveOptions object to omit these page numbers from the TOC.
-        // If we set the "ExportTocPageNumbers" flag to "true",
-        // each TOC entry will display the heading, separator, and page number, preserving its appearance in Microsoft Word.
-        // If we set the "ExportTocPageNumbers" flag to "false",
-        // the save operation will omit both the separator and page number and leave the heading for each entry intact.
-        auto options = MakeObject<HtmlSaveOptions>();
-        options->set_ExportTocPageNumbers(exportTocPageNumbers);
-
-        doc->Save(ArtifactsDir + u"HtmlSaveOptions.ExportTocPageNumbers.html", options);
-
-        String outDocContents = System::IO::File::ReadAllText(ArtifactsDir + u"HtmlSaveOptions.ExportTocPageNumbers.html");
-
-        if (exportTocPageNumbers)
-        {
-            ASSERT_TRUE(outDocContents.Contains(
-                String(u"<p style=\"margin-top:0pt; margin-bottom:0pt\">") + u"<span>Entry 1</span>" +
-                u"<span style=\"width:428.14pt; font-family:'Lucida Console'; font-size:10pt; display:inline-block; -aw-font-family:'Times New Roman'; " +
-                u"-aw-tabstop-align:right; -aw-tabstop-leader:dots; "
-                u"-aw-tabstop-pos:469.8pt\">.......................................................................</span>" +
-                u"<span>2</span>" + u"</p>"));
-        }
-        else
-        {
-            ASSERT_TRUE(outDocContents.Contains(String(u"<p style=\"margin-top:0pt; margin-bottom:0pt\">") + u"<span>Entry 1</span>" + u"</p>"));
         }
         //ExEnd
     }

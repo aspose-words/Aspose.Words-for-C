@@ -689,11 +689,6 @@ TEST_F(ExPdfSaveOptions, PdfDigitalSignature)
     s_instance->PdfDigitalSignature();
 }
 
-TEST_F(ExPdfSaveOptions, DISABLED_PdfDigitalSignatureTimestamp)
-{
-    s_instance->PdfDigitalSignatureTimestamp();
-}
-
 using ExPdfSaveOptions_RenderMetafile_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::RenderMetafile)>::type;
 
 struct ExPdfSaveOptions_RenderMetafile : public ExPdfSaveOptions,

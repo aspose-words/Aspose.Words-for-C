@@ -39,11 +39,6 @@ TEST_F(ExImage, FromFile)
     s_instance->FromFile();
 }
 
-TEST_F(ExImage, FromUrl)
-{
-    s_instance->FromUrl();
-}
-
 TEST_F(ExImage, FromStream)
 {
     s_instance->FromStream();

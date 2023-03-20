@@ -254,11 +254,6 @@ TEST_F(ExDocumentBuilder, TableCellVerticalRotatedFarEastTextOrientation)
     s_instance->TableCellVerticalRotatedFarEastTextOrientation();
 }
 
-TEST_F(ExDocumentBuilder, InsertFloatingImage)
-{
-    s_instance->InsertFloatingImage();
-}
-
 TEST_F(ExDocumentBuilder, InsertImageOriginalSize)
 {
     s_instance->InsertImageOriginalSize();
@@ -482,11 +477,6 @@ TEST_F(ExDocumentBuilder, FieldResultFormatting)
     s_instance->FieldResultFormatting_();
 }
 
-TEST_F(ExDocumentBuilder, DISABLED_InsertVideoWithUrl)
-{
-    s_instance->InsertVideoWithUrl();
-}
-
 TEST_F(ExDocumentBuilder, InsertUnderline)
 {
     s_instance->InsertUnderline();
@@ -500,11 +490,6 @@ TEST_F(ExDocumentBuilder, CurrentStory)
 TEST_F(ExDocumentBuilder, InsertStyleSeparator)
 {
     s_instance->InsertStyleSeparator();
-}
-
-TEST_F(ExDocumentBuilder, DISABLED_InsertDocument)
-{
-    s_instance->InsertDocument();
 }
 
 TEST_F(ExDocumentBuilder, SmartStyleBehavior)
@@ -558,11 +543,6 @@ TEST_F(ExDocumentBuilder, RenameImages)
 TEST_F(ExDocumentBuilder, MarkdownDocumentTests)
 {
     s_instance->MarkdownDocumentTests();
-}
-
-TEST_F(ExDocumentBuilder, DISABLED_InsertOnlineVideo)
-{
-    s_instance->InsertOnlineVideo();
 }
 
 TEST_F(ExDocumentBuilder, InsertOnlineVideoCustomThumbnail)

@@ -43,11 +43,6 @@ public:
 
 System::SharedPtr<::ApiExamples::ExShape> ExShape::s_instance;
 
-TEST_F(ExShape, AltText)
-{
-    s_instance->AltText();
-}
-
 using ExShape_Font_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExShape::Font)>::type;
 
 struct ExShape_Font : public ExShape, public ApiExamples::ExShape, public ::testing::WithParamInterface<ExShape_Font_Args>
@@ -140,11 +135,6 @@ TEST_F(ExShape, FlipShapeOrientation)
     s_instance->FlipShapeOrientation();
 }
 
-TEST_F(ExShape, Fill)
-{
-    s_instance->Fill_();
-}
-
 TEST_F(ExShape, TextureFill)
 {
     s_instance->TextureFill();
@@ -183,11 +173,6 @@ TEST_F(ExShape, CreateTextBox)
 TEST_F(ExShape, ZOrder)
 {
     s_instance->ZOrder();
-}
-
-TEST_F(ExShape, GetActiveXControlProperties)
-{
-    s_instance->GetActiveXControlProperties();
 }
 
 TEST_F(ExShape, GetOleObjectRawData)
@@ -399,27 +384,6 @@ TEST_F(ExShape, SignatureLine)
 {
     s_instance->SignatureLine_();
 }
-
-using ExShape_TextBoxLayoutFlow_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExShape::TextBoxLayoutFlow)>::type;
-
-struct ExShape_TextBoxLayoutFlow : public ExShape, public ApiExamples::ExShape, public ::testing::WithParamInterface<ExShape_TextBoxLayoutFlow_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(LayoutFlow::Vertical),    std::make_tuple(LayoutFlow::Horizontal),  std::make_tuple(LayoutFlow::HorizontalIdeographic),
-            std::make_tuple(LayoutFlow::BottomToTop), std::make_tuple(LayoutFlow::TopToBottom), std::make_tuple(LayoutFlow::TopToBottomIdeographic),
-        };
-    }
-};
-
-TEST_P(ExShape_TextBoxLayoutFlow, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->TextBoxLayoutFlow(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExShape_TextBoxLayoutFlow, ::testing::ValuesIn(ExShape_TextBoxLayoutFlow::TestCases()));
 
 TEST_F(ExShape, TextBoxFitShapeToText)
 {

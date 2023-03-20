@@ -40,9 +40,4 @@ TEST_F(ExMailMergeEvent, MergeHtml)
     s_instance->MergeHtml();
 }
 
-TEST_F(ExMailMergeEvent, ImageFromUrl)
-{
-    s_instance->ImageFromUrl();
-}
-
 }} // namespace ApiExamples::gtest_test

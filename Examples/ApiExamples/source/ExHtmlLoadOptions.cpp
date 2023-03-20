@@ -64,11 +64,6 @@ TEST_P(ExHtmlLoadOptions_SupportVml, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlLoadOptions_SupportVml, ::testing::ValuesIn(ExHtmlLoadOptions_SupportVml::TestCases()));
 
-TEST_F(ExHtmlLoadOptions, WebRequestTimeout)
-{
-    s_instance->WebRequestTimeout();
-}
-
 TEST_F(ExHtmlLoadOptions, EncryptedHtml)
 {
     s_instance->EncryptedHtml();

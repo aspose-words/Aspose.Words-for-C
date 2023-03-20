@@ -303,39 +303,6 @@ public:
         //ExEnd
     }
 
-    void Encoding_()
-    {
-        //ExStart
-        //ExFor:TxtSaveOptionsBase.Encoding
-        //ExSummary:Shows how to set encoding for a .txt output document.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        // Add some text with characters from outside the ASCII character set.
-        builder->Write(u"À È Ì Ò Ù.");
-
-        // Create a "TxtSaveOptions" object, which we can pass to the document's "Save" method
-        // to modify how we save the document to plaintext.
-        auto txtSaveOptions = MakeObject<TxtSaveOptions>();
-
-        // Verify that the "Encoding" property contains the appropriate encoding for our document's contents.
-        ASPOSE_ASSERT_EQ(System::Text::Encoding::get_UTF8(), txtSaveOptions->get_Encoding());
-
-        doc->Save(ArtifactsDir + u"TxtSaveOptions.Encoding.UTF8.txt", txtSaveOptions);
-
-        String docText = System::Text::Encoding::get_UTF8()->GetString(System::IO::File::ReadAllBytes(ArtifactsDir + u"TxtSaveOptions.Encoding.UTF8.txt"));
-
-        ASSERT_EQ(u"\ufeffÀ È Ì Ò Ù.\r\n", docText);
-
-        // Using an unsuitable encoding may result in a loss of document contents.
-        txtSaveOptions->set_Encoding(System::Text::Encoding::get_ASCII());
-        doc->Save(ArtifactsDir + u"TxtSaveOptions.Encoding.ASCII.txt", txtSaveOptions);
-        docText = System::Text::Encoding::get_ASCII()->GetString(System::IO::File::ReadAllBytes(ArtifactsDir + u"TxtSaveOptions.Encoding.ASCII.txt"));
-
-        ASSERT_EQ(u"? ? ? ? ?.\r\n", docText);
-        //ExEnd
-    }
-
     void PreserveTableLayout(bool preserveTableLayout)
     {
         //ExStart

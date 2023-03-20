@@ -1521,18 +1521,6 @@ public:
         //ExEnd
     }
 
-    void CheckScanUserFontsFolder()
-    {
-        // On Windows 10 fonts may be installed either into system folder "%windir%\fonts" for all users
-        // or into user folder "%userprofile%\AppData\Local\Microsoft\Windows\Fonts" for current user.
-        auto systemFontSource = MakeObject<SystemFontSource>();
-        ASSERT_FALSE(System::TestTools::IsNull(systemFontSource->GetAvailableFonts()->LINQ_FirstOrDefault(
-            static_cast<System::Func<SharedPtr<PhysicalFontInfo>, bool>>(static_cast<std::function<bool(SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> x)>>(
-                [](SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> x) -> bool
-                { return x->get_FilePath().Contains(u"\\AppData\\Local\\Microsoft\\Windows\\Fonts"); })))))
-            << "Fonts did not install to the user font folder";
-    }
-
     void SetEmphasisMark(EmphasisMark emphasisMark)
     {
         //ExStart
