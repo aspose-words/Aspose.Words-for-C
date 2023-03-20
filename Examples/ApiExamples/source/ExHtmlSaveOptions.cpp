@@ -368,29 +368,6 @@ TEST_F(ExHtmlSaveOptions, Doc2EpubSaveOptions)
     s_instance->Doc2EpubSaveOptions();
 }
 
-using ExHtmlSaveOptions_ContentIdUrls_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlSaveOptions::ContentIdUrls)>::type;
-
-struct ExHtmlSaveOptions_ContentIdUrls : public ExHtmlSaveOptions,
-                                         public ApiExamples::ExHtmlSaveOptions,
-                                         public ::testing::WithParamInterface<ExHtmlSaveOptions_ContentIdUrls_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExHtmlSaveOptions_ContentIdUrls, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->ContentIdUrls(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ContentIdUrls, ::testing::ValuesIn(ExHtmlSaveOptions_ContentIdUrls::TestCases()));
-
 using ExHtmlSaveOptions_DropDownFormField_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlSaveOptions::DropDownFormField)>::type;
 
 struct ExHtmlSaveOptions_DropDownFormField : public ExHtmlSaveOptions,
@@ -490,52 +467,6 @@ TEST_P(ExHtmlSaveOptions_List, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_List, ::testing::ValuesIn(ExHtmlSaveOptions_List::TestCases()));
 
-using ExHtmlSaveOptions_ExportPageMargins_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlSaveOptions::ExportPageMargins)>::type;
-
-struct ExHtmlSaveOptions_ExportPageMargins : public ExHtmlSaveOptions,
-                                             public ApiExamples::ExHtmlSaveOptions,
-                                             public ::testing::WithParamInterface<ExHtmlSaveOptions_ExportPageMargins_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExHtmlSaveOptions_ExportPageMargins, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->ExportPageMargins(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ExportPageMargins, ::testing::ValuesIn(ExHtmlSaveOptions_ExportPageMargins::TestCases()));
-
-using ExHtmlSaveOptions_ExportPageSetup_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlSaveOptions::ExportPageSetup)>::type;
-
-struct ExHtmlSaveOptions_ExportPageSetup : public ExHtmlSaveOptions,
-                                           public ApiExamples::ExHtmlSaveOptions,
-                                           public ::testing::WithParamInterface<ExHtmlSaveOptions_ExportPageSetup_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExHtmlSaveOptions_ExportPageSetup, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->ExportPageSetup(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ExportPageSetup, ::testing::ValuesIn(ExHtmlSaveOptions_ExportPageSetup::TestCases()));
-
 using ExHtmlSaveOptions_RelativeFontSize_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlSaveOptions::RelativeFontSize)>::type;
 
 struct ExHtmlSaveOptions_RelativeFontSize : public ExHtmlSaveOptions,
@@ -604,29 +535,6 @@ TEST_P(ExHtmlSaveOptions_RoundTripInformation, Test)
 }
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_RoundTripInformation, ::testing::ValuesIn(ExHtmlSaveOptions_RoundTripInformation::TestCases()));
-
-using ExHtmlSaveOptions_ExportTocPageNumbers_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlSaveOptions::ExportTocPageNumbers)>::type;
-
-struct ExHtmlSaveOptions_ExportTocPageNumbers : public ExHtmlSaveOptions,
-                                                public ApiExamples::ExHtmlSaveOptions,
-                                                public ::testing::WithParamInterface<ExHtmlSaveOptions_ExportTocPageNumbers_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExHtmlSaveOptions_ExportTocPageNumbers, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->ExportTocPageNumbers(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ExportTocPageNumbers, ::testing::ValuesIn(ExHtmlSaveOptions_ExportTocPageNumbers::TestCases()));
 
 using ExHtmlSaveOptions_FontSubsetting_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlSaveOptions::FontSubsetting)>::type;
 

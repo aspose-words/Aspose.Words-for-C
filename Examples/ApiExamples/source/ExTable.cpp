@@ -204,27 +204,6 @@ TEST_F(ExTable, GetPreferredWidthTypeAndValue)
     s_instance->GetPreferredWidthTypeAndValue();
 }
 
-using ExTable_AllowCellSpacing_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExTable::AllowCellSpacing)>::type;
-
-struct ExTable_AllowCellSpacing : public ExTable, public ApiExamples::ExTable, public ::testing::WithParamInterface<ExTable_AllowCellSpacing_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExTable_AllowCellSpacing, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->AllowCellSpacing(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExTable_AllowCellSpacing, ::testing::ValuesIn(ExTable_AllowCellSpacing::TestCases()));
-
 TEST_F(ExTable, CreateNestedTable)
 {
     s_instance->CreateNestedTable();

@@ -251,13 +251,6 @@ TEST_F(ExFont, HasDmlEffect)
     s_instance->HasDmlEffect();
 }
 
-TEST_F(ExFont, DISABLED_IgnoreOnJenkins_CheckScanUserFontsFolder)
-{
-    RecordProperty("category", "IgnoreOnJenkins");
-
-    s_instance->CheckScanUserFontsFolder();
-}
-
 using ExFont_SetEmphasisMark_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExFont::SetEmphasisMark)>::type;
 
 struct ExFont_SetEmphasisMark : public ExFont, public ApiExamples::ExFont, public ::testing::WithParamInterface<ExFont_SetEmphasisMark_Args>

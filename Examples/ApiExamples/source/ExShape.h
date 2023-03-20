@@ -152,48 +152,7 @@ namespace ApiExamples {
 class ExShape : public ApiExampleBase
 {
 public:
-    void AltText()
-    {
-        //ExStart
-        //ExFor:ShapeBase.AlternativeText
-        //ExFor:ShapeBase.Name
-        //ExSummary:Shows how to use a shape's alternative text.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-        SharedPtr<Shape> shape = builder->InsertShape(ShapeType::Cube, 150, 150);
-        shape->set_Name(u"MyCube");
-
-        shape->set_AlternativeText(u"Alt text for MyCube.");
-
-        // We can access the alternative text of a shape by right-clicking it, and then via "Format AutoShape" -> "Alt Text".
-        doc->Save(ArtifactsDir + u"Shape.AltText.docx");
-
-        // Save the document to HTML, and then delete the linked image that belongs to our shape.
-        // The browser that is reading our HTML will display the alt text in place of the missing image.
-        doc->Save(ArtifactsDir + u"Shape.AltText.html");
-        ASSERT_TRUE(System::IO::File::Exists(ArtifactsDir + u"Shape.AltText.001.png"));
-        //ExSkip
-        System::IO::File::Delete(ArtifactsDir + u"Shape.AltText.001.png");
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"Shape.AltText.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-
-        TestUtil::VerifyShape(ShapeType::Cube, u"MyCube", 150.0, 150.0, 0, 0, shape);
-        ASSERT_EQ(u"Alt text for MyCube.", shape->get_AlternativeText());
-        ASSERT_EQ(u"Times New Roman", shape->get_Font()->get_Name());
-
-        doc = MakeObject<Document>(ArtifactsDir + u"Shape.AltText.html");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-
-        TestUtil::VerifyShape(ShapeType::Image, String::Empty, 153.0, 153.0, 0, 0, shape);
-        ASSERT_EQ(u"Alt text for MyCube.", shape->get_AlternativeText());
-
-        TestUtil::FileContainsString(String(u"<img src=\"Shape.AltText.001.png\" width=\"204\" height=\"204\" alt=\"Alt text for MyCube.\" ") +
-                                         u"style=\"-aw-left-pos:0pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:0pt; -aw-wrap-type:inline\" />",
-                                     ArtifactsDir + u"Shape.AltText.html");
-    }
-
+    
     void Font(bool hideShape)
     {
         //ExStart
@@ -827,51 +786,6 @@ public:
         ASSERT_EQ(FlipOrientation::Both, shape->get_FlipOrientation());
     }
 
-    void Fill_()
-    {
-        //ExStart
-        //ExFor:ShapeBase.Fill
-        //ExFor:Shape.FillColor
-        //ExFor:Shape.StrokeColor
-        //ExFor:Fill
-        //ExFor:Fill.Opacity
-        //ExSummary:Shows how to fill a shape with a solid color.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        // Write some text, and then cover it with a floating shape.
-        builder->get_Font()->set_Size(32);
-        builder->Writeln(u"Hello world!");
-
-        SharedPtr<Shape> shape = builder->InsertShape(ShapeType::CloudCallout, RelativeHorizontalPosition::LeftMargin, 25, RelativeVerticalPosition::TopMargin,
-                                                      25, 250, 150, WrapType::None);
-
-        // Use the "StrokeColor" property to set the color of the outline of the shape.
-        shape->set_StrokeColor(System::Drawing::Color::get_CadetBlue());
-
-        // Use the "FillColor" property to set the color of the inside area of the shape.
-        shape->set_FillColor(System::Drawing::Color::get_LightBlue());
-
-        // The "Opacity" property determines how transparent the color is on a 0-1 scale,
-        // with 1 being fully opaque, and 0 being invisible.
-        // The shape fill by default is fully opaque, so we cannot see the text that this shape is on top of.
-        ASPOSE_ASSERT_EQ(1.0, shape->get_Fill()->get_Opacity());
-
-        // Set the shape fill color's opacity to a lower value so that we can see the text underneath it.
-        shape->get_Fill()->set_Opacity(0.3);
-
-        doc->Save(ArtifactsDir + u"Shape.Fill.docx");
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"Shape.Fill.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-
-        TestUtil::VerifyShape(ShapeType::CloudCallout, u"CloudCallout 100002", 250.0, 150.0, 25.0, 25.0, shape);
-        ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), shape->get_FillColor().ToArgb());
-        ASSERT_EQ(System::Drawing::Color::get_CadetBlue().ToArgb(), shape->get_StrokeColor().ToArgb());
-        ASSERT_NEAR(0.3, shape->get_Fill()->get_Opacity(), 0.01);
-    }
-
     void TextureFill()
     {
         //ExStart
@@ -1239,39 +1153,6 @@ public:
         shapes[2]->set_ZOrder(1);
 
         doc->Save(ArtifactsDir + u"Shape.ZOrder.docx");
-        //ExEnd
-    }
-
-    void GetActiveXControlProperties()
-    {
-        //ExStart
-        //ExFor:OleControl
-        //ExFor:Ole.OleControl.IsForms2OleControl
-        //ExFor:Ole.OleControl.Name
-        //ExFor:OleFormat.OleControl
-        //ExFor:Forms2OleControl
-        //ExFor:Forms2OleControl.Caption
-        //ExFor:Forms2OleControl.Value
-        //ExFor:Forms2OleControl.Enabled
-        //ExFor:Forms2OleControl.Type
-        //ExFor:Forms2OleControl.ChildNodes
-        //ExSummary:Shows how to verify the properties of an ActiveX control.
-        auto doc = MakeObject<Document>(MyDir + u"ActiveX controls.docx");
-
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-        SharedPtr<OleControl> oleControl = shape->get_OleFormat()->get_OleControl();
-
-        ASPOSE_ASSERT_EQ(nullptr, oleControl->get_Name());
-
-        if (oleControl->get_IsForms2OleControl())
-        {
-            auto checkBox = System::DynamicCast<Forms2OleControl>(oleControl);
-            ASSERT_EQ(u"Первый", checkBox->get_Caption());
-            ASSERT_EQ(u"0", checkBox->get_Value());
-            ASPOSE_ASSERT_EQ(true, checkBox->get_Enabled());
-            ASSERT_EQ(Forms2OleControlType::CheckBox, checkBox->get_Type());
-            ASPOSE_ASSERT_EQ(nullptr, checkBox->get_ChildNodes());
-        }
         //ExEnd
     }
 
@@ -2121,55 +2002,6 @@ public:
         ASSERT_TRUE(signatureLine->get_DefaultInstructions());
         ASSERT_FALSE(signatureLine->get_IsSigned());
         ASSERT_FALSE(signatureLine->get_IsValid());
-    }
-
-    void TextBoxLayoutFlow(LayoutFlow layoutFlow)
-    {
-        //ExStart
-        //ExFor:Shape.TextBox
-        //ExFor:Shape.LastParagraph
-        //ExFor:TextBox
-        //ExFor:TextBox.LayoutFlow
-        //ExSummary:Shows how to set the orientation of text inside a text box.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        SharedPtr<Shape> textBoxShape = builder->InsertShape(ShapeType::TextBox, 150, 100);
-        SharedPtr<TextBox> textBox = textBoxShape->get_TextBox();
-
-        // Move the document builder to inside the TextBox and add text.
-        builder->MoveTo(textBoxShape->get_LastParagraph());
-        builder->Writeln(u"Hello world!");
-        builder->Write(u"Hello again!");
-
-        // Set the "LayoutFlow" property to set an orientation for the text contents of this text box.
-        textBox->set_LayoutFlow(layoutFlow);
-
-        doc->Save(ArtifactsDir + u"Shape.TextBoxLayoutFlow.docx");
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"Shape.TextBoxLayoutFlow.docx");
-        textBoxShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-
-        TestUtil::VerifyShape(ShapeType::TextBox, u"TextBox 100002", 150.0, 100.0, 0.0, 0.0, textBoxShape);
-
-        LayoutFlow expectedLayoutFlow;
-
-        switch (layoutFlow)
-        {
-        case LayoutFlow::BottomToTop:
-        case LayoutFlow::Horizontal:
-        case LayoutFlow::TopToBottomIdeographic:
-            expectedLayoutFlow = layoutFlow;
-            break;
-
-        default:
-            expectedLayoutFlow = LayoutFlow::Horizontal;
-            break;
-        }
-
-        TestUtil::VerifyTextBox(expectedLayoutFlow, false, TextBoxWrapMode::Square, 3.6, 3.6, 7.2, 7.2, textBoxShape->get_TextBox());
-        ASSERT_EQ(u"Hello world!\rHello again!", textBoxShape->GetText().Trim());
     }
 
     void TextBoxFitShapeToText()

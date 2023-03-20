@@ -1810,49 +1810,6 @@ public:
         ASSERT_EQ(TextOrientation::VerticalRotatedFarEast, cell->get_CellFormat()->get_Orientation());
     }
 
-    void InsertFloatingImage()
-    {
-        //ExStart
-        //ExFor:DocumentBuilder.InsertImage(String, RelativeHorizontalPosition, Double, RelativeVerticalPosition, Double, Double, Double, WrapType)
-        //ExSummary:Shows how to insert an image.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        // There are two ways of using a document builder to source an image and then insert it as a floating shape.
-        // 1 -  From a file in the local file system:
-        builder->InsertImage(ImageDir + u"Transparent background logo.png", RelativeHorizontalPosition::Margin, 100.0, RelativeVerticalPosition::Margin, 0.0,
-                             200.0, 200.0, WrapType::Square);
-
-        // 2 -  From a URL:
-        builder->InsertImage(ImageUrl, RelativeHorizontalPosition::Margin, 100.0, RelativeVerticalPosition::Margin, 250.0, 200.0, 200.0, WrapType::Square);
-
-        doc->Save(ArtifactsDir + u"DocumentBuilder.InsertFloatingImage.docx");
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertFloatingImage.docx");
-        auto image = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-
-        TestUtil::VerifyImageInShape(400, 400, ImageType::Png, image);
-        ASPOSE_ASSERT_EQ(100.0, image->get_Left());
-        ASPOSE_ASSERT_EQ(0.0, image->get_Top());
-        ASPOSE_ASSERT_EQ(200.0, image->get_Width());
-        ASPOSE_ASSERT_EQ(200.0, image->get_Height());
-        ASSERT_EQ(WrapType::Square, image->get_WrapType());
-        ASSERT_EQ(RelativeHorizontalPosition::Margin, image->get_RelativeHorizontalPosition());
-        ASSERT_EQ(RelativeVerticalPosition::Margin, image->get_RelativeVerticalPosition());
-
-        image = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
-
-        TestUtil::VerifyImageInShape(5184, 3456, ImageType::Jpeg, image);
-        ASPOSE_ASSERT_EQ(100.0, image->get_Left());
-        ASPOSE_ASSERT_EQ(250.0, image->get_Top());
-        ASPOSE_ASSERT_EQ(200.0, image->get_Width());
-        ASPOSE_ASSERT_EQ(200.0, image->get_Height());
-        ASSERT_EQ(WrapType::Square, image->get_WrapType());
-        ASSERT_EQ(RelativeHorizontalPosition::Margin, image->get_RelativeHorizontalPosition());
-        ASSERT_EQ(RelativeVerticalPosition::Margin, image->get_RelativeVerticalPosition());
-    }
-
     void InsertImageOriginalSize()
     {
         //ExStart
@@ -2818,30 +2775,6 @@ public:
     };
     //ExEnd
 
-    void InsertVideoWithUrl()
-    {
-        //ExStart
-        //ExFor:DocumentBuilder.InsertOnlineVideo(String, Double, Double)
-        //ExSummary:Shows how to insert an online video into a document using a URL.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        builder->InsertOnlineVideo(u"https://youtu.be/t_1LYZ102RA", 360, 270);
-
-        // We can watch the video from Microsoft Word by clicking on the shape.
-        doc->Save(ArtifactsDir + u"DocumentBuilder.InsertVideoWithUrl.docx");
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertVideoWithUrl.docx");
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-
-        TestUtil::VerifyImageInShape(480, 360, ImageType::Jpeg, shape);
-        TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode::OK, shape->get_HRef());
-
-        ASPOSE_ASSERT_EQ(360.0, shape->get_Width());
-        ASPOSE_ASSERT_EQ(270.0, shape->get_Height());
-    }
-
     void InsertUnderline()
     {
         //ExStart
@@ -2939,28 +2872,6 @@ public:
         ASSERT_EQ(u"Heading 1", doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Style()->get_Name());
         ASSERT_EQ(u"MyParaStyle", doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat()->get_Style()->get_Name());
         ASSERT_EQ(u" ", doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->GetText());
-    }
-
-    void InsertDocument()
-    {
-        //ExStart
-        //ExFor:DocumentBuilder.InsertDocument(Document, ImportFormatMode)
-        //ExFor:ImportFormatMode
-        //ExSummary:Shows how to insert a document into another document.
-        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
-
-        auto builder = MakeObject<DocumentBuilder>(doc);
-        builder->MoveToDocumentEnd();
-        builder->InsertBreak(BreakType::PageBreak);
-
-        auto docToInsert = MakeObject<Document>(MyDir + u"Formatted elements.docx");
-
-        builder->InsertDocument(docToInsert, ImportFormatMode::KeepSourceFormatting);
-        builder->get_Document()->Save(ArtifactsDir + u"DocumentBuilder.InsertDocument.docx");
-        //ExEnd
-
-        ASSERT_EQ(29, doc->get_Styles()->get_Count());
-        ASSERT_TRUE(DocumentHelper::CompareDocs(ArtifactsDir + u"DocumentBuilder.InsertDocument.docx", GoldsDir + u"DocumentBuilder.InsertDocument Gold.docx"));
     }
 
     void SmartStyleBehavior()
@@ -3503,42 +3414,6 @@ public:
         LoadMarkdownDocumentAndAssertContent(u"This is a fenced code with info string", u"FencedCode.C#", false, false);
         LoadMarkdownDocumentAndAssertContent(u"Item 1", u"Normal", false, false);
         LoadMarkdownDocumentAndAssertContent(u"This is a fenced code", u"FencedCode", false, false);
-    }
-
-    void InsertOnlineVideo()
-    {
-        //ExStart
-        //ExFor:DocumentBuilder.InsertOnlineVideo(String, RelativeHorizontalPosition, Double, RelativeVerticalPosition, Double, Double, Double, WrapType)
-        //ExSummary:Shows how to insert an online video into a document.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        String videoUrl = u"https://vimeo.com/52477838";
-
-        // Insert a shape that plays a video from the web when clicked in Microsoft Word.
-        // This rectangular shape will contain an image based on the first frame of the linked video
-        // and a "play button" visual prompt. The video has an aspect ratio of 16:9.
-        // We will set the shape's size to that ratio, so the image does not appear stretched.
-        builder->InsertOnlineVideo(videoUrl, RelativeHorizontalPosition::LeftMargin, 0, RelativeVerticalPosition::TopMargin, 0, 320, 180, WrapType::Square);
-
-        doc->Save(ArtifactsDir + u"DocumentBuilder.InsertOnlineVideo.docx");
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertOnlineVideo.docx");
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-
-        TestUtil::VerifyImageInShape(640, 360, ImageType::Jpeg, shape);
-
-        ASPOSE_ASSERT_EQ(320.0, shape->get_Width());
-        ASPOSE_ASSERT_EQ(180.0, shape->get_Height());
-        ASPOSE_ASSERT_EQ(0.0, shape->get_Left());
-        ASPOSE_ASSERT_EQ(0.0, shape->get_Top());
-        ASSERT_EQ(WrapType::Square, shape->get_WrapType());
-        ASSERT_EQ(RelativeVerticalPosition::TopMargin, shape->get_RelativeVerticalPosition());
-        ASSERT_EQ(RelativeHorizontalPosition::LeftMargin, shape->get_RelativeHorizontalPosition());
-
-        ASSERT_EQ(u"https://vimeo.com/52477838", shape->get_HRef());
-        TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode::OK, shape->get_HRef());
     }
 
     void InsertOnlineVideoCustomThumbnail()

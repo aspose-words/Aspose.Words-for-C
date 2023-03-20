@@ -94,37 +94,6 @@ public:
         ASPOSE_ASSERT_EQ(100.0, shape->get_Width());
     }
 
-    void FromUrl()
-    {
-        //ExStart
-        //ExFor:DocumentBuilder.InsertImage(String)
-        //ExSummary:Shows how to insert a shape with an image into a document.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        // Below are two locations where the document builder's "InsertShape" method
-        // can source the image that the shape will display.
-        // 1 -  Pass a local file system filename of an image file:
-        builder->Write(u"Image from local file: ");
-        builder->InsertImage(ImageDir + u"Logo.jpg");
-        builder->Writeln();
-
-        // 2 -  Pass a URL which points to an image.
-        builder->Write(u"Image from a URL: ");
-        builder->InsertImage(ImageUrl);
-        builder->Writeln();
-
-        doc->Save(ArtifactsDir + u"Image.FromUrl.docx");
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"Image.FromUrl.docx");
-        SharedPtr<NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
-
-        ASSERT_EQ(2, shapes->get_Count());
-        TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, System::DynamicCast<Shape>(shapes->idx_get(0)));
-        TestUtil::VerifyImageInShape(5184, 3456, ImageType::Jpeg, System::DynamicCast<Shape>(shapes->idx_get(1)));
-    }
-
     void FromStream()
     {
         //ExStart

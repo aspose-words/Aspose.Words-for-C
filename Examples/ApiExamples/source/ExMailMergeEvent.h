@@ -107,42 +107,6 @@ public:
     };
     //ExEnd
 
-    void ImageFromUrl()
-    {
-        //ExStart
-        //ExFor:MailMerge.Execute(String[], Object[])
-        //ExSummary:Shows how to merge an image from a URI as mail merge data into a MERGEFIELD.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        // MERGEFIELDs with "Image:" tags will receive an image during a mail merge.
-        // The string after the colon in the "Image:" tag corresponds to a column name
-        // in the data source whose cells contain URIs of image files.
-        builder->InsertField(u"MERGEFIELD  Image:logo_FromWeb ");
-        builder->InsertField(u"MERGEFIELD  Image:logo_FromFileSystem ");
-
-        // Create a data source that contains URIs of images that we will merge.
-        // A URI can be a web URL that points to an image, or a local file system filename of an image file.
-        ArrayPtr<String> columns = MakeArray<String>({u"logo_FromWeb", u"logo_FromFileSystem"});
-        ArrayPtr<SharedPtr<System::Object>> URIs =
-            MakeArray<SharedPtr<System::Object>>({System::ObjectExt::Box<String>(ImageUrl), System::ObjectExt::Box<String>(ImageDir + u"Logo.jpg")});
-
-        // Execute a mail merge on a data source with one row.
-        doc->get_MailMerge()->Execute(columns, URIs);
-
-        doc->Save(ArtifactsDir + u"MailMergeEvent.ImageFromUrl.docx");
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"MailMergeEvent.ImageFromUrl.docx");
-
-        auto imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
-
-        TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
-
-        TestUtil::VerifyImageInShape(5184, 3456, ImageType::Jpeg, imageShape);
-    }
 };
 
 } // namespace ApiExamples

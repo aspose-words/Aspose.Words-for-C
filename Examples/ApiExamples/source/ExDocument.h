@@ -343,37 +343,6 @@ public:
         //ExEnd
     }
 
-    void InsertHtmlFromWebPage()
-    {
-        //ExStart
-        //ExFor:Document.#ctor(Stream, LoadOptions)
-        //ExFor:LoadOptions.#ctor(LoadFormat, String, String)
-        //ExFor:LoadFormat
-        //ExSummary:Shows how save a web page as a .docx file.
-        const String url = u"https://www.aspose.com/";
-
-        {
-            auto client = MakeObject<System::Net::WebClient>();
-            {
-                auto stream = MakeObject<System::IO::MemoryStream>(client->DownloadData(url));
-                // The URL is used again as a baseUri to ensure that any relative image paths are retrieved correctly.
-                auto options = MakeObject<LoadOptions>(LoadFormat::Html, u"", url);
-
-                // Load the HTML document from stream and pass the LoadOptions object.
-                auto doc = MakeObject<Document>(stream, options);
-
-                // At this stage, we can read and edit the document's contents and then save it to the local file system.
-                ASSERT_EQ(u"File Format APIs", doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->GetText().Trim());
-                //ExSkip
-
-                doc->Save(ArtifactsDir + u"Document.InsertHtmlFromWebPage.docx");
-            }
-        }
-        //ExEnd
-
-        TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode::OK, url);
-    }
-
     void LoadEncrypted()
     {
         //ExStart
@@ -1555,37 +1524,6 @@ public:
 
         ASSERT_EQ(doc->get_Compliance(), OoxmlCompliance::Iso29500_2008_Transitional);
         //ExEnd
-    }
-
-    void ImageSaveOptions_()
-    {
-        //ExStart
-        //ExFor:Document.Save(String, Saving.SaveOptions)
-        //ExFor:SaveOptions.UseAntiAliasing
-        //ExFor:SaveOptions.UseHighQualityRendering
-        //ExSummary:Shows how to improve the quality of a rendered document with SaveOptions.
-        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        builder->get_Font()->set_Size(60);
-        builder->Writeln(u"Some text.");
-
-        SharedPtr<SaveOptions> options = MakeObject<Aspose::Words::Saving::ImageSaveOptions>(SaveFormat::Jpeg);
-        ASSERT_FALSE(options->get_UseAntiAliasing());
-        //ExSkip
-        ASSERT_FALSE(options->get_UseHighQualityRendering());
-        //ExSkip
-
-        doc->Save(ArtifactsDir + u"Document.ImageSaveOptions.Default.jpg", options);
-
-        options->set_UseAntiAliasing(true);
-        options->set_UseHighQualityRendering(true);
-
-        doc->Save(ArtifactsDir + u"Document.ImageSaveOptions.HighQuality.jpg", options);
-        //ExEnd
-
-        TestUtil::VerifyImage(794, 1122, ArtifactsDir + u"Document.ImageSaveOptions.Default.jpg");
-        TestUtil::VerifyImage(794, 1122, ArtifactsDir + u"Document.ImageSaveOptions.HighQuality.jpg");
     }
 
     void Cleanup()

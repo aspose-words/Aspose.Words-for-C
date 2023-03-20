@@ -921,66 +921,6 @@ public:
         //ExEnd
     }
 
-    void AllowCellSpacing(bool allowCellSpacing)
-    {
-        //ExStart
-        //ExFor:Table.AllowCellSpacing
-        //ExFor:Table.CellSpacing
-        //ExSummary:Shows how to enable spacing between individual cells in a table.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        SharedPtr<Table> table = builder->StartTable();
-        builder->InsertCell();
-        builder->Write(u"Animal");
-        builder->InsertCell();
-        builder->Write(u"Class");
-        builder->EndRow();
-        builder->InsertCell();
-        builder->Write(u"Dog");
-        builder->InsertCell();
-        builder->Write(u"Mammal");
-        builder->EndTable();
-
-        table->set_CellSpacing(3);
-
-        // Set the "AllowCellSpacing" property to "true" to enable spacing between cells
-        // with a magnitude equal to the value of the "CellSpacing" property, in points.
-        // Set the "AllowCellSpacing" property to "false" to disable cell spacing
-        // and ignore the value of the "CellSpacing" property.
-        table->set_AllowCellSpacing(allowCellSpacing);
-
-        doc->Save(ArtifactsDir + u"Table.AllowCellSpacing.html");
-
-        // Adjusting the "CellSpacing" property will automatically enable cell spacing.
-        table->set_CellSpacing(5);
-
-        ASSERT_TRUE(table->get_AllowCellSpacing());
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"Table.AllowCellSpacing.html");
-        table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
-
-        ASPOSE_ASSERT_EQ(allowCellSpacing, table->get_AllowCellSpacing());
-
-        if (allowCellSpacing)
-        {
-            ASPOSE_ASSERT_EQ(3.0, table->get_CellSpacing());
-        }
-        else
-        {
-            ASPOSE_ASSERT_EQ(0.0, table->get_CellSpacing());
-        }
-
-        TestUtil::FileContainsString(
-            allowCellSpacing
-                ? u"<td style=\"border-style:solid; border-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border:0.5pt "
-                  u"single\">"
-                : String(u"<td style=\"border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; ") +
-                      u"padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single\">",
-            ArtifactsDir + u"Table.AllowCellSpacing.html");
-    }
-
     //ExStart
     //ExFor:Table
     //ExFor:Row

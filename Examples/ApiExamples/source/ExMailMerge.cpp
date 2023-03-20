@@ -69,35 +69,6 @@ TEST_F(ExMailMerge, DeleteFields)
     s_instance->DeleteFields();
 }
 
-using ExMailMerge_RemoveColonBetweenEmptyMergeFields_Args =
-    System::MethodArgumentTuple<decltype(&ApiExamples::ExMailMerge::RemoveColonBetweenEmptyMergeFields)>::type;
-
-struct ExMailMerge_RemoveColonBetweenEmptyMergeFields : public ExMailMerge,
-                                                        public ApiExamples::ExMailMerge,
-                                                        public ::testing::WithParamInterface<ExMailMerge_RemoveColonBetweenEmptyMergeFields_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(u"!", false, u""),           std::make_tuple(u", ", false, u""),        std::make_tuple(u" . ", false, u""),
-            std::make_tuple(u" :", false, u""),          std::make_tuple(u"  ; ", false, u""),      std::make_tuple(u" ?  ", false, u""),
-            std::make_tuple(u"  ¡  ", false, u""),       std::make_tuple(u"  ¿  ", false, u""),     std::make_tuple(u"!", true, u"!\f"),
-            std::make_tuple(u", ", true, u", \f"),       std::make_tuple(u" . ", true, u" . \f"),   std::make_tuple(u" :", true, u" :\f"),
-            std::make_tuple(u"  ; ", true, u"  ; \f"),   std::make_tuple(u" ?  ", true, u" ?  \f"), std::make_tuple(u"  ¡  ", true, u"  ¡  \f"),
-            std::make_tuple(u"  ¿  ", true, u"  ¿  \f"),
-        };
-    }
-};
-
-TEST_P(ExMailMerge_RemoveColonBetweenEmptyMergeFields, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->RemoveColonBetweenEmptyMergeFields(std::get<0>(params), std::get<1>(params), std::get<2>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExMailMerge_RemoveColonBetweenEmptyMergeFields,
-                         ::testing::ValuesIn(ExMailMerge_RemoveColonBetweenEmptyMergeFields::TestCases()));
-
 TEST_F(ExMailMerge, GetFieldNames)
 {
     s_instance->GetFieldNames();

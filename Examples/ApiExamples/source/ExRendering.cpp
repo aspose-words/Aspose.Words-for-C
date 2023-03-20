@@ -34,11 +34,6 @@ protected:
 
 System::SharedPtr<::ApiExamples::ExRendering> ExRendering::s_instance;
 
-TEST_F(ExRendering, DISABLED_RenderToSize)
-{
-    s_instance->RenderToSize();
-}
-
 TEST_F(ExRendering, Thumbnails)
 {
     s_instance->Thumbnails();

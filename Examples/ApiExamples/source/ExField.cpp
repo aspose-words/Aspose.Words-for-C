@@ -89,27 +89,6 @@ TEST_F(ExField, FieldLocale)
     s_instance->FieldLocale();
 }
 
-using ExField_UpdateDirtyFields_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExField::UpdateDirtyFields)>::type;
-
-struct ExField_UpdateDirtyFields : public ExField, public ApiExamples::ExField, public ::testing::WithParamInterface<ExField_UpdateDirtyFields_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(true),
-            std::make_tuple(false),
-        };
-    }
-};
-
-TEST_P(ExField_UpdateDirtyFields, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->UpdateDirtyFields(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExField_UpdateDirtyFields, ::testing::ValuesIn(ExField_UpdateDirtyFields::TestCases()));
-
 TEST_F(ExField, InsertFieldWithFieldBuilderException)
 {
     s_instance->InsertFieldWithFieldBuilderException();
@@ -241,16 +220,6 @@ TEST_F(ExField, TocSeqNumbering)
     s_instance->TocSeqNumbering();
 }
 
-TEST_F(ExField, DISABLED_TocSeqBookmark)
-{
-    s_instance->TocSeqBookmark();
-}
-
-TEST_F(ExField, DISABLED_FieldCitation)
-{
-    s_instance->FieldCitation_();
-}
-
 TEST_F(ExField, FieldData)
 {
     s_instance->FieldData_();
@@ -266,88 +235,6 @@ TEST_F(ExField, FieldIncludePicture)
     s_instance->FieldIncludePicture_();
 }
 
-TEST_F(ExField, DISABLED_FieldIncludeText)
-{
-    s_instance->FieldIncludeText_();
-}
-
-TEST_F(ExField, DISABLED_FieldHyperlink)
-{
-    s_instance->FieldHyperlink_();
-}
-
-TEST_F(ExField, DISABLED_FieldIndexFilter)
-{
-    s_instance->FieldIndexFilter();
-}
-
-TEST_F(ExField, DISABLED_FieldIndexFormatting)
-{
-    s_instance->FieldIndexFormatting();
-}
-
-TEST_F(ExField, DISABLED_FieldIndexSequence)
-{
-    s_instance->FieldIndexSequence();
-}
-
-TEST_F(ExField, DISABLED_FieldIndexPageNumberSeparator)
-{
-    s_instance->FieldIndexPageNumberSeparator();
-}
-
-TEST_F(ExField, DISABLED_FieldIndexPageRangeBookmark)
-{
-    s_instance->FieldIndexPageRangeBookmark();
-}
-
-TEST_F(ExField, DISABLED_FieldIndexCrossReferenceSeparator)
-{
-    s_instance->FieldIndexCrossReferenceSeparator();
-}
-
-using ExField_FieldIndexSubheading_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExField::FieldIndexSubheading)>::type;
-
-struct ExField_FieldIndexSubheading : public ExField, public ApiExamples::ExField, public ::testing::WithParamInterface<ExField_FieldIndexSubheading_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(true),
-            std::make_tuple(false),
-        };
-    }
-};
-
-TEST_P(ExField_FieldIndexSubheading, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->FieldIndexSubheading(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExField_FieldIndexSubheading, ::testing::ValuesIn(ExField_FieldIndexSubheading::TestCases()));
-
-using ExField_FieldIndexYomi_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExField::FieldIndexYomi)>::type;
-
-struct ExField_FieldIndexYomi : public ExField, public ApiExamples::ExField, public ::testing::WithParamInterface<ExField_FieldIndexYomi_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(true),
-            std::make_tuple(false),
-        };
-    }
-};
-
-TEST_P(ExField_FieldIndexYomi, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->FieldIndexYomi(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExField_FieldIndexYomi, ::testing::ValuesIn(ExField_FieldIndexYomi::TestCases()));
-
 TEST_F(ExField, FieldBarcode)
 {
     s_instance->FieldBarcode_();
@@ -357,54 +244,6 @@ TEST_F(ExField, FieldDisplayBarcode)
 {
     s_instance->FieldDisplayBarcode_();
 }
-
-using ExField_FieldLinkedObjectsAsText_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExField::FieldLinkedObjectsAsText)>::type;
-
-struct ExField_FieldLinkedObjectsAsText : public ExField,
-                                          public ApiExamples::ExField,
-                                          public ::testing::WithParamInterface<ExField_FieldLinkedObjectsAsText_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(ApiExamples::ExField::InsertLinkedObjectAs::Text),
-            std::make_tuple(ApiExamples::ExField::InsertLinkedObjectAs::Unicode),
-            std::make_tuple(ApiExamples::ExField::InsertLinkedObjectAs::Html),
-            std::make_tuple(ApiExamples::ExField::InsertLinkedObjectAs::Rtf),
-        };
-    }
-};
-
-TEST_P(ExField_FieldLinkedObjectsAsText, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->FieldLinkedObjectsAsText(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExField_FieldLinkedObjectsAsText, ::testing::ValuesIn(ExField_FieldLinkedObjectsAsText::TestCases()));
-
-using ExField_FieldLinkedObjectsAsImage_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExField::FieldLinkedObjectsAsImage)>::type;
-
-struct ExField_FieldLinkedObjectsAsImage : public ExField,
-                                           public ApiExamples::ExField,
-                                           public ::testing::WithParamInterface<ExField_FieldLinkedObjectsAsImage_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(ApiExamples::ExField::InsertLinkedObjectAs::Picture),
-            std::make_tuple(ApiExamples::ExField::InsertLinkedObjectAs::Bitmap),
-        };
-    }
-};
-
-TEST_P(ExField_FieldLinkedObjectsAsImage, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->FieldLinkedObjectsAsImage(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExField_FieldLinkedObjectsAsImage, ::testing::ValuesIn(ExField_FieldLinkedObjectsAsImage::TestCases()));
 
 TEST_F(ExField, FieldUserAddress)
 {
@@ -421,24 +260,9 @@ TEST_F(ExField, FieldUserName)
     s_instance->FieldUserName_();
 }
 
-TEST_F(ExField, DISABLED_FieldStyleRefParagraphNumbers)
-{
-    s_instance->FieldStyleRefParagraphNumbers();
-}
-
 TEST_F(ExField, FieldDate)
 {
     s_instance->FieldDate_();
-}
-
-TEST_F(ExField, DISABLED_FieldCreateDate)
-{
-    s_instance->FieldCreateDate_();
-}
-
-TEST_F(ExField, DISABLED_FieldSaveDate)
-{
-    s_instance->FieldSaveDate_();
 }
 
 TEST_F(ExField, FieldBuilder)
@@ -514,31 +338,6 @@ TEST_F(ExField, FieldPrintDate)
 TEST_F(ExField, FieldQuote)
 {
     s_instance->FieldQuote_();
-}
-
-TEST_F(ExField, DISABLED_FieldNoteRef)
-{
-    s_instance->FieldNoteRef_();
-}
-
-TEST_F(ExField, DISABLED_FootnoteRef)
-{
-    s_instance->FootnoteRef();
-}
-
-TEST_F(ExField, DISABLED_FieldPageRef)
-{
-    s_instance->FieldPageRef_();
-}
-
-TEST_F(ExField, DISABLED_FieldRef)
-{
-    s_instance->FieldRef_();
-}
-
-TEST_F(ExField, DISABLED_FieldRD)
-{
-    s_instance->FieldRD_();
 }
 
 TEST_F(ExField, FieldSetRef)
