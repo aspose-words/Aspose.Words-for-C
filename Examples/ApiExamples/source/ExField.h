@@ -2175,23 +2175,6 @@ public:
         ASSERT_EQ(ImageDir + u"Transparent background logo.png", image->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "));
     }
 
-    /// <summary>
-    /// Use a document builder to insert an INCLUDETEXT field with custom properties.
-    /// </summary>
-    SharedPtr<FieldIncludeText> CreateFieldIncludeText(SharedPtr<DocumentBuilder> builder, String sourceFullName, bool lockFields, String mimeType,
-                                                       String textConverter, String encoding)
-    {
-        auto fieldIncludeText = System::DynamicCast<FieldIncludeText>(builder->InsertField(FieldType::FieldIncludeText, true));
-        fieldIncludeText->set_SourceFullName(sourceFullName);
-        fieldIncludeText->set_LockFields(lockFields);
-        fieldIncludeText->set_MimeType(mimeType);
-        fieldIncludeText->set_TextConverter(textConverter);
-        fieldIncludeText->set_Encoding(encoding);
-
-        return fieldIncludeText;
-    }
-    //ExEnd
-
     void TestFieldIncludeText(SharedPtr<Document> doc)
     {
         doc = DocumentHelper::SaveOpen(doc);
@@ -3675,19 +3658,6 @@ public:
         return field;
     }
 
-    /// <summary>
-    /// Uses a document builder to insert a named bookmark with a footnote at the end.
-    /// </summary>
-    static void InsertBookmarkWithFootnote(SharedPtr<DocumentBuilder> builder, String bookmarkName, String bookmarkText, String footnoteText)
-    {
-        builder->StartBookmark(bookmarkName);
-        builder->Write(bookmarkText);
-        builder->InsertFootnote(FootnoteType::Footnote, footnoteText);
-        builder->EndBookmark(bookmarkName);
-        builder->Writeln();
-    }
-    //ExEnd
-
     void TestNoteRef(SharedPtr<Document> doc)
     {
         auto field = System::DynamicCast<FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(0));
@@ -3732,17 +3702,6 @@ public:
         return field;
     }
 
-    /// <summary>
-    /// Uses a document builder to insert a named bookmark.
-    /// </summary>
-    static void InsertAndNameBookmark(SharedPtr<DocumentBuilder> builder, String bookmarkName)
-    {
-        builder->StartBookmark(bookmarkName);
-        builder->Writeln(String::Format(u"Contents of bookmark \"{0}\".", bookmarkName));
-        builder->EndBookmark(bookmarkName);
-    }
-    //ExEnd
-
     void TestPageRef(SharedPtr<Document> doc)
     {
         auto field = System::DynamicCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(0));
@@ -3773,19 +3732,6 @@ public:
         ASSERT_TRUE(field->get_InsertHyperlink());
         ASSERT_TRUE(field->get_InsertRelativePosition());
     }
-
-    /// <summary>
-    /// Get the document builder to insert a REF field, reference a bookmark with it, and add text before and after it.
-    /// </summary>
-    static SharedPtr<FieldRef> InsertFieldRef(SharedPtr<DocumentBuilder> builder, String bookmarkName, String textBefore, String textAfter)
-    {
-        builder->Write(textBefore);
-        auto field = System::DynamicCast<FieldRef>(builder->InsertField(FieldType::FieldRef, true));
-        field->set_BookmarkName(bookmarkName);
-        builder->Write(textAfter);
-        return field;
-    }
-    //ExEnd
 
     void TestFieldRef(SharedPtr<Document> doc)
     {

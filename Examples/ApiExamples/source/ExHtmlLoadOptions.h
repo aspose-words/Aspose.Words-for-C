@@ -99,31 +99,6 @@ public:
         }
     }
 
-    /// <summary>
-    /// Stores all warnings that occur during a document loading operation in a List.
-    /// </summary>
-    class ListDocumentWarnings : public IWarningCallback
-    {
-    public:
-        void Warning(SharedPtr<WarningInfo> info) override
-        {
-            mWarnings->Add(info);
-        }
-
-        SharedPtr<System::Collections::Generic::List<SharedPtr<WarningInfo>>> Warnings()
-        {
-            return mWarnings;
-        }
-
-        ListDocumentWarnings() : mWarnings(MakeObject<System::Collections::Generic::List<SharedPtr<WarningInfo>>>())
-        {
-        }
-
-    private:
-        SharedPtr<System::Collections::Generic::List<SharedPtr<WarningInfo>>> mWarnings;
-    };
-    //ExEnd
-
     void EncryptedHtml()
     {
         //ExStart
