@@ -418,7 +418,7 @@ public:
     /// </summary>
     void SplitRun(System::SharedPtr<Run> run, int position)
     {
-        auto afterRun = System::DynamicCast<Aspose::Words::Run>(run->Clone(true));
+        auto afterRun = System::ExplicitCast<Aspose::Words::Run>(run->Clone(true));
         afterRun->set_Text(run->get_Text().Substring(position));
         run->set_Text(run->get_Text().Substring(0, position));
         run->get_ParentNode()->InsertAfter(afterRun, run);
@@ -481,7 +481,7 @@ public:
 
     void RemovePageBreakFromParagraph(System::SharedPtr<Paragraph> paragraph)
     {
-        auto run = System::DynamicCast<Aspose::Words::Run>(paragraph->get_FirstChild());
+        auto run = System::ExplicitCast<Aspose::Words::Run>(paragraph->get_FirstChild());
         if (run->get_Text() == PageBreakStr)
         {
             paragraph->RemoveChild(run);
@@ -496,7 +496,7 @@ public:
             return;
         }
 
-        auto run = System::DynamicCast<Aspose::Words::Run>(lastNode);
+        auto run = System::ExplicitCast<Aspose::Words::Run>(lastNode);
         RemovePageBreak(run);
     }
 

@@ -114,7 +114,7 @@ public:
         auto dstDoc = MakeObject<Document>();
 
         SharedPtr<Section> sourceSection = srcDoc->get_Sections()->idx_get(0);
-        auto newSection = System::DynamicCast<Section>(dstDoc->ImportNode(sourceSection, true));
+        auto newSection = System::ExplicitCast<Section>(dstDoc->ImportNode(sourceSection, true));
         dstDoc->get_Sections()->Add(newSection);
 
         dstDoc->Save(ArtifactsDir + u"WorkingWithSection.CopySection.docx");

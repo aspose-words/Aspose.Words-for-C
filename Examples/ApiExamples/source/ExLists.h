@@ -574,7 +574,7 @@ public:
         paras = doc->GetChildNodes(NodeType::Paragraph, true);
 
         ASSERT_EQ(6, paras->LINQ_Count(static_cast<System::Func<SharedPtr<Node>, bool>>(static_cast<std::function<bool(SharedPtr<Node> n)>>(
-                         [](SharedPtr<Node> n) -> bool { return (System::DynamicCast_noexcept<Paragraph>(n))->get_ListFormat()->get_IsListItem(); }))));
+                         [](SharedPtr<Node> n) -> bool { return (System::AsCast<Paragraph>(n))->get_ListFormat()->get_IsListItem(); }))));
     }
 
     void RemoveBulletsFromParagraphs()
@@ -593,14 +593,14 @@ public:
 
         SharedPtr<NodeCollection> paras = doc->GetChildNodes(NodeType::Paragraph, true);
 
-        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::DynamicCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
+        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::ExplicitCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
 
         for (const auto& paragraph : System::IterateOver<Paragraph>(paras))
         {
             paragraph->get_ListFormat()->RemoveNumbers();
         }
 
-        ASSERT_EQ(0, paras->LINQ_Count([](SharedPtr<Node> n) { return System::DynamicCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
+        ASSERT_EQ(0, paras->LINQ_Count([](SharedPtr<Node> n) { return System::ExplicitCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
         //ExEnd
     }
 
@@ -618,7 +618,7 @@ public:
 
         SharedPtr<NodeCollection> paras = doc->GetChildNodes(NodeType::Paragraph, true);
 
-        ASSERT_EQ(0, paras->LINQ_Count([](SharedPtr<Node> n) { return System::DynamicCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
+        ASSERT_EQ(0, paras->LINQ_Count([](SharedPtr<Node> n) { return System::ExplicitCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
 
         doc->get_Lists()->Add(ListTemplate::NumberDefault);
         SharedPtr<List> list = doc->get_Lists()->idx_get(0);
@@ -629,16 +629,16 @@ public:
             paragraph->get_ListFormat()->set_ListLevelNumber(2);
         }
 
-        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::DynamicCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
+        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::ExplicitCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
         //ExEnd
 
         doc = DocumentHelper::SaveOpen(doc);
         paras = doc->GetChildNodes(NodeType::Paragraph, true);
 
-        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::DynamicCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
+        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::ExplicitCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
         ASSERT_EQ(3,
                   paras->LINQ_Count(static_cast<System::Func<SharedPtr<Node>, bool>>(static_cast<std::function<bool(SharedPtr<Node> n)>>(
-                      [](SharedPtr<Node> n) -> bool { return (System::DynamicCast_noexcept<Paragraph>(n))->get_ListFormat()->get_ListLevelNumber() == 2; }))));
+                      [](SharedPtr<Node> n) -> bool { return (System::AsCast<Paragraph>(n))->get_ListFormat()->get_ListLevelNumber() == 2; }))));
     }
 
     void ApplyNewListToParagraphs()
@@ -655,7 +655,7 @@ public:
 
         SharedPtr<NodeCollection> paras = doc->GetChildNodes(NodeType::Paragraph, true);
 
-        ASSERT_EQ(0, paras->LINQ_Count([](SharedPtr<Node> n) { return System::DynamicCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
+        ASSERT_EQ(0, paras->LINQ_Count([](SharedPtr<Node> n) { return System::ExplicitCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
 
         SharedPtr<List> list = doc->get_Lists()->Add(ListTemplate::NumberUppercaseLetterDot);
 
@@ -665,16 +665,16 @@ public:
             paragraph->get_ListFormat()->set_ListLevelNumber(1);
         }
 
-        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::DynamicCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
+        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::ExplicitCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
         //ExEnd
 
         doc = DocumentHelper::SaveOpen(doc);
         paras = doc->GetChildNodes(NodeType::Paragraph, true);
 
-        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::DynamicCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
+        ASSERT_EQ(3, paras->LINQ_Count([](SharedPtr<Node> n) { return System::ExplicitCast<Paragraph>(n)->get_ListFormat()->get_IsListItem(); }));
         ASSERT_EQ(3,
                   paras->LINQ_Count(static_cast<System::Func<SharedPtr<Node>, bool>>(static_cast<std::function<bool(SharedPtr<Node> n)>>(
-                      [](SharedPtr<Node> n) -> bool { return (System::DynamicCast_noexcept<Paragraph>(n))->get_ListFormat()->get_ListLevelNumber() == 1; }))));
+                      [](SharedPtr<Node> n) -> bool { return (System::AsCast<Paragraph>(n))->get_ListFormat()->get_ListLevelNumber() == 1; }))));
     }
 
     //ExStart

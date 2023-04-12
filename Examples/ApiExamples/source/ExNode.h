@@ -83,13 +83,13 @@ public:
         // 1 -  Create a clone of a node, and create a clone of each of its child nodes as well.
         SharedPtr<Node> cloneWithChildren = para->Clone(true);
 
-        ASSERT_TRUE((System::DynamicCast<CompositeNode>(cloneWithChildren))->get_HasChildNodes());
+        ASSERT_TRUE((System::ExplicitCast<CompositeNode>(cloneWithChildren))->get_HasChildNodes());
         ASSERT_EQ(u"Hello world!", cloneWithChildren->GetText().Trim());
 
         // 2 -  Create a clone of a node just by itself without any children.
         SharedPtr<Node> cloneWithoutChildren = para->Clone(false);
 
-        ASSERT_FALSE((System::DynamicCast<CompositeNode>(cloneWithoutChildren))->get_HasChildNodes());
+        ASSERT_FALSE((System::ExplicitCast<CompositeNode>(cloneWithoutChildren))->get_HasChildNodes());
         ASSERT_EQ(String::Empty, cloneWithoutChildren->GetText().Trim());
         //ExEnd
     }
@@ -165,7 +165,7 @@ public:
         auto doc = MakeObject<Document>();
 
         // Add two runs and one shape as child nodes to the first paragraph of this document.
-        auto paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
+        auto paragraph = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
         paragraph->AppendChild(MakeObject<Run>(doc, u"Hello world! "));
 
         auto shape = MakeObject<Shape>(doc, ShapeType::Rectangle);
@@ -194,7 +194,7 @@ public:
                 break;
 
             case NodeType::Shape: {
-                auto childShape = System::DynamicCast<Shape>(child);
+                auto childShape = System::ExplicitCast<Shape>(child);
                 std::cout << "Shape:" << std::endl;
                 std::cout << String::Format(u"\t{0}, {1}x{2}", childShape->get_ShapeType(), childShape->get_Width(), childShape->get_Height()) << std::endl;
                 ASSERT_EQ(100, shape->get_CustomNodeId());
@@ -267,7 +267,7 @@ public:
             if (childNode->get_IsComposite())
             {
                 std::cout << std::endl;
-                TraverseAllNodes(System::DynamicCast<CompositeNode>(childNode), depth + 1);
+                TraverseAllNodes(System::ExplicitCast<CompositeNode>(childNode), depth + 1);
             }
             else if (System::ObjectExt::Is<Inline>(childNode))
             {
@@ -384,8 +384,8 @@ public:
         builder->Writeln(u"Section 2 text.");
 
         // Both sections are siblings of each other.
-        auto lastSection = System::DynamicCast<Section>(doc->get_LastChild());
-        auto firstSection = System::DynamicCast<Section>(lastSection->get_PreviousSibling());
+        auto lastSection = System::ExplicitCast<Section>(doc->get_LastChild());
+        auto firstSection = System::ExplicitCast<Section>(lastSection->get_PreviousSibling());
 
         // Remove a section based on its sibling relationship with another section.
         if (lastSection->get_PreviousSibling() != nullptr)

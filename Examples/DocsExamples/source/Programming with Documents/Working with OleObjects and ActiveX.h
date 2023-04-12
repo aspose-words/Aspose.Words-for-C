@@ -72,7 +72,7 @@ public:
         //ExEnd:InsertOleObjectwithOlePackage
 
         //ExStart:GetAccessToOLEObjectRawData
-        auto oleShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto oleShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         ArrayPtr<uint8_t> oleRawData = oleShape->get_OleFormat()->GetRawData();
         //ExEnd:GetAccessToOLEObjectRawData
     }
@@ -119,7 +119,7 @@ public:
             SharedPtr<OleControl> oleControl = shape->get_OleFormat()->get_OleControl();
             if (oleControl->get_IsForms2OleControl())
             {
-                auto checkBox = System::DynamicCast<Forms2OleControl>(oleControl);
+                auto checkBox = System::ExplicitCast<Forms2OleControl>(oleControl);
                 properties = properties + u"\nCaption: " + checkBox->get_Caption();
                 properties = properties + u"\nValue: " + checkBox->get_Value();
                 properties = properties + u"\nEnabled: " + checkBox->get_Enabled();

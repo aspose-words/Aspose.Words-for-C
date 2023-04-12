@@ -699,7 +699,7 @@ public:
             auto subDoc = MakeObject<Document>(MyDir + u"Document.docx");
 
             // Insert a document after the paragraph containing the matched text.
-            auto para = System::DynamicCast<Paragraph>(args->get_MatchNode()->get_ParentNode());
+            auto para = System::ExplicitCast<Paragraph>(args->get_MatchNode()->get_ParentNode());
             InsertDocument(para, subDoc);
 
             // Remove the paragraph with the matched text.
@@ -727,7 +727,7 @@ public:
                     // Skip the node if it is the last empty paragraph in a section.
                     if (srcNode->get_NodeType() == NodeType::Paragraph)
                     {
-                        auto para = System::DynamicCast<Paragraph>(srcNode);
+                        auto para = System::ExplicitCast<Paragraph>(srcNode);
                         if (para->get_IsEndOfSection() && !para->get_HasChildNodes())
                         {
                             continue;

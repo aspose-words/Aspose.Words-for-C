@@ -85,7 +85,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Comment.AddCommentWithReply.docx");
-        auto docComment = System::DynamicCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
+        auto docComment = System::ExplicitCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
 
         ASSERT_EQ(1, docComment->get_Count());
         ASSERT_EQ(1, comment->get_Replies()->get_Count());
@@ -194,7 +194,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Comment.Done.docx");
-        comment = System::DynamicCast<Comment>(doc->GetChildNodes(NodeType::Comment, true)->idx_get(0));
+        comment = System::ExplicitCast<Comment>(doc->GetChildNodes(NodeType::Comment, true)->idx_get(0));
 
         ASSERT_TRUE(comment->get_Done());
         ASSERT_EQ(u"\u0005Fix the spelling error!", comment->GetText().Trim());
@@ -252,13 +252,13 @@ public:
         // Iterate over all top-level comments. Unlike reply-type comments, top-level comments have no ancestor.
         std::function<bool(SharedPtr<Node> c)> haveNoAncestor = [](SharedPtr<Node> c)
         {
-            return (System::DynamicCast<Comment>(c))->get_Ancestor() == nullptr;
+            return (System::ExplicitCast<Comment>(c))->get_Ancestor() == nullptr;
         };
 
         for (auto comment : System::IterateOver<Comment>(comments->LINQ_Where(haveNoAncestor)))
         {
             // First, visit the start of the comment range.
-            auto commentRangeStart = System::DynamicCast<CommentRangeStart>(comment->get_PreviousSibling()->get_PreviousSibling()->get_PreviousSibling());
+            auto commentRangeStart = System::ExplicitCast<CommentRangeStart>(comment->get_PreviousSibling()->get_PreviousSibling()->get_PreviousSibling());
             commentRangeStart->Accept(commentVisitor);
 
             // Then, visit the comment, and any replies that it may have.
@@ -270,7 +270,7 @@ public:
             }
 
             // Finally, visit the end of the comment range, and then print the visitor's text contents.
-            auto commentRangeEnd = System::DynamicCast<CommentRangeEnd>(comment->get_PreviousSibling());
+            auto commentRangeEnd = System::ExplicitCast<CommentRangeEnd>(comment->get_PreviousSibling());
             commentRangeEnd->Accept(commentVisitor);
 
             std::cout << commentVisitor->GetText() << std::endl;

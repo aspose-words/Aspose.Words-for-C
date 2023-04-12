@@ -697,7 +697,7 @@ public:
 
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx", loadOptions);
 
-        SharedPtr<FolderFontSource> folderSource = (System::DynamicCast<FolderFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(0)));
+        SharedPtr<FolderFontSource> folderSource = (System::ExplicitCast<FolderFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(0)));
 
         ASSERT_EQ(FontsDir, folderSource->get_FolderPath());
         ASSERT_FALSE(folderSource->get_ScanSubfolders());
@@ -755,11 +755,11 @@ public:
         loadOptions->set_FontSettings(fontSettings);
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx", loadOptions);
 
-        SharedPtr<FolderFontSource> folderSource = (System::DynamicCast<FolderFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(0)));
+        SharedPtr<FolderFontSource> folderSource = (System::ExplicitCast<FolderFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(0)));
         ASSERT_EQ(FontsDir, folderSource->get_FolderPath());
         ASSERT_TRUE(folderSource->get_ScanSubfolders());
 
-        folderSource = (System::DynamicCast<FolderFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(1)));
+        folderSource = (System::ExplicitCast<FolderFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(1)));
         ASSERT_EQ(u"C:\\Windows\\Fonts\\", folderSource->get_FolderPath());
         ASSERT_TRUE(folderSource->get_ScanSubfolders());
     }
@@ -824,7 +824,7 @@ public:
         // By default, a blank document always contains a system font source.
         ASSERT_EQ(1, doc->get_FontSettings()->GetFontsSources()->get_Length());
 
-        auto systemFontSource = System::DynamicCast<SystemFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(0));
+        auto systemFontSource = System::ExplicitCast<SystemFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(0));
         ASSERT_EQ(FontSourceType::SystemFonts, systemFontSource->get_Type());
         ASSERT_EQ(0, systemFontSource->get_Priority());
 

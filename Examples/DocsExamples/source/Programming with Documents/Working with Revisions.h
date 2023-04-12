@@ -203,7 +203,7 @@ public:
         {
             if (revision->get_ParentNode()->get_NodeType() == NodeType::Paragraph)
             {
-                auto paragraph = System::DynamicCast<Paragraph>(revision->get_ParentNode());
+                auto paragraph = System::ExplicitCast<Paragraph>(revision->get_ParentNode());
                 if (paragraph->get_IsListItem())
                 {
                     std::cout << paragraph->get_ListLabel()->get_LabelString() << std::endl;

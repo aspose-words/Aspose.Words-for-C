@@ -157,7 +157,7 @@ public:
 
     void TestCreate(SharedPtr<Document> doc)
     {
-        auto smartTag = System::DynamicCast<SmartTag>(doc->GetChild(NodeType::SmartTag, 0, true));
+        auto smartTag = System::ExplicitCast<SmartTag>(doc->GetChild(NodeType::SmartTag, 0, true));
 
         ASSERT_EQ(u"date", smartTag->get_Element());
         ASSERT_EQ(u"May 29, 2019", smartTag->GetText());
@@ -173,7 +173,7 @@ public:
         ASSERT_EQ(String::Empty, smartTag->get_Properties()->idx_get(2)->get_Uri());
         ASSERT_EQ(u"2019", smartTag->get_Properties()->idx_get(2)->get_Value());
 
-        smartTag = System::DynamicCast<SmartTag>(doc->GetChild(NodeType::SmartTag, 1, true));
+        smartTag = System::ExplicitCast<SmartTag>(doc->GetChild(NodeType::SmartTag, 1, true));
 
         ASSERT_EQ(u"stockticker", smartTag->get_Element());
         ASSERT_EQ(u"MSFT", smartTag->GetText());

@@ -105,7 +105,7 @@ public:
             if (currNode->get_NextSibling() == nullptr && isExtracting)
             {
                 // Move to the next section.
-                auto nextSection = System::DynamicCast<Section>(currNode->GetAncestor(NodeType::Section)->get_NextSibling());
+                auto nextSection = System::ExplicitCast<Section>(currNode->GetAncestor(NodeType::Section)->get_NextSibling());
                 currNode = nextSection->get_Body()->get_FirstChild();
             }
             else
@@ -192,8 +192,8 @@ public:
         // Check the end node is after the start node in the DOM tree.
         // First, check if they are in different sections, then if they're not,
         // check their position in the body of the same section.
-        auto startSection = System::DynamicCast<Section>(startNode->GetAncestor(NodeType::Section));
-        auto endSection = System::DynamicCast<Section>(endNode->GetAncestor(NodeType::Section));
+        auto startSection = System::ExplicitCast<Section>(startNode->GetAncestor(NodeType::Section));
+        auto endSection = System::ExplicitCast<Section>(endNode->GetAncestor(NodeType::Section));
 
         int startIndex = startSection->get_ParentNode()->IndexOf(startSection);
         int endIndex = endSection->get_ParentNode()->IndexOf(endSection);
@@ -220,7 +220,7 @@ public:
 
         if (fromNode->get_IsComposite())
         {
-            SharedPtr<Node> node = FindNextNode(nodeType, (System::DynamicCast<CompositeNode>(fromNode))->get_FirstChild());
+            SharedPtr<Node> node = FindNextNode(nodeType, (System::ExplicitCast<CompositeNode>(fromNode))->get_FirstChild());
             if (node != nullptr)
             {
                 return node;
@@ -279,13 +279,13 @@ public:
         {
             SharedPtr<Node> currentNode = nodeBranch->idx_get(i);
             int nodeIndex = currentNode->get_ParentNode()->IndexOf(currentNode);
-            currentCloneNode = (System::DynamicCast<CompositeNode>(currentCloneNode))->get_ChildNodes()->idx_get(nodeIndex);
+            currentCloneNode = (System::ExplicitCast<CompositeNode>(currentCloneNode))->get_ChildNodes()->idx_get(nodeIndex);
 
             RemoveNodesOutsideOfRange(currentCloneNode, isInclusive || (i > 0), isStartMarker);
         }
 
         // After processing, the composite node may become empty if it has doesn't include it.
-        if (canAdd && (forceAdd || (System::DynamicCast<CompositeNode>(cloneNode))->get_HasChildNodes()))
+        if (canAdd && (forceAdd || (System::ExplicitCast<CompositeNode>(cloneNode))->get_HasChildNodes()))
         {
             nodes->Add(cloneNode);
         }
@@ -346,7 +346,7 @@ public:
 
     static void IncludeNextParagraph(SharedPtr<Node> node, SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> nodes)
     {
-        auto paragraph = System::DynamicCast<Paragraph>(FindNextNode(NodeType::Paragraph, node->get_NextSibling()));
+        auto paragraph = System::ExplicitCast<Paragraph>(FindNextNode(NodeType::Paragraph, node->get_NextSibling()));
         if (paragraph != nullptr)
         {
             // Move to the first child to include paragraphs without content.

@@ -117,7 +117,7 @@ public:
             // in this case it is necessary to split the run.
             if (e->get_MatchOffset() > 0)
             {
-                currentNode = SplitRun(System::DynamicCast<Aspose::Words::Run>(currentNode), e->get_MatchOffset());
+                currentNode = SplitRun(System::ExplicitCast<Aspose::Words::Run>(currentNode), e->get_MatchOffset());
             }
 
             // This array is used to store all nodes of the match for further highlighting.
@@ -127,7 +127,7 @@ public:
             int remainingLength = e->get_Match()->get_Value().get_Length();
             while (remainingLength > 0 && currentNode != nullptr && currentNode->GetText().get_Length() <= remainingLength)
             {
-                runs->Add(System::DynamicCast<Aspose::Words::Run>(currentNode));
+                runs->Add(System::ExplicitCast<Aspose::Words::Run>(currentNode));
                 remainingLength -= currentNode->GetText().get_Length();
 
                 // Select the next Run node.
@@ -141,8 +141,8 @@ public:
             // Split the last run that contains the match if there is any text left.
             if (currentNode != nullptr && remainingLength > 0)
             {
-                SplitRun(System::DynamicCast<Aspose::Words::Run>(currentNode), remainingLength);
-                runs->Add(System::DynamicCast<Aspose::Words::Run>(currentNode));
+                SplitRun(System::ExplicitCast<Aspose::Words::Run>(currentNode), remainingLength);
+                runs->Add(System::ExplicitCast<Aspose::Words::Run>(currentNode));
             }
 
             // Now highlight all runs in the sequence.
@@ -164,7 +164,7 @@ public:
     /// </summary>
     static SharedPtr<Run> SplitRun(SharedPtr<Run> run, int position)
     {
-        auto afterRun = System::DynamicCast<Aspose::Words::Run>(run->Clone(true));
+        auto afterRun = System::ExplicitCast<Aspose::Words::Run>(run->Clone(true));
         afterRun->set_Text(run->get_Text().Substring(position));
 
         run->set_Text(run->get_Text().Substring(0, position));
@@ -338,7 +338,7 @@ public:
         {
             SharedPtr<Node> currentNode = e->get_MatchNode();
 
-            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast_noexcept<Document>(e->get_MatchNode()->get_Document()));
+            auto builder = MakeObject<DocumentBuilder>(System::AsCast<Document>(e->get_MatchNode()->get_Document()));
             builder->MoveTo(currentNode);
             builder->InsertHtml(e->get_Replacement());
 
@@ -436,7 +436,7 @@ public:
         {
             SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runs = FindAndSplitMatchRuns(args);
 
-            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
+            auto builder = MakeObject<DocumentBuilder>(System::ExplicitCast<Document>(args->get_MatchNode()->get_Document()));
             builder->MoveTo(runs->idx_get(runs->get_Count() - 1));
 
             // Calculate the field's name from the FieldType enumeration by removing
@@ -467,7 +467,7 @@ public:
             // In this case it is necessary to split the run.
             if (args->get_MatchOffset() > 0)
             {
-                currentNode = SplitRun(System::DynamicCast<Aspose::Words::Run>(currentNode), args->get_MatchOffset());
+                currentNode = SplitRun(System::ExplicitCast<Aspose::Words::Run>(currentNode), args->get_MatchOffset());
             }
 
             // This array is used to store all nodes of the match for further removing.
@@ -477,7 +477,7 @@ public:
             int remainingLength = args->get_Match()->get_Value().get_Length();
             while (remainingLength > 0 && currentNode != nullptr && currentNode->GetText().get_Length() <= remainingLength)
             {
-                runs->Add(System::DynamicCast<Aspose::Words::Run>(currentNode));
+                runs->Add(System::ExplicitCast<Aspose::Words::Run>(currentNode));
                 remainingLength -= currentNode->GetText().get_Length();
 
                 do
@@ -489,8 +489,8 @@ public:
             // Split the last run that contains the match if there is any text left.
             if (currentNode != nullptr && remainingLength > 0)
             {
-                SplitRun(System::DynamicCast<Aspose::Words::Run>(currentNode), remainingLength);
-                runs->Add(System::DynamicCast<Aspose::Words::Run>(currentNode));
+                SplitRun(System::ExplicitCast<Aspose::Words::Run>(currentNode), remainingLength);
+                runs->Add(System::ExplicitCast<Aspose::Words::Run>(currentNode));
             }
 
             return runs;
@@ -505,7 +505,7 @@ public:
         /// </summary>
         SharedPtr<Run> SplitRun(SharedPtr<Run> run, int position)
         {
-            auto afterRun = System::DynamicCast<Aspose::Words::Run>(run->Clone(true));
+            auto afterRun = System::ExplicitCast<Aspose::Words::Run>(run->Clone(true));
 
             afterRun->set_Text(run->get_Text().Substring(position));
             run->set_Text(run->get_Text().Substring(0, position));
@@ -591,7 +591,7 @@ public:
         /// </summary>
         ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
         {
-            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
+            auto builder = MakeObject<DocumentBuilder>(System::ExplicitCast<Document>(args->get_MatchNode()->get_Document()));
             builder->MoveTo(args->get_MatchNode());
 
             // Replace '<CustomerName>' text with a red bold name.
@@ -688,7 +688,7 @@ public:
         //ExStart:ReplaceText
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         table->get_Range()->Replace(u"Carrots", u"Eggs", MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));
         table->get_LastRow()->get_LastCell()->get_Range()->Replace(u"50", u"20", MakeObject<FindReplaceOptions>(FindReplaceDirection::Forward));

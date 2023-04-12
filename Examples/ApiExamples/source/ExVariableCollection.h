@@ -66,7 +66,7 @@ public:
 
         // We can display the values of variables in the document body using DOCVARIABLE fields.
         auto builder = MakeObject<DocumentBuilder>(doc);
-        auto field = System::DynamicCast<FieldDocVariable>(builder->InsertField(FieldType::FieldDocVariable, true));
+        auto field = System::ExplicitCast<FieldDocVariable>(builder->InsertField(FieldType::FieldDocVariable, true));
         field->set_VariableName(u"Home address");
         field->Update();
 

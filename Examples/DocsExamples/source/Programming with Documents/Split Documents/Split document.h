@@ -75,7 +75,7 @@ public:
             auto newDoc = MakeObject<Document>();
             newDoc->get_Sections()->Clear();
 
-            auto newSection = System::DynamicCast<Section>(newDoc->ImportNode(section, true));
+            auto newSection = System::ExplicitCast<Section>(newDoc->ImportNode(section, true));
             newDoc->get_Sections()->Add(newSection);
 
             // Save each section as a separate document.

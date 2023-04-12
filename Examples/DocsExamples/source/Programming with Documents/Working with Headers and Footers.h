@@ -152,7 +152,7 @@ public:
     /// </summary>
     void CopyHeadersFootersFromPreviousSection(SharedPtr<Section> section)
     {
-        auto previousSection = System::DynamicCast<Section>(section->get_PreviousSibling());
+        auto previousSection = System::ExplicitCast<Section>(section->get_PreviousSibling());
 
         if (previousSection == nullptr)
         {
@@ -163,7 +163,7 @@ public:
 
         for (const auto& headerFooter : System::IterateOver<HeaderFooter>(previousSection->get_HeadersFooters()))
         {
-            section->get_HeadersFooters()->Add((System::StaticCast<Node>(headerFooter))->Clone(true));
+            section->get_HeadersFooters()->Add((System::ExplicitCast<Node>(headerFooter))->Clone(true));
         }
     }
     //ExEnd:CopyHeadersFootersFromPreviousSection

@@ -96,7 +96,7 @@ public:
             while (enumerator->MoveNext())
             {
                 // Check if the current paragraph belongs to the target page.
-                auto paragraph = System::DynamicCast<Paragraph>(enumerator->get_Current());
+                auto paragraph = System::ExplicitCast<Paragraph>(enumerator->get_Current());
                 if (layoutCollector->GetStartPageIndex(paragraph) == page)
                 {
                     AddImageToPage(paragraph, page, ImagesDir);
@@ -119,7 +119,7 @@ public:
     void AddImageToPage(SharedPtr<Paragraph> para, int page, String imagesDir)
     {
         ASPOSE_UNUSED(imagesDir);
-        auto doc = System::DynamicCast<Document>(para->get_Document());
+        auto doc = System::ExplicitCast<Document>(para->get_Document());
 
         auto builder = MakeObject<DocumentBuilder>(doc);
         builder->MoveTo(para);
@@ -161,7 +161,7 @@ public:
         for (int i = 1; i < numPages; i++)
         {
             // Clone the first section and add it into the end of the document
-            auto cloneSection = System::DynamicCast<Section>(doc->get_FirstSection()->Clone(false));
+            auto cloneSection = System::ExplicitCast<Section>(doc->get_FirstSection()->Clone(false));
             cloneSection->get_PageSetup()->set_SectionStart(SectionStart::NewPage);
             doc->AppendChild(cloneSection);
 
@@ -228,7 +228,7 @@ public:
         // Verify that the first image was compressed by checking the new PPI.
         doc = MakeObject<Document>(ArtifactsDir + u"CompressImages.docx");
 
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         double imagePpi = shape->get_ImageData()->get_ImageSize()->get_WidthPixels() / ConvertUtil::PointToInch(shape->get_SizeInPoints().get_Width());
 
         CODEPORTING_DEBUG_ASSERT2(imagePpi < 150, u"Image was not resampled successfully.");

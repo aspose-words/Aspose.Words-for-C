@@ -66,7 +66,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // Retrieve the target shape from the document.
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExStart:RenderShapeAsEmf
         SharedPtr<ShapeRenderer> render = shape->GetShapeRenderer();
@@ -82,7 +82,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExStart:RenderShapeAsJpeg
         auto render = MakeObject<ShapeRenderer>(shape);
@@ -103,7 +103,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         SharedPtr<ShapeRenderer> render = shape->GetShapeRenderer();
 
@@ -144,7 +144,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         //ExStart:RenderCellToImage
-        auto cell = System::DynamicCast<Cell>(doc->GetChild(NodeType::Cell, 2, true));
+        auto cell = System::ExplicitCast<Cell>(doc->GetChild(NodeType::Cell, 2, true));
         RenderNode(cell, ArtifactsDir + u"RenderShape.RenderCellToImage.png", nullptr);
         //ExEnd:RenderCellToImage
     }
@@ -154,7 +154,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         //ExStart:RenderRowToImage
-        auto row = System::DynamicCast<Row>(doc->GetChild(NodeType::Row, 0, true));
+        auto row = System::ExplicitCast<Row>(doc->GetChild(NodeType::Row, 0, true));
         RenderNode(row, ArtifactsDir + u"RenderShape.RenderRowToImage.png", nullptr);
         //ExEnd:RenderRowToImage
     }
@@ -181,7 +181,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExStart:FindShapeSizes
         System::Drawing::Size shapeRenderedSize = shape->GetShapeRenderer()->GetSizeInPixels(1.0f, 96.0f);
@@ -201,7 +201,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExStart:RenderShapeImage
         shape->GetShapeRenderer()->Save(ArtifactsDir + u"RenderShape.RenderShapeImage.jpg", nullptr);
@@ -229,13 +229,13 @@ public:
         // There a bug which affects the cache of a cloned node.
         // To avoid this, we clone the entire document, including all nodes,
         // finding the matching node in the cloned document and rendering that instead.
-        auto doc = System::DynamicCast<Document>(node->get_Document()->Clone(true));
+        auto doc = System::ExplicitCast<Document>(node->get_Document()->Clone(true));
         node = doc->GetChild(NodeType::Any, node->get_Document()->GetChildNodes(NodeType::Any, true)->IndexOf(node), true);
 
         // Create a temporary shape to store the target node in. This shape will be rendered to retrieve
         // the rendered content of the node.
         auto shape = MakeObject<Shape>(doc, ShapeType::TextBox);
-        auto parentSection = System::DynamicCast<Section>(node->GetAncestor(NodeType::Section));
+        auto parentSection = System::ExplicitCast<Section>(node->GetAncestor(NodeType::Section));
 
         // Assume that the node cannot be larger than the page in size.
         shape->set_Width(parentSection->get_PageSetup()->get_PageWidth());
@@ -253,7 +253,7 @@ public:
         while (!(System::ObjectExt::Is<InlineStory>(currentNode->get_ParentNode()) || System::ObjectExt::Is<Story>(currentNode->get_ParentNode()) ||
                  System::ObjectExt::Is<ShapeBase>(currentNode->get_ParentNode())))
         {
-            auto parent = System::DynamicCast<CompositeNode>(currentNode->get_ParentNode()->Clone(false));
+            auto parent = System::ExplicitCast<CompositeNode>(currentNode->get_ParentNode()->Clone(false));
             currentNode = currentNode->get_ParentNode();
             parent->AppendChild(node->Clone(true));
             node = parent;

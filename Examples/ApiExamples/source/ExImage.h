@@ -87,7 +87,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Image.FromFile.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(1600, 1600, ImageType::Wmf, shape);
         ASPOSE_ASSERT_EQ(100.0, shape->get_Height());
@@ -113,7 +113,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Image.FromStream.docx");
 
-        TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, System::DynamicCast<Shape>(doc->GetChildNodes(NodeType::Shape, true)->idx_get(0)));
+        TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, System::ExplicitCast<Shape>(doc->GetChildNodes(NodeType::Shape, true)->idx_get(0)));
     }
 
     void FromImage()
@@ -171,7 +171,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Image.CreateFloatingPageCenter.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
         ASSERT_EQ(WrapType::None, shape->get_WrapType());
@@ -224,7 +224,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Image.CreateFloatingPositionSize.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
         ASSERT_EQ(WrapType::None, shape->get_WrapType());
@@ -259,7 +259,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Image.InsertImageWithHyperlink.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode::OK, shape->get_HRef());
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
@@ -312,7 +312,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Image.CreateLinkedImage.Embedded.docx");
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(1600, 1600, ImageType::Wmf, shape);
         ASSERT_EQ(WrapType::Inline, shape->get_WrapType());
@@ -320,7 +320,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Image.CreateLinkedImage.Linked.docx");
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(0, 0, ImageType::Wmf, shape);
         ASSERT_EQ(WrapType::Inline, shape->get_WrapType());
@@ -371,7 +371,7 @@ public:
                 ASPOSE_ASSERT_EQ(curNode, nextNode->PreviousPreOrder(doc));
             }
 
-            if (curNode->get_NodeType() == NodeType::Shape && (System::DynamicCast<Shape>(curNode))->get_HasImage())
+            if (curNode->get_NodeType() == NodeType::Shape && (System::ExplicitCast<Shape>(curNode))->get_HasImage())
             {
                 curNode->Remove();
             }
@@ -433,7 +433,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Image.ScaleImage.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(330.0, shape->get_Width());
         ASPOSE_ASSERT_EQ(330.0, shape->get_Height());

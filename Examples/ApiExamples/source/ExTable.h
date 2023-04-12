@@ -306,7 +306,7 @@ public:
 
         for (int i = 0; i < tables->get_Count(); i++)
         {
-            auto table = System::DynamicCast<Table>(tables->idx_get(i));
+            auto table = System::ExplicitCast<Table>(tables->idx_get(i));
 
             // Find out if any cells in the table have other tables as children.
             int count = GetChildTableCount(table);
@@ -736,7 +736,7 @@ public:
 
         SharedPtr<Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
 
-        auto tableClone = System::DynamicCast<Table>(table->Clone(true));
+        auto tableClone = System::ExplicitCast<Table>(table->Clone(true));
 
         // Insert the cloned table into the document after the original.
         table->get_ParentNode()->InsertAfter(tableClone, table);
@@ -782,7 +782,7 @@ public:
 
         ASSERT_EQ(3, table->get_Rows()->LINQ_Count(static_cast<System::Func<SharedPtr<Node>, bool>>(static_cast<std::function<bool(SharedPtr<Node> r)>>(
                          [&allowBreakAcrossPages](SharedPtr<Node> r) -> bool
-                         { return (System::DynamicCast<Row>(r))->get_RowFormat()->get_AllowBreakAcrossPages() == allowBreakAcrossPages; }))));
+                         { return (System::ExplicitCast<Row>(r))->get_RowFormat()->get_AllowBreakAcrossPages() == allowBreakAcrossPages; }))));
     }
 
     void AllowAutoFitOnTable(bool allowAutoFit)
@@ -871,7 +871,7 @@ public:
 
         for (const auto& para : System::IterateOver(table->GetChildNodes(NodeType::Paragraph, true)->LINQ_OfType<SharedPtr<Paragraph>>()))
         {
-            if (para->get_IsEndOfCell() && (System::DynamicCast<Cell>(para->get_ParentNode()))->get_ParentRow()->get_IsLastRow())
+            if (para->get_IsEndOfCell() && (System::ExplicitCast<Cell>(para->get_ParentNode()))->get_ParentRow()->get_IsLastRow())
             {
                 ASSERT_FALSE(para->get_ParagraphFormat()->get_KeepWithNext());
             }
@@ -985,7 +985,7 @@ public:
     void TestCreateNestedTable(SharedPtr<Document> doc)
     {
         SharedPtr<Table> outerTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-        auto innerTable = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+        auto innerTable = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true));
 
         ASSERT_EQ(2, doc->GetChildNodes(NodeType::Table, true)->get_Count());
         ASSERT_EQ(1, outerTable->get_FirstRow()->get_FirstCell()->get_Tables()->get_Count());
@@ -1055,7 +1055,7 @@ public:
         int mergedCellsCount = 0;
         for (const auto& node : System::IterateOver(table->GetChildNodes(NodeType::Cell, true)))
         {
-            auto cell = System::DynamicCast<Cell>(node);
+            auto cell = System::ExplicitCast<Cell>(node);
             if (cell->get_CellFormat()->get_HorizontalMerge() != CellMerge::None || cell->get_CellFormat()->get_VerticalMerge() != CellMerge::None)
             {
                 mergedCellsCount++;
@@ -1120,7 +1120,7 @@ public:
         SharedPtr<Table> firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
 
         // 2 -  Using the "GetChild" method:
-        auto secondTable = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+        auto secondTable = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true));
 
         // Append all rows from the current table to the next.
         while (secondTable->get_HasChildNodes())
@@ -1151,7 +1151,7 @@ public:
         SharedPtr<Row> row = firstTable->get_Rows()->idx_get(2);
 
         // Create a new container for the split table.
-        auto table = System::DynamicCast<Table>(firstTable->Clone(false));
+        auto table = System::ExplicitCast<Table>(firstTable->Clone(false));
 
         // Insert the container after the original.
         firstTable->get_ParentNode()->InsertAfter(table, firstTable);
@@ -1281,7 +1281,7 @@ public:
         ASSERT_EQ(VerticalAlignment::Bottom, table->get_RelativeVerticalAlignment());
         ASSERT_EQ(HorizontalAlignment::Right, table->get_RelativeHorizontalAlignment());
 
-        table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+        table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true));
 
         ASPOSE_ASSERT_EQ(50.0, table->get_AbsoluteVerticalDistance());
         ASPOSE_ASSERT_EQ(100.0, table->get_AbsoluteHorizontalDistance());
@@ -1319,7 +1319,7 @@ public:
         builder->InsertCell();
         builder->EndTable();
 
-        auto tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        auto tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
         tableStyle->set_AllowBreakAcrossPages(true);
         tableStyle->set_Bidi(true);
         tableStyle->set_CellSpacing(5);
@@ -1357,7 +1357,7 @@ public:
                              [](SharedPtr<Border> b) -> bool { return b->get_Color().ToArgb() == System::Drawing::Color::get_Blue().ToArgb(); }))));
         ASSERT_EQ(CellVerticalAlignment::Center, tableStyle->get_VerticalAlignment());
 
-        tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
+        tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
 
         ASSERT_TRUE(tableStyle->get_AllowBreakAcrossPages());
         ASSERT_TRUE(tableStyle->get_Bidi());
@@ -1383,7 +1383,7 @@ public:
 
         // Below are two ways of aligning a table horizontally.
         // 1 -  Use the "Alignment" property to align it to a location on the page, such as the center:
-        auto tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        auto tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
         tableStyle->set_Alignment(TableAlignment::Center);
         tableStyle->get_Borders()->set_Color(System::Drawing::Color::get_Blue());
         tableStyle->get_Borders()->set_LineStyle(LineStyle::Single);
@@ -1398,7 +1398,7 @@ public:
         table->set_Style(tableStyle);
 
         // 2 -  Use the "LeftIndent" to specify an indent from the left margin of the page:
-        tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle2"));
+        tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle2"));
         tableStyle->set_LeftIndent(55);
         tableStyle->get_Borders()->set_Color(System::Drawing::Color::get_Green());
         tableStyle->get_Borders()->set_LineStyle(LineStyle::Single);
@@ -1416,15 +1416,15 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Table.SetTableAlignment.docx");
 
-        tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
+        tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
 
         ASSERT_EQ(TableAlignment::Center, tableStyle->get_Alignment());
         ASPOSE_ASSERT_EQ(tableStyle, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Style());
 
-        tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle2"));
+        tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle2"));
 
         ASPOSE_ASSERT_EQ(55.0, tableStyle->get_LeftIndent());
-        ASPOSE_ASSERT_EQ(tableStyle, (System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true)))->get_Style());
+        ASPOSE_ASSERT_EQ(tableStyle, (System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true)))->get_Style());
     }
 
     void ConditionalStyles()
@@ -1476,7 +1476,7 @@ public:
         builder->EndTable();
 
         // Create a custom table style.
-        auto tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        auto tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
 
         // Conditional styles are formatting changes that affect only some of the table's cells
         // based on a predicate, such as the cells being in the last row.
@@ -1532,7 +1532,7 @@ public:
 
         ASSERT_EQ(TableStyleOptions::Default | TableStyleOptions::LastRow | TableStyleOptions::LastColumn, table->get_StyleOptions());
         SharedPtr<ConditionalStyleCollection> conditionalStyles =
-            (System::DynamicCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1")))->get_ConditionalStyles();
+            (System::ExplicitCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1")))->get_ConditionalStyles();
 
         ASSERT_EQ(ConditionalStyleType::FirstRow, conditionalStyles->idx_get(0)->get_Type());
         ASSERT_EQ(System::Drawing::Color::get_AliceBlue().ToArgb(), conditionalStyles->idx_get(0)->get_Shading()->get_BackgroundPatternColor().ToArgb());
@@ -1567,7 +1567,7 @@ public:
         builder->Write(u"Last row");
         builder->EndTable();
 
-        auto tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        auto tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
         table->set_Style(tableStyle);
 
         // Set the table style to color the borders of the first row of the table in red.
@@ -1621,7 +1621,7 @@ public:
         builder->EndTable();
 
         // Apply a line style to all the borders of the table.
-        auto tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        auto tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
         tableStyle->get_Borders()->set_Color(System::Drawing::Color::get_Black());
         tableStyle->get_Borders()->set_LineStyle(LineStyle::Double);
 
@@ -1656,7 +1656,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Table.AlternatingRowStyles.docx");
         table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-        tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
+        tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
 
         ASPOSE_ASSERT_EQ(tableStyle, table->get_Style());
         ASSERT_EQ(table->get_StyleOptions() | TableStyleOptions::ColumnBands, table->get_StyleOptions());
@@ -1689,7 +1689,7 @@ public:
         ASSERT_EQ(5, row->get_Cells()->get_Count());
         auto horizontalMergeIsNone = [](SharedPtr<Node> c)
         {
-            return (System::DynamicCast<Cell>(c))->get_CellFormat()->get_HorizontalMerge() == CellMerge::None;
+            return (System::ExplicitCast<Cell>(c))->get_CellFormat()->get_HorizontalMerge() == CellMerge::None;
         };
         ASSERT_TRUE(row->get_Cells()->LINQ_All(horizontalMergeIsNone));
 

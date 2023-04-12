@@ -61,7 +61,7 @@ public:
         ASSERT_EQ(6, doc->get_Revisions()->get_Count());
 
         // The parent node of a revision is the run that the revision concerns. A Run is an Inline node.
-        auto run = System::DynamicCast<Run>(doc->get_Revisions()->idx_get(0)->get_ParentNode());
+        auto run = System::ExplicitCast<Run>(doc->get_Revisions()->idx_get(0)->get_ParentNode());
 
         SharedPtr<Paragraph> firstParagraph = run->get_ParentParagraph();
         SharedPtr<RunCollection> runs = firstParagraph->get_Runs();

@@ -85,7 +85,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilderImages.InsertImageFromStream.docx");
 
-        auto imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_Width());
@@ -100,7 +100,7 @@ public:
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
 
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         ASPOSE_ASSERT_EQ(108.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(187.5, imageShape->get_Width());
@@ -115,7 +115,7 @@ public:
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
 
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
+        imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
 
         ASPOSE_ASSERT_EQ(100.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(200.0, imageShape->get_Width());
@@ -161,7 +161,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilderImages.InsertImageFromFilename.docx");
 
-        auto imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_Width());
@@ -176,7 +176,7 @@ public:
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
 
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         ASPOSE_ASSERT_EQ(108.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(187.5, imageShape->get_Width());
@@ -191,7 +191,7 @@ public:
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
 
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
+        imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
 
         ASPOSE_ASSERT_EQ(100.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(200.0, imageShape->get_Width());
@@ -262,7 +262,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilderImages.InsertImageFromImageObject.docx");
 
-        auto imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_Width());
@@ -277,7 +277,7 @@ public:
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
 
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         ASPOSE_ASSERT_EQ(108.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(187.5, imageShape->get_Width());
@@ -292,7 +292,7 @@ public:
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
         ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
 
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
+        imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
 
         ASPOSE_ASSERT_EQ(100.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(200.0, imageShape->get_Width());
@@ -346,7 +346,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilderImages.InsertImageFromByteArray.docx");
 
-        auto imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_NEAR(300.0, imageShape->get_Height(), 0.1);
         ASSERT_NEAR(300.0, imageShape->get_Width(), 0.1);
@@ -361,7 +361,7 @@ public:
         ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 0.1);
         ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 0.1);
 
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         ASPOSE_ASSERT_EQ(108.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(187.5, imageShape->get_Width());
@@ -376,7 +376,7 @@ public:
         ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 0.1);
         ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 0.1);
 
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
+        imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
 
         ASPOSE_ASSERT_EQ(100.0, imageShape->get_Height());
         ASPOSE_ASSERT_EQ(200.0, imageShape->get_Width());

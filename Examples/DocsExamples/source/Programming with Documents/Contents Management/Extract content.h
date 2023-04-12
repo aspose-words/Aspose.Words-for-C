@@ -69,8 +69,8 @@ public:
         //ExStart:ExtractContentBetweenBlockLevelNodes
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
-        auto startPara = System::DynamicCast<Paragraph>(doc->get_LastSection()->GetChild(NodeType::Paragraph, 2, true));
-        auto endTable = System::DynamicCast<Table>(doc->get_LastSection()->GetChild(NodeType::Table, 0, true));
+        auto startPara = System::ExplicitCast<Paragraph>(doc->get_LastSection()->GetChild(NodeType::Paragraph, 2, true));
+        auto endTable = System::ExplicitCast<Table>(doc->get_LastSection()->GetChild(NodeType::Table, 0, true));
 
         // Extract the content between these nodes in the document. Include these markers in the extraction.
         SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> extractedNodes = ExtractContentHelper::ExtractContent(startPara, endTable, true);
@@ -81,7 +81,7 @@ public:
         while (extractedNodes->get_Count() > 0)
         {
             // Insert the last node from the reversed list.
-            endTable->get_ParentNode()->InsertAfter(System::StaticCast<Node>(extractedNodes->idx_get(0)), endTable);
+            endTable->get_ParentNode()->InsertAfter(System::ExplicitCast<Node>(extractedNodes->idx_get(0)), endTable);
             // Remove this node from the list after insertion.
             extractedNodes->RemoveAt(0);
         }
@@ -127,8 +127,8 @@ public:
 
         // This is a quick way of getting both comment nodes.
         // Your code should have a proper method of retrieving each corresponding start and end node.
-        auto commentStart = System::DynamicCast<CommentRangeStart>(doc->GetChild(NodeType::CommentRangeStart, 0, true));
-        auto commentEnd = System::DynamicCast<CommentRangeEnd>(doc->GetChild(NodeType::CommentRangeEnd, 0, true));
+        auto commentStart = System::ExplicitCast<CommentRangeStart>(doc->GetChild(NodeType::CommentRangeStart, 0, true));
+        auto commentEnd = System::ExplicitCast<CommentRangeEnd>(doc->GetChild(NodeType::CommentRangeEnd, 0, true));
 
         // Firstly, extract the content between these nodes including the comment as well.
         SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> extractedNodesInclusive =
@@ -151,8 +151,8 @@ public:
         //ExStart:ExtractContentBetweenParagraphs
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
-        auto startPara = System::DynamicCast<Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Paragraph, 6, true));
-        auto endPara = System::DynamicCast<Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Paragraph, 10, true));
+        auto startPara = System::ExplicitCast<Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Paragraph, 6, true));
+        auto endPara = System::ExplicitCast<Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Paragraph, 10, true));
 
         // Extract the content between these nodes in the document. Include these markers in the extraction.
         SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> extractedNodes = ExtractContentHelper::ExtractContent(startPara, endPara, true);
@@ -188,7 +188,7 @@ public:
         //ExStart:ExtractContentBetweenRuns
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
-        auto para = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 7, true));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 7, true));
 
         SharedPtr<Run> startRun = para->get_Runs()->idx_get(1);
         SharedPtr<Run> endRun = para->get_Runs()->idx_get(4);
@@ -196,7 +196,7 @@ public:
         // Extract the content between these nodes in the document. Include these markers in the extraction.
         SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> extractedNodes = ExtractContentHelper::ExtractContent(startRun, endRun, true);
 
-        auto node = System::StaticCast<Node>(extractedNodes->idx_get(0));
+        auto node = System::ExplicitCast<Node>(extractedNodes->idx_get(0));
         std::cout << node->ToString(SaveFormat::Text) << std::endl;
         //ExEnd:ExtractContentBetweenRuns
     }
@@ -365,8 +365,8 @@ public:
         builder->MoveToMergeField(u"Fullname", false, false);
 
         // The builder cursor should be positioned at the start of the field.
-        auto startField = System::DynamicCast<FieldStart>(builder->get_CurrentNode());
-        auto endPara = System::DynamicCast<Paragraph>(doc->get_FirstSection()->GetChild(NodeType::Paragraph, 5, true));
+        auto startField = System::ExplicitCast<FieldStart>(builder->get_CurrentNode());
+        auto endPara = System::ExplicitCast<Paragraph>(doc->get_FirstSection()->GetChild(NodeType::Paragraph, 5, true));
 
         // Extract the content between these nodes in the document. Don't include these markers in the extraction.
         SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> extractedNodes = ExtractContentHelper::ExtractContent(startField, endPara, false);
@@ -384,16 +384,16 @@ public:
         {
             if (field->get_Type() == FieldType::FieldHyperlink)
             {
-                auto hyperlink = System::DynamicCast<FieldHyperlink>(field);
+                auto hyperlink = System::ExplicitCast<FieldHyperlink>(field);
                 if (hyperlink->get_SubAddress() != nullptr && hyperlink->get_SubAddress().StartsWith(u"_Toc"))
                 {
-                    auto tocItem = System::DynamicCast<Paragraph>(field->get_Start()->GetAncestor(NodeType::Paragraph));
+                    auto tocItem = System::ExplicitCast<Paragraph>(field->get_Start()->GetAncestor(NodeType::Paragraph));
 
                     std::cout << tocItem->ToString(SaveFormat::Text).Trim() << std::endl;
                     std::cout << "------------------" << std::endl;
 
                     SharedPtr<Bookmark> bm = doc->get_Range()->get_Bookmarks()->idx_get(hyperlink->get_SubAddress());
-                    auto pointer = System::DynamicCast<Paragraph>(bm->get_BookmarkStart()->GetAncestor(NodeType::Paragraph));
+                    auto pointer = System::ExplicitCast<Paragraph>(bm->get_BookmarkStart()->GetAncestor(NodeType::Paragraph));
 
                     std::cout << pointer->ToString(SaveFormat::Text) << std::endl;
                 }
@@ -486,7 +486,7 @@ public:
         //ExStart:ExtractText
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         // The range text will include control characters such as "\a" for a cell.
         // You can call ToString and pass SaveFormat.Text on the desired node to find the plain text content.

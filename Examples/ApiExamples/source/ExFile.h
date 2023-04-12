@@ -273,7 +273,7 @@ public:
         // and save the image data of every shape with an image as a file to the local file system.
         SharedPtr<NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
 
-        ASSERT_EQ(9, shapes->LINQ_Count([](SharedPtr<Node> s) { return (System::DynamicCast<Shape>(s))->get_HasImage(); }));
+        ASSERT_EQ(9, shapes->LINQ_Count([](SharedPtr<Node> s) { return (System::ExplicitCast<Shape>(s))->get_HasImage(); }));
 
         int imageIndex = 0;
         for (const auto& shape : System::IterateOver(shapes->LINQ_OfType<SharedPtr<Shape>>()))

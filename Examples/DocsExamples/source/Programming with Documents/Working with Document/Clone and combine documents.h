@@ -132,7 +132,7 @@ public:
                 {
                     if (srcNode->get_NodeType() == NodeType::Paragraph)
                     {
-                        auto para = System::DynamicCast<Paragraph>(srcNode);
+                        auto para = System::ExplicitCast<Paragraph>(srcNode);
                         if (para->get_IsEndOfSection() && !para->get_HasChildNodes())
                         {
                             continue;
@@ -167,13 +167,13 @@ public:
             throw System::ArgumentException(u"The destination node should be either a paragraph or table.");
         }
 
-        auto dstDoc = System::DynamicCast<Document>(insertAfterNode->get_Document());
+        auto dstDoc = System::ExplicitCast<Document>(insertAfterNode->get_Document());
         // To retain section formatting, split the current section into two at the marker node and then import the content
         // from srcDoc as whole sections. The section of the node to which the insert marker node belongs.
-        auto currentSection = System::DynamicCast<Section>(insertAfterNode->GetAncestor(NodeType::Section));
+        auto currentSection = System::ExplicitCast<Section>(insertAfterNode->GetAncestor(NodeType::Section));
 
         // Don't clone the content inside the section, we just want the properties of the section retained.
-        auto cloneSection = System::DynamicCast<Section>(currentSection->Clone(false));
+        auto cloneSection = System::ExplicitCast<Section>(currentSection->Clone(false));
 
         // However, make sure the clone section has a body but no empty first paragraph.
         cloneSection->EnsureMinimum();
@@ -199,7 +199,7 @@ public:
             SharedPtr<Node> newNode = importer->ImportNode(srcSection, true);
 
             dstDoc->InsertAfter(newNode, currentSection);
-            currentSection = System::DynamicCast<Section>(newNode);
+            currentSection = System::ExplicitCast<Section>(newNode);
         }
     }
     //ExEnd:InsertDocumentWithSectionFormatting
@@ -256,7 +256,7 @@ public:
                 auto builder = MakeObject<DocumentBuilder>(e->get_Document());
                 builder->MoveToMergeField(e->get_DocumentFieldName());
 
-                auto stream = MakeObject<System::IO::MemoryStream>(System::DynamicCast<System::Array<uint8_t>>(e->get_FieldValue()));
+                auto stream = MakeObject<System::IO::MemoryStream>(System::ExplicitCast<System::Array<uint8_t>>(e->get_FieldValue()));
                 auto subDoc = MakeObject<Document>(stream);
 
                 InsertDocument(builder->get_CurrentParagraph(), subDoc);
@@ -288,7 +288,7 @@ public:
             auto subDoc = MakeObject<Document>(MyDir + u"Document insertion 2.docx");
 
             // Insert a document after the paragraph, containing the match text.
-            auto para = System::DynamicCast<Paragraph>(args->get_MatchNode()->get_ParentNode());
+            auto para = System::ExplicitCast<Paragraph>(args->get_MatchNode()->get_ParentNode());
             InsertDocument(para, subDoc);
 
             // Remove the paragraph with the match text.

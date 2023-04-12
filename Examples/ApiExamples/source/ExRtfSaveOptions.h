@@ -124,13 +124,13 @@ public:
 
         if (saveImagesAsWmf)
         {
-            ASSERT_EQ(ImageType::Wmf, (System::DynamicCast<Shape>(shapes->idx_get(0)))->get_ImageData()->get_ImageType());
-            ASSERT_EQ(ImageType::Wmf, (System::DynamicCast<Shape>(shapes->idx_get(1)))->get_ImageData()->get_ImageType());
+            ASSERT_EQ(ImageType::Wmf, (System::ExplicitCast<Shape>(shapes->idx_get(0)))->get_ImageData()->get_ImageType());
+            ASSERT_EQ(ImageType::Wmf, (System::ExplicitCast<Shape>(shapes->idx_get(1)))->get_ImageData()->get_ImageType());
         }
         else
         {
-            ASSERT_EQ(ImageType::Jpeg, (System::DynamicCast<Shape>(shapes->idx_get(0)))->get_ImageData()->get_ImageType());
-            ASSERT_EQ(ImageType::Png, (System::DynamicCast<Shape>(shapes->idx_get(1)))->get_ImageData()->get_ImageType());
+            ASSERT_EQ(ImageType::Jpeg, (System::ExplicitCast<Shape>(shapes->idx_get(0)))->get_ImageData()->get_ImageType());
+            ASSERT_EQ(ImageType::Png, (System::ExplicitCast<Shape>(shapes->idx_get(1)))->get_ImageData()->get_ImageType());
         }
         //ExEnd
     }

@@ -340,7 +340,7 @@ public:
             switch (node->get_NodeType())
             {
             case NodeType::Body: {
-                auto body = System::DynamicCast<Body>(node);
+                auto body = System::ExplicitCast<Body>(node);
 
                 std::cout << "Body:" << std::endl;
                 std::cout << "\t\"" << body->GetText().Trim() << "\"" << std::endl;
@@ -348,7 +348,7 @@ public:
             }
 
             case NodeType::HeaderFooter: {
-                auto headerFooter = System::DynamicCast<HeaderFooter>(node);
+                auto headerFooter = System::ExplicitCast<HeaderFooter>(node);
 
                 std::cout << String::Format(u"HeaderFooter type: {0}:", headerFooter->get_HeaderFooterType()) << std::endl;
                 std::cout << "\t\"" << headerFooter->GetText().Trim() << "\"" << std::endl;
@@ -515,7 +515,7 @@ public:
         auto dstDoc = MakeObject<Document>();
 
         SharedPtr<Section> sourceSection = srcDoc->get_Sections()->idx_get(0);
-        auto newSection = System::DynamicCast<Section>(dstDoc->ImportNode(sourceSection, true));
+        auto newSection = System::ExplicitCast<Section>(dstDoc->ImportNode(sourceSection, true));
         dstDoc->get_Sections()->Add(newSection);
     }
 
@@ -525,7 +525,7 @@ public:
         auto dstDoc = MakeObject<Document>();
 
         SharedPtr<Section> sourceSection = srcDoc->get_Sections()->idx_get(0);
-        auto newSection = System::DynamicCast<Section>(dstDoc->ImportNode(sourceSection, true));
+        auto newSection = System::ExplicitCast<Section>(dstDoc->ImportNode(sourceSection, true));
         dstDoc->get_Sections()->Add(newSection);
     }
 

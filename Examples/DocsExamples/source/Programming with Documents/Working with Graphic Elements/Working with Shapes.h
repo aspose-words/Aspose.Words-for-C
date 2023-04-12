@@ -167,7 +167,7 @@ public:
         watermark->set_WrapType(WrapType::None);
 
         auto run =
-            System::DynamicCast_noexcept<Run>(doc->GetChildNodes(NodeType::Run, true)->idx_get(doc->GetChildNodes(NodeType::Run, true)->get_Count() - 1));
+            System::AsCast<Run>(doc->GetChildNodes(NodeType::Run, true)->idx_get(doc->GetChildNodes(NodeType::Run, true)->get_Count() - 1));
 
         builder->MoveTo(run);
         builder->InsertNode(watermark);

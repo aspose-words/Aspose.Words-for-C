@@ -176,7 +176,7 @@ public:
             // we know we are at the end of the current TOC and stop here.
             if (currentNode->get_NodeType() == NodeType::FieldEnd)
             {
-                auto fieldEnd = System::DynamicCast<FieldEnd>(currentNode);
+                auto fieldEnd = System::ExplicitCast<FieldEnd>(currentNode);
                 if (fieldEnd->get_FieldType() == FieldType::FieldTOC)
                 {
                     isRemoving = false;

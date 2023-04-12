@@ -333,7 +333,7 @@ public:
             auto doc = MakeObject<Document>(stream, loadOptions);
 
             // Verify that the first shape of the document contains a valid image.
-            auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+            auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
             ASSERT_TRUE(shape->get_IsImage());
             ASSERT_FALSE(shape->get_ImageData()->get_ImageBytes() == nullptr);
@@ -496,7 +496,7 @@ public:
 
             if (args->get_Node()->get_NodeType() == NodeType::Run)
             {
-                SharedPtr<Aspose::Words::Font> font = (System::DynamicCast<Run>(args->get_Node()))->get_Font();
+                SharedPtr<Aspose::Words::Font> font = (System::ExplicitCast<Run>(args->get_Node()))->get_Font();
                 mLog->Append(String::Format(u"\tFont:\tChanged from \"{0}\" {1}pt", font->get_Name(), font->get_Size()));
 
                 font->set_Size(24);
@@ -969,7 +969,7 @@ public:
         ASSERT_EQ(NodeType::Body, nodes->idx_get(1)->get_NodeType());
         ASSERT_EQ(NodeType::Paragraph, nodes->idx_get(2)->get_NodeType());
 
-        (System::DynamicCast<Paragraph>(nodes->idx_get(2)))->get_Runs()->Add(MakeObject<Run>(doc, u"Hello world!"));
+        (System::ExplicitCast<Paragraph>(nodes->idx_get(2)))->get_Runs()->Add(MakeObject<Run>(doc, u"Hello world!"));
         //ExEnd
 
         ASSERT_EQ(u"Hello world!", doc->GetText().Trim());
@@ -1070,7 +1070,7 @@ public:
         builder->Write(u"Hello world!");
         builder->EndTable();
 
-        auto tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        auto tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
         tableStyle->set_RowStripe(3);
         tableStyle->set_CellSpacing(5);
         tableStyle->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_AntiqueWhite());
@@ -1225,17 +1225,17 @@ public:
         builder->Writeln(u"Original header contents.");
 
         // Create a clone of our document and perform a quick edit on each of the cloned document's elements.
-        auto docEdited = System::DynamicCast<Document>(docOriginal->Clone(true));
+        auto docEdited = System::ExplicitCast<Document>(docOriginal->Clone(true));
         SharedPtr<Paragraph> firstParagraph = docEdited->get_FirstSection()->get_Body()->get_FirstParagraph();
 
         firstParagraph->get_Runs()->idx_get(0)->set_Text(u"hello world! this is the first paragraph, after editing.");
         firstParagraph->get_ParagraphFormat()->set_Style(docEdited->get_Styles()->idx_get(StyleIdentifier::Heading1));
-        (System::DynamicCast<Footnote>(docEdited->GetChild(NodeType::Footnote, 0, true)))
+        (System::ExplicitCast<Footnote>(docEdited->GetChild(NodeType::Footnote, 0, true)))
             ->get_FirstParagraph()
             ->get_Runs()
             ->idx_get(1)
             ->set_Text(u"Edited endnote text.");
-        (System::DynamicCast<Table>(docEdited->GetChild(NodeType::Table, 0, true)))
+        (System::ExplicitCast<Table>(docEdited->GetChild(NodeType::Table, 0, true)))
             ->get_FirstRow()
             ->get_Cells()
             ->idx_get(1)
@@ -1243,13 +1243,13 @@ public:
             ->get_Runs()
             ->idx_get(0)
             ->set_Text(u"Edited Cell 2 contents");
-        (System::DynamicCast<Shape>(docEdited->GetChild(NodeType::Shape, 0, true)))
+        (System::ExplicitCast<Shape>(docEdited->GetChild(NodeType::Shape, 0, true)))
             ->get_FirstParagraph()
             ->get_Runs()
             ->idx_get(0)
             ->set_Text(u"Edited textbox contents");
-        (System::DynamicCast<FieldDate>(docEdited->get_Range()->get_Fields()->idx_get(0)))->set_UseLunarCalendar(true);
-        (System::DynamicCast<Comment>(docEdited->GetChild(NodeType::Comment, 0, true)))
+        (System::ExplicitCast<FieldDate>(docEdited->get_Range()->get_Fields()->idx_get(0)))->set_UseLunarCalendar(true);
+        (System::ExplicitCast<Comment>(docEdited->GetChild(NodeType::Comment, 0, true)))
             ->get_FirstParagraph()
             ->get_Runs()
             ->idx_get(0)
@@ -1283,7 +1283,7 @@ public:
         docOriginal = MakeObject<Document>(ArtifactsDir + u"Document.CompareOptions.docx");
 
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"OriginalEdited endnote text.",
-                                 System::DynamicCast<Footnote>(docOriginal->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(docOriginal->GetChild(NodeType::Footnote, 0, true)));
     }
 
     void IgnoreDmlUniqueId(bool isIgnoreDmlUniqueId)
@@ -1658,7 +1658,7 @@ public:
         ASSERT_EQ(FieldType::FieldDate, field->get_Type());
 
         // Manually change the raw text of the field, which determines the field code.
-        auto fieldText = System::DynamicCast<Run>(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetChildNodes(NodeType::Run, true)->idx_get(0));
+        auto fieldText = System::ExplicitCast<Run>(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetChildNodes(NodeType::Run, true)->idx_get(0));
         ASSERT_EQ(u"DATE", fieldText->get_Text());
         //ExSkip
         fieldText->set_Text(u"PAGE");
@@ -2175,7 +2175,7 @@ public:
         //ExSkip
 
         // This node serves as a reference to an external document, and its contents cannot be accessed.
-        auto subDocument = System::DynamicCast<SubDocument>(subDocuments->idx_get(0));
+        auto subDocument = System::ExplicitCast<SubDocument>(subDocuments->idx_get(0));
 
         ASSERT_FALSE(subDocument->get_IsComposite());
         //ExEnd

@@ -162,7 +162,7 @@ public:
         ArrayPtr<String> addressFieldsExpect = MakeArray<String>(
             {u"Company", u"First Name", u"Middle Name", u"Last Name", u"Suffix", u"Address 1", u"City", u"State", u"Country or Region", u"Postal Code"});
 
-        auto addressBlockField = System::DynamicCast<FieldAddressBlock>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto addressBlockField = System::ExplicitCast<FieldAddressBlock>(doc->get_Range()->get_Fields()->idx_get(0));
         ArrayPtr<String> addressBlockFieldNames = addressBlockField->GetFieldNames();
         //ExEnd
 
@@ -170,7 +170,7 @@ public:
 
         ArrayPtr<String> greetingFieldsExpect = MakeArray<String>({u"Courtesy Title", u"Last Name"});
 
-        auto greetingLineField = System::DynamicCast<FieldGreetingLine>(doc->get_Range()->get_Fields()->idx_get(1));
+        auto greetingLineField = System::ExplicitCast<FieldGreetingLine>(doc->get_Range()->get_Fields()->idx_get(1));
         ArrayPtr<String> greetingLineFieldNames = greetingLineField->GetFieldNames();
 
         ASPOSE_ASSERT_EQ(greetingFieldsExpect, greetingLineFieldNames);

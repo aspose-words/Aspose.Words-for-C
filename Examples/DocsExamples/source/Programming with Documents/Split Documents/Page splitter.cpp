@@ -34,7 +34,7 @@ System::SharedPtr<Aspose::Words::Document> DocumentPageSplitter::GetDocumentOfPa
 
 System::SharedPtr<Aspose::Words::Document> DocumentPageSplitter::GetDocumentOfPageRange(int32_t startIndex, int32_t endIndex)
 {
-    auto result = System::DynamicCast<Aspose::Words::Document>(System::StaticCast<Aspose::Words::Node>(get_Document())->Clone(false));
+    auto result = System::ExplicitCast<Aspose::Words::Document>(System::ExplicitCast<Aspose::Words::Node>(get_Document())->Clone(false));
     for (const auto& section : System::IterateOver(pageNumberFinder->RetrieveAllNodesOnPages(startIndex, endIndex, NodeType::Section)))
     {
         result->AppendChild(result->ImportNode(section, true));
@@ -114,7 +114,7 @@ VisitorAction SectionSplitter::VisitSmartTagStart(System::SharedPtr<SmartTag> sm
 
 VisitorAction SectionSplitter::VisitSectionStart(System::SharedPtr<Section> section)
 {
-    auto previousSection = System::DynamicCast<Section>(section->get_PreviousSibling());
+    auto previousSection = System::ExplicitCast<Section>(section->get_PreviousSibling());
 
     // If there is a previous section, attempt to copy any linked header footers.
     // Otherwise, they will not appear in an extracted document if the previous section is missing.
@@ -133,7 +133,7 @@ VisitorAction SectionSplitter::VisitSectionStart(System::SharedPtr<Section> sect
             if (section->get_HeadersFooters()->idx_get(previousHeaderFooter->get_HeaderFooterType()) == nullptr)
             {
                 auto newHeaderFooter =
-                    System::DynamicCast<HeaderFooter>(previousHeaderFooters->idx_get(previousHeaderFooter->get_HeaderFooterType())->Clone(true));
+                    System::ExplicitCast<HeaderFooter>(previousHeaderFooters->idx_get(previousHeaderFooter->get_HeaderFooterType())->Clone(true));
                 section->get_HeadersFooters()->Add(newHeaderFooter);
             }
         }
@@ -254,7 +254,7 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<No
     int32_t startingPage = pageNumberFinder->GetPage(node);
 
     System::ArrayPtr<System::SharedPtr<Node>> childNodes = node->get_NodeType() == NodeType::Section
-                                                               ? (System::DynamicCast<Section>(node))->get_Body()->get_ChildNodes()->ToArray()
+                                                               ? (System::ExplicitCast<Section>(node))->get_Body()->get_ChildNodes()->ToArray()
                                                                : node->get_ChildNodes()->ToArray();
     for (System::SharedPtr<Node> childNode : childNodes)
     {
@@ -286,7 +286,7 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<No
 
 System::SharedPtr<CompositeNode> SectionSplitter::SplitCompositeAtNode(System::SharedPtr<CompositeNode> baseNode, System::SharedPtr<Node> targetNode)
 {
-    auto cloneNode = System::DynamicCast<CompositeNode>(baseNode->Clone(false));
+    auto cloneNode = System::ExplicitCast<CompositeNode>(baseNode->Clone(false));
     System::SharedPtr<Node> node = targetNode;
     int32_t currentPageNum = pageNumberFinder->GetPage(baseNode);
 
@@ -296,8 +296,8 @@ System::SharedPtr<CompositeNode> SectionSplitter::SplitCompositeAtNode(System::S
         System::SharedPtr<CompositeNode> composite = cloneNode;
         if (baseNode->get_NodeType() == NodeType::Section)
         {
-            cloneNode = System::DynamicCast<CompositeNode>(baseNode->Clone(true));
-            auto section = System::DynamicCast<Section>(cloneNode);
+            cloneNode = System::ExplicitCast<CompositeNode>(baseNode->Clone(true));
+            auto section = System::ExplicitCast<Section>(cloneNode);
             section->get_Body()->RemoveAllChildren();
             composite = section->get_Body();
         }
@@ -322,12 +322,12 @@ System::SharedPtr<CompositeNode> SectionSplitter::SplitCompositeAtNode(System::S
             {
                 if (cloneNode->get_NodeType() == NodeType::Row)
                 {
-                    (System::DynamicCast<Row>(cloneNode))->EnsureMinimum();
+                    (System::ExplicitCast<Row>(cloneNode))->EnsureMinimum();
                 }
 
                 if (cloneNode->get_NodeType() == NodeType::Cell)
                 {
-                    (System::DynamicCast<Cell>(cloneNode))->EnsureMinimum();
+                    (System::ExplicitCast<Cell>(cloneNode))->EnsureMinimum();
                 }
 
                 cloneNode->get_LastChild()->Remove();
@@ -338,8 +338,8 @@ System::SharedPtr<CompositeNode> SectionSplitter::SplitCompositeAtNode(System::S
                 cloneNode->AppendChild(childNode->Clone(false));
                 if (cloneNode->get_LastChild()->get_NodeType() != NodeType::Cell)
                 {
-                    (System::DynamicCast<CompositeNode>(cloneNode->get_LastChild()))
-                        ->AppendChild((System::DynamicCast<CompositeNode>(childNode))->get_FirstChild()->Clone(false));
+                    (System::ExplicitCast<CompositeNode>(cloneNode->get_LastChild()))
+                        ->AppendChild((System::ExplicitCast<CompositeNode>(childNode))->get_FirstChild()->Clone(false));
                 }
             }
         }

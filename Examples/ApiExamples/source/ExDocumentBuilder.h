@@ -322,7 +322,7 @@ public:
         //ExEnd
 
         doc = DocumentHelper::SaveOpen(doc);
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(HorizontalRuleAlignment::Center, shape->get_HorizontalRuleFormat()->get_Alignment());
         ASPOSE_ASSERT_EQ(70, shape->get_HorizontalRuleFormat()->get_WidthPercent());
@@ -375,10 +375,10 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertHyperlink.docx");
 
-        auto hyperlink = System::DynamicCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto hyperlink = System::ExplicitCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
         TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode::OK, hyperlink->get_Address());
 
-        auto fieldContents = System::DynamicCast<Run>(hyperlink->get_Start()->get_NextSibling());
+        auto fieldContents = System::ExplicitCast<Run>(hyperlink->get_Start()->get_NextSibling());
 
         ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), fieldContents->get_Font()->get_Color().ToArgb());
         ASSERT_EQ(Underline::Single, fieldContents->get_Font()->get_Underline());
@@ -438,7 +438,7 @@ public:
         ASSERT_NE(runs->idx_get(0)->get_Font()->get_Underline(), runs->idx_get(2)->get_Font()->get_Underline());
 
         TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode::OK,
-                                              (System::DynamicCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0)))->get_Address());
+                                              (System::ExplicitCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0)))->get_Address());
     }
 
     void InsertWatermark()
@@ -471,7 +471,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertWatermark.docx");
-        shape = System::DynamicCast<Shape>(
+        shape = System::ExplicitCast<Shape>(
             doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(400, 400, ImageType::Png, shape);
@@ -887,7 +887,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertToc.docx");
-        auto tableOfContents = System::DynamicCast<FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto tableOfContents = System::ExplicitCast<FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_EQ(u"1-3", tableOfContents->get_HeadingLevelRange());
         ASSERT_TRUE(tableOfContents->get_InsertHyperlinks());
@@ -1535,7 +1535,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertHyperlinkToLocalBookmark.docx");
-        auto hyperlink = System::DynamicCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto hyperlink = System::ExplicitCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldHyperlink, u" HYPERLINK \\l \"Bookmark1\" \\o \"Hyperlink Tip\" ", u"Link to Bookmark1", hyperlink);
         ASSERT_EQ(u"Bookmark1", hyperlink->get_SubAddress());
@@ -1832,7 +1832,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertImageOriginalSize.docx");
-        imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
         ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
@@ -1944,7 +1944,7 @@ public:
         // Re-open our saved document, and verify that the "IsSigned" and "IsValid" properties both equal "true",
         // indicating that the signature line contains a signature.
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.SignatureLineProviderId.Signed.docx");
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         signatureLine = shape->get_SignatureLine();
 
         ASSERT_TRUE(signatureLine->get_IsSigned());
@@ -1997,7 +1997,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.SignatureLineInline.docx");
 
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         SharedPtr<SignatureLine> signatureLine = shape->get_SignatureLine();
 
         ASSERT_EQ(u"John Doe", signatureLine->get_Signer());
@@ -2193,9 +2193,9 @@ public:
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertFootnote.docx");
 
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote comment regarding referenced text.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, false, u"CustomMark", u"CustomMark Endnote comment regarding referenced text.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
     }
 
     void ApplyBordersAndShading()
@@ -2320,7 +2320,7 @@ public:
             builder->Write(String::Format(u"List Item {0}\n", i));
         }
 
-        auto attachDoc = System::DynamicCast<Document>(dstDoc->Clone(true));
+        auto attachDoc = System::ExplicitCast<Document>(dstDoc->Clone(true));
 
         // If there is a clash of list styles, apply the list format of the source document.
         // Set the "KeepSourceNumbering" property to "false" to not import any list numbers into the destination document.
@@ -2389,7 +2389,7 @@ public:
         // Import the text box from the source document into the destination document,
         // and then verify whether we have preserved the styling of its text contents.
         auto importer = MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting, importFormatOptions);
-        auto importedTextBox = System::DynamicCast<Shape>(importer->ImportNode(textBox, true));
+        auto importedTextBox = System::ExplicitCast<Shape>(importer->ImportNode(textBox, true));
         dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->AppendChild(importedTextBox);
 
         if (ignoreTextBoxes)
@@ -2473,7 +2473,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertPieChart.docx");
-        auto chartShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto chartShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(u"Chart Title", chartShape->get_Chart()->get_Title()->get_Text());
         ASPOSE_ASSERT_EQ(225.0, chartShape->get_Width());
@@ -2494,7 +2494,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertedChartRelativePosition.docx");
-        auto chartShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto chartShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(100.0, chartShape->get_Top());
         ASPOSE_ASSERT_EQ(100.0, chartShape->get_Left());
@@ -3274,7 +3274,7 @@ public:
 
             // Check that document also has a HorizontalRule present as a shape.
             SharedPtr<NodeCollection> shapesCollection = doc->get_FirstSection()->get_Body()->GetChildNodes(NodeType::Shape, true);
-            auto horizontalRuleShape = System::DynamicCast<Shape>(shapesCollection->idx_get(0));
+            auto horizontalRuleShape = System::ExplicitCast<Shape>(shapesCollection->idx_get(0));
 
             ASSERT_TRUE(shapesCollection->get_Count() == 1);
             ASSERT_TRUE(horizontalRuleShape->get_IsHorizontalRule());
@@ -3455,7 +3455,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertOnlineVideoCustomThumbnail.docx");
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
         ASPOSE_ASSERT_EQ(400.0, shape->get_Width());
@@ -3468,7 +3468,7 @@ public:
 
         ASSERT_EQ(u"https://vimeo.com/52477838", shape->get_HRef());
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
         ASPOSE_ASSERT_EQ(400.0, shape->get_Width());

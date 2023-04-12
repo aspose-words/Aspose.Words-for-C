@@ -30,7 +30,7 @@ public:
     {
         //ExStart:MathEquations
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
-        auto officeMath = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
+        auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
 
         // OfficeMath display type represents whether an equation is displayed inline with the text or displayed on its line.
         officeMath->set_DisplayType(OfficeMathDisplayType::Display);
