@@ -62,7 +62,7 @@ public:
     {
         // Merge field name is stored in the field result which is a Run
         // node between field separator and field end.
-        auto fieldResult = System::DynamicCast<Run>(mFieldSeparator->get_NextSibling());
+        auto fieldResult = System::ExplicitCast<Run>(mFieldSeparator->get_NextSibling());
         fieldResult->set_Text(String::Format(u"«{0}»", value));
 
         // But sometimes the field result can consist of more than one run, delete these runs.
@@ -103,7 +103,7 @@ private:
     void UpdateFieldCode(String fieldName)
     {
         // Field code is stored in a Run node between field start and field separator.
-        auto fieldCode = System::DynamicCast<Run>(mFieldStart->get_NextSibling());
+        auto fieldCode = System::ExplicitCast<Run>(mFieldStart->get_NextSibling());
         SharedPtr<System::Text::RegularExpressions::Match> match = gRegex->Match(fieldCode->get_Text());
 
         String newFieldCode = String::Format(u" {0}{1} ", match->get_Groups()->idx_get(u"start")->get_Value(), fieldName);

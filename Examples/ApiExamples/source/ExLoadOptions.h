@@ -113,7 +113,7 @@ public:
                 SharedPtr<System::Drawing::Image> newImage = System::Drawing::Image::FromFile(ImageDir + newImageFilename);
                 auto converter = MakeObject<System::Drawing::ImageConverter>();
                 ArrayPtr<uint8_t> imageBytes =
-                    System::DynamicCast<System::Array<uint8_t>>(converter->ConvertTo(newImage, System::ObjectExt::GetType<System::Array<uint8_t>>()));
+                    System::ExplicitCast<System::Array<uint8_t>>(converter->ConvertTo(newImage, System::ObjectExt::GetType<System::Array<uint8_t>>()));
                 args->SetData(imageBytes);
                 return ResourceLoadingAction::UserProvided;
             }
@@ -238,7 +238,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Document.docx", loadOptions);
 
         SharedPtr<System::Collections::Generic::List<SharedPtr<WarningInfo>>> warnings =
-            (System::StaticCast<ApiExamples::ExLoadOptions::DocumentLoadingWarningCallback>(loadOptions->get_WarningCallback()))->GetWarnings();
+            (System::ExplicitCast<ApiExamples::ExLoadOptions::DocumentLoadingWarningCallback>(loadOptions->get_WarningCallback()))->GetWarnings();
         ASSERT_EQ(3, warnings->get_Count());
         TestLoadOptionsWarningCallback(warnings);
         //ExSkip
@@ -375,7 +375,7 @@ public:
 
         doc->Save(ArtifactsDir + u"Image.CreateImageDirectly.docx");
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(1600, 1600, ImageType::Wmf, shape);
 
@@ -383,7 +383,7 @@ public:
         loadOptions->set_ConvertMetafilesToPng(true);
 
         doc = MakeObject<Document>(ArtifactsDir + u"Image.CreateImageDirectly.docx", loadOptions);
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExEnd
     }

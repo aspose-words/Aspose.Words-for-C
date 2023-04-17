@@ -130,7 +130,7 @@ public:
 
         for (const auto& node : System::IterateOver(tags))
         {
-            auto sdt = System::DynamicCast<StructuredDocumentTag>(node);
+            auto sdt = System::ExplicitCast<StructuredDocumentTag>(node);
 
             ASSERT_EQ(StyleIdentifier::Quote, sdt->get_Style()->get_StyleIdentifier());
             ASSERT_EQ(u"Quote", sdt->get_StyleName());
@@ -262,7 +262,7 @@ public:
         builder->InsertNode(tag);
 
         // Insert a clone of our structured document tag in a new paragraph.
-        auto tagClone = System::DynamicCast<StructuredDocumentTag>(tag->Clone(true));
+        auto tagClone = System::ExplicitCast<StructuredDocumentTag>(tag->Clone(true));
         builder->InsertParagraph();
         builder->InsertNode(tagClone);
 
@@ -273,7 +273,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"StructuredDocumentTag.PlainText.docx");
-        tag = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        tag = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
 
         ASSERT_EQ(u"My plain text", tag->get_Title());
         ASSERT_EQ(System::Drawing::Color::get_Magenta().ToArgb(), tag->get_Color().ToArgb());
@@ -326,7 +326,7 @@ public:
         ASSERT_EQ(2, doc->GetChildNodes(NodeType::StructuredDocumentTag, true)
                          ->LINQ_Count(static_cast<System::Func<SharedPtr<Node>, bool>>(static_cast<std::function<bool(SharedPtr<Node> sdt)>>(
                              [&isTemporary](SharedPtr<Node> sdt) -> bool
-                             { return (System::DynamicCast<StructuredDocumentTag>(sdt))->get_IsTemporary() == isTemporary; }))));
+                             { return (System::ExplicitCast<StructuredDocumentTag>(sdt))->get_IsTemporary() == isTemporary; }))));
     }
 
     void PlaceholderBuildingBlock(bool isShowingPlaceholderText)
@@ -376,8 +376,8 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"StructuredDocumentTag.PlaceholderBuildingBlock.docx");
-        tag = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
-        substituteBlock = System::DynamicCast<BuildingBlock>(doc->get_GlossaryDocument()->GetChild(NodeType::BuildingBlock, 0, true));
+        tag = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        substituteBlock = System::ExplicitCast<BuildingBlock>(doc->get_GlossaryDocument()->GetChild(NodeType::BuildingBlock, 0, true));
 
         ASSERT_EQ(u"Custom Placeholder", substituteBlock->get_Name());
         ASPOSE_ASSERT_EQ(isShowingPlaceholderText, tag->get_IsShowingPlaceholderText());
@@ -416,12 +416,12 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"StructuredDocumentTag.Lock.docx");
-        tag = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        tag = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
 
         ASSERT_TRUE(tag->get_LockContents());
         ASSERT_FALSE(tag->get_LockContentControl());
 
-        tag = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 1, true));
+        tag = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 1, true));
 
         ASSERT_FALSE(tag->get_LockContents());
         ASSERT_TRUE(tag->get_LockContentControl());
@@ -592,7 +592,7 @@ public:
         ASSERT_EQ(u"<root><text>Hello world!</text></root>", System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()));
         ASSERT_EQ(u"http://www.w3.org/2001/XMLSchema", xmlPart->get_Schemas()->idx_get(0));
 
-        tag = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        tag = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         ASSERT_EQ(u"Hello world!", tag->GetText().Trim());
         ASSERT_EQ(u"/root[1]/text[1]", tag->get_XmlMapping()->get_XPath());
         ASSERT_EQ(String::Empty, tag->get_XmlMapping()->get_PrefixMappings());
@@ -673,7 +673,7 @@ public:
         ASSERT_TRUE(System::Guid::TryParse(xmlPart->get_Id(), temp));
         ASSERT_EQ(u"<root><text>Text element #1</text><text>Text element #2</text></root>", System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()));
 
-        tag = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        tag = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         ASSERT_EQ(u"Text element #2", tag->GetText().Trim());
         ASSERT_EQ(u"/root[1]/text[2]", tag->get_XmlMapping()->get_XPath());
         ASSERT_EQ(u"xmlns:ns='http://www.w3.org/2001/XMLSchema'", tag->get_XmlMapping()->get_PrefixMappings());
@@ -694,7 +694,7 @@ public:
         ASSERT_EQ(u"<root><text>Text element #1</text><text>Text element #2</text></root>", System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()));
 
         // Create a structured document tag that will display the contents of our CustomXmlPart in the document.
-        auto sdtRangeStart = System::DynamicCast<StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, true));
+        auto sdtRangeStart = System::ExplicitCast<StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, true));
 
         // If we set a mapping for our structured document tag,
         // it will only display a portion of the CustomXmlPart that the XPath points to.
@@ -711,7 +711,7 @@ public:
         ASSERT_TRUE(System::Guid::TryParse(xmlPart->get_Id(), temp));
         ASSERT_EQ(u"<root><text>Text element #1</text><text>Text element #2</text></root>", System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()));
 
-        sdtRangeStart = System::DynamicCast<StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, true));
+        sdtRangeStart = System::ExplicitCast<StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, true));
         ASSERT_EQ(u"/root[1]/text[2]", sdtRangeStart->get_XmlMapping()->get_XPath());
     }
 
@@ -778,7 +778,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Custom XML part in structured document tag.docx");
 
         // Structured document tags have IDs in the form of GUIDs.
-        auto tag = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        auto tag = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
 
         ASSERT_EQ(u"{F3029283-4FF8-4DD2-9F31-395F19ACEE85}", tag->get_XmlMapping()->get_StoreItemId());
         //ExEnd
@@ -796,7 +796,7 @@ public:
 
         doc = DocumentHelper::SaveOpen(doc);
 
-        auto sdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         std::cout << (String(u"The Id of your custom xml part is: ") + sdt->get_XmlMapping()->get_StoreItemId()) << std::endl;
     }
 
@@ -832,7 +832,7 @@ public:
         ASSERT_TRUE(tag->get_IsShowingPlaceholderText());
 
         // Edit the text of the structured document tag and hide the placeholder text.
-        auto run = System::DynamicCast<Run>(tag->GetChild(NodeType::Run, 0, true));
+        auto run = System::ExplicitCast<Run>(tag->GetChild(NodeType::Run, 0, true));
         run->set_Text(u"New text.");
         tag->set_IsShowingPlaceholderText(false);
 
@@ -850,7 +850,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags with building blocks.docx");
 
-        auto docPartObjSdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        auto docPartObjSdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
 
         ASSERT_EQ(SdtType::DocPartObj, docPartObjSdt->get_SdtType());
         ASSERT_EQ(u"Table of Contents", docPartObjSdt->get_BuildingBlockGallery());
@@ -860,7 +860,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags with building blocks.docx");
 
-        auto plainTextSdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 1, true));
+        auto plainTextSdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 1, true));
 
         ASSERT_EQ(SdtType::PlainText, plainTextSdt->get_SdtType());
         ASSERT_THROW(static_cast<std::function<String()>>([&plainTextSdt]() -> String { return plainTextSdt->get_BuildingBlockGallery(); })(),
@@ -884,7 +884,7 @@ public:
         doc->Save(ArtifactsDir + u"StructuredDocumentTag.BuildingBlockCategories.docx");
         //ExEnd
 
-        buildingBlockSdt = System::DynamicCast<StructuredDocumentTag>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        buildingBlockSdt = System::ExplicitCast<StructuredDocumentTag>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::StructuredDocumentTag, 0, true));
 
         ASSERT_EQ(SdtType::BuildingBlockGallery, buildingBlockSdt->get_SdtType());
         ASSERT_EQ(u"Table of Contents", buildingBlockSdt->get_BuildingBlockGallery());
@@ -1034,9 +1034,9 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Multi-section structured document tags.docx");
 
         auto rangeStartTag =
-            System::DynamicCast_noexcept<StructuredDocumentTagRangeStart>(doc->GetChildNodes(NodeType::StructuredDocumentTagRangeStart, true)->idx_get(0));
+            System::AsCast<StructuredDocumentTagRangeStart>(doc->GetChildNodes(NodeType::StructuredDocumentTagRangeStart, true)->idx_get(0));
         auto rangeEndTag =
-            System::DynamicCast_noexcept<StructuredDocumentTagRangeEnd>(doc->GetChildNodes(NodeType::StructuredDocumentTagRangeEnd, true)->idx_get(0));
+            System::AsCast<StructuredDocumentTagRangeEnd>(doc->GetChildNodes(NodeType::StructuredDocumentTagRangeEnd, true)->idx_get(0));
 
         ASSERT_EQ(rangeStartTag->get_Id(), rangeEndTag->get_Id());
         //ExSkip
@@ -1073,7 +1073,7 @@ public:
         //ExSummary:Shows how to get child nodes of StructuredDocumentTagRangeStart.
         auto doc = MakeObject<Document>(MyDir + u"Multi-section structured document tags.docx");
         auto tag =
-            System::DynamicCast_noexcept<StructuredDocumentTagRangeStart>(doc->GetChildNodes(NodeType::StructuredDocumentTagRangeStart, true)->idx_get(0));
+            System::AsCast<StructuredDocumentTagRangeStart>(doc->GetChildNodes(NodeType::StructuredDocumentTagRangeStart, true)->idx_get(0));
 
         std::cout << "StructuredDocumentTagRangeStart values:" << std::endl;
         std::cout << "\t|Child nodes count: " << tag->get_ChildNodes()->get_Count() << "\n" << std::endl;
@@ -1109,10 +1109,10 @@ public:
         // Removes ranged structured document tag, but keeps content inside.
         rangeStart->RemoveSelfOnly();
 
-        rangeStart = System::DynamicCast<StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, false));
+        rangeStart = System::ExplicitCast<StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, false));
         ASPOSE_ASSERT_EQ(nullptr, rangeStart);
 
-        auto rangeEnd = System::DynamicCast<StructuredDocumentTagRangeEnd>(doc->GetChild(NodeType::StructuredDocumentTagRangeEnd, 0, false));
+        auto rangeEnd = System::ExplicitCast<StructuredDocumentTagRangeEnd>(doc->GetChild(NodeType::StructuredDocumentTagRangeEnd, 0, false));
 
         ASPOSE_ASSERT_EQ(nullptr, rangeEnd);
         ASSERT_EQ(u"StructuredDocumentTag element", doc->GetText().Trim());

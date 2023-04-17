@@ -190,7 +190,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.Font.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(hideShape, shape->get_Font()->get_Hidden());
 
@@ -233,7 +233,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.Rotate.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::Image, String::Empty, 300.0, 300.0, 0, 0, shape);
         ASSERT_TRUE(shape->get_CanHaveImage());
@@ -262,7 +262,7 @@ public:
 
         doc = DocumentHelper::SaveOpen(doc);
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         ASPOSE_ASSERT_EQ(true, shape->get_AspectRatioLocked());
     }
 
@@ -301,7 +301,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.Coordinates.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::Rectangle, u"Rectangle 100002", 150.0, 150.0, 75.0, 150.0, shape);
         ASPOSE_ASSERT_EQ(40.0, shape->get_DistanceBottom());
@@ -349,7 +349,7 @@ public:
         group->AppendChild(rectangle);
 
         // Once a shape is a part of a group shape, we can access it as a child node and then modify it.
-        (System::DynamicCast<Shape>(group->GetChild(NodeType::Shape, 0, true)))->get_Stroke()->set_DashStyle(DashStyle::Dash);
+        (System::ExplicitCast<Shape>(group->GetChild(NodeType::Shape, 0, true)))->get_Stroke()->set_DashStyle(DashStyle::Dash);
 
         // Create a small red star and insert it into the group.
         // Line up the shape with the group's coordinate origin, which we have moved to the center.
@@ -380,7 +380,7 @@ public:
         image->set_Top(-225);
         group->AppendChild(image);
 
-        (System::DynamicCast<Shape>(group->GetChild(NodeType::Shape, 3, true)))->get_ImageData()->SetImage(ImageDir + u"Logo.jpg");
+        (System::ExplicitCast<Shape>(group->GetChild(NodeType::Shape, 3, true)))->get_ImageData()->SetImage(ImageDir + u"Logo.jpg");
 
         // Insert a text box into the group shape. Set the "Left" property so that the text box's right edge
         // touches the right boundary of the group shape. Set the "Top" property so that the text box sits outside
@@ -394,28 +394,28 @@ public:
 
         auto builder = MakeObject<DocumentBuilder>(doc);
         builder->InsertNode(group);
-        builder->MoveTo((System::DynamicCast<Shape>(group->GetChild(NodeType::Shape, 4, true)))->AppendChild(MakeObject<Paragraph>(doc)));
+        builder->MoveTo((System::ExplicitCast<Shape>(group->GetChild(NodeType::Shape, 4, true)))->AppendChild(MakeObject<Paragraph>(doc)));
         builder->Write(u"Hello world!");
 
         doc->Save(ArtifactsDir + u"Shape.GroupShape.docx");
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.GroupShape.docx");
-        group = System::DynamicCast<GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
+        group = System::ExplicitCast<GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
 
         ASPOSE_ASSERT_EQ(System::Drawing::RectangleF(0.0f, 0.0f, 400.0f, 400.0f), group->get_Bounds());
         ASPOSE_ASSERT_EQ(System::Drawing::Size(500, 500), group->get_CoordSize());
         ASPOSE_ASSERT_EQ(System::Drawing::Point(-250, -250), group->get_CoordOrigin());
 
         TestUtil::VerifyShape(ShapeType::Rectangle, String::Empty, 500.0, 500.0, -250.0, -250.0,
-                              System::DynamicCast<Shape>(group->GetChild(NodeType::Shape, 0, true)));
-        TestUtil::VerifyShape(ShapeType::Star, String::Empty, 20.0, 20.0, -10.0, -10.0, System::DynamicCast<Shape>(group->GetChild(NodeType::Shape, 1, true)));
+                              System::ExplicitCast<Shape>(group->GetChild(NodeType::Shape, 0, true)));
+        TestUtil::VerifyShape(ShapeType::Star, String::Empty, 20.0, 20.0, -10.0, -10.0, System::ExplicitCast<Shape>(group->GetChild(NodeType::Shape, 1, true)));
         TestUtil::VerifyShape(ShapeType::Rectangle, String::Empty, 250.0, 250.0, -250.0, -250.0,
-                              System::DynamicCast<Shape>(group->GetChild(NodeType::Shape, 2, true)));
+                              System::ExplicitCast<Shape>(group->GetChild(NodeType::Shape, 2, true)));
         TestUtil::VerifyShape(ShapeType::Image, String::Empty, 200.0, 200.0, -225.0, -225.0,
-                              System::DynamicCast<Shape>(group->GetChild(NodeType::Shape, 3, true)));
+                              System::ExplicitCast<Shape>(group->GetChild(NodeType::Shape, 3, true)));
         TestUtil::VerifyShape(ShapeType::TextBox, String::Empty, 200.0, 50.0, 250.0, 50.0,
-                              System::DynamicCast<Shape>(group->GetChild(NodeType::Shape, 4, true)));
+                              System::ExplicitCast<Shape>(group->GetChild(NodeType::Shape, 4, true)));
     }
 
     void IsTopLevel()
@@ -495,7 +495,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.LocalToParent.docx");
-        group = System::DynamicCast<GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
+        group = System::ExplicitCast<GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
 
         ASPOSE_ASSERT_EQ(System::Drawing::RectangleF(100.0f, 100.0f, 500.0f, 500.0f), group->get_Bounds());
         ASPOSE_ASSERT_EQ(System::Drawing::Size(500, 500), group->get_CoordSize());
@@ -531,7 +531,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.AnchorLocked.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(anchorLocked, shape->get_AnchorLocked());
     }
@@ -620,14 +620,14 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.IsInline.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::Rectangle, u"Rectangle 100002", 100, 100, 0, 0, shape);
         ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), shape->get_FillColor().ToArgb());
         ASSERT_EQ(WrapType::Inline, shape->get_WrapType());
         ASSERT_TRUE(shape->get_IsInline());
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         TestUtil::VerifyShape(ShapeType::Rectangle, u"Rectangle 100004", 100, 100, 200, 200, shape);
         ASSERT_EQ(System::Drawing::Color::get_Orange().ToArgb(), shape->get_FillColor().ToArgb());
@@ -697,25 +697,25 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.Bounds.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::Line, u"Line 100002", 100, 100, 50, 50, shape);
         ASSERT_EQ(System::Drawing::Color::get_Orange().ToArgb(), shape->get_StrokeColor().ToArgb());
         ASPOSE_ASSERT_EQ(System::Drawing::RectangleF(50.0f, 50.0f, 100.0f, 100.0f), shape->get_BoundsInPoints());
 
-        group = System::DynamicCast<GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
+        group = System::ExplicitCast<GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
 
         ASPOSE_ASSERT_EQ(System::Drawing::RectangleF(0.0f, 100.0f, 250.0f, 250.0f), group->get_Bounds());
         ASPOSE_ASSERT_EQ(System::Drawing::RectangleF(0.0f, 100.0f, 250.0f, 250.0f), group->get_BoundsInPoints());
         ASPOSE_ASSERT_EQ(System::Drawing::Size(1000, 1000), group->get_CoordSize());
         ASPOSE_ASSERT_EQ(System::Drawing::Point(0, 0), group->get_CoordOrigin());
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         TestUtil::VerifyShape(ShapeType::Rectangle, String::Empty, 100, 100, 700, 700, shape);
         ASPOSE_ASSERT_EQ(System::Drawing::RectangleF(175.0f, 275.0f, 25.0f, 25.0f), shape->get_BoundsInPoints());
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
 
         TestUtil::VerifyShape(ShapeType::Rectangle, String::Empty, 100, 100, 1000, 1000, shape);
         ASPOSE_ASSERT_EQ(System::Drawing::RectangleF(250.0f, 350.0f, 25.0f, 25.0f), shape->get_BoundsInPoints());
@@ -765,22 +765,22 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.FlipShapeOrientation.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::Rectangle, u"Rectangle 100002", 100, 100, 100, 100, shape);
         ASSERT_EQ(FlipOrientation::None, shape->get_FlipOrientation());
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         TestUtil::VerifyShape(ShapeType::Rectangle, u"Rectangle 100004", 100, 100, 100, 250, shape);
         ASSERT_EQ(FlipOrientation::Horizontal, shape->get_FlipOrientation());
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
 
         TestUtil::VerifyShape(ShapeType::Rectangle, u"Rectangle 100006", 100, 100, 250, 100, shape);
         ASSERT_EQ(FlipOrientation::Vertical, shape->get_FlipOrientation());
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 3, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 3, true));
 
         TestUtil::VerifyShape(ShapeType::Rectangle, u"Rectangle 100008", 100, 100, 250, 250, shape);
         ASSERT_EQ(FlipOrientation::Both, shape->get_FlipOrientation());
@@ -811,7 +811,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.TextureFill.docx");
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(TextureAlignment::TopRight, shape->get_Fill()->get_TextureAlignment());
     }
@@ -864,14 +864,14 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.GradientFill.docx");
-        auto firstShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto firstShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), firstShape->get_Fill()->get_ForeColor().ToArgb());
         ASSERT_EQ(GradientStyle::Horizontal, firstShape->get_Fill()->get_GradientStyle());
         ASSERT_EQ(GradientVariant::Variant2, firstShape->get_Fill()->get_GradientVariant());
         ASPOSE_ASSERT_EQ(270, firstShape->get_Fill()->get_GradientAngle());
 
-        auto secondShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        auto secondShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         ASSERT_EQ(System::Drawing::Color::get_Yellow().ToArgb(), secondShape->get_Fill()->get_BackColor().ToArgb());
         ASSERT_EQ(GradientStyle::FromCorner, secondShape->get_Fill()->get_GradientStyle());
@@ -945,7 +945,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.GradientStops.docx");
 
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         gradientStops = shape->get_Fill()->get_GradientStops();
 
         ASSERT_EQ(2, gradientStops->get_Count());
@@ -967,7 +967,7 @@ public:
         //ExSummary:Shows how to set pattern for a shape.
         auto doc = MakeObject<Document>(MyDir + u"Shape stroke pattern border.docx");
 
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         SharedPtr<Fill> fill = shape->get_Fill();
 
         std::cout << String::Format(u"Pattern value is: {0}", fill->get_Pattern()) << std::endl;
@@ -1004,7 +1004,7 @@ public:
         doc->Save(ArtifactsDir + u"Shape.Title.docx");
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.Title.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(String::Empty, shape->get_Title());
         ASSERT_EQ(u"Title: My cube", shape->get_AlternativeText());
@@ -1068,7 +1068,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.ReplaceTextboxesWithImages.docx");
-        auto outShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto outShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(WrapSide::Both, outShape->get_WrapSide());
     }
@@ -1107,7 +1107,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.CreateTextBox.docx");
-        textBox = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        textBox = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::TextBox, String::Empty, 200.0, 50.0, 0.0, 0.0, textBox);
         ASSERT_EQ(WrapType::None, textBox->get_WrapType());
@@ -1165,7 +1165,7 @@ public:
 
         for (const auto& shape : System::IterateOver(doc->GetChildNodes(NodeType::Shape, true)))
         {
-            SharedPtr<OleFormat> oleFormat = (System::DynamicCast<Shape>(shape))->get_OleFormat();
+            SharedPtr<OleFormat> oleFormat = (System::ExplicitCast<Shape>(shape))->get_OleFormat();
             if (oleFormat != nullptr)
             {
                 std::cout << "This is " << (oleFormat->get_IsLink() ? String(u"a linked") : String(u"an embedded")) << " object" << std::endl;
@@ -1189,7 +1189,7 @@ public:
         //ExFor:OleFormat.SuggestedExtension
         //ExSummary:Shows how to extract embedded OLE objects into files.
         auto doc = MakeObject<Document>(MyDir + u"OLE spreadsheet.docm");
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         // The OLE object in the first shape is a Microsoft Excel spreadsheet.
         SharedPtr<OleFormat> oleFormat = shape->get_OleFormat();
@@ -1289,11 +1289,11 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"OLE ActiveX controls.docm");
 
         // Shapes store and display OLE objects in the document's body.
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(u"6e182020-f460-11ce-9bcd-00aa00608e01", System::ObjectExt::ToString(shape->get_OleFormat()->get_Clsid()));
 
-        auto oleControl = System::DynamicCast<Forms2OleControl>(shape->get_OleFormat()->get_OleControl());
+        auto oleControl = System::ExplicitCast<Forms2OleControl>(shape->get_OleFormat()->get_OleControl());
 
         // Some OLE controls may contain child controls, such as the one in this document with three options buttons.
         SharedPtr<Forms2OleControlCollection> oleControlCollection = oleControl->get_ChildNodes();
@@ -1318,7 +1318,7 @@ public:
         //ExSummary:Shows how to get an OLE object's suggested file name.
         auto doc = MakeObject<Document>(MyDir + u"OLE shape.rtf");
 
-        auto oleShape = System::DynamicCast<Shape>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Shape, 0, true));
+        auto oleShape = System::ExplicitCast<Shape>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Shape, 0, true));
 
         // OLE objects can provide a suggested filename and extension,
         // which we can use when saving the object's contents into a file in the local file system.
@@ -1337,7 +1337,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"ActiveX controls.docx");
 
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         ASSERT_EQ(shape->get_OleFormat()->get_SuggestedFileName(), String::Empty);
     }
 
@@ -1358,7 +1358,7 @@ public:
         //ExSummary:Shows how to render an Office Math object into an image file in the local file system.
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
 
-        auto math = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
+        auto math = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
 
         // Create an "ImageSaveOptions" object to pass to the node renderer's "Save" method to modify
         // how it renders the OfficeMath node into an image.
@@ -1384,7 +1384,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
 
-        auto officeMath = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
+        auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
         officeMath->set_DisplayType(OfficeMathDisplayType::Display);
 
         ASSERT_THROW(officeMath->set_Justification(OfficeMathJustification::Inline), System::ArgumentException);
@@ -1394,7 +1394,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
 
-        auto officeMath = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 6, true));
+        auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 6, true));
 
         ASSERT_EQ(OfficeMathDisplayType::Inline, officeMath->get_DisplayType());
         ASSERT_EQ(OfficeMathJustification::Inline, officeMath->get_Justification());
@@ -1405,7 +1405,6 @@ public:
         //ExStart
         //ExFor:OfficeMath
         //ExFor:OfficeMath.DisplayType
-        //ExFor:OfficeMath.EquationXmlEncoding
         //ExFor:OfficeMath.Justification
         //ExFor:OfficeMath.NodeType
         //ExFor:OfficeMath.ParentParagraph
@@ -1414,16 +1413,13 @@ public:
         //ExSummary:Shows how to set office math display formatting.
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
 
-        auto officeMath = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
+        auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
 
         // OfficeMath nodes that are children of other OfficeMath nodes are always inline.
         // The node we are working with is the base node to change its location and display type.
         ASSERT_EQ(MathObjectType::OMathPara, officeMath->get_MathObjectType());
         ASSERT_EQ(NodeType::OfficeMath, officeMath->get_NodeType());
         ASPOSE_ASSERT_EQ(officeMath->get_ParentNode(), officeMath->get_ParentParagraph());
-
-        // OOXML and WML formats use the "EquationXmlEncoding" property.
-        ASSERT_TRUE(officeMath->get_EquationXmlEncoding() == nullptr);
 
         // Change the location and display type of the OfficeMath node.
         officeMath->set_DisplayType(OfficeMathDisplayType::Display);
@@ -1439,7 +1435,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
 
-        auto officeMath = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
+        auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
         officeMath->set_DisplayType(OfficeMathDisplayType::Display);
 
         ASSERT_THROW(officeMath->set_Justification(OfficeMathJustification::Inline), System::ArgumentException);
@@ -1449,7 +1445,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
 
-        auto officeMath = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
+        auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
         officeMath->set_DisplayType(OfficeMathDisplayType::Inline);
 
         ASSERT_THROW(officeMath->set_Justification(OfficeMathJustification::Center), System::ArgumentException);
@@ -1459,7 +1455,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
 
-        auto officeMath = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
+        auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
 
         ASSERT_EQ(OfficeMathDisplayType::Display, officeMath->get_DisplayType());
         ASSERT_EQ(OfficeMathJustification::Center, officeMath->get_Justification());
@@ -1469,7 +1465,7 @@ public:
     {
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
 
-        auto officeMath = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, index, true));
+        auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, index, true));
         ASSERT_EQ(objectType, officeMath->get_MathObjectType());
     }
 
@@ -1496,7 +1492,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.AspectRatio.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(lockAspectRatio, shape->get_AspectRatioLocked());
     }
@@ -1566,7 +1562,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.Stroke.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         stroke = shape->get_Stroke();
 
         ASPOSE_ASSERT_EQ(true, stroke->get_On());
@@ -1616,7 +1612,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.InsertOlePackage.docx");
-        auto getShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto getShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(u"Package file name.zip", getShape->get_OleFormat()->get_OlePackage()->get_FileName());
         ASSERT_EQ(u"Package display name.zip", getShape->get_OleFormat()->get_OlePackage()->get_DisplayName());
@@ -1722,7 +1718,7 @@ public:
         builder->InsertCell();
         builder->EndTable();
 
-        auto tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        auto tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
         tableStyle->set_BottomPadding(20);
         tableStyle->set_LeftPadding(10);
         tableStyle->set_RightPadding(10);
@@ -1753,7 +1749,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.LayoutInTableCell.docx");
         table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-        shape = System::DynamicCast<Shape>(table->get_FirstRow()->get_FirstCell()->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(table->get_FirstRow()->get_FirstCell()->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(isLayoutInCell, shape->get_IsLayoutInCell());
     }
@@ -1986,7 +1982,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.SignatureLine.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::Image, String::Empty, 192.75, 96.75, -60.0, -170.0, shape);
         ASSERT_TRUE(shape->get_IsSignatureLine());
@@ -2028,7 +2024,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.TextBoxFitShapeToText.docx");
-        textBoxShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        textBoxShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::TextBox, u"TextBox 100002", 150.0, 100.0, 0.0, 0.0, textBoxShape);
         TestUtil::VerifyTextBox(LayoutFlow::Horizontal, true, TextBoxWrapMode::None, 3.6, 3.6, 7.2, 7.2, textBoxShape->get_TextBox());
@@ -2062,7 +2058,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.TextBoxMargins.docx");
-        textBoxShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        textBoxShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::TextBox, u"TextBox 100002", 100.0, 100.0, 0.0, 0.0, textBoxShape);
         TestUtil::VerifyTextBox(LayoutFlow::Horizontal, false, TextBoxWrapMode::Square, 15.0, 15.0, 15.0, 15.0, textBoxShape->get_TextBox());
@@ -2095,7 +2091,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.TextBoxContentsWrapMode.docx");
-        textBoxShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        textBoxShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::TextBox, u"TextBox 100002", 300.0, 300.0, 0.0, 0.0, textBoxShape);
         TestUtil::VerifyTextBox(LayoutFlow::Horizontal, false, textBoxWrapMode, 3.6, 3.6, 7.2, 7.2, textBoxShape->get_TextBox());
@@ -2241,7 +2237,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Shape.VerticalAnchor.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyShape(ShapeType::TextBox, u"TextBox 100002", 200.0, 200.0, 0.0, 0.0, shape);
         TestUtil::VerifyTextBox(LayoutFlow::Horizontal, false, TextBoxWrapMode::Square, 3.6, 3.6, 7.2, 7.2, shape->get_TextBox());
@@ -2373,7 +2369,7 @@ public:
         shape->get_TextPath()->set_Text(text);
         shape->get_TextPath()->set_FontFamily(textFontFamily);
 
-        auto para = System::DynamicCast<Paragraph>(doc->get_FirstSection()->get_Body()->AppendChild(MakeObject<Paragraph>(doc)));
+        auto para = System::ExplicitCast<Paragraph>(doc->get_FirstSection()->get_Body()->AppendChild(MakeObject<Paragraph>(doc)));
         para->AppendChild(shape);
         return shape;
     }
@@ -2621,7 +2617,7 @@ public:
         //ExSummary:Shows how to measure and scale shapes.
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
 
-        auto officeMath = System::DynamicCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
+        auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
         auto renderer = MakeObject<OfficeMathRenderer>(officeMath);
 
         // Verify the size of the image that the OfficeMath object will create when we render it.
@@ -2697,7 +2693,7 @@ public:
         //ExSummary:Shows how to set that the shape is decorative.
         auto doc = MakeObject<Document>(MyDir + u"Decorative shapes.docx");
 
-        auto shape = System::DynamicCast<Shape>(doc->GetChildNodes(NodeType::Shape, true)->idx_get(0));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChildNodes(NodeType::Shape, true)->idx_get(0));
         ASSERT_TRUE(shape->get_IsDecorative());
 
         // If "AlternativeText" is not empty, the shape cannot be decorative.

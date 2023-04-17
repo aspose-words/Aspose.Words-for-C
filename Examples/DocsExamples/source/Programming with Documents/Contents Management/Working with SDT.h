@@ -76,7 +76,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         // Get the first content control from the document.
-        auto sdtCheckBox = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        auto sdtCheckBox = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
 
         if (sdtCheckBox->get_SdtType() == SdtType::Checkbox)
         {
@@ -98,7 +98,7 @@ public:
             {
             case SdtType::PlainText: {
                 sdt->RemoveAllChildren();
-                auto para = System::DynamicCast_noexcept<Paragraph>(sdt->AppendChild(MakeObject<Paragraph>(doc)));
+                auto para = System::AsCast<Paragraph>(sdt->AppendChild(MakeObject<Paragraph>(doc)));
                 auto run = MakeObject<Run>(doc, u"new text goes here");
                 para->AppendChild(run);
                 break;
@@ -111,7 +111,7 @@ public:
             }
 
             case SdtType::Picture: {
-                auto shape = System::DynamicCast<Shape>(sdt->GetChild(NodeType::Shape, 0, true));
+                auto shape = System::ExplicitCast<Shape>(sdt->GetChild(NodeType::Shape, 0, true));
                 if (shape->get_HasImage())
                 {
                     shape->get_ImageData()->SetImage(ImagesDir + u"Watermark.png");
@@ -168,7 +168,7 @@ public:
         //ExStart:SetContentControlColor
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
-        auto sdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         sdt->set_Color(System::Drawing::Color::get_Red());
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.SetContentControlColor.docx");
@@ -180,7 +180,7 @@ public:
         //ExStart:ClearContentsControl
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
-        auto sdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         sdt->Clear();
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.ClearContentsControl.doc");
@@ -207,7 +207,7 @@ public:
         //ExStart:SetContentControlStyle
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
-        auto sdt = System::DynamicCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
+        auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         SharedPtr<Style> style = doc->get_Styles()->idx_get(StyleIdentifier::Quote);
         sdt->set_Style(style);
 
@@ -285,7 +285,7 @@ public:
         std::cout << System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()) << std::endl;
 
         // Create a StructuredDocumentTag that will display the contents of our CustomXmlPart in the document.
-        auto sdtRangeStart = System::DynamicCast<StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, true));
+        auto sdtRangeStart = System::ExplicitCast<StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, true));
 
         // If we set a mapping for our StructuredDocumentTag,
         // it will only display a part of the CustomXmlPart that the XPath points to.

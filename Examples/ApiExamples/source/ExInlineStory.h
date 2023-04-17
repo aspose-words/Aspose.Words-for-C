@@ -97,7 +97,7 @@ public:
         ASSERT_EQ(footnotePosition, doc->get_FootnoteOptions()->get_Position());
 
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote contents.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
     }
 
     void PositionEndnote(EndnotePosition endnotePosition)
@@ -138,7 +138,7 @@ public:
         ASSERT_EQ(endnotePosition, doc->get_EndnoteOptions()->get_Position());
 
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote contents.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
     }
 
     void RefMarkNumberStyle()
@@ -199,17 +199,17 @@ public:
         ASSERT_EQ(NumberStyle::UppercaseLetter, doc->get_EndnoteOptions()->get_NumberStyle());
 
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote 1.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote 2.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, false, u"Custom footnote reference mark", u"Custom footnote reference mark Footnote 3.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote 1.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 3, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 3, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote 2.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 4, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 4, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, false, u"Custom endnote reference mark", u"Custom endnote reference mark Endnote 3.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 5, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 5, true)));
     }
 
     void NumberingRule()
@@ -276,21 +276,21 @@ public:
         ASSERT_EQ(FootnoteNumberingRule::RestartSection, doc->get_EndnoteOptions()->get_RestartRule());
 
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote 1.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote 2.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote 3.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote 4.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 3, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 3, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote 1.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 4, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 4, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote 2.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 5, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 5, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote 3.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 6, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 6, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote 4.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 7, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 7, true)));
     }
 
     void StartNumber()
@@ -353,17 +353,17 @@ public:
         ASSERT_EQ(NumberStyle::Arabic, doc->get_EndnoteOptions()->get_NumberStyle());
 
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote 1.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote 2.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote 3.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote 1.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 3, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 3, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote 2.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 4, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 4, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote 3.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 5, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 5, true)));
     }
 
     void AddFootnote()
@@ -421,11 +421,11 @@ public:
         doc = MakeObject<Document>(ArtifactsDir + u"InlineStory.AddFootnote.docx");
 
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote text. More text added by a DocumentBuilder.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, false, u"RefMark", u"Footnote text.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"Footnote text.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
     }
 
     void FootnoteEndnote()
@@ -463,9 +463,9 @@ public:
 
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty,
                                  u"Footnote text, will appear at the bottom of the page that contains the referenced text.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
         TestUtil::VerifyFootnote(FootnoteType::Endnote, true, String::Empty, u"Endnote text, will appear at the very end of the document.",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
     }
 
     void AddComment()
@@ -493,7 +493,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"InlineStory.AddComment.docx");
-        comment = System::DynamicCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
+        comment = System::ExplicitCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
 
         ASSERT_EQ(u"Comment text.\r", comment->GetText());
         ASSERT_EQ(u"John Doe", comment->get_Author());
@@ -592,7 +592,7 @@ public:
         ASSERT_EQ(StoryType::Footnotes, footnote->get_StoryType());
 
         // A comment is another type of inline story.
-        auto comment = System::DynamicCast<Comment>(
+        auto comment = System::ExplicitCast<Comment>(
             builder->get_CurrentParagraph()->AppendChild(MakeObject<Comment>(doc, u"John Doe", u"J. D.", System::DateTime::get_Now())));
 
         // The parent paragraph of an inline story node will be the one from the main document body.
@@ -617,14 +617,14 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"InlineStory.InsertInlineStoryNodes.docx");
 
-        footnote = System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true));
+        footnote = System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true));
 
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, String::Empty,
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
         ASSERT_EQ(u"Arial", footnote->get_Font()->get_Name());
         ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), footnote->get_Font()->get_Color().ToArgb());
 
-        comment = System::DynamicCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
+        comment = System::ExplicitCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
 
         ASSERT_EQ(u"My comment.", comment->ToString(SaveFormat::Text).Trim());
     }

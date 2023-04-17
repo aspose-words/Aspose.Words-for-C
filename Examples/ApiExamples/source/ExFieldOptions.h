@@ -102,17 +102,17 @@ public:
 
         ASSERT_TRUE(doc->get_FieldOptions()->get_CurrentUser() == nullptr);
 
-        auto fieldUserName = System::DynamicCast<FieldUserName>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto fieldUserName = System::ExplicitCast<FieldUserName>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_TRUE(fieldUserName->get_UserName() == nullptr);
         ASSERT_EQ(u"Default User", fieldUserName->get_Result());
 
-        auto fieldUserInitials = System::DynamicCast<FieldUserInitials>(doc->get_Range()->get_Fields()->idx_get(1));
+        auto fieldUserInitials = System::ExplicitCast<FieldUserInitials>(doc->get_Range()->get_Fields()->idx_get(1));
 
         ASSERT_TRUE(fieldUserInitials->get_UserInitials() == nullptr);
         ASSERT_EQ(u"D. U.", fieldUserInitials->get_Result());
 
-        auto fieldUserAddress = System::DynamicCast<FieldUserAddress>(doc->get_Range()->get_Fields()->idx_get(2));
+        auto fieldUserAddress = System::ExplicitCast<FieldUserAddress>(doc->get_Range()->get_Fields()->idx_get(2));
 
         ASSERT_TRUE(fieldUserAddress->get_UserAddress() == nullptr);
         ASSERT_EQ(u"One Microsoft Way", fieldUserAddress->get_Result());
@@ -132,7 +132,7 @@ public:
         builder->Writeln();
 
         // This FILENAME field will display the local system file name of the document we loaded.
-        auto field = System::DynamicCast<FieldFileName>(builder->InsertField(FieldType::FieldFileName, true));
+        auto field = System::ExplicitCast<FieldFileName>(builder->InsertField(FieldType::FieldFileName, true));
         field->Update();
 
         ASSERT_EQ(u" FILENAME ", field->GetFieldCode());
@@ -142,7 +142,7 @@ public:
 
         // By default, the FILENAME field shows the file's name, but not its full local file system path.
         // We can set a flag to make it show the full file path.
-        field = System::DynamicCast<FieldFileName>(builder->InsertField(FieldType::FieldFileName, true));
+        field = System::ExplicitCast<FieldFileName>(builder->InsertField(FieldType::FieldFileName, true));
         field->set_IncludeFullPath(true);
         field->Update();
 
@@ -355,7 +355,7 @@ public:
         // Set a provider that returns a culture object specific to each field.
         doc->get_FieldOptions()->set_FieldUpdateCultureProvider(MakeObject<ExFieldOptions::FieldUpdateCultureProvider>());
 
-        auto fieldDate = System::DynamicCast<FieldTime>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto fieldDate = System::ExplicitCast<FieldTime>(doc->get_Range()->get_Fields()->idx_get(0));
         if (fieldDate->get_LocaleId() != (int)EditingLanguage::Russian)
         {
             fieldDate->set_LocaleId((int)EditingLanguage::Russian);

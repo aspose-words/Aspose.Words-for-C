@@ -35,7 +35,7 @@ void WordToHtmlConverter::HandleTocMergeField::FieldMerging(System::SharedPtr<Fi
     }
 
     // Our custom data source returns topic objects.
-    auto topic = System::StaticCast<Topic>(e->get_FieldValue());
+    auto topic = System::ExplicitCast<Topic>(e->get_FieldValue());
 
     mBuilder->MoveToMergeField(e->get_FieldName());
     mBuilder->InsertHyperlink(topic->get_Title(), topic->get_FileName(), false);

@@ -173,7 +173,7 @@ public:
     void RemoveColumnFromTable()
     {
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true));
 
         SharedPtr<ExTableColumn::Column> column = ExTableColumn::Column::FromIndex(table, 2);
         column->Remove();
@@ -188,7 +188,7 @@ public:
     void Insert()
     {
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true));
 
         SharedPtr<ExTableColumn::Column> column = ExTableColumn::Column::FromIndex(table, 1);
 
@@ -212,7 +212,7 @@ public:
     void TableColumnToTxt()
     {
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true));
 
         SharedPtr<ExTableColumn::Column> column = ExTableColumn::Column::FromIndex(table, 0);
         std::cout << column->ToTxt() << std::endl;

@@ -76,13 +76,13 @@ public:
         {
             ASSERT_EQ(4, doc->get_Lists()->get_Count());
             ASSERT_TRUE(doc->get_FirstSection()->get_Body()->get_Paragraphs()->LINQ_Any(
-                [](SharedPtr<Node> p) { return p->GetText().Contains(u"Fourth list") && (System::DynamicCast<Paragraph>(p))->get_IsListItem(); }));
+                [](SharedPtr<Node> p) { return p->GetText().Contains(u"Fourth list") && (System::ExplicitCast<Paragraph>(p))->get_IsListItem(); }));
         }
         else
         {
             ASSERT_EQ(3, doc->get_Lists()->get_Count());
             ASSERT_FALSE(doc->get_FirstSection()->get_Body()->get_Paragraphs()->LINQ_Any(
-                [](SharedPtr<Node> p) { return p->GetText().Contains(u"Fourth list") && (System::DynamicCast<Paragraph>(p))->get_IsListItem(); }));
+                [](SharedPtr<Node> p) { return p->GetText().Contains(u"Fourth list") && (System::ExplicitCast<Paragraph>(p))->get_IsListItem(); }));
         }
         //ExEnd
     }
@@ -132,7 +132,7 @@ public:
 
         case TxtLeadingSpacesOptions::Preserve:
             ASSERT_TRUE(paragraphs->LINQ_All([](SharedPtr<Node> p)
-                                             { return (System::DynamicCast<Paragraph>(p))->get_ParagraphFormat()->get_FirstLineIndent() == 0.0; }));
+                                             { return (System::ExplicitCast<Paragraph>(p))->get_ParagraphFormat()->get_FirstLineIndent() == 0.0; }));
             ASSERT_TRUE(paragraphs->idx_get(0)->GetText().StartsWith(u"      Line 1"));
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().StartsWith(u"    Line 2"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().StartsWith(u" Line 3"));
@@ -140,7 +140,7 @@ public:
 
         case TxtLeadingSpacesOptions::Trim:
             ASSERT_TRUE(paragraphs->LINQ_All([](SharedPtr<Node> p)
-                                             { return (System::DynamicCast<Paragraph>(p))->get_ParagraphFormat()->get_FirstLineIndent() == 0.0; }));
+                                             { return (System::ExplicitCast<Paragraph>(p))->get_ParagraphFormat()->get_FirstLineIndent() == 0.0; }));
             ASSERT_TRUE(paragraphs->idx_get(0)->GetText().StartsWith(u"Line 1"));
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().StartsWith(u"Line 2"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().StartsWith(u"Line 3"));

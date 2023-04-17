@@ -108,7 +108,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.ChartTitle.docx");
-        chartShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        chartShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(ShapeType::NonPrimitive, chartShape->get_ShapeType());
         ASSERT_TRUE(chartShape->get_HasChart());
@@ -152,7 +152,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.DataLabelNumberFormat.docx");
-        series = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
+        series = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
 
         ASSERT_TRUE(series->get_HasDataLabels());
         ASSERT_TRUE(series->get_DataLabels()->get_ShowValue());
@@ -281,7 +281,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.AxisProperties.docx");
-        chart = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
+        chart = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
 
         ASSERT_EQ(AxisCategoryType::Category, chart->get_AxisX()->get_CategoryType());
         ASSERT_EQ(AxisCrosses::Minimum, chart->get_AxisX()->get_Crosses());
@@ -359,7 +359,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.DateTimeValues.docx");
-        chart = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
+        chart = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
 
         ASPOSE_ASSERT_EQ(MakeObject<AxisBound>(System::DateTime(2017, 11, 5).ToOADate()), chart->get_AxisX()->get_Scaling()->get_Minimum());
         ASPOSE_ASSERT_EQ(MakeObject<AxisBound>(System::DateTime(2017, 12, 3)), chart->get_AxisX()->get_Scaling()->get_Maximum());
@@ -403,7 +403,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.HideChartAxis.docx");
-        chart = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
+        chart = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
 
         ASSERT_TRUE(chart->get_AxisX()->get_Hidden());
         ASSERT_TRUE(chart->get_AxisY()->get_Hidden());
@@ -441,7 +441,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.SetNumberFormatToChartAxis.docx");
-        chart = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
+        chart = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
 
         ASSERT_EQ(u"#,##0", chart->get_AxisY()->get_NumberFormat()->get_FormatCode());
     }
@@ -516,7 +516,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.DataLabelsBubbleChart.docx");
-        dataLabels = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0)->get_DataLabels();
+        dataLabels = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0)->get_DataLabels();
 
         ASSERT_TRUE(dataLabels->get_ShowBubbleSize());
         ASSERT_TRUE(dataLabels->get_ShowCategoryName());
@@ -558,7 +558,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.DataLabelsPieChart.docx");
-        dataLabels = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0)->get_DataLabels();
+        dataLabels = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0)->get_DataLabels();
 
         ASSERT_TRUE(dataLabels->get_ShowLeaderLines());
         ASSERT_TRUE(dataLabels->get_ShowLegendKey());
@@ -763,7 +763,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.PieChartExplosion.docx");
-        SharedPtr<ChartSeries> series = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
+        SharedPtr<ChartSeries> series = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
 
         ASSERT_EQ(10, series->get_DataPoints()->idx_get(0)->get_Explosion());
         ASSERT_EQ(40, series->get_DataPoints()->idx_get(1)->get_Explosion());
@@ -796,7 +796,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.Bubble3D.docx");
-        SharedPtr<ChartSeries> series = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
+        SharedPtr<ChartSeries> series = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
 
         for (int i = 0; i < 3; i++)
         {
@@ -985,7 +985,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.AxisScaling.docx");
-        chart = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
+        chart = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
 
         ASSERT_EQ(AxisScaleType::Linear, chart->get_AxisX()->get_Scaling()->get_Type());
         ASSERT_EQ(AxisScaleType::Logarithmic, chart->get_AxisY()->get_Scaling()->get_Type());
@@ -1049,7 +1049,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.AxisBound.docx");
-        chart = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
+        chart = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
 
         ASSERT_FALSE(chart->get_AxisX()->get_Scaling()->get_Minimum()->get_IsAuto());
         ASPOSE_ASSERT_EQ(0.0, chart->get_AxisX()->get_Scaling()->get_Minimum()->get_Value());
@@ -1059,7 +1059,7 @@ public:
         ASPOSE_ASSERT_EQ(0.0, chart->get_AxisY()->get_Scaling()->get_Minimum()->get_Value());
         ASPOSE_ASSERT_EQ(10.0, chart->get_AxisY()->get_Scaling()->get_Maximum()->get_Value());
 
-        chart = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true)))->get_Chart();
+        chart = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true)))->get_Chart();
 
         ASSERT_FALSE(chart->get_AxisX()->get_Scaling()->get_Minimum()->get_IsAuto());
         ASPOSE_ASSERT_EQ(MakeObject<AxisBound>(System::DateTime(1980, 1, 1)), chart->get_AxisX()->get_Scaling()->get_Minimum());
@@ -1100,7 +1100,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.ChartLegend.docx");
 
-        legend = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Legend();
+        legend = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Legend();
 
         ASSERT_TRUE(legend->get_Overlay());
         ASSERT_EQ(LegendPosition::TopRight, legend->get_Position());
@@ -1135,7 +1135,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.AxisCross.docx");
-        axis = (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_AxisX();
+        axis = (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_AxisX();
 
         ASSERT_TRUE(axis->get_AxisBetweenCategories());
         ASSERT_EQ(AxisCrosses::Custom, axis->get_Crosses());
@@ -1211,7 +1211,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Charts.AxisDisplayUnit.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASPOSE_ASSERT_EQ(450.0, shape->get_Width());
         ASPOSE_ASSERT_EQ(250.0, shape->get_Height());

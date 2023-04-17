@@ -54,7 +54,7 @@ public:
         //ExFor:TabStopCollection.Add(Double, TabAlignment, TabLeader)
         //ExSummary:Shows how to add custom tab stops to a document.
         auto doc = MakeObject<Document>();
-        auto paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
+        auto paragraph = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
 
         // Below are two ways of adding tab stops to a paragraph's collection of tab stops via the "ParagraphFormat" property.
         // 1 -  Create a "TabStop" object, and then add it to the collection:

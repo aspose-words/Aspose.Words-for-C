@@ -205,7 +205,7 @@ public:
             std::cout << "Bookmark: " << bookmark->get_Name() << (bookmark->get_IsColumn() ? String(u" (Column)") : String(u"")) << std::endl;
             if (bookmark->get_IsColumn())
             {
-                auto row = System::DynamicCast_noexcept<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
+                auto row = System::AsCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
                 if (row != nullptr && bookmark->get_FirstColumn() < row->get_Cells()->get_Count())
                 {
                     // Print the contents of the first and last columns enclosed by the bookmark.

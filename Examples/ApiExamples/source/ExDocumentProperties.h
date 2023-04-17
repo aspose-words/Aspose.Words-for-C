@@ -96,7 +96,7 @@ public:
             if (System::ObjectExt::Is<System::Collections::Generic::ICollection<SharedPtr<System::Object>>>(docProperty->get_Value()))
             {
                 for (const auto& value : System::IterateOver(
-                         System::DynamicCast_noexcept<System::Collections::Generic::ICollection<SharedPtr<System::Object>>>(docProperty->get_Value())))
+                         System::AsCast<System::Collections::Generic::ICollection<SharedPtr<System::Object>>>(docProperty->get_Value())))
                 {
                     std::cout << "\tValue:\t\"" << value << "\"" << std::endl;
                 }
@@ -458,7 +458,7 @@ public:
         properties->set_HyperlinkBase(MyDir);
 
         ASSERT_TRUE(System::IO::File::Exists(properties->get_HyperlinkBase() +
-                                             (System::DynamicCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0)))->get_Address()));
+                                             (System::ExplicitCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0)))->get_Address()));
 
         doc->Save(ArtifactsDir + u"DocumentProperties.HyperlinkBase.WorkingLink.docx");
         //ExEnd
@@ -473,7 +473,7 @@ public:
 
         ASSERT_EQ(MyDir, properties->get_HyperlinkBase());
         ASSERT_TRUE(System::IO::File::Exists(properties->get_HyperlinkBase() +
-                                             (System::DynamicCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0)))->get_Address()));
+                                             (System::ExplicitCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0)))->get_Address()));
     }
 
     void HeadingPairs()
@@ -677,7 +677,7 @@ public:
 
         // Display the value of a custom property using a DOCPROPERTY field.
         auto builder = MakeObject<DocumentBuilder>(doc);
-        auto field = System::DynamicCast<FieldDocProperty>(builder->InsertField(u" DOCPROPERTY \"Authorized By\""));
+        auto field = System::ExplicitCast<FieldDocProperty>(builder->InsertField(u" DOCPROPERTY \"Authorized By\""));
         field->Update();
 
         ASSERT_EQ(u"John Doe", field->get_Result());

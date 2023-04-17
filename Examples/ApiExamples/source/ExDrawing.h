@@ -185,7 +185,7 @@ public:
 
         ASSERT_EQ(4, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
 
-        arrow = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        arrow = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(ShapeType::Line, arrow->get_ShapeType());
         ASPOSE_ASSERT_EQ(200.0, arrow->get_Width());
@@ -199,7 +199,7 @@ public:
         ASSERT_EQ(DashStyle::Dash, arrow->get_Stroke()->get_DashStyle());
         ASPOSE_ASSERT_EQ(0.5, arrow->get_Stroke()->get_Opacity());
 
-        line = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        line = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         ASSERT_EQ(ShapeType::Line, line->get_ShapeType());
         ASPOSE_ASSERT_EQ(40.0, line->get_Top());
@@ -208,7 +208,7 @@ public:
         ASPOSE_ASSERT_EQ(5.0, line->get_StrokeWeight());
         ASSERT_EQ(EndCap::Round, line->get_Stroke()->get_EndCap());
 
-        filledInArrow = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
+        filledInArrow = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 2, true));
 
         ASSERT_EQ(ShapeType::Arrow, filledInArrow->get_ShapeType());
         ASPOSE_ASSERT_EQ(200.0, filledInArrow->get_Width());
@@ -217,7 +217,7 @@ public:
         ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), filledInArrow->get_Fill()->get_ForeColor().ToArgb());
         ASSERT_TRUE(filledInArrow->get_Fill()->get_Visible());
 
-        filledInArrowImg = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 3, true));
+        filledInArrowImg = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 3, true));
 
         ASSERT_EQ(ShapeType::Arrow, filledInArrowImg->get_ShapeType());
         ASPOSE_ASSERT_EQ(200.0, filledInArrowImg->get_Width());
@@ -380,7 +380,7 @@ public:
 
         ASSERT_EQ(2, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
 
-        imgShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        imgShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imgShape);
         ASPOSE_ASSERT_EQ(0.0, imgShape->get_Left());
@@ -389,7 +389,7 @@ public:
         ASPOSE_ASSERT_EQ(300.0, imgShape->get_Width());
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imgShape);
 
-        imgShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        imgShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imgShape);
         ASPOSE_ASSERT_EQ(150.0, imgShape->get_Left());
@@ -405,7 +405,7 @@ public:
         //ExFor:Stroke.ImageBytes
         //ExSummary:Shows how to process shape stroke features.
         auto doc = MakeObject<Document>(MyDir + u"Shape stroke pattern border.docx");
-        auto shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         SharedPtr<Stroke> stroke = shape->get_Stroke();
 
         // Strokes can have two colors, which are used to create a pattern defined by two-tone image data.
@@ -517,18 +517,18 @@ public:
     static void TestGroupShapes(SharedPtr<Document> doc)
     {
         doc = DocumentHelper::SaveOpen(doc);
-        auto shapes = System::DynamicCast<GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
+        auto shapes = System::ExplicitCast<GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
 
         ASSERT_EQ(2, shapes->get_ChildNodes()->get_Count());
 
-        auto shape = System::DynamicCast<Shape>(shapes->get_ChildNodes()->idx_get(0));
+        auto shape = System::ExplicitCast<Shape>(shapes->get_ChildNodes()->idx_get(0));
 
         ASSERT_EQ(ShapeType::Balloon, shape->get_ShapeType());
         ASPOSE_ASSERT_EQ(200.0, shape->get_Width());
         ASPOSE_ASSERT_EQ(200.0, shape->get_Height());
         ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), shape->get_StrokeColor().ToArgb());
 
-        shape = System::DynamicCast<Shape>(shapes->get_ChildNodes()->idx_get(1));
+        shape = System::ExplicitCast<Shape>(shapes->get_ChildNodes()->idx_get(1));
 
         ASSERT_EQ(ShapeType::Cube, shape->get_ShapeType());
         ASPOSE_ASSERT_EQ(100.0, shape->get_Width());
@@ -559,7 +559,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Drawing.TextBox.docx");
-        textbox = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        textbox = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_EQ(ShapeType::TextBox, textbox->get_ShapeType());
         ASPOSE_ASSERT_EQ(100.0, textbox->get_Width());
@@ -579,7 +579,7 @@ public:
         ASSERT_EQ(10, imgSourceDoc->GetChildNodes(NodeType::Shape, true)->get_Count());
         //ExSkip
 
-        auto imgShape = System::DynamicCast<Shape>(imgSourceDoc->GetChild(NodeType::Shape, 0, true));
+        auto imgShape = System::ExplicitCast<Shape>(imgSourceDoc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_TRUE(imgShape->get_HasImage());
 
@@ -618,12 +618,12 @@ public:
         //ExFor:ImageData.Title
         //ExSummary:Shows how to edit a shape's image data.
         auto imgSourceDoc = MakeObject<Document>(MyDir + u"Images.docx");
-        auto sourceShape = System::DynamicCast<Shape>(imgSourceDoc->GetChildNodes(NodeType::Shape, true)->idx_get(0));
+        auto sourceShape = System::ExplicitCast<Shape>(imgSourceDoc->GetChildNodes(NodeType::Shape, true)->idx_get(0));
 
         auto dstDoc = MakeObject<Document>();
 
         // Import a shape from the source document and append it to the first paragraph.
-        auto importedShape = System::DynamicCast<Shape>(dstDoc->ImportNode(sourceShape, true));
+        auto importedShape = System::ExplicitCast<Shape>(dstDoc->ImportNode(sourceShape, true));
         dstDoc->get_FirstSection()->get_Body()->get_FirstParagraph()->AppendChild(importedShape);
 
         // The imported shape contains an image. We can access the image's properties and raw data via the ImageData object.
@@ -650,14 +650,14 @@ public:
         imageData->set_ChromaKey(System::Drawing::Color::get_White());
 
         // Import the source shape again and set the image to monochrome.
-        importedShape = System::DynamicCast<Shape>(dstDoc->ImportNode(sourceShape, true));
+        importedShape = System::ExplicitCast<Shape>(dstDoc->ImportNode(sourceShape, true));
         dstDoc->get_FirstSection()->get_Body()->get_FirstParagraph()->AppendChild(importedShape);
 
         importedShape->get_ImageData()->set_GrayScale(true);
 
         // Import the source shape again to create a third image and set it to BiLevel.
         // BiLevel sets every pixel to either black or white, whichever is closer to the original color.
-        importedShape = System::DynamicCast<Shape>(dstDoc->ImportNode(sourceShape, true));
+        importedShape = System::ExplicitCast<Shape>(dstDoc->ImportNode(sourceShape, true));
         dstDoc->get_FirstSection()->get_Body()->get_FirstParagraph()->AppendChild(importedShape);
 
         importedShape->get_ImageData()->set_BiLevel(true);
@@ -673,7 +673,7 @@ public:
         //ExEnd
 
         imgSourceDoc = MakeObject<Document>(ArtifactsDir + u"Drawing.ImageData.docx");
-        sourceShape = System::DynamicCast<Shape>(imgSourceDoc->GetChild(NodeType::Shape, 0, true));
+        sourceShape = System::ExplicitCast<Shape>(imgSourceDoc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(2467, 1500, ImageType::Jpeg, sourceShape);
         ASSERT_EQ(u"Imported Image", sourceShape->get_ImageData()->get_Title());
@@ -681,12 +681,12 @@ public:
         ASSERT_NEAR(1.0, sourceShape->get_ImageData()->get_Contrast(), 0.1);
         ASSERT_EQ(System::Drawing::Color::get_White().ToArgb(), sourceShape->get_ImageData()->get_ChromaKey().ToArgb());
 
-        sourceShape = System::DynamicCast<Shape>(imgSourceDoc->GetChild(NodeType::Shape, 1, true));
+        sourceShape = System::ExplicitCast<Shape>(imgSourceDoc->GetChild(NodeType::Shape, 1, true));
 
         TestUtil::VerifyImageInShape(2467, 1500, ImageType::Jpeg, sourceShape);
         ASSERT_TRUE(sourceShape->get_ImageData()->get_GrayScale());
 
-        sourceShape = System::DynamicCast<Shape>(imgSourceDoc->GetChild(NodeType::Shape, 2, true));
+        sourceShape = System::ExplicitCast<Shape>(imgSourceDoc->GetChild(NodeType::Shape, 2, true));
 
         TestUtil::VerifyImageInShape(2467, 1500, ImageType::Jpeg, sourceShape);
         ASSERT_TRUE(sourceShape->get_ImageData()->get_BiLevel());
@@ -730,7 +730,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Drawing.ImageSize.docx");
-        shape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
         ASPOSE_ASSERT_EQ(600.0, shape->get_Width());

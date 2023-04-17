@@ -79,15 +79,15 @@ public:
 
         if (supportVml)
         {
-            ASSERT_EQ(ImageType::Jpeg, (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
+            ASSERT_EQ(ImageType::Jpeg, (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
         }
         else
         {
-            ASSERT_EQ(ImageType::Png, (System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
+            ASSERT_EQ(ImageType::Png, (System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
         }
         //ExEnd
 
-        auto imageShape = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto imageShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         if (supportVml)
         {
@@ -146,7 +146,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Missing image.html", loadOptions);
 
         // While the image was broken in the input .html, our custom base URI helped us repair the link.
-        auto imageShape = System::DynamicCast<Shape>(doc->GetChildNodes(NodeType::Shape, true)->idx_get(0));
+        auto imageShape = System::ExplicitCast<Shape>(doc->GetChildNodes(NodeType::Shape, true)->idx_get(0));
         ASSERT_TRUE(imageShape->get_IsImage());
 
         // This output document will display the image that was missing.
@@ -155,7 +155,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"HtmlLoadOptions.BaseUri.docx");
 
-        ASSERT_TRUE((System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageBytes()->get_Length() > 0);
+        ASSERT_TRUE((System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageBytes()->get_Length() > 0);
     }
 
     void GetSelectAsSdt()
@@ -173,7 +173,7 @@ public:
         auto doc = MakeObject<Document>(MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(html)), htmlLoadOptions);
         SharedPtr<NodeCollection> nodes = doc->GetChildNodes(NodeType::StructuredDocumentTag, true);
 
-        auto tag = System::DynamicCast<StructuredDocumentTag>(nodes->idx_get(0));
+        auto tag = System::ExplicitCast<StructuredDocumentTag>(nodes->idx_get(0));
         //ExEnd
 
         ASSERT_EQ(2, tag->get_ListItems()->get_Count());
@@ -196,7 +196,7 @@ public:
 
         ASSERT_EQ(1, nodes->get_Count());
 
-        auto formField = System::DynamicCast<FormField>(nodes->idx_get(0));
+        auto formField = System::ExplicitCast<FormField>(nodes->idx_get(0));
         ASSERT_EQ(u"Input value text", formField->get_Result());
     }
 };

@@ -36,13 +36,13 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto mergeFieldOption1 = System::DynamicCast<FieldMergeField>(builder->InsertField(u"MERGEFIELD", u"Option_1"));
+        auto mergeFieldOption1 = System::ExplicitCast<FieldMergeField>(builder->InsertField(u"MERGEFIELD", u"Option_1"));
         mergeFieldOption1->set_FieldName(u"Option_1");
 
         // Here is the complete list of cleanable punctuation marks: ! , . : ; ? ¡ ¿.
         builder->Write(u" ?  ");
 
-        auto mergeFieldOption2 = System::DynamicCast<FieldMergeField>(builder->InsertField(u"MERGEFIELD", u"Option_2"));
+        auto mergeFieldOption2 = System::ExplicitCast<FieldMergeField>(builder->InsertField(u"MERGEFIELD", u"Option_2"));
         mergeFieldOption2->set_FieldName(u"Option_2");
 
         doc->get_MailMerge()->set_CleanupOptions(MailMergeCleanupOptions::RemoveEmptyParagraphs);

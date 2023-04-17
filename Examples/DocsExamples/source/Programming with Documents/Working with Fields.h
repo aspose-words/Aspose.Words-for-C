@@ -121,7 +121,7 @@ public:
         {
             if (field->get_Type() == FieldType::FieldHyperlink)
             {
-                auto hyperlink = System::DynamicCast<FieldHyperlink>(field);
+                auto hyperlink = System::ExplicitCast<FieldHyperlink>(field);
 
                 // Some hyperlinks can be local (links to bookmarks inside the document), ignore these.
                 if (hyperlink->get_SubAddress() != nullptr)
@@ -174,7 +174,7 @@ public:
         /// </summary>
         String get_Name()
         {
-            return (System::DynamicCast<FieldStart>(mFieldStart))->GetField()->get_Result().Replace(u"«", u"").Replace(u"»", u"");
+            return (System::ExplicitCast<FieldStart>(mFieldStart))->GetField()->get_Result().Replace(u"«", u"").Replace(u"»", u"");
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ public:
         {
             // Merge field name is stored in the field result which is a Run
             // node between field separator and field end.
-            auto fieldResult = System::DynamicCast<Aspose::Words::Run>(mFieldSeparator->get_NextSibling());
+            auto fieldResult = System::ExplicitCast<Aspose::Words::Run>(mFieldSeparator->get_NextSibling());
             fieldResult->set_Text(String::Format(u"«{0}»", value));
 
             // But sometimes the field result can consist of more than one run, delete these runs.
@@ -226,10 +226,10 @@ public:
         void UpdateFieldCode(String fieldName)
         {
             // Field code is stored in a Run node between field start and field separator.
-            auto fieldCode = System::DynamicCast<Aspose::Words::Run>(mFieldStart->get_NextSibling());
+            auto fieldCode = System::ExplicitCast<Aspose::Words::Run>(mFieldStart->get_NextSibling());
 
             SharedPtr<System::Text::RegularExpressions::Match> match =
-                gRegex->Match((System::DynamicCast<FieldStart>(mFieldStart))->GetField()->GetFieldCode());
+                gRegex->Match((System::ExplicitCast<FieldStart>(mFieldStart))->GetField()->GetFieldCode());
 
             String newFieldCode = String::Format(u" {0}{1} ", match->get_Groups()->idx_get(u"start")->get_Value(), fieldName);
             fieldCode->set_Text(newFieldCode);
@@ -280,7 +280,7 @@ public:
         // { TA  \c 1 \l "Value 0" }
         // { TOA  \c 1 }
 
-        auto fieldTA = System::DynamicCast<FieldTA>(para->AppendField(FieldType::FieldTOAEntry, false));
+        auto fieldTA = System::ExplicitCast<FieldTA>(para->AppendField(FieldType::FieldTOAEntry, false));
         fieldTA->set_EntryCategory(u"1");
         fieldTA->set_LongCitation(u"Value 0");
 
@@ -288,7 +288,7 @@ public:
 
         para = MakeObject<Paragraph>(doc);
 
-        auto fieldToa = System::DynamicCast<FieldToa>(para->AppendField(FieldType::FieldTOA, false));
+        auto fieldToa = System::ExplicitCast<FieldToa>(para->AppendField(FieldType::FieldTOA, false));
         fieldToa->set_EntryCategory(u"1");
         doc->get_FirstSection()->get_Body()->AppendChild(para);
 
@@ -332,14 +332,14 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto para = System::DynamicCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
 
         builder->MoveTo(para);
 
         // We want to insert a merge field like this:
         // { " MERGEFIELD Test1 \\b Test2 \\f Test3 \\m \\v" }
 
-        auto field = System::DynamicCast<FieldMergeField>(builder->InsertField(FieldType::FieldMergeField, false));
+        auto field = System::ExplicitCast<FieldMergeField>(builder->InsertField(FieldType::FieldMergeField, false));
 
         // { " MERGEFIELD Test1" }
         field->set_FieldName(u"Test1");
@@ -369,14 +369,14 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto para = System::DynamicCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
 
         builder->MoveTo(para);
 
         // We want to insert a mail merge address block like this:
         // { ADDRESSBLOCK \\c 1 \\d \\e Test2 \\f Test3 \\l \"Test 4\" }
 
-        auto field = System::DynamicCast<FieldAddressBlock>(builder->InsertField(FieldType::FieldAddressBlock, false));
+        auto field = System::ExplicitCast<FieldAddressBlock>(builder->InsertField(FieldType::FieldAddressBlock, false));
 
         // { ADDRESSBLOCK \\c 1" }
         field->set_IncludeCountryOrRegionName(u"1");
@@ -409,7 +409,7 @@ public:
         // We want to insert an INCLUDETEXT field like this:
         // { INCLUDETEXT  "file path" }
 
-        auto fieldIncludeText = System::DynamicCast<FieldIncludeText>(para->AppendField(FieldType::FieldIncludeText, false));
+        auto fieldIncludeText = System::ExplicitCast<FieldIncludeText>(para->AppendField(FieldType::FieldIncludeText, false));
         fieldIncludeText->set_BookmarkName(u"bookmark");
         fieldIncludeText->set_SourceFullName(MyDir + u"IncludeText.docx");
 
@@ -427,7 +427,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto field = System::DynamicCast<FieldUnknown>(builder->InsertField(FieldType::FieldNone, false));
+        auto field = System::ExplicitCast<FieldUnknown>(builder->InsertField(FieldType::FieldNone, false));
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.InsertFieldNone.docx");
         //ExEnd:InsertFieldNone
@@ -450,12 +450,12 @@ public:
         //ExStart:InsertAuthorField
         auto doc = MakeObject<Document>();
 
-        auto para = System::DynamicCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
 
         // We want to insert an AUTHOR field like this:
         // { AUTHOR Test1 }
 
-        auto field = System::DynamicCast<FieldAuthor>(para->AppendField(FieldType::FieldAuthor, false));
+        auto field = System::ExplicitCast<FieldAuthor>(para->AppendField(FieldType::FieldAuthor, false));
         field->set_AuthorName(u"Test1");
         // { AUTHOR Test1 }
 
@@ -470,12 +470,12 @@ public:
         //ExStart:InsertASKFieldWithOutDocumentBuilder
         auto doc = MakeObject<Document>();
 
-        auto para = System::DynamicCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
 
         // We want to insert an Ask field like this:
         // { ASK \"Test 1\" Test2 \\d Test3 \\o }
 
-        auto field = System::DynamicCast<FieldAsk>(para->AppendField(FieldType::FieldAsk, false));
+        auto field = System::ExplicitCast<FieldAsk>(para->AppendField(FieldType::FieldAsk, false));
 
         // { ASK \"Test 1\" " }
         field->set_BookmarkName(u"Test 1");
@@ -500,12 +500,12 @@ public:
         //ExStart:InsertAdvanceFieldWithOutDocumentBuilder
         auto doc = MakeObject<Document>();
 
-        auto para = System::DynamicCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
 
         // We want to insert an Advance field like this:
         // { ADVANCE \\d 10 \\l 10 \\r -3.3 \\u 0 \\x 100 \\y 100 }
 
-        auto field = System::DynamicCast<FieldAdvance>(para->AppendField(FieldType::FieldAdvance, false));
+        auto field = System::ExplicitCast<FieldAdvance>(para->AppendField(FieldType::FieldAdvance, false));
 
         // { ADVANCE \\d 10 " }
         field->set_DownOffset(u"10");
@@ -637,7 +637,7 @@ public:
         //ExStart:EvaluateIFCondition
         auto builder = MakeObject<DocumentBuilder>();
 
-        auto field = System::DynamicCast<FieldIf>(builder->InsertField(u"IF 1 = 1", nullptr));
+        auto field = System::ExplicitCast<FieldIf>(builder->InsertField(u"IF 1 = 1", nullptr));
         FieldIfComparisonResult actualResult = field->EvaluateCondition();
 
         std::cout << System::EnumGetName(actualResult) << std::endl;

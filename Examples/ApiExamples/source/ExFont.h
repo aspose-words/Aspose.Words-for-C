@@ -144,7 +144,7 @@ public:
         //ExFor:Font.SmallCaps
         //ExSummary:Shows how to format a run to display its contents in capitals.
         auto doc = MakeObject<Document>();
-        auto para = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
 
         // There are two ways of getting a run to display its lowercase text in uppercase without changing the contents.
         // 1 -  Set the AllCaps flag to display all characters in regular capitals:
@@ -152,7 +152,7 @@ public:
         run->get_Font()->set_AllCaps(true);
         para->AppendChild(run);
 
-        para = System::DynamicCast<Paragraph>(para->get_ParentNode()->AppendChild(MakeObject<Paragraph>(doc)));
+        para = System::ExplicitCast<Paragraph>(para->get_ParentNode()->AppendChild(MakeObject<Paragraph>(doc)));
 
         // 2 -  Set the SmallCaps flag to display all characters in small capitals:
         // If a character is lower case, it will appear in its upper case form
@@ -259,13 +259,13 @@ public:
         //ExFor:Font.DoubleStrikeThrough
         //ExSummary:Shows how to add a line strikethrough to text.
         auto doc = MakeObject<Document>();
-        auto para = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
 
         auto run = MakeObject<Run>(doc, u"Text with a single-line strikethrough.");
         run->get_Font()->set_StrikeThrough(true);
         para->AppendChild(run);
 
-        para = System::DynamicCast<Paragraph>(para->get_ParentNode()->AppendChild(MakeObject<Paragraph>(doc)));
+        para = System::ExplicitCast<Paragraph>(para->get_ParentNode()->AppendChild(MakeObject<Paragraph>(doc)));
 
         run = MakeObject<Run>(doc, u"Text with a double-line strikethrough.");
         run->get_Font()->set_DoubleStrikeThrough(true);
@@ -295,7 +295,7 @@ public:
         //ExFor:Font.Superscript
         //ExSummary:Shows how to format text to offset its position.
         auto doc = MakeObject<Document>();
-        auto para = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
 
         // Raise this run of text 5 points above the baseline.
         auto run = MakeObject<Run>(doc, u"Raised text. ");
@@ -1107,7 +1107,7 @@ public:
         // Below are three types of fields which can accept a document visitor,
         // which will allow it to visit the accepting node, and then traverse its child nodes in a depth-first manner.
         // 1 -  Paragraph node:
-        auto para = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 4, true));
+        auto para = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 4, true));
         para->Accept(hiddenContentRemover);
 
         // 2 -  Table node:
@@ -1327,57 +1327,57 @@ public:
         {
             if (System::ObjectExt::Is<FieldStart>(node))
             {
-                auto fieldStart = System::DynamicCast<FieldStart>(node);
+                auto fieldStart = System::ExplicitCast<FieldStart>(node);
                 ASSERT_FALSE(fieldStart->get_Font()->get_Hidden());
             }
             else if (System::ObjectExt::Is<FieldEnd>(node))
             {
-                auto fieldEnd = System::DynamicCast<FieldEnd>(node);
+                auto fieldEnd = System::ExplicitCast<FieldEnd>(node);
                 ASSERT_FALSE(fieldEnd->get_Font()->get_Hidden());
             }
             else if (System::ObjectExt::Is<FieldSeparator>(node))
             {
-                auto fieldSeparator = System::DynamicCast<FieldSeparator>(node);
+                auto fieldSeparator = System::ExplicitCast<FieldSeparator>(node);
                 ASSERT_FALSE(fieldSeparator->get_Font()->get_Hidden());
             }
             else if (System::ObjectExt::Is<Run>(node))
             {
-                auto run = System::DynamicCast<Run>(node);
+                auto run = System::ExplicitCast<Run>(node);
                 ASSERT_FALSE(run->get_Font()->get_Hidden());
             }
             else if (System::ObjectExt::Is<Paragraph>(node))
             {
-                auto paragraph = System::DynamicCast<Paragraph>(node);
+                auto paragraph = System::ExplicitCast<Paragraph>(node);
                 ASSERT_FALSE(paragraph->get_ParagraphBreakFont()->get_Hidden());
             }
             else if (System::ObjectExt::Is<FormField>(node))
             {
-                auto formField = System::DynamicCast<FormField>(node);
+                auto formField = System::ExplicitCast<FormField>(node);
                 ASSERT_FALSE(formField->get_Font()->get_Hidden());
             }
             else if (System::ObjectExt::Is<GroupShape>(node))
             {
-                auto groupShape = System::DynamicCast<GroupShape>(node);
+                auto groupShape = System::ExplicitCast<GroupShape>(node);
                 ASSERT_FALSE(groupShape->get_Font()->get_Hidden());
             }
             else if (System::ObjectExt::Is<Shape>(node))
             {
-                auto shape = System::DynamicCast<Shape>(node);
+                auto shape = System::ExplicitCast<Shape>(node);
                 ASSERT_FALSE(shape->get_Font()->get_Hidden());
             }
             else if (System::ObjectExt::Is<Comment>(node))
             {
-                auto comment = System::DynamicCast<Comment>(node);
+                auto comment = System::ExplicitCast<Comment>(node);
                 ASSERT_FALSE(comment->get_Font()->get_Hidden());
             }
             else if (System::ObjectExt::Is<Footnote>(node))
             {
-                auto footnote = System::DynamicCast<Footnote>(node);
+                auto footnote = System::ExplicitCast<Footnote>(node);
                 ASSERT_FALSE(footnote->get_Font()->get_Hidden());
             }
             else if (System::ObjectExt::Is<SpecialChar>(node))
             {
-                auto specialChar = System::DynamicCast<SpecialChar>(node);
+                auto specialChar = System::ExplicitCast<SpecialChar>(node);
                 ASSERT_FALSE(specialChar->get_Font()->get_Hidden());
             }
         }
@@ -1658,7 +1658,7 @@ public:
         builder->Writeln(u"Text with themed style");
         //ExEnd
 
-        auto run = System::DynamicCast<Run>((System::DynamicCast<Paragraph>(builder->get_CurrentParagraph()->get_PreviousSibling()))->get_FirstChild());
+        auto run = System::ExplicitCast<Run>((System::ExplicitCast<Paragraph>(builder->get_CurrentParagraph()->get_PreviousSibling()))->get_FirstChild());
 
         ASSERT_EQ(ThemeFont::Major, run->get_Font()->get_ThemeFont());
         ASSERT_EQ(u"Times New Roman", run->get_Font()->get_Name());

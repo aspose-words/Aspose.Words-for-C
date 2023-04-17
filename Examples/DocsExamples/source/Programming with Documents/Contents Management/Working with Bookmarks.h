@@ -119,7 +119,7 @@ public:
 
             if (bookmark->get_IsColumn())
             {
-                auto row = System::DynamicCast_noexcept<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
+                auto row = System::AsCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
                 if (row != nullptr && bookmark->get_FirstColumn() < row->get_Cells()->get_Count())
                 {
                     std::cout << row->get_Cells()->idx_get(bookmark->get_FirstColumn())->GetText().TrimEnd(MakeArray<char16_t>({ControlChar::CellChar}))
@@ -161,10 +161,10 @@ public:
     void AppendBookmarkedText(SharedPtr<NodeImporter> importer, SharedPtr<Bookmark> srcBookmark, SharedPtr<CompositeNode> dstNode)
     {
         // This is the paragraph that contains the beginning of the bookmark.
-        auto startPara = System::DynamicCast<Paragraph>(srcBookmark->get_BookmarkStart()->get_ParentNode());
+        auto startPara = System::ExplicitCast<Paragraph>(srcBookmark->get_BookmarkStart()->get_ParentNode());
 
         // This is the paragraph that contains the end of the bookmark.
-        auto endPara = System::DynamicCast<Paragraph>(srcBookmark->get_BookmarkEnd()->get_ParentNode());
+        auto endPara = System::ExplicitCast<Paragraph>(srcBookmark->get_BookmarkEnd()->get_ParentNode());
 
         if (startPara == nullptr || endPara == nullptr)
         {
@@ -305,8 +305,8 @@ public:
         for (const auto& bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
         {
             // Get the parent row of both the bookmark and bookmark end node.
-            auto row1 = System::DynamicCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
-            auto row2 = System::DynamicCast<Row>(bookmark->get_BookmarkEnd()->GetAncestor(NodeType::Row));
+            auto row1 = System::ExplicitCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
+            auto row2 = System::ExplicitCast<Row>(bookmark->get_BookmarkEnd()->GetAncestor(NodeType::Row));
 
             // If both rows are found okay, and the bookmark start and end are contained in adjacent rows,
             // move the bookmark end node to the end of the last paragraph in the top row's last cell.
@@ -322,7 +322,7 @@ public:
         SharedPtr<Bookmark> bookmark = doc->get_Range()->get_Bookmarks()->idx_get(bookmarkName);
         if (bookmark != nullptr)
         {
-            auto row = System::DynamicCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
+            auto row = System::ExplicitCast<Row>(bookmark->get_BookmarkStart()->GetAncestor(NodeType::Row));
             if (row != nullptr)
             {
                 row->Remove();

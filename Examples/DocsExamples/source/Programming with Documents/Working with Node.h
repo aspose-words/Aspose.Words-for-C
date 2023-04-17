@@ -87,7 +87,7 @@ public:
     {
         //ExStart:EnumerateChildNodes
         auto doc = MakeObject<Document>();
-        auto paragraph = System::DynamicCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
+        auto paragraph = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
 
         SharedPtr<NodeCollection> children = paragraph->get_ChildNodes();
         for (const auto& child : System::IterateOver(children))
@@ -95,7 +95,7 @@ public:
             // A paragraph may contain children of various types such as runs, shapes, and others.
             if (child->get_NodeType() == NodeType::Run)
             {
-                auto run = System::DynamicCast<Aspose::Words::Run>(child);
+                auto run = System::ExplicitCast<Aspose::Words::Run>(child);
                 std::cout << run->get_Text() << std::endl;
             }
         }
@@ -125,7 +125,7 @@ public:
             // Recurse into the node if it is a composite node.
             if (childNode->get_IsComposite())
             {
-                TraverseAllNodes(System::DynamicCast<CompositeNode>(childNode));
+                TraverseAllNodes(System::ExplicitCast<CompositeNode>(childNode));
             }
         }
     }

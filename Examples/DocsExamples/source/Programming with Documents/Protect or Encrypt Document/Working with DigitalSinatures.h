@@ -91,7 +91,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Signature line.docx");
 
         SharedPtr<SignatureLine> signatureLine =
-            (System::DynamicCast<Shape>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Shape, 0, true)))->get_SignatureLine();
+            (System::ExplicitCast<Shape>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Shape, 0, true)))->get_SignatureLine();
 
         auto signOptions = MakeObject<SignOptions>();
         signOptions->set_SignatureLineId(signatureLine->get_Id());
@@ -110,7 +110,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Signature line.docx");
 
         SharedPtr<SignatureLine> signatureLine =
-            (System::DynamicCast<Shape>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Shape, 0, true)))->get_SignatureLine();
+            (System::ExplicitCast<Shape>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Shape, 0, true)))->get_SignatureLine();
 
         auto signOptions = MakeObject<SignOptions>();
         signOptions->set_ProviderId(signatureLine->get_ProviderId());

@@ -172,7 +172,7 @@ public:
                 if (!System::ObjectExt::Equals(section, doc->get_FirstSection()))
                 {
                     // Get the previous section and the last node within the body of that section.
-                    auto prevSection = System::DynamicCast<Section>(section->get_PreviousSibling());
+                    auto prevSection = System::ExplicitCast<Section>(section->get_PreviousSibling());
                     SharedPtr<Node> lastNode = prevSection->get_Body()->get_LastChild();
 
                     builder->MoveTo(lastNode);
@@ -206,7 +206,7 @@ public:
 
             for (const auto& it_ : nodes)
             {
-                SharedPtr<FieldStart> fieldStart = System::DynamicCast<FieldStart>(it_);
+                SharedPtr<FieldStart> fieldStart = System::ExplicitCast<FieldStart>(it_);
                 {
                     if (fieldStart->get_FieldType() == FieldType::FieldNumPages)
                     {

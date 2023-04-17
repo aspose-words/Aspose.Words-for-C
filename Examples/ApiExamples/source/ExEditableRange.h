@@ -115,7 +115,7 @@ public:
                 u"This paragraph is inside an editable range, and can be edited.\r" + u"This paragraph is outside the editable range, and cannot be edited.",
             doc->GetText().Trim());
 
-        editableRange = (System::DynamicCast<EditableRangeStart>(doc->GetChild(NodeType::EditableRangeStart, 0, true)))->get_EditableRange();
+        editableRange = (System::ExplicitCast<EditableRangeStart>(doc->GetChild(NodeType::EditableRangeStart, 0, true)))->get_EditableRange();
 
         TestUtil::VerifyEditableRange(0, String::Empty, EditorType::Unspecified, editableRange);
     }
@@ -171,11 +171,11 @@ public:
             doc->GetText().Trim());
 
         SharedPtr<EditableRange> editableRange =
-            (System::DynamicCast<EditableRangeStart>(doc->GetChild(NodeType::EditableRangeStart, 0, true)))->get_EditableRange();
+            (System::ExplicitCast<EditableRangeStart>(doc->GetChild(NodeType::EditableRangeStart, 0, true)))->get_EditableRange();
 
         TestUtil::VerifyEditableRange(0, String::Empty, EditorType::Everyone, editableRange);
 
-        editableRange = (System::DynamicCast<EditableRangeStart>(doc->GetChild(NodeType::EditableRangeStart, 1, true)))->get_EditableRange();
+        editableRange = (System::ExplicitCast<EditableRangeStart>(doc->GetChild(NodeType::EditableRangeStart, 1, true)))->get_EditableRange();
 
         TestUtil::VerifyEditableRange(1, String::Empty, EditorType::Contributors, editableRange);
     }

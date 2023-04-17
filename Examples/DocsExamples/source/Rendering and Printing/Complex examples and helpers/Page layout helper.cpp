@@ -295,7 +295,7 @@ System::SharedPtr<LayoutCollection<System::SharedPtr<LayoutEntity>>> RenderedDoc
         // There is no table entity in rendered output, so manually check if rows belong to a table node.
         if (entity->get_Type() == LayoutEntityType::Row)
         {
-            auto row = System::StaticCast<RenderedRow>(entity);
+            auto row = System::ExplicitCast<RenderedRow>(entity);
             if (row->get_Table() == node)
             {
                 entities->Add(entity);
@@ -352,7 +352,7 @@ void RenderedDocument::CollectLinesOfMarkersCore(LayoutEntityType type)
 
                             if (node->get_NodeType() == NodeType::Row)
                             {
-                                node = (System::DynamicCast<Row>(node))->get_LastCell()->get_LastParagraph();
+                                node = (System::ExplicitCast<Row>(node))->get_LastCell()->get_LastParagraph();
                             }
 
                             for (const auto& collectedLine : collectedLines)
@@ -407,7 +407,7 @@ System::String RenderedLine::get_Text()
 
 System::SharedPtr<Aspose::Words::Paragraph> RenderedLine::get_Paragraph()
 {
-    return System::DynamicCast<Aspose::Words::Paragraph>(get_ParentNode());
+    return System::ExplicitCast<Aspose::Words::Paragraph>(get_ParentNode());
 }
 
 System::SharedPtr<LayoutCollection<System::SharedPtr<RenderedSpan>>> RenderedLine::get_Spans()
@@ -464,7 +464,7 @@ System::SharedPtr<LayoutCollection<System::SharedPtr<RenderedComment>>> Rendered
 
 System::SharedPtr<Aspose::Words::Section> RenderedPage::get_Section()
 {
-    return System::DynamicCast<Aspose::Words::Section>(get_ParentNode());
+    return System::ExplicitCast<Aspose::Words::Section>(get_ParentNode());
 }
 
 System::SharedPtr<Node> RenderedPage::get_ParentNode()
@@ -479,7 +479,7 @@ System::SharedPtr<LayoutCollection<System::SharedPtr<RenderedCell>>> RenderedRow
 
 System::SharedPtr<Aspose::Words::Tables::Row> RenderedRow::get_Row()
 {
-    return System::DynamicCast<Aspose::Words::Tables::Row>(get_ParentNode());
+    return System::ExplicitCast<Aspose::Words::Tables::Row>(get_ParentNode());
 }
 
 System::SharedPtr<Aspose::Words::Tables::Table> RenderedRow::get_Table()
@@ -491,7 +491,7 @@ System::SharedPtr<Node> RenderedRow::get_ParentNode()
 {
     System::SharedPtr<Paragraph> para =
         get_Cells()->get_First()->get_Lines()->get_First() != nullptr ? get_Cells()->get_First()->get_Lines()->get_First()->get_Paragraph() : nullptr;
-    return para != nullptr ? System::StaticCast<Node>(para->GetAncestor(NodeType::Row)) : nullptr;
+    return para != nullptr ? System::ExplicitCast<Node>(para->GetAncestor(NodeType::Row)) : nullptr;
 }
 
 System::SharedPtr<LayoutCollection<System::SharedPtr<RenderedFootnote>>> RenderedColumn::get_Footnotes()
@@ -511,7 +511,7 @@ System::SharedPtr<LayoutCollection<System::SharedPtr<RenderedNoteSeparator>>> Re
 
 System::SharedPtr<Aspose::Words::Body> RenderedColumn::get_Body()
 {
-    return System::DynamicCast<Aspose::Words::Body>(get_ParentNode());
+    return System::ExplicitCast<Aspose::Words::Body>(get_ParentNode());
 }
 
 System::SharedPtr<Node> RenderedColumn::get_ParentNode()
@@ -521,7 +521,7 @@ System::SharedPtr<Node> RenderedColumn::get_ParentNode()
 
 System::SharedPtr<Aspose::Words::Tables::Cell> RenderedCell::get_Cell()
 {
-    return System::DynamicCast<Aspose::Words::Tables::Cell>(get_ParentNode());
+    return System::ExplicitCast<Aspose::Words::Tables::Cell>(get_ParentNode());
 }
 
 System::SharedPtr<Node> RenderedCell::get_ParentNode()
@@ -529,14 +529,14 @@ System::SharedPtr<Node> RenderedCell::get_ParentNode()
     auto firstLine = get_Lines()->get_First();
     if (firstLine != nullptr)
     {
-        return firstLine->get_Paragraph() != nullptr ? System::StaticCast<Node>(firstLine->get_Paragraph()->GetAncestor(NodeType::Cell)) : nullptr;
+        return firstLine->get_Paragraph() != nullptr ? System::ExplicitCast<Node>(firstLine->get_Paragraph()->GetAncestor(NodeType::Cell)) : nullptr;
     }
     return nullptr;
 }
 
 System::SharedPtr<Aspose::Words::Notes::Footnote> RenderedFootnote::get_Footnote()
 {
-    return System::DynamicCast<Aspose::Words::Notes::Footnote>(get_ParentNode());
+    return System::ExplicitCast<Aspose::Words::Notes::Footnote>(get_ParentNode());
 }
 
 System::SharedPtr<Node> RenderedFootnote::get_ParentNode()
@@ -546,7 +546,7 @@ System::SharedPtr<Node> RenderedFootnote::get_ParentNode()
 
 System::SharedPtr<Footnote> RenderedEndnote::get_Endnote()
 {
-    return System::DynamicCast<Footnote>(get_ParentNode());
+    return System::ExplicitCast<Footnote>(get_ParentNode());
 }
 
 System::SharedPtr<Node> RenderedEndnote::get_ParentNode()
@@ -564,7 +564,7 @@ System::SharedPtr<Node> RenderedTextBox::get_ParentNode()
 
 System::SharedPtr<Aspose::Words::Comment> RenderedComment::get_Comment()
 {
-    return System::DynamicCast<Aspose::Words::Comment>(get_ParentNode());
+    return System::ExplicitCast<Aspose::Words::Comment>(get_ParentNode());
 }
 
 System::SharedPtr<Node> RenderedComment::get_ParentNode()
@@ -574,7 +574,7 @@ System::SharedPtr<Node> RenderedComment::get_ParentNode()
 
 System::SharedPtr<Aspose::Words::Notes::Footnote> RenderedNoteSeparator::get_Footnote()
 {
-    return System::DynamicCast<Aspose::Words::Notes::Footnote>(get_ParentNode());
+    return System::ExplicitCast<Aspose::Words::Notes::Footnote>(get_ParentNode());
 }
 
 System::SharedPtr<Node> RenderedNoteSeparator::get_ParentNode()

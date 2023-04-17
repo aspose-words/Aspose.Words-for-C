@@ -405,7 +405,7 @@ public:
 
         ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
         {
-            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
+            auto builder = MakeObject<DocumentBuilder>(System::ExplicitCast<Document>(args->get_MatchNode()->get_Document()));
             builder->MoveTo(args->get_MatchNode());
 
             // If the user-specified text to be used in the field as display text, then use that,
@@ -562,7 +562,7 @@ public:
         // Move the builder to row 3, cell 4 of the first table.
         builder->MoveToCell(0, 2, 3, 0);
         builder->Write(u"\nCell contents added by DocumentBuilder");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(3), builder->get_CurrentNode()->get_ParentNode()->get_ParentNode());
         ASSERT_EQ(u"Cell contents added by DocumentBuilderCell 3 contents\a", table->get_Rows()->idx_get(2)->get_Cells()->idx_get(3)->GetText().Trim());

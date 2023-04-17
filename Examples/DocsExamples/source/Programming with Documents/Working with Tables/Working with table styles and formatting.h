@@ -61,7 +61,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         std::cout << "\nGet distance between table left, right, bottom, top and the surrounding text." << std::endl;
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         std::cout << table->get_DistanceTop() << std::endl;
         std::cout << table->get_DistanceBottom() << std::endl;
@@ -75,7 +75,7 @@ public:
         //ExStart:ApplyOutlineBorder
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Align the table to the center of the page.
         table->set_Alignment(TableAlignment::Center);
         // Clear any existing borders from the table.
@@ -99,7 +99,7 @@ public:
         //ExStart:BuildTableWithBorders
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         // Clear any existing borders from the table.
         table->ClearBorders();
@@ -116,7 +116,7 @@ public:
         //ExStart:ModifyRowFormatting
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         // Retrieve the first row in the table.
         SharedPtr<Row> firstRow = table->get_FirstRow();
@@ -181,7 +181,7 @@ public:
     {
         //ExStart:ModifyCellFormatting
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         SharedPtr<Cell> firstCell = table->get_FirstRow()->get_FirstCell();
         firstCell->get_CellFormat()->set_Width(30);
@@ -240,7 +240,7 @@ public:
         //ExStart:SetTableTitleAndDescription
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         table->set_Title(u"Test title");
         table->set_Description(u"Test description");
 
@@ -258,7 +258,7 @@ public:
         //ExStart:AllowCellSpacing
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         table->set_AllowCellSpacing(true);
         table->set_CellSpacing(2);
 
@@ -318,7 +318,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         // Get the first cell of the first table in the document.
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         SharedPtr<Cell> firstCell = table->get_FirstRow()->get_FirstCell();
 
         // First print the color of the cell shading.
@@ -351,7 +351,7 @@ public:
         builder->InsertCell();
         builder->EndTable();
 
-        auto tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        auto tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
         tableStyle->get_Borders()->set_LineStyle(LineStyle::Double);
         tableStyle->get_Borders()->set_LineWidth(1);
         tableStyle->set_LeftPadding(18);
@@ -381,7 +381,7 @@ public:
         builder->InsertCell();
         builder->EndTable();
 
-        auto tableStyle = System::DynamicCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+        auto tableStyle = System::ExplicitCast<TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
         tableStyle->get_ConditionalStyles()->get_FirstRow()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_GreenYellow());
         tableStyle->get_ConditionalStyles()->get_FirstRow()->get_Shading()->set_Texture(TextureIndex::TextureNone);
 

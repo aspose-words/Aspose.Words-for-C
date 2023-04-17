@@ -61,7 +61,7 @@ void TestUtil::VerifyImage(int32_t expectedWidth, int32_t expectedHeight, System
 void TestUtil::ImageContainsTransparency(System::String filename)
 {
     {
-        auto bitmap = System::DynamicCast<System::Drawing::Bitmap>(System::Drawing::Image::FromFile(filename));
+        auto bitmap = System::ExplicitCast<System::Drawing::Bitmap>(System::Drawing::Image::FromFile(filename));
         for (int32_t x = 0; x < bitmap->get_Width(); x++)
         {
             for (int32_t y = 0; y < bitmap->get_Height(); y++)
@@ -79,10 +79,10 @@ void TestUtil::ImageContainsTransparency(System::String filename)
 
 void TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode expectedHttpStatusCode, System::String webAddress)
 {
-    auto request = System::DynamicCast<System::Net::HttpWebRequest>(System::Net::WebRequest::Create(webAddress));
+    auto request = System::ExplicitCast<System::Net::HttpWebRequest>(System::Net::WebRequest::Create(webAddress));
     request->set_Method(u"HEAD");
 
-    ASSERT_EQ(expectedHttpStatusCode, (System::DynamicCast<System::Net::HttpWebResponse>(request->GetResponse()))->get_StatusCode());
+    ASSERT_EQ(expectedHttpStatusCode, (System::ExplicitCast<System::Net::HttpWebResponse>(request->GetResponse()))->get_StatusCode());
 }
 
 void TestUtil::TableMatchesQueryResult(System::SharedPtr<Tables::Table> expectedResult, System::String dbFilename, System::String sqlQuery)

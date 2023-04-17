@@ -101,7 +101,7 @@ public:
         //ExStart:AddRemoveCommentReply
         auto doc = MakeObject<Document>(MyDir + u"Comments.docx");
 
-        auto comment = System::DynamicCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
+        auto comment = System::ExplicitCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
         comment->RemoveReply(comment->get_Replies()->idx_get(0));
 
         comment->AddReply(u"John Doe", u"JD", System::DateTime(2017, 9, 25, 12, 15, 0), u"New reply");
@@ -192,7 +192,7 @@ public:
         // Look through all comments and remove those written by the authorName.
         for (int i = comments->get_Count() - 1; i >= 0; i--)
         {
-            auto comment = System::DynamicCast<Comment>(comments->idx_get(i));
+            auto comment = System::ExplicitCast<Comment>(comments->idx_get(i));
             if (comment->get_Author() == authorName)
             {
                 comment->Remove();
@@ -206,7 +206,7 @@ public:
     {
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
 
-        auto parentComment = System::DynamicCast<Comment>(comments->idx_get(0));
+        auto parentComment = System::ExplicitCast<Comment>(comments->idx_get(0));
         for (const auto& childComment : System::IterateOver<Comment>(parentComment->get_Replies()))
         {
             // Get comment parent and status.

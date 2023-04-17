@@ -89,7 +89,7 @@ public:
         //ExStart:RemoveColumn
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true));
 
         SharedPtr<WorkingWithTables::Column> column = WorkingWithTables::Column::FromIndex(table, 2);
         column->Remove();
@@ -101,7 +101,7 @@ public:
         //ExStart:InsertBlankColumn
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         //ExStart:GetPlainText
         SharedPtr<WorkingWithTables::Column> column = WorkingWithTables::Column::FromIndex(table, 0);
@@ -254,7 +254,7 @@ public:
         //ExStart:AutoFitTableToContents
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         table->AutoFit(AutoFitBehavior::AutoFitToContents);
 
         doc->Save(ArtifactsDir + u"WorkingWithTables.AutoFitTableToContents.docx");
@@ -266,7 +266,7 @@ public:
         //ExStart:AutoFitTableToFixedColumnWidths
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Disable autofitting on this table.
         table->AutoFit(AutoFitBehavior::FixedColumnWidths);
 
@@ -279,7 +279,7 @@ public:
         //ExStart:AutoFitTableToPageWidth
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Autofit the first table to the page width.
         table->AutoFit(AutoFitBehavior::AutoFitToWindow);
 
@@ -292,10 +292,10 @@ public:
         //ExStart:CloneCompleteTable
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         // Clone the table and insert it into the document after the original.
-        auto tableClone = System::DynamicCast<Table>(table->Clone(true));
+        auto tableClone = System::ExplicitCast<Table>(table->Clone(true));
         table->get_ParentNode()->InsertAfter(tableClone, table);
 
         // Insert an empty paragraph between the two tables,
@@ -311,9 +311,9 @@ public:
         //ExStart:CloneLastRow
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
-        auto clonedRow = System::DynamicCast<Row>(table->get_LastRow()->Clone(true));
+        auto clonedRow = System::ExplicitCast<Row>(table->get_LastRow()->Clone(true));
         // Remove all content from the cloned row's cells. This makes the row ready for new content to be inserted into.
         for (const auto& cell : System::IterateOver<Cell>(clonedRow->get_Cells()))
         {
@@ -331,7 +331,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         //ExStart:RetrieveTableIndex
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         SharedPtr<NodeCollection> allTables = doc->GetChildNodes(NodeType::Table, true);
         int tableIndex = allTables->IndexOf(table);
@@ -548,8 +548,8 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         // The rows from the second table will be appended to the end of the first table.
-        auto firstTable = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
-        auto secondTable = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 1, true));
+        auto firstTable = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto secondTable = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true));
 
         // Append all rows from the current table to the next tables
         // with different cell count and widths can be joined into one table.
@@ -569,13 +569,13 @@ public:
         //ExStart:SplitTable
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto firstTable = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto firstTable = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         // We will split the table at the third row (inclusive).
         SharedPtr<Row> row = firstTable->get_Rows()->idx_get(2);
 
         // Create a new container for the split table.
-        auto table = System::DynamicCast<Table>(firstTable->Clone(false));
+        auto table = System::ExplicitCast<Table>(firstTable->Clone(false));
 
         // Insert the container after the original.
         firstTable->get_ParentNode()->InsertAfter(table, firstTable);
@@ -600,7 +600,7 @@ public:
         //ExStart:RowFormatDisableBreakAcrossPages
         auto doc = MakeObject<Document>(MyDir + u"Table spanning two pages.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         // Disable breaking across pages for all rows in the table.
         for (const auto& row : System::IterateOver<Row>(table->get_Rows()))
@@ -617,7 +617,7 @@ public:
         //ExStart:KeepTableTogether
         auto doc = MakeObject<Document>(MyDir + u"Table spanning two pages.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         // We need to enable KeepWithNext for every paragraph in the table to keep it from breaking across a page,
         // except for the last paragraphs in the last row of the table.
@@ -643,7 +643,7 @@ public:
         //ExStart:CheckCellsMerged
         auto doc = MakeObject<Document>(MyDir + u"Table with merged cells.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         for (const auto& row : System::IterateOver<Row>(table->get_Rows()))
         {
@@ -1059,7 +1059,7 @@ public:
         //ExStart:RetrievePreferredWidthType
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         //ExStart:AllowAutoFit
         table->set_AllowAutoFit(true);
         //ExEnd:AllowAutoFit
@@ -1075,7 +1075,7 @@ public:
         //ExStart:GetTablePosition
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
-        auto table = System::DynamicCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         if (table->get_TextWrapping() == TextWrapping::Around)
         {

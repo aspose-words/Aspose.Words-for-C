@@ -372,7 +372,7 @@ public:
         ASSERT_EQ(4, paragraph->GetChildNodes(NodeType::Any, true)->get_Count());
 
         // We can modify the contents of the run by editing and deleting existing child nodes.
-        (System::DynamicCast<Run>(paragraph->GetChildNodes(NodeType::Run, true)->idx_get(1)))->set_Text(u"Updated run 2. ");
+        (System::ExplicitCast<Run>(paragraph->GetChildNodes(NodeType::Run, true)->idx_get(1)))->set_Text(u"Updated run 2. ");
         paragraph->GetChildNodes(NodeType::Run, true)->Remove(paragraphText);
 
         ASSERT_EQ(u"Run 1. Updated run 2. Run 3.", paragraph->GetText().Trim());

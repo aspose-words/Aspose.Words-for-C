@@ -251,7 +251,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto field = System::DynamicCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
+        auto field = System::ExplicitCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
         field->get_Format()->set_DateTimeFormat(u"dddd, MMMM dd, yyyy");
         field->Update();
 
@@ -262,7 +262,7 @@ public:
         ASPOSE_ASSERT_EQ(false, fieldStart->get_IsLocked());
 
         // Retrieve the facade object which represents the field in the document.
-        field = System::DynamicCast<FieldDate>(fieldStart->GetField());
+        field = System::ExplicitCast<FieldDate>(fieldStart->GetField());
 
         ASPOSE_ASSERT_EQ(false, field->get_IsLocked());
         ASSERT_EQ(u" DATE  \\@ \"dddd, MMMM dd, yyyy\"", field->GetFieldCode());
@@ -285,7 +285,7 @@ public:
         //ExSummary:Shows how to get a field's field code.
         // Open a document which contains a MERGEFIELD inside an IF field.
         auto doc = MakeObject<Document>(MyDir + u"Nested fields.docx");
-        auto fieldIf = System::DynamicCast<FieldIf>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto fieldIf = System::ExplicitCast<FieldIf>(doc->get_Range()->get_Fields()->idx_get(0));
 
         // There are two ways of getting a field's field code:
         // 1 -  Omit its inner fields:
@@ -309,7 +309,7 @@ public:
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         builder->Write(u"This document was written by ");
-        auto fieldAuthor = System::DynamicCast<FieldAuthor>(builder->InsertField(FieldType::FieldAuthor, true));
+        auto fieldAuthor = System::ExplicitCast<FieldAuthor>(builder->InsertField(FieldType::FieldAuthor, true));
         fieldAuthor->set_AuthorName(u"John Doe");
 
         // We can use the DisplayResult property to verify what exact text
@@ -380,7 +380,7 @@ public:
         builder->Write(u"Current revision #");
 
         // Insert a REVNUM field, which displays the document's current revision number property.
-        auto field = System::DynamicCast<FieldRevNum>(builder->InsertField(FieldType::FieldRevisionNum, true));
+        auto field = System::ExplicitCast<FieldRevNum>(builder->InsertField(FieldType::FieldRevisionNum, true));
 
         ASSERT_EQ(u" REVNUM ", field->GetFieldCode());
         ASSERT_EQ(u"1", field->get_Result());
@@ -418,7 +418,7 @@ public:
         ASSERT_EQ(FieldType::FieldNone, field->get_Type());
 
         // We can also still work with these fields and assign them as instances of the FieldUnknown class.
-        auto fieldUnknown = System::DynamicCast<FieldUnknown>(field);
+        auto fieldUnknown = System::ExplicitCast<FieldUnknown>(field);
         ASSERT_EQ(u" NOTAREALFIELD //a", fieldUnknown->GetFieldCode());
         //ExEnd
 
@@ -465,7 +465,7 @@ public:
 
         ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
         {
-            auto builder = MakeObject<DocumentBuilder>(System::DynamicCast<Document>(args->get_MatchNode()->get_Document()));
+            auto builder = MakeObject<DocumentBuilder>(System::ExplicitCast<Document>(args->get_MatchNode()->get_Document()));
             builder->MoveTo(args->get_MatchNode());
 
             // If the user-specified text is used in the field as display text, use that, otherwise
@@ -552,7 +552,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto includePicture = System::DynamicCast<FieldIncludePicture>(builder->InsertField(FieldType::FieldIncludePicture, true));
+        auto includePicture = System::ExplicitCast<FieldIncludePicture>(builder->InsertField(FieldType::FieldIncludePicture, true));
         includePicture->set_SourceFullName(ImageDir + u"Transparent background logo.png");
         includePicture->Update(true);
 
@@ -684,7 +684,7 @@ public:
         //ExSummary:Shows how to unlink all fields in a range.
         auto doc = MakeObject<Document>(MyDir + u"Linked fields.docx");
 
-        auto newSection = System::DynamicCast<Section>(doc->get_Sections()->idx_get(0)->Clone(true));
+        auto newSection = System::ExplicitCast<Section>(doc->get_Sections()->idx_get(0)->Clone(true));
         doc->get_Sections()->Add(newSection);
 
         doc->get_Sections()->idx_get(1)->get_Range()->UnlinkFields();
@@ -749,7 +749,7 @@ public:
             FieldType fType = field->get_FieldType();
             if (fType == FieldType::FieldTOC)
             {
-                auto para = System::DynamicCast<Paragraph>(field->GetAncestor(NodeType::Paragraph));
+                auto para = System::ExplicitCast<Paragraph>(field->GetAncestor(NodeType::Paragraph));
                 para->get_Range()->UpdateFields();
                 break;
             }
@@ -767,7 +767,7 @@ public:
 
             if (curNode->get_IsComposite())
             {
-                auto curComposite = System::DynamicCast<CompositeNode>(curNode);
+                auto curComposite = System::ExplicitCast<CompositeNode>(curNode);
                 if (!curComposite->GetChildNodes(NodeType::Any, true)->Contains(end) && !curComposite->GetChildNodes(NodeType::Any, true)->Contains(start))
                 {
                     nextNode = curNode->get_NextSibling();
@@ -803,7 +803,7 @@ public:
         // The effects of an ADVANCE field continue to be applied until the paragraph ends,
         // or another ADVANCE field updates the offset/coordinate values.
         // 1 -  Specify a directional offset:
-        auto field = System::DynamicCast<FieldAdvance>(builder->InsertField(FieldType::FieldAdvance, true));
+        auto field = System::ExplicitCast<FieldAdvance>(builder->InsertField(FieldType::FieldAdvance, true));
         ASSERT_EQ(FieldType::FieldAdvance, field->get_Type());
         //ExSkip
         ASSERT_EQ(u" ADVANCE ", field->GetFieldCode());
@@ -815,7 +815,7 @@ public:
 
         builder->Write(u"This text will be moved up and to the right.");
 
-        field = System::DynamicCast<FieldAdvance>(builder->InsertField(FieldType::FieldAdvance, true));
+        field = System::ExplicitCast<FieldAdvance>(builder->InsertField(FieldType::FieldAdvance, true));
         field->set_DownOffset(u"5");
         field->set_LeftOffset(u"100");
 
@@ -824,7 +824,7 @@ public:
         builder->Writeln(u"This text is moved down and to the left, overlapping the previous text.");
 
         // 2 -  Move text to a position specified by coordinates:
-        field = System::DynamicCast<FieldAdvance>(builder->InsertField(FieldType::FieldAdvance, true));
+        field = System::ExplicitCast<FieldAdvance>(builder->InsertField(FieldType::FieldAdvance, true));
         field->set_HorizontalPosition(u"-100");
         field->set_VerticalPosition(u"200");
 
@@ -837,19 +837,19 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.ADVANCE.docx");
 
-        field = System::DynamicCast<FieldAdvance>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldAdvance>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldAdvance, u" ADVANCE  \\r 5 \\u 5", String::Empty, field);
         ASSERT_EQ(u"5", field->get_RightOffset());
         ASSERT_EQ(u"5", field->get_UpOffset());
 
-        field = System::DynamicCast<FieldAdvance>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldAdvance>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldAdvance, u" ADVANCE  \\d 5 \\l 100", String::Empty, field);
         ASSERT_EQ(u"5", field->get_DownOffset());
         ASSERT_EQ(u"100", field->get_LeftOffset());
 
-        field = System::DynamicCast<FieldAdvance>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldAdvance>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldAdvance, u" ADVANCE  \\x -100 \\y 200", String::Empty, field);
         ASSERT_EQ(u"-100", field->get_HorizontalPosition());
@@ -868,7 +868,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto field = System::DynamicCast<FieldAddressBlock>(builder->InsertField(FieldType::FieldAddressBlock, true));
+        auto field = System::ExplicitCast<FieldAddressBlock>(builder->InsertField(FieldType::FieldAddressBlock, true));
 
         ASSERT_EQ(u" ADDRESSBLOCK ", field->GetFieldCode());
 
@@ -889,7 +889,7 @@ public:
         //ExEnd
 
         doc = DocumentHelper::SaveOpen(doc);
-        field = System::DynamicCast<FieldAddressBlock>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldAddressBlock>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(
             FieldType::FieldAddressBlock,
@@ -1086,7 +1086,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto field = System::DynamicCast<FieldCompare>(builder->InsertField(FieldType::FieldCompare, true));
+        auto field = System::ExplicitCast<FieldCompare>(builder->InsertField(FieldType::FieldCompare, true));
         field->set_LeftExpression(u"3");
         field->set_ComparisonOperator(u"<");
         field->set_RightExpression(u"2");
@@ -1099,7 +1099,7 @@ public:
 
         builder->Writeln();
 
-        field = System::DynamicCast<FieldCompare>(builder->InsertField(FieldType::FieldCompare, true));
+        field = System::ExplicitCast<FieldCompare>(builder->InsertField(FieldType::FieldCompare, true));
         field->set_LeftExpression(u"5");
         field->set_ComparisonOperator(u"=");
         field->set_RightExpression(u"2 + 3");
@@ -1115,14 +1115,14 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.COMPARE.docx");
 
-        field = System::DynamicCast<FieldCompare>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldCompare>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldCompare, u" COMPARE  3 < 2", u"0", field);
         ASSERT_EQ(u"3", field->get_LeftExpression());
         ASSERT_EQ(u"<", field->get_ComparisonOperator());
         ASSERT_EQ(u"2", field->get_RightExpression());
 
-        field = System::DynamicCast<FieldCompare>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldCompare>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldCompare, u" COMPARE  5 = \"2 + 3\"", u"1", field);
         ASSERT_EQ(u"5", field->get_LeftExpression());
@@ -1146,7 +1146,7 @@ public:
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         builder->Write(u"Statement 1: ");
-        auto field = System::DynamicCast<FieldIf>(builder->InsertField(FieldType::FieldIf, true));
+        auto field = System::ExplicitCast<FieldIf>(builder->InsertField(FieldType::FieldIf, true));
         field->set_LeftExpression(u"0");
         field->set_ComparisonOperator(u"=");
         field->set_RightExpression(u"1");
@@ -1163,7 +1163,7 @@ public:
         ASSERT_EQ(u"False", field->get_Result());
 
         builder->Write(u"\nStatement 2: ");
-        field = System::DynamicCast<FieldIf>(builder->InsertField(FieldType::FieldIf, true));
+        field = System::ExplicitCast<FieldIf>(builder->InsertField(FieldType::FieldIf, true));
         field->set_LeftExpression(u"5");
         field->set_ComparisonOperator(u"=");
         field->set_RightExpression(u"2 + 3");
@@ -1181,7 +1181,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.IF.docx");
-        field = System::DynamicCast<FieldIf>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldIf>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldIf, u" IF  0 = 1 True False", u"False", field);
         ASSERT_EQ(u"0", field->get_LeftExpression());
@@ -1190,7 +1190,7 @@ public:
         ASSERT_EQ(u"True", field->get_TrueText());
         ASSERT_EQ(u"False", field->get_FalseText());
 
-        field = System::DynamicCast<FieldIf>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldIf>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldIf, u" IF  5 = \"2 + 3\" True False", u"True", field);
         ASSERT_EQ(u"5", field->get_LeftExpression());
@@ -1212,12 +1212,12 @@ public:
         // Each AUTONUM field displays the current value of a running count of AUTONUM fields,
         // allowing us to automatically number items like a numbered list.
         // This field will display a number "1.".
-        auto field = System::DynamicCast<FieldAutoNum>(builder->InsertField(FieldType::FieldAutoNum, true));
+        auto field = System::ExplicitCast<FieldAutoNum>(builder->InsertField(FieldType::FieldAutoNum, true));
         builder->Writeln(u"\tParagraph 1.");
 
         ASSERT_EQ(u" AUTONUM ", field->GetFieldCode());
 
-        field = System::DynamicCast<FieldAutoNum>(builder->InsertField(FieldType::FieldAutoNum, true));
+        field = System::ExplicitCast<FieldAutoNum>(builder->InsertField(FieldType::FieldAutoNum, true));
         builder->Writeln(u"\tParagraph 2.");
 
         // The separator character, which appears in the field result immediately after the number,is a full stop by default.
@@ -1412,13 +1412,13 @@ public:
 
         // Below are two ways to use fields to display the contents of our building block.
         // 1 -  Using an AUTOTEXT field:
-        auto fieldAutoText = System::DynamicCast<FieldAutoText>(builder->InsertField(FieldType::FieldAutoText, true));
+        auto fieldAutoText = System::ExplicitCast<FieldAutoText>(builder->InsertField(FieldType::FieldAutoText, true));
         fieldAutoText->set_EntryName(u"MyBlock");
 
         ASSERT_EQ(u" AUTOTEXT  MyBlock", fieldAutoText->GetFieldCode());
 
         // 2 -  Using a GLOSSARY field:
-        auto fieldGlossary = System::DynamicCast<FieldGlossary>(builder->InsertField(FieldType::FieldGlossary, true));
+        auto fieldGlossary = System::ExplicitCast<FieldGlossary>(builder->InsertField(FieldType::FieldGlossary, true));
         fieldGlossary->set_EntryName(u"MyBlock");
 
         ASSERT_EQ(u" GLOSSARY  MyBlock", fieldGlossary->GetFieldCode());
@@ -1431,12 +1431,12 @@ public:
 
         ASSERT_EQ(0, doc->get_FieldOptions()->get_BuiltInTemplatesPaths()->get_Length());
 
-        fieldAutoText = System::DynamicCast<FieldAutoText>(doc->get_Range()->get_Fields()->idx_get(0));
+        fieldAutoText = System::ExplicitCast<FieldAutoText>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldAutoText, u" AUTOTEXT  MyBlock", u"Hello World!\r", fieldAutoText);
         ASSERT_EQ(u"MyBlock", fieldAutoText->get_EntryName());
 
-        fieldGlossary = System::DynamicCast<FieldGlossary>(doc->get_Range()->get_Fields()->idx_get(1));
+        fieldGlossary = System::ExplicitCast<FieldGlossary>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldGlossary, u" GLOSSARY  MyBlock", u"Hello World!\r", fieldGlossary);
         ASSERT_EQ(u"MyBlock", fieldGlossary->get_EntryName());
@@ -1463,7 +1463,7 @@ public:
         // Create an AUTOTEXTLIST field and set the text that the field will display in Microsoft Word.
         // Set the text to prompt the user to right-click this field to select an AutoText building block,
         // whose contents the field will display.
-        auto field = System::DynamicCast<FieldAutoTextList>(builder->InsertField(FieldType::FieldAutoTextList, true));
+        auto field = System::ExplicitCast<FieldAutoTextList>(builder->InsertField(FieldType::FieldAutoTextList, true));
         field->set_EntryName(u"Right click here to select an AutoText block");
         field->set_ListStyle(u"Heading 1");
         field->set_ScreenTip(u"Hover tip text for AutoTextList goes here");
@@ -1509,7 +1509,7 @@ public:
 
         // LISTNUM fields display a number that increments at each LISTNUM field.
         // These fields also have a variety of options that allow us to use them to emulate numbered lists.
-        auto field = System::DynamicCast<FieldListNum>(builder->InsertField(FieldType::FieldListNum, true));
+        auto field = System::ExplicitCast<FieldListNum>(builder->InsertField(FieldType::FieldListNum, true));
 
         // Lists start counting at 1 by default, but we can set this number to a different value, such as 0.
         // This field will display "0)".
@@ -1538,7 +1538,7 @@ public:
         // We can use the "ListLevel" property to jump to a different list level.
         // If this LISTNUM field stayed on list level 3, it would display "ii)",
         // but, since we have moved it to list level 2, it carries on the count at that level and displays "b)".
-        field = System::DynamicCast<FieldListNum>(builder->InsertField(FieldType::FieldListNum, true));
+        field = System::ExplicitCast<FieldListNum>(builder->InsertField(FieldType::FieldListNum, true));
         field->set_ListLevel(u"2");
         builder->Writeln(u"Paragraph 3");
 
@@ -1548,7 +1548,7 @@ public:
         // "NumberDefault" emulates AUTONUM, "OutlineDefault" emulates AUTONUMOUT,
         // and "LegalDefault" emulates AUTONUMLGL fields.
         // The "OutlineDefault" list name with 1 as the starting number will result in displaying "I.".
-        field = System::DynamicCast<FieldListNum>(builder->InsertField(FieldType::FieldListNum, true));
+        field = System::ExplicitCast<FieldListNum>(builder->InsertField(FieldType::FieldListNum, true));
         field->set_StartingNumber(u"1");
         field->set_ListName(u"OutlineDefault");
         builder->Writeln(u"Paragraph 4");
@@ -1558,7 +1558,7 @@ public:
 
         // The ListName does not carry over from the previous field, so we will need to set it for each new field.
         // This field continues the count with the different list name and displays "II.".
-        field = System::DynamicCast<FieldListNum>(builder->InsertField(FieldType::FieldListNum, true));
+        field = System::ExplicitCast<FieldListNum>(builder->InsertField(FieldType::FieldListNum, true));
         field->set_ListName(u"OutlineDefault");
         builder->Writeln(u"Paragraph 5");
 
@@ -1570,7 +1570,7 @@ public:
 
         ASSERT_EQ(7, doc->get_Range()->get_Fields()->get_Count());
 
-        field = System::DynamicCast<FieldListNum>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldListNum>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldListNum, u" LISTNUM  \\s 0", String::Empty, field);
         ASSERT_EQ(u"0", field->get_StartingNumber());
@@ -1580,7 +1580,7 @@ public:
 
         for (int i = 1; i < 4; i++)
         {
-            field = System::DynamicCast<FieldListNum>(doc->get_Range()->get_Fields()->idx_get(i));
+            field = System::ExplicitCast<FieldListNum>(doc->get_Range()->get_Fields()->idx_get(i));
 
             TestUtil::VerifyField(FieldType::FieldListNum, u" LISTNUM ", String::Empty, field);
             ASSERT_TRUE(field->get_StartingNumber() == nullptr);
@@ -1589,7 +1589,7 @@ public:
             ASSERT_TRUE(field->get_ListName() == nullptr);
         }
 
-        field = System::DynamicCast<FieldListNum>(doc->get_Range()->get_Fields()->idx_get(4));
+        field = System::ExplicitCast<FieldListNum>(doc->get_Range()->get_Fields()->idx_get(4));
 
         TestUtil::VerifyField(FieldType::FieldListNum, u" LISTNUM  \\l 2", String::Empty, field);
         ASSERT_TRUE(field->get_StartingNumber() == nullptr);
@@ -1597,7 +1597,7 @@ public:
         ASSERT_FALSE(field->get_HasListName());
         ASSERT_TRUE(field->get_ListName() == nullptr);
 
-        field = System::DynamicCast<FieldListNum>(doc->get_Range()->get_Fields()->idx_get(5));
+        field = System::ExplicitCast<FieldListNum>(doc->get_Range()->get_Fields()->idx_get(5));
 
         TestUtil::VerifyField(FieldType::FieldListNum, u" LISTNUM  OutlineDefault \\s 1", String::Empty, field);
         ASSERT_EQ(u"1", field->get_StartingNumber());
@@ -1631,7 +1631,7 @@ public:
         // Insert a TOC field, which will compile all headings into a table of contents.
         // For each heading, this field will create a line with the text in that heading style to the left,
         // and the page the heading appears on to the right.
-        auto field = System::DynamicCast<FieldToc>(builder->InsertField(FieldType::FieldTOC, true));
+        auto field = System::ExplicitCast<FieldToc>(builder->InsertField(FieldType::FieldTOC, true));
 
         // Use the BookmarkName property to only list headings
         // that appear within the bounds of a bookmark with the "MyBookmark" name.
@@ -1703,7 +1703,7 @@ public:
     void TestFieldToc(SharedPtr<Document> doc)
     {
         doc = DocumentHelper::SaveOpen(doc);
-        auto field = System::DynamicCast<FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto field = System::ExplicitCast<FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
         ASSERT_EQ(u"Quote; 6; Intense Quote; 7", field->get_CustomStyles());
@@ -1740,7 +1740,7 @@ public:
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         // Insert a TOC field, which will compile all TC fields into a table of contents.
-        auto fieldToc = System::DynamicCast<FieldToc>(builder->InsertField(FieldType::FieldTOC, true));
+        auto fieldToc = System::ExplicitCast<FieldToc>(builder->InsertField(FieldType::FieldTOC, true));
 
         // Configure the field only to pick up TC entries of the "A" type, and an entry-level between 1 and 3.
         fieldToc->set_EntryIdentifier(u"A");
@@ -1772,7 +1772,7 @@ public:
     /// </summary>
     void InsertTocEntry(SharedPtr<DocumentBuilder> builder, String text, String typeIdentifier, String entryLevel)
     {
-        auto fieldTc = System::DynamicCast<FieldTC>(builder->InsertField(FieldType::FieldTOCEntry, true));
+        auto fieldTc = System::ExplicitCast<FieldTC>(builder->InsertField(FieldType::FieldTOCEntry, true));
         fieldTc->set_OmitPageNumber(true);
         fieldTc->set_Text(text);
         fieldTc->set_TypeIdentifier(typeIdentifier);
@@ -1783,13 +1783,13 @@ public:
     void TestFieldTocEntryIdentifier(SharedPtr<Document> doc)
     {
         doc = DocumentHelper::SaveOpen(doc);
-        auto fieldToc = System::DynamicCast<FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto fieldToc = System::ExplicitCast<FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldTOC, u" TOC  \\f A \\l 1-3", u"TC field 1\rTC field 2\r", fieldToc);
         ASSERT_EQ(u"A", fieldToc->get_EntryIdentifier());
         ASSERT_EQ(u"1-3", fieldToc->get_EntryLevelRange());
 
-        auto fieldTc = System::DynamicCast<FieldTC>(doc->get_Range()->get_Fields()->idx_get(1));
+        auto fieldTc = System::ExplicitCast<FieldTC>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldTOCEntry, u" TC  \"TC field 1\" \\n \\f A \\l 1", String::Empty, fieldTc);
         ASSERT_TRUE(fieldTc->get_OmitPageNumber());
@@ -1797,7 +1797,7 @@ public:
         ASSERT_EQ(u"A", fieldTc->get_TypeIdentifier());
         ASSERT_EQ(u"1", fieldTc->get_EntryLevel());
 
-        fieldTc = System::DynamicCast<FieldTC>(doc->get_Range()->get_Fields()->idx_get(2));
+        fieldTc = System::ExplicitCast<FieldTC>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldTOCEntry, u" TC  \"TC field 2\" \\n \\f A \\l 2", String::Empty, fieldTc);
         ASSERT_TRUE(fieldTc->get_OmitPageNumber());
@@ -1805,7 +1805,7 @@ public:
         ASSERT_EQ(u"A", fieldTc->get_TypeIdentifier());
         ASSERT_EQ(u"2", fieldTc->get_EntryLevel());
 
-        fieldTc = System::DynamicCast<FieldTC>(doc->get_Range()->get_Fields()->idx_get(3));
+        fieldTc = System::ExplicitCast<FieldTC>(doc->get_Range()->get_Fields()->idx_get(3));
 
         TestUtil::VerifyField(FieldType::FieldTOCEntry, u" TC  \"TC field 3\" \\n \\f B \\l 1", String::Empty, fieldTc);
         ASSERT_TRUE(fieldTc->get_OmitPageNumber());
@@ -1813,7 +1813,7 @@ public:
         ASSERT_EQ(u"B", fieldTc->get_TypeIdentifier());
         ASSERT_EQ(u"1", fieldTc->get_EntryLevel());
 
-        fieldTc = System::DynamicCast<FieldTC>(doc->get_Range()->get_Fields()->idx_get(4));
+        fieldTc = System::ExplicitCast<FieldTC>(doc->get_Range()->get_Fields()->idx_get(4));
 
         TestUtil::VerifyField(FieldType::FieldTOCEntry, u" TC  \"TC field 4\" \\n \\f A \\l 5", String::Empty, fieldTc);
         ASSERT_TRUE(fieldTc->get_OmitPageNumber());
@@ -1837,7 +1837,7 @@ public:
 
         // A TOC field can create an entry in its table of contents for each SEQ field found in the document.
         // Each entry contains the paragraph that includes the SEQ field and the page's number that the field appears on.
-        auto fieldToc = System::DynamicCast<FieldToc>(builder->InsertField(FieldType::FieldTOC, true));
+        auto fieldToc = System::ExplicitCast<FieldToc>(builder->InsertField(FieldType::FieldTOC, true));
 
         // SEQ fields display a count that increments at each SEQ field.
         // These fields also maintain separate counts for each unique named sequence
@@ -1866,7 +1866,7 @@ public:
         // This field will increment the SEQ sequence count for the "PrefixSequence" by 1.
         // Since this field does not belong to the main sequence identified
         // by the "TableOfFiguresLabel" property of the TOC, it will not appear as an entry.
-        auto fieldSeq = System::DynamicCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
+        auto fieldSeq = System::ExplicitCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
         fieldSeq->set_SequenceIdentifier(u"PrefixSequence");
         builder->InsertParagraph();
 
@@ -1880,7 +1880,7 @@ public:
         // The "PrefixSequence" count is at 1, this main sequence SEQ field is on page 2,
         // and the separator is ">", so entry will display "1>2".
         builder->Write(u"First TOC entry, MySequence #");
-        fieldSeq = System::DynamicCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
+        fieldSeq = System::ExplicitCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
         fieldSeq->set_SequenceIdentifier(u"MySequence");
 
         ASSERT_EQ(u" SEQ  MySequence", fieldSeq->GetFieldCode());
@@ -1889,10 +1889,10 @@ public:
         // The prefix sequence is now at 2, and the main sequence SEQ field is on page 3,
         // so the TOC entry will display "2>3" at its page count.
         builder->InsertBreak(BreakType::PageBreak);
-        fieldSeq = System::DynamicCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
+        fieldSeq = System::ExplicitCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
         fieldSeq->set_SequenceIdentifier(u"PrefixSequence");
         builder->InsertParagraph();
-        fieldSeq = System::DynamicCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
+        fieldSeq = System::ExplicitCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
         builder->Write(u"Second TOC entry, MySequence #");
         fieldSeq->set_SequenceIdentifier(u"MySequence");
 
@@ -1904,7 +1904,7 @@ public:
 
         ASSERT_EQ(9, doc->get_Range()->get_Fields()->get_Count());
 
-        fieldToc = System::DynamicCast<FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
+        fieldToc = System::ExplicitCast<FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
         std::cout << fieldToc->get_DisplayResult() << std::endl;
         TestUtil::VerifyField(FieldType::FieldTOC, u" TOC  \\c MySequence \\s PrefixSequence \\d >",
                               String(u"First TOC entry, MySequence #12\t\u0013 SEQ PrefixSequence _Toc256000000 \\* ARABIC \u00141\u0015>\u0013 PAGEREF "
@@ -1916,45 +1916,45 @@ public:
         ASSERT_EQ(u"PrefixSequence", fieldToc->get_PrefixedSequenceIdentifier());
         ASSERT_EQ(u">", fieldToc->get_SequenceSeparator());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(1));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ PrefixSequence _Toc256000000 \\* ARABIC ", u"1", fieldSeq);
         ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
 
         // Byproduct field created by Aspose.Words
-        auto fieldPageRef = System::DynamicCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(2));
+        auto fieldPageRef = System::ExplicitCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF _Toc256000000 \\h ", u"2", fieldPageRef);
         ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
         ASSERT_EQ(u"_Toc256000000", fieldPageRef->get_BookmarkName());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(3));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(3));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ PrefixSequence _Toc256000001 \\* ARABIC ", u"2", fieldSeq);
         ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
 
-        fieldPageRef = System::DynamicCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(4));
+        fieldPageRef = System::ExplicitCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(4));
 
         TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF _Toc256000001 \\h ", u"3", fieldPageRef);
         ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
         ASSERT_EQ(u"_Toc256000001", fieldPageRef->get_BookmarkName());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(5));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(5));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  PrefixSequence", u"1", fieldSeq);
         ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(6));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(6));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence", u"1", fieldSeq);
         ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(7));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(7));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  PrefixSequence", u"2", fieldSeq);
         ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(8));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(8));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence", u"2", fieldSeq);
         ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
@@ -1978,7 +1978,7 @@ public:
         // Insert a SEQ field that will display the current count value of "MySequence",
         // after using the "ResetNumber" property to set it to 100.
         builder->Write(u"#");
-        auto fieldSeq = System::DynamicCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
+        auto fieldSeq = System::ExplicitCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
         fieldSeq->set_SequenceIdentifier(u"MySequence");
         fieldSeq->set_ResetNumber(u"100");
         fieldSeq->Update();
@@ -1988,7 +1988,7 @@ public:
 
         // Display the next number in this sequence with another SEQ field.
         builder->Write(u", #");
-        fieldSeq = System::DynamicCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
+        fieldSeq = System::ExplicitCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
         fieldSeq->set_SequenceIdentifier(u"MySequence");
         fieldSeq->Update();
 
@@ -2002,7 +2002,7 @@ public:
 
         // Insert another SEQ field from the same sequence and configure it to reset the count at every heading with 1.
         builder->Write(u"\n#");
-        fieldSeq = System::DynamicCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
+        fieldSeq = System::ExplicitCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
         fieldSeq->set_SequenceIdentifier(u"MySequence");
         fieldSeq->set_ResetHeadingLevel(u"1");
         fieldSeq->Update();
@@ -2013,7 +2013,7 @@ public:
 
         // Move to the next number of this sequence.
         builder->Write(u", #");
-        fieldSeq = System::DynamicCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
+        fieldSeq = System::ExplicitCast<FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
         fieldSeq->set_SequenceIdentifier(u"MySequence");
         fieldSeq->set_InsertNextNumber(true);
         fieldSeq->Update();
@@ -2029,22 +2029,22 @@ public:
 
         ASSERT_EQ(4, doc->get_Range()->get_Fields()->get_Count());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(0));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence \\r 100", u"100", fieldSeq);
         ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(1));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence", u"101", fieldSeq);
         ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(2));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence \\s 1", u"1", fieldSeq);
         ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
 
-        fieldSeq = System::DynamicCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(3));
+        fieldSeq = System::ExplicitCast<FieldSeq>(doc->get_Range()->get_Fields()->idx_get(3));
 
         TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence \\n", u"2", fieldSeq);
         ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
@@ -2058,7 +2058,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto field = System::DynamicCast<FieldData>(builder->InsertField(FieldType::FieldData, true));
+        auto field = System::ExplicitCast<FieldData>(builder->InsertField(FieldType::FieldData, true));
         ASSERT_EQ(u" DATA ", field->GetFieldCode());
         //ExEnd
 
@@ -2079,7 +2079,7 @@ public:
 
         // We can use an INCLUDE field to import a portion of another document in the local file system.
         // The bookmark from the other document that we reference with this field contains this imported portion.
-        auto field = System::DynamicCast<FieldInclude>(builder->InsertField(FieldType::FieldInclude, true));
+        auto field = System::ExplicitCast<FieldInclude>(builder->InsertField(FieldType::FieldInclude, true));
         field->set_SourceFullName(MyDir + u"Bookmarks.docx");
         field->set_BookmarkName(u"MyBookmark1");
         field->set_LockFields(false);
@@ -2092,7 +2092,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.INCLUDE.docx");
-        field = System::DynamicCast<FieldInclude>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldInclude>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_EQ(FieldType::FieldInclude, field->get_Type());
         ASSERT_EQ(u"First bookmark.", field->get_Result());
@@ -2123,7 +2123,7 @@ public:
 
         // Below are two similar field types that we can use to display images linked from the local file system.
         // 1 -  The INCLUDEPICTURE field:
-        auto fieldIncludePicture = System::DynamicCast<FieldIncludePicture>(builder->InsertField(FieldType::FieldIncludePicture, true));
+        auto fieldIncludePicture = System::ExplicitCast<FieldIncludePicture>(builder->InsertField(FieldType::FieldIncludePicture, true));
         fieldIncludePicture->set_SourceFullName(ImageDir + u"Transparent background logo.png");
 
         ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(fieldIncludePicture->GetFieldCode(), u" INCLUDEPICTURE  .*")->get_Success());
@@ -2135,7 +2135,7 @@ public:
         fieldIncludePicture->set_ResizeVertically(true);
 
         // 2 -  The IMPORT field:
-        auto fieldImport = System::DynamicCast<FieldImport>(builder->InsertField(FieldType::FieldImport, true));
+        auto fieldImport = System::ExplicitCast<FieldImport>(builder->InsertField(FieldType::FieldImport, true));
         fieldImport->set_SourceFullName(ImageDir + u"Transparent background logo.png");
         fieldImport->set_GraphicFilter(u"PNG32");
         fieldImport->set_IsLinked(true);
@@ -2162,13 +2162,13 @@ public:
         ASSERT_EQ(0, doc->get_Range()->get_Fields()->get_Count());
         ASSERT_EQ(2, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
 
-        auto image = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
+        auto image = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         ASSERT_TRUE(image->get_IsImage());
         ASSERT_TRUE(image->get_ImageData()->get_ImageBytes() == nullptr);
         ASSERT_EQ(ImageDir + u"Transparent background logo.png", image->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "));
 
-        image = System::DynamicCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
+        image = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 1, true));
 
         ASSERT_TRUE(image->get_IsImage());
         ASSERT_TRUE(image->get_ImageData()->get_ImageBytes() == nullptr);
@@ -2179,7 +2179,7 @@ public:
     {
         doc = DocumentHelper::SaveOpen(doc);
 
-        auto fieldIncludeText = System::DynamicCast<FieldIncludeText>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto fieldIncludeText = System::ExplicitCast<FieldIncludeText>(doc->get_Range()->get_Fields()->idx_get(0));
         ASSERT_EQ(MyDir + u"CD collection data.xml", fieldIncludeText->get_SourceFullName());
         ASSERT_EQ(MyDir + u"CD collection XSL transformation.xsl", fieldIncludeText->get_XslTransformation());
         ASSERT_FALSE(fieldIncludeText->get_LockFields());
@@ -2245,7 +2245,7 @@ public:
             }
         }
 
-        fieldIncludeText = System::DynamicCast<FieldIncludeText>(doc->get_Range()->get_Fields()->idx_get(1));
+        fieldIncludeText = System::ExplicitCast<FieldIncludeText>(doc->get_Range()->get_Fields()->idx_get(1));
         ASSERT_EQ(MyDir + u"CD collection data.xml", fieldIncludeText->get_SourceFullName());
         ASSERT_TRUE(fieldIncludeText->get_XslTransformation() == nullptr);
         ASSERT_FALSE(fieldIncludeText->get_LockFields());
@@ -2281,7 +2281,7 @@ public:
 
         // Below are two ways of using BARCODE fields to display custom values as barcodes.
         // 1 -  Store the value that the barcode will display in the PostalAddress property:
-        auto field = System::DynamicCast<FieldBarcode>(builder->InsertField(FieldType::FieldBarcode, true));
+        auto field = System::ExplicitCast<FieldBarcode>(builder->InsertField(FieldType::FieldBarcode, true));
 
         // This value needs to be a valid ZIP code.
         field->set_PostalAddress(u"96801");
@@ -2293,7 +2293,7 @@ public:
         builder->InsertBreak(BreakType::LineBreak);
 
         // 2 -  Reference a bookmark that stores the value that this barcode will display:
-        field = System::DynamicCast<FieldBarcode>(builder->InsertField(FieldType::FieldBarcode, true));
+        field = System::ExplicitCast<FieldBarcode>(builder->InsertField(FieldType::FieldBarcode, true));
         field->set_PostalAddress(u"BarcodeBookmark");
         field->set_IsBookmark(true);
 
@@ -2313,14 +2313,14 @@ public:
 
         ASSERT_EQ(0, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
 
-        field = System::DynamicCast<FieldBarcode>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldBarcode>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldBarcode, u" BARCODE  96801 \\u \\f C", String::Empty, field);
         ASSERT_EQ(u"C", field->get_FacingIdentificationMark());
         ASSERT_EQ(u"96801", field->get_PostalAddress());
         ASSERT_TRUE(field->get_IsUSPostalAddress());
 
-        field = System::DynamicCast<FieldBarcode>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldBarcode>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldBarcode, u" BARCODE  BarcodeBookmark \\b", String::Empty, field);
         ASSERT_EQ(u"BarcodeBookmark", field->get_PostalAddress());
@@ -2348,7 +2348,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto field = System::DynamicCast<FieldDisplayBarcode>(builder->InsertField(FieldType::FieldDisplayBarcode, true));
+        auto field = System::ExplicitCast<FieldDisplayBarcode>(builder->InsertField(FieldType::FieldDisplayBarcode, true));
 
         // Below are four types of barcodes, decorated in various ways, that the DISPLAYBARCODE field can display.
         // 1 -  QR code with custom colors:
@@ -2365,7 +2365,7 @@ public:
         builder->Writeln();
 
         // 2 -  EAN13 barcode, with the digits displayed below the bars:
-        field = System::DynamicCast<FieldDisplayBarcode>(builder->InsertField(FieldType::FieldDisplayBarcode, true));
+        field = System::ExplicitCast<FieldDisplayBarcode>(builder->InsertField(FieldType::FieldDisplayBarcode, true));
         field->set_BarcodeType(u"EAN13");
         field->set_BarcodeValue(u"501234567890");
         field->set_DisplayText(true);
@@ -2376,7 +2376,7 @@ public:
         builder->Writeln();
 
         // 3 -  CODE39 barcode:
-        field = System::DynamicCast<FieldDisplayBarcode>(builder->InsertField(FieldType::FieldDisplayBarcode, true));
+        field = System::ExplicitCast<FieldDisplayBarcode>(builder->InsertField(FieldType::FieldDisplayBarcode, true));
         field->set_BarcodeType(u"CODE39");
         field->set_BarcodeValue(u"12345ABCDE");
         field->set_AddStartStopChar(true);
@@ -2385,7 +2385,7 @@ public:
         builder->Writeln();
 
         // 4 -  ITF4 barcode, with a specified case code:
-        field = System::DynamicCast<FieldDisplayBarcode>(builder->InsertField(FieldType::FieldDisplayBarcode, true));
+        field = System::ExplicitCast<FieldDisplayBarcode>(builder->InsertField(FieldType::FieldDisplayBarcode, true));
         field->set_BarcodeType(u"ITF14");
         field->set_BarcodeValue(u"09312345678907");
         field->set_CaseCodeStyle(u"STD");
@@ -2399,7 +2399,7 @@ public:
 
         ASSERT_EQ(0, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
 
-        field = System::DynamicCast<FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldDisplayBarcode, u" DISPLAYBARCODE  ABC123 QR \\b 0xF8BD69 \\f 0xB5413B \\q 3 \\s 250 \\h 1000 \\r 0",
                               String::Empty, field);
@@ -2412,7 +2412,7 @@ public:
         ASSERT_EQ(u"1000", field->get_SymbolHeight());
         ASSERT_EQ(u"0", field->get_SymbolRotation());
 
-        field = System::DynamicCast<FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldDisplayBarcode, u" DISPLAYBARCODE  501234567890 EAN13 \\t \\p CASE \\x", String::Empty, field);
         ASSERT_EQ(u"EAN13", field->get_BarcodeType());
@@ -2421,14 +2421,14 @@ public:
         ASSERT_EQ(u"CASE", field->get_PosCodeStyle());
         ASSERT_TRUE(field->get_FixCheckDigit());
 
-        field = System::DynamicCast<FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldDisplayBarcode, u" DISPLAYBARCODE  12345ABCDE CODE39 \\d", String::Empty, field);
         ASSERT_EQ(u"CODE39", field->get_BarcodeType());
         ASSERT_EQ(u"12345ABCDE", field->get_BarcodeValue());
         ASSERT_TRUE(field->get_AddStartStopChar());
 
-        field = System::DynamicCast<FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(3));
+        field = System::ExplicitCast<FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(3));
 
         TestUtil::VerifyField(FieldType::FieldDisplayBarcode, u" DISPLAYBARCODE  09312345678907 ITF14 \\c STD", String::Empty, field);
         ASSERT_EQ(u"ITF14", field->get_BarcodeType());
@@ -2490,7 +2490,7 @@ public:
     static void InsertFieldLink(SharedPtr<DocumentBuilder> builder, ExField::InsertLinkedObjectAs insertLinkedObjectAs, String progId, String sourceFullName,
                                 String sourceItem, bool shouldAutoUpdate)
     {
-        auto field = System::DynamicCast<FieldLink>(builder->InsertField(FieldType::FieldLink, true));
+        auto field = System::ExplicitCast<FieldLink>(builder->InsertField(FieldType::FieldLink, true));
 
         switch (insertLinkedObjectAs)
         {
@@ -2533,7 +2533,7 @@ public:
     static void InsertFieldDde(SharedPtr<DocumentBuilder> builder, ExField::InsertLinkedObjectAs insertLinkedObjectAs, String progId, String sourceFullName,
                                String sourceItem, bool isLinked, bool shouldAutoUpdate)
     {
-        auto field = System::DynamicCast<FieldDde>(builder->InsertField(FieldType::FieldDDE, true));
+        auto field = System::ExplicitCast<FieldDde>(builder->InsertField(FieldType::FieldDDE, true));
 
         switch (insertLinkedObjectAs)
         {
@@ -2577,7 +2577,7 @@ public:
     static void InsertFieldDdeAuto(SharedPtr<DocumentBuilder> builder, ExField::InsertLinkedObjectAs insertLinkedObjectAs, String progId, String sourceFullName,
                                    String sourceItem, bool isLinked)
     {
-        auto field = System::DynamicCast<FieldDdeAuto>(builder->InsertField(FieldType::FieldDDEAuto, true));
+        auto field = System::ExplicitCast<FieldDdeAuto>(builder->InsertField(FieldType::FieldDDEAuto, true));
 
         switch (insertLinkedObjectAs)
         {
@@ -2630,7 +2630,7 @@ public:
         // Create a USERADDRESS field to display the current user's address,
         // taken from the UserInformation object we created above.
         auto builder = MakeObject<DocumentBuilder>(doc);
-        auto fieldUserAddress = System::DynamicCast<FieldUserAddress>(builder->InsertField(FieldType::FieldUserAddress, true));
+        auto fieldUserAddress = System::ExplicitCast<FieldUserAddress>(builder->InsertField(FieldType::FieldUserAddress, true));
         ASSERT_EQ(userInformation->get_Address(), fieldUserAddress->get_Result());
         //ExSkip
 
@@ -2653,7 +2653,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.USERADDRESS.docx");
 
-        fieldUserAddress = System::DynamicCast<FieldUserAddress>(doc->get_Range()->get_Fields()->idx_get(0));
+        fieldUserAddress = System::ExplicitCast<FieldUserAddress>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldUserAddress, u" USERADDRESS  \"456 North Road\"", u"456 North Road", fieldUserAddress);
         ASSERT_EQ(u"456 North Road", fieldUserAddress->get_UserAddress());
@@ -2675,7 +2675,7 @@ public:
         // Create a USERINITIALS field to display the current user's initials,
         // taken from the UserInformation object we created above.
         auto builder = MakeObject<DocumentBuilder>(doc);
-        auto fieldUserInitials = System::DynamicCast<FieldUserInitials>(builder->InsertField(FieldType::FieldUserInitials, true));
+        auto fieldUserInitials = System::ExplicitCast<FieldUserInitials>(builder->InsertField(FieldType::FieldUserInitials, true));
         ASSERT_EQ(userInformation->get_Initials(), fieldUserInitials->get_Result());
 
         ASSERT_EQ(u" USERINITIALS ", fieldUserInitials->GetFieldCode());
@@ -2697,7 +2697,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.USERINITIALS.docx");
 
-        fieldUserInitials = System::DynamicCast<FieldUserInitials>(doc->get_Range()->get_Fields()->idx_get(0));
+        fieldUserInitials = System::ExplicitCast<FieldUserInitials>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldUserInitials, u" USERINITIALS  \"J. C.\"", u"J. C.", fieldUserInitials);
         ASSERT_EQ(u"J. C.", fieldUserInitials->get_UserInitials());
@@ -2720,7 +2720,7 @@ public:
 
         // Create a USERNAME field to display the current user's name,
         // taken from the UserInformation object we created above.
-        auto fieldUserName = System::DynamicCast<FieldUserName>(builder->InsertField(FieldType::FieldUserName, true));
+        auto fieldUserName = System::ExplicitCast<FieldUserName>(builder->InsertField(FieldType::FieldUserName, true));
         ASSERT_EQ(userInformation->get_Name(), fieldUserName->get_Result());
 
         ASSERT_EQ(u" USERNAME ", fieldUserName->GetFieldCode());
@@ -2742,7 +2742,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.USERNAME.docx");
 
-        fieldUserName = System::DynamicCast<FieldUserName>(doc->get_Range()->get_Fields()->idx_get(0));
+        fieldUserName = System::ExplicitCast<FieldUserName>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldUserName, u" USERNAME  \"Jane Doe\"", u"Jane Doe", fieldUserName);
         ASSERT_EQ(u"Jane Doe", fieldUserName->get_UserName());
@@ -2763,26 +2763,26 @@ public:
         // If we want the text in the document always to display the correct date, we can use a DATE field.
         // Below are three types of cultural calendars that a DATE field can use to display a date.
         // 1 -  Islamic Lunar Calendar:
-        auto field = System::DynamicCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
+        auto field = System::ExplicitCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
         field->set_UseLunarCalendar(true);
         ASSERT_EQ(u" DATE  \\h", field->GetFieldCode());
         builder->Writeln();
 
         // 2 -  Umm al-Qura calendar:
-        field = System::DynamicCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
+        field = System::ExplicitCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
         field->set_UseUmAlQuraCalendar(true);
         ASSERT_EQ(u" DATE  \\u", field->GetFieldCode());
         builder->Writeln();
 
         // 3 -  Indian National Calendar:
-        field = System::DynamicCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
+        field = System::ExplicitCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
         field->set_UseSakaEraCalendar(true);
         ASSERT_EQ(u" DATE  \\s", field->GetFieldCode());
         builder->Writeln();
 
         // Insert a DATE field and set its calendar type to the one last used by the host application.
         // In Microsoft Word, the type will be the most recently used in the Insert -> Text -> Date and Time dialog box.
-        field = System::DynamicCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
+        field = System::ExplicitCast<FieldDate>(builder->InsertField(FieldType::FieldDate, true));
         field->set_UseLastFormat(true);
         ASSERT_EQ(u" DATE  \\l", field->GetFieldCode());
         builder->Writeln();
@@ -2793,7 +2793,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.DATE.docx");
 
-        field = System::DynamicCast<FieldDate>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldDate>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_EQ(FieldType::FieldDate, field->get_Type());
         ASSERT_TRUE(field->get_UseLunarCalendar());
@@ -2801,17 +2801,17 @@ public:
         ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(doc->get_Range()->get_Fields()->idx_get(0)->get_Result(), u"\\d{1,2}[/]\\d{1,2}[/]\\d{4}")
                         ->get_Success());
 
-        field = System::DynamicCast<FieldDate>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldDate>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldDate, u" DATE  \\u", System::DateTime::get_Now().ToShortDateString(), field);
         ASSERT_TRUE(field->get_UseUmAlQuraCalendar());
 
-        field = System::DynamicCast<FieldDate>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldDate>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldDate, u" DATE  \\s", System::DateTime::get_Now().ToShortDateString(), field);
         ASSERT_TRUE(field->get_UseSakaEraCalendar());
 
-        field = System::DynamicCast<FieldDate>(doc->get_Range()->get_Fields()->idx_get(3));
+        field = System::ExplicitCast<FieldDate>(doc->get_Range()->get_Fields()->idx_get(3));
 
         TestUtil::VerifyField(FieldType::FieldDate, u" DATE  \\l", System::DateTime::get_Now().ToShortDateString(), field);
         ASSERT_TRUE(field->get_UseLastFormat());
@@ -2914,12 +2914,12 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.SYMBOL.docx");
 
-        auto fieldSymbol = System::DynamicCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto fieldSymbol = System::ExplicitCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL 402 \\f Arial \\s 25 \\u ", String::Empty, fieldSymbol);
         ASSERT_EQ(u"ƒ", fieldSymbol->get_DisplayResult());
 
-        fieldSymbol = System::DynamicCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(1));
+        fieldSymbol = System::ExplicitCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL \u0013 = 100 + 74 \u0014174\u0015 ", String::Empty, fieldSymbol);
         ASSERT_EQ(u"®", fieldSymbol->get_DisplayResult());
@@ -2973,7 +2973,7 @@ public:
         doc->get_FieldOptions()->set_DefaultDocumentAuthor(u"Joe Bloggs");
 
         builder->Write(u"This document was created by ");
-        auto field = System::DynamicCast<FieldAuthor>(builder->InsertField(FieldType::FieldAuthor, true));
+        auto field = System::ExplicitCast<FieldAuthor>(builder->InsertField(FieldType::FieldAuthor, true));
         field->Update();
 
         ASSERT_EQ(u" AUTHOR ", field->GetFieldCode());
@@ -3010,7 +3010,7 @@ public:
         ASSERT_TRUE(doc->get_FieldOptions()->get_DefaultDocumentAuthor() == nullptr);
         ASSERT_EQ(u"Jane Doe", doc->get_BuiltInDocumentProperties()->get_Author());
 
-        field = System::DynamicCast<FieldAuthor>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldAuthor>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldAuthor, u" AUTHOR  \"Jane Doe\"", u"Jane Doe", field);
         ASSERT_EQ(u"Jane Doe", field->get_AuthorName());
@@ -3031,7 +3031,7 @@ public:
         // Set a custom value for the "Category" built-in property, then insert a DOCPROPERTY field that references it.
         doc->get_BuiltInDocumentProperties()->set_Category(u"My category");
 
-        auto fieldDocProperty = System::DynamicCast<FieldDocProperty>(builder->InsertField(u" DOCPROPERTY Category "));
+        auto fieldDocProperty = System::ExplicitCast<FieldDocProperty>(builder->InsertField(u" DOCPROPERTY Category "));
         fieldDocProperty->Update();
 
         ASSERT_EQ(u" DOCPROPERTY Category ", fieldDocProperty->GetFieldCode());
@@ -3044,7 +3044,7 @@ public:
         ASSERT_EQ(0, doc->get_Variables()->get_Count());
         doc->get_Variables()->Add(u"My variable", u"My variable's value");
 
-        auto fieldDocVariable = System::DynamicCast<FieldDocVariable>(builder->InsertField(FieldType::FieldDocVariable, true));
+        auto fieldDocVariable = System::ExplicitCast<FieldDocVariable>(builder->InsertField(FieldType::FieldDocVariable, true));
         fieldDocVariable->set_VariableName(u"My Variable");
         fieldDocVariable->Update();
 
@@ -3058,11 +3058,11 @@ public:
 
         ASSERT_EQ(u"My category", doc->get_BuiltInDocumentProperties()->get_Category());
 
-        fieldDocProperty = System::DynamicCast<FieldDocProperty>(doc->get_Range()->get_Fields()->idx_get(0));
+        fieldDocProperty = System::ExplicitCast<FieldDocProperty>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldDocProperty, u" DOCPROPERTY Category ", u"My category", fieldDocProperty);
 
-        fieldDocVariable = System::DynamicCast<FieldDocVariable>(doc->get_Range()->get_Fields()->idx_get(1));
+        fieldDocVariable = System::ExplicitCast<FieldDocVariable>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldDocVariable, u" DOCVARIABLE  \"My Variable\"", u"My variable's value", fieldDocVariable);
         ASSERT_EQ(u"My Variable", fieldDocVariable->get_VariableName());
@@ -3081,7 +3081,7 @@ public:
 
         // Create a SUBJECT field to display the value of that built-in property.
         auto builder = MakeObject<DocumentBuilder>(doc);
-        auto field = System::DynamicCast<FieldSubject>(builder->InsertField(FieldType::FieldSubject, true));
+        auto field = System::ExplicitCast<FieldSubject>(builder->InsertField(FieldType::FieldSubject, true));
         field->Update();
 
         ASSERT_EQ(u" SUBJECT ", field->GetFieldCode());
@@ -3105,7 +3105,7 @@ public:
 
         ASSERT_EQ(u"My new subject", doc->get_BuiltInDocumentProperties()->get_Subject());
 
-        field = System::DynamicCast<FieldSubject>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldSubject>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldSubject, u" SUBJECT  \"My new subject\"", u"My new subject", field);
         ASSERT_EQ(u"My new subject", field->get_Text());
@@ -3124,7 +3124,7 @@ public:
         doc->get_BuiltInDocumentProperties()->set_Comments(u"My comment.");
 
         // Create a COMMENTS field to display the value of that built-in property.
-        auto field = System::DynamicCast<FieldComments>(builder->InsertField(FieldType::FieldComments, true));
+        auto field = System::ExplicitCast<FieldComments>(builder->InsertField(FieldType::FieldComments, true));
         field->Update();
 
         ASSERT_EQ(u" COMMENTS ", field->GetFieldCode());
@@ -3146,7 +3146,7 @@ public:
 
         ASSERT_EQ(u"My overriding comment.", doc->get_BuiltInDocumentProperties()->get_Comments());
 
-        field = System::DynamicCast<FieldComments>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldComments>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldComments, u" COMMENTS  \"My overriding comment.\"", u"My overriding comment.", field);
         ASSERT_EQ(u"My overriding comment.", field->get_Text());
@@ -3170,7 +3170,7 @@ public:
         // Below are three different units of measure
         // with which FILESIZE fields can display the document's file size.
         // 1 -  Bytes:
-        auto field = System::DynamicCast<FieldFileSize>(builder->InsertField(FieldType::FieldFileSize, true));
+        auto field = System::ExplicitCast<FieldFileSize>(builder->InsertField(FieldType::FieldFileSize, true));
         field->Update();
 
         ASSERT_EQ(u" FILESIZE ", field->GetFieldCode());
@@ -3178,7 +3178,7 @@ public:
 
         // 2 -  Kilobytes:
         builder->InsertParagraph();
-        field = System::DynamicCast<FieldFileSize>(builder->InsertField(FieldType::FieldFileSize, true));
+        field = System::ExplicitCast<FieldFileSize>(builder->InsertField(FieldType::FieldFileSize, true));
         field->set_IsInKilobytes(true);
         field->Update();
 
@@ -3187,7 +3187,7 @@ public:
 
         // 3 -  Megabytes:
         builder->InsertParagraph();
-        field = System::DynamicCast<FieldFileSize>(builder->InsertField(FieldType::FieldFileSize, true));
+        field = System::ExplicitCast<FieldFileSize>(builder->InsertField(FieldType::FieldFileSize, true));
         field->set_IsInMegabytes(true);
         field->Update();
 
@@ -3201,19 +3201,19 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.FILESIZE.docx");
 
-        field = System::DynamicCast<FieldFileSize>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldFileSize>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldFileSize, u" FILESIZE ", u"18105", field);
 
         // These fields will need to be updated to produce an accurate result.
         doc->UpdateFields();
 
-        field = System::DynamicCast<FieldFileSize>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldFileSize>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldFileSize, u" FILESIZE  \\k", u"13", field);
         ASSERT_TRUE(field->get_IsInKilobytes());
 
-        field = System::DynamicCast<FieldFileSize>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldFileSize>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldFileSize, u" FILESIZE  \\m", u"0", field);
         ASSERT_TRUE(field->get_IsInMegabytes());
@@ -3231,7 +3231,7 @@ public:
 
         // Add a GOTOBUTTON field. When we double-click this field in Microsoft Word,
         // it will take the text cursor to the bookmark whose name the Location property references.
-        auto field = System::DynamicCast<FieldGoToButton>(builder->InsertField(FieldType::FieldGoToButton, true));
+        auto field = System::ExplicitCast<FieldGoToButton>(builder->InsertField(FieldType::FieldGoToButton, true));
         field->set_DisplayText(u"My Button");
         field->set_Location(u"MyBookmark");
 
@@ -3248,7 +3248,7 @@ public:
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.GOTOBUTTON.docx");
-        field = System::DynamicCast<FieldGoToButton>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldGoToButton>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldGoToButton, u" GOTOBUTTON  MyBookmark My Button", String::Empty, field);
         ASSERT_EQ(u"My Button", field->get_DisplayText());
@@ -3268,7 +3268,7 @@ public:
 
         // Insert a FILLIN field. When we manually update this field in Microsoft Word,
         // it will prompt us to enter a response. The field will then display the response as text.
-        auto field = System::DynamicCast<FieldFillIn>(builder->InsertField(FieldType::FieldFillIn, true));
+        auto field = System::ExplicitCast<FieldFillIn>(builder->InsertField(FieldType::FieldFillIn, true));
         field->set_PromptText(u"Please enter a response:");
         field->set_DefaultResponse(u"A default response.");
 
@@ -3278,7 +3278,7 @@ public:
 
         ASSERT_EQ(u" FILLIN  \"Please enter a response:\" \\d \"A default response.\" \\o", field->GetFieldCode());
 
-        auto mergeField = System::DynamicCast<FieldMergeField>(builder->InsertField(FieldType::FieldMergeField, true));
+        auto mergeField = System::ExplicitCast<FieldMergeField>(builder->InsertField(FieldType::FieldMergeField, true));
         mergeField->set_FieldName(u"MergeField");
 
         // If we perform a mail merge programmatically, we can use a custom prompt respondent
@@ -3311,7 +3311,7 @@ public:
 
         ASSERT_EQ(1, doc->get_Range()->get_Fields()->get_Count());
 
-        auto field = System::DynamicCast<FieldFillIn>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto field = System::ExplicitCast<FieldFillIn>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldFillIn, u" FILLIN  \"Please enter a response:\" \\d \"A default response.\" \\o",
                               u"Response modified by PromptRespondent. A default response.", field);
@@ -3332,7 +3332,7 @@ public:
 
         // Set a value for the "Comments" built-in property and then insert an INFO field to display that property's value.
         doc->get_BuiltInDocumentProperties()->set_Comments(u"My comment");
-        auto field = System::DynamicCast<FieldInfo>(builder->InsertField(FieldType::FieldInfo, true));
+        auto field = System::ExplicitCast<FieldInfo>(builder->InsertField(FieldType::FieldInfo, true));
         field->set_InfoType(u"Comments");
         field->Update();
 
@@ -3343,7 +3343,7 @@ public:
 
         // Setting a value for the field's NewValue property and updating
         // the field will also overwrite the corresponding built-in property with the new value.
-        field = System::DynamicCast<FieldInfo>(builder->InsertField(FieldType::FieldInfo, true));
+        field = System::ExplicitCast<FieldInfo>(builder->InsertField(FieldType::FieldInfo, true));
         field->set_InfoType(u"Comments");
         field->set_NewValue(u"New comment");
         field->Update();
@@ -3359,12 +3359,12 @@ public:
 
         ASSERT_EQ(u"New comment", doc->get_BuiltInDocumentProperties()->get_Comments());
 
-        field = System::DynamicCast<FieldInfo>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldInfo>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldInfo, u" INFO  Comments", u"My comment", field);
         ASSERT_EQ(u"Comments", field->get_InfoType());
 
-        field = System::DynamicCast<FieldInfo>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldInfo>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldInfo, u" INFO  Comments \"New comment\"", u"New comment", field);
         ASSERT_EQ(u"Comments", field->get_InfoType());
@@ -3385,7 +3385,7 @@ public:
         ASSERT_TRUE(doc->get_HasMacros());
 
         // Insert a MACROBUTTON field, and reference one of the document's macros by name in the MacroName property.
-        auto field = System::DynamicCast<FieldMacroButton>(builder->InsertField(FieldType::FieldMacroButton, true));
+        auto field = System::ExplicitCast<FieldMacroButton>(builder->InsertField(FieldType::FieldMacroButton, true));
         field->set_MacroName(u"MyMacro");
         field->set_DisplayText(String(u"Double click to run macro: ") + field->get_MacroName());
 
@@ -3397,7 +3397,7 @@ public:
         // If our document contains a custom macro with the same name as a stock macro,
         // our macro will be the one that the MACROBUTTON field runs.
         builder->InsertParagraph();
-        field = System::DynamicCast<FieldMacroButton>(builder->InsertField(FieldType::FieldMacroButton, true));
+        field = System::ExplicitCast<FieldMacroButton>(builder->InsertField(FieldType::FieldMacroButton, true));
         field->set_MacroName(u"ViewZoom200");
         field->set_DisplayText(String(u"Run ") + field->get_MacroName());
 
@@ -3409,13 +3409,13 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.MACROBUTTON.docm");
 
-        field = System::DynamicCast<FieldMacroButton>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldMacroButton>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldMacroButton, u" MACROBUTTON  MyMacro Double click to run macro: MyMacro", String::Empty, field);
         ASSERT_EQ(u"MyMacro", field->get_MacroName());
         ASSERT_EQ(u"Double click to run macro: MyMacro", field->get_DisplayText());
 
-        field = System::DynamicCast<FieldMacroButton>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldMacroButton>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldMacroButton, u" MACROBUTTON  ViewZoom200 Run ViewZoom200", String::Empty, field);
         ASSERT_EQ(u"ViewZoom200", field->get_MacroName());
@@ -3435,7 +3435,7 @@ public:
         doc->get_BuiltInDocumentProperties()->set_Keywords(u"Keyword1, Keyword2");
 
         // The KEYWORDS field displays the value of this property.
-        auto field = System::DynamicCast<FieldKeywords>(builder->InsertField(FieldType::FieldKeyword, true));
+        auto field = System::ExplicitCast<FieldKeywords>(builder->InsertField(FieldType::FieldKeyword, true));
         field->Update();
 
         ASSERT_EQ(u" KEYWORDS ", field->GetFieldCode());
@@ -3457,7 +3457,7 @@ public:
 
         ASSERT_EQ(u"OverridingKeyword", doc->get_BuiltInDocumentProperties()->get_Keywords());
 
-        field = System::DynamicCast<FieldKeywords>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldKeywords>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldKeyword, u" KEYWORDS  OverridingKeyword", u"OverridingKeyword", field);
         ASSERT_EQ(u"OverridingKeyword", field->get_Text());
@@ -3479,20 +3479,20 @@ public:
 
         // Below are three types of fields that we can use to track the size of our documents.
         // 1 -  Track the character count with a NUMCHARS field:
-        auto fieldNumChars = System::DynamicCast<FieldNumChars>(builder->InsertField(FieldType::FieldNumChars, true));
+        auto fieldNumChars = System::ExplicitCast<FieldNumChars>(builder->InsertField(FieldType::FieldNumChars, true));
         builder->Writeln(u" characters");
 
         // 2 -  Track the word count with a NUMWORDS field:
-        auto fieldNumWords = System::DynamicCast<FieldNumWords>(builder->InsertField(FieldType::FieldNumWords, true));
+        auto fieldNumWords = System::ExplicitCast<FieldNumWords>(builder->InsertField(FieldType::FieldNumWords, true));
         builder->Writeln(u" words");
 
         // 3 -  Use both PAGE and NUMPAGES fields to display what page the field is on,
         // and the total number of pages in the document:
         builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
         builder->Write(u"Page ");
-        auto fieldPage = System::DynamicCast<FieldPage>(builder->InsertField(FieldType::FieldPage, true));
+        auto fieldPage = System::ExplicitCast<FieldPage>(builder->InsertField(FieldType::FieldPage, true));
         builder->Write(u" of ");
-        auto fieldNumPages = System::DynamicCast<FieldNumPages>(builder->InsertField(FieldType::FieldNumPages, true));
+        auto fieldNumPages = System::ExplicitCast<FieldNumPages>(builder->InsertField(FieldType::FieldNumPages, true));
 
         ASSERT_EQ(u" NUMCHARS ", fieldNumChars->GetFieldCode());
         ASSERT_EQ(u" NUMWORDS ", fieldNumWords->GetFieldCode());
@@ -3528,7 +3528,7 @@ public:
         builder->Write(u"My paragraph");
 
         // The PRINT field can send instructions to the printer.
-        auto field = System::DynamicCast<FieldPrint>(builder->InsertField(FieldType::FieldPrint, true));
+        auto field = System::ExplicitCast<FieldPrint>(builder->InsertField(FieldType::FieldPrint, true));
 
         // Set the area for the printer to perform instructions over.
         // In this case, it will be the paragraph that contains our PRINT field.
@@ -3546,7 +3546,7 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.PRINT.docx");
 
-        field = System::DynamicCast<FieldPrint>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldPrint>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldPrint, u" PRINT  erasepage \\p para", String::Empty, field);
         ASSERT_EQ(u"para", field->get_PostScriptGroup());
@@ -3566,7 +3566,7 @@ public:
         // When a document is printed by a printer or printed as a PDF (but not exported to PDF),
         // PRINTDATE fields will display the print operation's date/time.
         // If no printing has taken place, these fields will display "0/0/0000".
-        auto field = System::DynamicCast<FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto field = System::ExplicitCast<FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_EQ(u"3/25/2020 12:00:00 AM", field->get_Result());
         ASSERT_EQ(u" PRINTDATE ", field->GetFieldCode());
@@ -3574,20 +3574,20 @@ public:
         // Below are three different calendar types according to which the PRINTDATE field
         // can display the date and time of the last printing operation.
         // 1 -  Islamic Lunar Calendar:
-        field = System::DynamicCast<FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(1));
 
         ASSERT_TRUE(field->get_UseLunarCalendar());
         ASSERT_EQ(u"8/1/1441 12:00:00 AM", field->get_Result());
         ASSERT_EQ(u" PRINTDATE  \\h", field->GetFieldCode());
 
-        field = System::DynamicCast<FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(2));
 
         // 2 -  Umm al-Qura calendar:
         ASSERT_TRUE(field->get_UseUmAlQuraCalendar());
         ASSERT_EQ(u"8/1/1441 12:00:00 AM", field->get_Result());
         ASSERT_EQ(u" PRINTDATE  \\u", field->GetFieldCode());
 
-        field = System::DynamicCast<FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(3));
+        field = System::ExplicitCast<FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(3));
 
         // 3 -  Indian National Calendar:
         ASSERT_TRUE(field->get_UseSakaEraCalendar());
@@ -3607,7 +3607,7 @@ public:
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         // Insert a QUOTE field, which will display the value of its Text property.
-        auto field = System::DynamicCast<FieldQuote>(builder->InsertField(FieldType::FieldQuote, true));
+        auto field = System::ExplicitCast<FieldQuote>(builder->InsertField(FieldType::FieldQuote, true));
         field->set_Text(u"\"Quoted text\"");
 
         ASSERT_EQ(u" QUOTE  \"\\\"Quoted text\\\"\"", field->GetFieldCode());
@@ -3617,7 +3617,7 @@ public:
         // Nesting the DATE field inside the QUOTE field like this will freeze its value
         // to the date when we created the document.
         builder->Write(u"\nDocument creation date: ");
-        field = System::DynamicCast<FieldQuote>(builder->InsertField(FieldType::FieldQuote, true));
+        field = System::ExplicitCast<FieldQuote>(builder->InsertField(FieldType::FieldQuote, true));
         builder->MoveTo(field->get_Separator());
         builder->InsertField(FieldType::FieldDate, true);
 
@@ -3648,7 +3648,7 @@ public:
     {
         builder->Write(textBefore);
 
-        auto field = System::DynamicCast<FieldNoteRef>(builder->InsertField(FieldType::FieldNoteRef, true));
+        auto field = System::ExplicitCast<FieldNoteRef>(builder->InsertField(FieldType::FieldNoteRef, true));
         field->set_BookmarkName(bookmarkName);
         field->set_InsertHyperlink(insertHyperlink);
         field->set_InsertRelativePosition(insertRelativePosition);
@@ -3660,7 +3660,7 @@ public:
 
     void TestNoteRef(SharedPtr<Document> doc)
     {
-        auto field = System::DynamicCast<FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto field = System::ExplicitCast<FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldNoteRef, u" NOTEREF  MyBookmark2 \\h", u"2", field);
         ASSERT_EQ(u"MyBookmark2", field->get_BookmarkName());
@@ -3668,7 +3668,7 @@ public:
         ASSERT_FALSE(field->get_InsertRelativePosition());
         ASSERT_FALSE(field->get_InsertReferenceMark());
 
-        field = System::DynamicCast<FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldNoteRef, u" NOTEREF  MyBookmark1 \\h \\p", u"1 above", field);
         ASSERT_EQ(u"MyBookmark1", field->get_BookmarkName());
@@ -3676,7 +3676,7 @@ public:
         ASSERT_TRUE(field->get_InsertRelativePosition());
         ASSERT_FALSE(field->get_InsertReferenceMark());
 
-        field = System::DynamicCast<FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldNoteRef, u" NOTEREF  MyBookmark2 \\h \\p \\f", u"2 below", field);
         ASSERT_EQ(u"MyBookmark2", field->get_BookmarkName());
@@ -3693,7 +3693,7 @@ public:
     {
         builder->Write(textBefore);
 
-        auto field = System::DynamicCast<FieldPageRef>(builder->InsertField(FieldType::FieldPageRef, true));
+        auto field = System::ExplicitCast<FieldPageRef>(builder->InsertField(FieldType::FieldPageRef, true));
         field->set_BookmarkName(bookmarkName);
         field->set_InsertHyperlink(insertHyperlink);
         field->set_InsertRelativePosition(insertRelativePosition);
@@ -3704,28 +3704,28 @@ public:
 
     void TestPageRef(SharedPtr<Document> doc)
     {
-        auto field = System::DynamicCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto field = System::ExplicitCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF  MyBookmark3 \\h", u"2", field);
         ASSERT_EQ(u"MyBookmark3", field->get_BookmarkName());
         ASSERT_TRUE(field->get_InsertHyperlink());
         ASSERT_FALSE(field->get_InsertRelativePosition());
 
-        field = System::DynamicCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF  MyBookmark1 \\h \\p", u"above", field);
         ASSERT_EQ(u"MyBookmark1", field->get_BookmarkName());
         ASSERT_TRUE(field->get_InsertHyperlink());
         ASSERT_TRUE(field->get_InsertRelativePosition());
 
-        field = System::DynamicCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF  MyBookmark2 \\h \\p", u"below", field);
         ASSERT_EQ(u"MyBookmark2", field->get_BookmarkName());
         ASSERT_TRUE(field->get_InsertHyperlink());
         ASSERT_TRUE(field->get_InsertRelativePosition());
 
-        field = System::DynamicCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(3));
+        field = System::ExplicitCast<FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(3));
 
         TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF  MyBookmark3 \\h \\p", u"on page 2", field);
         ASSERT_EQ(u"MyBookmark3", field->get_BookmarkName());
@@ -3736,11 +3736,11 @@ public:
     void TestFieldRef(SharedPtr<Document> doc)
     {
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"MyBookmark footnote #1",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
         TestUtil::VerifyFootnote(FootnoteType::Footnote, true, String::Empty, u"MyBookmark footnote #2",
-                                 System::DynamicCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+                                 System::ExplicitCast<Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
 
-        auto field = System::DynamicCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto field = System::ExplicitCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\f \\h",
                               String(u"\u0002 MyBookmark footnote #1\r") + u"Text that will appear in REF field\u0002 MyBookmark footnote #2\r", field);
@@ -3748,13 +3748,13 @@ public:
         ASSERT_TRUE(field->get_IncludeNoteOrComment());
         ASSERT_TRUE(field->get_InsertHyperlink());
 
-        field = System::DynamicCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\p", u"below", field);
         ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
         ASSERT_TRUE(field->get_InsertRelativePosition());
 
-        field = System::DynamicCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\n", u">>> i", field);
         ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
@@ -3762,20 +3762,20 @@ public:
         ASSERT_EQ(u" REF  MyBookmark \\n", field->GetFieldCode());
         ASSERT_EQ(u">>> i", field->get_Result());
 
-        field = System::DynamicCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(3));
+        field = System::ExplicitCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(3));
 
         TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\n \\t", u"i", field);
         ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
         ASSERT_TRUE(field->get_InsertParagraphNumber());
         ASSERT_TRUE(field->get_SuppressNonDelimiters());
 
-        field = System::DynamicCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(4));
+        field = System::ExplicitCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(4));
 
         TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\w", u"> 4>> c>>> i", field);
         ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
         ASSERT_TRUE(field->get_InsertParagraphNumberInFullContext());
 
-        field = System::DynamicCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(5));
+        field = System::ExplicitCast<FieldRef>(doc->get_Range()->get_Fields()->idx_get(5));
 
         TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\r", u">> c>>> i", field);
         ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
@@ -3796,7 +3796,7 @@ public:
 
         // Name bookmarked text with a SET field.
         // This field refers to the "bookmark" not a bookmark structure that appears within the text, but a named variable.
-        auto fieldSet = System::DynamicCast<FieldSet>(builder->InsertField(FieldType::FieldSet, false));
+        auto fieldSet = System::ExplicitCast<FieldSet>(builder->InsertField(FieldType::FieldSet, false));
         fieldSet->set_BookmarkName(u"MyBookmark");
         fieldSet->set_BookmarkText(u"Hello world!");
         fieldSet->Update();
@@ -3804,7 +3804,7 @@ public:
         ASSERT_EQ(u" SET  MyBookmark \"Hello world!\"", fieldSet->GetFieldCode());
 
         // Refer to the bookmark by name in a REF field and display its contents.
-        auto fieldRef = System::DynamicCast<FieldRef>(builder->InsertField(FieldType::FieldRef, true));
+        auto fieldRef = System::ExplicitCast<FieldRef>(builder->InsertField(FieldType::FieldRef, true));
         fieldRef->set_BookmarkName(u"MyBookmark");
         fieldRef->Update();
 
@@ -3818,7 +3818,7 @@ public:
 
         ASSERT_EQ(u"Hello world!", doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Text());
 
-        fieldSet = System::DynamicCast<FieldSet>(doc->get_Range()->get_Fields()->idx_get(0));
+        fieldSet = System::ExplicitCast<FieldSet>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldSet, u" SET  MyBookmark \"Hello world!\"", u"Hello world!", fieldSet);
         ASSERT_EQ(u"MyBookmark", fieldSet->get_BookmarkName());
@@ -3842,11 +3842,11 @@ public:
         // If this property is empty the default template file name "Normal.dotm" is used.
         doc->get_FieldOptions()->set_TemplateName(String::Empty);
 
-        auto field = System::DynamicCast<FieldTemplate>(builder->InsertField(FieldType::FieldTemplate, false));
+        auto field = System::ExplicitCast<FieldTemplate>(builder->InsertField(FieldType::FieldTemplate, false));
         ASSERT_EQ(u" TEMPLATE ", field->GetFieldCode());
 
         builder->Writeln();
-        field = System::DynamicCast<FieldTemplate>(builder->InsertField(FieldType::FieldTemplate, false));
+        field = System::ExplicitCast<FieldTemplate>(builder->InsertField(FieldType::FieldTemplate, false));
         field->set_IncludeFullPath(true);
 
         ASSERT_EQ(u" TEMPLATE  \\p", field->GetFieldCode());
@@ -3857,11 +3857,11 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.TEMPLATE.docx");
 
-        field = System::DynamicCast<FieldTemplate>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldTemplate>(doc->get_Range()->get_Fields()->idx_get(0));
         ASSERT_EQ(u" TEMPLATE ", field->GetFieldCode());
         ASSERT_EQ(u"Normal.dotm", field->get_Result());
 
-        field = System::DynamicCast<FieldTemplate>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldTemplate>(doc->get_Range()->get_Fields()->idx_get(1));
         ASSERT_EQ(u" TEMPLATE  \\p", field->GetFieldCode());
         ASSERT_EQ(u"Normal.dotm", field->get_Result());
     }
@@ -3883,7 +3883,7 @@ public:
 
         // Below are three ways to use a SYMBOL field to display a single character.
         // 1 -  Add a SYMBOL field which displays the © (Copyright) symbol, specified by an ANSI character code:
-        auto field = System::DynamicCast<FieldSymbol>(builder->InsertField(FieldType::FieldSymbol, true));
+        auto field = System::ExplicitCast<FieldSymbol>(builder->InsertField(FieldType::FieldSymbol, true));
 
         // The ANSI character code "U+00A9", or "169" in integer form, is reserved for the copyright symbol.
         field->set_CharacterCode(System::Convert::ToString(0x00a9));
@@ -3894,7 +3894,7 @@ public:
         builder->Writeln(u" Line 1");
 
         // 2 -  Add a SYMBOL field which displays the ∞ (Infinity) symbol, and modify its appearance:
-        field = System::DynamicCast<FieldSymbol>(builder->InsertField(FieldType::FieldSymbol, true));
+        field = System::ExplicitCast<FieldSymbol>(builder->InsertField(FieldType::FieldSymbol, true));
 
         // In Unicode, the infinity symbol occupies the "221E" code.
         field->set_CharacterCode(System::Convert::ToString(0x221E));
@@ -3914,7 +3914,7 @@ public:
 
         // 3 -  Add a SYMBOL field which displays the あ character,
         // with a font that supports Shift-JIS (Windows-932) codepage:
-        field = System::DynamicCast<FieldSymbol>(builder->InsertField(FieldType::FieldSymbol, true));
+        field = System::ExplicitCast<FieldSymbol>(builder->InsertField(FieldType::FieldSymbol, true));
         field->set_FontName(u"MS Gothic");
         field->set_CharacterCode(System::Convert::ToString(0x82A0));
         field->set_IsShiftJis(true);
@@ -3928,14 +3928,14 @@ public:
 
         doc = MakeObject<Document>(ArtifactsDir + u"Field.SYMBOL.docx");
 
-        field = System::DynamicCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL  169 \\a", String::Empty, field);
         ASSERT_EQ(System::Convert::ToString(0x00a9), field->get_CharacterCode());
         ASSERT_TRUE(field->get_IsAnsi());
         ASSERT_EQ(u"©", field->get_DisplayResult());
 
-        field = System::DynamicCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL  8734 \\u \\f Calibri \\s 24 \\h", String::Empty, field);
         ASSERT_EQ(System::Convert::ToString(0x221E), field->get_CharacterCode());
@@ -3945,7 +3945,7 @@ public:
         ASSERT_TRUE(field->get_DontAffectsLineSpacing());
         ASSERT_EQ(u"∞", field->get_DisplayResult());
 
-        field = System::DynamicCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL  33440 \\f \"MS Gothic\" \\j", String::Empty, field);
         ASSERT_EQ(System::Convert::ToString(0x82A0), field->get_CharacterCode());
@@ -3966,7 +3966,7 @@ public:
 
         // We can use the TITLE field to display the value of this property in the document.
         auto builder = MakeObject<DocumentBuilder>(doc);
-        auto field = System::DynamicCast<FieldTitle>(builder->InsertField(FieldType::FieldTitle, false));
+        auto field = System::ExplicitCast<FieldTitle>(builder->InsertField(FieldType::FieldTitle, false));
         field->Update();
 
         ASSERT_EQ(u" TITLE ", field->GetFieldCode());
@@ -3975,7 +3975,7 @@ public:
         // Setting a value for the field's Text property,
         // and then updating the field will also overwrite the corresponding built-in property with the new value.
         builder->Writeln();
-        field = System::DynamicCast<FieldTitle>(builder->InsertField(FieldType::FieldTitle, false));
+        field = System::ExplicitCast<FieldTitle>(builder->InsertField(FieldType::FieldTitle, false));
         field->set_Text(u"My New Title");
         field->Update();
 
@@ -3991,11 +3991,11 @@ public:
 
         ASSERT_EQ(u"My New Title", doc->get_BuiltInDocumentProperties()->get_Title());
 
-        field = System::DynamicCast<FieldTitle>(doc->get_Range()->get_Fields()->idx_get(0));
+        field = System::ExplicitCast<FieldTitle>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldTitle, u" TITLE ", u"My New Title", field);
 
-        field = System::DynamicCast<FieldTitle>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldTitle>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldTitle, u" TITLE  \"My New Title\"", u"My New Title", field);
         ASSERT_EQ(u"My New Title", field->get_Text());
@@ -4028,7 +4028,7 @@ public:
 
         // Insert a TOA field, which will create an entry for each TA field in the document,
         // displaying long citations and page numbers for each entry.
-        auto fieldToa = System::DynamicCast<FieldToa>(builder->InsertField(FieldType::FieldTOA, false));
+        auto fieldToa = System::ExplicitCast<FieldToa>(builder->InsertField(FieldType::FieldTOA, false));
 
         // Set the entry category for our table. This TOA will now only include TA fields
         // that have a matching value in their EntryCategory property.
@@ -4128,7 +4128,7 @@ public:
 
     static SharedPtr<FieldTA> InsertToaEntry(SharedPtr<DocumentBuilder> builder, String entryCategory, String longCitation)
     {
-        auto field = System::DynamicCast<FieldTA>(builder->InsertField(FieldType::FieldTOAEntry, false));
+        auto field = System::ExplicitCast<FieldTA>(builder->InsertField(FieldType::FieldTOAEntry, false));
         field->set_EntryCategory(entryCategory);
         field->set_LongCitation(longCitation);
 
@@ -4140,7 +4140,7 @@ public:
 
     void TestFieldTOA(SharedPtr<Document> doc)
     {
-        auto fieldTOA = System::DynamicCast<FieldToa>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto fieldTOA = System::ExplicitCast<FieldToa>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_EQ(u"1", fieldTOA->get_EntryCategory());
         ASSERT_TRUE(fieldTOA->get_UseHeading());
@@ -4153,26 +4153,26 @@ public:
         ASSERT_EQ(u" TOA  \\c 1 \\h \\b MyBookmark \\e \" \t p.\" \\l \" & p. \" \\p \\g \" to \" \\f", fieldTOA->GetFieldCode());
         ASSERT_EQ(String(u"Cases\r") + u"Source 2 \t p.5\r" + u"Source 3 \t p.4 & p. 7 to 10\r" + u"Source 4 \t p.passim\r", fieldTOA->get_Result());
 
-        auto fieldTA = System::DynamicCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(1));
+        auto fieldTA = System::ExplicitCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(1));
 
         TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 1\"", String::Empty, fieldTA);
         ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
         ASSERT_EQ(u"Source 1", fieldTA->get_LongCitation());
 
-        fieldTA = System::DynamicCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(2));
+        fieldTA = System::ExplicitCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(2));
 
         TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 2 \\l \"Source 2\"", String::Empty, fieldTA);
         ASSERT_EQ(u"2", fieldTA->get_EntryCategory());
         ASSERT_EQ(u"Source 2", fieldTA->get_LongCitation());
 
-        fieldTA = System::DynamicCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(3));
+        fieldTA = System::ExplicitCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(3));
 
         TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 3\" \\s S.3", String::Empty, fieldTA);
         ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
         ASSERT_EQ(u"Source 3", fieldTA->get_LongCitation());
         ASSERT_EQ(u"S.3", fieldTA->get_ShortCitation());
 
-        fieldTA = System::DynamicCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(4));
+        fieldTA = System::ExplicitCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(4));
 
         TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 2\" \\b \\i", String::Empty, fieldTA);
         ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
@@ -4180,7 +4180,7 @@ public:
         ASSERT_TRUE(fieldTA->get_IsBold());
         ASSERT_TRUE(fieldTA->get_IsItalic());
 
-        fieldTA = System::DynamicCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(5));
+        fieldTA = System::ExplicitCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(5));
 
         TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 3\" \\r MyMultiPageBookmark", String::Empty, fieldTA);
         ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
@@ -4189,7 +4189,7 @@ public:
 
         for (int i = 6; i < 11; i++)
         {
-            fieldTA = System::DynamicCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(i));
+            fieldTA = System::ExplicitCast<FieldTA>(doc->get_Range()->get_Fields()->idx_get(i));
 
             TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 4\"", String::Empty, fieldTA);
             ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
@@ -4205,7 +4205,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Field sample - ADDIN.docx");
 
         // Aspose.Words does not support inserting ADDIN fields, but we can still load and read them.
-        auto field = System::DynamicCast<FieldAddIn>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto field = System::ExplicitCast<FieldAddIn>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_EQ(u" ADDIN \"My value\" ", field->GetFieldCode());
         //ExEnd
@@ -4227,7 +4227,7 @@ public:
         // the time spent with the document open in a Microsoft Word window.
         builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
         builder->Write(u"You've been editing this document for ");
-        auto field = System::DynamicCast<FieldEditTime>(builder->InsertField(FieldType::FieldEditTime, true));
+        auto field = System::ExplicitCast<FieldEditTime>(builder->InsertField(FieldType::FieldEditTime, true));
         builder->Writeln(u" minutes.");
 
         // This built in document property tracks the minutes. Microsoft Word uses this property
@@ -4321,7 +4321,7 @@ public:
     /// </summary>
     static SharedPtr<FieldEQ> InsertFieldEQ(SharedPtr<DocumentBuilder> builder, String args)
     {
-        auto field = System::DynamicCast<FieldEQ>(builder->InsertField(FieldType::FieldEquation, true));
+        auto field = System::ExplicitCast<FieldEQ>(builder->InsertField(FieldType::FieldEquation, true));
         builder->MoveTo(field->get_Separator());
         builder->Write(args);
         builder->MoveTo(field->get_Start()->get_ParentNode());
@@ -4367,13 +4367,13 @@ public:
         // In Microsoft Word, we can insert these fields via the Legacy Tools menu in the Developer tab.
         auto doc = MakeObject<Document>(MyDir + u"Form fields.docx");
 
-        auto fieldFormCheckBox = System::DynamicCast<FieldFormCheckBox>(doc->get_Range()->get_Fields()->idx_get(1));
+        auto fieldFormCheckBox = System::ExplicitCast<FieldFormCheckBox>(doc->get_Range()->get_Fields()->idx_get(1));
         ASSERT_EQ(u" FORMCHECKBOX \u0001", fieldFormCheckBox->GetFieldCode());
 
-        auto fieldFormDropDown = System::DynamicCast<FieldFormDropDown>(doc->get_Range()->get_Fields()->idx_get(2));
+        auto fieldFormDropDown = System::ExplicitCast<FieldFormDropDown>(doc->get_Range()->get_Fields()->idx_get(2));
         ASSERT_EQ(u" FORMDROPDOWN \u0001", fieldFormDropDown->GetFieldCode());
 
-        auto fieldFormText = System::DynamicCast<FieldFormText>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto fieldFormText = System::ExplicitCast<FieldFormText>(doc->get_Range()->get_Fields()->idx_get(0));
         ASSERT_EQ(u" FORMTEXT \u0001", fieldFormText->GetFieldCode());
         //ExEnd
     }
@@ -4392,7 +4392,7 @@ public:
         fieldBuilder->AddArgument(u"*");
         fieldBuilder->AddArgument(5);
 
-        auto field = System::DynamicCast<FieldFormula>(fieldBuilder->BuildAndInsert(doc->get_FirstSection()->get_Body()->get_FirstParagraph()));
+        auto field = System::ExplicitCast<FieldFormula>(fieldBuilder->BuildAndInsert(doc->get_FirstSection()->get_Body()->get_FirstParagraph()));
         field->Update();
 
         ASSERT_EQ(u" = 2 * 5 ", field->GetFieldCode());
@@ -4420,7 +4420,7 @@ public:
         doc->get_BuiltInDocumentProperties()->set_LastSavedBy(u"John Doe");
 
         // We can use the LASTSAVEDBY field to display the value of this property in the document.
-        auto field = System::DynamicCast<FieldLastSavedBy>(builder->InsertField(FieldType::FieldLastSavedBy, true));
+        auto field = System::ExplicitCast<FieldLastSavedBy>(builder->InsertField(FieldType::FieldLastSavedBy, true));
 
         ASSERT_EQ(u" LASTSAVEDBY ", field->GetFieldCode());
         ASSERT_EQ(u"John Doe", field->get_Result());
@@ -4442,7 +4442,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        auto field = System::DynamicCast<FieldOcx>(builder->InsertField(FieldType::FieldOcx, true));
+        auto field = System::ExplicitCast<FieldOcx>(builder->InsertField(FieldType::FieldOcx, true));
 
         ASSERT_EQ(u" OCX ", field->GetFieldCode());
         //ExEnd
@@ -4462,7 +4462,7 @@ public:
         // WordPerfect 5.x/6.x documents like the one we have loaded may contain PRIVATE fields.
         // Microsoft Word preserves PRIVATE fields during load/save operations,
         // but provides no functionality for them.
-        auto field = System::DynamicCast<FieldPrivate>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto field = System::ExplicitCast<FieldPrivate>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_EQ(u" PRIVATE \"My value\" ", field->GetFieldCode());
         ASSERT_EQ(FieldType::FieldPrivate, field->get_Type());
@@ -4533,19 +4533,19 @@ public:
 
         // A SECTION field displays the number of the section it is in.
         builder->Write(u"Section ");
-        auto fieldSection = System::DynamicCast<FieldSection>(builder->InsertField(FieldType::FieldSection, true));
+        auto fieldSection = System::ExplicitCast<FieldSection>(builder->InsertField(FieldType::FieldSection, true));
 
         ASSERT_EQ(u" SECTION ", fieldSection->GetFieldCode());
 
         // A PAGE field displays the number of the page it is in.
         builder->Write(u"\nPage ");
-        auto fieldPage = System::DynamicCast<FieldPage>(builder->InsertField(FieldType::FieldPage, true));
+        auto fieldPage = System::ExplicitCast<FieldPage>(builder->InsertField(FieldType::FieldPage, true));
 
         ASSERT_EQ(u" PAGE ", fieldPage->GetFieldCode());
 
         // A SECTIONPAGES field displays the number of pages that the section it is in spans across.
         builder->Write(u" of ");
-        auto fieldSectionPages = System::DynamicCast<FieldSectionPages>(builder->InsertField(FieldType::FieldSectionPages, true));
+        auto fieldSectionPages = System::ExplicitCast<FieldSectionPages>(builder->InsertField(FieldType::FieldSectionPages, true));
 
         ASSERT_EQ(u" SECTIONPAGES ", fieldSectionPages->GetFieldCode());
 
@@ -4609,7 +4609,7 @@ public:
     /// </summary>
     static SharedPtr<FieldTime> InsertFieldTime(SharedPtr<DocumentBuilder> builder, String format)
     {
-        auto field = System::DynamicCast<FieldTime>(builder->InsertField(FieldType::FieldTime, true));
+        auto field = System::ExplicitCast<FieldTime>(builder->InsertField(FieldType::FieldTime, true));
         builder->MoveTo(field->get_Separator());
         builder->Write(format);
         builder->MoveTo(field->get_Start()->get_ParentNode());
@@ -4624,21 +4624,21 @@ public:
         System::DateTime docLoadingTime = System::DateTime::get_Now();
         doc = DocumentHelper::SaveOpen(doc);
 
-        auto field = System::DynamicCast<FieldTime>(doc->get_Range()->get_Fields()->idx_get(0));
+        auto field = System::ExplicitCast<FieldTime>(doc->get_Range()->get_Fields()->idx_get(0));
 
         ASSERT_EQ(u" TIME ", field->GetFieldCode());
         ASSERT_EQ(FieldType::FieldTime, field->get_Type());
         ASSERT_EQ(System::DateTime::Parse(field->get_Result()),
                   System::DateTime::get_Today().AddHours(docLoadingTime.get_Hour()).AddMinutes(docLoadingTime.get_Minute()));
 
-        field = System::DynamicCast<FieldTime>(doc->get_Range()->get_Fields()->idx_get(1));
+        field = System::ExplicitCast<FieldTime>(doc->get_Range()->get_Fields()->idx_get(1));
 
         ASSERT_EQ(u" TIME \\@ HHmm", field->GetFieldCode());
         ASSERT_EQ(FieldType::FieldTime, field->get_Type());
         ASSERT_EQ(System::DateTime::Parse(field->get_Result()),
                   System::DateTime::get_Today().AddHours(docLoadingTime.get_Hour()).AddMinutes(docLoadingTime.get_Minute()));
 
-        field = System::DynamicCast<FieldTime>(doc->get_Range()->get_Fields()->idx_get(2));
+        field = System::ExplicitCast<FieldTime>(doc->get_Range()->get_Fields()->idx_get(2));
 
         ASSERT_EQ(u" TIME \\@ \"M/d/yyyy h mm:ss am/pm\"", field->GetFieldCode());
         ASSERT_EQ(FieldType::FieldTime, field->get_Type());
@@ -4660,7 +4660,7 @@ public:
         // The BIDIOUTLINE field numbers paragraphs like the AUTONUM/LISTNUM fields,
         // but is only visible when a right-to-left editing language is enabled, such as Hebrew or Arabic.
         // The following field will display ".1", the RTL equivalent of list number "1.".
-        auto field = System::DynamicCast<FieldBidiOutline>(builder->InsertField(FieldType::FieldBidiOutline, true));
+        auto field = System::ExplicitCast<FieldBidiOutline>(builder->InsertField(FieldType::FieldBidiOutline, true));
         builder->Writeln(u"שלום");
 
         ASSERT_EQ(u" BIDIOUTLINE ", field->GetFieldCode());
@@ -4715,15 +4715,15 @@ public:
 
         // The first Shape node corresponds to the SHAPE field in the input document,
         // which is the inline canvas for the AutoShape.
-        auto shape = System::DynamicCast<Shape>(shapes->idx_get(0));
+        auto shape = System::ExplicitCast<Shape>(shapes->idx_get(0));
         ASSERT_EQ(ShapeType::Image, shape->get_ShapeType());
 
         // The second Shape node is the AutoShape itself.
-        shape = System::DynamicCast<Shape>(shapes->idx_get(1));
+        shape = System::ExplicitCast<Shape>(shapes->idx_get(1));
         ASSERT_EQ(ShapeType::Can, shape->get_ShapeType());
 
         // The third Shape is what was the EMBED field that contained the external spreadsheet.
-        shape = System::DynamicCast<Shape>(shapes->idx_get(2));
+        shape = System::ExplicitCast<Shape>(shapes->idx_get(2));
         ASSERT_EQ(ShapeType::OleObject, shape->get_ShapeType());
         //ExEnd
     }
@@ -4963,7 +4963,7 @@ public:
         {
             if (field->get_Type() == FieldType::FieldAuthor)
             {
-                auto fieldAuthor = System::DynamicCast<FieldAuthor>(field);
+                auto fieldAuthor = System::ExplicitCast<FieldAuthor>(field);
                 fieldAuthor->set_AuthorName(u"Updating John Doe");
             }
         }
