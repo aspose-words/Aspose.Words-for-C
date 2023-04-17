@@ -1405,7 +1405,6 @@ public:
         //ExStart
         //ExFor:OfficeMath
         //ExFor:OfficeMath.DisplayType
-        //ExFor:OfficeMath.EquationXmlEncoding
         //ExFor:OfficeMath.Justification
         //ExFor:OfficeMath.NodeType
         //ExFor:OfficeMath.ParentParagraph
@@ -1421,9 +1420,6 @@ public:
         ASSERT_EQ(MathObjectType::OMathPara, officeMath->get_MathObjectType());
         ASSERT_EQ(NodeType::OfficeMath, officeMath->get_NodeType());
         ASPOSE_ASSERT_EQ(officeMath->get_ParentNode(), officeMath->get_ParentParagraph());
-
-        // OOXML and WML formats use the "EquationXmlEncoding" property.
-        ASSERT_TRUE(officeMath->get_EquationXmlEncoding() == nullptr);
 
         // Change the location and display type of the OfficeMath node.
         officeMath->set_DisplayType(OfficeMathDisplayType::Display);
