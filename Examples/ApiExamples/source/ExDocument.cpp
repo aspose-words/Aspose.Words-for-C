@@ -61,11 +61,6 @@ TEST_F(ExDocument, LoadFromStream)
     s_instance->LoadFromStream();
 }
 
-TEST_F(ExDocument, LoadFromWeb)
-{
-    s_instance->LoadFromWeb();
-}
-
 TEST_F(ExDocument, ConvertToPdf)
 {
     s_instance->ConvertToPdf();
