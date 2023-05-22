@@ -25,33 +25,33 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{907D1C7E-686C-40BC-8EA7-268C43EB4B26}</ProjectGuid>
     <RootNamespace>ApiExamples</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -405,14 +405,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.23.4.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets" Condition="Exists('..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.23.4.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets')" />
-    <Import Project="..\..\packages\Aspose.Words.Cpp.23.4.0\build\native\aspose.words.cpp.targets" Condition="Exists('..\..\packages\Aspose.Words.Cpp.23.4.0\build\native\aspose.words.cpp.targets')" />
+    <Import Project="..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.23.5.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets" Condition="Exists('..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.23.5.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets')" />
+    <Import Project="..\..\packages\Aspose.Words.Cpp.23.5.0\build\native\aspose.words.cpp.targets" Condition="Exists('..\..\packages\Aspose.Words.Cpp.23.5.0\build\native\aspose.words.cpp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.23.4.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.23.4.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Aspose.Words.Cpp.23.4.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Aspose.Words.Cpp.23.4.0\build\native\aspose.words.cpp.targets'))" />
+    <Error Condition="!Exists('..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.23.5.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.23.5.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Aspose.Words.Cpp.23.5.0\build\native\aspose.words.cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Aspose.Words.Cpp.23.5.0\build\native\aspose.words.cpp.targets'))" />
   </Target>
 </Project>
