@@ -116,6 +116,22 @@ public:
         doc->Save(ArtifactsDir + u"WorkingWithStylesAndThemes.InsertStyleSeparator.docx");
         //ExEnd:InsertStyleSeparator
     }
+
+    void CopyStyleDifferentDocument()
+    {
+        //ExStart:CopyStyleDifferentDocument
+        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
+        auto srcDoc = MakeObject<Document>();
+
+        // Create a custom style for the source document.
+        SharedPtr<Style> srcStyle = srcDoc->get_Styles()->Add(StyleType::Paragraph, u"MyStyle");
+        srcStyle->get_Font()->set_Color(System::Drawing::Color::get_Red());
+
+        // Import the source document's custom style into the destination document.
+        auto dstDoc = MakeObject<Document>();
+        SharedPtr<Style> newStyle = dstDoc->get_Styles()->AddCopy(srcStyle);
+        //ExEnd:CopyStyleDifferentDocument
+    }
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

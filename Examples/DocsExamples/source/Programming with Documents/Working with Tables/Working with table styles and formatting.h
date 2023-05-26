@@ -55,9 +55,10 @@ namespace DocsExamples { namespace Programming_with_Documents { namespace Workin
 class WorkingWithTableStylesAndFormatting : public DocsExamplesBase
 {
 public:
-    void GetDistanceBetweenTableSurroundingText()
+    void DistanceBetweenTableSurroundingText()
     {
-        //ExStart:GetDistancebetweenTableSurroundingText
+        //ExStart:DistancebetweenTableSurroundingText
+        //GistId:8df1ad0825619cab7c80b571c6e6ba99
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         std::cout << "\nGet distance between table left, right, bottom, top and the surrounding text." << std::endl;
@@ -67,17 +68,21 @@ public:
         std::cout << table->get_DistanceBottom() << std::endl;
         std::cout << table->get_DistanceRight() << std::endl;
         std::cout << table->get_DistanceLeft() << std::endl;
-        //ExEnd:GetDistancebetweenTableSurroundingText
+        //ExEnd:DistancebetweenTableSurroundingText
     }
 
     void ApplyOutlineBorder()
     {
         //ExStart:ApplyOutlineBorder
+        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //ExStart:InlineTablePosition
+        //GistId:8df1ad0825619cab7c80b571c6e6ba99
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         // Align the table to the center of the page.
         table->set_Alignment(TableAlignment::Center);
+        //ExEnd:InlineTablePosition
         // Clear any existing borders from the table.
         table->ClearBorders();
 
@@ -97,6 +102,7 @@ public:
     void BuildTableWithBorders()
     {
         //ExStart:BuildTableWithBorders
+        //GistId:770bf20bd617f3cb80031a74cc6c9b73
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -114,6 +120,7 @@ public:
     void ModifyRowFormatting()
     {
         //ExStart:ModifyRowFormatting
+        //GistId:770bf20bd617f3cb80031a74cc6c9b73
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -129,6 +136,7 @@ public:
     void ApplyRowFormatting()
     {
         //ExStart:ApplyRowFormatting
+        //GistId:770bf20bd617f3cb80031a74cc6c9b73
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -154,9 +162,10 @@ public:
         //ExEnd:ApplyRowFormatting
     }
 
-    void SetCellPadding()
+    void CellPadding()
     {
-        //ExStart:SetCellPadding
+        //ExStart:CellPadding
+        //GistId:770bf20bd617f3cb80031a74cc6c9b73
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -170,8 +179,8 @@ public:
         builder->EndRow();
         builder->EndTable();
 
-        doc->Save(ArtifactsDir + u"WorkingWithTableStylesAndFormatting.SetCellPadding.docx");
-        //ExEnd:SetCellPadding
+        doc->Save(ArtifactsDir + u"WorkingWithTableStylesAndFormatting.CellPadding.docx");
+        //ExEnd:CellPadding
     }
 
     /// <summary>
@@ -180,6 +189,7 @@ public:
     void ModifyCellFormatting()
     {
         //ExStart:ModifyCellFormatting
+        //GistId:770bf20bd617f3cb80031a74cc6c9b73
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
@@ -193,6 +203,7 @@ public:
     void FormatTableAndCellWithDifferentBorders()
     {
         //ExStart:FormatTableAndCellWithDifferentBorders
+        //GistId:770bf20bd617f3cb80031a74cc6c9b73
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -235,9 +246,10 @@ public:
         //ExEnd:FormatTableAndCellWithDifferentBorders
     }
 
-    void SetTableTitleAndDescription()
+    void TableTitleAndDescription()
     {
-        //ExStart:SetTableTitleAndDescription
+        //ExStart:TableTitleAndDescription
+        //GistId:458eb4fd5bd1de8b06fab4d1ef1acdc6
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -249,13 +261,14 @@ public:
 
         doc->get_CompatibilityOptions()->OptimizeFor(Settings::MsWordVersion::Word2016);
 
-        doc->Save(ArtifactsDir + u"WorkingWithTableStylesAndFormatting.SetTableTitleAndDescription.docx", options);
-        //ExEnd:SetTableTitleAndDescription
+        doc->Save(ArtifactsDir + u"WorkingWithTableStylesAndFormatting.TableTitleAndDescription.docx", options);
+        //ExEnd:TableTitleAndDescription
     }
 
     void AllowCellSpacing()
     {
         //ExStart:AllowCellSpacing
+        //GistId:770bf20bd617f3cb80031a74cc6c9b73
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -269,6 +282,7 @@ public:
     void BuildTableWithStyle()
     {
         //ExStart:BuildTableWithStyle
+        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -315,6 +329,7 @@ public:
     void ExpandFormattingOnCellsAndRowFromStyle()
     {
         //ExStart:ExpandFormattingOnCellsAndRowFromStyle
+        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         // Get the first cell of the first table in the document.
@@ -338,6 +353,7 @@ public:
     void CreateTableStyle()
     {
         //ExStart:CreateTableStyle
+        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -368,6 +384,7 @@ public:
     void DefineConditionalFormatting()
     {
         //ExStart:DefineConditionalFormatting
+        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
