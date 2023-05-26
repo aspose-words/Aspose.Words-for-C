@@ -57,7 +57,7 @@ class WorkingWithTableStylesAndFormatting : public DocsExamplesBase
 public:
     void DistanceBetweenTableSurroundingText()
     {
-        //ExStart:DistancebetweenTableSurroundingText
+        //ExStart:DistanceBetweenTableSurroundingText
         //GistId:8df1ad0825619cab7c80b571c6e6ba99
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
@@ -68,7 +68,7 @@ public:
         std::cout << table->get_DistanceBottom() << std::endl;
         std::cout << table->get_DistanceRight() << std::endl;
         std::cout << table->get_DistanceLeft() << std::endl;
-        //ExEnd:DistancebetweenTableSurroundingText
+        //ExEnd:DistanceBetweenTableSurroundingText
     }
 
     void ApplyOutlineBorder()

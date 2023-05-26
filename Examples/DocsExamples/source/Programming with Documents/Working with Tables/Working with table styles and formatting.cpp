@@ -31,9 +31,9 @@ protected:
 System::SharedPtr<::DocsExamples::Programming_with_Documents::Working_with_Tables::WorkingWithTableStylesAndFormatting>
     WorkingWithTableStylesAndFormatting::s_instance;
 
-TEST_F(WorkingWithTableStylesAndFormatting, GetDistanceBetweenTableSurroundingText)
+TEST_F(WorkingWithTableStylesAndFormatting, DistanceBetweenTableSurroundingText)
 {
-    s_instance->GetDistanceBetweenTableSurroundingText();
+    s_instance->DistanceBetweenTableSurroundingText();
 }
 
 TEST_F(WorkingWithTableStylesAndFormatting, ApplyOutlineBorder)
@@ -56,9 +56,9 @@ TEST_F(WorkingWithTableStylesAndFormatting, ApplyRowFormatting)
     s_instance->ApplyRowFormatting();
 }
 
-TEST_F(WorkingWithTableStylesAndFormatting, SetCellPadding)
+TEST_F(WorkingWithTableStylesAndFormatting, CellPadding)
 {
-    s_instance->SetCellPadding();
+    s_instance->CellPadding();
 }
 
 TEST_F(WorkingWithTableStylesAndFormatting, ModifyCellFormatting)
@@ -71,9 +71,9 @@ TEST_F(WorkingWithTableStylesAndFormatting, FormatTableAndCellWithDifferentBorde
     s_instance->FormatTableAndCellWithDifferentBorders();
 }
 
-TEST_F(WorkingWithTableStylesAndFormatting, SetTableTitleAndDescription)
+TEST_F(WorkingWithTableStylesAndFormatting, TableTitleAndDescription)
 {
-    s_instance->SetTableTitleAndDescription();
+    s_instance->TableTitleAndDescription();
 }
 
 TEST_F(WorkingWithTableStylesAndFormatting, AllowCellSpacing)

@@ -1170,7 +1170,7 @@ public:
         table->set_HorizontalAnchor(RelativeHorizontalPosition::Column);
         table->set_VerticalAnchor(RelativeVerticalPosition::Page);
 
-        doc->Save(ArtifactsDir + u"WorkingWithTables.SetFloatingTablePosition.docx");
+        doc->Save(ArtifactsDir + u"WorkingWithTables.SetRelativeHorizontalOrVerticalPosition.docx");
         //ExEnd:SetRelativeHorizontalOrVerticalPosition
     }
 };

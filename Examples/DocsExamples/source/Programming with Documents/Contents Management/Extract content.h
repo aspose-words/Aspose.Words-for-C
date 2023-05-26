@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -496,14 +496,14 @@ public:
         std::cout << table->get_Range()->get_Text() << std::endl;
         //ExEnd:ExtractText
 
-        //ExStart:PrintTextRangeOFRowAndTable
+        //ExStart:PrintTextRangeRowAndTable
         //GistId:458eb4fd5bd1de8b06fab4d1ef1acdc6
         std::cout << "\nContents of the row: " << std::endl;
         std::cout << table->get_Rows()->idx_get(1)->get_Range()->get_Text() << std::endl;
 
         std::cout << "\nContents of the cell: " << std::endl;
         std::cout << table->get_LastRow()->get_LastCell()->get_Range()->get_Text() << std::endl;
-        //ExEnd:PrintTextRangeOFRowAndTable
+        //ExEnd:PrintTextRangeRowAndTable
     }
 
     void ExtractImagesToFiles()
