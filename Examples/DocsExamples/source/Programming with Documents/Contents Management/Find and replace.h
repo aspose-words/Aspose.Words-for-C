@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -686,7 +686,7 @@ public:
     void ReplaceTextInTable()
     {
         //ExStart:ReplaceText
-        //GistId:458eb4fd5bd1de8b06fab4d1ef1acdc6
+        //GistId:0c6e4ebd55874aa8634f1d74d5ef492f
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));

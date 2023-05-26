@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -87,7 +87,7 @@ public:
     void RemoveColumn()
     {
         //ExStart:RemoveColumn
-        //GistId:7e7e54ead8b97457543ea46fc6bae045
+        //GistId:08b4741d451b8f6519bcb0b916f18bb8
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 1, true));
@@ -100,7 +100,7 @@ public:
     void InsertBlankColumn()
     {
         //ExStart:InsertBlankColumn
-        //GistId:7e7e54ead8b97457543ea46fc6bae045
+        //GistId:08b4741d451b8f6519bcb0b916f18bb8
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -124,7 +124,7 @@ public:
     }
 
     //ExStart:ColumnClass
-    //GistId:7e7e54ead8b97457543ea46fc6bae045
+    //GistId:08b4741d451b8f6519bcb0b916f18bb8
     /// <summary>
     /// Represents a facade object for a column of a table in a Microsoft Word document.
     /// </summary>
@@ -255,7 +255,7 @@ public:
     void AutoFitTableToContents()
     {
         //ExStart:AutoFitTableToContents
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -268,7 +268,7 @@ public:
     void AutoFitTableToFixedColumnWidths()
     {
         //ExStart:AutoFitTableToFixedColumnWidths
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -282,7 +282,7 @@ public:
     void AutoFitTableToPageWidth()
     {
         //ExStart:AutoFitTableToPageWidth
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -296,7 +296,7 @@ public:
     void CloneCompleteTable()
     {
         //ExStart:CloneCompleteTable
-        //GistId:10307fa0baf630b07d0cbdae30119bf3
+        //GistId:aa87055754447c86ae5fb2d4766130f3
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -316,7 +316,7 @@ public:
     void CloneLastRow()
     {
         //ExStart:CloneLastRow
-        //GistId:10307fa0baf630b07d0cbdae30119bf3
+        //GistId:aa87055754447c86ae5fb2d4766130f3
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -339,7 +339,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         //ExStart:RetrieveTableIndex
-        //GistId:7e7e54ead8b97457543ea46fc6bae045
+        //GistId:08b4741d451b8f6519bcb0b916f18bb8
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
         SharedPtr<NodeCollection> allTables = doc->GetChildNodes(NodeType::Table, true);
@@ -348,14 +348,14 @@ public:
         std::cout << (String(u"\nTable index is ") + tableIndex) << std::endl;
 
         //ExStart:RetrieveRowIndex
-        //GistId:7e7e54ead8b97457543ea46fc6bae045
+        //GistId:08b4741d451b8f6519bcb0b916f18bb8
         int rowIndex = table->IndexOf(table->get_LastRow());
         //ExEnd:RetrieveRowIndex
         std::cout << (String(u"\nRow index is ") + rowIndex) << std::endl;
 
         SharedPtr<Row> row = table->get_LastRow();
         //ExStart:RetrieveCellIndex
-        //GistId:7e7e54ead8b97457543ea46fc6bae045
+        //GistId:08b4741d451b8f6519bcb0b916f18bb8
         int cellIndex = row->IndexOf(row->get_Cells()->idx_get(4));
         //ExEnd:RetrieveCellIndex
         std::cout << (String(u"\nCell index is ") + cellIndex) << std::endl;
@@ -364,7 +364,7 @@ public:
     void InsertTableDirectly()
     {
         //ExStart:InsertTableDirectly
-        //GistId:10307fa0baf630b07d0cbdae30119bf3
+        //GistId:aa87055754447c86ae5fb2d4766130f3
         auto doc = MakeObject<Document>();
 
         // We start by creating the table object. Note that we must pass the document object
@@ -406,7 +406,7 @@ public:
     void InsertTableFromHtml()
     {
         //ExStart:InsertTableFromHtml
-        //GistId:10307fa0baf630b07d0cbdae30119bf3
+        //GistId:aa87055754447c86ae5fb2d4766130f3
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -421,7 +421,7 @@ public:
     void CreateSimpleTable()
     {
         //ExStart:CreateSimpleTable
-        //GistId:10307fa0baf630b07d0cbdae30119bf3
+        //GistId:aa87055754447c86ae5fb2d4766130f3
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -456,7 +456,7 @@ public:
     void FormattedTable()
     {
         //ExStart:FormattedTable
-        //GistId:10307fa0baf630b07d0cbdae30119bf3
+        //GistId:aa87055754447c86ae5fb2d4766130f3
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -530,7 +530,7 @@ public:
     void NestedTable()
     {
         //ExStart:NestedTable
-        //GistId:10307fa0baf630b07d0cbdae30119bf3
+        //GistId:aa87055754447c86ae5fb2d4766130f3
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -561,7 +561,7 @@ public:
     void CombineRows()
     {
         //ExStart:CombineRows
-        //GistId:b0735c64408bcb2c063f96f7c9d5af75
+        //GistId:e89b24cb8b77096687e8e6567018c087
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         // The rows from the second table will be appended to the end of the first table.
@@ -584,7 +584,7 @@ public:
     void SplitTable()
     {
         //ExStart:SplitTable
-        //GistId:4ab56c5443822fa44f4cac1f45af32b7
+        //GistId:29ce7710cab8c3ef18e912a5813e0d36
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto firstTable = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -616,7 +616,7 @@ public:
     void RowFormatDisableBreakAcrossPages()
     {
         //ExStart:RowFormatDisableBreakAcrossPages
-        //GistId:7e7e54ead8b97457543ea46fc6bae045
+        //GistId:08b4741d451b8f6519bcb0b916f18bb8
         auto doc = MakeObject<Document>(MyDir + u"Table spanning two pages.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -634,7 +634,7 @@ public:
     void KeepTableTogether()
     {
         //ExStart:KeepTableTogether
-        //GistId:7e7e54ead8b97457543ea46fc6bae045
+        //GistId:08b4741d451b8f6519bcb0b916f18bb8
         auto doc = MakeObject<Document>(MyDir + u"Table spanning two pages.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -661,7 +661,7 @@ public:
     void CheckCellsMerged()
     {
         //ExStart:CheckCellsMerged
-        //GistId:93de23a2f74a7f2e4971ed203874c983
+        //GistId:03b0c69804cda6427adc3f12cc6ba2d3
         auto doc = MakeObject<Document>(MyDir + u"Table with merged cells.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -707,7 +707,7 @@ public:
     void VerticalMerge()
     {
         //ExStart:VerticalMerge
-        //GistId:93de23a2f74a7f2e4971ed203874c983
+        //GistId:03b0c69804cda6427adc3f12cc6ba2d3
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -737,7 +737,7 @@ public:
     void HorizontalMerge()
     {
         //ExStart:HorizontalMerge
-        //GistId:93de23a2f74a7f2e4971ed203874c983
+        //GistId:03b0c69804cda6427adc3f12cc6ba2d3
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -766,7 +766,7 @@ public:
     void MergeCellRange()
     {
         //ExStart:MergeCellRange
-        //GistId:93de23a2f74a7f2e4971ed203874c983
+        //GistId:03b0c69804cda6427adc3f12cc6ba2d3
         auto doc = MakeObject<Document>(MyDir + u"Table with merged cells.docx");
 
         SharedPtr<Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
@@ -785,7 +785,7 @@ public:
     void PrintHorizontalAndVerticalMerged()
     {
         //ExStart:PrintHorizontalAndVerticalMerged
-        //GistId:93de23a2f74a7f2e4971ed203874c983
+        //GistId:03b0c69804cda6427adc3f12cc6ba2d3
         auto doc = MakeObject<Document>(MyDir + u"Table with merged cells.docx");
 
         auto visitor = MakeObject<WorkingWithTables::SpanVisitor>(doc);
@@ -796,7 +796,7 @@ public:
     void ConvertToHorizontallyMergedCells()
     {
         //ExStart:ConvertToHorizontallyMergedCells
-        //GistId:93de23a2f74a7f2e4971ed203874c983
+        //GistId:03b0c69804cda6427adc3f12cc6ba2d3
         auto doc = MakeObject<Document>(MyDir + u"Table with merged cells.docx");
 
         SharedPtr<Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
@@ -806,7 +806,7 @@ public:
     }
 
     //ExStart:MergeCells
-    //GistId:93de23a2f74a7f2e4971ed203874c983
+    //GistId:03b0c69804cda6427adc3f12cc6ba2d3
     void MergeCells(SharedPtr<Cell> startCell, SharedPtr<Cell> endCell)
     {
         SharedPtr<Table> parentTable = startCell->get_ParentRow()->get_ParentTable();
@@ -840,7 +840,7 @@ public:
     //ExEnd:MergeCells
 
     //ExStart:HorizontalAndVerticalMergeHelperClasses
-    //GistId:93de23a2f74a7f2e4971ed203874c983
+    //GistId:03b0c69804cda6427adc3f12cc6ba2d3
     /// <summary>
     /// Helper class that contains collection of rowinfo for each row.
     /// </summary>
@@ -996,7 +996,7 @@ public:
     void RepeatRowsOnSubsequentPages()
     {
         //ExStart:RepeatRowsOnSubsequentPages
-        //GistId:7e7e54ead8b97457543ea46fc6bae045
+        //GistId:08b4741d451b8f6519bcb0b916f18bb8
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -1031,7 +1031,7 @@ public:
     void AutoFitToPageWidth()
     {
         //ExStart:AutoFitToPageWidth
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -1055,7 +1055,7 @@ public:
     void PreferredWidthSettings()
     {
         //ExStart:PreferredWidthSettings
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -1088,12 +1088,12 @@ public:
     void RetrievePreferredWidthType()
     {
         //ExStart:RetrievePreferredWidthType
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
         //ExStart:AllowAutoFit
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         table->set_AllowAutoFit(true);
         //ExEnd:AllowAutoFit
 
@@ -1106,7 +1106,7 @@ public:
     void GetTablePosition()
     {
         //ExStart:GetTablePosition
-        //GistId:8df1ad0825619cab7c80b571c6e6ba99
+        //GistId:eb66dfc4c4820add33be9df57ba4c4cd
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -1126,7 +1126,7 @@ public:
     void GetFloatingTablePosition()
     {
         //ExStart:GetFloatingTablePosition
-        //GistId:8df1ad0825619cab7c80b571c6e6ba99
+        //GistId:eb66dfc4c4820add33be9df57ba4c4cd
         auto doc = MakeObject<Document>(MyDir + u"Table wrapped by text.docx");
 
         for (const auto& table : System::IterateOver<Table>(doc->get_FirstSection()->get_Body()->get_Tables()))
@@ -1150,7 +1150,7 @@ public:
     void FloatingTablePosition()
     {
         //ExStart:FloatingTablePosition
-        //GistId:8df1ad0825619cab7c80b571c6e6ba99
+        //GistId:eb66dfc4c4820add33be9df57ba4c4cd
         auto doc = MakeObject<Document>(MyDir + u"Table wrapped by text.docx");
 
         SharedPtr<Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);

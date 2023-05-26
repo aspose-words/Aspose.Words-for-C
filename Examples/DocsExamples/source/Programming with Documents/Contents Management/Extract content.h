@@ -484,7 +484,7 @@ public:
     void ExtractPrintText()
     {
         //ExStart:ExtractText
-        //GistId:458eb4fd5bd1de8b06fab4d1ef1acdc6
+        //GistId:0c6e4ebd55874aa8634f1d74d5ef492f
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -497,7 +497,7 @@ public:
         //ExEnd:ExtractText
 
         //ExStart:PrintTextRangeRowAndTable
-        //GistId:458eb4fd5bd1de8b06fab4d1ef1acdc6
+        //GistId:0c6e4ebd55874aa8634f1d74d5ef492f
         std::cout << "\nContents of the row: " << std::endl;
         std::cout << table->get_Rows()->idx_get(1)->get_Range()->get_Text() << std::endl;
 

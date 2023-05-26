@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -120,7 +120,7 @@ public:
     void CopyStyleDifferentDocument()
     {
         //ExStart:CopyStyleDifferentDocument
-        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
+        //GistId:aeee44b29c42f9e9404ce57a80305383
         auto srcDoc = MakeObject<Document>();
 
         // Create a custom style for the source document.

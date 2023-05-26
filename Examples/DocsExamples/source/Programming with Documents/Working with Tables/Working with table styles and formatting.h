@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -58,7 +58,7 @@ public:
     void DistanceBetweenTableSurroundingText()
     {
         //ExStart:DistanceBetweenTableSurroundingText
-        //GistId:8df1ad0825619cab7c80b571c6e6ba99
+        //GistId:eb66dfc4c4820add33be9df57ba4c4cd
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         std::cout << "\nGet distance between table left, right, bottom, top and the surrounding text." << std::endl;
@@ -74,9 +74,9 @@ public:
     void ApplyOutlineBorder()
     {
         //ExStart:ApplyOutlineBorder
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         //ExStart:InlineTablePosition
-        //GistId:8df1ad0825619cab7c80b571c6e6ba99
+        //GistId:eb66dfc4c4820add33be9df57ba4c4cd
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -102,7 +102,7 @@ public:
     void BuildTableWithBorders()
     {
         //ExStart:BuildTableWithBorders
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -120,7 +120,7 @@ public:
     void ModifyRowFormatting()
     {
         //ExStart:ModifyRowFormatting
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -136,7 +136,7 @@ public:
     void ApplyRowFormatting()
     {
         //ExStart:ApplyRowFormatting
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -165,7 +165,7 @@ public:
     void CellPadding()
     {
         //ExStart:CellPadding
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -189,7 +189,7 @@ public:
     void ModifyCellFormatting()
     {
         //ExStart:ModifyCellFormatting
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
 
@@ -203,7 +203,7 @@ public:
     void FormatTableAndCellWithDifferentBorders()
     {
         //ExStart:FormatTableAndCellWithDifferentBorders
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -249,7 +249,7 @@ public:
     void TableTitleAndDescription()
     {
         //ExStart:TableTitleAndDescription
-        //GistId:458eb4fd5bd1de8b06fab4d1ef1acdc6
+        //GistId:0c6e4ebd55874aa8634f1d74d5ef492f
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -268,7 +268,7 @@ public:
     void AllowCellSpacing()
     {
         //ExStart:AllowCellSpacing
-        //GistId:770bf20bd617f3cb80031a74cc6c9b73
+        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
@@ -282,7 +282,7 @@ public:
     void BuildTableWithStyle()
     {
         //ExStart:BuildTableWithStyle
-        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
+        //GistId:aeee44b29c42f9e9404ce57a80305383
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -329,7 +329,7 @@ public:
     void ExpandFormattingOnCellsAndRowFromStyle()
     {
         //ExStart:ExpandFormattingOnCellsAndRowFromStyle
-        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
+        //GistId:aeee44b29c42f9e9404ce57a80305383
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
 
         // Get the first cell of the first table in the document.
@@ -353,7 +353,7 @@ public:
     void CreateTableStyle()
     {
         //ExStart:CreateTableStyle
-        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
+        //GistId:aeee44b29c42f9e9404ce57a80305383
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -384,7 +384,7 @@ public:
     void DefineConditionalFormatting()
     {
         //ExStart:DefineConditionalFormatting
-        //GistId:93b92a7e6f2f4bbfd9177dd7fcecbd8c
+        //GistId:aeee44b29c42f9e9404ce57a80305383
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
