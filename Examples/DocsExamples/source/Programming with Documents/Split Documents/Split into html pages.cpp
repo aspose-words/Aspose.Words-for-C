@@ -79,6 +79,8 @@ System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph
     return topicStartParas;
 }
 
+//ExStart:InsertSectionBreaks
+//GistId:1afca4d3da7cb4240fb91c3d93d8c30d
 void WordToHtmlConverter::InsertSectionBreaks(System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph>>> topicStartParas)
 {
     auto builder = System::MakeObject<DocumentBuilder>(mDoc);
@@ -98,6 +100,7 @@ void WordToHtmlConverter::InsertSectionBreaks(System::SharedPtr<System::Collecti
         }
     }
 }
+//ExEnd:InsertSectionBreaks
 
 System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Topic>>> WordToHtmlConverter::SaveHtmlTopics()
 {

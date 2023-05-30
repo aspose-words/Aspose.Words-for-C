@@ -71,9 +71,9 @@ TEST_F(WorkingWithDocumentOptionsAndSettings, SetRussianAsDefaultEditingLanguage
     s_instance->SetRussianAsDefaultEditingLanguage();
 }
 
-TEST_F(WorkingWithDocumentOptionsAndSettings, SetPageSetupAndSectionFormatting)
+TEST_F(WorkingWithDocumentOptionsAndSettings, PageSetupAndSectionFormatting)
 {
-    s_instance->SetPageSetupAndSectionFormatting();
+    s_instance->PageSetupAndSectionFormatting();
 }
 
 }}}} // namespace DocsExamples::Programming_with_Documents::Working_with_Document::gtest_test

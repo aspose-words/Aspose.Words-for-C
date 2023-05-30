@@ -2,6 +2,9 @@
 
 #include <cstdint>
 #include <iostream>
+#include <Aspose.Words.Cpp/Border.h>
+#include <Aspose.Words.Cpp/BorderCollection.h>
+#include <Aspose.Words.Cpp/BorderType.h>
 #include <Aspose.Words.Cpp/CleanupOptions.h>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
@@ -11,6 +14,7 @@
 #include <Aspose.Words.Cpp/Loading/LanguagePreferences.h>
 #include <Aspose.Words.Cpp/Loading/LoadOptions.h>
 #include <Aspose.Words.Cpp/Orientation.h>
+#include <Aspose.Words.Cpp/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/PageSetup.h>
 #include <Aspose.Words.Cpp/PaperSize.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
@@ -21,6 +25,8 @@
 #include <Aspose.Words.Cpp/Settings/ViewOptions.h>
 #include <Aspose.Words.Cpp/Settings/ViewType.h>
 #include <Aspose.Words.Cpp/StyleCollection.h>
+#include <Aspose.Words.Cpp/SectionCollection.h>
+#include <drawing/color.h>
 
 #include "DocsExamplesBase.h"
 
@@ -170,9 +176,10 @@ public:
         //ExEnd:SetRussianAsDefaultEditingLanguage
     }
 
-    void SetPageSetupAndSectionFormatting()
+    void PageSetupAndSectionFormatting()
     {
-        //ExStart:DocumentBuilderSetPageSetupAndSectionFormatting
+        //ExStart:PageSetupAndSectionFormatting
+        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -180,8 +187,49 @@ public:
         builder->get_PageSetup()->set_LeftMargin(50);
         builder->get_PageSetup()->set_PaperSize(PaperSize::Paper10x14);
 
-        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.SetPageSetupAndSectionFormatting.docx");
-        //ExEnd:DocumentBuilderSetPageSetupAndSectionFormatting
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.PageSetupAndSectionFormatting.docx");
+        //ExEnd:PageSetupAndSectionFormatting
+    }
+
+    void PageBorderProperties()
+    {
+        //ExStart:PageBorderProperties
+        auto doc = MakeObject<Document>();
+
+        auto pageSetup = doc->get_Sections()->idx_get(0)->get_PageSetup();
+        pageSetup->set_BorderAlwaysInFront(false);
+        pageSetup->set_BorderDistanceFrom(PageBorderDistanceFrom::PageEdge);
+        pageSetup->set_BorderAppliesTo(PageBorderAppliesTo::FirstPage);
+
+        auto border = pageSetup->get_Borders()->idx_get(BorderType::Top);
+        border->set_LineStyle(LineStyle::Single);
+        border->set_LineWidth(30);
+        border->set_Color(System::Drawing::Color::get_Blue());
+        border->set_DistanceFromText(0);
+
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.PageBorderProperties.docx");
+        //ExEnd:PageBorderProperties
+    }
+
+    void LineGridSectionLayoutMode()
+    {
+        //ExStart:LineGridSectionLayoutMode
+        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        // Enable pitching, and then use it to set the number of lines per page in this section.
+        // A large enough font size will push some lines down onto the next page to avoid overlapping characters.
+        builder->get_PageSetup()->set_LayoutMode(SectionLayoutMode::LineGrid);
+        builder->get_PageSetup()->set_LinesPerPage(15);
+
+        builder->get_ParagraphFormat()->set_SnapToGrid(true);
+
+        for (int i = 0; i < 30; i++)
+            builder->Write(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ");
+
+        doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.LinesPerPage.docx");
+        //ExEnd:LineGridSectionLayoutMode
     }
 };
 

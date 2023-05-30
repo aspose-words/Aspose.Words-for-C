@@ -50,6 +50,8 @@ public:
     void CreateHeaderFooter()
     {
         //ExStart:CreateHeaderFooterUsingDocBuilder
+        //ExStart:DifferentFirstPageHeaderFooter
+        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -83,6 +85,7 @@ public:
         builder->Write(u"Aspose.Words Header/Footer Creation Primer.");
 
         builder->MoveToHeaderFooter(HeaderFooterType::FooterPrimary);
+        //ExEnd:DifferentFirstPageHeaderFooter
 
         // We use a table with two cells to make one part of the text on the line (with page numbering).
         // To be aligned left, and the other part of the text (with copyright) to be aligned right.
