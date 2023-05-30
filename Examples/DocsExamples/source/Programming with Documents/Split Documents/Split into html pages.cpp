@@ -1,4 +1,4 @@
-﻿#include "Split into html pages.h"
+#include "Split into html pages.h"
 
 #include <Aspose.Words.Cpp/Body.h>
 #include <Aspose.Words.Cpp/BreakType.h>
@@ -80,7 +80,7 @@ System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph
 }
 
 //ExStart:InsertSectionBreaks
-//GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+//GistId:11904531c9095a3c413adf28dbe3fe8d
 void WordToHtmlConverter::InsertSectionBreaks(System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Paragraph>>> topicStartParas)
 {
     auto builder = System::MakeObject<DocumentBuilder>(mDoc);

@@ -25,3 +25,6 @@
 [submodule "Gists/How_to_merge_table_cells_in_C++"]
 	path = Gists/How_to_merge_table_cells_in_C++
 	url = https://gist.github.com/aspose-words-gists/03b0c69804cda6427adc3f12cc6ba2d3
+[submodule "Gists/Work_with_sections_C++"]
+	path = Gists/Work_with_sections_C++
+	url = https://gist.github.com/aspose-words-gists/11904531c9095a3c413adf28dbe3fe8d

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Body.h>
@@ -80,7 +80,7 @@ public:
     void AppendSectionContent()
     {
         //ExStart:AppendSectionContent
-        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        //GistId:11904531c9095a3c413adf28dbe3fe8d
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -108,7 +108,7 @@ public:
     void CloneSection()
     {
         //ExStart:CloneSection
-        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        //GistId:11904531c9095a3c413adf28dbe3fe8d
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
         SharedPtr<Section> cloneSection = doc->get_Sections()->idx_get(0)->Clone();
         //ExEnd:CloneSection
@@ -117,7 +117,7 @@ public:
     void CopySection()
     {
         //ExStart:CopySection
-        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        //GistId:11904531c9095a3c413adf28dbe3fe8d
         auto srcDoc = MakeObject<Document>(MyDir + u"Document.docx");
         auto dstDoc = MakeObject<Document>();
 
@@ -132,7 +132,7 @@ public:
     void DeleteHeaderFooterContent()
     {
         //ExStart:DeleteHeaderFooterContent
-        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        //GistId:11904531c9095a3c413adf28dbe3fe8d
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         SharedPtr<Section> section = doc->get_Sections()->idx_get(0);
@@ -143,7 +143,7 @@ public:
     void DeleteHeaderFooterShapes()
     {
         //ExStart:DeleteHeaderFooterShapes
-        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        //GistId:11904531c9095a3c413adf28dbe3fe8d
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto section = doc->get_Sections()->idx_get(0);
@@ -164,7 +164,7 @@ public:
     void ModifyPageSetupInAllSections()
     {
         //ExStart:ModifyPageSetupInAllSections
-        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        //GistId:11904531c9095a3c413adf28dbe3fe8d
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -213,7 +213,7 @@ public:
     void SectionChildNodes()
     {
         //ExStart:SectionChildNodes
-        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        //GistId:11904531c9095a3c413adf28dbe3fe8d
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -261,7 +261,7 @@ public:
     void EnsureMinimum()
     {
         //ExStart:EnsureMinimum
-        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        //GistId:11904531c9095a3c413adf28dbe3fe8d
         auto doc = MakeObject<Document>();
 
         // If we add a new section like this, it will not have a body, or any other child nodes.

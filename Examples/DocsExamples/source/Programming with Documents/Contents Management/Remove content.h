@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/ControlChar.h>
@@ -79,7 +79,7 @@ public:
     //ExEnd:RemovePageBreaks
 
     //ExStart:RemoveSectionBreaks
-    //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+    //GistId:11904531c9095a3c413adf28dbe3fe8d
     void RemoveSectionBreaks(SharedPtr<Document> doc)
     {
         // Loop through all sections starting from the section that precedes the last one and moving to the first section.

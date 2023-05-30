@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/BreakType.h>
@@ -51,7 +51,7 @@ public:
     {
         //ExStart:CreateHeaderFooterUsingDocBuilder
         //ExStart:DifferentFirstPageHeaderFooter
-        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        //GistId:11904531c9095a3c413adf28dbe3fe8d
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
