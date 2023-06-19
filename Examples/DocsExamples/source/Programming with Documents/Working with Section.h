@@ -4,6 +4,7 @@
 #include <Aspose.Words.Cpp/Body.h>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/DocumentVisitor.h>
 #include <Aspose.Words.Cpp/HeaderFooter.h>
 #include <Aspose.Words.Cpp/Node.h>
 #include <Aspose.Words.Cpp/Run.h>
@@ -18,7 +19,6 @@
 #include <system/exceptions.h>
 
 #include "DocsExamplesBase.h"
-#include "../../../../packages/Aspose.Words.Cpp.22.1.0/build/native/include/Aspose.Words.Cpp/DocumentVisitor.h"
 
 using System::ArrayPtr;
 using System::MakeArray;
