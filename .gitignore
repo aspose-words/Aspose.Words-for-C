@@ -1,4 +1,5 @@
 .vs
+.idea
 Debug/
 Release/
 x64/
