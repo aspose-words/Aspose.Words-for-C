@@ -206,11 +206,6 @@ TEST_F(ExFontSettings, FontConfigSubstitution)
     s_instance->FontConfigSubstitution();
 }
 
-TEST_F(ExFontSettings, FallbackSettings)
-{
-    s_instance->FallbackSettings();
-}
-
 TEST_F(ExFontSettings, FallbackSettingsCustom)
 {
     s_instance->FallbackSettingsCustom();

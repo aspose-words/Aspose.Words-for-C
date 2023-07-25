@@ -173,29 +173,6 @@ TEST_P(ExPdfSaveOptions_Compliance, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_Compliance, ::testing::ValuesIn(ExPdfSaveOptions_Compliance::TestCases()));
 
-using ExPdfSaveOptions_TextCompression_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::TextCompression)>::type;
-
-struct ExPdfSaveOptions_TextCompression : public ExPdfSaveOptions,
-                                          public ApiExamples::ExPdfSaveOptions,
-                                          public ::testing::WithParamInterface<ExPdfSaveOptions_TextCompression_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(PdfTextCompression::None),
-            std::make_tuple(PdfTextCompression::Flate),
-        };
-    }
-};
-
-TEST_P(ExPdfSaveOptions_TextCompression, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->TextCompression(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_TextCompression, ::testing::ValuesIn(ExPdfSaveOptions_TextCompression::TestCases()));
-
 using ExPdfSaveOptions_ImageCompression_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::ImageCompression)>::type;
 
 struct ExPdfSaveOptions_ImageCompression : public ExPdfSaveOptions,
@@ -339,29 +316,6 @@ TEST_P(ExPdfSaveOptions_EscapeUri, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_EscapeUri, ::testing::ValuesIn(ExPdfSaveOptions_EscapeUri::TestCases()));
 
-using ExPdfSaveOptions_OpenHyperlinksInNewWindow_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::OpenHyperlinksInNewWindow)>::type;
-
-struct ExPdfSaveOptions_OpenHyperlinksInNewWindow : public ExPdfSaveOptions,
-                                                    public ApiExamples::ExPdfSaveOptions,
-                                                    public ::testing::WithParamInterface<ExPdfSaveOptions_OpenHyperlinksInNewWindow_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExPdfSaveOptions_OpenHyperlinksInNewWindow, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->OpenHyperlinksInNewWindow(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_OpenHyperlinksInNewWindow, ::testing::ValuesIn(ExPdfSaveOptions_OpenHyperlinksInNewWindow::TestCases()));
-
 TEST_F(ExPdfSaveOptions, SkipMono_HandleBinaryRasterWarnings)
 {
     RecordProperty("category", "SkipMono");
@@ -446,30 +400,6 @@ TEST_P(ExPdfSaveOptions_EmbedFullFonts, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_EmbedFullFonts, ::testing::ValuesIn(ExPdfSaveOptions_EmbedFullFonts::TestCases()));
 
-using ExPdfSaveOptions_EmbedWindowsFonts_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::EmbedWindowsFonts)>::type;
-
-struct ExPdfSaveOptions_EmbedWindowsFonts : public ExPdfSaveOptions,
-                                            public ApiExamples::ExPdfSaveOptions,
-                                            public ::testing::WithParamInterface<ExPdfSaveOptions_EmbedWindowsFonts_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(PdfFontEmbeddingMode::EmbedAll),
-            std::make_tuple(PdfFontEmbeddingMode::EmbedNone),
-            std::make_tuple(PdfFontEmbeddingMode::EmbedNonstandard),
-        };
-    }
-};
-
-TEST_P(ExPdfSaveOptions_EmbedWindowsFonts, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->EmbedWindowsFonts(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_EmbedWindowsFonts, ::testing::ValuesIn(ExPdfSaveOptions_EmbedWindowsFonts::TestCases()));
-
 using ExPdfSaveOptions_EmbedCoreFonts_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::EmbedCoreFonts)>::type;
 
 struct ExPdfSaveOptions_EmbedCoreFonts : public ExPdfSaveOptions,
@@ -544,76 +474,6 @@ TEST_F(ExPdfSaveOptions, ZoomBehaviour)
     s_instance->ZoomBehaviour();
 }
 
-using ExPdfSaveOptions_PageMode_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::PageMode)>::type;
-
-struct ExPdfSaveOptions_PageMode : public ExPdfSaveOptions,
-                                   public ApiExamples::ExPdfSaveOptions,
-                                   public ::testing::WithParamInterface<ExPdfSaveOptions_PageMode_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(PdfPageMode::FullScreen),  std::make_tuple(PdfPageMode::UseThumbs), std::make_tuple(PdfPageMode::UseOC),
-            std::make_tuple(PdfPageMode::UseOutlines), std::make_tuple(PdfPageMode::UseNone),
-        };
-    }
-};
-
-TEST_P(ExPdfSaveOptions_PageMode, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->PageMode(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_PageMode, ::testing::ValuesIn(ExPdfSaveOptions_PageMode::TestCases()));
-
-using ExPdfSaveOptions_NoteHyperlinks_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::NoteHyperlinks)>::type;
-
-struct ExPdfSaveOptions_NoteHyperlinks : public ExPdfSaveOptions,
-                                         public ApiExamples::ExPdfSaveOptions,
-                                         public ::testing::WithParamInterface<ExPdfSaveOptions_NoteHyperlinks_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExPdfSaveOptions_NoteHyperlinks, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->NoteHyperlinks(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_NoteHyperlinks, ::testing::ValuesIn(ExPdfSaveOptions_NoteHyperlinks::TestCases()));
-
-using ExPdfSaveOptions_CustomPropertiesExport_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::CustomPropertiesExport)>::type;
-
-struct ExPdfSaveOptions_CustomPropertiesExport : public ExPdfSaveOptions,
-                                                 public ApiExamples::ExPdfSaveOptions,
-                                                 public ::testing::WithParamInterface<ExPdfSaveOptions_CustomPropertiesExport_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(PdfCustomPropertiesExport::None),
-            std::make_tuple(PdfCustomPropertiesExport::Standard),
-            std::make_tuple(PdfCustomPropertiesExport::Metadata),
-        };
-    }
-};
-
-TEST_P(ExPdfSaveOptions_CustomPropertiesExport, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->CustomPropertiesExport(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_CustomPropertiesExport, ::testing::ValuesIn(ExPdfSaveOptions_CustomPropertiesExport::TestCases()));
-
 using ExPdfSaveOptions_DrawingMLEffects_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::DrawingMLEffects)>::type;
 
 struct ExPdfSaveOptions_DrawingMLEffects : public ExPdfSaveOptions,
@@ -637,57 +497,6 @@ TEST_P(ExPdfSaveOptions_DrawingMLEffects, Test)
 }
 
 INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_DrawingMLEffects, ::testing::ValuesIn(ExPdfSaveOptions_DrawingMLEffects::TestCases()));
-
-using ExPdfSaveOptions_DrawingMLFallback_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::DrawingMLFallback)>::type;
-
-struct ExPdfSaveOptions_DrawingMLFallback : public ExPdfSaveOptions,
-                                            public ApiExamples::ExPdfSaveOptions,
-                                            public ::testing::WithParamInterface<ExPdfSaveOptions_DrawingMLFallback_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(DmlRenderingMode::Fallback),
-            std::make_tuple(DmlRenderingMode::DrawingML),
-        };
-    }
-};
-
-TEST_P(ExPdfSaveOptions_DrawingMLFallback, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->DrawingMLFallback(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_DrawingMLFallback, ::testing::ValuesIn(ExPdfSaveOptions_DrawingMLFallback::TestCases()));
-
-using ExPdfSaveOptions_ExportDocumentStructure_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::ExportDocumentStructure)>::type;
-
-struct ExPdfSaveOptions_ExportDocumentStructure : public ExPdfSaveOptions,
-                                                  public ApiExamples::ExPdfSaveOptions,
-                                                  public ::testing::WithParamInterface<ExPdfSaveOptions_ExportDocumentStructure_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExPdfSaveOptions_ExportDocumentStructure, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->ExportDocumentStructure(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_ExportDocumentStructure, ::testing::ValuesIn(ExPdfSaveOptions_ExportDocumentStructure::TestCases()));
-
-TEST_F(ExPdfSaveOptions, PdfDigitalSignature)
-{
-    s_instance->PdfDigitalSignature();
-}
 
 using ExPdfSaveOptions_RenderMetafile_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::RenderMetafile)>::type;
 

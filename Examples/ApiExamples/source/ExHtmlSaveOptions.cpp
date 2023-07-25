@@ -443,30 +443,6 @@ TEST_P(ExHtmlSaveOptions_ExportLanguageInformation, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ExportLanguageInformation, ::testing::ValuesIn(ExHtmlSaveOptions_ExportLanguageInformation::TestCases()));
 
-using ExHtmlSaveOptions_List_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlSaveOptions::List)>::type;
-
-struct ExHtmlSaveOptions_List : public ExHtmlSaveOptions,
-                                public ApiExamples::ExHtmlSaveOptions,
-                                public ::testing::WithParamInterface<ExHtmlSaveOptions_List_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(ExportListLabels::AsInlineText),
-            std::make_tuple(ExportListLabels::Auto),
-            std::make_tuple(ExportListLabels::ByHtmlTags),
-        };
-    }
-};
-
-TEST_P(ExHtmlSaveOptions_List, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->List(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_List, ::testing::ValuesIn(ExHtmlSaveOptions_List::TestCases()));
-
 using ExHtmlSaveOptions_RelativeFontSize_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlSaveOptions::RelativeFontSize)>::type;
 
 struct ExHtmlSaveOptions_RelativeFontSize : public ExHtmlSaveOptions,

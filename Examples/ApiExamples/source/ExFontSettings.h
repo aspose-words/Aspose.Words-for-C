@@ -1073,8 +1073,8 @@ public:
 
         SharedPtr<System::Xml::XmlNodeList> rules = fallbackSettingsDoc->SelectNodes(u"//aw:FontFallbackSettings/aw:FallbackTable/aw:Rule", manager);
 
-        ASSERT_EQ(u"0C00-0C7F", rules->idx_get(8)->get_Attributes()->idx_get(u"Ranges")->get_Value());
-        ASSERT_EQ(u"Vani", rules->idx_get(8)->get_Attributes()->idx_get(u"FallbackFonts")->get_Value());
+        ASSERT_EQ(u"0C00-0C7F", rules->idx_get(9)->get_Attributes()->idx_get(u"Ranges")->get_Value());
+        ASSERT_EQ(u"Vani", rules->idx_get(9)->get_Attributes()->idx_get(u"FallbackFonts")->get_Value());
     }
 
     void FallbackSettingsCustom()
