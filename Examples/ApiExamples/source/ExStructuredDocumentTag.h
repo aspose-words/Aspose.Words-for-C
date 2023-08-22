@@ -911,16 +911,7 @@ public:
 
         doc->get_FirstSection()->get_Body()->AppendChild(tag);
 
-        // Create a "PdfSaveOptions" object to pass to the document's "Save" method
-        // to modify how that method saves the document to .PDF.
-        auto options = MakeObject<PdfSaveOptions>();
-
-        // Set the "UpdateSdtContent" property to "false" not to update the structured document tags
-        // while saving the document to PDF. They will display their default values as they were at the time of construction.
-        // Set the "UpdateSdtContent" property to "true" to make sure the tags display updated values in the PDF.
-        options->set_UpdateSdtContent(updateSdtContent);
-
-        doc->Save(ArtifactsDir + u"StructuredDocumentTag.UpdateSdtContent.pdf", options);
+        doc->Save(ArtifactsDir + u"StructuredDocumentTag.UpdateSdtContent.pdf");
         //ExEnd
     }
 
