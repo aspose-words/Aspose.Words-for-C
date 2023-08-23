@@ -1374,7 +1374,7 @@ public:
     void EncryptionPermissions()
     {
         //ExStart
-        //ExFor:PdfEncryptionDetails.#ctor
+        //ExFor:PdfEncryptionDetails.#ctor(String,String,PdfPermissions)
         //ExFor:PdfSaveOptions.EncryptionDetails
         //ExFor:PdfEncryptionDetails.Permissions
         //ExFor:PdfEncryptionDetails.OwnerPassword
