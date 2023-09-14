@@ -28,3 +28,12 @@
 [submodule "Gists/Work_with_sections_C++"]
 	path = Gists/Work_with_sections_C++
 	url = https://gist.github.com/aspose-words-gists/11904531c9095a3c413adf28dbe3fe8d
+[submodule "Gists/Encrypt_document_using_encryption_algorithms_in_C++"]
+	path = Gists/Encrypt_document_using_encryption_algorithms_in_C++
+	url = https://gist.github.com/aspose-words-gists/b4e8a7baa7d3c08127f9a043487de21b
+[submodule "Gists/Working_with_digital_signatures_using_C++"]
+	path = Gists/Working_with_digital_signatures_using_C++
+	url = https://gist.github.com/aspose-words-gists/cf0914fc4ceb93b503278282432ceaeb
+[submodule "Gists/Simple_mail_merge_and_with_regions_using_C++"]
+	path = Gists/Simple_mail_merge_and_with_regions_using_C++
+	url = https://gist.github.com/aspose-words-gists/3435df005db9907ec9ba3a6b777ae6fb

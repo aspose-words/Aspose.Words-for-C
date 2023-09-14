@@ -1,9 +1,10 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/MailMerging/IMailMergeDataSource.h>
 #include <Aspose.Words.Cpp/MailMerging/MailMerge.h>
 #include <Aspose.Words.Cpp/MailMerging/MailMergeRegionInfo.h>
 #include <Aspose.Words.Cpp/Paragraph.h>
@@ -15,6 +16,7 @@
 #include <system/test_tools/compare.h>
 #include <system/test_tools/test_tools.h>
 #include <testing/test_predicates.h>
+#include <SQLiteCpp.h>
 
 #include "DocsExamplesBase.h"
 
@@ -35,22 +37,23 @@ public:
     void SimpleMailMerge()
     {
         //ExStart:SimpleMailMerge
-        // Include the code for our template.
+        //GistId:3435df005db9907ec9ba3a6b777ae6fb
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
-
-        // Create Merge Fields.
+        
         builder->InsertField(u" MERGEFIELD CustomerName ");
         builder->InsertParagraph();
         builder->InsertField(u" MERGEFIELD Item ");
         builder->InsertParagraph();
         builder->InsertField(u" MERGEFIELD Quantity ");
 
+        auto boxHelper = [](const char16_t* value) { return System::ObjectExt::Box<String>(value); };
+
         // Fill the fields in the document with user data.
         doc->get_MailMerge()->Execute(
             MakeArray<String>({u"CustomerName", u"Item", u"Quantity"}),
             MakeArray<SharedPtr<System::Object>>(
-                {System::ObjectExt::Box<String>(u"John Doe"), System::ObjectExt::Box<String>(u"Hawaiian"), System::ObjectExt::Box<String>(u"2")}));
+                { boxHelper(u"John Doe"), boxHelper(u"Hawaiian"), boxHelper(u"2")}));
 
         doc->Save(ArtifactsDir + u"BaseOperations.SimpleMailMerge.docx");
         //ExEnd:SimpleMailMerge
@@ -95,6 +98,87 @@ public:
         }
         //ExEnd:GetRegionsByName
     }
+
+    //ExStart:MultipleDocumentsMailMerge
+    //GistId:3435df005db9907ec9ba3a6b777ae6fb
+    void MultipleDocumentsMailMerge()
+    {
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->InsertField(u" MERGEFIELD FullName ");
+        builder->InsertParagraph();
+        builder->InsertField(u" MERGEFIELD Address ");
+
+        // Fill the fields in the document with user data.
+        SQLite::Database database{ (std::string)(DatabaseDir + u"customers.db3") };
+        SQLite::Statement query{ database, "SELECT * FROM Customers" };
+        auto dataSource = MakeObject<CustomersRowMailMergeDataSource>(query);
+
+        int32_t counter = 1;
+        while (query.executeStep())
+        {
+            dataSource->Reset();
+            doc->get_MailMerge()->Execute(dataSource);
+            doc->Save(ArtifactsDir + u"BaseOperations.MultipleDocumentsMailMerge_" + counter++ + u".docx");
+        }
+    }
+
+    class CustomersRowMailMergeDataSource : public MailMerging::IMailMergeDataSource
+    {
+    public:
+        CustomersRowMailMergeDataSource(SQLite::Statement& query) : mQuery(query) {}
+
+        String get_TableName() override
+        {
+            return u"Customers";
+        }
+
+        bool GetValue(String fieldName, SharedPtr<Object>& fieldValue) override
+        {
+            auto boxHelper = [](const std::string& value) { return System::ObjectExt::Box<String>(String::FromUtf8(value)); };
+
+            if (fieldName == u"FullName")
+            {
+                fieldValue = boxHelper(mQuery.getColumn(1).getString());
+                return true;
+            }
+
+            if (fieldName == u"Address")
+            {
+                fieldValue = boxHelper(mQuery.getColumn(2).getString());
+                return true;
+            }
+
+            fieldValue.reset();
+            return false;
+        }
+
+        bool MoveNext() override
+        {
+            if (!isInitialized)
+            {
+                isInitialized = true;
+                return true;
+            }
+            return false;
+        }
+
+        SharedPtr<IMailMergeDataSource> GetChildDataSource(String tableName) override
+        {
+            return nullptr;
+        }
+
+        void Reset()
+        {
+            isInitialized = false;
+        }
+
+    private:
+        SQLite::Statement& mQuery;
+        bool isInitialized = false;
+    };
+    //ExEnd:MultipleDocumentsMailMerge
 };
 
 }} // namespace DocsExamples::Mail_Merge_and_Reporting

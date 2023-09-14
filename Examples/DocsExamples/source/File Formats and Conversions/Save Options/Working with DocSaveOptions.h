@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
@@ -24,6 +24,7 @@ public:
     void EncryptDocumentWithPassword()
     {
         //ExStart:EncryptDocumentWithPassword
+        //GistId:b4e8a7baa7d3c08127f9a043487de21b
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
