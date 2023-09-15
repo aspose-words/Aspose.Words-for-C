@@ -44,4 +44,9 @@ TEST_F(BaseOperations, GetRegionsByName)
     s_instance->GetRegionsByName();
 }
 
+TEST_F(BaseOperations, MultipleDocumentsMailMerge)
+{
+    s_instance->MultipleDocumentsMailMerge();
+}
+
 }}} // namespace DocsExamples::Mail_Merge_and_Reporting::gtest_test

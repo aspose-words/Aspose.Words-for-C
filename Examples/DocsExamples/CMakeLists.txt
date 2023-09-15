@@ -14,6 +14,9 @@ target_link_libraries(DocsExamples PRIVATE Aspose::Words Threads::Threads)
 add_subdirectory(../gtest gtest)
 target_link_libraries(DocsExamples PRIVATE gtest)
 
+add_subdirectory(../SQLiteCpp SQLiteCpp)
+target_link_libraries(DocsExamples PRIVATE SQLiteCpp)
+
 target_compile_options(DocsExamples PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/wd4244 /wd4250 /wd4267 /MP /bigobj /utf-8>)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)

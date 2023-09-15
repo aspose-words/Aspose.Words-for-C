@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -115,6 +115,7 @@ public:
     void DigitallySignedPdfUsingCertificateHolder()
     {
         //ExStart:DigitallySignedPdfUsingCertificateHolder
+        //GistId:cf0914fc4ceb93b503278282432ceaeb
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 

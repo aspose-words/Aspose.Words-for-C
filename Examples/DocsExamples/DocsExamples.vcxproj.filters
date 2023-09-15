@@ -58,6 +58,9 @@
     <Filter Include="Rendering and Printing\Complex examples and helpers">
       <UniqueIdentifier>{885fdfe3-c196-446d-96a9-1f6d7af3f5f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SQLiteCpp">
+      <UniqueIdentifier>{8a099465-4508-4c6c-9342-44a0591b55b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\gtest\gmock_main.cc">
@@ -288,6 +291,30 @@
     </ClCompile>
     <ClCompile Include="source\Rendering and Printing\Complex examples and helpers\Page layout helper.cpp">
       <Filter>Rendering and Printing\Complex examples and helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SQLiteCpp\Backup.cpp">
+      <Filter>SQLiteCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SQLiteCpp\Column.cpp">
+      <Filter>SQLiteCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SQLiteCpp\Database.cpp">
+      <Filter>SQLiteCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SQLiteCpp\Exception.cpp">
+      <Filter>SQLiteCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SQLiteCpp\Savepoint.cpp">
+      <Filter>SQLiteCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SQLiteCpp\sqlite3.c">
+      <Filter>SQLiteCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SQLiteCpp\Statement.cpp">
+      <Filter>SQLiteCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SQLiteCpp\Transaction.cpp">
+      <Filter>SQLiteCpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -538,8 +565,53 @@
     <ClInclude Include="source\Rendering and Printing\Complex examples and helpers\Page layout helper.h">
       <Filter>Rendering and Printing\Complex examples and helpers</Filter>
     </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\Assertion.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\Backup.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\Column.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\Database.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\Exception.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\ExecuteMany.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\Savepoint.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\sqlite3.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\SQLiteCpp.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\SQLiteCppExport.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\Statement.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\Transaction.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\Utils.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SQLiteCpp\VariadicBind.h">
+      <Filter>SQLiteCpp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
   </ItemGroup>
 </Project>

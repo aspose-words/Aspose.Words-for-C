@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -45,11 +45,12 @@ class WorkingWithDigitalSinatures : public DocsExamplesBase
 public:
     void SignDocument()
     {
-        //ExStart:SingDocument
+        //ExStart:SignDocument
+        //GistId:cf0914fc4ceb93b503278282432ceaeb
         SharedPtr<CertificateHolder> certHolder = CertificateHolder::Create(MyDir + u"morzal.pfx", u"aw");
 
         DigitalSignatureUtil::Sign(MyDir + u"Digitally signed.docx", ArtifactsDir + u"Document.Signed.docx", certHolder);
-        //ExEnd:SingDocument
+        //ExEnd:SignDocument
     }
 
     void SigningEncryptedDocument()
@@ -124,7 +125,8 @@ public:
 
     void CreateNewSignatureLineAndSetProviderId()
     {
-        //ExStart:CreateNewSignatureLineAndSetProviderID
+        //ExStart:CreateNewSignatureLineAndSetProviderId
+        //GistId:cf0914fc4ceb93b503278282432ceaeb
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -152,7 +154,7 @@ public:
 
         DigitalSignatureUtil::Sign(ArtifactsDir + u"SignDocuments.SignatureLineProviderId.docx",
                                    ArtifactsDir + u"SignDocuments.CreateNewSignatureLineAndSetProviderId.docx", certHolder, signOptions);
-        //ExEnd:CreateNewSignatureLineAndSetProviderID
+        //ExEnd:CreateNewSignatureLineAndSetProviderId
     }
 
     void AccessAndVerifySignature()
@@ -172,6 +174,31 @@ public:
             std::cout << std::endl;
         }
         //ExEnd:AccessAndVerifySignature
+    }
+
+    void RemoveSignatures()
+    {
+        //ExStart:RemoveSignatures
+        //GistId:cf0914fc4ceb93b503278282432ceaeb
+        // There are two ways of using the DigitalSignatureUtil class to remove digital signatures
+        // from a signed document by saving an unsigned copy of it somewhere else in the local file system.
+        // 1 - Determine the locations of both the signed document and the unsigned copy by filename strings:
+        DigitalSignatureUtil::RemoveAllSignatures(MyDir + u"Digitally signed.docx", ArtifactsDir + u"DigitalSignatureUtil.LoadAndRemove.FromString.docx");
+
+        // 2 - Determine the locations of both the signed document and the unsigned copy by file streams:
+        {
+            SharedPtr<System::IO::Stream> streamIn = MakeObject<System::IO::FileStream>(MyDir + u"Digitally signed.docx", System::IO::FileMode::Open);
+            {
+                SharedPtr<System::IO::Stream> streamOut =
+                    MakeObject<System::IO::FileStream>(ArtifactsDir + u"DigitalSignatureUtil.LoadAndRemove.FromStream.docx", System::IO::FileMode::Create);
+                DigitalSignatureUtil::RemoveAllSignatures(streamIn, streamOut);
+            }
+        }
+
+        // Verify that both our output documents have no digital signatures.
+        ASSERT_EQ(0, DigitalSignatureUtil::LoadSignatures(ArtifactsDir + u"DigitalSignatureUtil.LoadAndRemove.FromString.docx")->get_Count());
+        ASSERT_EQ(0, DigitalSignatureUtil::LoadSignatures(ArtifactsDir + u"DigitalSignatureUtil.LoadAndRemove.FromStream.docx")->get_Count());
+        //ExEnd:RemoveSignatures
     }
 };
 

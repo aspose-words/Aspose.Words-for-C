@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <functional>
 #include <iostream>
@@ -165,6 +165,7 @@ public:
     void DetectDocumentSignatures()
     {
         //ExStart:DetectDocumentSignatures
+        //GistId:cf0914fc4ceb93b503278282432ceaeb
         SharedPtr<FileFormatInfo> info = FileFormatUtil::DetectFileFormat(MyDir + u"Digitally signed.docx");
 
         if (info->get_HasDigitalSignature())
@@ -179,6 +180,7 @@ public:
     void VerifyEncryptedDocument()
     {
         //ExStart:VerifyEncryptedDocument
+        //GistId:b4e8a7baa7d3c08127f9a043487de21b
         SharedPtr<FileFormatInfo> info = FileFormatUtil::DetectFileFormat(MyDir + u"Encrypted.docx");
         std::cout << System::Convert::ToString(info->get_IsEncrypted()) << std::endl;
         //ExEnd:VerifyEncryptedDocument

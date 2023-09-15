@@ -31,9 +31,9 @@ protected:
 
 System::SharedPtr<::DocsExamples::Mail_Merge_and_Reporting::Custom_examples::NestedMailMergeCustom> NestedMailMergeCustom::s_instance;
 
-TEST_F(NestedMailMergeCustom, CustomMailMerge)
+TEST_F(NestedMailMergeCustom, NestedMailMerge)
 {
-    s_instance->CustomMailMerge();
+    s_instance->NestedMailMerge();
 }
 
 }}}} // namespace DocsExamples::Mail_Merge_and_Reporting::Custom_examples::gtest_test

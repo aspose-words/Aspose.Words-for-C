@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -58,13 +58,24 @@ public:
 
     void LoadEncryptedDocument()
     {
-        //ExStart:LoadSaveEncryptedDoc
+        //ExStart:LoadSaveEncryptedDocument
+        //GistId:b4e8a7baa7d3c08127f9a043487de21b
         //ExStart:OpenEncryptedDocument
         auto doc = MakeObject<Document>(MyDir + u"Encrypted.docx", MakeObject<LoadOptions>(u"docPassword"));
         //ExEnd:OpenEncryptedDocument
 
         doc->Save(ArtifactsDir + u"WorkingWithLoadOptions.LoadAndSaveEncryptedOdt.odt", MakeObject<OdtSaveOptions>(u"newPassword"));
-        //ExEnd:LoadSaveEncryptedDoc
+        //ExEnd:LoadSaveEncryptedDocument
+    }
+
+    void LoadEncryptedDocumentWithoutPassword()
+    {
+        //ExStart:LoadEncryptedDocumentWithoutPassword
+        //GistId:b4e8a7baa7d3c08127f9a043487de21b
+        // We will not be able to open this document with Microsoft Word or
+        // Aspose.Words without providing the correct password.
+        auto doc = MakeObject<Document>(MyDir + u"Encrypted.docx");
+        //ExEnd:LoadEncryptedDocumentWithoutPassword
     }
 
     void ConvertShapeToOfficeMath()

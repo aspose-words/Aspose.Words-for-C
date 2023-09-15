@@ -27,6 +27,7 @@
     <RootNamespace>DocsExamples</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <EnableUnitySupport>true</EnableUnitySupport>
+    <WindowsTargetPlatformMinVersion>7.0</WindowsTargetPlatformMinVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -47,6 +48,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -74,16 +76,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest;$(ProjectDir)\..\SQLiteCpp</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest;$(ProjectDir)\..\SQLiteCpp</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest;$(ProjectDir)\..\SQLiteCpp</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)\source;$(ProjectDir)\..\gtest;$(ProjectDir)\..\SQLiteCpp</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,6 +110,7 @@
       <IncludeInUnityFile>true</IncludeInUnityFile>
       <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -170,6 +173,14 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(PreprocessorDefinitions);GTEST_INCLUDES_AVAILABLE=1</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="..\SQLiteCpp\Backup.cpp" />
+    <ClCompile Include="..\SQLiteCpp\Column.cpp" />
+    <ClCompile Include="..\SQLiteCpp\Database.cpp" />
+    <ClCompile Include="..\SQLiteCpp\Exception.cpp" />
+    <ClCompile Include="..\SQLiteCpp\Savepoint.cpp" />
+    <ClCompile Include="..\SQLiteCpp\sqlite3.c" />
+    <ClCompile Include="..\SQLiteCpp\Statement.cpp" />
+    <ClCompile Include="..\SQLiteCpp\Transaction.cpp" />
     <ClCompile Include="source\DocsExamplesBase.cpp" />
     <ClCompile Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.cpp" />
     <ClCompile Include="source\File Formats and Conversions\Load Options\Working with LoadOptions.cpp" />
@@ -251,6 +262,20 @@
     <ClInclude Include="..\gtest\gtest\gtest-skip-exception.h" />
     <ClInclude Include="..\gtest\gtest\gtest-spi.h" />
     <ClInclude Include="..\gtest\gtest\gtest.h" />
+    <ClInclude Include="..\SQLiteCpp\Assertion.h" />
+    <ClInclude Include="..\SQLiteCpp\Backup.h" />
+    <ClInclude Include="..\SQLiteCpp\Column.h" />
+    <ClInclude Include="..\SQLiteCpp\Database.h" />
+    <ClInclude Include="..\SQLiteCpp\Exception.h" />
+    <ClInclude Include="..\SQLiteCpp\ExecuteMany.h" />
+    <ClInclude Include="..\SQLiteCpp\Savepoint.h" />
+    <ClInclude Include="..\SQLiteCpp\sqlite3.h" />
+    <ClInclude Include="..\SQLiteCpp\SQLiteCpp.h" />
+    <ClInclude Include="..\SQLiteCpp\SQLiteCppExport.h" />
+    <ClInclude Include="..\SQLiteCpp\Statement.h" />
+    <ClInclude Include="..\SQLiteCpp\Transaction.h" />
+    <ClInclude Include="..\SQLiteCpp\Utils.h" />
+    <ClInclude Include="..\SQLiteCpp\VariadicBind.h" />
     <ClInclude Include="source\DocsExamplesBase.h" />
     <ClInclude Include="source\File Formats and Conversions\Base conversions.h" />
     <ClInclude Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.h" />

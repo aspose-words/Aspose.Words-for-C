@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Document.h>
@@ -12,6 +12,7 @@
 #include <system/object_ext.h>
 
 #include "DocsExamplesBase.h"
+#include <SQLiteCpp.h>
 
 using System::ArrayPtr;
 using System::MakeArray;
@@ -24,298 +25,143 @@ using namespace Aspose::Words::MailMerging;
 
 namespace DocsExamples { namespace Mail_Merge_and_Reporting { namespace Custom_examples {
 
-class NestedMailMergeCustom : public DocsExamplesBase
-{
-public:
-    class Order;
-    class OrderMailMergeDataSource;
-
-public:
-    void CustomMailMerge()
-    {
-        //ExStart:NestedMailMergeCustom
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-        builder->InsertField(u" MERGEFIELD TableStart:Customer");
-
-        builder->Write(u"Full name:\t");
-        builder->InsertField(u" MERGEFIELD FullName ");
-        builder->Write(u"\nAddress:\t");
-        builder->InsertField(u" MERGEFIELD Address ");
-        builder->Write(u"\nOrders:\n");
-
-        builder->InsertField(u" MERGEFIELD TableStart:Order");
-
-        builder->Write(u"\tItem name:\t");
-        builder->InsertField(u" MERGEFIELD Name ");
-        builder->Write(u"\n\tQuantity:\t");
-        builder->InsertField(u" MERGEFIELD Quantity ");
-        builder->InsertParagraph();
-
-        builder->InsertField(u" MERGEFIELD TableEnd:Order");
-
-        builder->InsertField(u" MERGEFIELD TableEnd:Customer");
-
-        SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Customer>>> customers =
-            MakeObject<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Customer>>>();
-        customers->Add(MakeObject<NestedMailMergeCustom::Customer>(u"Thomas Hardy", u"120 Hanover Sq., London"));
-        customers->Add(MakeObject<NestedMailMergeCustom::Customer>(u"Paolo Accorti", u"Via Monte Bianco 34, Torino"));
-
-        customers->idx_get(0)->get_Orders()->Add(MakeObject<NestedMailMergeCustom::Order>(u"Rugby World Cup Cap", 2));
-        customers->idx_get(0)->get_Orders()->Add(MakeObject<NestedMailMergeCustom::Order>(u"Rugby World Cup Ball", 1));
-        customers->idx_get(1)->get_Orders()->Add(MakeObject<NestedMailMergeCustom::Order>(u"Rugby World Cup Guide", 1));
-
-        // To be able to mail merge from your data source,
-        // it must be wrapped into an object that implements the IMailMergeDataSource interface.
-        auto customersDataSource = MakeObject<NestedMailMergeCustom::CustomerMailMergeDataSource>(customers);
-
-        doc->get_MailMerge()->ExecuteWithRegions(customersDataSource);
-
-        doc->Save(ArtifactsDir + u"NestedMailMergeCustom.CustomMailMerge.docx");
-        //ExEnd:NestedMailMergeCustom
-    }
-
-    /// <summary>
-    /// An example of a "data entity" class in your application.
-    /// </summary>
-    class Customer : public System::Object
+    class NestedMailMergeCustom : public DocsExamplesBase
     {
     public:
-        String get_FullName()
-        {
-            return pr_FullName;
+        //ExStart:NestedMailMerge
+        //GistId:3435df005db9907ec9ba3a6b777ae6fb
+        void NestedMailMerge()
+        {            
+            auto doc = MakeObject<Document>();
+            auto builder = MakeObject<DocumentBuilder>(doc);
+            builder->InsertField(u" MERGEFIELD TableStart:Customers");
+
+            builder->Write(u"Full name:\t");
+            builder->InsertField(u" MERGEFIELD FullName ");
+            builder->Write(u"\nAddress:\t");
+            builder->InsertField(u" MERGEFIELD Address ");
+            builder->Write(u"\nOrders:\n");
+
+            builder->InsertField(u" MERGEFIELD TableStart:Orders");
+
+            builder->Write(u"\tItem name:\t");
+            builder->InsertField(u" MERGEFIELD ItemName ");
+            builder->Write(u"\n\tQuantity:\t");
+            builder->InsertField(u" MERGEFIELD Quantity ");
+            builder->InsertParagraph();
+
+            builder->InsertField(u" MERGEFIELD TableEnd:Orders");
+
+            builder->InsertField(u" MERGEFIELD TableEnd:Customers");            
+
+            SQLite::Database database((std::string)(DatabaseDir + u"customers.db3"));
+
+            // To be able to mail merge from your data source,
+            // it must be wrapped into an object that implements the IMailMergeDataSource interface.
+            auto customersDataSource = MakeObject<NestedMailMergeCustom::CustomersDataSource>(database);            
+
+            doc->get_MailMerge()->ExecuteWithRegions(customersDataSource);
+
+            doc->Save(ArtifactsDir + u"NestedMailMergeCustom.CustomMailMerge.docx");            
         }
 
-        void set_FullName(String value)
+        class OrdersDataSource : public MailMerging::IMailMergeDataSource
         {
-            pr_FullName = value;
-        }
-
-        String get_Address()
-        {
-            return pr_Address;
-        }
-
-        void set_Address(String value)
-        {
-            pr_Address = value;
-        }
-
-        SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Order>>> get_Orders()
-        {
-            return pr_Orders;
-        }
-
-        void set_Orders(SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Order>>> value)
-        {
-            pr_Orders = value;
-        }
-
-        Customer(String aFullName, String anAddress)
-        {
-            set_FullName(aFullName);
-            set_Address(anAddress);
-            set_Orders(MakeObject<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Order>>>());
-        }
-
-    private:
-        String pr_FullName;
-        String pr_Address;
-        SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Order>>> pr_Orders;
-    };
-
-    /// <summary>
-    /// An example of a child "data entity" class in your application.
-    /// </summary>
-    class Order : public System::Object
-    {
-    public:
-        String get_Name()
-        {
-            return pr_Name;
-        }
-
-        void set_Name(String value)
-        {
-            pr_Name = value;
-        }
-
-        int get_Quantity()
-        {
-            return pr_Quantity;
-        }
-
-        void set_Quantity(int value)
-        {
-            pr_Quantity = value;
-        }
-
-        Order(String oName, int oQuantity) : pr_Quantity(0)
-        {
-            set_Name(oName);
-            set_Quantity(oQuantity);
-        }
-
-    private:
-        String pr_Name;
-        int pr_Quantity;
-    };
-
-    /// <summary>
-    /// A custom mail merge data source that you implement to allow Aspose.Words
-    /// to mail merge data from your Customer objects into Microsoft Word documents.
-    /// </summary>
-    class CustomerMailMergeDataSource : public IMailMergeDataSource
-    {
-    public:
-        /// <summary>
-        /// The name of the data source. Used by Aspose.Words only when executing mail merge with repeatable regions.
-        /// </summary>
-        String get_TableName() override
-        {
-            return u"Customer";
-        }
-
-        CustomerMailMergeDataSource(SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Customer>>> customers) : mRecordIndex(0)
-        {
-            mCustomers = customers;
-
-            // When the data source is initialized, it must be positioned before the first record.
-            mRecordIndex = -1;
-        }
-
-        /// <summary>
-        /// Aspose.Words calls this method to get a value for every data field.
-        /// </summary>
-        bool GetValue(String fieldName, SharedPtr<System::Object>& fieldValue) override
-        {
-            if (fieldName == u"FullName")
+        public:
+            OrdersDataSource(SQLite::Database& database, int32_t id)
+                : mQuery(database, "SELECT ItemName, Quantity FROM Orders WHERE CustomerId = ?")
             {
-                fieldValue = System::ObjectExt::Box<String>(mCustomers->idx_get(mRecordIndex)->get_FullName());
-                return true;
+                mQuery.bind(1, id);
             }
-            else if (fieldName == u"Address")
+
+            String get_TableName() override
             {
-                fieldValue = System::ObjectExt::Box<String>(mCustomers->idx_get(mRecordIndex)->get_Address());
-                return true;
+                return u"Orders";
             }
-            else if (fieldName == u"Order")
+
+            bool GetValue(String fieldName, SharedPtr<Object>& fieldValue) override
             {
-                fieldValue = mCustomers->idx_get(mRecordIndex)->get_Orders();
-                return true;
-            }
-            else
-            {
+
+                if (fieldName == u"ItemName")
+                {
+                    fieldValue = System::ObjectExt::Box<String>(String::FromUtf8(mQuery.getColumn(0).getString()));
+                    return true;
+                }
+
+                if (fieldName == u"Quantity")
+                {
+                    fieldValue = System::ObjectExt::Box<int32_t>(mQuery.getColumn(1).getInt());
+                    return true;
+                }
+
                 fieldValue.reset();
                 return false;
             }
-        }
 
-        /// <summary>
-        /// A standard implementation for moving to a next record in a collection.
-        /// </summary>
-        bool MoveNext() override
-        {
-            if (!get_IsEof())
+            bool MoveNext() override
             {
-                mRecordIndex++;
+                return mQuery.executeStep();
             }
 
-            return !get_IsEof();
-        }
-
-        SharedPtr<IMailMergeDataSource> GetChildDataSource(String tableName) override
-        {
-            if (tableName == u"Order")
-            {
-                return MakeObject<NestedMailMergeCustom::OrderMailMergeDataSource>(mCustomers->idx_get(mRecordIndex)->get_Orders());
-            }
-            else
+            SharedPtr<IMailMergeDataSource> GetChildDataSource(String tableName) override
             {
                 return nullptr;
             }
-        }
 
-    private:
-        bool get_IsEof()
+        private:
+            SQLite::Statement mQuery;
+        };
+
+        class CustomersDataSource : public MailMerging::IMailMergeDataSource
         {
-            return mRecordIndex >= mCustomers->get_Count();
-        }
-
-        SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Customer>>> mCustomers;
-        int mRecordIndex;
-    };
-
-    class OrderMailMergeDataSource : public IMailMergeDataSource
-    {
-    public:
-        /// <summary>
-        /// The name of the data source. Used by Aspose.Words only when executing mail merge with repeatable regions.
-        /// </summary>
-        String get_TableName() override
-        {
-            return u"Order";
-        }
-
-        OrderMailMergeDataSource(SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Order>>> orders) : mRecordIndex(0)
-        {
-            mOrders = orders;
-
-            // When the data source is initialized, it must be positioned before the first record.
-            mRecordIndex = -1;
-        }
-
-        /// <summary>
-        /// Aspose.Words calls this method to get a value for every data field.
-        /// </summary>
-        bool GetValue(String fieldName, SharedPtr<System::Object>& fieldValue) override
-        {
-            if (fieldName == u"Name")
+        public:
+            CustomersDataSource(SQLite::Database& database)
+                : mDatabase{ database }
+                , mQuery{ mDatabase, "SELECT * FROM Customers" }
             {
-                fieldValue = System::ObjectExt::Box<String>(mOrders->idx_get(mRecordIndex)->get_Name());
-                return true;
             }
-            else if (fieldName == u"Quantity")
+
+            String get_TableName() override
             {
-                fieldValue = System::ObjectExt::Box<int>(mOrders->idx_get(mRecordIndex)->get_Quantity());
-                return true;
+                return u"Customers";
             }
-            else
+
+            bool GetValue(String fieldName, SharedPtr<Object>& fieldValue) override
             {
+                if (fieldName == u"FullName")
+                {
+                    fieldValue = System::ObjectExt::Box<String>(String::FromUtf8(mQuery.getColumn(1).getString()));
+                    return true;
+                }
+
+                if (fieldName == u"Address")
+                {
+                    fieldValue = System::ObjectExt::Box<String>(String::FromUtf8(mQuery.getColumn(2).getString()));
+                    return true;
+                }
+
                 fieldValue.reset();
                 return false;
             }
-        }
 
-        /// <summary>
-        /// A standard implementation for moving to a next record in a collection.
-        /// </summary>
-        bool MoveNext() override
-        {
-            if (!get_IsEof())
+            bool MoveNext() override
             {
-                mRecordIndex++;
+                return mQuery.executeStep();
             }
 
-            return !get_IsEof();
-        }
-
-        SharedPtr<IMailMergeDataSource> GetChildDataSource(String tableName) override
-        {
-            ASPOSE_UNUSED(tableName);
-            // Return null because we haven't any child elements for this sort of object.
-            return nullptr;
-        }
-
-    private:
-        bool get_IsEof()
-        {
-            return mRecordIndex >= mOrders->get_Count();
-        }
-
-        SharedPtr<System::Collections::Generic::List<SharedPtr<NestedMailMergeCustom::Order>>> mOrders;
-        int mRecordIndex;
+            SharedPtr<IMailMergeDataSource> GetChildDataSource(String tableName) override
+            {
+                if (tableName == u"Orders")
+                {
+                    return MakeObject<OrdersDataSource>(mDatabase, mQuery.getColumn(0).getInt());
+                }
+                return nullptr;
+            }
+        private:
+            SQLite::Database& mDatabase;
+            SQLite::Statement mQuery;
+        };
+        //ExEnd:NestedMailMerge
     };
-};
 
 }}} // namespace DocsExamples::Mail_Merge_and_Reporting::Custom_examples
