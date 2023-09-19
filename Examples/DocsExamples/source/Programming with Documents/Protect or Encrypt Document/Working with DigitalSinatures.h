@@ -200,6 +200,20 @@ public:
         ASSERT_EQ(0, DigitalSignatureUtil::LoadSignatures(ArtifactsDir + u"DigitalSignatureUtil.LoadAndRemove.FromStream.docx")->get_Count());
         //ExEnd:RemoveSignatures
     }
+
+    void SignatureValue()
+    {
+        //ExStart:RemoveSignatures
+        //GistId:cf0914fc4ceb93b503278282432ceaeb
+        auto doc = MakeObject<Document>(MyDir + u"Digitally signed.docx");
+
+        for (const auto& digitalSignature : doc->get_DigitalSignatures())
+        {
+            auto signatureValue = System::Convert::ToBase64String(digitalSignature->get_SignatureValue());
+            ASSERT_EQ(u"K1cVLLg2kbJRAzT5WK+m++G8eEO+l7S+5ENdjMxxTXkFzGUfvwxREuJdSFj9AbDMhnGvDURv9KEhC25DDF1al8NRVR71TF3CjHVZXpYu7edQS5/yLw/k5CiFZzCp1+MmhOdYPcVO+Fm+9fKr2iNLeyYB+fgEeZHfTqTFM2WwAqo=", signatureValue);
+        }
+        //ExEnd:RemoveSignatures
+    }
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Protect_or_Encrypt_Document

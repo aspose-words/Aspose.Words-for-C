@@ -60,9 +60,14 @@ TEST_F(WorkingWithDigitalSinatures, CreateNewSignatureLineAndSetProviderId)
     s_instance->CreateNewSignatureLineAndSetProviderId();
 }
 
-TEST_F(WorkingWithDigitalSinatures, AccessAndVerifySignature)
+TEST_F(WorkingWithDigitalSinatures, RemoveSignatures)
 {
-    s_instance->AccessAndVerifySignature();
+    s_instance->RemoveSignatures();
+}
+
+TEST_F(WorkingWithDigitalSinatures, SignatureValue)
+{
+    s_instance->SignatureValue();
 }
 
 }}}} // namespace DocsExamples::Programming_with_Documents::Protect_or_Encrypt_Document::gtest_test
