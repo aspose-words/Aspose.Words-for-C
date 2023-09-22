@@ -795,27 +795,6 @@ public:
         SharedPtr<WarningInfoCollection> SaveWarnings;
     };
 
-    void FontsScaledToMetafileSize(bool scaleWmfFonts)
-    {
-        //ExStart
-        //ExFor:MetafileRenderingOptions.ScaleWmfFontsToMetafileSize
-        //ExSummary:Shows how to WMF fonts scaling according to metafile size on the page.
-        auto doc = MakeObject<Document>(MyDir + u"WMF with text.docx");
-
-        // Create a "PdfSaveOptions" object that we can pass to the document's "Save" method
-        // to modify how that method converts the document to .PDF.
-        auto saveOptions = MakeObject<PdfSaveOptions>();
-
-        // Set the "ScaleWmfFontsToMetafileSize" property to "true" to scale fonts
-        // that format text within WMF images according to the size of the metafile on the page.
-        // Set the "ScaleWmfFontsToMetafileSize" property to "false" to
-        // preserve the default scale of these fonts.
-        saveOptions->get_MetafileRenderingOptions()->set_ScaleWmfFontsToMetafileSize(scaleWmfFonts);
-
-        doc->Save(ArtifactsDir + u"PdfSaveOptions.FontsScaledToMetafileSize.pdf", saveOptions);
-        //ExEnd
-    }
-
     void EmbedFullFonts(bool embedFullFonts)
     {
         //ExStart

@@ -354,29 +354,6 @@ TEST_F(ExPdfSaveOptions, UnsupportedImageFormatWarning)
     s_instance->UnsupportedImageFormatWarning();
 }
 
-using ExPdfSaveOptions_FontsScaledToMetafileSize_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::FontsScaledToMetafileSize)>::type;
-
-struct ExPdfSaveOptions_FontsScaledToMetafileSize : public ExPdfSaveOptions,
-                                                    public ApiExamples::ExPdfSaveOptions,
-                                                    public ::testing::WithParamInterface<ExPdfSaveOptions_FontsScaledToMetafileSize_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExPdfSaveOptions_FontsScaledToMetafileSize, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->FontsScaledToMetafileSize(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExPdfSaveOptions_FontsScaledToMetafileSize, ::testing::ValuesIn(ExPdfSaveOptions_FontsScaledToMetafileSize::TestCases()));
-
 using ExPdfSaveOptions_EmbedFullFonts_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExPdfSaveOptions::EmbedFullFonts)>::type;
 
 struct ExPdfSaveOptions_EmbedFullFonts : public ExPdfSaveOptions,
