@@ -206,8 +206,8 @@ void TestUtil::FieldsAreNested(System::SharedPtr<Field> innerField, System::Shar
     System::SharedPtr<CompositeNode> innerFieldParent = innerField->get_Start()->get_ParentNode();
 
     ASSERT_TRUE(innerFieldParent == outerField->get_Start()->get_ParentNode());
-    ASSERT_TRUE(innerFieldParent->get_ChildNodes()->IndexOf(innerField->get_Start()) > innerFieldParent->get_ChildNodes()->IndexOf(outerField->get_Start()));
-    ASSERT_TRUE(innerFieldParent->get_ChildNodes()->IndexOf(innerField->get_End()) < innerFieldParent->get_ChildNodes()->IndexOf(outerField->get_End()));
+    ASSERT_TRUE(innerFieldParent->GetChildNodes(Aspose::Words::NodeType::Any, false)->IndexOf(innerField->get_Start()) > innerFieldParent->GetChildNodes(Aspose::Words::NodeType::Any, false)->IndexOf(outerField->get_Start()));
+    ASSERT_TRUE(innerFieldParent->GetChildNodes(Aspose::Words::NodeType::Any, false)->IndexOf(innerField->get_End()) < innerFieldParent->GetChildNodes(Aspose::Words::NodeType::Any, false)->IndexOf(outerField->get_End()));
 }
 
 void TestUtil::VerifyImageInShape(int32_t expectedWidth, int32_t expectedHeight, ImageType expectedImageType, System::SharedPtr<Shape> imageShape)

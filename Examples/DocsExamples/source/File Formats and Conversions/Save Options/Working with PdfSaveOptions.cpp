@@ -75,9 +75,9 @@ TEST_F(WorkingWithPdfSaveOptions, ExportHeaderFooterBookmarks)
     s_instance->ExportHeaderFooterBookmarks();
 }
 
-TEST_F(WorkingWithPdfSaveOptions, ScaleWmfFontsToMetafileSize)
+TEST_F(WorkingWithPdfSaveOptions, EmulateRenderingToSizeOnPage)
 {
-    s_instance->ScaleWmfFontsToMetafileSize();
+    s_instance->EmulateRenderingToSizeOnPage();
 }
 
 TEST_F(WorkingWithPdfSaveOptions, AdditionalTextPositioning)

@@ -458,12 +458,12 @@ public:
 
     static void ProcessSection(System::SharedPtr<Section> section)
     {
-        if (section->get_ChildNodes()->get_Count() == 0)
+        if (section->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count() == 0)
         {
             return;
         }
 
-        System::SharedPtr<Body> lastBody = section->get_ChildNodes()->LINQ_OfType<System::SharedPtr<Body>>()->LINQ_LastOrDefault();
+        System::SharedPtr<Body> lastBody = section->GetChildNodes(Aspose::Words::NodeType::Any, false)->LINQ_OfType<System::SharedPtr<Body>>()->LINQ_LastOrDefault();
 
         System::SharedPtr<Run> run =
             lastBody != nullptr
@@ -490,7 +490,7 @@ public:
 
     void ProcessLastParagraph(System::SharedPtr<Paragraph> paragraph)
     {
-        System::SharedPtr<Node> lastNode = paragraph->get_ChildNodes()->idx_get(paragraph->get_ChildNodes()->get_Count() - 1);
+        System::SharedPtr<Node> lastNode = paragraph->GetChildNodes(Aspose::Words::NodeType::Any, false)->idx_get(paragraph->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count() - 1);
         if (lastNode->get_NodeType() != NodeType::Run)
         {
             return;
@@ -513,7 +513,7 @@ public:
             run->set_Text(run->get_Text().TrimEnd(System::MakeArray<char16_t>({PageBreak})));
         }
 
-        if (paragraph->get_ChildNodes()->get_Count() == 0)
+        if (paragraph->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count() == 0)
         {
             System::SharedPtr<CompositeNode> parent = paragraph->get_ParentNode();
             parent->RemoveChild(paragraph);

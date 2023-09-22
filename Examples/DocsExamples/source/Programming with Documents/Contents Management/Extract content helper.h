@@ -279,7 +279,7 @@ public:
         {
             SharedPtr<Node> currentNode = nodeBranch->idx_get(i);
             int nodeIndex = currentNode->get_ParentNode()->IndexOf(currentNode);
-            currentCloneNode = (System::ExplicitCast<CompositeNode>(currentCloneNode))->get_ChildNodes()->idx_get(nodeIndex);
+            currentCloneNode = (System::ExplicitCast<CompositeNode>(currentCloneNode))->GetChildNodes(Aspose::Words::NodeType::Any, false)->idx_get(nodeIndex);
 
             RemoveNodesOutsideOfRange(currentCloneNode, isInclusive || (i > 0), isStartMarker);
         }

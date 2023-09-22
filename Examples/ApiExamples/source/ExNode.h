@@ -180,9 +180,9 @@ public:
 
         // Iterate through the paragraph's collection of immediate children,
         // and print any runs or shapes that we find within.
-        SharedPtr<NodeCollection> children = paragraph->get_ChildNodes();
+        SharedPtr<NodeCollection> children = paragraph->GetChildNodes(Aspose::Words::NodeType::Any, false);
 
-        ASSERT_EQ(3, paragraph->get_ChildNodes()->get_Count());
+        ASSERT_EQ(3, paragraph->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count());
 
         for (const auto& child : System::IterateOver(children))
         {
@@ -433,7 +433,7 @@ public:
         SharedPtr<Body> body = doc->get_FirstSection()->get_Body();
 
         // Retrieve the index of the last paragraph in the body of the first section.
-        ASSERT_EQ(24, body->get_ChildNodes()->IndexOf(body->get_LastParagraph()));
+        ASSERT_EQ(24, body->GetChildNodes(Aspose::Words::NodeType::Any, false)->IndexOf(body->get_LastParagraph()));
         //ExEnd
     }
 
