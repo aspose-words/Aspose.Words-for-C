@@ -89,7 +89,7 @@ public:
         auto doc = MakeObject<Document>();
         auto paragraph = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
 
-        SharedPtr<NodeCollection> children = paragraph->get_ChildNodes();
+        SharedPtr<NodeCollection> children = paragraph->GetChildNodes(Aspose::Words::NodeType::Any, false);
         for (const auto& child : System::IterateOver(children))
         {
             // A paragraph may contain children of various types such as runs, shapes, and others.

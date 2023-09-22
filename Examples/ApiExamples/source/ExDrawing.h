@@ -519,16 +519,16 @@ public:
         doc = DocumentHelper::SaveOpen(doc);
         auto shapes = System::ExplicitCast<GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
 
-        ASSERT_EQ(2, shapes->get_ChildNodes()->get_Count());
+        ASSERT_EQ(2, shapes->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count());
 
-        auto shape = System::ExplicitCast<Shape>(shapes->get_ChildNodes()->idx_get(0));
+        auto shape = System::ExplicitCast<Shape>(shapes->GetChildNodes(Aspose::Words::NodeType::Any, false)->idx_get(0));
 
         ASSERT_EQ(ShapeType::Balloon, shape->get_ShapeType());
         ASPOSE_ASSERT_EQ(200.0, shape->get_Width());
         ASPOSE_ASSERT_EQ(200.0, shape->get_Height());
         ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), shape->get_StrokeColor().ToArgb());
 
-        shape = System::ExplicitCast<Shape>(shapes->get_ChildNodes()->idx_get(1));
+        shape = System::ExplicitCast<Shape>(shapes->GetChildNodes(Aspose::Words::NodeType::Any, false)->idx_get(1));
 
         ASSERT_EQ(ShapeType::Cube, shape->get_ShapeType());
         ASPOSE_ASSERT_EQ(100.0, shape->get_Width());

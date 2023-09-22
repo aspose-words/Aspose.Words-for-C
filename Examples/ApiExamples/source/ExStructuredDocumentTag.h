@@ -1063,9 +1063,9 @@ public:
             System::AsCast<StructuredDocumentTagRangeStart>(doc->GetChildNodes(NodeType::StructuredDocumentTagRangeStart, true)->idx_get(0));
 
         std::cout << "StructuredDocumentTagRangeStart values:" << std::endl;
-        std::cout << "\t|Child nodes count: " << tag->get_ChildNodes()->get_Count() << "\n" << std::endl;
+        std::cout << "\t|Child nodes count: " << tag->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count() << "\n" << std::endl;
 
-        for (const auto& node : System::IterateOver(tag->get_ChildNodes()))
+        for (const auto& node : System::IterateOver(tag->GetChildNodes(Aspose::Words::NodeType::Any, false)))
         {
             std::cout << String::Format(u"\t|Child node type: {0}", node->get_NodeType()) << std::endl;
         }

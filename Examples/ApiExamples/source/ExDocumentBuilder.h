@@ -750,7 +750,7 @@ public:
         builder->Write(u"Bookmark contents.");
         builder->EndBookmark(u"MyBookmark");
 
-        SharedPtr<NodeCollection> firstParagraphNodes = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ChildNodes();
+        SharedPtr<NodeCollection> firstParagraphNodes = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetChildNodes(Aspose::Words::NodeType::Any, false);
 
         ASSERT_EQ(NodeType::BookmarkStart, firstParagraphNodes->idx_get(0)->get_NodeType());
         ASSERT_EQ(NodeType::Run, firstParagraphNodes->idx_get(1)->get_NodeType());

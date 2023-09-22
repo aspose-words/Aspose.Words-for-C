@@ -175,7 +175,7 @@ VisitorAction SectionSplitter::VisitTableEnd(System::SharedPtr<Table> table)
 VisitorAction SectionSplitter::VisitParagraphEnd(System::SharedPtr<Paragraph> paragraph)
 {
     // If the paragraph contains only section break, add fake run into.
-    if (paragraph->get_IsEndOfSection() && paragraph->get_ChildNodes()->get_Count() == 1 && paragraph->get_ChildNodes()->idx_get(0)->GetText() == u"\f")
+    if (paragraph->get_IsEndOfSection() && paragraph->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count() == 1 && paragraph->GetChildNodes(Aspose::Words::NodeType::Any, false)->idx_get(0)->GetText() == u"\f")
     {
         auto run = System::MakeObject<Run>(paragraph->get_Document());
         paragraph->AppendChild(run);
@@ -254,8 +254,8 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<No
     int32_t startingPage = pageNumberFinder->GetPage(node);
 
     System::ArrayPtr<System::SharedPtr<Node>> childNodes = node->get_NodeType() == NodeType::Section
-                                                               ? (System::ExplicitCast<Section>(node))->get_Body()->get_ChildNodes()->ToArray()
-                                                               : node->get_ChildNodes()->ToArray();
+                                                               ? (System::ExplicitCast<Section>(node))->get_Body()->GetChildNodes(Aspose::Words::NodeType::Any, false)->ToArray()
+                                                               : node->GetChildNodes(Aspose::Words::NodeType::Any, false)->ToArray();
     for (System::SharedPtr<Node> childNode : childNodes)
     {
         int32_t pageNum = pageNumberFinder->GetPage(childNode);
@@ -314,7 +314,7 @@ System::SharedPtr<CompositeNode> SectionSplitter::SplitCompositeAtNode(System::S
         // If we are dealing with a row, we need to add dummy cells for the cloned row.
         int32_t targetPageNum = pageNumberFinder->GetPage(targetNode);
 
-        System::ArrayPtr<System::SharedPtr<Node>> childNodes = baseNode->get_ChildNodes()->ToArray();
+        System::ArrayPtr<System::SharedPtr<Node>> childNodes = baseNode->GetChildNodes(Aspose::Words::NodeType::Any, false)->ToArray();
         for (System::SharedPtr<Node> childNode : childNodes)
         {
             int32_t pageNum = pageNumberFinder->GetPage(childNode);

@@ -207,21 +207,21 @@ public:
         //ExEnd:ExportHeaderFooterBookmarks
     }
 
-    void ScaleWmfFontsToMetafileSize()
+    void EmulateRenderingToSizeOnPage()
     {
-        //ExStart:ScaleWmfFontsToMetafileSize
+        //ExStart:EmulateRenderingToSizeOnPage
         auto doc = MakeObject<Document>(MyDir + u"WMF with text.docx");
 
         auto metafileRenderingOptions = MakeObject<MetafileRenderingOptions>();
-        metafileRenderingOptions->set_ScaleWmfFontsToMetafileSize(false);
+        metafileRenderingOptions->set_EmulateRenderingToSizeOnPage(false);
 
         // If Aspose.Words cannot correctly render some of the metafile records to vector graphics
         // then Aspose.Words renders this metafile to a bitmap.
         auto saveOptions = MakeObject<PdfSaveOptions>();
         saveOptions->set_MetafileRenderingOptions(metafileRenderingOptions);
 
-        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.ScaleWmfFontsToMetafileSize.pdf", saveOptions);
-        //ExEnd:ScaleWmfFontsToMetafileSize
+        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.EmulateRenderingToSizeOnPage.pdf", saveOptions);
+        //ExEnd:EmulateRenderingToSizeOnPage
     }
 
     void AdditionalTextPositioning()

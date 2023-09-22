@@ -156,7 +156,7 @@ public:
         run->set_Text(u"Hello World");
         run->get_Font()->set_Color(System::Drawing::Color::get_Green());
         para->get_Runs()->Add(run);
-        sdtRichText->get_ChildNodes()->Add(para);
+        sdtRichText->GetChildNodes(Aspose::Words::NodeType::Any, false)->Add(para);
         doc->get_FirstSection()->get_Body()->AppendChild(sdtRichText);
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.RichTextBoxContentControl.docx");
