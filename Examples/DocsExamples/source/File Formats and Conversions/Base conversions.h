@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -78,7 +78,7 @@ public:
     void DocxToPdf()
     {
         //ExStart:DocxToPdf
-        //GistId:a53bdaad548845275c1b9556ee21ae65
+        //GistId:b9784b73e288805e08fba6e3fc5ae2af
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         doc->Save(ArtifactsDir + u"BaseConversions.DocxToPdf.pdf");
@@ -143,7 +143,7 @@ public:
     void ImagesToPdf()
     {
         //ExStart:ImageToPdf
-        //GistId:a53bdaad548845275c1b9556ee21ae65
+        //GistId:b9784b73e288805e08fba6e3fc5ae2af
         ConvertImageToPdf(ImagesDir + u"Logo.jpg", ArtifactsDir + u"BaseConversions.JpgToPdf.pdf");
         ConvertImageToPdf(ImagesDir + u"Transparent background logo.png", ArtifactsDir + u"BaseConversions.PngToPdf.pdf");
         ConvertImageToPdf(ImagesDir + u"Windows MetaFile.wmf", ArtifactsDir + u"BaseConversions.WmfToPdf.pdf");
@@ -153,7 +153,7 @@ public:
     }
 
     //ExStart:ConvertImageToPdf
-    //GistId:a53bdaad548845275c1b9556ee21ae65
+    //GistId:b9784b73e288805e08fba6e3fc5ae2af
     /// <summary>
     /// Converts an image to PDF using Aspose.Words for .NET.
     /// </summary>

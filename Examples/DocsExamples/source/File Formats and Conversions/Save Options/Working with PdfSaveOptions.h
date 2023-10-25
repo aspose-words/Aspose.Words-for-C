@@ -239,7 +239,7 @@ public:
     void ConversionToPdf17()
     {
         //ExStart:ConversionToPdf17
-        //GistId:a53bdaad548845275c1b9556ee21ae65
+        //GistId:b9784b73e288805e08fba6e3fc5ae2af
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
