@@ -238,14 +238,15 @@ public:
 
     void ConversionToPdf17()
     {
-        //ExStart:ConversionToPDF17
+        //ExStart:ConversionToPdf17
+        //GistId:a53bdaad548845275c1b9556ee21ae65
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
         saveOptions->set_Compliance(PdfCompliance::Pdf17);
 
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.ConversionToPdf17.pdf", saveOptions);
-        //ExEnd:ConversionToPDF17
+        //ExEnd:ConversionToPdf17
     }
 
     void DownsamplingImages()
