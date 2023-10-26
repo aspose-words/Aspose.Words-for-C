@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Body.h>
@@ -66,7 +66,7 @@ public:
     void InsertDocumentAtReplace()
     {
         //ExStart:InsertDocumentAtReplace
-        //GistId:db2dfc4150d7c714bcac3782ae241d03
+        //GistId:34934bfeabca5cf3dd3ca3c277e85771
         auto mainDoc = MakeObject<Document>(MyDir + u"Document insertion 1.docx");
 
         // Set find and replace options.
@@ -83,7 +83,7 @@ public:
     void InsertDocumentAtBookmark()
     {
         //ExStart:InsertDocumentAtBookmark
-        //GistId:db2dfc4150d7c714bcac3782ae241d03
+        //GistId:34934bfeabca5cf3dd3ca3c277e85771
         auto mainDoc = MakeObject<Document>(MyDir + u"Document insertion 1.docx");
         auto subDoc = MakeObject<Document>(MyDir + u"Document insertion 2.docx");
 
@@ -97,7 +97,7 @@ public:
     void InsertDocumentAtMailMerge()
     {
         //ExStart:InsertDocumentAtMailMerge
-        //GistId:db2dfc4150d7c714bcac3782ae241d03
+        //GistId:34934bfeabca5cf3dd3ca3c277e85771
         auto mainDoc = MakeObject<Document>(MyDir + u"Document insertion 1.docx");
 
         mainDoc->get_MailMerge()->set_FieldMergingCallback(MakeObject<CloneAndCombineDocuments::InsertDocumentAtMailMergeHandler>());
@@ -112,7 +112,7 @@ public:
     }
 
     //ExStart:InsertDocumentAsNodes
-    //GistId:db2dfc4150d7c714bcac3782ae241d03
+    //GistId:34934bfeabca5cf3dd3ca3c277e85771
     /// <summary>
     /// Inserts content of the external document after the specified node.
     /// Section breaks and section formatting of the inserted document are ignored.
@@ -209,7 +209,7 @@ public:
     //ExEnd:InsertDocumentWithSectionFormatting
 
     //ExStart:InsertDocumentAtMailMergeHandler
-    //GistId:db2dfc4150d7c714bcac3782ae241d03
+    //GistId:34934bfeabca5cf3dd3ca3c277e85771
     class InsertDocumentAtMailMergeHandler : public IFieldMergingCallback
     {
     private:
@@ -285,7 +285,7 @@ public:
     //ExEnd:InsertDocumentAtMailMergeBlobHandler
 
     //ExStart:InsertDocumentAtReplaceHandler
-    //GistId:db2dfc4150d7c714bcac3782ae241d03
+    //GistId:34934bfeabca5cf3dd3ca3c277e85771
     class InsertDocumentAtReplaceHandler : public IReplacingCallback
     {
     private:
