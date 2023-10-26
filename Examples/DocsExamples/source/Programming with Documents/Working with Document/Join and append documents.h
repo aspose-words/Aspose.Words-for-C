@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Body.h>
@@ -281,6 +281,7 @@ public:
     void DifferentPageSetup()
     {
         //ExStart:DifferentPageSetup
+        //GistId:34934bfeabca5cf3dd3ca3c277e85771
         auto srcDoc = MakeObject<Document>(MyDir + u"Document source.docx");
         auto dstDoc = MakeObject<Document>(MyDir + u"Northwind traders.docx");
 
@@ -344,6 +345,7 @@ public:
     void KeepSourceFormatting()
     {
         //ExStart:KeepSourceFormatting
+        //GistId:34934bfeabca5cf3dd3ca3c277e85771
         auto dstDoc = MakeObject<Document>();
         dstDoc->get_FirstSection()->get_Body()->AppendParagraph(u"Destination document text. ");
 
@@ -509,9 +511,10 @@ public:
         //ExEnd:SmartStyleBehavior
     }
 
-    void InsertDocumentWithBuilder()
+    void InsertDocument()
     {
         //ExStart:InsertDocumentWithBuilder
+        //GistId:34934bfeabca5cf3dd3ca3c277e85771
         auto srcDoc = MakeObject<Document>(MyDir + u"Document source.docx");
         auto dstDoc = MakeObject<Document>(MyDir + u"Northwind traders.docx");
         auto builder = MakeObject<DocumentBuilder>(dstDoc);
@@ -520,7 +523,7 @@ public:
         builder->InsertBreak(BreakType::PageBreak);
 
         builder->InsertDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
-        builder->get_Document()->Save(ArtifactsDir + u"JoinAndAppendDocuments.InsertDocumentWithBuilder.docx");
+        builder->get_Document()->Save(ArtifactsDir + u"JoinAndAppendDocuments.InsertDocument.docx");
         //ExEnd:InsertDocumentWithBuilder
     }
 

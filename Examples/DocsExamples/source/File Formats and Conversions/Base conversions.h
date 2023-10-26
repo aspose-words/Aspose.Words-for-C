@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -77,11 +77,12 @@ public:
 
     void DocxToPdf()
     {
-        //ExStart:Doc2Pdf
+        //ExStart:DocxToPdf
+        //GistId:b9784b73e288805e08fba6e3fc5ae2af
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         doc->Save(ArtifactsDir + u"BaseConversions.DocxToPdf.pdf");
-        //ExEnd:Doc2Pdf
+        //ExEnd:DocxToPdf
     }
 
     void DocxToByte()
@@ -142,6 +143,7 @@ public:
     void ImagesToPdf()
     {
         //ExStart:ImageToPdf
+        //GistId:b9784b73e288805e08fba6e3fc5ae2af
         ConvertImageToPdf(ImagesDir + u"Logo.jpg", ArtifactsDir + u"BaseConversions.JpgToPdf.pdf");
         ConvertImageToPdf(ImagesDir + u"Transparent background logo.png", ArtifactsDir + u"BaseConversions.PngToPdf.pdf");
         ConvertImageToPdf(ImagesDir + u"Windows MetaFile.wmf", ArtifactsDir + u"BaseConversions.WmfToPdf.pdf");
@@ -150,6 +152,8 @@ public:
         //ExEnd:ImageToPdf
     }
 
+    //ExStart:ConvertImageToPdf
+    //GistId:b9784b73e288805e08fba6e3fc5ae2af
     /// <summary>
     /// Converts an image to PDF using Aspose.Words for .NET.
     /// </summary>
@@ -158,8 +162,7 @@ public:
     void ConvertImageToPdf(String inputFileName, String outputFileName)
     {
         std::cout << (String(u"Converting ") + inputFileName + u" to PDF ....") << std::endl;
-
-        //ExStart:ConvertImageToPdf
+                
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -180,9 +183,9 @@ public:
 			builder->InsertImage(image, RelativeHorizontalPosition::Page, 0, RelativeVerticalPosition::Page, 0, ps->get_PageWidth(), ps->get_PageHeight(), WrapType::None);
         }
 
-        doc->Save(outputFileName);
-        //ExEnd:ConvertImageToPdf
+        doc->Save(outputFileName);        
     }
+    //ExEnd:ConvertImageToPdf
 };
 
 }} // namespace DocsExamples::File_Formats_and_Conversions
