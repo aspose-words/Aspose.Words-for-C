@@ -66,6 +66,7 @@ public:
     void InsertDocumentAtReplace()
     {
         //ExStart:InsertDocumentAtReplace
+        //GistId:db2dfc4150d7c714bcac3782ae241d03
         auto mainDoc = MakeObject<Document>(MyDir + u"Document insertion 1.docx");
 
         // Set find and replace options.
@@ -82,6 +83,7 @@ public:
     void InsertDocumentAtBookmark()
     {
         //ExStart:InsertDocumentAtBookmark
+        //GistId:db2dfc4150d7c714bcac3782ae241d03
         auto mainDoc = MakeObject<Document>(MyDir + u"Document insertion 1.docx");
         auto subDoc = MakeObject<Document>(MyDir + u"Document insertion 2.docx");
 
@@ -95,6 +97,7 @@ public:
     void InsertDocumentAtMailMerge()
     {
         //ExStart:InsertDocumentAtMailMerge
+        //GistId:db2dfc4150d7c714bcac3782ae241d03
         auto mainDoc = MakeObject<Document>(MyDir + u"Document insertion 1.docx");
 
         mainDoc->get_MailMerge()->set_FieldMergingCallback(MakeObject<CloneAndCombineDocuments::InsertDocumentAtMailMergeHandler>());
@@ -108,14 +111,15 @@ public:
         //ExEnd:InsertDocumentAtMailMerge
     }
 
+    //ExStart:InsertDocumentAsNodes
+    //GistId:db2dfc4150d7c714bcac3782ae241d03
     /// <summary>
     /// Inserts content of the external document after the specified node.
     /// Section breaks and section formatting of the inserted document are ignored.
     /// </summary>
     /// <param name="insertionDestination">Node in the destination document after which the content
     /// Should be inserted. This node should be a block level node (paragraph or table).</param>
-    /// <param name="docToInsert">The document to insert.</param>
-    //ExStart:InsertDocument
+    /// <param name="docToInsert">The document to insert.</param>    
     static void InsertDocument(SharedPtr<Node> insertionDestination, SharedPtr<Document> docToInsert)
     {
         if (insertionDestination->get_NodeType() == NodeType::Paragraph || insertionDestination->get_NodeType() == NodeType::Table)
@@ -151,7 +155,7 @@ public:
             throw System::ArgumentException(u"The destination node should be either a paragraph or table.");
         }
     }
-    //ExEnd:InsertDocument
+    //ExEnd:InsertDocumentAsNodes
 
     //ExStart:InsertDocumentWithSectionFormatting
     /// <summary>
@@ -205,6 +209,7 @@ public:
     //ExEnd:InsertDocumentWithSectionFormatting
 
     //ExStart:InsertDocumentAtMailMergeHandler
+    //GistId:db2dfc4150d7c714bcac3782ae241d03
     class InsertDocumentAtMailMergeHandler : public IFieldMergingCallback
     {
     private:
@@ -280,6 +285,7 @@ public:
     //ExEnd:InsertDocumentAtMailMergeBlobHandler
 
     //ExStart:InsertDocumentAtReplaceHandler
+    //GistId:db2dfc4150d7c714bcac3782ae241d03
     class InsertDocumentAtReplaceHandler : public IReplacingCallback
     {
     private:

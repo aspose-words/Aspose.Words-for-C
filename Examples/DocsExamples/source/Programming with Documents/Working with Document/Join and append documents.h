@@ -281,6 +281,7 @@ public:
     void DifferentPageSetup()
     {
         //ExStart:DifferentPageSetup
+        //GistId:db2dfc4150d7c714bcac3782ae241d03
         auto srcDoc = MakeObject<Document>(MyDir + u"Document source.docx");
         auto dstDoc = MakeObject<Document>(MyDir + u"Northwind traders.docx");
 
@@ -344,6 +345,7 @@ public:
     void KeepSourceFormatting()
     {
         //ExStart:KeepSourceFormatting
+        //GistId:db2dfc4150d7c714bcac3782ae241d03
         auto dstDoc = MakeObject<Document>();
         dstDoc->get_FirstSection()->get_Body()->AppendParagraph(u"Destination document text. ");
 
@@ -509,9 +511,10 @@ public:
         //ExEnd:SmartStyleBehavior
     }
 
-    void InsertDocumentWithBuilder()
+    void InsertDocument()
     {
         //ExStart:InsertDocumentWithBuilder
+        //GistId:db2dfc4150d7c714bcac3782ae241d03
         auto srcDoc = MakeObject<Document>(MyDir + u"Document source.docx");
         auto dstDoc = MakeObject<Document>(MyDir + u"Northwind traders.docx");
         auto builder = MakeObject<DocumentBuilder>(dstDoc);
@@ -520,7 +523,7 @@ public:
         builder->InsertBreak(BreakType::PageBreak);
 
         builder->InsertDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
-        builder->get_Document()->Save(ArtifactsDir + u"JoinAndAppendDocuments.InsertDocumentWithBuilder.docx");
+        builder->get_Document()->Save(ArtifactsDir + u"JoinAndAppendDocuments.InsertDocument.docx");
         //ExEnd:InsertDocumentWithBuilder
     }
 
