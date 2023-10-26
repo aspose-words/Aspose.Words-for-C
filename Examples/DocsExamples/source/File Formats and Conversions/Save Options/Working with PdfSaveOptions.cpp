@@ -130,4 +130,9 @@ TEST_F(WorkingWithPdfSaveOptions, InterpolateImages)
     s_instance->InterpolateImages();
 }
 
+TEST_F(WorkingWithPdfSaveOptions, OptimizeOutput)
+{
+    s_instance->OptimizeOutput();
+}
+
 }}}} // namespace DocsExamples::File_Formats_and_Conversions::Save_Options::gtest_test

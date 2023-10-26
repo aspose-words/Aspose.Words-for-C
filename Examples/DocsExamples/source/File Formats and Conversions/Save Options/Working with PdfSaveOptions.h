@@ -359,6 +359,19 @@ public:
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.InterpolateImages.pdf", saveOptions);
         //ExEnd:SetImageInterpolation
     }
+
+    void OptimizeOutput()
+    {
+        //ExStart:OptimizeOutput
+        //GistId:b9784b73e288805e08fba6e3fc5ae2af
+        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
+
+        auto saveOptions = MakeObject<PdfSaveOptions>();
+        saveOptions->set_OptimizeOutput(true);
+
+        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.OptimizeOutput.pdf", saveOptions);
+        //ExEnd:OptimizeOutput
+    }
 };
 
 }}} // namespace DocsExamples::File_Formats_and_Conversions::Save_Options
