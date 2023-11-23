@@ -96,6 +96,7 @@ public:
     void RemoveFooters()
     {
         //ExStart:RemoveFooters
+        //GistId:e26133cadfcbe798f1ae301e2941f5ff
         auto doc = MakeObject<Document>(MyDir + u"Header and footer types.docx");
 
         for (const auto& section : System::IterateOver<Section>(doc))
