@@ -49,81 +49,151 @@ class WorkingWithHeadersAndFooters : public DocsExamplesBase
 public:
     void CreateHeaderFooter()
     {
-        //ExStart:CreateHeaderFooterUsingDocBuilder
-        //ExStart:DifferentFirstPageHeaderFooter
-        //GistId:11904531c9095a3c413adf28dbe3fe8d
+        //ExStart:CreateHeaderFooter
+        //GistId:e26133cadfcbe798f1ae301e2941f5ff
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        SharedPtr<Section> currentSection = builder->get_CurrentSection();
-        SharedPtr<PageSetup> pageSetup = currentSection->get_PageSetup();
-        // Specify if we want headers/footers of the first page to be different from other pages.
-        // You can also use PageSetup.OddAndEvenPagesHeaderFooter property to specify
-        // different headers/footers for odd and even pages.
-        pageSetup->set_DifferentFirstPageHeaderFooter(true);
-        pageSetup->set_HeaderDistance(20);
+        // Use HeaderPrimary and FooterPrimary
+        // if you want to set header/footer for all document.
+        // This header/footer type also responsible for odd pages.
+        //ExStart:HeaderFooterType
+        //GistId:e26133cadfcbe798f1ae301e2941f5ff
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
+        builder->Write(u"Header for page.");
+        //ExEnd:HeaderFooterType
+
+        builder->MoveToHeaderFooter(HeaderFooterType::FooterPrimary);
+        builder->Write(u"Footer for page.");
+
+        doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.CreateHeaderFooter.docx");
+        //ExEnd:CreateHeaderFooter
+    }
+
+    void DifferentFirstPage()
+    {
+        //ExStart:DifferentFirstPage
+        //GistId:e26133cadfcbe798f1ae301e2941f5ff
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        // Specify that we want different headers and footers for first page.
+        builder->get_PageSetup()->set_DifferentFirstPageHeaderFooter(true);
 
         builder->MoveToHeaderFooter(HeaderFooterType::HeaderFirst);
-        builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
+        builder->Write(u"Header for the first page.");
+        builder->MoveToHeaderFooter(HeaderFooterType::FooterFirst);
+        builder->Write(u"Footer for the first page.");
 
+        builder->MoveToSection(0);
+        builder->Writeln(u"Page 1");
+        builder->InsertBreak(BreakType::PageBreak);
+        builder->Writeln(u"Page 2");
+
+        doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.DifferentFirstPage.docx");
+        //ExEnd:DifferentFirstPage
+    }
+    
+    void OddEvenPages()
+    {
+        //ExStart:OddEvenPages
+        //GistId:e26133cadfcbe798f1ae301e2941f5ff
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        // Specify that we want different headers and footers for even and odd pages.            
+        builder->get_PageSetup()->set_OddAndEvenPagesHeaderFooter(true);
+
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderEven);
+        builder->Write(u"Header for even pages.");
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
+        builder->Write(u"Header for odd pages.");
+        builder->MoveToHeaderFooter(HeaderFooterType::FooterEven);
+        builder->Write(u"Footer for even pages.");
+        builder->MoveToHeaderFooter(HeaderFooterType::FooterPrimary);
+        builder->Write(u"Footer for odd pages.");
+               
+        builder->MoveToSection(0);
+        builder->Writeln(u"Page 1");
+        builder->InsertBreak(BreakType::PageBreak);
+        builder->Writeln(u"Page 2");
+
+        doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.OddEvenPages.docx");
+        //ExEnd:OddEvenPages
+    }
+
+    void InsertImage()
+    {
+        //ExStart:InsertImage
+        //GistId:e26133cadfcbe798f1ae301e2941f5ff
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
+        builder->InsertImage(ImagesDir + u"Logo.jpg", RelativeHorizontalPosition::RightMargin, 10,
+            RelativeVerticalPosition::Page, 10, 50, 50, WrapType::Through);
+
+        doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.InsertImage.docx");
+        //ExEnd:InsertImage
+    }
+
+    void FontProps()
+    {
+        //ExStart:FontProps
+        //GistId:e26133cadfcbe798f1ae301e2941f5ff
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
+        builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
         builder->get_Font()->set_Name(u"Arial");
         builder->get_Font()->set_Bold(true);
         builder->get_Font()->set_Size(14);
+        builder->Write(u"Header for page.");
 
-        builder->Write(u"Aspose.Words Header/Footer Creation Primer - Title Page.");
+        doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.FontProps.docx");
+        //ExEnd:FontProps
+    }
 
-        pageSetup->set_HeaderDistance(20);
-        builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
-
-        // Insert a positioned image into the top/left corner of the header.
-        // Distance from the top/left edges of the page is set to 10 points.
-        builder->InsertImage(ImagesDir + u"Graphics Interchange Format.gif", RelativeHorizontalPosition::Page, 10.0, RelativeVerticalPosition::Page, 10.0, 50.0,
-                             50.0, WrapType::Through);
-
-        builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
-
-        builder->Write(u"Aspose.Words Header/Footer Creation Primer.");
+    void PageNumbers()
+    {
+        //ExStart:PageNumbers
+        //GistId:e26133cadfcbe798f1ae301e2941f5ff
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
 
         builder->MoveToHeaderFooter(HeaderFooterType::FooterPrimary);
-        //ExEnd:DifferentFirstPageHeaderFooter
-
-        // We use a table with two cells to make one part of the text on the line (with page numbering).
-        // To be aligned left, and the other part of the text (with copyright) to be aligned right.
-        builder->StartTable();
-
-        builder->get_CellFormat()->ClearFormatting();
-
-        builder->InsertCell();
-
-        builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPercent(100 / 3));
-
-        // It uses PAGE and NUMPAGES fields to auto calculate the current page number and many pages.
+        builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
         builder->Write(u"Page ");
         builder->InsertField(u"PAGE", u"");
         builder->Write(u" of ");
         builder->InsertField(u"NUMPAGES", u"");
 
-        builder->get_CurrentParagraph()->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Left);
+        doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.PageNumbers.docx");
+        //ExEnd:PageNumbers
+    }
 
-        builder->InsertCell();
+    void LinkToPreviousHeaderFooter()
+    {
+        //ExStart:LinkToPreviousHeaderFooter
+        //GistId:e26133cadfcbe798f1ae301e2941f5ff
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
 
-        builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPercent(100 * 2 / 3));
+        builder->get_PageSetup()->set_DifferentFirstPageHeaderFooter(true);
 
-        builder->Write(u"(C) 2001 Aspose Pty Ltd. All rights reserved.");
-
-        builder->get_CurrentParagraph()->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
-
-        builder->EndRow();
-        builder->EndTable();
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderFirst);
+        builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
+        builder->get_Font()->set_Name(u"Arial");
+        builder->get_Font()->set_Bold(true);
+        builder->get_Font()->set_Size(14);
+        builder->Write(u"Header for the first page.");
 
         builder->MoveToDocumentEnd();
-
-        // Make a page break to create a second page on which the primary headers/footers will be seen.
-        builder->InsertBreak(BreakType::PageBreak);
         builder->InsertBreak(BreakType::SectionBreakNewPage);
 
-        currentSection = builder->get_CurrentSection();
-        pageSetup = currentSection->get_PageSetup();
+        auto currentSection = builder->get_CurrentSection();
+        auto pageSetup = currentSection->get_PageSetup();
         pageSetup->set_Orientation(Orientation::Landscape);
         // This section does not need a different first-page header/footer we need only one title page in the document,
         // and the header/footer for this page has already been defined in the previous section.
@@ -131,25 +201,22 @@ public:
 
         // This section displays headers/footers from the previous section
         // by default call currentSection.HeadersFooters.LinkToPrevious(false) to cancel this page width
-        // is different for the new section, and therefore we need to set different cell widths for a footer table.
+        // is different for the new section.
         currentSection->get_HeadersFooters()->LinkToPrevious(false);
+        currentSection->get_HeadersFooters()->Clear();
 
-        // If we want to use the already existing header/footer set for this section.
-        // But with some minor modifications, then it may be expedient to copy headers/footers
-        // from the previous section and apply the necessary modifications where we want them.
-        CopyHeadersFootersFromPreviousSection(currentSection);
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
+        builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
+        builder->get_Font()->set_Name(u"Arial");
+        builder->get_Font()->set_Size(12);
+        builder->Write(u"New Header for the first page.");
 
-        SharedPtr<HeaderFooter> primaryFooter = currentSection->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary);
-
-        SharedPtr<Row> row = primaryFooter->get_Tables()->idx_get(0)->get_FirstRow();
-        row->get_FirstCell()->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPercent(100 / 3));
-        row->get_LastCell()->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPercent(100 * 2 / 3));
-
-        doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.CreateHeaderFooter.docx");
-        //ExEnd:CreateHeaderFooterUsingDocBuilder
-    }
+        doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.LinkToPreviousHeaderFooter.docx");
+        //ExEnd:LinkToPreviousHeaderFooter
+    }    
 
     //ExStart:CopyHeadersFootersFromPreviousSection
+    //GistId:e26133cadfcbe798f1ae301e2941f5ff
     /// <summary>
     /// Clones and copies headers/footers form the previous section to the specified section.
     /// </summary>

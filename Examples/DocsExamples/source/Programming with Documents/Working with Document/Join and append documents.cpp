@@ -109,9 +109,9 @@ TEST_F(JoinAndAppendDocuments, SmartStyleBehavior)
     s_instance->SmartStyleBehavior();
 }
 
-TEST_F(JoinAndAppendDocuments, InsertDocumentWithBuilder)
+TEST_F(JoinAndAppendDocuments, InsertDocument)
 {
-    s_instance->InsertDocumentWithBuilder();
+    s_instance->InsertDocument();
 }
 
 TEST_F(JoinAndAppendDocuments, KeepSourceNumbering)

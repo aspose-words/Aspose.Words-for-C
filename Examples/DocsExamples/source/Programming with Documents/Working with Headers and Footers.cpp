@@ -35,4 +35,34 @@ TEST_F(WorkingWithHeadersAndFooters, CreateHeaderFooter)
     s_instance->CreateHeaderFooter();
 }
 
+TEST_F(WorkingWithHeadersAndFooters, DifferentFirstPage)
+{
+    s_instance->DifferentFirstPage();
+}
+
+TEST_F(WorkingWithHeadersAndFooters, OddEvenPages)
+{
+    s_instance->OddEvenPages();
+}
+
+TEST_F(WorkingWithHeadersAndFooters, InsertImage)
+{
+    s_instance->InsertImage();
+}
+
+TEST_F(WorkingWithHeadersAndFooters, FontProps)
+{
+    s_instance->FontProps();
+}
+
+TEST_F(WorkingWithHeadersAndFooters, PageNumbers)
+{
+    s_instance->PageNumbers();
+}
+
+TEST_F(WorkingWithHeadersAndFooters, LinkToPreviousHeaderFooter)
+{
+    s_instance->LinkToPreviousHeaderFooter();
+}
+
 }}} // namespace DocsExamples::Programming_with_Documents::gtest_test
