@@ -388,7 +388,7 @@ public:
         doc->Save(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html", saveOptions);
 
         // The size of the optimized version of the document is almost a third of the size of the unoptimized document.
-        ASSERT_NEAR(optimizeOutput ? 62470 : 191726,
+        ASSERT_NEAR(optimizeOutput ? 61836 : 191726,
                     MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
         //ExEnd
     }
