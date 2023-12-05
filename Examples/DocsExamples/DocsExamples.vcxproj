@@ -181,6 +181,7 @@
     <ClCompile Include="..\SQLiteCpp\sqlite3.c" />
     <ClCompile Include="..\SQLiteCpp\Statement.cpp" />
     <ClCompile Include="..\SQLiteCpp\Transaction.cpp" />
+    <ClCompile Include="source\Getting started\Hello world.cpp" />
     <ClCompile Include="source\DocsExamplesBase.cpp" />
     <ClCompile Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.cpp" />
     <ClCompile Include="source\File Formats and Conversions\Load Options\Working with LoadOptions.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="..\SQLiteCpp\Transaction.h" />
     <ClInclude Include="..\SQLiteCpp\Utils.h" />
     <ClInclude Include="..\SQLiteCpp\VariadicBind.h" />
+    <ClInclude Include="source\Getting started\Hello world.h" />
     <ClInclude Include="source\DocsExamplesBase.h" />
     <ClInclude Include="source\File Formats and Conversions\Base conversions.h" />
     <ClInclude Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.h" />
