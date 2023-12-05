@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -31,7 +31,7 @@ public:
     void ApplyLicenseFromFile()
     {
         //ExStart:ApplyLicenseFromFile
-        //GistId:c762ebd027c53ed61fce5bc5ccac1ca7
+        //GistId:22914ce1f4ad49bfda8f88f5d192fe8e
         auto license = MakeObject<License>();
 
         // This line attempts to set a license from several locations relative to the executable and Aspose.Words.dll.
@@ -56,7 +56,7 @@ public:
     void ApplyLicenseFromStream()
     {
         //ExStart:ApplyLicenseFromStream
-        //GistId:c762ebd027c53ed61fce5bc5ccac1ca7
+        //GistId:22914ce1f4ad49bfda8f88f5d192fe8e
         auto license = MakeObject<License>();
 
         try
@@ -78,7 +78,7 @@ public:
     void ApplyLicenseFromEmbeddedResourceWindows()
     {
         //ExStart:ApplyLicenseFromEmbeddedResourceWindows
-        //GistId:c762ebd027c53ed61fce5bc5ccac1ca7
+        //GistId:22914ce1f4ad49bfda8f88f5d192fe8e
         auto hResource = FindResource(nullptr, MAKEINTRESOURCEA(IDR_ASPOSE_WORDS_LIC), RT_RCDATA);
         auto hMemory = LoadResource(nullptr, hResource);
 
@@ -106,7 +106,7 @@ public:
     void ApplyLicenseFromEmbeddedResourceLinux()
     {
         //ExStart:ApplyLicenseFromEmbeddedResourceLinux
-        //GistId:c762ebd027c53ed61fce5bc5ccac1ca7
+        //GistId:22914ce1f4ad49bfda8f88f5d192fe8e
         // A file named Aspose.Words.lic is 'imported' into an object file 
         // using the following command:
         //
@@ -147,7 +147,7 @@ public:
     void ApplyMeteredLicense()
     {
         //ExStart:ApplyMeteredLicense
-        //GistId:c762ebd027c53ed61fce5bc5ccac1ca7
+        //GistId:22914ce1f4ad49bfda8f88f5d192fe8e
         try
         {
             auto metered = MakeObject<Metered>();
