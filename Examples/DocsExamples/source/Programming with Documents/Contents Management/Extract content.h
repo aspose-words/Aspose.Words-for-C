@@ -24,6 +24,7 @@
 #include <Aspose.Words.Cpp/Fields/FieldType.h>
 #include <Aspose.Words.Cpp/FileFormatUtil.h>
 #include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
 #include <Aspose.Words.Cpp/HeaderFooter.h>
 #include <Aspose.Words.Cpp/Node.h>
 #include <Aspose.Words.Cpp/NodeType.h>
@@ -441,7 +442,7 @@ public:
                     String::Format(u"Image.ExportImages.{0}_{1}", imageIndex, FileFormatUtil::ImageTypeToExtension(shape->get_ImageData()->get_ImageType()));
 
                 // Note, if you have only an image (not a shape with a text and the image),
-                // you can use shape.GetShapeRenderer().Save(...) method to save the image.
+                // you can use shape->GetShapeRenderer()->Save(...) method to save the image.
                 shape->get_ImageData()->Save(ArtifactsDir + imageFileName);
                 imageIndex++;
             }
