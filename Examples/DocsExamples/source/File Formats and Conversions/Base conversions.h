@@ -80,7 +80,6 @@ public:
         //ExStart:DocxToPdf
         //GistId:b9784b73e288805e08fba6e3fc5ae2af
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
-
         doc->Save(ArtifactsDir + u"BaseConversions.DocxToPdf.pdf");
         //ExEnd:DocxToPdf
     }
