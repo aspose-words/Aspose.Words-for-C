@@ -440,6 +440,8 @@ public:
                 String imageFileName =
                     String::Format(u"Image.ExportImages.{0}_{1}", imageIndex, FileFormatUtil::ImageTypeToExtension(shape->get_ImageData()->get_ImageType()));
 
+                // Note, if you have only an image (not a shape with a text and the image),
+                // you can use shape.GetShapeRenderer().Save(...) method to save the image.
                 shape->get_ImageData()->Save(ArtifactsDir + imageFileName);
                 imageIndex++;
             }
