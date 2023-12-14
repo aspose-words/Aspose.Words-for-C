@@ -61,6 +61,9 @@
     <Filter Include="SQLiteCpp">
       <UniqueIdentifier>{8a099465-4508-4c6c-9342-44a0591b55b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Getting started">
+      <UniqueIdentifier>{7a099465-4508-4c6c-9342-44a0591b44b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\gtest\gmock_main.cc">
@@ -150,9 +153,6 @@
     </ClCompile>
     <ClCompile Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.cpp">
       <Filter>Mail Merge and Reporting\Complex examples and helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Programming with Documents\Apply License.cpp">
-      <Filter>Programming with Documents</Filter>
     </ClCompile>
     <ClCompile Include="source\Programming with Documents\Working with Comments.cpp">
       <Filter>Programming with Documents</Filter>
@@ -316,6 +316,12 @@
     <ClCompile Include="..\SQLiteCpp\Transaction.cpp">
       <Filter>SQLiteCpp</Filter>
     </ClCompile>
+    <ClCompile Include="source\Getting started\Hello world.cpp">
+      <Filter>Getting started</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Getting started\Apply License.cpp">
+      <Filter>Getting started</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\gtest\gtest\gtest.h">
@@ -420,9 +426,6 @@
     </ClInclude>
     <ClInclude Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.h">
       <Filter>Mail Merge and Reporting\Complex examples and helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Programming with Documents\Apply License.h">
-      <Filter>Programming with Documents</Filter>
     </ClInclude>
     <ClInclude Include="source\Programming with Documents\Working with Comments.h">
       <Filter>Programming with Documents</Filter>
@@ -606,6 +609,12 @@
     </ClInclude>
     <ClInclude Include="..\SQLiteCpp\VariadicBind.h">
       <Filter>SQLiteCpp</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Getting started\Hello world.h">
+      <Filter>Getting started</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Getting started\Apply License.h">
+      <Filter>Getting started</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

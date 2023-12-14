@@ -24,6 +24,7 @@
 #include <Aspose.Words.Cpp/Fields/FieldType.h>
 #include <Aspose.Words.Cpp/FileFormatUtil.h>
 #include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
 #include <Aspose.Words.Cpp/HeaderFooter.h>
 #include <Aspose.Words.Cpp/Node.h>
 #include <Aspose.Words.Cpp/NodeType.h>
@@ -67,24 +68,19 @@ public:
     void ExtractContentBetweenBlockLevelNodes()
     {
         //ExStart:ExtractContentBetweenBlockLevelNodes
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
         auto startPara = System::ExplicitCast<Paragraph>(doc->get_LastSection()->GetChild(NodeType::Paragraph, 2, true));
         auto endTable = System::ExplicitCast<Table>(doc->get_LastSection()->GetChild(NodeType::Table, 0, true));
-
         // Extract the content between these nodes in the document. Include these markers in the extraction.
         SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> extractedNodes = ExtractContentHelper::ExtractContent(startPara, endTable, true);
 
         // Let's reverse the array to make inserting the content back into the document easier.
         extractedNodes->Reverse();
-
-        while (extractedNodes->get_Count() > 0)
-        {
+        for (SharedPtr<Node> extractedNode : extractedNodes)        
             // Insert the last node from the reversed list.
-            endTable->get_ParentNode()->InsertAfter(System::ExplicitCast<Node>(extractedNodes->idx_get(0)), endTable);
-            // Remove this node from the list after insertion.
-            extractedNodes->RemoveAt(0);
-        }
+            endTable->get_ParentNode()->InsertAfter(extractedNode, endTable);        
 
         doc->Save(ArtifactsDir + u"ExtractContent.ExtractContentBetweenBlockLevelNodes.docx");
         //ExEnd:ExtractContentBetweenBlockLevelNodes
@@ -93,14 +89,10 @@ public:
     void ExtractContentBetweenBookmark()
     {
         //ExStart:ExtractContentBetweenBookmark
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
-        SharedPtr<Section> section = doc->get_Sections()->idx_get(0);
-        section->get_PageSetup()->set_LeftMargin(70.85);
-
-        // Retrieve the bookmark from the document.
         SharedPtr<Bookmark> bookmark = doc->get_Range()->get_Bookmarks()->idx_get(u"Bookmark1");
-        // We use the BookmarkStart and BookmarkEnd nodes as markers.
         SharedPtr<BookmarkStart> bookmarkStart = bookmark->get_BookmarkStart();
         SharedPtr<BookmarkEnd> bookmarkEnd = bookmark->get_BookmarkEnd();
 
@@ -123,10 +115,9 @@ public:
     void ExtractContentBetweenCommentRange()
     {
         //ExStart:ExtractContentBetweenCommentRange
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
-        // This is a quick way of getting both comment nodes.
-        // Your code should have a proper method of retrieving each corresponding start and end node.
         auto commentStart = System::ExplicitCast<CommentRangeStart>(doc->GetChild(NodeType::CommentRangeStart, 0, true));
         auto commentEnd = System::ExplicitCast<CommentRangeEnd>(doc->GetChild(NodeType::CommentRangeEnd, 0, true));
 
@@ -149,11 +140,11 @@ public:
     void ExtractContentBetweenParagraphs()
     {
         //ExStart:ExtractContentBetweenParagraphs
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
         auto startPara = System::ExplicitCast<Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Paragraph, 6, true));
         auto endPara = System::ExplicitCast<Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::Paragraph, 10, true));
-
         // Extract the content between these nodes in the document. Include these markers in the extraction.
         SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> extractedNodes = ExtractContentHelper::ExtractContent(startPara, endPara, true);
 
@@ -165,11 +156,12 @@ public:
     void ExtractContentBetweenParagraphStyles()
     {
         //ExStart:ExtractContentBetweenParagraphStyles
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
         // Gather a list of the paragraphs using the respective heading styles.
-        SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> parasStyleHeading1 = ExtractContentHelper::ParagraphsByStyleName(doc, u"Heading 1");
-        SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> parasStyleHeading3 = ExtractContentHelper::ParagraphsByStyleName(doc, u"Heading 3");
+        SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> parasStyleHeading1 = ParagraphsByStyleName(doc, u"Heading 1");
+        SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> parasStyleHeading3 = ParagraphsByStyleName(doc, u"Heading 3");
 
         // Use the first instance of the paragraphs with those styles.
         SharedPtr<Node> startPara1 = parasStyleHeading1->idx_get(0);
@@ -183,52 +175,73 @@ public:
         //ExEnd:ExtractContentBetweenParagraphStyles
     }
 
+    //ExStart:ParagraphsByStyleName
+    //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
+    static SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> ParagraphsByStyleName(SharedPtr<Document> doc, System::String styleName)
+    {
+        // Create an array to collect paragraphs of the specified style.
+        SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> paragraphsWithStyle =
+            MakeObject<System::Collections::Generic::List<SharedPtr<Paragraph>>>();
+
+        SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
+
+        // Look through all paragraphs to find those with the specified style.
+        for (const auto& paragraph : System::IterateOver<Paragraph>(paragraphs))
+        {
+            if (paragraph->get_ParagraphFormat()->get_Style()->get_Name() == styleName)
+            {
+                paragraphsWithStyle->Add(paragraph);
+            }
+        }
+
+        return paragraphsWithStyle;
+    }
+    //ExEnd:ParagraphsByStyleName
+
     void ExtractContentBetweenRuns()
     {
         //ExStart:ExtractContentBetweenRuns
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
         auto para = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 7, true));
-
         SharedPtr<Run> startRun = para->get_Runs()->idx_get(1);
         SharedPtr<Run> endRun = para->get_Runs()->idx_get(4);
 
         // Extract the content between these nodes in the document. Include these markers in the extraction.
         SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> extractedNodes = ExtractContentHelper::ExtractContent(startRun, endRun, true);
-
-        auto node = System::ExplicitCast<Node>(extractedNodes->idx_get(0));
-        std::cout << node->ToString(SaveFormat::Text) << std::endl;
+        
+        for (SharedPtr<Node> extractedNode : extractedNodes)        
+            std::cout << extractedNode->ToString(SaveFormat::Text) << std::endl;
         //ExEnd:ExtractContentBetweenRuns
     }
 
     void ExtractContentUsingDocumentVisitor()
     {
         //ExStart:ExtractContentUsingDocumentVisitor
-        auto doc = MakeObject<Document>(MyDir + u"Absolute position tab.docx");
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
+        auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
 
-        auto myConverter = MakeObject<ExtractContent::MyDocToTxtWriter>();
-
-        // This is the well known Visitor pattern. Get the model to accept a visitor.
-        // The model will iterate through itself by calling the corresponding methods.
-        // On the visitor object (this is called visiting).
+        auto convertToPlainText = MakeObject<ExtractContent::ConvertDocToTxt>();        
         // Note that every node in the object model has the accept method so the visiting
         // can be executed not only for the whole document, but for any node in the document.
-        doc->Accept(myConverter);
+        doc->Accept(convertToPlainText);
 
         // Once the visiting is complete, we can retrieve the result of the operation,
         // That in this example, has accumulated in the visitor.
-        std::cout << myConverter->GetText() << std::endl;
+        std::cout << convertToPlainText->GetText() << std::endl;
         //ExEnd:ExtractContentUsingDocumentVisitor
     }
 
-    //ExStart:MyDocToTxtWriter
+    //ExStart:ConvertDocToTxt
+    //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
     /// <summary>
     /// Simple implementation of saving a document in the plain text format. Implemented as a Visitor.
     /// </summary>
-    class MyDocToTxtWriter : public DocumentVisitor
+    class ConvertDocToTxt : public DocumentVisitor
     {
     public:
-        MyDocToTxtWriter() : mIsSkipText(false)
+        ConvertDocToTxt() : mIsSkipText(false)
         {
             mIsSkipText = false;
             mBuilder = MakeObject<System::Text::StringBuilder>();
@@ -248,7 +261,6 @@ public:
         VisitorAction VisitRun(SharedPtr<Run> run) override
         {
             AppendText(run->get_Text());
-
             // Let the visitor continue visiting other nodes.
             return VisitorAction::Continue;
         }
@@ -265,7 +277,6 @@ public:
             // Note this is a very simplistic implementation and will not work very well.
             // If you have nested fields in a document.
             mIsSkipText = true;
-
             return VisitorAction::Continue;
         }
 
@@ -278,7 +289,6 @@ public:
             // Once reached a field separator node, we enable the output because we are
             // now entering the field result nodes.
             mIsSkipText = false;
-
             return VisitorAction::Continue;
         }
 
@@ -291,7 +301,6 @@ public:
             // Make sure we enable the output when reached a field end because some fields
             // do not have field separator and do not have field result.
             mIsSkipText = false;
-
             return VisitorAction::Continue;
         }
 
@@ -303,7 +312,6 @@ public:
             ASPOSE_UNUSED(paragraph);
             // When outputting to plain text we output Cr+Lf characters.
             AppendText(ControlChar::CrLf());
-
             return VisitorAction::Continue;
         }
 
@@ -313,7 +321,6 @@ public:
             // We can detect beginning and end of all composite nodes such as Section, Body,
             // Table, Paragraph etc and provide custom handling for them.
             mBuilder->Append(u"*** Body Started ***\r\n");
-
             return VisitorAction::Continue;
         }
 
@@ -352,11 +359,12 @@ public:
             }
         }
     };
-    //ExEnd:MyDocToTxtWriter
+    //ExEnd:ConvertDocToTxt
 
     void ExtractContentUsingField()
     {
         //ExStart:ExtractContentUsingField
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
         auto doc = MakeObject<Document>(MyDir + u"Extract content.docx");
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -376,46 +384,70 @@ public:
         //ExEnd:ExtractContentUsingField
     }
 
-    void ExtractTableOfContents()
+    void SimpleExtractText()
     {
-        auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
-
-        for (const auto& field : System::IterateOver(doc->get_Range()->get_Fields()))
-        {
-            if (field->get_Type() == FieldType::FieldHyperlink)
-            {
-                auto hyperlink = System::ExplicitCast<FieldHyperlink>(field);
-                if (hyperlink->get_SubAddress() != nullptr && hyperlink->get_SubAddress().StartsWith(u"_Toc"))
-                {
-                    auto tocItem = System::ExplicitCast<Paragraph>(field->get_Start()->GetAncestor(NodeType::Paragraph));
-
-                    std::cout << tocItem->ToString(SaveFormat::Text).Trim() << std::endl;
-                    std::cout << "------------------" << std::endl;
-
-                    SharedPtr<Bookmark> bm = doc->get_Range()->get_Bookmarks()->idx_get(hyperlink->get_SubAddress());
-                    auto pointer = System::ExplicitCast<Paragraph>(bm->get_BookmarkStart()->GetAncestor(NodeType::Paragraph));
-
-                    std::cout << pointer->ToString(SaveFormat::Text) << std::endl;
-                }
-            }
-        }
-    }
-
-    void ExtractTextOnly()
-    {
-        //ExStart:ExtractTextOnly
+        //ExStart:SimpleExtractText
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        builder->InsertField(u"MERGEFIELD Field");
-
-        std::cout << (String(u"GetText() Result: ") + doc->GetText()) << std::endl;
+        builder->InsertField(u"MERGEFIELD Field");        
 
         // When converted to text it will not retrieve fields code or special characters,
         // but will still contain some natural formatting characters such as paragraph markers etc.
         // This is the same as "viewing" the document as if it was opened in a text editor.
         std::cout << (String(u"ToString() Result: ") + doc->ToString(SaveFormat::Text)) << std::endl;
-        //ExEnd:ExtractTextOnly
+        //ExEnd:SimpleExtractText
+    }    
+
+    void ExtractPrintText()
+    {
+        //ExStart:ExtractText
+        //GistId:0c6e4ebd55874aa8634f1d74d5ef492f
+        auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
+
+        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
+
+        // The range text will include control characters such as "\a" for a cell.
+        // You can call ToString and pass SaveFormat.Text on the desired node to find the plain text content.
+
+        std::cout << "Contents of the table: " << std::endl;
+        std::cout << table->get_Range()->get_Text() << std::endl;
+        //ExEnd:ExtractText
+
+        //ExStart:PrintTextRangeRowAndTable
+        //GistId:0c6e4ebd55874aa8634f1d74d5ef492f
+        std::cout << "\nContents of the row: " << std::endl;
+        std::cout << table->get_Rows()->idx_get(1)->get_Range()->get_Text() << std::endl;
+
+        std::cout << "\nContents of the cell: " << std::endl;
+        std::cout << table->get_LastRow()->get_LastCell()->get_Range()->get_Text() << std::endl;
+        //ExEnd:PrintTextRangeRowAndTable
+    }
+
+    void ExtractImages()
+    {
+        //ExStart:ExtractImages
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
+        auto doc = MakeObject<Document>(MyDir + u"Images.docx");
+
+        SharedPtr<NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
+        int imageIndex = 0;
+
+        for (const auto& shape : System::IterateOver<Shape>(shapes))
+        {
+            if (shape->get_HasImage())
+            {
+                String imageFileName =
+                    String::Format(u"Image.ExportImages.{0}_{1}", imageIndex, FileFormatUtil::ImageTypeToExtension(shape->get_ImageData()->get_ImageType()));
+
+                // Note, if you have only an image (not a shape with a text and the image),
+                // you can use shape->GetShapeRenderer()->Save(...) method to save the image.
+                shape->get_ImageData()->Save(ArtifactsDir + imageFileName);
+                imageIndex++;
+            }
+        }
+        //ExEnd:ExtractImages
     }
 
     void ExtractContentBasedOnStyles()
@@ -444,25 +476,6 @@ public:
         //ExEnd:ExtractContentBasedOnStyles
     }
 
-    //ExStart:ParagraphsByStyleName
-    SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> ParagraphsByStyleName(SharedPtr<Document> doc, String styleName)
-    {
-        SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> paragraphsWithStyle =
-            MakeObject<System::Collections::Generic::List<SharedPtr<Paragraph>>>();
-        SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
-
-        for (const auto& paragraph : System::IterateOver<Paragraph>(paragraphs))
-        {
-            if (paragraph->get_ParagraphFormat()->get_Style()->get_Name() == styleName)
-            {
-                paragraphsWithStyle->Add(paragraph);
-            }
-        }
-
-        return paragraphsWithStyle;
-    }
-    //ExEnd:ParagraphsByStyleName
-
     //ExStart:RunsByStyleName
     SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> RunsByStyleName(SharedPtr<Document> doc, String styleName)
     {
@@ -480,53 +493,6 @@ public:
         return runsWithStyle;
     }
     //ExEnd:RunsByStyleName
-
-    void ExtractPrintText()
-    {
-        //ExStart:ExtractText
-        //GistId:0c6e4ebd55874aa8634f1d74d5ef492f
-        auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
-
-        auto table = System::ExplicitCast<Table>(doc->GetChild(NodeType::Table, 0, true));
-
-        // The range text will include control characters such as "\a" for a cell.
-        // You can call ToString and pass SaveFormat.Text on the desired node to find the plain text content.
-
-        std::cout << "Contents of the table: " << std::endl;
-        std::cout << table->get_Range()->get_Text() << std::endl;
-        //ExEnd:ExtractText
-
-        //ExStart:PrintTextRangeRowAndTable
-        //GistId:0c6e4ebd55874aa8634f1d74d5ef492f
-        std::cout << "\nContents of the row: " << std::endl;
-        std::cout << table->get_Rows()->idx_get(1)->get_Range()->get_Text() << std::endl;
-
-        std::cout << "\nContents of the cell: " << std::endl;
-        std::cout << table->get_LastRow()->get_LastCell()->get_Range()->get_Text() << std::endl;
-        //ExEnd:PrintTextRangeRowAndTable
-    }
-
-    void ExtractImagesToFiles()
-    {
-        //ExStart:ExtractImagesToFiles
-        auto doc = MakeObject<Document>(MyDir + u"Images.docx");
-
-        SharedPtr<NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
-        int imageIndex = 0;
-
-        for (const auto& shape : System::IterateOver<Shape>(shapes))
-        {
-            if (shape->get_HasImage())
-            {
-                String imageFileName =
-                    String::Format(u"Image.ExportImages.{0}_{1}", imageIndex, FileFormatUtil::ImageTypeToExtension(shape->get_ImageData()->get_ImageType()));
-
-                shape->get_ImageData()->Save(ArtifactsDir + imageFileName);
-                imageIndex++;
-            }
-        }
-        //ExEnd:ExtractImagesToFiles
-    }
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

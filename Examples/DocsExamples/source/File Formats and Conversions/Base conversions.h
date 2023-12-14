@@ -80,7 +80,6 @@ public:
         //ExStart:DocxToPdf
         //GistId:b9784b73e288805e08fba6e3fc5ae2af
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
-
         doc->Save(ArtifactsDir + u"BaseConversions.DocxToPdf.pdf");
         //ExEnd:DocxToPdf
     }
@@ -124,8 +123,8 @@ public:
     void DocxToTxt()
     {
         //ExStart:DocxToTxt
+        //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
-
         doc->Save(ArtifactsDir + u"BaseConversions.DocxToTxt.txt");
         //ExEnd:DocxToTxt
     }
@@ -135,7 +134,6 @@ public:
         //ExStart:TxtToDocx
         // The encoding of the text file is automatically detected.
         auto doc = MakeObject<Document>(MyDir + u"English text.txt");
-
         doc->Save(ArtifactsDir + u"BaseConversions.TxtToDocx.docx");
         //ExEnd:TxtToDocx
     }

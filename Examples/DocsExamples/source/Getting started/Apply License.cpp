@@ -38,4 +38,19 @@ TEST_F(ApplyLicense, ApplyLicenseFromStream)
     s_instance->ApplyLicenseFromStream();
 }
 
+TEST_F(ApplyLicense, ApplyLicenseFromEmbeddedResourceWindows)
+{
+    s_instance->ApplyLicenseFromEmbeddedResourceWindows();
+}
+
+TEST_F(ApplyLicense, ApplyLicenseFromEmbeddedResourceLinux)
+{
+    s_instance->ApplyLicenseFromEmbeddedResourceLinux();
+}
+
+TEST_F(ApplyLicense, ApplyMeteredLicense)
+{
+    s_instance->ApplyMeteredLicense();
+}
+
 }}} // namespace DocsExamples::Programming_with_Documents::gtest_test

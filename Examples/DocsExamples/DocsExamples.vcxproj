@@ -181,6 +181,8 @@
     <ClCompile Include="..\SQLiteCpp\sqlite3.c" />
     <ClCompile Include="..\SQLiteCpp\Statement.cpp" />
     <ClCompile Include="..\SQLiteCpp\Transaction.cpp" />
+    <ClCompile Include="source\Getting started\Hello world.cpp" />
+    <ClCompile Include="source\Getting started\Apply License.cpp" />
     <ClCompile Include="source\DocsExamplesBase.cpp" />
     <ClCompile Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.cpp" />
     <ClCompile Include="source\File Formats and Conversions\Load Options\Working with LoadOptions.cpp" />
@@ -209,7 +211,6 @@
     <ClCompile Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.cpp" />
     <ClCompile Include="source\Mail Merge and Reporting\Working with CleanupOptions.cpp" />
     <ClCompile Include="source\Mail Merge and Reporting\Working with Fields.cpp" />
-    <ClCompile Include="source\Programming with Documents\Apply License.cpp" />
     <ClCompile Include="source\Programming with Documents\Contents Management\Extract content.cpp" />
     <ClCompile Include="source\Programming with Documents\Contents Management\Find and replace.cpp" />
     <ClCompile Include="source\Programming with Documents\Contents Management\Remove content.cpp" />
@@ -276,6 +277,8 @@
     <ClInclude Include="..\SQLiteCpp\Transaction.h" />
     <ClInclude Include="..\SQLiteCpp\Utils.h" />
     <ClInclude Include="..\SQLiteCpp\VariadicBind.h" />
+    <ClInclude Include="source\Getting started\Hello world.h" />
+    <ClInclude Include="source\Getting started\Apply License.h" />
     <ClInclude Include="source\DocsExamplesBase.h" />
     <ClInclude Include="source\File Formats and Conversions\Base conversions.h" />
     <ClInclude Include="source\File Formats and Conversions\Load Options\Working with HtmlLoadOptions.h" />
@@ -307,7 +310,6 @@
     <ClInclude Include="source\Mail Merge and Reporting\Working with CleanupOptions.h" />
     <ClInclude Include="source\Mail Merge and Reporting\Working with Fields.h" />
     <ClInclude Include="source\Mail Merge and Reporting\Working with XML data.h" />
-    <ClInclude Include="source\Programming with Documents\Apply License.h" />
     <ClInclude Include="source\Programming with Documents\Contents Management\Extract content helper.h" />
     <ClInclude Include="source\Programming with Documents\Contents Management\Extract content.h" />
     <ClInclude Include="source\Programming with Documents\Contents Management\Find and replace.h" />

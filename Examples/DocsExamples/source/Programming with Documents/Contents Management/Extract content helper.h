@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Body.h>
@@ -32,8 +32,7 @@ namespace DocsExamples { namespace Programming_with_Documents { namespace Conten
 
 class ExtractContentHelper : public System::Object
 {
-public:
-    //ExStart:CommonExtractContent
+public:    
     static SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> ExtractContent(SharedPtr<Node> startNode, SharedPtr<Node> endNode, bool isInclusive)
     {
         // First, check that the nodes passed to this method are valid for use.
@@ -123,50 +122,8 @@ public:
 
         // Return the nodes between the node markers.
         return nodes;
-    }
-    //ExEnd:CommonExtractContent
+    }       
 
-    static SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> ParagraphsByStyleName(SharedPtr<Document> doc, System::String styleName)
-    {
-        // Create an array to collect paragraphs of the specified style.
-        SharedPtr<System::Collections::Generic::List<SharedPtr<Paragraph>>> paragraphsWithStyle =
-            MakeObject<System::Collections::Generic::List<SharedPtr<Paragraph>>>();
-
-        SharedPtr<NodeCollection> paragraphs = doc->GetChildNodes(NodeType::Paragraph, true);
-
-        // Look through all paragraphs to find those with the specified style.
-        for (const auto& paragraph : System::IterateOver<Paragraph>(paragraphs))
-        {
-            if (paragraph->get_ParagraphFormat()->get_Style()->get_Name() == styleName)
-            {
-                paragraphsWithStyle->Add(paragraph);
-            }
-        }
-
-        return paragraphsWithStyle;
-    }
-
-    //ExStart:CommonGenerateDocument
-    static SharedPtr<Document> GenerateDocument(SharedPtr<Document> srcDoc, SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> nodes)
-    {
-        auto dstDoc = MakeObject<Document>();
-        // Remove the first paragraph from the empty document.
-        dstDoc->get_FirstSection()->get_Body()->RemoveAllChildren();
-
-        // Import each node from the list into the new document. Keep the original formatting of the node.
-        auto importer = MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
-
-        for (const auto& node : nodes)
-        {
-            SharedPtr<Node> importNode = importer->ImportNode(node, true);
-            dstDoc->get_FirstSection()->get_Body()->AppendChild(importNode);
-        }
-
-        return dstDoc;
-    }
-    //ExEnd:CommonGenerateDocument
-
-    //ExStart:CommonExtractContentHelperMethods
     static void VerifyParameterNodes(SharedPtr<Node> startNode, SharedPtr<Node> endNode)
     {
         // The order in which these checks are done is important.
@@ -365,7 +322,27 @@ public:
         }
         return startNode;
     }
-    //ExEnd:CommonExtractContentHelperMethods
+
+    //ExStart:GenerateDocument
+    //GistId:922a9c5d9606a0c5cf0682b4aadfaf29
+    static SharedPtr<Document> GenerateDocument(SharedPtr<Document> srcDoc, SharedPtr<System::Collections::Generic::List<SharedPtr<Node>>> nodes)
+    {
+        auto dstDoc = MakeObject<Document>();
+        // Remove the first paragraph from the empty document.
+        dstDoc->get_FirstSection()->get_Body()->RemoveAllChildren();
+
+        // Import each node from the list into the new document. Keep the original formatting of the node.
+        auto importer = MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting);
+        for (const auto& node : nodes)
+        {
+            SharedPtr<Node> importNode = importer->ImportNode(node, true);
+            dstDoc->get_FirstSection()->get_Body()->AppendChild(importNode);
+        }
+
+        return dstDoc;
+    }
+    //ExEnd:GenerateDocument
+    
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Contents_Management
