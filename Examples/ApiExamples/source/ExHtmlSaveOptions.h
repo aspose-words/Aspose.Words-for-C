@@ -755,7 +755,7 @@ public:
     void EpubHeadings()
     {
         //ExStart
-        //ExFor:HtmlSaveOptions.EpubNavigationMapLevel
+        //ExFor:HtmlSaveOptions.NavigationMapLevel
         //ExSummary:Shows how to filter headings that appear in the navigation panel of a saved Epub document.
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -778,10 +778,10 @@ public:
 
         // Epub readers typically create a table of contents for their documents.
         // Each paragraph with a "Heading" style in the document will create an entry in this table of contents.
-        // We can use the "EpubNavigationMapLevel" property to set a maximum heading level.
+        // We can use the "NavigationMapLevel" property to set a maximum heading level.
         // The Epub reader will not add headings with a level above the one we specify to the contents table.
         auto options = MakeObject<HtmlSaveOptions>(SaveFormat::Epub);
-        options->set_EpubNavigationMapLevel(2);
+        options->set_NavigationMapLevel(2);
 
         // Our document has six headings, two of which are above level 2.
         // The table of contents for this document will have four entries.
