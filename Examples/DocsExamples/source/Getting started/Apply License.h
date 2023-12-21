@@ -74,7 +74,7 @@ public:
 
         //ExEnd:ApplyLicenseFromStream
     }
-
+#ifdef _WIN32
     void ApplyLicenseFromEmbeddedResourceWindows()
     {
         //ExStart:ApplyLicenseFromEmbeddedResourceWindows
@@ -102,7 +102,7 @@ public:
         }
         //ExEnd:ApplyLicenseFromEmbeddedResourceWindows
     }
-
+#elif __linux__
     void ApplyLicenseFromEmbeddedResourceLinux()
     {
         //ExStart:ApplyLicenseFromEmbeddedResourceLinux
@@ -143,7 +143,7 @@ public:
         }
         //ExEnd:ApplyLicenseFromEmbeddedResourceLinux
     }
-
+#endif
     void ApplyMeteredLicense()
     {
         //ExStart:ApplyMeteredLicense
