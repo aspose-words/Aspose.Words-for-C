@@ -71,14 +71,9 @@ TEST_F(ExtractContent, ExtractContentUsingField)
     s_instance->ExtractContentUsingField();
 }
 
-TEST_F(ExtractContent, ExtractTableOfContents)
+TEST_F(ExtractContent, SimpleExtractText)
 {
-    s_instance->ExtractTableOfContents();
-}
-
-TEST_F(ExtractContent, ExtractTextOnly)
-{
-    s_instance->ExtractTextOnly();
+    s_instance->SimpleExtractText();
 }
 
 TEST_F(ExtractContent, ExtractContentBasedOnStyles)
@@ -91,9 +86,9 @@ TEST_F(ExtractContent, ExtractPrintText)
     s_instance->ExtractPrintText();
 }
 
-TEST_F(ExtractContent, ExtractImagesToFiles)
+TEST_F(ExtractContent, ExtractImages)
 {
-    s_instance->ExtractImagesToFiles();
+    s_instance->ExtractImages();
 }
 
 }}}} // namespace DocsExamples::Programming_with_Documents::Contents_Management::gtest_test

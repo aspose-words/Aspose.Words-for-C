@@ -37,17 +37,17 @@ TEST_F(ApplyLicense, ApplyLicenseFromStream)
 {
     s_instance->ApplyLicenseFromStream();
 }
-
+#ifdef _WIN32
 TEST_F(ApplyLicense, ApplyLicenseFromEmbeddedResourceWindows)
 {
     s_instance->ApplyLicenseFromEmbeddedResourceWindows();
 }
-
+#elif __linux__
 TEST_F(ApplyLicense, ApplyLicenseFromEmbeddedResourceLinux)
 {
     s_instance->ApplyLicenseFromEmbeddedResourceLinux();
 }
-
+#endif
 TEST_F(ApplyLicense, ApplyMeteredLicense)
 {
     s_instance->ApplyMeteredLicense();
