@@ -1529,13 +1529,15 @@ public:
         // to the "InsertHyperlink" method as part of the argument containing the referenced bookmark's name.
         builder->get_Font()->set_Color(System::Drawing::Color::get_Blue());
         builder->get_Font()->set_Underline(Underline::Single);
-        builder->InsertHyperlink(u"Link to Bookmark1", u"Bookmark1\" \\o \"Hyperlink Tip", true);
+        auto hyperlink = System::ExplicitCast<FieldHyperlink>(builder->InsertHyperlink(u"Link to Bookmark1", u"Bookmark1", true));
+        hyperlink->set_ScreenTip(u"Hyperlink Tip");
+        
 
         doc->Save(ArtifactsDir + u"DocumentBuilder.InsertHyperlinkToLocalBookmark.docx");
         //ExEnd
 
         doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertHyperlinkToLocalBookmark.docx");
-        auto hyperlink = System::ExplicitCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
+        hyperlink = System::ExplicitCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
 
         TestUtil::VerifyField(FieldType::FieldHyperlink, u" HYPERLINK \\l \"Bookmark1\" \\o \"Hyperlink Tip\" ", u"Link to Bookmark1", hyperlink);
         ASSERT_EQ(u"Bookmark1", hyperlink->get_SubAddress());
