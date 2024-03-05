@@ -204,7 +204,7 @@ public:
         auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExStart:RenderShapeImage
-        shape->GetShapeRenderer()->Save(ArtifactsDir + u"RenderShape.RenderShapeImage.jpg", nullptr);
+        shape->GetShapeRenderer()->Save(ArtifactsDir + u"RenderShape.RenderShapeImage.jpg", System::MakeObject<Aspose::Words::Saving::ImageSaveOptions>(SaveFormat::Jpeg));
         //ExEnd:RenderShapeImage
     }
 
