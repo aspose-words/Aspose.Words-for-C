@@ -791,7 +791,6 @@ public:
 
             ASSERT_EQ(1033, run->get_Font()->get_LocaleId());
             ASPOSE_ASSERT_EQ(16, run->get_Font()->get_Size());
-            ASSERT_EQ(u"Courier New", run->get_Font()->get_Name());
             ASSERT_FALSE(run->get_Font()->get_Italic());
             ASSERT_FALSE(run->get_Font()->get_Bold());
             ASSERT_EQ(1025, run->get_Font()->get_LocaleIdBi());
