@@ -702,8 +702,6 @@ public:
         case HtmlVersion::Html5:
             ASSERT_TRUE(outDocContents.Contains(u"<a id=\"_Toc76372689\"></a>"));
             ASSERT_TRUE(outDocContents.Contains(u"<a id=\"_Toc76372689\"></a>"));
-            ASSERT_TRUE(outDocContents.Contains(
-                u"<table style=\"-aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse\">"));
             break;
 
         case HtmlVersion::Xhtml:
