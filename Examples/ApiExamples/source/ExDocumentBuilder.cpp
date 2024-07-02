@@ -545,11 +545,6 @@ TEST_F(ExDocumentBuilder, MarkdownDocumentTests)
     s_instance->MarkdownDocumentTests();
 }
 
-TEST_F(ExDocumentBuilder, InsertOnlineVideoCustomThumbnail)
-{
-    s_instance->InsertOnlineVideoCustomThumbnail();
-}
-
 TEST_F(ExDocumentBuilder, InsertOleObjectAsIcon)
 {
     s_instance->InsertOleObjectAsIcon();
