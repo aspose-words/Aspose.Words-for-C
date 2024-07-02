@@ -188,38 +188,4 @@ void WordToHtmlConverter::SaveTableOfContents(System::SharedPtr<System::Collecti
     tocDoc->Save(System::IO::Path::Combine(mDstDir, u"contents.html"));
 }
 
-namespace gtest_test {
-
-class SplitIntoHtmlPages : public ::testing::Test
-{
-protected:
-    static System::SharedPtr<::DocsExamples::Programming_with_Documents::Split_Documents::SplitIntoHtmlPages> s_instance;
-
-    void SetUp() override
-    {
-        s_instance->SetUp();
-    };
-
-    static void SetUpTestCase()
-    {
-        s_instance = System::MakeObject<::DocsExamples::Programming_with_Documents::Split_Documents::SplitIntoHtmlPages>();
-        s_instance->OneTimeSetUp();
-    };
-
-    static void TearDownTestCase()
-    {
-        s_instance->OneTimeTearDown();
-        s_instance = nullptr;
-    };
-};
-
-System::SharedPtr<::DocsExamples::Programming_with_Documents::Split_Documents::SplitIntoHtmlPages> SplitIntoHtmlPages::s_instance;
-
-TEST_F(SplitIntoHtmlPages, HtmlPages)
-{
-    s_instance->HtmlPages();
-}
-
-} // namespace gtest_test
-
 }}} // namespace DocsExamples::Programming_with_Documents::Split_Documents

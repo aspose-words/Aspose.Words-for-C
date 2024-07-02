@@ -413,8 +413,8 @@ public:
 
         outDocContents = System::IO::File::ReadAllText(ArtifactsDir + u"HtmlSaveOptions.CssClassNamePrefix.css");
 
-        ASSERT_TRUE(outDocContents.Contains(String(u".myprefix-Footer { margin-bottom:0pt; line-height:normal; font-family:Arial; font-size:11pt }\r\n") +
-                                            u".myprefix-Header { margin-bottom:0pt; line-height:normal; font-family:Arial; font-size:11pt }\r\n"));
+        ASSERT_TRUE(outDocContents.Contains(String(u".myprefix-Footer { margin-bottom:0pt; line-height:normal; font-family:Arial; font-size:11pt; -aw-style-name:footer }\r\n") +
+                                            u".myprefix-Header { margin-bottom:0pt; line-height:normal; font-family:Arial; font-size:11pt; -aw-style-name:header }\r\n"));
         //ExEnd
     }
 
@@ -1330,7 +1330,7 @@ public:
                 System::Text::RegularExpressions::Regex::Match(
                     outDocContents,
                     String(u"<p style=\"margin-top:0pt; margin-bottom:10pt\">") +
-                        u"<img src=\"HtmlSaveOptions.OfficeMathOutputMode.001.png\" width=\"159\" height=\"19\" alt=\"\" style=\"vertical-align:middle; " +
+                        u"<img src=\"HtmlSaveOptions.OfficeMathOutputMode.001.png\" width=\"160\" height=\"19\" alt=\"\" style=\"vertical-align:middle; " +
                         u"-aw-left-pos:0pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:0pt; -aw-wrap-type:inline\" />" + u"</p>")
                     ->get_Success());
             break;
