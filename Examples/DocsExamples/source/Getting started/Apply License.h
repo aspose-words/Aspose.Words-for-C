@@ -3,7 +3,6 @@
 #include <cstdint>
 #include <iostream>
 #include <Aspose.Words.Cpp/License.h>
-#include <Aspose.Words.Cpp/Metered.h>
 #include <system/array.h>
 #include <system/exceptions.h>
 #include <system/io/file.h>
@@ -144,25 +143,7 @@ public:
         //ExEnd:ApplyLicenseFromEmbeddedResourceLinux
     }
 #endif
-    void ApplyMeteredLicense()
-    {
-        //ExStart:ApplyMeteredLicense
-        //GistId:22914ce1f4ad49bfda8f88f5d192fe8e
-        try
-        {
-            auto metered = MakeObject<Metered>();
-            metered->SetMeteredKey(u"*****", u"*****");
 
-            auto doc = MakeObject<Document>(MyDir + u"Document.docx");
-
-            std::cout << doc->get_PageCount() << std::endl;
-        }
-        catch (System::Exception& e)
-        {
-            std::cout << (String(u"\nThere was an error setting the license: ") + e->get_Message()) << std::endl;
-        }
-        //ExEnd:ApplyMeteredLicense
-    }
 };
 
 }} // namespace DocsExamples::Programming_with_Documents

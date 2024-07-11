@@ -48,9 +48,5 @@ TEST_F(ApplyLicense, ApplyLicenseFromEmbeddedResourceLinux)
     s_instance->ApplyLicenseFromEmbeddedResourceLinux();
 }
 #endif
-TEST_F(ApplyLicense, ApplyMeteredLicense)
-{
-    s_instance->ApplyMeteredLicense();
-}
 
 }}} // namespace DocsExamples::Programming_with_Documents::gtest_test
