@@ -1330,7 +1330,7 @@ public:
                 System::Text::RegularExpressions::Regex::Match(
                     outDocContents,
                     String(u"<p style=\"margin-top:0pt; margin-bottom:10pt\">") +
-                        u"<img src=\"HtmlSaveOptions.OfficeMathOutputMode.001.png\" width=\"160\" height=\"19\" alt=\"\" style=\"vertical-align:middle; " +
+                        u"<img src=\"HtmlSaveOptions.OfficeMathOutputMode.001.png\" width=\"163\" height=\"19\" alt=\"\" style=\"vertical-align:middle; " +
                         u"-aw-left-pos:0pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:0pt; -aw-wrap-type:inline\" />" + u"</p>")
                     ->get_Success());
             break;
