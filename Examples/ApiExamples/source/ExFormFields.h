@@ -362,7 +362,7 @@ public:
 
         TestUtil::VerifyField(FieldType::FieldFormDropDown, u" FORMDROPDOWN \u0001", String::Empty, doc->get_Range()->get_Fields()->idx_get(0));
         TestUtil::VerifyField(FieldType::FieldFormCheckBox, u" FORMCHECKBOX \u0001", String::Empty, doc->get_Range()->get_Fields()->idx_get(1));
-        TestUtil::VerifyField(FieldType::FieldFormTextInput, u" FORMTEXT \u0001", u"New placeholder text", doc->get_Range()->get_Fields()->idx_get(2));
+        TestUtil::VerifyField(FieldType::FieldFormTextInput, u" FORMTEXT \u0001", u"Regular", doc->get_Range()->get_Fields()->idx_get(2));
 
         SharedPtr<FormFieldCollection> formFields = doc->get_Range()->get_FormFields();
         ASSERT_EQ(3, formFields->get_Count());
@@ -392,7 +392,7 @@ public:
         ASSERT_EQ(u"FIRST CAPITAL", formFields->idx_get(2)->get_TextInputFormat());
         ASSERT_EQ(TextFormFieldType::Regular, formFields->idx_get(2)->get_TextInputType());
         ASSERT_EQ(50, formFields->idx_get(2)->get_MaxLength());
-        ASSERT_EQ(u"New placeholder text", formFields->idx_get(2)->get_Result());
+        ASSERT_EQ(u"Regular", formFields->idx_get(2)->get_Result());
     }
 
     void DropDownItemCollection_()
