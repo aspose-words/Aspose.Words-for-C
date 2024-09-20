@@ -22,6 +22,7 @@
 #include <Aspose.Words.Cpp/Drawing/Charts/AxisTimeUnit.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/Chart.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartAxis.h>
+#include <Aspose.Words.Cpp/Drawing/Charts/AxisTickLabels.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartAxisType.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartDataLabel.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartDataLabelCollection.h>
@@ -259,9 +260,9 @@ public:
         xAxis->set_MinorTickMark(AxisTickMark::Cross);
         xAxis->set_MajorUnit(10.0);
         xAxis->set_MinorUnit(15.0);
-        xAxis->set_TickLabelOffset(50);
-        xAxis->set_TickLabelPosition(AxisTickLabelPosition::Low);
-        xAxis->set_TickLabelSpacingIsAuto(false);
+        xAxis->get_TickLabels()->set_Offset(50);
+        xAxis->get_TickLabels()->set_Position(AxisTickLabelPosition::Low);
+        xAxis->get_TickLabels()->set_IsAutoSpacing(false);
         xAxis->set_TickMarkSpacing(1);
 
         SharedPtr<ChartAxis> yAxis = chart->get_AxisY();
@@ -272,7 +273,7 @@ public:
         yAxis->set_MinorTickMark(AxisTickMark::Cross);
         yAxis->set_MajorUnit(100.0);
         yAxis->set_MinorUnit(20.0);
-        yAxis->set_TickLabelPosition(AxisTickLabelPosition::NextToAxis);
+        yAxis->get_TickLabels()->set_Position(AxisTickLabelPosition::NextToAxis);
 
         // Column charts do not have a Z-axis.
         ASSERT_TRUE(chart->get_AxisZ() == nullptr);
@@ -290,9 +291,9 @@ public:
         ASSERT_EQ(AxisTickMark::Cross, chart->get_AxisX()->get_MinorTickMark());
         ASPOSE_ASSERT_EQ(1.0, chart->get_AxisX()->get_MajorUnit());
         ASPOSE_ASSERT_EQ(0.5, chart->get_AxisX()->get_MinorUnit());
-        ASSERT_EQ(50, chart->get_AxisX()->get_TickLabelOffset());
-        ASSERT_EQ(AxisTickLabelPosition::Low, chart->get_AxisX()->get_TickLabelPosition());
-        ASSERT_FALSE(chart->get_AxisX()->get_TickLabelSpacingIsAuto());
+        ASSERT_EQ(50, chart->get_AxisX()->get_TickLabels()->get_Offset());
+        ASSERT_EQ(AxisTickLabelPosition::Low, chart->get_AxisX()->get_TickLabels()->get_Position());
+        ASSERT_FALSE(chart->get_AxisX()->get_TickLabels()->get_IsAutoSpacing());
         ASSERT_EQ(1, chart->get_AxisX()->get_TickMarkSpacing());
 
         ASSERT_EQ(AxisCategoryType::Category, chart->get_AxisY()->get_CategoryType());
@@ -302,7 +303,7 @@ public:
         ASSERT_EQ(AxisTickMark::Cross, chart->get_AxisY()->get_MinorTickMark());
         ASPOSE_ASSERT_EQ(100.0, chart->get_AxisY()->get_MajorUnit());
         ASPOSE_ASSERT_EQ(20.0, chart->get_AxisY()->get_MinorUnit());
-        ASSERT_EQ(AxisTickLabelPosition::NextToAxis, chart->get_AxisY()->get_TickLabelPosition());
+        ASSERT_EQ(AxisTickLabelPosition::NextToAxis, chart->get_AxisY()->get_TickLabels()->get_Position());
     }
 
     void DateTimeValues()
@@ -348,7 +349,7 @@ public:
 
         // Define Y-axis properties for decimal values.
         SharedPtr<ChartAxis> yAxis = chart->get_AxisY();
-        yAxis->set_TickLabelPosition(AxisTickLabelPosition::High);
+        yAxis->get_TickLabels()->set_Position(AxisTickLabelPosition::High);
         yAxis->set_MajorUnit(100.0);
         yAxis->set_MinorUnit(50.0);
         yAxis->get_DisplayUnit()->set_Unit(AxisBuiltInUnit::Hundreds);
@@ -369,7 +370,7 @@ public:
         ASSERT_EQ(AxisTickMark::Cross, chart->get_AxisX()->get_MajorTickMark());
         ASSERT_EQ(AxisTickMark::Outside, chart->get_AxisX()->get_MinorTickMark());
 
-        ASSERT_EQ(AxisTickLabelPosition::High, chart->get_AxisY()->get_TickLabelPosition());
+        ASSERT_EQ(AxisTickLabelPosition::High, chart->get_AxisY()->get_TickLabels()->get_Position());
         ASPOSE_ASSERT_EQ(100.0, chart->get_AxisY()->get_MajorUnit());
         ASPOSE_ASSERT_EQ(50.0, chart->get_AxisY()->get_MinorUnit());
         ASSERT_EQ(AxisBuiltInUnit::Hundreds, chart->get_AxisY()->get_DisplayUnit()->get_Unit());
@@ -1194,9 +1195,9 @@ public:
         // Set the X-axis bounds so that the X-axis spans 5 major tick marks and 12 minor tick marks.
         axis->get_Scaling()->set_Minimum(MakeObject<AxisBound>(-10.0));
         axis->get_Scaling()->set_Maximum(MakeObject<AxisBound>(30.0));
-        axis->set_TickLabelAlignment(ParagraphAlignment::Right);
+        axis->get_TickLabels()->set_Alignment(ParagraphAlignment::Right);
 
-        ASSERT_EQ(1, axis->get_TickLabelSpacing());
+        ASSERT_EQ(1, axis->get_TickLabels()->get_Spacing());
 
         // Set the tick labels to display their value in millions.
         axis->get_DisplayUnit()->set_Unit(AxisBuiltInUnit::Millions);
@@ -1223,8 +1224,8 @@ public:
         ASPOSE_ASSERT_EQ(10.0, axis->get_MajorUnit());
         ASPOSE_ASSERT_EQ(-10.0, axis->get_Scaling()->get_Minimum()->get_Value());
         ASPOSE_ASSERT_EQ(30.0, axis->get_Scaling()->get_Maximum()->get_Value());
-        ASSERT_EQ(1, axis->get_TickLabelSpacing());
-        ASSERT_EQ(ParagraphAlignment::Right, axis->get_TickLabelAlignment());
+        ASSERT_EQ(1, axis->get_TickLabels()->get_Spacing());
+        ASSERT_EQ(ParagraphAlignment::Right, axis->get_TickLabels()->get_Alignment());
         ASSERT_EQ(AxisBuiltInUnit::Custom, axis->get_DisplayUnit()->get_Unit());
         ASPOSE_ASSERT_EQ(1000000.0, axis->get_DisplayUnit()->get_CustomUnit());
 

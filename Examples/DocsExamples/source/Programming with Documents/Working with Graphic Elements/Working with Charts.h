@@ -11,6 +11,7 @@
 #include <Aspose.Words.Cpp/Drawing/Charts/AxisDisplayUnit.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/AxisScaling.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/AxisTickLabelPosition.h>
+#include <Aspose.Words.Cpp/Drawing/Charts/AxisTickLabels.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/AxisTickMark.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/Chart.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartAxis.h>
@@ -228,9 +229,9 @@ public:
         xAxis->set_ReverseOrder(true);
         xAxis->set_MajorTickMark(AxisTickMark::Cross);
         xAxis->set_MinorTickMark(AxisTickMark::Outside);
-        xAxis->set_TickLabelOffset(200);
+        xAxis->get_TickLabels()->set_Offset(200);
 
-        yAxis->set_TickLabelPosition(AxisTickLabelPosition::High);
+        yAxis->get_TickLabels()->set_Position(AxisTickLabelPosition::High);
         yAxis->set_MajorUnit(100);
         yAxis->set_MinorUnit(50);
         yAxis->get_DisplayUnit()->set_Unit(AxisBuiltInUnit::Hundreds);
@@ -329,7 +330,7 @@ public:
         chart->get_Series()->Add(u"Aspose Series 1", MakeArray<String>({u"Item 1", u"Item 2", u"Item 3", u"Item 4", u"Item 5"}),
                                  MakeArray<double>({1.2, 0.3, 2.1, 2.9, 4.2}));
 
-        chart->get_AxisX()->set_TickLabelSpacing(2);
+        chart->get_AxisX()->get_TickLabels()->set_Spacing(2);
 
         doc->Save(ArtifactsDir + u"WorkingWithCharts.IntervalUnitBetweenLabelsOnAxis.docx");
         //ExEnd:SetIntervalUnitBetweenLabelsOnAxis
@@ -366,7 +367,7 @@ public:
 
         SharedPtr<ChartAxis> axis = shape->get_Chart()->get_AxisX();
         // This property has effect only for multi-line labels.
-        axis->set_TickLabelAlignment(ParagraphAlignment::Right);
+        axis->get_TickLabels()->set_Alignment(ParagraphAlignment::Right);
 
         doc->Save(ArtifactsDir + u"WorkingWithCharts.TickMultiLineLabelAlignment.docx");
         //ExEnd:TickMultiLineLabelAlignment
