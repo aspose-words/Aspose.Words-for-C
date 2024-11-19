@@ -157,7 +157,6 @@ public:
         //ExFor:NodeType
         //ExFor:CompositeNode
         //ExFor:CompositeNode.GetChild
-        //ExFor:CompositeNode.ChildNodes
         //ExFor:CompositeNode.GetEnumerator
         //ExFor:NodeCollection.Count
         //ExFor:NodeCollection.Item

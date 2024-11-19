@@ -442,9 +442,6 @@ public:
 
     void ClearHeadersFooters()
     {
-        //ExStart
-        //ExFor:Section.ClearHeadersFooters
-        //ExSummary:Shows how to clear the contents of all headers and footers in a section.
         auto doc = MakeObject<Document>();
 
         ASSERT_EQ(0, doc->get_FirstSection()->get_HeadersFooters()->get_Count());
@@ -469,7 +466,6 @@ public:
 
         ASSERT_EQ(String::Empty, doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetText().Trim());
         ASSERT_EQ(String::Empty, doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->GetText().Trim());
-        //ExEnd
     }
 
     void DeleteHeaderFooterShapes()
