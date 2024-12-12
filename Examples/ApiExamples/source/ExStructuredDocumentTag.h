@@ -1055,7 +1055,6 @@ public:
     void SdtChildNodes()
     {
         //ExStart
-        //ExFor:StructuredDocumentTagRangeStart.ChildNodes
         //ExFor:StructuredDocumentTagRangeStart.GetChildNodes(NodeType, bool)
         //ExSummary:Shows how to get child nodes of StructuredDocumentTagRangeStart.
         auto doc = MakeObject<Document>(MyDir + u"Multi-section structured document tags.docx");

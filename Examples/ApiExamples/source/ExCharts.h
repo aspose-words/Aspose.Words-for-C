@@ -227,9 +227,6 @@ public:
         //ExFor:ChartAxis.MinorTickMark
         //ExFor:ChartAxis.MajorUnit
         //ExFor:ChartAxis.MinorUnit
-        //ExFor:ChartAxis.TickLabelOffset
-        //ExFor:ChartAxis.TickLabelPosition
-        //ExFor:ChartAxis.TickLabelSpacingIsAuto
         //ExFor:ChartAxis.TickMarkSpacing
         //ExFor:Charts.AxisCategoryType
         //ExFor:Charts.AxisCrosses
@@ -1152,8 +1149,6 @@ public:
         //ExFor:ChartAxis.MajorUnitScale
         //ExFor:ChartAxis.MinorUnitIsAuto
         //ExFor:ChartAxis.MinorUnitScale
-        //ExFor:ChartAxis.TickLabelSpacing
-        //ExFor:ChartAxis.TickLabelAlignment
         //ExFor:AxisDisplayUnit
         //ExFor:AxisDisplayUnit.CustomUnit
         //ExFor:AxisDisplayUnit.Unit
