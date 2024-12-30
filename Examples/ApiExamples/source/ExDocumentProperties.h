@@ -108,7 +108,7 @@ public:
         }
         //ExEnd
 
-        ASSERT_EQ(28, doc->get_BuiltInDocumentProperties()->get_Count());
+        ASSERT_EQ(31, doc->get_BuiltInDocumentProperties()->get_Count());
     }
 
     void Custom()
