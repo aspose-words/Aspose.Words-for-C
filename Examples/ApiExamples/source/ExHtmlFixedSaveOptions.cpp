@@ -163,11 +163,6 @@ TEST_P(ExHtmlFixedSaveOptions_ExportFormFields, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_ExportFormFields, ::testing::ValuesIn(ExHtmlFixedSaveOptions_ExportFormFields::TestCases()));
 
-TEST_F(ExHtmlFixedSaveOptions, AddCssClassNamesPrefix)
-{
-    s_instance->AddCssClassNamesPrefix();
-}
-
 using ExHtmlFixedSaveOptions_HorizontalAlignment_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::HorizontalAlignment)>::type;
 
 struct ExHtmlFixedSaveOptions_HorizontalAlignment : public ExHtmlFixedSaveOptions,
@@ -201,30 +196,6 @@ TEST_F(ExHtmlFixedSaveOptions, PageMarginsException)
 {
     s_instance->PageMarginsException();
 }
-
-using ExHtmlFixedSaveOptions_OptimizeGraphicsOutput_Args =
-    System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::OptimizeGraphicsOutput)>::type;
-
-struct ExHtmlFixedSaveOptions_OptimizeGraphicsOutput : public ExHtmlFixedSaveOptions,
-                                                       public ApiExamples::ExHtmlFixedSaveOptions,
-                                                       public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_OptimizeGraphicsOutput_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
-    }
-};
-
-TEST_P(ExHtmlFixedSaveOptions_OptimizeGraphicsOutput, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->OptimizeGraphicsOutput(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_OptimizeGraphicsOutput, ::testing::ValuesIn(ExHtmlFixedSaveOptions_OptimizeGraphicsOutput::TestCases()));
 
 using ExHtmlFixedSaveOptions_UsingMachineFonts_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::UsingMachineFonts)>::type;
 

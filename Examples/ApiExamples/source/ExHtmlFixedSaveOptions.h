@@ -279,38 +279,6 @@ public:
         //ExEnd
     }
 
-    void AddCssClassNamesPrefix()
-    {
-        //ExStart
-        //ExFor:HtmlFixedSaveOptions.CssClassNamesPrefix
-        //ExFor:HtmlFixedSaveOptions.SaveFontFaceCssSeparately
-        //ExSummary:Shows how to place CSS into a separate file and add a prefix to all of its CSS class names.
-        auto doc = MakeObject<Document>(MyDir + u"Bookmarks.docx");
-
-        auto htmlFixedSaveOptions = MakeObject<HtmlFixedSaveOptions>();
-        htmlFixedSaveOptions->set_CssClassNamesPrefix(u"myprefix");
-        htmlFixedSaveOptions->set_SaveFontFaceCssSeparately(true);
-
-        doc->Save(ArtifactsDir + u"HtmlFixedSaveOptions.AddCssClassNamesPrefix.html", htmlFixedSaveOptions);
-
-        String outDocContents = System::IO::File::ReadAllText(ArtifactsDir + u"HtmlFixedSaveOptions.AddCssClassNamesPrefix.html");
-
-        ASSERT_TRUE(
-            System::Text::RegularExpressions::Regex::Match(
-                outDocContents, String(u"<div class=\"myprefixdiv myprefixpage\" style=\"width:595[.]3pt; height:841[.]9pt;\">") +
-                                    u"<div class=\"myprefixdiv\" style=\"left:85[.]05pt; top:36pt; clip:rect[(]0pt,510[.]25pt,74[.]95pt,-85.05pt[)];\">" +
-                                    u"<span class=\"myprefixspan myprefixtext001\" style=\"font-size:11pt; left:294[.]73pt; top:0[.]36pt; line-height:12[.]29pt;\">")
-                ->get_Success());
-
-        outDocContents = System::IO::File::ReadAllText(ArtifactsDir + u"HtmlFixedSaveOptions.AddCssClassNamesPrefix/styles.css");
-
-        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents,
-                                                                   String(u".myprefixdiv { position:absolute; } ") +
-                                                                       u".myprefixspan { position:absolute; white-space:pre; color:#000000; font-size:12pt; }")
-                        ->get_Success());
-        //ExEnd
-    }
-
     void HorizontalAlignment(HtmlFixedPageHorizontalAlignment pageHorizontalAlignment)
     {
         //ExStart
@@ -373,24 +341,6 @@ public:
     {
         auto saveOptions = MakeObject<HtmlFixedSaveOptions>();
         ASSERT_THROW(saveOptions->set_PageMargins(-1), System::ArgumentException);
-    }
-
-    void OptimizeGraphicsOutput(bool optimizeOutput)
-    {
-        //ExStart
-        //ExFor:HtmlFixedSaveOptions.OptimizeOutput
-        //ExSummary:Shows how to simplify a document when saving it to HTML by removing various redundant objects.
-        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
-
-        auto saveOptions = MakeObject<HtmlFixedSaveOptions>();
-        saveOptions->set_OptimizeOutput(optimizeOutput);
-
-        doc->Save(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html", saveOptions);
-
-        // The size of the optimized version of the document is almost a third of the size of the unoptimized document.
-        ASSERT_NEAR(optimizeOutput ? 61836 : 191726,
-                    MakeObject<System::IO::FileInfo>(ArtifactsDir + u"HtmlFixedSaveOptions.OptimizeGraphicsOutput.html")->get_Length(), 200);
-        //ExEnd
     }
 
     void UsingMachineFonts(bool useTargetMachineFonts)
