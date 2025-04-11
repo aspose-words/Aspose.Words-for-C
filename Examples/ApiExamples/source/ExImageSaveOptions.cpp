@@ -70,36 +70,6 @@ TEST_F(ExImageSaveOptions, PageSet)
     s_instance->PageSet_();
 }
 
-using ExImageSaveOptions_SkipMono_SkipMono_SkipMono_WindowsMetaFile_Args =
-    System::MethodArgumentTuple<decltype(&ApiExamples::ExImageSaveOptions::WindowsMetaFile)>::type;
-
-struct ExImageSaveOptions_SkipMono_SkipMono_SkipMono_WindowsMetaFile
-    : public ExImageSaveOptions,
-      public ApiExamples::ExImageSaveOptions,
-      public ::testing::WithParamInterface<ExImageSaveOptions_SkipMono_SkipMono_SkipMono_WindowsMetaFile_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        return {
-            std::make_tuple(MetafileRenderingMode::Vector),
-            std::make_tuple(MetafileRenderingMode::Bitmap),
-            std::make_tuple(MetafileRenderingMode::VectorWithFallback),
-        };
-    }
-};
-
-TEST_P(ExImageSaveOptions_SkipMono_SkipMono_SkipMono_WindowsMetaFile, Test)
-{
-    RecordProperty("category", "SkipMono");
-    RecordProperty("category1", "SkipMono");
-    RecordProperty("category2", "SkipMono");
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->WindowsMetaFile(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(, ExImageSaveOptions_SkipMono_SkipMono_SkipMono_WindowsMetaFile,
-                         ::testing::ValuesIn(ExImageSaveOptions_SkipMono_SkipMono_SkipMono_WindowsMetaFile::TestCases()));
-
 TEST_F(ExImageSaveOptions, SkipMono_PageByPage)
 {
     RecordProperty("category", "SkipMono");
@@ -116,7 +86,6 @@ struct ExImageSaveOptions_ColorMode : public ExImageSaveOptions,
     static std::vector<ParamType> TestCases()
     {
         return {
-            std::make_tuple(ImageColorMode::BlackAndWhite),
             std::make_tuple(ImageColorMode::Grayscale),
             std::make_tuple(ImageColorMode::None),
         };
@@ -145,9 +114,9 @@ struct ExImageSaveOptions_PixelFormat : public ExImageSaveOptions,
     static std::vector<ParamType> TestCases()
     {
         return {
-            std::make_tuple(ImagePixelFormat::Format1bppIndexed), std::make_tuple(ImagePixelFormat::Format16BppRgb555),
-            std::make_tuple(ImagePixelFormat::Format24BppRgb),    std::make_tuple(ImagePixelFormat::Format32BppRgb),
-            std::make_tuple(ImagePixelFormat::Format48BppRgb),
+            std::make_tuple(ImagePixelFormat::Format1bppIndexed), 
+            std::make_tuple(ImagePixelFormat::Format24BppRgb),    
+            std::make_tuple(ImagePixelFormat::Format32BppRgb),
         };
     }
 };

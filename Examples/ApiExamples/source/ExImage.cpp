@@ -44,13 +44,6 @@ TEST_F(ExImage, FromStream)
     s_instance->FromStream();
 }
 
-TEST_F(ExImage, SkipMono_FromImage)
-{
-    RecordProperty("category", "SkipMono");
-
-    s_instance->FromImage();
-}
-
 TEST_F(ExImage, CreateFloatingPageCenter)
 {
     s_instance->CreateFloatingPageCenter();

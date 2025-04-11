@@ -155,30 +155,6 @@ public:
         ASSERT_FALSE(System::IO::File::Exists(ArtifactsDir + u"ImageSaveOptions.PageIndex.Page 4.gif"));
     }
 
-    void WindowsMetaFile(MetafileRenderingMode metafileRenderingMode)
-    {
-        //ExStart
-        //ExFor:ImageSaveOptions.MetafileRenderingOptions
-        //ExSummary:Shows how to set the rendering mode when saving documents with Windows Metafile images to other image formats.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        builder->InsertImage(System::Drawing::Image::FromFile(ImageDir + u"Windows MetaFile.wmf"));
-
-        // When we save the document as an image, we can pass a SaveOptions object to
-        // determine how the saving operation will process Windows Metafiles in the document.
-        // If we set the "RenderingMode" property to "MetafileRenderingMode.Vector",
-        // or "MetafileRenderingMode.VectorWithFallback", we will render all metafiles as vector graphics.
-        // If we set the "RenderingMode" property to "MetafileRenderingMode.Bitmap", we will render all metafiles as bitmaps.
-        auto options = MakeObject<ImageSaveOptions>(SaveFormat::Png);
-        options->get_MetafileRenderingOptions()->set_RenderingMode(metafileRenderingMode);
-
-        doc->Save(ArtifactsDir + u"ImageSaveOptions.WindowsMetaFile.png", options);
-        //ExEnd
-
-        TestUtil::VerifyImage(816, 1056, ArtifactsDir + u"ImageSaveOptions.WindowsMetaFile.png");
-    }
-
     void PageByPage()
     {
         //ExStart

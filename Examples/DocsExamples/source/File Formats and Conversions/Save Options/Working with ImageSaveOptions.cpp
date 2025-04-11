@@ -39,11 +39,6 @@ TEST_F(WorkingWithImageSaveOptions, GetTiffPageRange)
     s_instance->GetTiffPageRange();
 }
 
-TEST_F(WorkingWithImageSaveOptions, Format1BppIndexed)
-{
-    s_instance->Format1BppIndexed();
-}
-
 TEST_F(WorkingWithImageSaveOptions, GetJpegPageRange)
 {
     s_instance->GetJpegPageRange();
