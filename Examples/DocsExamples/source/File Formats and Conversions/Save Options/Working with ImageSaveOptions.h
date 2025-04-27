@@ -66,20 +66,6 @@ public:
         //ExEnd:GetTiffPageRange
     }
 
-    void Format1BppIndexed()
-    {
-        //ExStart:Format1BppIndexed
-        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
-
-        auto saveOptions = MakeObject<ImageSaveOptions>(SaveFormat::Png);
-        saveOptions->set_PageSet(MakeObject<PageSet>(1));
-        saveOptions->set_ImageColorMode(ImageColorMode::BlackAndWhite);
-        saveOptions->set_PixelFormat(ImagePixelFormat::Format1bppIndexed);
-
-        doc->Save(ArtifactsDir + u"WorkingWithImageSaveOptions.Format1BppIndexed.Png", saveOptions);
-        //ExEnd:Format1BppIndexed
-    }
-
     void GetJpegPageRange()
     {
         //ExStart:GetJpegPageRange

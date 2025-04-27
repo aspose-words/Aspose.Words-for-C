@@ -116,27 +116,6 @@ public:
         TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, System::ExplicitCast<Shape>(doc->GetChildNodes(NodeType::Shape, true)->idx_get(0)));
     }
 
-    void FromImage()
-    {
-        auto builder = MakeObject<DocumentBuilder>();
-
-        {
-            SharedPtr<System::Drawing::Image> rasterImage = System::Drawing::Image::FromFile(ImageDir + u"Logo.jpg");
-            builder->Write(u"Raster image: ");
-            builder->InsertImage(rasterImage);
-            builder->Writeln();
-        }
-
-        {
-            SharedPtr<System::Drawing::Image> metafile = System::Drawing::Image::FromFile(ImageDir + u"Windows MetaFile.wmf");
-            builder->Write(u"Metafile: ");
-            builder->InsertImage(metafile);
-            builder->Writeln();
-        }
-
-        builder->get_Document()->Save(ArtifactsDir + u"Image.FromImage.docx");
-    }
-
     void CreateFloatingPageCenter()
     {
         //ExStart
