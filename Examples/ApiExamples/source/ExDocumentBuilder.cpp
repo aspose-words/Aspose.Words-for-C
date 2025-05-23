@@ -71,11 +71,6 @@ TEST_F(ExDocumentBuilder, HorizontalRuleFormatExceptions)
     s_instance->HorizontalRuleFormatExceptions();
 }
 
-TEST_F(ExDocumentBuilder, InsertHyperlink)
-{
-    s_instance->InsertHyperlink();
-}
-
 TEST_F(ExDocumentBuilder, PushPopFont)
 {
     s_instance->PushPopFont();
