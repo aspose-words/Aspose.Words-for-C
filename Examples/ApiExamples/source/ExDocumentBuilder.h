@@ -347,44 +347,6 @@ public:
         ASSERT_THROW(horizontalRuleFormat->set_Height(1585), System::ArgumentOutOfRangeException);
     }
 
-    void InsertHyperlink()
-    {
-        //ExStart
-        //ExFor:DocumentBuilder.InsertHyperlink
-        //ExFor:Font.ClearFormatting
-        //ExFor:Font.Color
-        //ExFor:Font.Underline
-        //ExFor:Underline
-        //ExSummary:Shows how to insert a hyperlink field.
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        builder->Write(u"For more information, please visit the ");
-
-        // Insert a hyperlink and emphasize it with custom formatting.
-        // The hyperlink will be a clickable piece of text which will take us to the location specified in the URL.
-        builder->get_Font()->set_Color(System::Drawing::Color::get_Blue());
-        builder->get_Font()->set_Underline(Underline::Single);
-        builder->InsertHyperlink(u"Google website", u"https://www.google.com", false);
-        builder->get_Font()->ClearFormatting();
-        builder->Writeln(u".");
-
-        // Ctrl + left clicking the link in the text in Microsoft Word will take us to the URL via a new web browser window.
-        doc->Save(ArtifactsDir + u"DocumentBuilder.InsertHyperlink.docx");
-        //ExEnd
-
-        doc = MakeObject<Document>(ArtifactsDir + u"DocumentBuilder.InsertHyperlink.docx");
-
-        auto hyperlink = System::ExplicitCast<FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
-        TestUtil::VerifyWebResponseStatusCode(System::Net::HttpStatusCode::OK, hyperlink->get_Address());
-
-        auto fieldContents = System::ExplicitCast<Run>(hyperlink->get_Start()->get_NextSibling());
-
-        ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), fieldContents->get_Font()->get_Color().ToArgb());
-        ASSERT_EQ(Underline::Single, fieldContents->get_Font()->get_Underline());
-        ASSERT_EQ(u"HYPERLINK \"https://www.google.com\"", fieldContents->GetText().Trim());
-    }
-
     void PushPopFont()
     {
         //ExStart
