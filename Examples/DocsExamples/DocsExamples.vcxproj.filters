@@ -151,9 +151,6 @@
     <ClCompile Include="source\Mail Merge and Reporting\Working with Fields.cpp">
       <Filter>Mail Merge and Reporting</Filter>
     </ClCompile>
-    <ClCompile Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.cpp">
-      <Filter>Mail Merge and Reporting\Complex examples and helpers</Filter>
-    </ClCompile>
     <ClCompile Include="source\Programming with Documents\Working with Comments.cpp">
       <Filter>Programming with Documents</Filter>
     </ClCompile>
@@ -422,9 +419,6 @@
       <Filter>Mail Merge and Reporting</Filter>
     </ClInclude>
     <ClInclude Include="source\Mail Merge and Reporting\Complex examples and helpers\Create MailMerge template.h">
-      <Filter>Mail Merge and Reporting\Complex examples and helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.h">
       <Filter>Mail Merge and Reporting\Complex examples and helpers</Filter>
     </ClInclude>
     <ClInclude Include="source\Programming with Documents\Working with Comments.h">

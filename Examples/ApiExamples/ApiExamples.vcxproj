@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="15.0">
   <PropertyGroup>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
   </PropertyGroup>
@@ -180,16 +180,17 @@
     </ClCompile>
     <ClCompile Include="source\ApiExampleBase.cpp" />
     <ClCompile Include="source\DocumentHelper.cpp" />
+    <ClCompile Include="source\ExAI.cpp" />
     <ClCompile Include="source\ExAbsolutePositionTab.cpp" />
     <ClCompile Include="source\ExBookmarks.cpp" />
     <ClCompile Include="source\ExBookmarksOutlineLevelCollection.cpp" />
     <ClCompile Include="source\ExBorder.cpp" />
     <ClCompile Include="source\ExBorderCollection.cpp" />
-    <ClCompile Include="source\ExBuildingBlocks.cpp" />
     <ClCompile Include="source\ExBuildVersion.cpp" />
+    <ClCompile Include="source\ExBuildingBlocks.cpp" />
     <ClCompile Include="source\ExCellFormat.cpp" />
-    <ClCompile Include="source\ExCertificateHolder.cpp" />
     <ClCompile Include="source\ExCharts.cpp" />
+    <ClCompile Include="source\ExChmLoadOptions.cpp" />
     <ClCompile Include="source\ExCleanupOptions.cpp" />
     <ClCompile Include="source\ExComment.cpp" />
     <ClCompile Include="source\ExCompatibilityOptions.cpp" />
@@ -224,12 +225,11 @@
     <ClCompile Include="source\ExLicense.cpp" />
     <ClCompile Include="source\ExLists.cpp" />
     <ClCompile Include="source\ExLoadOptions.cpp" />
-    <ClCompile Include="source\ExMailMerge.cpp" />
-    <ClCompile Include="source\ExMailMergeCustom.cpp" />
-    <ClCompile Include="source\ExMailMergeCustomNested.cpp" />
     <ClCompile Include="source\ExMailMergeEvent.cpp" />
-    <ClCompile Include="source\ExMisc.cpp" />
+    <ClCompile Include="source\ExMarkdownLoadOptions.cpp" />
+    <ClCompile Include="source\ExMarkdownSaveOptions.cpp" />
     <ClCompile Include="source\ExMossDoc2Pdf.cpp" />
+    <ClCompile Include="source\ExMossRtf2Docx.cpp" />
     <ClCompile Include="source\ExNode.cpp" />
     <ClCompile Include="source\ExNodeImporter.cpp" />
     <ClCompile Include="source\ExOdtSaveOptions.cpp" />
@@ -238,7 +238,7 @@
     <ClCompile Include="source\ExParagraph.cpp" />
     <ClCompile Include="source\ExParagraphFormat.cpp" />
     <ClCompile Include="source\ExPclSaveOptions.cpp" />
-    <ClCompile Include="source\ExPdfSaveOptions.cpp" />
+    <ClCompile Include="source\ExPdfLoadOptions.cpp" />
     <ClCompile Include="source\ExPlainTextDocument.cpp" />
     <ClCompile Include="source\ExPrinting.cpp" />
     <ClCompile Include="source\ExPsSaveOptions.cpp" />
@@ -257,9 +257,9 @@
     <ClCompile Include="source\ExStructuredDocumentTag.cpp" />
     <ClCompile Include="source\ExStyles.cpp" />
     <ClCompile Include="source\ExSvgSaveOptions.cpp" />
+    <ClCompile Include="source\ExTabStop.cpp" />
     <ClCompile Include="source\ExTable.cpp" />
     <ClCompile Include="source\ExTableColumn.cpp" />
-    <ClCompile Include="source\ExTabStop.cpp" />
     <ClCompile Include="source\ExThemes.cpp" />
     <ClCompile Include="source\ExTxtLoadOptions.cpp" />
     <ClCompile Include="source\ExTxtSaveOptions.cpp" />
@@ -270,20 +270,23 @@
     <ClCompile Include="source\ExWordML2003SaveOptions.cpp" />
     <ClCompile Include="source\ExXamlFixedSaveOptions.cpp" />
     <ClCompile Include="source\ExXamlFlowSaveOptions.cpp" />
+    <ClCompile Include="source\ExXlsxSaveOptions.cpp" />
     <ClCompile Include="source\ExXpsSaveOptions.cpp" />
-    <ClCompile Include="source\TestData\Common.cpp" />
-    <ClCompile Include="source\TestData\TestBuilders\ColorItemTestBuilder.cpp" />
-    <ClCompile Include="source\TestData\TestBuilders\DocumentTestBuilder.cpp" />
-    <ClCompile Include="source\TestData\TestBuilders\ImageTestBuilder.cpp" />
-    <ClCompile Include="source\TestData\TestBuilders\NumericTestBuilder.cpp" />
-    <ClCompile Include="source\TestData\TestClasses\ClientTestClass.cpp" />
-    <ClCompile Include="source\TestData\TestClasses\ColorItemTestClass.cpp" />
-    <ClCompile Include="source\TestData\TestClasses\ContractTestClass.cpp" />
-    <ClCompile Include="source\TestData\TestClasses\DocumentTestClass.cpp" />
-    <ClCompile Include="source\TestData\TestClasses\ImageTestClass.cpp" />
-    <ClCompile Include="source\TestData\TestClasses\ManagerTestClass.cpp" />
-    <ClCompile Include="source\TestData\TestClasses\MessageTestClass.cpp" />
-    <ClCompile Include="source\TestData\TestClasses\NumericTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\Common.cpp" />
+    <ClCompile Include="source\HelperClasses\TestBuilders\ColorItemTestBuilder.cpp" />
+    <ClCompile Include="source\HelperClasses\TestBuilders\DocumentTestBuilder.cpp" />
+    <ClCompile Include="source\HelperClasses\TestBuilders\ImageTestBuilder.cpp" />
+    <ClCompile Include="source\HelperClasses\TestBuilders\NumericTestBuilder.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\ClientTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\ColorItemTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\ContractTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\DocumentTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\ImageTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\ManagerTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\MessageTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\NumericTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\ShareQuoteTestClass.cpp" />
+    <ClCompile Include="source\HelperClasses\TestClasses\ShareTestClass.cpp" />
     <ClCompile Include="source\TestUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -293,16 +296,17 @@
     <ClInclude Include="..\gtest\gtest\gtest.h" />
     <ClInclude Include="source\ApiExampleBase.h" />
     <ClInclude Include="source\DocumentHelper.h" />
+    <ClInclude Include="source\ExAI.h" />
     <ClInclude Include="source\ExAbsolutePositionTab.h" />
     <ClInclude Include="source\ExBookmarks.h" />
     <ClInclude Include="source\ExBookmarksOutlineLevelCollection.h" />
     <ClInclude Include="source\ExBorder.h" />
     <ClInclude Include="source\ExBorderCollection.h" />
-    <ClInclude Include="source\ExBuildingBlocks.h" />
     <ClInclude Include="source\ExBuildVersion.h" />
+    <ClInclude Include="source\ExBuildingBlocks.h" />
     <ClInclude Include="source\ExCellFormat.h" />
-    <ClInclude Include="source\ExCertificateHolder.h" />
     <ClInclude Include="source\ExCharts.h" />
+    <ClInclude Include="source\ExChmLoadOptions.h" />
     <ClInclude Include="source\ExCleanupOptions.h" />
     <ClInclude Include="source\ExComment.h" />
     <ClInclude Include="source\ExCompatibilityOptions.h" />
@@ -337,11 +341,9 @@
     <ClInclude Include="source\ExLicense.h" />
     <ClInclude Include="source\ExLists.h" />
     <ClInclude Include="source\ExLoadOptions.h" />
-    <ClInclude Include="source\ExMailMerge.h" />
-    <ClInclude Include="source\ExMailMergeCustom.h" />
-    <ClInclude Include="source\ExMailMergeCustomNested.h" />
     <ClInclude Include="source\ExMailMergeEvent.h" />
-    <ClInclude Include="source\ExMisc.h" />
+    <ClInclude Include="source\ExMarkdownLoadOptions.h" />
+    <ClInclude Include="source\ExMarkdownSaveOptions.h" />
     <ClInclude Include="source\ExMossDoc2Pdf.h" />
     <ClInclude Include="source\ExMossRtf2Docx.h" />
     <ClInclude Include="source\ExNode.h" />
@@ -352,7 +354,7 @@
     <ClInclude Include="source\ExParagraph.h" />
     <ClInclude Include="source\ExParagraphFormat.h" />
     <ClInclude Include="source\ExPclSaveOptions.h" />
-    <ClInclude Include="source\ExPdfSaveOptions.h" />
+    <ClInclude Include="source\ExPdfLoadOptions.h" />
     <ClInclude Include="source\ExPlainTextDocument.h" />
     <ClInclude Include="source\ExPrinting.h" />
     <ClInclude Include="source\ExPsSaveOptions.h" />
@@ -371,9 +373,9 @@
     <ClInclude Include="source\ExStructuredDocumentTag.h" />
     <ClInclude Include="source\ExStyles.h" />
     <ClInclude Include="source\ExSvgSaveOptions.h" />
+    <ClInclude Include="source\ExTabStop.h" />
     <ClInclude Include="source\ExTable.h" />
     <ClInclude Include="source\ExTableColumn.h" />
-    <ClInclude Include="source\ExTabStop.h" />
     <ClInclude Include="source\ExThemes.h" />
     <ClInclude Include="source\ExTxtLoadOptions.h" />
     <ClInclude Include="source\ExTxtSaveOptions.h" />
@@ -384,20 +386,23 @@
     <ClInclude Include="source\ExWordML2003SaveOptions.h" />
     <ClInclude Include="source\ExXamlFixedSaveOptions.h" />
     <ClInclude Include="source\ExXamlFlowSaveOptions.h" />
+    <ClInclude Include="source\ExXlsxSaveOptions.h" />
     <ClInclude Include="source\ExXpsSaveOptions.h" />
-    <ClInclude Include="source\TestData\Common.h" />
-    <ClInclude Include="source\TestData\TestBuilders\ColorItemTestBuilder.h" />
-    <ClInclude Include="source\TestData\TestBuilders\DocumentTestBuilder.h" />
-    <ClInclude Include="source\TestData\TestBuilders\ImageTestBuilder.h" />
-    <ClInclude Include="source\TestData\TestBuilders\NumericTestBuilder.h" />
-    <ClInclude Include="source\TestData\TestClasses\ClientTestClass.h" />
-    <ClInclude Include="source\TestData\TestClasses\ColorItemTestClass.h" />
-    <ClInclude Include="source\TestData\TestClasses\ContractTestClass.h" />
-    <ClInclude Include="source\TestData\TestClasses\DocumentTestClass.h" />
-    <ClInclude Include="source\TestData\TestClasses\ImageTestClass.h" />
-    <ClInclude Include="source\TestData\TestClasses\ManagerTestClass.h" />
-    <ClInclude Include="source\TestData\TestClasses\MessageTestClass.h" />
-    <ClInclude Include="source\TestData\TestClasses\NumericTestClass.h" />
+    <ClInclude Include="source\HelperClasses\Common.h" />
+    <ClInclude Include="source\HelperClasses\TestBuilders\ColorItemTestBuilder.h" />
+    <ClInclude Include="source\HelperClasses\TestBuilders\DocumentTestBuilder.h" />
+    <ClInclude Include="source\HelperClasses\TestBuilders\ImageTestBuilder.h" />
+    <ClInclude Include="source\HelperClasses\TestBuilders\NumericTestBuilder.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\ClientTestClass.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\ColorItemTestClass.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\ContractTestClass.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\DocumentTestClass.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\ImageTestClass.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\ManagerTestClass.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\MessageTestClass.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\NumericTestClass.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\ShareQuoteTestClass.h" />
+    <ClInclude Include="source\HelperClasses\TestClasses\ShareTestClass.h" />
     <ClInclude Include="source\TestUtil.h" />
   </ItemGroup>
   <ItemGroup>

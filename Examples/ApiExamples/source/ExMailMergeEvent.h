@@ -1,79 +1,37 @@
-﻿#pragma once
-// Copyright (c) 2001-2021 Aspose Pty Ltd. All Rights Reserved.
+#pragma once
+// Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
 // This file is part of Aspose.Words. The source code in this file
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
+#include <system/shared_ptr.h>
 #include <cstdint>
-#include <Aspose.Words.Cpp/Document.h>
-#include <Aspose.Words.Cpp/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Drawing/ImageType.h>
-#include <Aspose.Words.Cpp/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Fields/Field.h>
-#include <Aspose.Words.Cpp/Fields/FieldMergeField.h>
-#include <Aspose.Words.Cpp/MailMerging/FieldMergingArgs.h>
-#include <Aspose.Words.Cpp/MailMerging/IFieldMergingCallback.h>
-#include <Aspose.Words.Cpp/MailMerging/ImageFieldMergingArgs.h>
-#include <Aspose.Words.Cpp/MailMerging/MailMerge.h>
-#include <Aspose.Words.Cpp/Node.h>
-#include <Aspose.Words.Cpp/NodeType.h>
-#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
-#include <system/array.h>
-#include <system/exceptions.h>
-#include <system/object_ext.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/ImageFieldMergingArgs.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/IFieldMergingCallback.h>
+#include <Aspose.Words.Cpp/Model/MailMerge/FieldMergingArgs.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 
 #include "ApiExampleBase.h"
-#include "TestUtil.h"
 
-using System::ArrayPtr;
-using System::MakeArray;
-using System::MakeObject;
-using System::SharedPtr;
-using System::String;
 
-using namespace Aspose::Words;
-using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::MailMerging;
+
+namespace Aspose {
+
+namespace Words {
 
 namespace ApiExamples {
 
 class ExMailMergeEvent : public ApiExampleBase
 {
-public:
-    //ExStart
-    //ExFor:DocumentBuilder.InsertHtml(String)
-    //ExFor:MailMerge.FieldMergingCallback
-    //ExFor:IFieldMergingCallback
-    //ExFor:FieldMergingArgs
-    //ExFor:FieldMergingArgsBase
-    //ExFor:FieldMergingArgsBase.Field
-    //ExFor:FieldMergingArgsBase.DocumentFieldName
-    //ExFor:FieldMergingArgsBase.Document
-    //ExFor:IFieldMergingCallback.FieldMerging
-    //ExFor:FieldMergingArgs.Text
-    //ExSummary:Shows how to execute a mail merge with a custom callback that handles merge data in the form of HTML documents.
-    void MergeHtml()
-    {
-        auto doc = MakeObject<Document>();
-        auto builder = MakeObject<DocumentBuilder>(doc);
-
-        builder->InsertField(u"MERGEFIELD  html_Title  \\b Content");
-        builder->InsertField(u"MERGEFIELD  html_Body  \\b Content");
-
-        ArrayPtr<SharedPtr<System::Object>> mergeData = MakeArray<SharedPtr<System::Object>>(
-            {System::ObjectExt::Box<String>(String(u"<html>") + u"<h1>" + u"<span style=\"color: #0000ff; font-family: Arial;\">Hello World!</span>" +
-                                            u"</h1>" + u"</html>"),
-             System::ObjectExt::Box<String>(
-                 String(u"<html>") + u"<blockquote>" +
-                 u"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>" +
-                 u"</blockquote>" + u"</html>")});
-
-        doc->get_MailMerge()->set_FieldMergingCallback(MakeObject<ExMailMergeEvent::HandleMergeFieldInsertHtml>());
-        doc->get_MailMerge()->Execute(MakeArray<String>({u"html_Title", u"html_Body"}), mergeData);
-
-        doc->Save(ArtifactsDir + u"MailMergeEvent.MergeHtml.docx");
-    }
+    typedef ExMailMergeEvent ThisType;
+    typedef ApiExampleBase BaseType;
+    
+    typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+    RTTI_INFO_DECL();
+    
+private:
 
     /// <summary>
     /// If the mail merge encounters a MERGEFIELD whose name starts with the "html_" prefix,
@@ -81,32 +39,135 @@ public:
     /// </summary>
     class HandleMergeFieldInsertHtml : public IFieldMergingCallback
     {
+        typedef HandleMergeFieldInsertHtml ThisType;
+        typedef IFieldMergingCallback BaseType;
+        
+        typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+        RTTI_INFO_DECL();
+        
     private:
+    
         /// <summary>
         /// Called when a mail merge merges data into a MERGEFIELD.
         /// </summary>
-        void FieldMerging(SharedPtr<FieldMergingArgs> args) override
-        {
-            if (args->get_DocumentFieldName().StartsWith(u"html_") && args->get_Field()->GetFieldCode().Contains(u"\\b"))
-            {
-                // Add parsed HTML data to the document's body.
-                auto builder = MakeObject<DocumentBuilder>(args->get_Document());
-                builder->MoveToMergeField(args->get_DocumentFieldName());
-                builder->InsertHtml(System::ObjectExt::Unbox<String>(args->get_FieldValue()));
-
-                // Since we have already inserted the merged content manually,
-                // we will not need to respond to this event by returning content via the "Text" property.
-                args->set_Text(String::Empty);
-            }
-        }
-
-        void ImageFieldMerging(SharedPtr<ImageFieldMergingArgs> args) override
-        {
-            // Do nothing.
-        }
+        void FieldMerging(System::SharedPtr<Aspose::Words::MailMerging::FieldMergingArgs> args) override;
+        void ImageFieldMerging(System::SharedPtr<Aspose::Words::MailMerging::ImageFieldMergingArgs> args) override;
+        
     };
-    //ExEnd
+    
+    /// <summary>
+    /// Edits the values that MERGEFIELDs receive during a mail merge.
+    /// The name of a MERGEFIELD must have a prefix for this callback to take effect on its value.
+    /// </summary>
+    class FieldValueMergingCallback : public IFieldMergingCallback
+    {
+        typedef FieldValueMergingCallback ThisType;
+        typedef IFieldMergingCallback BaseType;
+        
+        typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+        RTTI_INFO_DECL();
+        
+    private:
+    
+        /// <summary>
+        /// Called when a mail merge merges data into a MERGEFIELD.
+        /// </summary>
+        void FieldMerging(System::SharedPtr<Aspose::Words::MailMerging::FieldMergingArgs> e) override;
+        void ImageFieldMerging(System::SharedPtr<Aspose::Words::MailMerging::ImageFieldMergingArgs> e) override;
+        
+    };
+    
+    /// <summary>
+    /// Upon encountering a MERGEFIELD with a specific name, inserts a check box form field instead of merge data text.
+    /// </summary>
+    class HandleMergeFieldInsertCheckBox : public IFieldMergingCallback
+    {
+        typedef HandleMergeFieldInsertCheckBox ThisType;
+        typedef IFieldMergingCallback BaseType;
+        
+        typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+        RTTI_INFO_DECL();
+        
+    public:
+    
+        HandleMergeFieldInsertCheckBox();
+        
+    private:
+    
+        int32_t mCheckBoxCount;
+        
+        /// <summary>
+        /// Called when a mail merge merges data into a MERGEFIELD.
+        /// </summary>
+        void FieldMerging(System::SharedPtr<Aspose::Words::MailMerging::FieldMergingArgs> args) override;
+        void ImageFieldMerging(System::SharedPtr<Aspose::Words::MailMerging::ImageFieldMergingArgs> args) override;
+        
+    };
+    
+    /// <summary>
+    /// Formats table rows as a mail merge takes place to alternate between two colors on odd/even rows.
+    /// </summary>
+    class HandleMergeFieldAlternatingRows : public IFieldMergingCallback
+    {
+        typedef HandleMergeFieldAlternatingRows ThisType;
+        typedef IFieldMergingCallback BaseType;
+        
+        typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+        RTTI_INFO_DECL();
+        
+    public:
+    
+        HandleMergeFieldAlternatingRows();
+        
+    private:
+    
+        System::SharedPtr<Aspose::Words::DocumentBuilder> mBuilder;
+        int32_t mRowIdx;
+        
+        /// <summary>
+        /// Called when a mail merge merges data into a MERGEFIELD.
+        /// </summary>
+        void FieldMerging(System::SharedPtr<Aspose::Words::MailMerging::FieldMergingArgs> args) override;
+        void ImageFieldMerging(System::SharedPtr<Aspose::Words::MailMerging::ImageFieldMergingArgs> args) override;
+        
+    };
+    
+    class HandleMergeImageFieldFromBlob : public IFieldMergingCallback
+    {
+        typedef HandleMergeImageFieldFromBlob ThisType;
+        typedef IFieldMergingCallback BaseType;
+        
+        typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+        RTTI_INFO_DECL();
+        
+    private:
+    
+        void FieldMerging(System::SharedPtr<Aspose::Words::MailMerging::FieldMergingArgs> args) override;
+        /// <summary>
+        /// This is called when a mail merge encounters a MERGEFIELD in the document with an "Image:" tag in its name.
+        /// </summary>
+        void ImageFieldMerging(System::SharedPtr<Aspose::Words::MailMerging::ImageFieldMergingArgs> e) override;
+        
+    };
+    
+    
+public:
 
+    void MergeHtml();
+    void FieldFormats();
+    void ImageFromUrl();
+    
+protected:
+
+    /// <summary>
+    /// Function needed for Visual Basic autoporting that returns the parity of the passed number.
+    /// </summary>
+    static bool IsOdd(int32_t value);
+    
 };
 
 } // namespace ApiExamples
+} // namespace Words
+} // namespace Aspose
+
+
