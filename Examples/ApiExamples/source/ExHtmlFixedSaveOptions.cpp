@@ -1,61 +1,241 @@
-﻿// Copyright (c) 2001-2021 Aspose Pty Ltd. All Rights Reserved.
+// Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
 // This file is part of Aspose.Words. The source code in this file
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 #include "ExHtmlFixedSaveOptions.h"
 
+#include <testing/test_predicates.h>
+#include <system/text/regularexpressions/regex.h>
+#include <system/text/regularexpressions/match_collection.h>
+#include <system/text/regularexpressions/match.h>
+#include <system/text/encoding.h>
+#include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
+#include <system/test_tools/compare.h>
+#include <system/linq/enumerable.h>
+#include <system/io/stream.h>
+#include <system/io/path.h>
+#include <system/io/file_stream.h>
+#include <system/io/file_mode.h>
+#include <system/io/file.h>
+#include <system/io/directory.h>
+#include <system/func.h>
+#include <system/exceptions.h>
+#include <iostream>
+#include <gtest/gtest.h>
+#include <functional>
+#include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Model/Saving/HtmlFixedSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/ExportFontFormat.h>
+#include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
+#include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
+#include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
+#include <Aspose.Words.Cpp/Model/Document/Document.h>
 
-using namespace Aspose::Words;
+#include "DocumentHelper.h"
+
+
 using namespace Aspose::Words::Saving;
-namespace ApiExamples { namespace gtest_test {
+namespace Aspose {
+
+namespace Words {
+
+namespace ApiExamples {
+
+RTTI_INFO_IMPL_HASH(2234556982u, ::Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::FontSavingCallback, ThisTypeBaseTypesInfo);
+
+void ExHtmlFixedSaveOptions::FontSavingCallback::ResourceSaving(System::SharedPtr<Aspose::Words::Saving::ResourceSavingArgs> args)
+{
+    mText->AppendLine(System::String::Format(u"Original document URI:\t{0}", args->get_Document()->get_OriginalFileName()));
+    mText->AppendLine(System::String::Format(u"Resource being saved:\t{0}", args->get_ResourceFileName()));
+    mText->AppendLine(System::String::Format(u"Full uri after saving:\t{0}\n", args->get_ResourceFileUri()));
+}
+
+System::String ExHtmlFixedSaveOptions::FontSavingCallback::GetText()
+{
+    return mText->ToString();
+}
+
+ExHtmlFixedSaveOptions::FontSavingCallback::FontSavingCallback()
+    : mText(System::MakeObject<System::Text::StringBuilder>())
+{
+}
+
+RTTI_INFO_IMPL_HASH(1094204100u, ::Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ResourceUriPrinter, ThisTypeBaseTypesInfo);
+
+void ExHtmlFixedSaveOptions::ResourceUriPrinter::ResourceSaving(System::SharedPtr<Aspose::Words::Saving::ResourceSavingArgs> args)
+{
+    // If we set a folder alias in the SaveOptions object, we will be able to print it from here.
+    mText->AppendLine(System::String::Format(u"Resource #{0} \"{1}\"", ++mSavedResourceCount, args->get_ResourceFileName()));
+    
+    System::String extension = System::IO::Path::GetExtension(args->get_ResourceFileName());
+    if (extension == u".ttf" || extension == u".woff")
+    {
+        args->set_ResourceFileUri(get_ArtifactsDir() + System::IO::Path::DirectorySeparatorChar + args->get_ResourceFileName());
+    }
+    
+    mText->AppendLine(System::String(u"\t") + args->get_ResourceFileUri());
+    
+    // If we have specified a folder in the "ResourcesFolderAlias" property,
+    // we will also need to redirect each stream to put its resource in that folder.
+    args->set_ResourceStream(System::MakeObject<System::IO::FileStream>(args->get_ResourceFileUri(), System::IO::FileMode::Create));
+    args->set_KeepResourceStreamOpen(false);
+}
+
+System::String ExHtmlFixedSaveOptions::ResourceUriPrinter::GetText()
+{
+    return mText->ToString();
+}
+
+ExHtmlFixedSaveOptions::ResourceUriPrinter::ResourceUriPrinter() : mSavedResourceCount(0)
+    , mText(System::MakeObject<System::Text::StringBuilder>())
+{
+}
+
+
+RTTI_INFO_IMPL_HASH(2786600104u, ::Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions, ThisTypeBaseTypesInfo);
+
+void ExHtmlFixedSaveOptions::TestResourceSavingCallback(System::SharedPtr<Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::FontSavingCallback> callback)
+{
+    ASSERT_TRUE(callback->GetText().Contains(u"font001.woff"));
+    ASSERT_TRUE(callback->GetText().Contains(u"styles.css"));
+}
+
+void ExHtmlFixedSaveOptions::TestHtmlFixedResourceFolder(System::SharedPtr<Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ResourceUriPrinter> callback)
+{
+    ASSERT_EQ(16, System::Text::RegularExpressions::Regex::Matches(callback->GetText(), u"Resource #")->get_Count());
+}
+
+
+namespace gtest_test
+{
 
 class ExHtmlFixedSaveOptions : public ::testing::Test
 {
 protected:
-    static System::SharedPtr<::ApiExamples::ExHtmlFixedSaveOptions> s_instance;
-
+    static System::SharedPtr<::Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions> s_instance;
+    
     void SetUp() override
     {
         s_instance->SetUp();
     };
-
+    
 public:
     static void SetUpTestCase()
     {
-        s_instance = System::MakeObject<::ApiExamples::ExHtmlFixedSaveOptions>();
+        s_instance = System::MakeObject<::Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions>();
         s_instance->OneTimeSetUp();
     };
-
+    
     static void TearDownTestCase()
     {
         s_instance->OneTimeTearDown();
         s_instance = nullptr;
     };
+    
 };
 
-System::SharedPtr<::ApiExamples::ExHtmlFixedSaveOptions> ExHtmlFixedSaveOptions::s_instance;
+System::SharedPtr<::Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions> ExHtmlFixedSaveOptions::s_instance;
+
+} // namespace gtest_test
+
+void ExHtmlFixedSaveOptions::UseEncoding()
+{
+    //ExStart
+    //ExFor:HtmlFixedSaveOptions.Encoding
+    //ExSummary:Shows how to set which encoding to use while exporting a document to HTML.
+    auto doc = System::MakeObject<Aspose::Words::Document>();
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
+    
+    builder->Writeln(u"Hello World!");
+    
+    // The default encoding is UTF-8. If we want to represent our document using a different encoding,
+    // we can use a SaveOptions object to set a specific encoding.
+    auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    htmlFixedSaveOptions->set_Encoding(System::Text::Encoding::get_ASCII());
+    
+    ASSERT_EQ(u"US-ASCII", htmlFixedSaveOptions->get_Encoding()->get_EncodingName());
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.UseEncoding.html", htmlFixedSaveOptions);
+    //ExEnd
+    
+    ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlFixedSaveOptions.UseEncoding.html"), u"content=\"text/html; charset=us-ascii\"")->get_Success());
+}
+
+namespace gtest_test
+{
 
 TEST_F(ExHtmlFixedSaveOptions, UseEncoding)
 {
     s_instance->UseEncoding();
 }
 
+} // namespace gtest_test
+
+void ExHtmlFixedSaveOptions::GetEncoding()
+{
+    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    
+    auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    htmlFixedSaveOptions->set_Encoding(System::Text::Encoding::get_UTF8());
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.GetEncoding.html", htmlFixedSaveOptions);
+}
+
+namespace gtest_test
+{
+
 TEST_F(ExHtmlFixedSaveOptions, GetEncoding)
 {
     s_instance->GetEncoding();
 }
 
-using ExHtmlFixedSaveOptions_ExportEmbeddedCss_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::ExportEmbeddedCss)>::type;
+} // namespace gtest_test
 
-struct ExHtmlFixedSaveOptions_ExportEmbeddedCss : public ExHtmlFixedSaveOptions,
-                                                  public ApiExamples::ExHtmlFixedSaveOptions,
-                                                  public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportEmbeddedCss_Args>
+void ExHtmlFixedSaveOptions::ExportEmbeddedCss(bool exportEmbeddedCss)
+{
+    //ExStart
+    //ExFor:HtmlFixedSaveOptions.ExportEmbeddedCss
+    //ExSummary:Shows how to determine where to store CSS stylesheets when exporting a document to Html.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    
+    // When we export a document to html, Aspose.Words will also create a CSS stylesheet to format the document with.
+    // Setting the "ExportEmbeddedCss" flag to "true" save the CSS stylesheet to a .css file,
+    // and link to the file from the html document using a <link> element.
+    // Setting the flag to "false" will embed the CSS stylesheet within the Html document,
+    // which will create only one file instead of two.
+    auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    htmlFixedSaveOptions->set_ExportEmbeddedCss(exportEmbeddedCss);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedCss.html", htmlFixedSaveOptions);
+    
+    System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedCss.html");
+    
+    if (exportEmbeddedCss)
+    {
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"<style type=\"text/css\">")->get_Success());
+        ASSERT_FALSE(System::IO::File::Exists(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedCss/styles.css"));
+    }
+    else
+    {
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"<link rel=\"stylesheet\" type=\"text/css\" href=\"HtmlFixedSaveOptions[.]ExportEmbeddedCss/styles[.]css\" media=\"all\" />")->get_Success());
+        ASSERT_TRUE(System::IO::File::Exists(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedCss/styles.css"));
+    }
+    //ExEnd
+}
+
+namespace gtest_test
+{
+
+using ExHtmlFixedSaveOptions_ExportEmbeddedCss_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ExportEmbeddedCss)>::type;
+
+struct ExHtmlFixedSaveOptions_ExportEmbeddedCss : public ExHtmlFixedSaveOptions, public Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions, public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportEmbeddedCss_Args>
 {
     static std::vector<ParamType> TestCases()
     {
-        return {
+        return
+        {
             std::make_tuple(true),
             std::make_tuple(false),
         };
@@ -70,15 +250,59 @@ TEST_P(ExHtmlFixedSaveOptions_ExportEmbeddedCss, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_ExportEmbeddedCss, ::testing::ValuesIn(ExHtmlFixedSaveOptions_ExportEmbeddedCss::TestCases()));
 
-using ExHtmlFixedSaveOptions_ExportEmbeddedFonts_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::ExportEmbeddedFonts)>::type;
+} // namespace gtest_test
 
-struct ExHtmlFixedSaveOptions_ExportEmbeddedFonts : public ExHtmlFixedSaveOptions,
-                                                    public ApiExamples::ExHtmlFixedSaveOptions,
-                                                    public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportEmbeddedFonts_Args>
+void ExHtmlFixedSaveOptions::ExportEmbeddedFonts(bool exportEmbeddedFonts)
+{
+    //ExStart
+    //ExFor:HtmlFixedSaveOptions.ExportEmbeddedFonts
+    //ExSummary:Shows how to determine where to store embedded fonts when exporting a document to Html.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Embedded font.docx");
+    
+    // When we export a document with embedded fonts to .html,
+    // Aspose.Words can place the fonts in two possible locations.
+    // Setting the "ExportEmbeddedFonts" flag to "true" will store the raw data for embedded fonts within the CSS stylesheet,
+    // in the "url" property of the "@font-face" rule. This may create a huge CSS stylesheet file
+    // and reduce the number of external files that this HTML conversion will create.
+    // Setting this flag to "false" will create a file for each font.
+    // The CSS stylesheet will link to each font file using the "url" property of the "@font-face" rule.
+    auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    htmlFixedSaveOptions->set_ExportEmbeddedFonts(exportEmbeddedFonts);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedFonts.html", htmlFixedSaveOptions);
+    
+    System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedFonts/styles.css");
+    
+    if (exportEmbeddedFonts)
+    {
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"@font-face { font-family:'Arial'; font-style:normal; font-weight:normal; src:local[(]'☺'[)], url[(].+[)] format[(]'woff'[)]; }")->get_Success());
+        ASSERT_EQ(0, System::IO::Directory::GetFiles(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedFonts")->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
+        {
+            return f.EndsWith(u".woff");
+        }))));
+    }
+    else
+    {
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"@font-face { font-family:'Arial'; font-style:normal; font-weight:normal; src:local[(]'☺'[)], url[(]'font001[.]woff'[)] format[(]'woff'[)]; }")->get_Success());
+        ASSERT_EQ(2, System::IO::Directory::GetFiles(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedFonts")->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
+        {
+            return f.EndsWith(u".woff");
+        }))));
+    }
+    //ExEnd
+}
+
+namespace gtest_test
+{
+
+using ExHtmlFixedSaveOptions_ExportEmbeddedFonts_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ExportEmbeddedFonts)>::type;
+
+struct ExHtmlFixedSaveOptions_ExportEmbeddedFonts : public ExHtmlFixedSaveOptions, public Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions, public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportEmbeddedFonts_Args>
 {
     static std::vector<ParamType> TestCases()
     {
-        return {
+        return
+        {
             std::make_tuple(true),
             std::make_tuple(false),
         };
@@ -93,16 +317,52 @@ TEST_P(ExHtmlFixedSaveOptions_ExportEmbeddedFonts, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_ExportEmbeddedFonts, ::testing::ValuesIn(ExHtmlFixedSaveOptions_ExportEmbeddedFonts::TestCases()));
 
-using ExHtmlFixedSaveOptions_ExportEmbeddedImages_Args =
-    System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::ExportEmbeddedImages)>::type;
+} // namespace gtest_test
 
-struct ExHtmlFixedSaveOptions_ExportEmbeddedImages : public ExHtmlFixedSaveOptions,
-                                                     public ApiExamples::ExHtmlFixedSaveOptions,
-                                                     public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportEmbeddedImages_Args>
+void ExHtmlFixedSaveOptions::ExportEmbeddedImages(bool exportImages)
+{
+    //ExStart
+    //ExFor:HtmlFixedSaveOptions.ExportEmbeddedImages
+    //ExSummary:Shows how to determine where to store images when exporting a document to Html.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Images.docx");
+    
+    // When we export a document with embedded images to .html,
+    // Aspose.Words can place the images in two possible locations.
+    // Setting the "ExportEmbeddedImages" flag to "true" will store the raw data
+    // for all images within the output HTML document, in the "src" attribute of <image> tags.
+    // Setting this flag to "false" will create an image file in the local file system for every image,
+    // and store all these files in a separate folder.
+    auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    htmlFixedSaveOptions->set_ExportEmbeddedImages(exportImages);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedImages.html", htmlFixedSaveOptions);
+    
+    System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedImages.html");
+    
+    if (exportImages)
+    {
+        ASSERT_FALSE(System::IO::File::Exists(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedImages/image001.jpeg"));
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"<img class=\"awimg\" style=\"left:0pt; top:0pt; width:493.1pt; height:300.55pt;\" src=\".+\" />")->get_Success());
+    }
+    else
+    {
+        ASSERT_TRUE(System::IO::File::Exists(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedImages/image001.jpeg"));
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, System::String(u"<img class=\"awimg\" style=\"left:0pt; top:0pt; width:493.1pt; height:300.55pt;\" ") + u"src=\"HtmlFixedSaveOptions[.]ExportEmbeddedImages/image001[.]jpeg\" />")->get_Success());
+    }
+    //ExEnd
+}
+
+namespace gtest_test
+{
+
+using ExHtmlFixedSaveOptions_ExportEmbeddedImages_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ExportEmbeddedImages)>::type;
+
+struct ExHtmlFixedSaveOptions_ExportEmbeddedImages : public ExHtmlFixedSaveOptions, public Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions, public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportEmbeddedImages_Args>
 {
     static std::vector<ParamType> TestCases()
     {
-        return {
+        return
+        {
             std::make_tuple(true),
             std::make_tuple(false),
         };
@@ -117,15 +377,52 @@ TEST_P(ExHtmlFixedSaveOptions_ExportEmbeddedImages, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_ExportEmbeddedImages, ::testing::ValuesIn(ExHtmlFixedSaveOptions_ExportEmbeddedImages::TestCases()));
 
-using ExHtmlFixedSaveOptions_ExportEmbeddedSvgs_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::ExportEmbeddedSvgs)>::type;
+} // namespace gtest_test
 
-struct ExHtmlFixedSaveOptions_ExportEmbeddedSvgs : public ExHtmlFixedSaveOptions,
-                                                   public ApiExamples::ExHtmlFixedSaveOptions,
-                                                   public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportEmbeddedSvgs_Args>
+void ExHtmlFixedSaveOptions::ExportEmbeddedSvgs(bool exportSvgs)
+{
+    //ExStart
+    //ExFor:HtmlFixedSaveOptions.ExportEmbeddedSvg
+    //ExSummary:Shows how to determine where to store SVG objects when exporting a document to Html.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Images.docx");
+    
+    // When we export a document with SVG objects to .html,
+    // Aspose.Words can place these objects in two possible locations.
+    // Setting the "ExportEmbeddedSvg" flag to "true" will embed all SVG object raw data
+    // within the output HTML, inside <image> tags.
+    // Setting this flag to "false" will create a file in the local file system for each SVG object.
+    // The HTML will link to each file using the "data" attribute of an <object> tag.
+    auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    htmlFixedSaveOptions->set_ExportEmbeddedSvg(exportSvgs);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedSvgs.html", htmlFixedSaveOptions);
+    
+    System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedSvgs.html");
+    
+    if (exportSvgs)
+    {
+        ASSERT_FALSE(System::IO::File::Exists(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedSvgs/svg001.svg"));
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"<image id=\"image004\" xlink:href=.+/>")->get_Success());
+    }
+    else
+    {
+        ASSERT_TRUE(System::IO::File::Exists(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedSvgs/svg001.svg"));
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"<object type=\"image/svg[+]xml\" data=\"HtmlFixedSaveOptions.ExportEmbeddedSvgs/svg001[.]svg\"></object>")->get_Success());
+    }
+    //ExEnd
+}
+
+namespace gtest_test
+{
+
+using ExHtmlFixedSaveOptions_ExportEmbeddedSvgs_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ExportEmbeddedSvgs)>::type;
+
+struct ExHtmlFixedSaveOptions_ExportEmbeddedSvgs : public ExHtmlFixedSaveOptions, public Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions, public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportEmbeddedSvgs_Args>
 {
     static std::vector<ParamType> TestCases()
     {
-        return {
+        return
+        {
             std::make_tuple(true),
             std::make_tuple(false),
         };
@@ -140,15 +437,53 @@ TEST_P(ExHtmlFixedSaveOptions_ExportEmbeddedSvgs, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_ExportEmbeddedSvgs, ::testing::ValuesIn(ExHtmlFixedSaveOptions_ExportEmbeddedSvgs::TestCases()));
 
-using ExHtmlFixedSaveOptions_ExportFormFields_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::ExportFormFields)>::type;
+} // namespace gtest_test
 
-struct ExHtmlFixedSaveOptions_ExportFormFields : public ExHtmlFixedSaveOptions,
-                                                 public ApiExamples::ExHtmlFixedSaveOptions,
-                                                 public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportFormFields_Args>
+void ExHtmlFixedSaveOptions::ExportFormFields(bool exportFormFields)
+{
+    //ExStart
+    //ExFor:HtmlFixedSaveOptions.ExportFormFields
+    //ExSummary:Shows how to export form fields to Html.
+    auto doc = System::MakeObject<Aspose::Words::Document>();
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
+    
+    builder->InsertCheckBox(u"CheckBox", false, 15);
+    
+    // When we export a document with form fields to .html,
+    // there are two ways in which Aspose.Words can export form fields.
+    // Setting the "ExportFormFields" flag to "true" will export them as interactive objects.
+    // Setting this flag to "false" will display form fields as plain text.
+    // This will freeze them at their current value, and prevent the reader of our HTML document
+    // from being able to interact with them.
+    auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    htmlFixedSaveOptions->set_ExportFormFields(exportFormFields);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportFormFields.html", htmlFixedSaveOptions);
+    
+    System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportFormFields.html");
+    
+    if (exportFormFields)
+    {
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, System::String(u"<a name=\"CheckBox\" style=\"left:0pt; top:0pt;\"></a>") + u"<input style=\"position:absolute; left:0pt; top:0pt;\" type=\"checkbox\" name=\"CheckBox\" />")->get_Success());
+    }
+    else
+    {
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, System::String(u"<a name=\"CheckBox\" style=\"left:0pt; top:0pt;\"></a>") + u"<div class=\"awdiv\" style=\"left:0.8pt; top:0.8pt; width:14.25pt; height:14.25pt; border:solid 0.75pt #000000;\"")->get_Success());
+    }
+    //ExEnd
+}
+
+namespace gtest_test
+{
+
+using ExHtmlFixedSaveOptions_ExportFormFields_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ExportFormFields)>::type;
+
+struct ExHtmlFixedSaveOptions_ExportFormFields : public ExHtmlFixedSaveOptions, public Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions, public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_ExportFormFields_Args>
 {
     static std::vector<ParamType> TestCases()
     {
-        return {
+        return
+        {
             std::make_tuple(true),
             std::make_tuple(false),
         };
@@ -163,18 +498,55 @@ TEST_P(ExHtmlFixedSaveOptions_ExportFormFields, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_ExportFormFields, ::testing::ValuesIn(ExHtmlFixedSaveOptions_ExportFormFields::TestCases()));
 
-using ExHtmlFixedSaveOptions_HorizontalAlignment_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::HorizontalAlignment)>::type;
+} // namespace gtest_test
 
-struct ExHtmlFixedSaveOptions_HorizontalAlignment : public ExHtmlFixedSaveOptions,
-                                                    public ApiExamples::ExHtmlFixedSaveOptions,
-                                                    public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_HorizontalAlignment_Args>
+void ExHtmlFixedSaveOptions::HorizontalAlignment(Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment pageHorizontalAlignment)
+{
+    //ExStart
+    //ExFor:HtmlFixedSaveOptions.PageHorizontalAlignment
+    //ExFor:HtmlFixedPageHorizontalAlignment
+    //ExSummary:Shows how to set the horizontal alignment of pages when saving a document to HTML.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    
+    auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    htmlFixedSaveOptions->set_PageHorizontalAlignment(pageHorizontalAlignment);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.HorizontalAlignment.html", htmlFixedSaveOptions);
+    
+    System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlFixedSaveOptions.HorizontalAlignment/styles.css");
+    
+    switch (pageHorizontalAlignment)
+    {
+        case Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Center:
+            ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"[.]awpage { position:relative; border:solid 1pt black; margin:10pt auto 10pt auto; overflow:hidden; }")->get_Success());
+            break;
+        
+        case Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Left:
+            ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"[.]awpage { position:relative; border:solid 1pt black; margin:10pt auto 10pt 10pt; overflow:hidden; }")->get_Success());
+            break;
+        
+        case Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Right:
+            ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"[.]awpage { position:relative; border:solid 1pt black; margin:10pt 10pt 10pt auto; overflow:hidden; }")->get_Success());
+            break;
+        
+    }
+    //ExEnd
+}
+
+namespace gtest_test
+{
+
+using ExHtmlFixedSaveOptions_HorizontalAlignment_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::HorizontalAlignment)>::type;
+
+struct ExHtmlFixedSaveOptions_HorizontalAlignment : public ExHtmlFixedSaveOptions, public Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions, public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_HorizontalAlignment_Args>
 {
     static std::vector<ParamType> TestCases()
     {
-        return {
-            std::make_tuple(HtmlFixedPageHorizontalAlignment::Center),
-            std::make_tuple(HtmlFixedPageHorizontalAlignment::Left),
-            std::make_tuple(HtmlFixedPageHorizontalAlignment::Right),
+        return
+        {
+            std::make_tuple(Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Center),
+            std::make_tuple(Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Left),
+            std::make_tuple(Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Right),
         };
     }
 };
@@ -187,25 +559,96 @@ TEST_P(ExHtmlFixedSaveOptions_HorizontalAlignment, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_HorizontalAlignment, ::testing::ValuesIn(ExHtmlFixedSaveOptions_HorizontalAlignment::TestCases()));
 
+} // namespace gtest_test
+
+void ExHtmlFixedSaveOptions::PageMargins()
+{
+    //ExStart
+    //ExFor:HtmlFixedSaveOptions.PageMargins
+    //ExSummary:Shows how to adjust page margins when saving a document to HTML.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    saveOptions->set_PageMargins(15);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.PageMargins.html", saveOptions);
+    
+    System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlFixedSaveOptions.PageMargins/styles.css");
+    
+    ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"[.]awpage { position:relative; border:solid 1pt black; margin:15pt auto 15pt auto; overflow:hidden; }")->get_Success());
+    //ExEnd
+}
+
+namespace gtest_test
+{
+
 TEST_F(ExHtmlFixedSaveOptions, PageMargins)
 {
     s_instance->PageMargins();
 }
+
+} // namespace gtest_test
+
+void ExHtmlFixedSaveOptions::PageMarginsException()
+{
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    ASSERT_THROW(static_cast<std::function<void()>>([&saveOptions]() -> void
+    {
+        saveOptions->set_PageMargins(-1);
+    })(), System::ArgumentException);
+}
+
+namespace gtest_test
+{
 
 TEST_F(ExHtmlFixedSaveOptions, PageMarginsException)
 {
     s_instance->PageMarginsException();
 }
 
-using ExHtmlFixedSaveOptions_UsingMachineFonts_Args = System::MethodArgumentTuple<decltype(&ApiExamples::ExHtmlFixedSaveOptions::UsingMachineFonts)>::type;
+} // namespace gtest_test
 
-struct ExHtmlFixedSaveOptions_UsingMachineFonts : public ExHtmlFixedSaveOptions,
-                                                  public ApiExamples::ExHtmlFixedSaveOptions,
-                                                  public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_UsingMachineFonts_Args>
+void ExHtmlFixedSaveOptions::UsingMachineFonts(bool useTargetMachineFonts)
+{
+    //ExStart
+    //ExFor:ExportFontFormat
+    //ExFor:HtmlFixedSaveOptions.FontFormat
+    //ExFor:HtmlFixedSaveOptions.UseTargetMachineFonts
+    //ExSummary:Shows how use fonts only from the target machine when saving a document to HTML.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Bullet points with alternative font.docx");
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    saveOptions->set_ExportEmbeddedCss(true);
+    saveOptions->set_UseTargetMachineFonts(useTargetMachineFonts);
+    saveOptions->set_FontFormat(Aspose::Words::Saving::ExportFontFormat::Ttf);
+    saveOptions->set_ExportEmbeddedFonts(false);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.UsingMachineFonts.html", saveOptions);
+    
+    System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlFixedSaveOptions.UsingMachineFonts.html");
+    
+    if (useTargetMachineFonts)
+    {
+        ASSERT_FALSE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"@font-face")->get_Success());
+    }
+    else
+    {
+        ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, System::String(u"@font-face { font-family:'Arial'; font-style:normal; font-weight:normal; src:local[(]'☺'[)], ") + u"url[(]'HtmlFixedSaveOptions.UsingMachineFonts/font001.ttf'[)] format[(]'truetype'[)]; }")->get_Success());
+    }
+    //ExEnd
+}
+
+namespace gtest_test
+{
+
+using ExHtmlFixedSaveOptions_UsingMachineFonts_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::UsingMachineFonts)>::type;
+
+struct ExHtmlFixedSaveOptions_UsingMachineFonts : public ExHtmlFixedSaveOptions, public Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions, public ::testing::WithParamInterface<ExHtmlFixedSaveOptions_UsingMachineFonts_Args>
 {
     static std::vector<ParamType> TestCases()
     {
-        return {
+        return
+        {
             std::make_tuple(false),
             std::make_tuple(true),
         };
@@ -220,14 +663,127 @@ TEST_P(ExHtmlFixedSaveOptions_UsingMachineFonts, Test)
 
 INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_UsingMachineFonts, ::testing::ValuesIn(ExHtmlFixedSaveOptions_UsingMachineFonts::TestCases()));
 
+} // namespace gtest_test
+
+void ExHtmlFixedSaveOptions::ResourceSavingCallback()
+{
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Bullet points with alternative font.docx");
+    
+    auto callback = System::MakeObject<Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::FontSavingCallback>();
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    saveOptions->set_ResourceSavingCallback(callback);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.UsingMachineFonts.html", saveOptions);
+    
+    std::cout << callback->GetText() << std::endl;
+    TestResourceSavingCallback(callback);
+    //ExSkip
+}
+
+namespace gtest_test
+{
+
 TEST_F(ExHtmlFixedSaveOptions, ResourceSavingCallback)
 {
     s_instance->ResourceSavingCallback();
 }
+
+} // namespace gtest_test
+
+void ExHtmlFixedSaveOptions::HtmlFixedResourceFolder()
+{
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    
+    auto callback = System::MakeObject<Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ResourceUriPrinter>();
+    
+    auto options = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    options->set_SaveFormat(Aspose::Words::SaveFormat::HtmlFixed);
+    options->set_ExportEmbeddedImages(false);
+    options->set_ResourcesFolder(get_ArtifactsDir() + u"HtmlFixedResourceFolder");
+    options->set_ResourcesFolderAlias(get_ArtifactsDir() + u"HtmlFixedResourceFolderAlias");
+    options->set_ShowPageBorder(false);
+    options->set_ResourceSavingCallback(callback);
+    
+    // A folder specified by ResourcesFolderAlias will contain the resources instead of ResourcesFolder.
+    // We must ensure the folder exists before the streams can put their resources into it.
+    System::IO::Directory::CreateDirectory_(options->get_ResourcesFolderAlias());
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.HtmlFixedResourceFolder.html", options);
+    
+    std::cout << callback->GetText() << std::endl;
+    
+    System::ArrayPtr<System::String> resourceFiles = System::IO::Directory::GetFiles(get_ArtifactsDir() + u"HtmlFixedResourceFolderAlias");
+    
+    ASSERT_FALSE(System::IO::Directory::Exists(get_ArtifactsDir() + u"HtmlFixedResourceFolder"));
+    ASSERT_EQ(6, resourceFiles->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
+    {
+        return f.EndsWith(u".jpeg") || f.EndsWith(u".png") || f.EndsWith(u".css");
+    }))));
+    TestHtmlFixedResourceFolder(callback);
+    //ExSkip
+}
+
+namespace gtest_test
+{
 
 TEST_F(ExHtmlFixedSaveOptions, HtmlFixedResourceFolder)
 {
     s_instance->HtmlFixedResourceFolder();
 }
 
-}} // namespace ApiExamples::gtest_test
+} // namespace gtest_test
+
+void ExHtmlFixedSaveOptions::IdPrefix()
+{
+    //ExStart:IdPrefix
+    //GistId:f86d49dc0e6781b93e576539a01e6ca2
+    //ExFor:HtmlFixedSaveOptions.IdPrefix
+    //ExSummary:Shows how to add a prefix that is prepended to all generated element IDs.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Id prefix.docx");
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    saveOptions->set_IdPrefix(u"pfx1_");
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.IdPrefix.html", saveOptions);
+    //ExEnd:IdPrefix
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExHtmlFixedSaveOptions, IdPrefix)
+{
+    s_instance->IdPrefix();
+}
+
+} // namespace gtest_test
+
+void ExHtmlFixedSaveOptions::RemoveJavaScriptFromLinks()
+{
+    //ExStart:RemoveJavaScriptFromLinks
+    //GistId:f86d49dc0e6781b93e576539a01e6ca2
+    //ExFor:HtmlFixedSaveOptions.RemoveJavaScriptFromLinks
+    //ExSummary:Shows how to remove JavaScript from the links for html fixed documents.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"JavaScript in HREF.docx");
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
+    saveOptions->set_RemoveJavaScriptFromLinks(true);
+    
+    doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.RemoveJavaScriptFromLinks.html", saveOptions);
+    //ExEnd:RemoveJavaScriptFromLinks
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExHtmlFixedSaveOptions, RemoveJavaScriptFromLinks)
+{
+    s_instance->RemoveJavaScriptFromLinks();
+}
+
+} // namespace gtest_test
+
+} // namespace ApiExamples
+} // namespace Words
+} // namespace Aspose

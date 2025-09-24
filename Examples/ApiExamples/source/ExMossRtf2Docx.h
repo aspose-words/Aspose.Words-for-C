@@ -1,37 +1,32 @@
-﻿#pragma once
-// Copyright (c) 2001-2021 Aspose Pty Ltd. All Rights Reserved.
+#pragma once
+// Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
 // This file is part of Aspose.Words. The source code in this file
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-#include <Aspose.Words.Cpp/Document.h>
-#include <Aspose.Words.Cpp/SaveFormat.h>
-#include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <system/string.h>
 
-using System::ArrayPtr;
-using System::MakeArray;
-using System::MakeObject;
-using System::SharedPtr;
-using System::String;
+namespace Aspose {
 
-using namespace Aspose::Words;
+namespace Words {
 
 namespace ApiExamples {
 
 class ExMossRtf2Docx
 {
+    typedef ExMossRtf2Docx ThisType;
+    
 public:
-    static void ConvertRtfToDocx(String inFileName, String outFileName)
-    {
-        // Load an RTF file into Aspose.Words.
-        auto doc = MakeObject<Document>(inFileName);
 
-        // Save the document in the OOXML format.
-        doc->Save(outFileName, SaveFormat::Docx);
-    }
+    static void ConvertRtfToDocx(System::String inFileName, System::String outFileName);
+    
+public:
     ExMossRtf2Docx() = delete;
 };
 
 } // namespace ApiExamples
+} // namespace Words
+} // namespace Aspose
+
+

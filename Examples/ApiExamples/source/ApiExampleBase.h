@@ -1,15 +1,19 @@
-﻿#pragma once
-// Copyright (c) 2001-2021 Aspose Pty Ltd. All Rights Reserved.
+#pragma once
+// Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
 // This file is part of Aspose.Words. The source code in this file
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-#include <system/array.h>
 #include <system/string.h>
-
 #include <system/reflection/assembly.h>
+#include <mutex>
+#include <memory>
 #include <gtest/gtest.h>
+
+namespace Aspose {
+
+namespace Words {
 
 namespace ApiExamples {
 
@@ -18,63 +22,58 @@ namespace ApiExamples {
 /// </summary>
 class ApiExampleBase : public System::Object
 {
+    typedef ApiExampleBase ThisType;
+    typedef System::Object BaseType;
+    
+    typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+    RTTI_INFO_DECL();
+    
 public:
-    void OneTimeSetUp();
-    void SetUp();
-    void OneTimeTearDown();
-    /// <summary>
-    /// Determine if runtime is Mono.
-    /// Workaround for .netcore.
-    /// </summary>
-    /// <returns>True if being executed in Mono, false otherwise.</returns>
-    static bool IsRunningOnMono();
 
-protected:
     /// <summary>
     /// Gets the path to the currently running executable.
     /// </summary>
-    static System::String AssemblyDir;
+    static System::String get_AssemblyDir();
     /// <summary>
     /// Gets the path to the codebase directory.
     /// </summary>
-    static System::String CodeBaseDir;
+    static System::String get_CodeBaseDir();
     /// <summary>
     /// Gets the path to the license used by the code examples.
     /// </summary>
-    static System::String LicenseDir;
+    static System::String get_LicenseDir();
     /// <summary>
     /// Gets the path to the documents used by the code examples. Ends with a back slash.
     /// </summary>
-    static System::String ArtifactsDir;
+    static System::String get_ArtifactsDir();
     /// <summary>
     /// Gets the path to the documents used by the code examples. Ends with a back slash.
     /// </summary>
-    static System::String GoldsDir;
+    static System::String get_GoldsDir();
     /// <summary>
     /// Gets the path to the documents used by the code examples. Ends with a back slash.
     /// </summary>
-    static System::String MyDir;
+    static System::String get_MyDir();
     /// <summary>
     /// Gets the path to the images used by the code examples. Ends with a back slash.
     /// </summary>
-    static System::String ImageDir;
+    static System::String get_ImageDir();
     /// <summary>
     /// Gets the path of the demo database. Ends with a back slash.
     /// </summary>
-    static System::String DatabaseDir;
+    static System::String get_DatabaseDir();
     /// <summary>
     /// Gets the path of the free fonts. Ends with a back slash.
     /// </summary>
-    static System::String FontsDir;
+    static System::String get_FontsDir();
     /// <summary>
     /// Gets the URL of the test image.
     /// </summary>
-    static System::String ImageUrl;
-
-    /// <summary>
-    /// Checks when we need to ignore test on mono.
-    /// </summary>
-    static bool CheckForSkipMono();
+    static System::String get_ImageUrl();
+    
+    void OneTimeSetUp();
+    void SetUp();
+    void OneTimeTearDown();
     static void SetUnlimitedLicense();
     /// <summary>
     /// Returns the code-base directory.
@@ -84,12 +83,28 @@ protected:
     /// Returns the assembly directory correctly even if the assembly is shadow-copied.
     /// </summary>
     static System::String GetAssemblyDir(System::SharedPtr<System::Reflection::Assembly> assembly);
-
+    
+    ApiExampleBase();
+    
 private:
-    static struct __StaticConstructor__
-    {
-        __StaticConstructor__();
-    } s_constructor__;
+
+    static System::String pr_AssemblyDir;
+    static System::String pr_CodeBaseDir;
+    static System::String pr_LicenseDir;
+    static System::String pr_ArtifactsDir;
+    static System::String pr_GoldsDir;
+    static System::String pr_MyDir;
+    static System::String pr_ImageDir;
+    static System::String pr_DatabaseDir;
+    static System::String pr_FontsDir;
+    static System::String pr_ImageUrl;
+    
+    static void __StaticConstructor__();
+    
 };
 
 } // namespace ApiExamples
+} // namespace Words
+} // namespace Aspose
+
+

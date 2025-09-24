@@ -1,42 +1,49 @@
-﻿// Copyright (c) 2001-2021 Aspose Pty Ltd. All Rights Reserved.
+// Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
 // This file is part of Aspose.Words. The source code in this file
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 #include "ExRendering.h"
 
-using namespace Aspose::Words;
-using namespace Aspose::Words::Rendering;
-namespace ApiExamples { namespace gtest_test {
+namespace Aspose {
+
+namespace Words {
+
+namespace ApiExamples {
+
+RTTI_INFO_IMPL_HASH(3011900444u, ::Aspose::Words::ApiExamples::ExRendering, ThisTypeBaseTypesInfo);
+
+namespace gtest_test
+{
 
 class ExRendering : public ::testing::Test
 {
 protected:
-    static System::SharedPtr<::ApiExamples::ExRendering> s_instance;
-
+    static System::SharedPtr<::Aspose::Words::ApiExamples::ExRendering> s_instance;
+    
     void SetUp() override
     {
         s_instance->SetUp();
     };
-
+    
     static void SetUpTestCase()
     {
-        s_instance = System::MakeObject<::ApiExamples::ExRendering>();
+        s_instance = System::MakeObject<::Aspose::Words::ApiExamples::ExRendering>();
         s_instance->OneTimeSetUp();
     };
-
+    
     static void TearDownTestCase()
     {
         s_instance->OneTimeTearDown();
         s_instance = nullptr;
     };
+    
 };
 
-System::SharedPtr<::ApiExamples::ExRendering> ExRendering::s_instance;
+System::SharedPtr<::Aspose::Words::ApiExamples::ExRendering> ExRendering::s_instance;
 
-TEST_F(ExRendering, Thumbnails)
-{
-    s_instance->Thumbnails();
-}
+} // namespace gtest_test
 
-}} // namespace ApiExamples::gtest_test
+} // namespace ApiExamples
+} // namespace Words
+} // namespace Aspose

@@ -208,7 +208,6 @@
     <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\PointData.cpp" />
     <ClCompile Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Sender.cpp" />
     <ClCompile Include="source\Mail Merge and Reporting\Base operations.cpp" />
-    <ClCompile Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.cpp" />
     <ClCompile Include="source\Mail Merge and Reporting\Working with CleanupOptions.cpp" />
     <ClCompile Include="source\Mail Merge and Reporting\Working with Fields.cpp" />
     <ClCompile Include="source\Programming with Documents\Contents Management\Extract content.cpp" />
@@ -306,7 +305,6 @@
     <ClInclude Include="source\LINQ Reporting Engine\Helpers\Data Source Objects\Sender.h" />
     <ClInclude Include="source\Mail Merge and Reporting\Base operations.h" />
     <ClInclude Include="source\Mail Merge and Reporting\Complex examples and helpers\Create MailMerge template.h" />
-    <ClInclude Include="source\Mail Merge and Reporting\Complex examples and helpers\Nested MailMerge custom.h" />
     <ClInclude Include="source\Mail Merge and Reporting\Working with CleanupOptions.h" />
     <ClInclude Include="source\Mail Merge and Reporting\Working with Fields.h" />
     <ClInclude Include="source\Mail Merge and Reporting\Working with XML data.h" />
