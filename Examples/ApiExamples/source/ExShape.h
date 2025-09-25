@@ -189,6 +189,7 @@ public:
     void InsertCommandButton();
     void Hidden();
     void CommandButtonCaption();
+    void ShadowFormatTransparency();
     
 protected:
 

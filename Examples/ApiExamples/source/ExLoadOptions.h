@@ -134,6 +134,7 @@ public:
     void OpenChmFile();
     void ProgressCallback();
     void IgnoreOleData();
+    void RecoveryMode();
     
 protected:
 

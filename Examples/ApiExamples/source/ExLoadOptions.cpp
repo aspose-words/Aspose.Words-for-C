@@ -36,6 +36,7 @@
 #include <Aspose.Words.Cpp/Model/Loading/LoadOptions.h>
 #include <Aspose.Words.Cpp/Model/Loading/LanguagePreferences.h>
 #include <Aspose.Words.Cpp/Model/Loading/EditingLanguage.h>
+#include <Aspose.Words.Cpp/Model/Loading/DocumentRecoveryMode.h>
 #include <Aspose.Words.Cpp/Model/Fonts/TableSubstitutionRule.h>
 #include <Aspose.Words.Cpp/Model/Fonts/FontSubstitutionSettings.h>
 #include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
@@ -577,6 +578,30 @@ namespace gtest_test
 TEST_F(ExLoadOptions, IgnoreOleData)
 {
     s_instance->IgnoreOleData();
+}
+
+} // namespace gtest_test
+
+void ExLoadOptions::RecoveryMode()
+{
+    //ExStart:RecoveryMode
+    //GistId:045648ef22da6b384ebcf0344717bfb5
+    //ExFor:LoadOptions.RecoveryMode
+    //ExFor:DocumentRecoveryMode
+    //ExSummary:Shows how to try to recover a document if errors occurred during loading.
+    auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>();
+    loadOptions->set_RecoveryMode(Aspose::Words::Loading::DocumentRecoveryMode::TryRecover);
+    
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Corrupted footnotes.docx", loadOptions);
+    //ExEnd:RecoveryMode
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExLoadOptions, RecoveryMode)
+{
+    s_instance->RecoveryMode();
 }
 
 } // namespace gtest_test
