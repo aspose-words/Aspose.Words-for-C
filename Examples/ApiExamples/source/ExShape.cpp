@@ -4541,6 +4541,35 @@ TEST_F(ExShape, CommandButtonCaption)
 
 } // namespace gtest_test
 
+void ExShape::ShadowFormatTransparency()
+{
+    //ExStart:ShadowFormatTransparency
+    //GistId:045648ef22da6b384ebcf0344717bfb5
+    //ExFor:ShadowFormat.Color
+    //ExFor:ShadowFormat.Transparency
+    //ExSummary:Shows how to set a color with transparency.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Shadow color.docx");
+    auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
+    
+    System::SharedPtr<Aspose::Words::Drawing::ShadowFormat> shadowFormat = shape->get_ShadowFormat();
+    shadowFormat->set_Type(Aspose::Words::Drawing::ShadowType::Shadow21);
+    shadowFormat->set_Color(System::Drawing::Color::get_Red());
+    shadowFormat->set_Transparency(0.8);
+    
+    doc->Save(get_ArtifactsDir() + u"Shape.ShadowFormatTransparency.docx");
+    //ExEnd:ShadowFormatTransparency
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExShape, ShadowFormatTransparency)
+{
+    s_instance->ShadowFormatTransparency();
+}
+
+} // namespace gtest_test
+
 } // namespace ApiExamples
 } // namespace Words
 } // namespace Aspose

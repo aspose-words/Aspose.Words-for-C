@@ -65,6 +65,8 @@
 #include <Aspose.Words.Cpp/Model/Fonts/DefaultFontSubstitutionRule.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningType.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningSource.h>
+#include <Aspose.Words.Cpp/Model/Document/FontSubstitutionWarningInfo.h>
+#include <Aspose.Words.Cpp/Model/Document/FontSubstitutionReason.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutOptions.h>
@@ -489,6 +491,19 @@ TEST_F(ExFontSettings, DisableFontSubstitution)
 
 void ExFontSettings::SubstitutionWarnings()
 {
+    //ExStart:SubstitutionWarnings
+    //GistId:045648ef22da6b384ebcf0344717bfb5
+    //ExFor:FontSubstitutionWarningInfo
+    //ExFor:FontSubstitutionWarningInfo.Reason
+    //ExFor:FontSubstitutionWarningInfo.RequestedBold
+    //ExFor:FontSubstitutionWarningInfo.RequestedItalic
+    //ExFor:FontSubstitutionWarningInfo.RequestedFamilyName
+    //ExFor:WarningInfo.Source
+    //ExFor:WarningInfo.WarningType
+    //ExFor:WarningInfo.Description
+    //ExFor:WarningSource
+    //ExFor:FontSubstitutionReason
+    //ExSummary:Shows how to get additional information about font substitution.
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
     
     auto callback = System::MakeObject<Aspose::Words::WarningInfoCollection>();
@@ -502,8 +517,15 @@ void ExFontSettings::SubstitutionWarnings()
     doc->set_FontSettings(fontSettings);
     doc->Save(get_ArtifactsDir() + u"FontSettings.SubstitutionWarnings.pdf");
     
-    ASSERT_EQ(u"Font \'Arial\' has not been found. Using \'Arvo\' font instead. Reason: table substitution.", callback->idx_get(0)->get_Description());
-    ASSERT_EQ(u"Font \'Times New Roman\' has not been found. Using \'M+ 2m\' font instead. Reason: font info substitution.", callback->idx_get(1)->get_Description());
+    auto warningInfo = System::ExplicitCast<Aspose::Words::FontSubstitutionWarningInfo>(callback->idx_get(0));
+    ASSERT_EQ(Aspose::Words::WarningSource::Layout, warningInfo->get_Source());
+    ASSERT_EQ(Aspose::Words::WarningType::FontSubstitution, warningInfo->get_WarningType());
+    ASSERT_EQ(Aspose::Words::FontSubstitutionReason::TableSubstitutionRule, warningInfo->get_Reason());
+    ASSERT_EQ(u"Font \'Arial\' has not been found. Using \'Arvo\' font instead. Reason: table substitution.", warningInfo->get_Description());
+    ASSERT_TRUE(warningInfo->get_RequestedBold());
+    ASSERT_FALSE(warningInfo->get_RequestedItalic());
+    ASSERT_EQ(u"Arial", warningInfo->get_RequestedFamilyName());
+    //ExEnd:SubstitutionWarnings
 }
 
 namespace gtest_test

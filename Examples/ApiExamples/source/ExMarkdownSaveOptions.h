@@ -71,6 +71,7 @@ public:
     void ImageResolution();
     void OfficeMathExportMode();
     void EmptyParagraphExportMode(Aspose::Words::Saving::MarkdownEmptyParagraphExportMode exportMode);
+    void ExportOfficeMathAsLatex();
     
 };
 

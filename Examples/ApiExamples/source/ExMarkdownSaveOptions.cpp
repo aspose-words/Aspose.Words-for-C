@@ -46,6 +46,8 @@
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 
+#include "DocumentHelper.h"
+
 
 using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Saving;
@@ -575,6 +577,34 @@ TEST_P(ExMarkdownSaveOptions_EmptyParagraphExportMode, Test)
 }
 
 INSTANTIATE_TEST_SUITE_P(, ExMarkdownSaveOptions_EmptyParagraphExportMode, ::testing::ValuesIn(ExMarkdownSaveOptions_EmptyParagraphExportMode::TestCases()));
+
+} // namespace gtest_test
+
+void ExMarkdownSaveOptions::ExportOfficeMathAsLatex()
+{
+    //ExStart:ExportOfficeMathAsLatex
+    //GistId:045648ef22da6b384ebcf0344717bfb5
+    //ExFor:MarkdownSaveOptions.OfficeMathExportMode
+    //ExFor:MarkdownOfficeMathExportMode
+    //ExSummary:Shows how to export OfficeMath object as Latex.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
+    saveOptions->set_OfficeMathExportMode(Aspose::Words::Saving::MarkdownOfficeMathExportMode::Latex);
+    
+    doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsLatex.md", saveOptions);
+    //ExEnd:ExportOfficeMathAsLatex
+    
+    ASSERT_TRUE(Aspose::Words::ApiExamples::DocumentHelper::CompareDocs(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsLatex.md", get_GoldsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsLatex.Gold.md"));
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExMarkdownSaveOptions, ExportOfficeMathAsLatex)
+{
+    s_instance->ExportOfficeMathAsLatex();
+}
 
 } // namespace gtest_test
 
