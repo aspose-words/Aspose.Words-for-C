@@ -7,8 +7,10 @@
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/TableContentAlignment.h>
+#include <Aspose.Words.Cpp/Model/Saving/ResourceSavingArgs.h>
 #include <Aspose.Words.Cpp/Model/Saving/MarkdownListExportMode.h>
 #include <Aspose.Words.Cpp/Model/Saving/MarkdownEmptyParagraphExportMode.h>
+#include <Aspose.Words.Cpp/Model/Saving/IResourceSavingCallback.h>
 #include <Aspose.Words.Cpp/Model/Saving/ImageSavingArgs.h>
 #include <Aspose.Words.Cpp/Model/Saving/IImageSavingCallback.h>
 
@@ -58,6 +60,26 @@ public:
     };
     
     
+private:
+
+    /// <summary>
+    /// Class implementing <see cref="IResourceSavingCallback"/>.
+    /// </summary>
+    class ChangeUriPath : public IResourceSavingCallback
+    {
+        typedef ChangeUriPath ThisType;
+        typedef IResourceSavingCallback BaseType;
+        
+        typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
+        RTTI_INFO_DECL();
+        
+    public:
+    
+        void ResourceSaving(System::SharedPtr<Aspose::Words::Saving::ResourceSavingArgs> args) override;
+        
+    };
+    
+    
 public:
 
     void MarkdownDocumentTableContentAlignment(Aspose::Words::Saving::TableContentAlignment tableContentAlignment);
@@ -72,6 +94,7 @@ public:
     void OfficeMathExportMode();
     void EmptyParagraphExportMode(Aspose::Words::Saving::MarkdownEmptyParagraphExportMode exportMode);
     void ExportOfficeMathAsLatex();
+    void ResourceSavingCallback();
     
 };
 

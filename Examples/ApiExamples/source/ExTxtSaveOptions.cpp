@@ -26,6 +26,7 @@
 #include <Aspose.Words.Cpp/Model/Sections/HeaderFooterCollection.h>
 #include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
 #include <Aspose.Words.Cpp/Model/Saving/TxtSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/TxtOfficeMathExportMode.h>
 #include <Aspose.Words.Cpp/Model/Saving/TxtListIndentation.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
@@ -34,6 +35,7 @@
 #include <Aspose.Words.Cpp/Model/Document/BreakType.h>
 
 #include "TestUtil.h"
+#include "DocumentHelper.h"
 
 
 using namespace Aspose::Words::Saving;
@@ -601,6 +603,34 @@ namespace gtest_test
 TEST_F(ExTxtSaveOptions, MaxCharactersPerLine)
 {
     s_instance->MaxCharactersPerLine();
+}
+
+} // namespace gtest_test
+
+void ExTxtSaveOptions::ExportOfficeMathAsLatex()
+{
+    //ExStart:ExportOfficeMathAsLatexToText
+    //GistId:67ab3fcab43d41e5dc207060f8f5faba
+    //ExFor:TxtSaveOptions.OfficeMathExportMode
+    //ExFor:TxtOfficeMathExportMode
+    //ExSummary:Shows how to export OfficeMath object as Latex in TXT.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::TxtSaveOptions>();
+    saveOptions->set_OfficeMathExportMode(Aspose::Words::Saving::TxtOfficeMathExportMode::Latex);
+    
+    doc->Save(get_ArtifactsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.txt", saveOptions);
+    //ExEnd:ExportOfficeMathAsLatexToText
+    
+    ASSERT_TRUE(Aspose::Words::ApiExamples::DocumentHelper::CompareDocs(get_ArtifactsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.txt", get_GoldsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.Gold.txt"));
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExTxtSaveOptions, ExportOfficeMathAsLatex)
+{
+    s_instance->ExportOfficeMathAsLatex();
 }
 
 } // namespace gtest_test

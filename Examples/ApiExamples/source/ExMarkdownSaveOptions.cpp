@@ -77,6 +77,13 @@ void ExMarkdownSaveOptions::SavedImageRename::ImageSaving(System::SharedPtr<Aspo
     ASSERT_FALSE(args->get_KeepImageStreamOpen());
 }
 
+RTTI_INFO_IMPL_HASH(2321639807u, ::Aspose::Words::ApiExamples::ExMarkdownSaveOptions::ChangeUriPath, ThisTypeBaseTypesInfo);
+
+void ExMarkdownSaveOptions::ChangeUriPath::ResourceSaving(System::SharedPtr<Aspose::Words::Saving::ResourceSavingArgs> args)
+{
+    args->set_ResourceFileUri(System::String::Format(u"/uri/for/{0}", args->get_ResourceFileName()));
+}
+
 
 RTTI_INFO_IMPL_HASH(970531554u, ::Aspose::Words::ApiExamples::ExMarkdownSaveOptions, ThisTypeBaseTypesInfo);
 
@@ -604,6 +611,30 @@ namespace gtest_test
 TEST_F(ExMarkdownSaveOptions, ExportOfficeMathAsLatex)
 {
     s_instance->ExportOfficeMathAsLatex();
+}
+
+} // namespace gtest_test
+
+void ExMarkdownSaveOptions::ResourceSavingCallback()
+{
+    System::String outputPath = get_ArtifactsDir() + u"MarkdownSaveOptions.ResourceSavingCallback.md";
+    
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
+    saveOptions->set_ResourceSavingCallback(System::MakeObject<Aspose::Words::ApiExamples::ExMarkdownSaveOptions::ChangeUriPath>());
+    
+    doc->Save(outputPath, saveOptions);
+    
+    Aspose::Words::ApiExamples::DocumentHelper::FindTextInFile(outputPath, u"/uri/for/");
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExMarkdownSaveOptions, ResourceSavingCallback)
+{
+    s_instance->ResourceSavingCallback();
 }
 
 } // namespace gtest_test

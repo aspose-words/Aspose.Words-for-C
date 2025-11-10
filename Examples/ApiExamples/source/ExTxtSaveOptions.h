@@ -37,6 +37,7 @@ public:
     void Encoding();
     void PreserveTableLayout(bool preserveTableLayout);
     void MaxCharactersPerLine();
+    void ExportOfficeMathAsLatex();
     
 };
 

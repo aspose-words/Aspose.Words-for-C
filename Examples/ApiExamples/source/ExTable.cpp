@@ -1220,13 +1220,13 @@ void ExTable::AllowAutoFitOnTable(bool allowAutoFit)
     
     if (allowAutoFit)
     {
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
     }
     else
     {
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:7.2pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:7.2pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
     }
 }
 
@@ -1424,7 +1424,7 @@ void ExTable::AllowCellSpacing(bool allowCellSpacing)
         ASPOSE_ASSERT_EQ(0.0, table->get_CellSpacing());
     }
     
-    Aspose::Words::ApiExamples::TestUtil::FileContainsString(allowCellSpacing ? u"<td style=\"border-style:solid; border-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; -aw-border:0.5pt single\">" : System::String(u"<td style=\"border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; ") + u"padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single; -aw-border-right:0.5pt single\">", get_ArtifactsDir() + u"Table.AllowCellSpacing.html");
+    Aspose::Words::ApiExamples::TestUtil::FileContainsString(allowCellSpacing ? u"<td style=\"border-style:solid; border-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; -aw-border:0.5pt single #000000\">" : System::String(u"<td style=\"border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; ") + u"padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single #000000; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowCellSpacing.html");
 }
 
 namespace gtest_test

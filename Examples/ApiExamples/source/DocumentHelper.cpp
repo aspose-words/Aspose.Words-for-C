@@ -109,11 +109,9 @@ void DocumentHelper::FindTextInFile(System::String path, System::String expressi
                 SUCCEED();
                 return;
             }
-            else
-            {
-                FAIL();
-            }
         }
+        
+        FAIL();
     }
 }
 
