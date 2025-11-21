@@ -5,9 +5,14 @@
 //////////////////////////////////////////////////////////////////////////
 #include "ExAI.h"
 
+#include <testing/test_predicates.h>
+#include <system/test_tools/test_tools.h>
+#include <system/test_tools/compare.h>
 #include <system/object_ext.h>
 #include <system/environment.h>
 #include <system/array.h>
+#include <gtest/gtest.h>
+#include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/AI/SummaryLength.h>
@@ -162,6 +167,56 @@ namespace gtest_test
 TEST_F(ExAI, DISABLED_AiGrammar)
 {
     s_instance->AiGrammar();
+}
+
+} // namespace gtest_test
+
+void ExAI::ChangeDefaultUrl()
+{
+    //ExStart:ChangeDefaultUrl
+    //GistId:bd7947d9ad5eb092f532604cb15f593b
+    //ExFor:AiModel.Url
+    //ExSummary:Shows how to change model default url.
+    System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
+    System::SharedPtr<Aspose::Words::AI::AiModel> model = Aspose::Words::AI::AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey);
+    // Default value "https://api.openai.com/".
+    model->set_Url(u"https://my.a.com/");
+    //ExEnd:ChangeDefaultUrl
+    
+    ASSERT_EQ(u"https://my.a.com/", model->get_Url());
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExAI, ChangeDefaultUrl)
+{
+    s_instance->ChangeDefaultUrl();
+}
+
+} // namespace gtest_test
+
+void ExAI::ChangeDefaultTimeout()
+{
+    //ExStart:ChangeDefaultTimeout
+    //GistId:bd7947d9ad5eb092f532604cb15f593b
+    //ExFor:AiModel.Timeout
+    //ExSummary:Shows how to change model default timeout.
+    System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
+    System::SharedPtr<Aspose::Words::AI::AiModel> model = Aspose::Words::AI::AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey);
+    // Default value 100000ms.
+    model->set_Timeout(250000);
+    //ExEnd:ChangeDefaultTimeout
+    
+    ASSERT_EQ(250000, model->get_Timeout());
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExAI, ChangeDefaultTimeout)
+{
+    s_instance->ChangeDefaultTimeout();
 }
 
 } // namespace gtest_test

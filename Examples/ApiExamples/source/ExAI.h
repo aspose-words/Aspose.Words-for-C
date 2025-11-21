@@ -26,6 +26,8 @@ public:
     void AiSummarize();
     void AiTranslate();
     void AiGrammar();
+    void ChangeDefaultUrl();
+    void ChangeDefaultTimeout();
     
 };
 

@@ -95,6 +95,7 @@ public:
     void EmptyParagraphExportMode(Aspose::Words::Saving::MarkdownEmptyParagraphExportMode exportMode);
     void ExportOfficeMathAsLatex();
     void ResourceSavingCallback();
+    void ExportOfficeMathAsMarkItDown();
     
 };
 
