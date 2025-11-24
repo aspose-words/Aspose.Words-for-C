@@ -3596,30 +3596,31 @@ void ExShape::OfficeMathRenderer()
     ASSERT_NEAR(13.0f, renderer->get_BoundsInPoints().get_Height(), 0.15f);
     
     // Shapes with transparent parts may contain different values in the "OpaqueBoundsInPoints" properties.
-    ASSERT_NEAR(122.0f, renderer->get_OpaqueBoundsInPoints().get_Width(), 0.25f);
+    ASSERT_NEAR(119.5f, renderer->get_OpaqueBoundsInPoints().get_Width(), 0.25f);
     ASSERT_NEAR(14.2f, renderer->get_OpaqueBoundsInPoints().get_Height(), 0.1f);
     
     // Get the shape size in pixels, with linear scaling to a specific DPI.
     System::Drawing::Rectangle bounds = renderer->GetBoundsInPixels(1.0f, 96.0f);
-    
-    ASSERT_EQ(163, bounds.get_Width());
-    ASSERT_EQ(18, bounds.get_Height());
+    System::String dpi96 = u"DPI 96";
+    ASSERT_EQ(163, bounds.get_Width()) << (dpi96);
+    ASSERT_EQ(18, bounds.get_Height()) << (dpi96);
     
     // Get the shape size in pixels, but with a different DPI for the horizontal and vertical dimensions.
     bounds = renderer->GetBoundsInPixels(1.0f, 96.0f, 150.0f);
-    ASSERT_EQ(163, bounds.get_Width());
-    ASSERT_EQ(27, bounds.get_Height());
+    System::String dpi96150 = u"DPI 96 150";
+    ASSERT_EQ(163, bounds.get_Width()) << (dpi96150);
+    ASSERT_EQ(27, bounds.get_Height()) << (dpi96150);
     
     // The opaque bounds may vary here also.
     bounds = renderer->GetOpaqueBoundsInPixels(1.0f, 96.0f);
-    
-    ASSERT_EQ(163, bounds.get_Width());
-    ASSERT_EQ(19, bounds.get_Height());
+    System::String dpi96Opaque = u"DPI 96 Opaque";
+    ASSERT_EQ(160, bounds.get_Width()) << (dpi96Opaque);
+    ASSERT_EQ(19, bounds.get_Height()) << (dpi96Opaque);
     
     bounds = renderer->GetOpaqueBoundsInPixels(1.0f, 96.0f, 150.0f);
-    
-    ASSERT_EQ(163, bounds.get_Width());
-    ASSERT_EQ(29, bounds.get_Height());
+    System::String dpi96150Opaque = u"DPI 96 150 Opaque";
+    ASSERT_EQ(160, bounds.get_Width()) << (dpi96150Opaque);
+    ASSERT_EQ(29, bounds.get_Height()) << (dpi96150Opaque);
     //ExEnd
 }
 

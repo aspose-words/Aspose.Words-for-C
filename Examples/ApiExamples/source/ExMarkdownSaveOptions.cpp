@@ -639,6 +639,34 @@ TEST_F(ExMarkdownSaveOptions, ResourceSavingCallback)
 
 } // namespace gtest_test
 
+void ExMarkdownSaveOptions::ExportOfficeMathAsMarkItDown()
+{
+    //ExStart:ExportOfficeMathAsMarkItDown
+    //GistId:bd7947d9ad5eb092f532604cb15f593b
+    //ExFor:MarkdownSaveOptions.OfficeMathExportMode
+    //ExFor:MarkdownOfficeMathExportMode
+    //ExSummary:Shows how to export OfficeMath object as MarkItDown.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
+    saveOptions->set_OfficeMathExportMode(Aspose::Words::Saving::MarkdownOfficeMathExportMode::MarkItDown);
+    
+    doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsMarkItDown.md", saveOptions);
+    //ExEnd:ExportOfficeMathAsMarkItDown
+    
+    ASSERT_TRUE(Aspose::Words::ApiExamples::DocumentHelper::CompareDocs(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsMarkItDown.md", get_GoldsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsMarkItDown.Gold.md"));
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExMarkdownSaveOptions, ExportOfficeMathAsMarkItDown)
+{
+    s_instance->ExportOfficeMathAsMarkItDown();
+}
+
+} // namespace gtest_test
+
 } // namespace ApiExamples
 } // namespace Words
 } // namespace Aspose
