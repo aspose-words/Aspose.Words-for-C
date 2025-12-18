@@ -1209,10 +1209,10 @@ void ExRange::MatchEndNode()
     builder->Writeln(u"3");
     
     auto replacingCallback = System::MakeObject<Aspose::Words::ApiExamples::ExRange::ReplacingCallback>();
-    auto opts = System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>();
-    opts->set_ReplacingCallback(replacingCallback);
+    auto options = System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>();
+    options->set_ReplacingCallback(replacingCallback);
     
-    doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"1[\\s\\S]*3"), u"X", opts);
+    doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"1[\\s\\S]*3"), u"X", options);
     ASSERT_EQ(u"1", replacingCallback->get_StartNodeText());
     ASSERT_EQ(u"3", replacingCallback->get_EndNodeText());
 }

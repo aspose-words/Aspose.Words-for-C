@@ -78,7 +78,7 @@ void ExOdtSaveOptions::Odt11Schema(bool exportToOdt11Specs)
     //ExFor:OdtSaveOptions
     //ExFor:OdtSaveOptions.#ctor
     //ExFor:OdtSaveOptions.IsStrictSchema11
-    //ExFor:RevisionOptions.MeasurementUnit
+    //ExFor:OdtSaveOptions.MeasureUnit
     //ExFor:MeasurementUnits
     //ExSummary:Shows how to make a saved document conform to an older ODT schema.
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
@@ -88,11 +88,10 @@ void ExOdtSaveOptions::Odt11Schema(bool exportToOdt11Specs)
     saveOptions->set_IsStrictSchema11(exportToOdt11Specs);
     
     doc->Save(get_ArtifactsDir() + u"OdtSaveOptions.Odt11Schema.odt", saveOptions);
-    //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OdtSaveOptions.Odt11Schema.odt");
-    
     ASSERT_EQ(Aspose::Words::MeasurementUnits::Centimeters, doc->get_LayoutOptions()->get_RevisionOptions()->get_MeasurementUnit());
+    //ExEnd
     
     if (exportToOdt11Specs)
     {
