@@ -1,4 +1,4 @@
-// Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
+// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
 // This file is part of Aspose.Words. The source code in this file
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
@@ -76,6 +76,7 @@
 #include <Aspose.Words.Cpp/Model/Settings/WriteProtection.h>
 #include <Aspose.Words.Cpp/Model/Settings/JustificationMode.h>
 #include <Aspose.Words.Cpp/Model/Settings/HyphenationOptions.h>
+#include <Aspose.Words.Cpp/Model/Sections/SectionStart.h>
 #include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
@@ -89,6 +90,7 @@
 #include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
 #include <Aspose.Words.Cpp/Model/Saving/ImageSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/HtmlFixedSaveOptions.h>
+#include <Aspose.Words.Cpp/Model/Saving/DoclingSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionCollection.h>
 #include <Aspose.Words.Cpp/Model/Revisions/Revision.h>
 #include <Aspose.Words.Cpp/Model/Properties/BuiltInDocumentProperties.h>
@@ -3584,6 +3586,65 @@ namespace gtest_test
 TEST_F(ExDocument, ExtractPagesWithOptions)
 {
     s_instance->ExtractPagesWithOptions();
+}
+
+} // namespace gtest_test
+
+void ExDocument::AppendDocumentWithNewPage()
+{
+    //ExStart:AppendDocumentWithNewPage
+    //GistId:0da8468118377c4860b28603bc95ffe6
+    //ExFor:ImportFormatOptions.AppendDocumentWithNewPage
+    //ExSummary:Shows how to preserve original section type.
+    auto dstDoc = System::MakeObject<Aspose::Words::Document>();
+    auto srcDoc = System::MakeObject<Aspose::Words::Document>();
+    
+    srcDoc->get_FirstSection()->get_PageSetup()->set_SectionStart(Aspose::Words::SectionStart::Continuous);
+    
+    auto options = System::MakeObject<Aspose::Words::ImportFormatOptions>();
+    options->set_AppendDocumentWithNewPage(false);
+    dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::KeepSourceFormatting, options);
+    
+    ASSERT_EQ(Aspose::Words::SectionStart::Continuous, dstDoc->get_Sections()->idx_get(1)->get_PageSetup()->get_SectionStart());
+    //ExEnd:AppendDocumentWithNewPage
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExDocument, AppendDocumentWithNewPage)
+{
+    s_instance->AppendDocumentWithNewPage();
+}
+
+} // namespace gtest_test
+
+void ExDocument::DoclingJson()
+{
+    //ExStart:DoclingJson
+    //GistId:0da8468118377c4860b28603bc95ffe6
+    //ExFor:DoclingSaveOptions
+    //ExFor:DoclingSaveOptions.SaveFormat
+    //ExFor:DoclingSaveOptions.RenderNonImageShapes
+    //ExSummary:Shows how to save a document into a Docling JSON format.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::DoclingSaveOptions>();
+    saveOptions->set_SaveFormat(Aspose::Words::SaveFormat::Docling);
+    // Set to true to render non-image shapes and include them in the output.
+    // Set to false (default) to exclude non-image shapes from the output.
+    saveOptions->set_RenderNonImageShapes(true);
+    
+    doc->Save(get_ArtifactsDir() + u"DoclingSaveOptions.DoclingJson.json", saveOptions);
+    //ExEnd:DoclingJson
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExDocument, DoclingJson)
+{
+    s_instance->DoclingJson();
 }
 
 } // namespace gtest_test
