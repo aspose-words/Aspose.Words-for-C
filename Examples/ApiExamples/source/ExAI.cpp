@@ -1,4 +1,4 @@
-// Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
+// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
 // This file is part of Aspose.Words. The source code in this file
 // is only intended as a supplement to the documentation, and is provided
 // "as is", without warranty of any kind, either expressed or implied.
@@ -19,6 +19,7 @@
 #include <Aspose.Words.Cpp/Model/AI/SummarizeOptions.h>
 #include <Aspose.Words.Cpp/Model/AI/OpenAi/Models/OpenAiModel.h>
 #include <Aspose.Words.Cpp/Model/AI/Language.h>
+#include <Aspose.Words.Cpp/Model/AI/Google/Models/GoogleAiModel.h>
 #include <Aspose.Words.Cpp/Model/AI/CheckGrammarOptions.h>
 #include <Aspose.Words.Cpp/Model/AI/AiModelType.h>
 #include <Aspose.Words.Cpp/Model/AI/AiModel.h>
@@ -123,7 +124,7 @@ void ExAI::AiTranslate()
     
     System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
     // Use Google generative language models.
-    System::SharedPtr<Aspose::Words::AI::AiModel> model = Aspose::Words::AI::AiModel::Create(Aspose::Words::AI::AiModelType::Gemini15Flash)->WithApiKey(apiKey);
+    System::SharedPtr<Aspose::Words::AI::AiModel> model = Aspose::Words::AI::AiModel::Create(Aspose::Words::AI::AiModelType::GeminiFlashLatest)->WithApiKey(apiKey);
     
     System::SharedPtr<Aspose::Words::Document> translatedDoc = model->Translate(doc, Aspose::Words::AI::Language::Arabic);
     translatedDoc->Save(get_ArtifactsDir() + u"AI.AiTranslate.docx");
@@ -217,6 +218,34 @@ namespace gtest_test
 TEST_F(ExAI, ChangeDefaultTimeout)
 {
     s_instance->ChangeDefaultTimeout();
+}
+
+} // namespace gtest_test
+
+void ExAI::Gemini()
+{
+    //ExStart:Gemini
+    //GistId:0da8468118377c4860b28603bc95ffe6
+    //ExFor:GoogleAiModel
+    //ExFor:GoogleAiModel.#ctor(String)
+    //ExFor:GoogleAiModel.#ctor(String, String)
+    //ExSummary:Shows how to use google AI model.
+    System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
+    auto model = System::MakeObject<Aspose::Words::AI::GoogleAiModel>(u"gemini-flash-latest", apiKey);
+    
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto summarizeOptions = System::MakeObject<Aspose::Words::AI::SummarizeOptions>();
+    summarizeOptions->set_SummaryLength(Aspose::Words::AI::SummaryLength::VeryShort);
+    System::SharedPtr<Aspose::Words::Document> summary = model->Summarize(doc, summarizeOptions);
+    //ExEnd:Gemini
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExAI, DISABLED_Gemini)
+{
+    s_instance->Gemini();
 }
 
 } // namespace gtest_test

@@ -1,4 +1,4 @@
-// Copyright (c) 2001-2025 Aspose Pty Ltd. All Rights Reserved.
+// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
 // 18/02/2024 by Vyacheslav Deryushev
 #include "HelperClasses/TestClasses/ClientTestClass.h"
 
