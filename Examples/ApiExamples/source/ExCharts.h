@@ -91,6 +91,7 @@ public:
     void DoughnutChartLabelPosition();
     void InsertChartSeries();
     void SetChartStyle();
+    void TitleOrientation();
     
 protected:
 

@@ -3031,6 +3031,53 @@ TEST_F(ExCharts, SetChartStyle)
 
 } // namespace gtest_test
 
+void ExCharts::TitleOrientation()
+{
+    //ExStart:TitleOrientation
+    //GistId:358242737ad81fe9046ab090a4fbbf66
+    //ExFor:ChartTitle.Orientation
+    //ExFor:ChartTitle.Rotation
+    //ExFor:ChartAxisTitle.Orientation
+    //ExFor:ChartAxisTitle.Rotation
+    //ExSummary:Shows how to set orientation and rotation of chart and axis titles.
+    auto doc = System::MakeObject<Aspose::Words::Document>();
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 400, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = chartShape->get_Chart();
+    
+    chart->get_Title()->set_Text(u"Sample Chart");
+    chart->get_Title()->set_Orientation(Aspose::Words::Drawing::ShapeTextOrientation::Horizontal);
+    chart->get_Title()->set_Rotation(90);
+    
+    // Before setting title properties, make sure that this title will be displayed.
+    chart->get_AxisX()->get_Title()->set_Show(true);
+    chart->get_AxisX()->get_Title()->set_Text(u"X Axis");
+    chart->get_AxisX()->get_Title()->set_Orientation(Aspose::Words::Drawing::ShapeTextOrientation::Horizontal);
+    chart->get_AxisX()->get_Title()->set_Rotation(-90);
+    
+    doc->Save(get_ArtifactsDir() + u"Charts.TitleOrientation.docx");
+    //ExEnd:TitleOrientation
+    
+    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.TitleOrientation.docx");
+    chartShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
+    chart = chartShape->get_Chart();
+    
+    ASSERT_EQ(Aspose::Words::Drawing::ShapeTextOrientation::Horizontal, chart->get_Title()->get_Orientation());
+    ASSERT_EQ(90, chart->get_Title()->get_Rotation());
+    ASSERT_EQ(Aspose::Words::Drawing::ShapeTextOrientation::Horizontal, chart->get_AxisX()->get_Title()->get_Orientation());
+    ASSERT_EQ(-90, chart->get_AxisX()->get_Title()->get_Rotation());
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExCharts, TitleOrientation)
+{
+    s_instance->TitleOrientation();
+}
+
+} // namespace gtest_test
+
 } // namespace ApiExamples
 } // namespace Words
 } // namespace Aspose
