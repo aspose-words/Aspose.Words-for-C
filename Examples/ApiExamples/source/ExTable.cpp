@@ -1792,7 +1792,6 @@ void ExTable::TableStyleCreation()
     //ExFor:Table.StyleName
     //ExFor:TableStyle
     //ExFor:TableStyle.AllowBreakAcrossPages
-    //ExFor:TableStyle.Bidi
     //ExFor:TableStyle.CellSpacing
     //ExFor:TableStyle.BottomPadding
     //ExFor:TableStyle.LeftPadding
@@ -1817,7 +1816,6 @@ void ExTable::TableStyleCreation()
     
     auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(Aspose::Words::StyleType::Table, u"MyTableStyle1"));
     tableStyle->set_AllowBreakAcrossPages(true);
-    tableStyle->set_Bidi(true);
     tableStyle->set_CellSpacing(5);
     tableStyle->set_BottomPadding(20);
     tableStyle->set_LeftPadding(5);
@@ -1831,7 +1829,7 @@ void ExTable::TableStyleCreation()
     table->set_Style(tableStyle);
     
     // Setting the style properties of a table may affect the properties of the table itself.
-    ASSERT_TRUE(table->get_Bidi());
+    ASSERT_FALSE(table->get_Bidi());
     ASPOSE_ASSERT_EQ(5.0, table->get_CellSpacing());
     ASSERT_EQ(u"MyTableStyle1", table->get_StyleName());
     
@@ -1841,7 +1839,7 @@ void ExTable::TableStyleCreation()
     doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.TableStyleCreation.docx");
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_TRUE(table->get_Bidi());
+    ASSERT_FALSE(table->get_Bidi());
     ASPOSE_ASSERT_EQ(5.0, table->get_CellSpacing());
     ASSERT_EQ(u"MyTableStyle1", table->get_StyleName());
     ASPOSE_ASSERT_EQ(20.0, tableStyle->get_BottomPadding());
@@ -1857,7 +1855,6 @@ void ExTable::TableStyleCreation()
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
     
     ASSERT_TRUE(tableStyle->get_AllowBreakAcrossPages());
-    ASSERT_TRUE(tableStyle->get_Bidi());
     ASPOSE_ASSERT_EQ(5.0, tableStyle->get_CellSpacing());
     ASPOSE_ASSERT_EQ(20.0, tableStyle->get_BottomPadding());
     ASPOSE_ASSERT_EQ(5.0, tableStyle->get_LeftPadding());

@@ -29,6 +29,7 @@
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/JoinRunsOptions.h>
 #include <Aspose.Words.Cpp/Model/Text/HeightRule.h>
 #include <Aspose.Words.Cpp/Model/Text/FrameFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
@@ -919,6 +920,55 @@ namespace gtest_test
 TEST_F(ExParagraph, JoinRuns)
 {
     s_instance->JoinRuns();
+}
+
+} // namespace gtest_test
+
+void ExParagraph::JoinRunsWithSameFormattingWithOptions()
+{
+    //ExStart:JoinRunsWithSameFormattingWithOptions
+    //GistId:8c640b84550c83678329a9a92f10bcdd
+    //ExFor:Paragraph.JoinRunsWithSameFormatting(JoinRunsOptions)
+    //ExFor:JoinRunsOptions
+    //ExSummary:Shows how to join runs with the same formatting while ignoring redundant and insignificant attributes.
+    auto doc = System::MakeObject<Aspose::Words::Document>();
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
+    
+    // Create runs with identical visible formatting but some internal differences.
+    builder->get_Font()->set_Name(u"Arial");
+    builder->get_Font()->set_Size(12);
+    builder->Write(u"Hello ");
+    builder->Write(u"world");
+    
+    // Verify runs before join.
+    ASSERT_EQ(2, doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->get_Count());
+    ASSERT_EQ(u"Hello ", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text());
+    ASSERT_EQ(u"world", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(1)->get_Text());
+    
+    // Configure options to ignore redundant and insignificant attributes during join.
+    auto options = System::MakeObject<Aspose::Words::JoinRunsOptions>();
+    options->set_IgnoreRedundant(true);
+    // Ignore redundant run properties that don't affect appearance.
+    options->set_IgnoreInsignificant(true);
+    // Ignore insignificant differences like whitespace-only runs.
+    
+    // Join runs that have the same visible formatting using the extended options.
+    doc->get_FirstSection()->get_Body()->get_FirstParagraph()->JoinRunsWithSameFormatting(options);
+    
+    // Verify that runs were successfully joined.
+    ASSERT_EQ(1, doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->get_Count());
+    ASSERT_EQ(u"Hello world", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text());
+    
+    doc->Save(get_ArtifactsDir() + u"Paragraph.JoinRunsWithSameFormattingWithOptions.docx");
+    //ExEnd:JoinRunsWithSameFormattingWithOptions
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExParagraph, JoinRunsWithSameFormattingWithOptions)
+{
+    s_instance->JoinRunsWithSameFormattingWithOptions();
 }
 
 } // namespace gtest_test

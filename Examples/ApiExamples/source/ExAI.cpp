@@ -250,6 +250,39 @@ TEST_F(ExAI, DISABLED_Gemini)
 
 } // namespace gtest_test
 
+void ExAI::OpenAiModelConstructor()
+{
+    //ExStart:OpenAiModelConstructor
+    //GistId:8c640b84550c83678329a9a92f10bcdd
+    //ExFor:OpenAiModel.#ctor(String,String)
+    //ExSummary:Shows how to create an OpenAI model instance directly using an API key and model name.
+    System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
+    // Create an OpenAI model instance using the constructor with model name and API key.
+    auto model = System::MakeObject<Aspose::Words::AI::OpenAiModel>(u"gpt-4o-mini", apiKey);
+    
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    // Summarize the document using the OpenAI model with short summary length.
+    auto summarizeOptions = System::MakeObject<Aspose::Words::AI::SummarizeOptions>();
+    summarizeOptions->set_SummaryLength(Aspose::Words::AI::SummaryLength::VeryShort);
+    System::SharedPtr<Aspose::Words::Document> summary = model->Summarize(doc, summarizeOptions);
+    
+    summary->Save(get_ArtifactsDir() + u"OpenAiModel.OpenAiModelConstructor.docx");
+    //ExEnd:OpenAiModelConstructor
+    
+    // Verify the summary was generated (non-empty content).
+    ASSERT_GT(summary->GetText().Trim().get_Length(), 0);
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExAI, DISABLED_OpenAiModelConstructor)
+{
+    s_instance->OpenAiModelConstructor();
+}
+
+} // namespace gtest_test
+
 } // namespace ApiExamples
 } // namespace Words
 } // namespace Aspose

@@ -2226,7 +2226,7 @@ struct ExShape_WorkWithMathObjectType : public ExShape, public Aspose::Words::Ap
         {
             std::make_tuple(0, Aspose::Words::Math::MathObjectType::OMathPara),
             std::make_tuple(1, Aspose::Words::Math::MathObjectType::OMath),
-            std::make_tuple(2, Aspose::Words::Math::MathObjectType::Supercript),
+            std::make_tuple(2, Aspose::Words::Math::MathObjectType::Superscript),
             std::make_tuple(3, Aspose::Words::Math::MathObjectType::Argument),
             std::make_tuple(4, Aspose::Words::Math::MathObjectType::SuperscriptPart),
         };

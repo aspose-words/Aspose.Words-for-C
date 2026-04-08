@@ -17,6 +17,7 @@ RTTI_INFO_IMPL_HASH(3827196177u, ::Aspose::Words::ApiExamples::TestData::TestBui
 
 ImageTestBuilder::ImageTestBuilder()
 {
+    mImage = System::Drawing::Image::FromFile(get_ImageDir() + u"Transparent background logo.png");
     mImageStream = System::IO::Stream::Null;
     mImageBytes = System::MakeArray<uint8_t>(0, 0);
     mImageString = System::String::Empty;
@@ -24,6 +25,7 @@ ImageTestBuilder::ImageTestBuilder()
 
 System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestBuilders::ImageTestBuilder> ImageTestBuilder::WithImage(System::String imagePath)
 {
+    mImage = System::Drawing::Image::FromFile(imagePath);
     return System::MakeSharedPtr(this);
 }
 
