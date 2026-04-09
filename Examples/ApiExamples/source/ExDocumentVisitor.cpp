@@ -800,7 +800,7 @@ void ExDocumentVisitor::TestOfficeMathToText(System::SharedPtr<Aspose::Words::Ap
     ASSERT_TRUE(visitorText.Contains(u"[OfficeMath start] Math object type: OMathPara"));
     ASSERT_TRUE(visitorText.Contains(u"[OfficeMath start] Math object type: OMath"));
     ASSERT_TRUE(visitorText.Contains(u"[OfficeMath start] Math object type: Argument"));
-    ASSERT_TRUE(visitorText.Contains(u"[OfficeMath start] Math object type: Supercript"));
+    ASSERT_TRUE(visitorText.Contains(u"[OfficeMath start] Math object type: Superscript"));
     ASSERT_TRUE(visitorText.Contains(u"[OfficeMath start] Math object type: SuperscriptPart"));
     ASSERT_TRUE(visitorText.Contains(u"[OfficeMath start] Math object type: Fraction"));
     ASSERT_TRUE(visitorText.Contains(u"[OfficeMath start] Math object type: Numerator"));

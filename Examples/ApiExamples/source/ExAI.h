@@ -29,6 +29,7 @@ public:
     void ChangeDefaultUrl();
     void ChangeDefaultTimeout();
     void Gemini();
+    void OpenAiModelConstructor();
     
 };
 

@@ -54,6 +54,7 @@ public:
     void BreakIsStyleSeparator();
     void TabStops();
     void JoinRuns();
+    void JoinRunsWithSameFormattingWithOptions();
     
 protected:
 
