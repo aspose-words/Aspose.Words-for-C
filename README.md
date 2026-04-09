@@ -16,7 +16,6 @@ This repository contains  [Examples](Examples) and [Showcases](Showcases) for [A
 Directory | Description
 --------- | -----------
 [Examples](Examples)  | A collection of C++ examples that help you learn and explore the API features
-[Showcases](Showcases)  | Standalone ready-to-use applications that demonstrate some specific use cases
 
 ## Word File Processing via C++
 
