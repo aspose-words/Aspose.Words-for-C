@@ -323,12 +323,12 @@ void ExComment::Done()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->Writeln(u"Helo world!");
     
-    // Insert a comment to point out an error. 
+    // Insert a comment to point out an error.
     auto comment = System::MakeObject<Aspose::Words::Comment>(doc, u"John Doe", u"J.D.", System::DateTime::get_Now());
     comment->SetText(u"Fix the spelling error!");
     doc->get_FirstSection()->get_Body()->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Comment>>(comment);
     
-    // Comments have a "Done" flag, which is set to "false" by default. 
+    // Comments have a "Done" flag, which is set to "false" by default.
     // If a comment suggests that we make a change within the document,
     // we can apply the change, and then also set the "Done" flag afterwards to indicate the correction.
     ASSERT_FALSE(comment->get_Done());
