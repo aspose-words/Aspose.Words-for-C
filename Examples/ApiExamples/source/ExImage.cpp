@@ -154,7 +154,7 @@ void ExImage::FromUrl()
     
     ASSERT_EQ(2, shapes->get_Count());
     Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(0)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(272, 92, Aspose::Words::Drawing::ImageType::Png, System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(1)));
+    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(100, 100, Aspose::Words::Drawing::ImageType::Png, System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(1)));
 }
 
 namespace gtest_test

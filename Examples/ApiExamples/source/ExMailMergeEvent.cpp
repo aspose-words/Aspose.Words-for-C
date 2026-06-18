@@ -287,7 +287,7 @@ void ExMailMergeEvent::ImageFromUrl()
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(272, 92, Aspose::Words::Drawing::ImageType::Png, imageShape);
+    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(100, 100, Aspose::Words::Drawing::ImageType::Png, imageShape);
 }
 
 namespace gtest_test

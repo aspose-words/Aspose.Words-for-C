@@ -12,9 +12,11 @@
 #include <system/io/stream.h>
 #include <system/io/file_stream.h>
 #include <system/io/file_mode.h>
+#include <system/io/file.h>
 #include <system/exceptions.h>
 #include <system/details/dispose_guard.h>
 #include <system/date_time.h>
+#include <system/array.h>
 #include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
@@ -381,6 +383,54 @@ namespace gtest_test
 TEST_F(ExDigitalSignatureUtil, XmlDsig)
 {
     s_instance->XmlDsig();
+}
+
+} // namespace gtest_test
+
+void ExDigitalSignatureUtil::SignDocumentWithOptions()
+{
+    //ExStart:SignDocumentWithOptions
+    //GistId:0c1fc06a3be66ff29f2a4483a931c1eb
+    //ExFor:SignOptions.WindowsVersion
+    //ExFor:SignOptions.ApplicationVersion
+    //ExFor:SignOptions.OfficeVersion
+    //ExFor:SignOptions.HorizontalResolution
+    //ExFor:SignOptions.VerticalResolution
+    //ExFor:SignOptions.ColorDepth
+    //ExFor:DigitalSignatureUtil.Sign(String,String,CertificateHolder,SignOptions)
+    //ExSummary:Shows how to sign a document with additional signing options.
+    auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
+    signOptions->set_WindowsVersion(u"10.0");
+    signOptions->set_ApplicationVersion(u"16.0.19127");
+    signOptions->set_OfficeVersion(u"16.0.19127/27");
+    signOptions->set_HorizontalResolution(1024);
+    signOptions->set_VerticalResolution(768);
+    signOptions->set_ColorDepth(24);
+    
+    System::ArrayPtr<uint8_t> certBytes = System::IO::File::ReadAllBytes(get_MyDir() + u"morzal.pfx");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> cert = Aspose::Words::DigitalSignatures::CertificateHolder::Create(certBytes, u"aw");
+    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(get_MyDir() + u"Digitally signed.docx", get_ArtifactsDir() + u"DigitalSignatureUtil.docx", cert, signOptions);
+    
+    auto signedDoc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DigitalSignatureUtil.docx");
+    
+    System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignature> signature = signedDoc->get_DigitalSignatures()->idx_get(0);
+    ASSERT_EQ(1, signedDoc->get_DigitalSignatures()->get_Count());
+    ASSERT_TRUE(signature->get_IsValid());
+    ASSERT_EQ(u"10.0", signature->get_WindowsVersion());
+    ASSERT_EQ(u"16.0.19127", signature->get_ApplicationVersion());
+    ASSERT_EQ(u"16.0.19127/27", signature->get_OfficeVersion());
+    ASSERT_EQ(1024, signature->get_HorizontalResolution());
+    ASSERT_EQ(768, signature->get_VerticalResolution());
+    ASSERT_EQ(24, signature->get_ColorDepth());
+    //ExEnd:SignDocumentWithOptions
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExDigitalSignatureUtil, SignDocumentWithOptions)
+{
+    s_instance->SignDocumentWithOptions();
 }
 
 } // namespace gtest_test
