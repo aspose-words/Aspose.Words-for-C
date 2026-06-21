@@ -2645,7 +2645,7 @@ void ExDocumentBuilder::InsertFloatingImage()
     
     image = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 1, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(272, 92, Aspose::Words::Drawing::ImageType::Png, image);
+    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(100, 100, Aspose::Words::Drawing::ImageType::Png, image);
     ASPOSE_ASSERT_EQ(100.0, image->get_Left());
     ASPOSE_ASSERT_EQ(250.0, image->get_Top());
     ASPOSE_ASSERT_EQ(200.0, image->get_Width());

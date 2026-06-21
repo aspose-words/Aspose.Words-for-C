@@ -18,6 +18,7 @@
 #include <functional>
 #include <drawing/color.h>
 #include <cstdint>
+#include <Aspose.Words.Cpp/Model/Themes/ThemeColor.h>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
@@ -27,6 +28,9 @@
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
 #include <Aspose.Words.Cpp/Model/Styles/Style.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooterCollection.h>
+#include <Aspose.Words.Cpp/Model/Sections/HeaderFooter.h>
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/PdfSaveOptions.h>
@@ -35,10 +39,12 @@
 #include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Loading/ResourceType.h>
 #include <Aspose.Words.Cpp/Model/Importing/ImportFormatMode.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Stroke.h>
 #include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
 #include <Aspose.Words.Cpp/Model/Drawing/ImageData.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
+#include <Aspose.Words.Cpp/Model/Document/ImportFormatOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
 #include <Aspose.Words.Cpp/Model/BuildingBlocks/GlossaryDocument.h>
@@ -47,6 +53,7 @@
 using namespace Aspose::Words::BuildingBlocks;
 using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Loading;
+using namespace Aspose::Words::Themes;
 namespace Aspose {
 
 namespace Words {
@@ -353,6 +360,46 @@ namespace gtest_test
 TEST_F(ExDocumentBase, ResourceLoadingCallback)
 {
     s_instance->ResourceLoadingCallback();
+}
+
+} // namespace gtest_test
+
+void ExDocumentBase::ImportNodeWithResolveThemeColors()
+{
+    //ExStart:ImportNodeWithResolveThemeColors
+    //GistId:0c1fc06a3be66ff29f2a4483a931c1eb
+    //ExFor:DocumentBase.ImportNode(Node, Boolean, ImportFormatMode, ImportFormatOptions)
+    //ExFor:ImportFormatOptions.ResolveThemeColors
+    //ExSummary:Shows how to import a node with resolving source theme colors of shapes.
+    auto srcDoc = System::MakeObject<Aspose::Words::Document>();
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(srcDoc);
+    
+    // Move to the primary footer and insert a shape that uses theme colors.
+    builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::FooterPrimary);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertShape(Aspose::Words::Drawing::ShapeType::Rectangle, 100, 50);
+    shape->get_Stroke()->set_ForeThemeColor(Aspose::Words::Themes::ThemeColor::Dark1);
+    
+    auto dstDoc = System::MakeObject<Aspose::Words::Document>();
+    // Import the source footer into the destination document with theme colors resolved,
+    // so the shape preserves its actual color from the source document.
+    System::SharedPtr<Aspose::Words::HeaderFooter> footer = srcDoc->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterPrimary);
+    
+    auto options = System::MakeObject<Aspose::Words::ImportFormatOptions>();
+    options->set_ResolveThemeColors(true);
+    auto importedFooter = System::ExplicitCast<Aspose::Words::HeaderFooter>(dstDoc->ImportNode(footer, true, Aspose::Words::ImportFormatMode::KeepSourceFormatting, options));
+    
+    dstDoc->get_FirstSection()->get_HeadersFooters()->Add(importedFooter);
+    
+    dstDoc->Save(get_ArtifactsDir() + u"DocumentBase.ImportNodeWithResolveThemeColors.docx");
+    //ExEnd:ImportNodeWithResolveThemeColors
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExDocumentBase, ImportNodeWithResolveThemeColors)
+{
+    s_instance->ImportNodeWithResolveThemeColors();
 }
 
 } // namespace gtest_test

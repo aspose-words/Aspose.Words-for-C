@@ -33,6 +33,7 @@ public:
     void NoArgumentsForSing();
     void NoCertificateForSign();
     void XmlDsig();
+    void SignDocumentWithOptions();
     
 };
 

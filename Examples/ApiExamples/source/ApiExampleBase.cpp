@@ -193,7 +193,7 @@ void ApiExampleBase::__StaticConstructor__()
         Aspose::Words::ApiExamples::ApiExampleBase::pr_ImageDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), u"Data/Images/")->get_LocalPath();
         Aspose::Words::ApiExamples::ApiExampleBase::pr_DatabaseDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), u"Data/Database/")->get_LocalPath();
         Aspose::Words::ApiExamples::ApiExampleBase::pr_FontsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), u"Data/MyFonts/")->get_LocalPath();
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_ImageUrl = System::MakeObject<System::Uri>(u"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png")->get_AbsoluteUri();
+        Aspose::Words::ApiExamples::ApiExampleBase::pr_ImageUrl = System::MakeObject<System::Uri>(u"https://httpbin.org/image/png")->get_AbsoluteUri();
     });
 }
 

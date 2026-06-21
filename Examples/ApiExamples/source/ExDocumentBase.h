@@ -59,6 +59,7 @@ public:
     void ImportNodeCustom();
     void BackgroundShape();
     void ResourceLoadingCallback();
+    void ImportNodeWithResolveThemeColors();
     
 protected:
 
