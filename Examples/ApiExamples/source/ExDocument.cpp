@@ -3635,7 +3635,7 @@ void ExDocument::DoclingJson()
     // Set to false (default) to exclude non-image shapes from the output.
     saveOptions->set_RenderNonImageShapes(true);
     
-    doc->Save(get_ArtifactsDir() + u"DoclingSaveOptions.DoclingJson.json", saveOptions);
+    doc->Save(get_ArtifactsDir() + u"Document.DoclingJson.json", saveOptions);
     //ExEnd:DoclingJson
 }
 
@@ -3645,6 +3645,31 @@ namespace gtest_test
 TEST_F(ExDocument, DoclingJson)
 {
     s_instance->DoclingJson();
+}
+
+} // namespace gtest_test
+
+void ExDocument::RemoveCustomizations()
+{
+    //ExStart:RemoveCustomizations
+    //GistId:4f0f7d328594293c40062359b8eb9a08
+    //ExFor:Document.RemoveCustomizations
+    //ExSummary:Shows how to remove toolbar and keyboard command customizations from the document.
+    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Customized menu.docx");
+    
+    // Remove all custom document UI customizations, including custom context menu entries.
+    doc->RemoveCustomizations();
+    
+    doc->Save(get_ArtifactsDir() + u"Document.RemoveCustomizations.docx");
+    //ExEnd:RemoveCustomizations
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExDocument, RemoveCustomizations)
+{
+    s_instance->RemoveCustomizations();
 }
 
 } // namespace gtest_test

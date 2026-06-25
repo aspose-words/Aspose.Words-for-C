@@ -178,6 +178,8 @@ INSTANTIATE_TEST_SUITE_P(, ExHtmlLoadOptions_SupportVml, ::testing::ValuesIn(ExH
 
 void ExHtmlLoadOptions::WebRequestTimeout()
 {
+    System::String imageUri = u"https://samplelib.com/png/sample-alpha-circle-400x300.png";
+    
     // Create a new HtmlLoadOptions object and verify its timeout threshold for a web request.
     auto options = System::MakeObject<Aspose::Words::Loading::HtmlLoadOptions>();
     
@@ -191,7 +193,7 @@ void ExHtmlLoadOptions::WebRequestTimeout()
     
     // Load such a document and verify that a shape with image data has been created.
     // This linked image will require a web request to load, which will have to complete within our time limit.
-    System::String html = System::String::Format(u"\r\n                <html>\r\n                    <img src=\"{0}\" alt=\"Aspose logo\" style=\"width:400px;height:400px;\">\r\n                </html>\r\n            ", get_ImageUrl());
+    System::String html = System::String::Format(u"\r\n                <html>\r\n                    <img src=\"{0}\" alt=\"Aspose logo\" style=\"width:400px;height:400px;\">\r\n                </html>\r\n            ", imageUri);
     
     // Set an unreasonable timeout limit and try load the document again.
     options->set_WebRequestTimeout(0);
@@ -206,7 +208,7 @@ void ExHtmlLoadOptions::WebRequestTimeout()
     // We can also configure a custom callback to pick up any warnings from timed out web requests.
     ASSERT_EQ(Aspose::Words::WarningSource::Html, warningCallback->Warnings()->idx_get(0)->get_Source());
     ASSERT_EQ(Aspose::Words::WarningType::DataLoss, warningCallback->Warnings()->idx_get(0)->get_WarningType());
-    ASSERT_EQ(System::String::Format(u"Couldn't load a resource from \'{0}\'.", get_ImageUrl()), warningCallback->Warnings()->idx_get(0)->get_Description());
+    ASSERT_EQ(System::String::Format(u"Couldn't load a resource from \'{0}\'.", imageUri), warningCallback->Warnings()->idx_get(0)->get_Description());
     
     ASSERT_EQ(Aspose::Words::WarningSource::Html, warningCallback->Warnings()->idx_get(1)->get_Source());
     ASSERT_EQ(Aspose::Words::WarningType::DataLoss, warningCallback->Warnings()->idx_get(1)->get_WarningType());
