@@ -155,6 +155,7 @@ public:
     void ExtractPagesWithOptions();
     void AppendDocumentWithNewPage();
     void DoclingJson();
+    void RemoveCustomizations();
     
 protected:
 
