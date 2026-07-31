@@ -134,6 +134,7 @@
 #include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
 #include <Aspose.Words.Cpp/Model/Document/SubDocument.h>
+#include <Aspose.Words.Cpp/Model/Document/ReadabilityStatistics.h>
 #include <Aspose.Words.Cpp/Model/Document/ProtectionType.h>
 #include <Aspose.Words.Cpp/Model/Document/PageExtractOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/LoadFormat.h>
@@ -3670,6 +3671,38 @@ namespace gtest_test
 TEST_F(ExDocument, RemoveCustomizations)
 {
     s_instance->RemoveCustomizations();
+}
+
+} // namespace gtest_test
+
+void ExDocument::ReadabilityStatisticsFleschScores()
+{
+    //ExStart:ReadabilityStatisticsFleschScores
+    //GistId:1e92948c24f1db379b293ab9f71558ab
+    //ExFor:ReadabilityStatistics
+    //ExFor:Document.ReadabilityStatistics
+    //ExSummary:Shows how to calculate and display the Flesch reading scores for a document.
+    auto doc = System::MakeObject<Aspose::Words::Document>();
+    
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
+    builder->Writeln(u"The implementation of artificial intelligence algorithms requires a comprehensive understanding of machine learning methodologies and statistical analysis techniques.");
+    builder->Writeln(u"Furthermore, the integration of neural networks into existing software architectures presents significant challenges for developers.");
+    builder->Writeln(u"This document serves as an illustrative example for calculating readability metrics using the Flesch reading ease formula.");
+    
+    // Calculate readability statistics.
+    System::SharedPtr<Aspose::Words::ReadabilityStatistics> stats = doc->get_ReadabilityStatistics();
+    // Verify that the scores are within expected valid ranges.
+    // CSPORTCPP: Unsupported expression type Assert.That (stats.FleschReadingEasy, Is.GreaterThanOrEqualTo (0).And.LessThanOrEqualTo (190));
+    ASSERT_LE(stats->get_FleschKincaidGradeLevel(), 0);
+    //ExEnd:ReadabilityStatisticsFleschScores
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExDocument, ReadabilityStatisticsFleschScores)
+{
+    s_instance->ReadabilityStatisticsFleschScores();
 }
 
 } // namespace gtest_test

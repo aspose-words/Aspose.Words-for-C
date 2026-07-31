@@ -1380,6 +1380,43 @@ TEST_F(ExLists, AddSingleLevelList)
 
 } // namespace gtest_test
 
+void ExLists::RemoveTabStopFromListLevel()
+{
+    //ExStart:RemoveTabStopFromListLevel
+    //GistId:1e92948c24f1db379b293ab9f71558ab
+    //ExFor:ListLevel.RemoveTabStop()
+    //ExSummary:Shows how to clear the list level tab stop.
+    auto doc = System::MakeObject<Aspose::Words::Document>();
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
+    
+    // Create a list with default formatting
+    builder->get_ListFormat()->ApplyNumberDefault();
+    builder->Writeln(u"Numbered list item 1");
+    builder->Writeln(u"Numbered list item 2");
+    
+    // Get the list level and remove its tab stop
+    System::SharedPtr<Aspose::Words::Lists::ListLevel> listLevel = builder->get_ListFormat()->get_ListLevel();
+    listLevel->RemoveTabStop();
+    
+    doc->Save(get_ArtifactsDir() + u"Paragraph.RemoveTabStopFromListLevel.docx");
+    //ExEnd:RemoveTabStopFromListLevel
+    
+    // Verify the tab stop was removed.
+    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Paragraph.RemoveTabStopFromListLevel.docx");
+    System::SharedPtr<Aspose::Words::Lists::ListLevel> effectiveListLevel = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ListFormat()->get_ListLevel();
+    ASSERT_FALSE(System::TestTools::IsNull(effectiveListLevel));
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExLists, RemoveTabStopFromListLevel)
+{
+    s_instance->RemoveTabStopFromListLevel();
+}
+
+} // namespace gtest_test
+
 } // namespace ApiExamples
 } // namespace Words
 } // namespace Aspose

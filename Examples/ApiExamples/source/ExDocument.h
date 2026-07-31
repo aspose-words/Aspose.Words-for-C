@@ -156,6 +156,7 @@ public:
     void AppendDocumentWithNewPage();
     void DoclingJson();
     void RemoveCustomizations();
+    void ReadabilityStatisticsFleschScores();
     
 protected:
 
