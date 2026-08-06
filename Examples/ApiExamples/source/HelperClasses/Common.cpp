@@ -52,6 +52,7 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
     manager->set_Contracts(System::MakeArray<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>({initValue, initValue2, initValue3}));
     
     result->Add(manager);
+    
     manager = System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass>();
     manager->set_Name(u"Tony Anderson");
     manager->set_Age(37);
@@ -73,6 +74,7 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
     manager->set_Contracts(System::MakeArray<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>({initValue4, initValue5}));
     
     result->Add(manager);
+    
     manager = System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass>();
     manager->set_Name(u"July James");
     manager->set_Age(38);

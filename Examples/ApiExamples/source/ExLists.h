@@ -50,6 +50,7 @@ public:
     void HasSameTemplate();
     void SetCustomNumberStyleFormat();
     void AddSingleLevelList();
+    void RemoveTabStopFromListLevel();
     
 protected:
 
