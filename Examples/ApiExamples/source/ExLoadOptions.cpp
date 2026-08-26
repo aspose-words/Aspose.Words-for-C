@@ -138,17 +138,13 @@ RTTI_INFO_IMPL_HASH(3052477640u, ::Aspose::Words::ApiExamples::ExLoadOptions, Th
 
 void ExLoadOptions::TestLoadOptionsWarningCallback(System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::WarningInfo>>> warnings)
 {
-    ASSERT_EQ(Aspose::Words::WarningType::UnexpectedContent, warnings->idx_get(0)->get_WarningType());
+    ASSERT_EQ(Aspose::Words::WarningType::MinorFormattingLoss, warnings->idx_get(0)->get_WarningType());
     ASSERT_EQ(Aspose::Words::WarningSource::Docx, warnings->idx_get(0)->get_Source());
-    ASSERT_EQ(u"3F01", warnings->idx_get(0)->get_Description());
+    ASSERT_EQ(u"Import of element 'shapedefaults' is not supported in Docx format by Aspose.Words.", warnings->idx_get(0)->get_Description());
     
     ASSERT_EQ(Aspose::Words::WarningType::MinorFormattingLoss, warnings->idx_get(1)->get_WarningType());
     ASSERT_EQ(Aspose::Words::WarningSource::Docx, warnings->idx_get(1)->get_Source());
-    ASSERT_EQ(u"Import of element 'shapedefaults' is not supported in Docx format by Aspose.Words.", warnings->idx_get(1)->get_Description());
-    
-    ASSERT_EQ(Aspose::Words::WarningType::MinorFormattingLoss, warnings->idx_get(2)->get_WarningType());
-    ASSERT_EQ(Aspose::Words::WarningSource::Docx, warnings->idx_get(2)->get_Source());
-    ASSERT_EQ(u"Import of element 'extraClrSchemeLst' is not supported in Docx format by Aspose.Words.", warnings->idx_get(2)->get_Description());
+    ASSERT_EQ(u"Import of element 'extraClrSchemeLst' is not supported in Docx format by Aspose.Words.", warnings->idx_get(1)->get_Description());
 }
 
 
@@ -286,7 +282,7 @@ void ExLoadOptions::FontSettings()
 {
     //ExStart
     //ExFor:LoadOptions.FontSettings
-    //ExSummary:Shows how to apply font substitution settings while loading a document. 
+    //ExSummary:Shows how to apply font substitution settings while loading a document.
     // Create a FontSettings object that will substitute the "Times New Roman" font
     // with the font "Arvo" from our "MyFonts" folder.
     auto fontSettings = System::MakeObject<Aspose::Words::Fonts::FontSettings>();
@@ -355,7 +351,7 @@ void ExLoadOptions::LoadOptionsWarningCallback()
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx", loadOptions);
     
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::WarningInfo>>> warnings = (System::ExplicitCast<Aspose::Words::ApiExamples::ExLoadOptions::DocumentLoadingWarningCallback>(loadOptions->get_WarningCallback()))->GetWarnings();
-    ASSERT_EQ(3, warnings->get_Count());
+    ASSERT_EQ(2, warnings->get_Count());
     TestLoadOptionsWarningCallback(warnings);
     //ExSkip
 }

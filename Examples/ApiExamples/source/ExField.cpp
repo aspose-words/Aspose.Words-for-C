@@ -1353,7 +1353,7 @@ void ExField::DisplayResult()
     // a field would display in its place in the document.
     ASSERT_EQ(System::String::Empty, fieldAuthor->get_DisplayResult());
     
-    // Fields do not maintain accurate result values in real-time. 
+    // Fields do not maintain accurate result values in real-time.
     // To make sure our fields display accurate results at any given time,
     // such as right before a save operation, we need to update them manually.
     fieldAuthor->Update();
@@ -2004,7 +2004,7 @@ void ExField::FieldAdvance()
     //ExFor:FieldAdvance.RightOffset
     //ExFor:FieldAdvance.UpOffset
     //ExFor:FieldAdvance.VerticalPosition
-    //ExSummary:Shows how to insert an ADVANCE field, and edit its properties. 
+    //ExSummary:Shows how to insert an ADVANCE field, and edit its properties.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
@@ -2444,7 +2444,7 @@ void ExField::FieldAutoNumLgl()
     
     // AUTONUMLGL fields display a number that increments at each AUTONUMLGL field within its current heading level.
     // These fields maintain a separate count for each heading level,
-    // and each field also displays the AUTONUMLGL field counts for all heading levels below its own. 
+    // and each field also displays the AUTONUMLGL field counts for all heading levels below its own.
     // Changing the count for any heading level resets the counts for all levels above that level to 1.
     // This allows us to organize our document in the form of an outline list.
     // This is the first AUTONUMLGL field at a heading level of 1, displaying "1." in the document.
@@ -2457,7 +2457,7 @@ void ExField::FieldAutoNumLgl()
     // and the AUTONUMLGL count for the heading level below it is "2", so it will display "2.1.".
     InsertNumberedClause(builder, u"\tHeading 3", fillerText, Aspose::Words::StyleIdentifier::Heading2);
     
-    // This is the first AUTONUMLGL field at a heading level of 3. 
+    // This is the first AUTONUMLGL field at a heading level of 3.
     // Working in the same way as the field above, it will display "2.1.1.".
     InsertNumberedClause(builder, u"\tHeading 4", fillerText, Aspose::Words::StyleIdentifier::Heading3);
     
@@ -2559,7 +2559,7 @@ void ExField::FieldAutoText()
     //ExFor:FieldOptions.BuiltInTemplatesPaths
     //ExFor:FieldGlossary
     //ExFor:FieldGlossary.EntryName
-    //ExSummary:Shows how to display a building block with AUTOTEXT and GLOSSARY fields. 
+    //ExSummary:Shows how to display a building block with AUTOTEXT and GLOSSARY fields.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     // Create a glossary document and add an AutoText building block to it.
@@ -2687,7 +2687,7 @@ void ExField::FieldListNum()
     
     ASSERT_EQ(u" LISTNUM  \\s 0", field->GetFieldCode());
     
-    // LISTNUM fields maintain separate counts for each list level. 
+    // LISTNUM fields maintain separate counts for each list level.
     // Inserting a LISTNUM field in the same paragraph as another LISTNUM field
     // increases the list level instead of the count.
     // The next field will continue the count we started above and display a value of "1" at list level 1.
@@ -2815,7 +2815,7 @@ void ExField::FieldToc()
     // The TOC will not display the page numbers of headings whose TOC levels are within this range.
     field->set_PageNumberOmittingLevelRange(u"2-5");
     
-    // Set a custom string that will separate every heading from its page number. 
+    // Set a custom string that will separate every heading from its page number.
     field->set_EntrySeparator(u"-");
     field->set_InsertHyperlinks(true);
     field->set_HideInWebLayout(false);
@@ -2929,7 +2929,7 @@ void ExField::TocSeqPrefix()
     fieldToc->set_TableOfFiguresLabel(u"MySequence");
     
     // We can name another SEQ field sequence in the "PrefixedSequenceIdentifier" property.
-    // SEQ fields from this prefix sequence will not create TOC entries. 
+    // SEQ fields from this prefix sequence will not create TOC entries.
     // Every TOC entry created from a main sequence SEQ field will now also display the count that
     // the prefix sequence is currently on at the primary sequence SEQ field that made the entry.
     fieldToc->set_PrefixedSequenceIdentifier(u"PrefixSequence");
@@ -4112,7 +4112,7 @@ void ExField::FieldIndexSubheading(bool runSubentriesOnTheSameLine)
     // headings, the INDEX field will further subgroup them by the values of these headings.
     // There can be multiple subgrouping layers, depending on how many times
     // the Text properties of XE fields get segmented like this.
-    // By default, an INDEX field entry group will create a new line for every subheading within this group. 
+    // By default, an INDEX field entry group will create a new line for every subheading within this group.
     // We can set the RunSubentriesOnSameLine flag to true to keep the heading,
     // and every subheading for the group on one line instead, which will make the INDEX field more compact.
     index->set_RunSubentriesOnSameLine(runSubentriesOnTheSameLine);
@@ -4336,7 +4336,7 @@ void ExField::FieldBarcode()
     //ExFor:FieldBarcode.IsBookmark
     //ExFor:FieldBarcode.IsUSPostalAddress
     //ExFor:FieldBarcode.PostalAddress
-    //ExSummary:Shows how to use the BARCODE field to display U.S. ZIP codes in the form of a barcode. 
+    //ExSummary:Shows how to use the BARCODE field to display U.S. ZIP codes in the form of a barcode.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
@@ -4417,7 +4417,7 @@ void ExField::FieldDisplayBarcode()
     //ExFor:FieldDisplayBarcode.ScalingFactor
     //ExFor:FieldDisplayBarcode.SymbolHeight
     //ExFor:FieldDisplayBarcode.SymbolRotation
-    //ExSummary:Shows how to insert a DISPLAYBARCODE field, and set its properties. 
+    //ExSummary:Shows how to insert a DISPLAYBARCODE field, and set its properties.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
@@ -4695,7 +4695,7 @@ void ExField::FieldUserInitials()
     ASSERT_EQ(u" USERINITIALS ", fieldUserInitials->GetFieldCode());
     ASSERT_EQ(u"J. D.", fieldUserInitials->get_Result());
     
-    // We can set this property to get our field to override the value currently stored in the UserInformation object. 
+    // We can set this property to get our field to override the value currently stored in the UserInformation object.
     fieldUserInitials->set_UserInitials(u"J. C.");
     fieldUserInitials->Update();
     
@@ -4750,7 +4750,7 @@ void ExField::FieldUserName()
     ASSERT_EQ(u" USERNAME ", fieldUserName->GetFieldCode());
     ASSERT_EQ(u"John Doe", fieldUserName->get_Result());
     
-    // We can set this property to get our field to override the value currently stored in the UserInformation object. 
+    // We can set this property to get our field to override the value currently stored in the UserInformation object.
     fieldUserName->set_UserName(u"Jane Doe");
     fieldUserName->Update();
     
@@ -4801,7 +4801,7 @@ void ExField::FieldStyleRefParagraphNumbers()
     System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::NumberDefault);
     
     // This generated list will display "1.a )".
-    // Space before the bracket is a non-delimiter character, which we can suppress. 
+    // Space before the bracket is a non-delimiter character, which we can suppress.
     list->get_ListLevels()->idx_get(0)->set_NumberFormat(u"\x0000" u".");
     list->get_ListLevels()->idx_get(1)->set_NumberFormat(u"\x0001" u" )");
     
@@ -5172,7 +5172,7 @@ void ExField::FieldBuilder()
     innerFormulaBuilder->AddArgument(74);
     
     // Create another builder for another SYMBOL field, and insert the formula field
-    // that we have created above into the SYMBOL field as its argument. 
+    // that we have created above into the SYMBOL field as its argument.
     builder = System::MakeObject<Aspose::Words::Fields::FieldBuilder>(Aspose::Words::Fields::FieldType::FieldSymbol);
     builder->AddArgument(innerFormulaBuilder);
     field = builder->BuildAndInsert(doc->get_FirstSection()->get_Body()->AppendParagraph(System::String::Empty));
@@ -5208,7 +5208,7 @@ void ExField::FieldBuilder()
     falseOutput->AddNode(System::MakeObject<Aspose::Words::Run>(doc, u" does not equal "));
     falseOutput->AddField(rightExpression);
     
-    // Finally, we will create one more field builder for the IF field and combine all of the expressions. 
+    // Finally, we will create one more field builder for the IF field and combine all of the expressions.
     builder = System::MakeObject<Aspose::Words::Fields::FieldBuilder>(Aspose::Words::Fields::FieldType::FieldIf);
     builder->AddArgument(leftExpression);
     builder->AddArgument(u"=");
@@ -5278,7 +5278,7 @@ void ExField::FieldAuthor()
     // If we create and save a document in Microsoft Word,
     // it will have our username in that property.
     // However, if we create a document programmatically using Aspose.Words,
-    // the "Author" property, by default, will be an empty string. 
+    // the "Author" property, by default, will be an empty string.
     ASSERT_EQ(System::String::Empty, doc->get_BuiltInDocumentProperties()->get_Author());
     
     // Set a backup author name for AUTHOR fields to use
@@ -5880,7 +5880,7 @@ void ExField::FieldNum()
     
     // These fields will not maintain accurate values in real time
     // while we edit the document programmatically using Aspose.Words, or in Microsoft Word.
-    // We need to update them every we need to see an up-to-date value. 
+    // We need to update them every we need to see an up-to-date value.
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.NUMCHARS.NUMWORDS.NUMPAGES.PAGE.docx");
     //ExEnd
@@ -6293,7 +6293,7 @@ void ExField::FieldRD()
     
     ASSERT_EQ(System::String::Format(u" RD  {0}ReferencedDocument.docx", get_ArtifactsDir().Replace(u"\\", u"\\\\")), field->GetFieldCode());
     
-    // Create the document that the RD field is referencing and insert a heading. 
+    // Create the document that the RD field is referencing and insert a heading.
     // This heading will show up as an entry in the TOC field in our first document.
     auto referencedDoc = System::MakeObject<Aspose::Words::Document>();
     auto refDocBuilder = System::MakeObject<Aspose::Words::DocumentBuilder>(referencedDoc);
@@ -6344,7 +6344,7 @@ void ExField::FieldSetRef()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    // Name bookmarked text with a SET field. 
+    // Name bookmarked text with a SET field.
     // This field refers to the "bookmark" not a bookmark structure that appears within the text, but a named variable.
     auto fieldSet = System::ExplicitCast<Aspose::Words::Fields::FieldSet>(builder->InsertField(Aspose::Words::Fields::FieldType::FieldSet, false));
     fieldSet->set_BookmarkName(u"MyBookmark");
@@ -6541,7 +6541,7 @@ void ExField::FieldTitle()
     //ExSummary:Shows how to use the TITLE field.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    // Set a value for the "Title" built-in document property. 
+    // Set a value for the "Title" built-in document property.
     doc->get_BuiltInDocumentProperties()->set_Title(u"My Title");
     
     // We can use the TITLE field to display the value of this property in the document.
@@ -6803,7 +6803,7 @@ void ExField::FieldEQ()
     // We can find the full list of switches, along with their uses here:
     // https://blogs.msdn.microsoft.com/murrays/2018/01/23/microsoft-word-eq-field/
     
-    // Below are applications of nine different EQ field switches that we can use to create different kinds of objects. 
+    // Below are applications of nine different EQ field switches that we can use to create different kinds of objects.
     // 1 -  Array switch "\a", aligned left, 2 columns, 3 points of horizontal and vertical spacing:
     InsertFieldEQ(builder, u"\\a \\al \\co2 \\vs3 \\hs3(4x,- 4y,-4x,+ y)");
     
@@ -6960,7 +6960,7 @@ void ExField::FieldLastSavedBy()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // If we create a document in Microsoft Word, it will have the user's name in the "Last saved by" built-in property.
-    // If we make a document programmatically, this property will be null, and we will need to assign a value. 
+    // If we make a document programmatically, this property will be null, and we will need to assign a value.
     doc->get_BuiltInDocumentProperties()->set_LastSavedBy(u"John Doe");
     
     // We can use the LASTSAVEDBY field to display the value of this property in the document.
