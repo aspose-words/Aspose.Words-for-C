@@ -27,6 +27,7 @@ public:
     void BookFold(bool renderTextAsBookFold);
     void ExportExactPages();
     void XpsDigitalSignature();
+    void CompressionLevelXps();
     
 };
 

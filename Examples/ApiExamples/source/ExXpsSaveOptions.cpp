@@ -9,6 +9,7 @@
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
+#include <system/io/file_info.h>
 #include <system/enumerator_adapter.h>
 #include <system/date_time.h>
 #include <system/array.h>
@@ -25,6 +26,7 @@
 #include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
 #include <Aspose.Words.Cpp/Model/Saving/OutlineOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/DigitalSignatureDetails.h>
+#include <Aspose.Words.Cpp/Model/Saving/CompressionLevel.h>
 #include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
@@ -260,6 +262,39 @@ namespace gtest_test
 TEST_F(ExXpsSaveOptions, XpsDigitalSignature)
 {
     s_instance->XpsDigitalSignature();
+}
+
+} // namespace gtest_test
+
+void ExXpsSaveOptions::CompressionLevelXps()
+{
+    //ExStart:CompressionLevelXps
+    //GistId:7d9e4e6d70159060102d291fbe71c144
+    //ExFor:XpsSaveOptions.CompressionLevel
+    //ExFor:CompressionLevel
+    //ExSummary:Shows how to control the compression level when saving a document to XPS format.
+    auto doc = System::MakeObject<Aspose::Words::Document>();
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
+    
+    builder->Writeln(u"Sample document for XPS compression test.");
+    
+    // Create an XpsSaveOptions object and set the compression level.
+    auto options = System::MakeObject<Aspose::Words::Saving::XpsSaveOptions>();
+    options->set_CompressionLevel(Aspose::Words::Saving::CompressionLevel::Maximum);
+    
+    doc->Save(get_ArtifactsDir() + u"XpsSaveOptions.CompressionLevelXps.xps", options);
+    //ExEnd:CompressionLevelXps
+    
+    auto fileInfo = System::MakeObject<System::IO::FileInfo>(get_ArtifactsDir() + u"XpsSaveOptions.CompressionLevelXps.xps");
+    ASSERT_LT(fileInfo->get_Length(), 40000);
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExXpsSaveOptions, CompressionLevelXps)
+{
+    s_instance->CompressionLevelXps();
 }
 
 } // namespace gtest_test
