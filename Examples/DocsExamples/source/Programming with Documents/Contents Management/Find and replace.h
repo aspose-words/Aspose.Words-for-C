@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -682,6 +682,52 @@ public:
         }
     };
     //ExEnd:UsingLegacyOrder
+
+    void HighlightColor()
+    {
+        //ExStart:HighlightColor
+        //GistId:27c3408b2c7fbee8d6dc6a1c8b61c105
+        auto doc = MakeObject<Document>(MyDir + u"Footer.docx");
+
+        auto options = MakeObject<FindReplaceOptions>();
+        options->get_ApplyFont()->set_HighlightColor(System::Drawing::Color::get_DarkOrange());
+        doc->get_Range()->Replace(MakeObject<System::Text::RegularExpressions::Regex>(u"(header|footer)"), u"", options);
+        //ExEnd:HighlightColor
+    }
+
+    //ExStart:LineCounter
+    void LineCounter()
+    {
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->Writeln(u"This is first line");
+        builder->Writeln(u"Second line");
+        builder->Writeln(u"And last line");
+
+        // Prepend each line with line number.
+        auto opt = MakeObject<FindReplaceOptions>();
+        opt->set_ReplacingCallback(MakeObject<LineCounterCallback>());
+        doc->get_Range()->Replace(MakeObject<System::Text::RegularExpressions::Regex>(u"[^&p]*&p"), u"", opt);
+
+        doc->Save(ArtifactsDir + u"FindAndReplace.LineCounter.docx");
+    }
+
+    class LineCounterCallback : public IReplacingCallback
+    {
+    public:
+        ReplaceAction Replacing(SharedPtr<ReplacingArgs> args) override
+        {
+            std::cout << args->get_Match()->get_Value() << std::endl;
+
+            args->set_Replacement(String::Format(u"{0} {1}", mCounter++, args->get_Match()->get_Value()));
+            return ReplaceAction::Replace;
+        }
+
+    private:
+        int mCounter = 1;
+    };
+    //ExEnd:LineCounter
 
     void ReplaceTextInTable()
     {

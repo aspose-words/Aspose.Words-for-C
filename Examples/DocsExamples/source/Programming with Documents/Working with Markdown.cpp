@@ -29,6 +29,11 @@ protected:
 
 System::SharedPtr<::DocsExamples::Programming_with_Documents::WorkingWithMarkdown> WorkingWithMarkdown::s_instance;
 
+TEST_F(WorkingWithMarkdown, SupportedFeatures)
+{
+    s_instance->SupportedFeatures();
+}
+
 TEST_F(WorkingWithMarkdown, BoldText)
 {
     s_instance->BoldText();

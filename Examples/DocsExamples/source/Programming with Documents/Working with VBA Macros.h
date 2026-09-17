@@ -110,7 +110,8 @@ public:
 
     void RemoveBrokenRef()
     {
-        //ExStart:RemoveReferenceFromCollectionOfReferences
+        //ExStart:RemoveVbaReferences
+        //GistId:d9bac4ed890f81ea3de392ecfeedbc55
         auto doc = MakeObject<Document>(MyDir + u"VBA project.docm");
 
         // Find and remove the reference with some LibId path.
@@ -128,7 +129,7 @@ public:
         }
 
         doc->Save(ArtifactsDir + u"WorkingWithVba.RemoveBrokenRef.docm");
-        //ExEnd:RemoveReferenceFromCollectionOfReferences
+        //ExEnd:RemoveVbaReferences
     }
     //ExStart:GetLibIdAndReferencePath
     /// <summary>

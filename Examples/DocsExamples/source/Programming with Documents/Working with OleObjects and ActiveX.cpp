@@ -50,6 +50,16 @@ TEST_F(WorkingWithOleObjectsAndActiveX, InsertOleObjectAsIconUsingStream)
     s_instance->InsertOleObjectAsIconUsingStream();
 }
 
+TEST_F(WorkingWithOleObjectsAndActiveX, InsertOnlineVideo)
+{
+    s_instance->InsertOnlineVideo();
+}
+
+TEST_F(WorkingWithOleObjectsAndActiveX, InsertOnlineVideoWithEmbedHtml)
+{
+    s_instance->InsertOnlineVideoWithEmbedHtml();
+}
+
 TEST_F(WorkingWithOleObjectsAndActiveX, ReadActiveXControlProperties)
 {
     s_instance->ReadActiveXControlProperties();

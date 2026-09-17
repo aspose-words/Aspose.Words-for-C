@@ -28,6 +28,11 @@ protected:
 
 System::SharedPtr<::DocsExamples::Programming_with_Documents::Contents_Management::WorkingWithTableOfContent> WorkingWithTableOfContent::s_instance;
 
+TEST_F(WorkingWithTableOfContent, ExtractToc)
+{
+    s_instance->ExtractToc();
+}
+
 TEST_F(WorkingWithTableOfContent, ChangeStyleOfTocLevel)
 {
     s_instance->ChangeStyleOfTocLevel();

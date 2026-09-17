@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -11,8 +11,12 @@
 #include <Aspose.Words.Cpp/Drawing/Shape.h>
 #include <Aspose.Words.Cpp/Drawing/WrapType.h>
 #include <Aspose.Words.Cpp/PageSetup.h>
+#include <Aspose.Words.Cpp/Range.h>
+#include <Aspose.Words.Cpp/Replacing/FindReplaceOptions.h>
 #include <Aspose.Words.Cpp/SaveFormat.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
+#include <Aspose.Words.Cpp/Saving/CompressionLevel.h>
+#include <Aspose.Words.Cpp/Saving/XlsxSaveOptions.h>
 #include <drawing/image.h>
 #include <drawing/imaging/frame_dimension.h>
 #include <system/array.h>
@@ -22,6 +26,15 @@
 #include <system/io/file_stream.h>
 #include <system/io/memory_stream.h>
 #include <system/io/stream.h>
+
+#ifdef ASPOSE_EMAIL_AVAILABLE
+// Aspose.Email for C++ headers. Its NuGet package puts include\Aspose.Email.Cpp
+// on the include path, so these are referenced without a package prefix.
+#include <Clients/Smtp/SmtpClient/SmtpClient.h>
+#include <MailAddressCollection.h>
+#include <MailMessage.h>
+#include <MhtmlLoadOptions.h>
+#endif
 
 #include "DocsExamplesBase.h"
 
@@ -127,6 +140,88 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
         doc->Save(ArtifactsDir + u"BaseConversions.DocxToTxt.txt");
         //ExEnd:DocxToTxt
+    }
+
+    void DocxToHtml()
+    {
+        //ExStart:DocxToHtml
+        //GistId:c0df00d37081f41a7683339fd7ef66c1
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+
+        doc->Save(ArtifactsDir + u"BaseConversions.DocxToHtml.html");
+        //ExEnd:DocxToHtml
+    }
+
+#ifdef ASPOSE_EMAIL_AVAILABLE
+    void DocxToMhtml()
+    {
+        //ExStart:DocxToMhtml
+        //GistId:537e7d4e2ddd23fa701dc4bf315064b9
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+
+        SharedPtr<System::IO::Stream> stream = MakeObject<System::IO::MemoryStream>();
+        doc->Save(stream, SaveFormat::Mhtml);
+
+        // Rewind the stream to the beginning so Aspose.Email can read it.
+        stream->set_Position(0);
+
+        // Create an Aspose.Email MIME email message from the stream.
+        SharedPtr<Aspose::Email::MailMessage> message =
+            Aspose::Email::MailMessage::Load(stream, MakeObject<Aspose::Email::MhtmlLoadOptions>());
+        message->set_From(u"your_from@email.com");
+        message->get_To()->Add(u"your_to@email.com");
+        message->set_Subject(u"Aspose.Words + Aspose.Email MHTML Test Message");
+
+        // Send the message using Aspose.Email.
+        auto client = MakeObject<Aspose::Email::Clients::Smtp::SmtpClient>();
+        client->set_Host(u"your_smtp.com");
+        client->Send(message);
+        //ExEnd:DocxToMhtml
+    }
+#endif
+
+    void DocxToXlsx()
+    {
+        //ExStart:DocxToXlsx
+        //GistId:f5a08835e924510d3809e41c3b8b81a2
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+        doc->Save(ArtifactsDir + u"BaseConversions.DocxToXlsx.xlsx");
+        //ExEnd:DocxToXlsx
+    }
+
+    void FindReplaceXlsx()
+    {
+        //ExStart:FindReplaceXlsx
+        //GistId:a50652f28531278511605e0fd778bbdf
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        builder->Writeln(u"Ruby bought a ruby necklace.");
+
+        // We can use a "FindReplaceOptions" object to modify the find-and-replace process.
+        auto options = MakeObject<Replacing::FindReplaceOptions>();
+
+        // Set the "MatchCase" flag to "true" to apply case sensitivity while finding strings to replace.
+        // Set the "MatchCase" flag to "false" to ignore character case while searching for text to replace.
+        options->set_MatchCase(true);
+
+        doc->get_Range()->Replace(u"Ruby", u"Jade", options);
+
+        doc->Save(ArtifactsDir + u"BaseConversions.FindReplaceXlsx.xlsx");
+        //ExEnd:FindReplaceXlsx
+    }
+
+    void CompressXlsx()
+    {
+        //ExStart:CompressXlsx
+        //GistId:a50652f28531278511605e0fd778bbdf
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+
+        auto saveOptions = MakeObject<Saving::XlsxSaveOptions>();
+        saveOptions->set_CompressionLevel(Saving::CompressionLevel::Maximum);
+
+        doc->Save(ArtifactsDir + u"BaseConversions.CompressXlsx.xlsx", saveOptions);
+        //ExEnd:CompressXlsx
     }
 
     void TxtToDocx()

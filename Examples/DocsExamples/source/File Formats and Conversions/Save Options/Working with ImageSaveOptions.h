@@ -8,11 +8,13 @@
 #include <Aspose.Words.Cpp/Saving/ImageColorMode.h>
 #include <Aspose.Words.Cpp/Saving/ImagePixelFormat.h>
 #include <Aspose.Words.Cpp/Saving/ImageSaveOptions.h>
+#include <Aspose.Words.Cpp/Saving/MultiPageLayout.h>
 #include <Aspose.Words.Cpp/Saving/PageRange.h>
 #include <Aspose.Words.Cpp/Saving/PageSavingArgs.h>
 #include <Aspose.Words.Cpp/Saving/PageSet.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Saving/TiffCompression.h>
+#include <drawing/color.h>
 #include <system/array.h>
 #include <system/object.h>
 
@@ -87,6 +89,55 @@ public:
 
         doc->Save(ArtifactsDir + u"WorkingWithImageSaveOptions.GetJpegPageRange.jpeg", options);
         //ExEnd:GetJpegPageRange
+    }
+
+    void Format1BppIndexed()
+    {
+        //ExStart:Format1BppIndexed
+        //GistId:83e5c469d0e72b5114fb8a05a1d01977
+        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
+
+        auto saveOptions = MakeObject<ImageSaveOptions>(SaveFormat::Png);
+        saveOptions->set_PageSet(MakeObject<PageSet>(1));
+        saveOptions->set_ImageColorMode(ImageColorMode::BlackAndWhite);
+        saveOptions->set_PixelFormat(ImagePixelFormat::Format1bppIndexed);
+
+        doc->Save(ArtifactsDir + u"WorkingWithImageSaveOptions.Format1BppIndexed.Png", saveOptions);
+        //ExEnd:Format1BppIndexed
+    }
+
+    void HorizontalLayout()
+    {
+        //ExStart:HorizontalLayout
+        //GistId:8eeaafcfcc55d78505f0f378ad8c6907
+        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
+
+        auto options = MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);
+        options->set_PageLayout(MultiPageLayout::Horizontal(10));
+
+        doc->Save(ArtifactsDir + u"WorkingWithImageSaveOptions.HorizontalLayout.jpg", options);
+        //ExEnd:HorizontalLayout
+    }
+
+    void GridLayout()
+    {
+        //ExStart:GridLayout
+        //GistId:8eeaafcfcc55d78505f0f378ad8c6907
+        auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
+
+        auto options = MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);
+        // Set up a grid layout with:
+        // - 3 columns per row.
+        // - 10pts spacing between pages (horizontal and vertical).
+        options->set_PageLayout(MultiPageLayout::Grid(3, 10, 10));
+
+        // Customize the background and border.
+        options->get_PageLayout()->set_BackColor(System::Drawing::Color::get_LightGray());
+        options->get_PageLayout()->set_BorderColor(System::Drawing::Color::get_Blue());
+        options->get_PageLayout()->set_BorderWidth(2);
+
+        doc->Save(ArtifactsDir + u"ImageSaveOptions.GridLayout.jpg", options);
+        //ExEnd:GridLayout
     }
 
     //ExStart:PageSavingCallback

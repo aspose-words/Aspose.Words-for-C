@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+    <!-- Aspose.Email for C++ is optional; it is only used by BaseConversions.DocxToMhtml. -->
+    <AsposeEmailTargets>$(MSBuildThisFileDirectory)..\..\packages\Aspose.Email.Cpp.26.8.0\build\native\aspose.email.cpp.targets</AsposeEmailTargets>
+    <!-- Aspose.BarCode for C++ is optional; it is only used by WorkingWithBarcodeGenerator. -->
+    <AsposeBarCodeTargets>$(MSBuildThisFileDirectory)..\..\packages\Aspose.BarCode.Cpp.26.8.0\build\native\Aspose.BarCode.Cpp.targets</AsposeBarCodeTargets>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -96,6 +100,8 @@
       <IncludeInUnityFile>true</IncludeInUnityFile>
       <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions Condition="Exists('$(AsposeEmailTargets)')">ASPOSE_EMAIL_AVAILABLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="Exists('$(AsposeBarCodeTargets)')">ASPOSE_BARCODE_AVAILABLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,6 +116,8 @@
       <IncludeInUnityFile>true</IncludeInUnityFile>
       <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions Condition="Exists('$(AsposeEmailTargets)')">ASPOSE_EMAIL_AVAILABLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="Exists('$(AsposeBarCodeTargets)')">ASPOSE_BARCODE_AVAILABLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -127,6 +135,8 @@
       <IncludeInUnityFile>true</IncludeInUnityFile>
       <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions Condition="Exists('$(AsposeEmailTargets)')">ASPOSE_EMAIL_AVAILABLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="Exists('$(AsposeBarCodeTargets)')">ASPOSE_BARCODE_AVAILABLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +155,8 @@
       <IncludeInUnityFile>true</IncludeInUnityFile>
       <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions Condition="Exists('$(AsposeEmailTargets)')">ASPOSE_EMAIL_AVAILABLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="Exists('$(AsposeBarCodeTargets)')">ASPOSE_BARCODE_AVAILABLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -181,6 +193,7 @@
     <ClCompile Include="..\SQLiteCpp\sqlite3.c" />
     <ClCompile Include="..\SQLiteCpp\Statement.cpp" />
     <ClCompile Include="..\SQLiteCpp\Transaction.cpp" />
+    <ClCompile Include="source\AI-powered Features\Working with AI.cpp" />
     <ClCompile Include="source\Getting started\Hello world.cpp" />
     <ClCompile Include="source\Getting started\Apply License.cpp" />
     <ClCompile Include="source\DocsExamplesBase.cpp" />
@@ -236,6 +249,7 @@
     <ClCompile Include="source\Programming with Documents\Working with Fonts.cpp" />
     <ClCompile Include="source\Programming with Documents\Working with Footnote and Endnote.cpp" />
     <ClCompile Include="source\Programming with Documents\Working with FormFields.cpp" />
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with BarcodeGenerator.cpp" />
     <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Charts.cpp" />
     <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Images.cpp" />
     <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with OfficeMath.cpp" />
@@ -276,6 +290,7 @@
     <ClInclude Include="..\SQLiteCpp\Transaction.h" />
     <ClInclude Include="..\SQLiteCpp\Utils.h" />
     <ClInclude Include="..\SQLiteCpp\VariadicBind.h" />
+    <ClInclude Include="source\AI-powered Features\Working with AI.h" />
     <ClInclude Include="source\Getting started\Hello world.h" />
     <ClInclude Include="source\Getting started\Apply License.h" />
     <ClInclude Include="source\DocsExamplesBase.h" />
@@ -335,6 +350,8 @@
     <ClInclude Include="source\Programming with Documents\Working with Fonts.h" />
     <ClInclude Include="source\Programming with Documents\Working with Footnote and Endnote.h" />
     <ClInclude Include="source\Programming with Documents\Working with FormFields.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\CustomBarcodeGenerator.h" />
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with BarcodeGenerator.h" />
     <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Charts.h" />
     <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Images.h" />
     <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with OfficeMath.h" />
@@ -363,6 +380,8 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.26.8.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets" Condition="Exists('..\..\packages\CodePorting.Translator.Cs2Cpp.Framework.26.8.0\build\native\CodePorting.Translator.Cs2Cpp.Framework.targets')" />
     <Import Project="..\..\packages\Aspose.Words.Cpp.26.8.0\build\native\aspose.words.cpp.targets" Condition="Exists('..\..\packages\Aspose.Words.Cpp.26.8.0\build\native\aspose.words.cpp.targets')" />
+    <Import Project="..\..\packages\Aspose.Email.Cpp.26.8.0\build\native\aspose.email.cpp.targets" Condition="Exists('..\..\packages\Aspose.Email.Cpp.26.8.0\build\native\aspose.email.cpp.targets')" />
+    <Import Project="..\..\packages\Aspose.BarCode.Cpp.26.8.0\build\native\Aspose.BarCode.Cpp.targets" Condition="Exists('..\..\packages\Aspose.BarCode.Cpp.26.8.0\build\native\Aspose.BarCode.Cpp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

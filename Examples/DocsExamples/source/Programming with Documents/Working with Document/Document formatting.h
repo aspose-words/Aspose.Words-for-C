@@ -28,6 +28,14 @@
 #include <drawing/color.h>
 #include <system/enumerator_adapter.h>
 
+#include <Aspose.Words.Cpp/Layout/LayoutCollector.h>
+#include <Aspose.Words.Cpp/Layout/LayoutEnumerator.h>
+#include <Aspose.Words.Cpp/Tables/Table.h>
+#include <Aspose.Words.Cpp/Tables/Row.h>
+#include <Aspose.Words.Cpp/Tables/Cell.h>
+#include <system/exceptions.h>
+#include <iostream>
+
 #include "DocsExamplesBase.h"
 
 using System::ArrayPtr;
@@ -43,6 +51,96 @@ namespace DocsExamples { namespace Programming_with_Documents { namespace Workin
 class DocumentFormatting : public DocsExamplesBase
 {
 public:
+    //ExStart:GetParagraphLines
+    //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
+    void GetParagraphLines()
+    {
+        auto doc = MakeObject<Document>(MyDir + u"Properties.docx");
+
+        auto collector = MakeObject<Layout::LayoutCollector>(doc);
+        auto enumerator = MakeObject<Layout::LayoutEnumerator>(doc);
+        for (const auto& paragraph : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
+        {
+            ProcessParagraph(paragraph, collector, enumerator);
+        }
+    }
+
+    static void ProcessParagraph(SharedPtr<Paragraph> paragraph,
+                                 SharedPtr<Layout::LayoutCollector> collector,
+                                 SharedPtr<Layout::LayoutEnumerator> enumerator)
+    {
+        SharedPtr<System::Object> paragraphBreak = collector->GetEntity(paragraph);
+        if (paragraphBreak == nullptr)
+        {
+            return;
+        }
+
+        SharedPtr<System::Object> stopEntity = GetStopEntity(paragraph, collector, enumerator);
+
+        enumerator->set_Current(paragraphBreak);
+        enumerator->MoveParent();
+
+        int lineCount = CountLines(enumerator, stopEntity);
+
+        String paragraphText = GetTruncatedText(paragraph->GetText());
+        std::cout << String::Format(u"Paragraph '{0}' has {1} line(-s).", paragraphText, lineCount) << std::endl;
+    }
+
+    static SharedPtr<System::Object> GetStopEntity(SharedPtr<Paragraph> paragraph,
+                                                   SharedPtr<Layout::LayoutCollector> collector,
+                                                   SharedPtr<Layout::LayoutEnumerator> enumerator)
+    {
+        SharedPtr<Node> previousNode = paragraph->get_PreviousSibling();
+        if (previousNode == nullptr)
+        {
+            return nullptr;
+        }
+
+        auto prevParagraph = System::AsCast<Paragraph>(previousNode);
+        if (prevParagraph != nullptr)
+        {
+            enumerator->set_Current(collector->GetEntity(prevParagraph)); // Para break.
+            enumerator->MoveParent();                                    // Last line.
+            return enumerator->get_Current();
+        }
+
+        auto table = System::AsCast<Tables::Table>(previousNode);
+        if (table != nullptr)
+        {
+            enumerator->set_Current(collector->GetEntity(table->get_LastRow()->get_LastCell()->get_LastParagraph())); // Cell break.
+            enumerator->MoveParent();                                                                                // Cell.
+            enumerator->MoveParent();                                                                                // Row.
+            return enumerator->get_Current();
+        }
+
+        throw System::InvalidOperationException(u"Unsupported node type encountered.");
+    }
+
+    /// <summary>
+    /// We move from line to line in a paragraph.
+    /// When paragraph spans multiple pages the we will follow across them.
+    /// </summary>
+    static int CountLines(SharedPtr<Layout::LayoutEnumerator> enumerator, SharedPtr<System::Object> stopEntity)
+    {
+        int count = 1;
+        while (enumerator->get_Current() != stopEntity)
+        {
+            if (!enumerator->MovePreviousLogical())
+            {
+                break;
+            }
+            count++;
+        }
+        return count;
+    }
+
+    static String GetTruncatedText(String text)
+    {
+        const int MaxChars = 16;
+        return text.get_Length() > MaxChars ? String::Format(u"{0}...", text.Substring(0, MaxChars)) : text;
+    }
+    //ExEnd:GetParagraphLines
+
     void SpaceBetweenAsianAndLatinText()
     {
         //ExStart:SpaceBetweenAsianAndLatinText

@@ -30,9 +30,15 @@
 #include <Aspose.Words.Cpp/Fields/FieldUpdateCultureSource.h>
 #include <Aspose.Words.Cpp/Fields/IFieldUpdateCultureProvider.h>
 #include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Fields/FieldArgumentBuilder.h>
+#include <Aspose.Words.Cpp/Fields/FieldBuilder.h>
+#include <Aspose.Words.Cpp/Fields/IFieldResultFormatter.h>
+#include <Aspose.Words.Cpp/Fields/GeneralFormat.h>
+#include <Aspose.Words.Cpp/CalendarType.h>
 #include <Aspose.Words.Cpp/HeaderFooterType.h>
 #include <Aspose.Words.Cpp/MailMerging/MailMerge.h>
 #include <Aspose.Words.Cpp/MailMerging/MappedDataFieldCollection.h>
+#include <Aspose.Words.Cpp/CompositeNode.h>
 #include <Aspose.Words.Cpp/Node.h>
 #include <Aspose.Words.Cpp/NodeCollection.h>
 #include <Aspose.Words.Cpp/NodeType.h>
@@ -698,6 +704,251 @@ public:
         doc->Save(ArtifactsDir + u"WorkingWithFields.ConvertFieldsInBody.docx");
         //ExEnd:ConvertFieldsInBody
     }
+
+    void FieldCode()
+    {
+        //ExStart:FieldCode
+        //GistId:7c2b7b650a88375b1d438746f78f0d64
+        auto doc = MakeObject<Document>(MyDir + u"Hyperlinks.docx");
+
+        for (const auto& field : System::IterateOver(doc->get_Range()->get_Fields()))
+        {
+            String fieldCode = field->GetFieldCode();
+            String fieldResult = field->get_Result();
+        }
+        //ExEnd:FieldCode
+    }
+
+    void UnlinkFields()
+    {
+        //ExStart:UnlinkFields
+        //GistId:f3592014d179ecb43905e37b2a68bc92
+        auto doc = MakeObject<Document>(MyDir + u"Various fields.docx");
+        doc->UnlinkFields();
+        //ExEnd:UnlinkFields
+    }
+
+    //ExStart:ConvertFieldsToStaticText
+    //GistId:f3592014d179ecb43905e37b2a68bc92
+    /// <summary>
+    /// Converts any fields of the specified type found in the descendants of the node into static text.
+    /// </summary>
+    /// <param name="compositeNode">The node in which all descendants of the specified FieldType will be converted to static text.</param>
+    /// <param name="targetFieldType">The FieldType of the field to convert to static text.</param>
+    void ConvertFieldsToStaticText(SharedPtr<CompositeNode> compositeNode, FieldType targetFieldType)
+    {
+        compositeNode->get_Range()
+            ->get_Fields()
+            ->LINQ_Where([&targetFieldType](SharedPtr<Field> f) { return f->get_Type() == targetFieldType; })
+            ->LINQ_ToList()
+            ->ForEach(std::function<void(SharedPtr<Field>)>([](SharedPtr<Field> f) { f->Unlink(); }));
+    }
+    //ExEnd:ConvertFieldsToStaticText
+
+    void InsertFieldUsingFieldBuilder()
+    {
+        //ExStart:InsertFieldUsingFieldBuilder
+        //GistId:1cf07762df56f15067d6aef90b14b3db
+        auto doc = MakeObject<Document>();
+
+        // Prepare IF field with two nested MERGEFIELD fields: { IF "left expression" = "right expression" "Firstname: { MERGEFIELD firstname }" "Lastname: { MERGEFIELD lastname }"}
+        auto fieldBuilder =
+            MakeObject<FieldBuilder>(FieldType::FieldIf)
+                ->AddArgument(u"left expression")
+                ->AddArgument(u"=")
+                ->AddArgument(u"right expression")
+                ->AddArgument(MakeObject<FieldArgumentBuilder>()
+                                  ->AddText(u"Firstname: ")
+                                  ->AddField(MakeObject<FieldBuilder>(FieldType::FieldMergeField)->AddArgument(u"firstname")))
+                ->AddArgument(MakeObject<FieldArgumentBuilder>()
+                                  ->AddText(u"Lastname: ")
+                                  ->AddField(MakeObject<FieldBuilder>(FieldType::FieldMergeField)->AddArgument(u"lastname")));
+
+        // Insert IF field in exact location
+        SharedPtr<Field> field = fieldBuilder->BuildAndInsert(doc->get_FirstSection()->get_Body()->get_FirstParagraph());
+        field->Update();
+
+        doc->Save(ArtifactsDir + u"Field.InsertFieldUsingFieldBuilder.docx");
+        //ExEnd:InsertFieldUsingFieldBuilder
+    }
+
+    void FieldResultFormatting()
+    {
+        //ExStart:FieldResultFormatting
+        //GistId:79b46682fbfd7f02f64783b163ed95fc
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+        auto formatter = MakeObject<FieldResultFormatter>(u"${0}", u"Date: {0}", u"Item # {0}:");
+        doc->get_FieldOptions()->set_ResultFormatter(formatter);
+
+        // Our field result formatter applies a custom format to newly created fields of three types of formats.
+        // Field result formatters apply new formatting to fields as they are updated,
+        // which happens as soon as we create them using this InsertField method overload.
+        // 1 -  Numeric:
+        builder->InsertField(u" = 2 + 3 \\# $###");
+
+        ASSERT_EQ(u"$5", doc->get_Range()->get_Fields()->idx_get(0)->get_Result());
+        ASSERT_EQ(1, formatter->CountFormatInvocations(FieldResultFormatter::FormatInvocationType::Numeric));
+
+        // 2 -  Date/time:
+        builder->InsertField(u"DATE \\@ \"d MMMM yyyy\"");
+
+        ASSERT_TRUE(doc->get_Range()->get_Fields()->idx_get(1)->get_Result().StartsWith(u"Date: "));
+        ASSERT_EQ(1, formatter->CountFormatInvocations(FieldResultFormatter::FormatInvocationType::DateTime));
+
+        // 3 -  General:
+        builder->InsertField(u"QUOTE \"2\" \\* Ordinal");
+
+        ASSERT_EQ(u"Item # 2:", doc->get_Range()->get_Fields()->idx_get(2)->get_Result());
+        ASSERT_EQ(1, formatter->CountFormatInvocations(FieldResultFormatter::FormatInvocationType::General));
+
+        formatter->PrintFormatInvocations();
+        //ExEnd:FieldResultFormatting
+    }
+
+    //ExStart:FieldResultFormatter
+    //GistId:79b46682fbfd7f02f64783b163ed95fc
+    /// <summary>
+    /// When fields with formatting are updated, this formatter will override their formatting
+    /// with a custom format, while tracking every invocation.
+    /// </summary>
+    class FieldResultFormatter : public IFieldResultFormatter
+    {
+    public:
+        enum class FormatInvocationType
+        {
+            Numeric,
+            DateTime,
+            General,
+            All
+        };
+
+        FieldResultFormatter(const String& numberFormat, const String& dateFormat, const String& generalFormat)
+            : mNumberFormat(numberFormat), mDateFormat(dateFormat), mGeneralFormat(generalFormat)
+        {
+            mFormatInvocations = MakeObject<System::Collections::Generic::List<SharedPtr<FormatInvocation>>>();
+        }
+
+        String FormatNumeric(double value, String format) override
+        {
+            if (String::IsNullOrEmpty(mNumberFormat))
+            {
+                return nullptr;
+            }
+
+            String newValue = String::Format(mNumberFormat, value);
+            mFormatInvocations->Add(MakeObject<FormatInvocation>(FormatInvocationType::Numeric, System::ObjectExt::Box<double>(value), format, newValue));
+            return newValue;
+        }
+
+        String FormatDateTime(System::DateTime value, String format, Aspose::Words::CalendarType calendarType) override
+        {
+            if (String::IsNullOrEmpty(mDateFormat))
+            {
+                return nullptr;
+            }
+
+            String newValue = String::Format(mDateFormat, value);
+            mFormatInvocations->Add(MakeObject<FormatInvocation>(
+                FormatInvocationType::DateTime,
+                System::ObjectExt::Box<String>(String::Format(u"{0} ({1})", value, System::EnumGetName(calendarType))),
+                format,
+                newValue));
+            return newValue;
+        }
+
+        String Format(String value, GeneralFormat format) override
+        {
+            return FormatCore(System::ObjectExt::Box<String>(value), format);
+        }
+
+        String Format(double value, GeneralFormat format) override
+        {
+            return FormatCore(System::ObjectExt::Box<double>(value), format);
+        }
+
+        int CountFormatInvocations(FormatInvocationType formatInvocationType)
+        {
+            if (formatInvocationType == FormatInvocationType::All)
+            {
+                return mFormatInvocations->get_Count();
+            }
+
+            int count = 0;
+            for (const auto& f : System::IterateOver(mFormatInvocations))
+            {
+                if (f->FormatInvocationType_ == formatInvocationType)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        static String GetInvocationTypeName(FormatInvocationType type)
+        {
+            switch (type)
+            {
+            case FormatInvocationType::Numeric:
+                return u"Numeric";
+            case FormatInvocationType::DateTime:
+                return u"DateTime";
+            case FormatInvocationType::General:
+                return u"General";
+            default:
+                return u"All";
+            }
+        }
+
+        void PrintFormatInvocations()
+        {
+            for (const auto& f : System::IterateOver(mFormatInvocations))
+            {
+                std::cout << String::Format(u"Invocation type:\t{0}\n\tOriginal value:\t\t{1}\n\tOriginal format:\t{2}\n\tNew value:\t\t\t{3}\n",
+                                            GetInvocationTypeName(f->FormatInvocationType_),
+                                            f->Value,
+                                            f->OriginalFormat,
+                                            f->NewValue)
+                          << std::endl;
+            }
+        }
+
+    private:
+        class FormatInvocation : public System::Object
+        {
+        public:
+            FieldResultFormatter::FormatInvocationType FormatInvocationType_;
+            SharedPtr<System::Object> Value;
+            String OriginalFormat;
+            String NewValue;
+
+            FormatInvocation(FieldResultFormatter::FormatInvocationType formatInvocationType,
+                             const SharedPtr<System::Object>& value,
+                             const String& originalFormat,
+                             const String& newValue)
+                : FormatInvocationType_(formatInvocationType), Value(value), OriginalFormat(originalFormat), NewValue(newValue)
+            {
+            }
+        };
+
+        String FormatCore(const SharedPtr<System::Object>& value, GeneralFormat format)
+        {
+            if (String::IsNullOrEmpty(mGeneralFormat))
+            {
+                return nullptr;
+            }
+
+            String newValue = String::Format(mGeneralFormat, value);
+            mFormatInvocations->Add(MakeObject<FormatInvocation>(FormatInvocationType::General, value, System::EnumGetName(format), newValue));
+            return newValue;
+        }
+
+        String mNumberFormat;
+        String mDateFormat;
+        String mGeneralFormat;
+        SharedPtr<System::Collections::Generic::List<SharedPtr<FormatInvocation>>> mFormatInvocations;
+    };
+    //ExEnd:FieldResultFormatter
 
     void ChangeLocale()
     {

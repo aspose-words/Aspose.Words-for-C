@@ -149,6 +149,26 @@ TEST_F(WorkingWithFields, ConvertFieldsInBody)
     s_instance->ConvertFieldsInBody();
 }
 
+TEST_F(WorkingWithFields, FieldCode)
+{
+    s_instance->FieldCode();
+}
+
+TEST_F(WorkingWithFields, UnlinkFields)
+{
+    s_instance->UnlinkFields();
+}
+
+TEST_F(WorkingWithFields, InsertFieldUsingFieldBuilder)
+{
+    s_instance->InsertFieldUsingFieldBuilder();
+}
+
+TEST_F(WorkingWithFields, FieldResultFormatting)
+{
+    s_instance->FieldResultFormatting();
+}
+
 TEST_F(WorkingWithFields, ChangeLocale)
 {
     s_instance->ChangeLocale();

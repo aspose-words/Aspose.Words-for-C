@@ -36,6 +36,11 @@ TEST_F(WorkingWithFields_, MailMergeFormFields)
     s_instance->MailMergeFormFields();
 }
 
+TEST_F(WorkingWithFields_, FieldNext)
+{
+    s_instance->FieldNext();
+}
+
 TEST_F(WorkingWithFields_, MailMergeImageField)
 {
     s_instance->MailMergeImageField();

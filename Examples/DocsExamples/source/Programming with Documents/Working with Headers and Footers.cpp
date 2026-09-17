@@ -60,6 +60,11 @@ TEST_F(WorkingWithHeadersAndFooters, PageNumbers)
     s_instance->PageNumbers();
 }
 
+TEST_F(WorkingWithHeadersAndFooters, SectionsWithDifferentHeaders)
+{
+    s_instance->SectionsWithDifferentHeaders();
+}
+
 TEST_F(WorkingWithHeadersAndFooters, LinkToPreviousHeaderFooter)
 {
     s_instance->LinkToPreviousHeaderFooter();

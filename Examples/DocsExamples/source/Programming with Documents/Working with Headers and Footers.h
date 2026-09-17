@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/BreakType.h>
@@ -171,6 +171,38 @@ public:
 
         doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.PageNumbers.docx");
         //ExEnd:PageNumbers
+    }
+
+    void SectionsWithDifferentHeaders()
+    {
+        //ExStart:SectionsWithDifferentHeaders
+        //GistId:1afca4d3da7cb4240fb91c3d93d8c30d
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<PageSetup> pageSetup = builder->get_CurrentSection()->get_PageSetup();
+        pageSetup->set_DifferentFirstPageHeaderFooter(true);
+        pageSetup->set_HeaderDistance(20);
+
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderFirst);
+        builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
+        builder->get_Font()->set_Name(u"Arial");
+        builder->get_Font()->set_Bold(true);
+        builder->get_Font()->set_Size(14);
+        builder->Write(u"Header for the first page.");
+
+        builder->MoveToDocumentEnd();
+        builder->InsertBreak(BreakType::SectionBreakNewPage);
+
+        builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
+        // Insert a positioned image into the top/left corner of the header.
+        // Distance from the top/left edges of the page is set to 10 points.
+        builder->InsertImage(ImagesDir + u"Logo.jpg", RelativeHorizontalPosition::Page, 10, RelativeVerticalPosition::Page, 10, 50, 50, WrapType::Through);
+        builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
+        builder->Write(u"Header for odd page.");
+
+        doc->Save(ArtifactsDir + u"WorkingWithHeadersAndFooters.SectionsWithDifferentHeaders.docx");
+        //ExEnd:SectionsWithDifferentHeaders
     }
 
     void LinkToPreviousHeaderFooter()

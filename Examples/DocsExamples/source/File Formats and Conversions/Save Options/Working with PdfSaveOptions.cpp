@@ -130,6 +130,11 @@ TEST_F(WorkingWithPdfSaveOptions, InterpolateImages)
     s_instance->InterpolateImages();
 }
 
+TEST_F(WorkingWithPdfSaveOptions, UpdateScreenTip)
+{
+    s_instance->UpdateScreenTip();
+}
+
 TEST_F(WorkingWithPdfSaveOptions, OptimizeOutput)
 {
     s_instance->OptimizeOutput();

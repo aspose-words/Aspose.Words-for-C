@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Document.h>
@@ -74,7 +74,13 @@ public:
     void GetRegionsByName()
     {
         //ExStart:GetRegionsByName
+        //GistId:b4bab1bf22437a86d8062e91cf154494
         auto doc = MakeObject<Document>(MyDir + u"Mail merge regions.docx");
+
+        //ExStart:GetRegionsHierarchy
+        //GistId:b4bab1bf22437a86d8062e91cf154494
+        SharedPtr<MailMergeRegionInfo> regionInfo = doc->get_MailMerge()->GetRegionsHierarchy();
+        //ExEnd:GetRegionsHierarchy
 
         SharedPtr<System::Collections::Generic::IList<SharedPtr<MailMergeRegionInfo>>> regions = doc->get_MailMerge()->GetRegionsByName(u"Region1");
         ASSERT_EQ(1, doc->get_MailMerge()->GetRegionsByName(u"Region1")->get_Count());

@@ -176,6 +176,32 @@ public:
     //ExEnd:ExtractCommentsByAuthor
 
     //ExStart:RemoveComments
+    void RemoveRangeText()
+    {
+        //ExStart:RemoveRangeText
+        //GistId:70902b20df8b1f6b0459f676e21623bb
+        auto doc = MakeObject<Document>(MyDir + u"Comments.docx");
+
+        auto commentStart = System::ExplicitCast<CommentRangeStart>(doc->GetChild(NodeType::CommentRangeStart, 0, true));
+        SharedPtr<Node> currentNode = commentStart;
+
+        bool isRemoving = true;
+        while (currentNode != nullptr && isRemoving)
+        {
+            if (currentNode->get_NodeType() == NodeType::CommentRangeEnd)
+            {
+                isRemoving = false;
+            }
+
+            SharedPtr<Node> nextNode = currentNode->NextPreOrder(doc);
+            currentNode->Remove();
+            currentNode = nextNode;
+        }
+
+        doc->Save(ArtifactsDir + u"WorkingWithComments.RemoveRangeText.docx");
+        //ExEnd:RemoveRangeText
+    }
+
     void RemoveComments(SharedPtr<Document> doc)
     {
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);

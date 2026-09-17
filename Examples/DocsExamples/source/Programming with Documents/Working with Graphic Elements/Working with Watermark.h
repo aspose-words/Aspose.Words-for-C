@@ -81,7 +81,8 @@ public:
 
     void RemoveWatermarkFromDocument()
     {
-        //ExStart:RemoveWatermarkFromDocument
+        //ExStart:RemoveDocumentWatermark
+        //GistId:1f690a31c188a851d80d7aed4ff7e44c
         auto doc = MakeObject<Document>();
 
         // Add a plain text watermark.
@@ -107,7 +108,7 @@ public:
         }
 
         doc->Save(ArtifactsDir + u"WorkWithWatermark.RemoveWatermarkFromDocument.docx");
-        //ExEnd:RemoveWatermarkFromDocument
+        //ExEnd:RemoveDocumentWatermark
     }
 
     //ExStart:AddWatermark
@@ -129,9 +130,12 @@ public:
     /// <param name="watermarkText">Text of the watermark.</param>
     void InsertWatermarkText(SharedPtr<Document> doc, String watermarkText)
     {
+        //ExStart:SetShapeName
+        //GistId:1f690a31c188a851d80d7aed4ff7e44c
         // Create a watermark shape, this will be a WordArt shape.
         auto watermark = MakeObject<Shape>(doc, ShapeType::TextPlainText);
         watermark->set_Name(u"Watermark");
+        //ExEnd:SetShapeName
 
         watermark->get_TextPath()->set_Text(watermarkText);
         watermark->get_TextPath()->set_FontFamily(u"Arial");

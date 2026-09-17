@@ -177,6 +177,11 @@ TEST_F(WorkingWithImages, InsertBarcodeImage)
     s_instance->InsertBarcodeImage();
 }
 
+TEST_F(WorkingWithImages, CropImages)
+{
+    s_instance->CropImages();
+}
+
 TEST_F(WorkingWithImages, CompressImages)
 {
     s_instance->CompressImages();

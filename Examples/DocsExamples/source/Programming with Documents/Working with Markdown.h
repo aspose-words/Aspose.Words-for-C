@@ -44,6 +44,37 @@ namespace DocsExamples { namespace Programming_with_Documents {
 class WorkingWithMarkdown : public DocsExamplesBase
 {
 public:
+    void SupportedFeatures()
+    {
+        //ExStart:SupportedFeatures
+        //GistId:51b4cb9c451832f23527892e19c7bca6
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        // Specify the "Heading 1" style for the paragraph.
+        builder->InsertParagraph();
+        builder->get_ParagraphFormat()->set_StyleName(u"Heading 1");
+        builder->Write(u"Heading 1");
+
+        // Specify the Italic emphasis for the paragraph.
+        builder->InsertParagraph();
+        // Reset styles from the previous paragraph to not combine styles between paragraphs.
+        builder->get_ParagraphFormat()->set_StyleName(u"Normal");
+        builder->get_Font()->set_Italic(true);
+        builder->Write(u"Italic Text");
+        // Reset styles from the previous paragraph to not combine styles between paragraphs.
+        builder->set_Italic(false);
+
+        // Specify a Hyperlink for the desired text.
+        builder->InsertParagraph();
+        builder->InsertHyperlink(u"Aspose", u"https://www.aspose.com", false);
+        builder->Write(u"Aspose");
+
+        // Save your document as a Markdown file.
+        doc->Save(ArtifactsDir + u"WorkingWithMarkdown.SupportedFeatures.md");
+        //ExEnd:SupportedFeatures
+    }
+
     void BoldText()
     {
         //ExStart:BoldText

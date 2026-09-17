@@ -117,6 +117,16 @@ TEST_F(FindAndReplace, UsingLegacyOrder)
     s_instance->UsingLegacyOrder();
 }
 
+TEST_F(FindAndReplace, HighlightColor)
+{
+    s_instance->HighlightColor();
+}
+
+TEST_F(FindAndReplace, LineCounter)
+{
+    s_instance->LineCounter();
+}
+
 TEST_F(FindAndReplace, ReplaceTextInTable)
 {
     s_instance->ReplaceTextInTable();

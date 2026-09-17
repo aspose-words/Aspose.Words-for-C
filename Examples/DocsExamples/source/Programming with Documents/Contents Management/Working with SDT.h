@@ -59,7 +59,8 @@ class WorkingWithSdt : public DocsExamplesBase
 public:
     void CheckBoxTypeContentControl()
     {
-        //ExStart:CheckBoxTypeContentControl
+        //ExStart:SdtCheckBox
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -67,7 +68,7 @@ public:
         builder->InsertNode(sdtCheckBox);
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.CheckBoxTypeContentControl.docx", SaveFormat::Docx);
-        //ExEnd:CheckBoxTypeContentControl
+        //ExEnd:SdtCheckBox
     }
 
     void CurrentStateOfCheckBox()
@@ -146,7 +147,8 @@ public:
 
     void RichTextBoxContentControl()
     {
-        //ExStart:RichTextBoxContentControl
+        //ExStart:SdtRichTextBox
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>();
 
         auto sdtRichText = MakeObject<StructuredDocumentTag>(doc, SdtType::RichText, MarkupLevel::Block);
@@ -160,7 +162,7 @@ public:
         doc->get_FirstSection()->get_Body()->AppendChild(sdtRichText);
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.RichTextBoxContentControl.docx");
-        //ExEnd:RichTextBoxContentControl
+        //ExEnd:SdtRichTextBox
     }
 
     void SetContentControlColor()

@@ -100,6 +100,16 @@ TEST_F(WorkingWithCharts, TickMultiLineLabelAlignment)
     s_instance->TickMultiLineLabelAlignment();
 }
 
+TEST_F(WorkingWithCharts, FillFormatting)
+{
+    s_instance->FillFormatting();
+}
+
+TEST_F(WorkingWithCharts, StrokeFormatting)
+{
+    s_instance->StrokeFormatting();
+}
+
 TEST_F(WorkingWithCharts, ChartDataLabel)
 {
     s_instance->ChartDataLabel();

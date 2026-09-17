@@ -29,6 +29,11 @@ protected:
 
 System::SharedPtr<::DocsExamples::Programming_with_Documents::Working_with_Document::JoinAndAppendDocuments> JoinAndAppendDocuments::s_instance;
 
+TEST_F(JoinAndAppendDocuments, InsertDocumentInlineWithBuilder)
+{
+    s_instance->InsertDocumentInlineWithBuilder();
+}
+
 TEST_F(JoinAndAppendDocuments, SimpleAppendDocument)
 {
     s_instance->SimpleAppendDocument();

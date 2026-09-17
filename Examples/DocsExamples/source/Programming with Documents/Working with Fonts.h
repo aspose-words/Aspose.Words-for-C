@@ -61,7 +61,7 @@ class WorkingWithFonts : public DocsExamplesBase
 public:
     void FontFormatting()
     {
-        //ExStart:WriteAndFont
+        //ExStart:FontFormatting
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -75,7 +75,7 @@ public:
         builder->Write(u"Sample text.");
 
         doc->Save(ArtifactsDir + u"WorkingWithFonts.FontFormatting.docx");
-        //ExEnd:WriteAndFont
+        //ExEnd:FontFormatting
     }
 
     void GetFontLineSpacing()
@@ -438,7 +438,8 @@ public:
     };
     //ExEnd:HandleDocumentWarnings
 
-    //ExStart:ResourceSteamFontSourceExample
+    //ExStart:ResourceSteam
+    //GistId:7e64f6d40825be58a8c12f1307c12964
     void ResourceSteamFontSourceExample()
     {
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
@@ -462,7 +463,7 @@ public:
         {
         }
     };
-    //ExEnd:ResourceSteamFontSourceExample
+    //ExEnd:ResourceSteam
 
     //ExStart:GetSubstitutionWithoutSuffixes
     void GetSubstitutionWithoutSuffixes()

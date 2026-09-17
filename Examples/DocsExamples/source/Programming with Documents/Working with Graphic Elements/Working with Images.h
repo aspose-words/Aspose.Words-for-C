@@ -4,6 +4,8 @@
 #include <iostream>
 #include <Aspose.Words.Cpp/ControlChar.h>
 #include <Aspose.Words.Cpp/ConvertUtil.h>
+#include <Aspose.Words.Cpp/Rendering/ShapeRenderer.h>
+#include <Aspose.Words.Cpp/Saving/ImageSaveOptions.h>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBase.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
@@ -200,6 +202,49 @@ public:
         builder->InsertField(u"NUMPAGES");
     }
     //ExEnd:InsertBarcodeIntoFooter
+
+    void CropImages()
+    {
+        //ExStart:CropImages
+        //GistId:6f849e51240635a6322ab0460938c922
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<System::Drawing::Image> img = System::Drawing::Image::FromFile(ImagesDir + u"Logo.jpg");
+
+        int effectiveWidth = img->get_Width() - 570;
+        int effectiveHeight = img->get_Height() - 571;
+
+        SharedPtr<Shape> croppedImage = builder->InsertImage(img,
+                                                             ConvertUtil::PixelToPoint(img->get_Width() - effectiveWidth),
+                                                             ConvertUtil::PixelToPoint(img->get_Height() - effectiveHeight));
+
+        double widthRatio = croppedImage->get_Width() / ConvertUtil::PixelToPoint(img->get_Width());
+        double heightRatio = croppedImage->get_Height() / ConvertUtil::PixelToPoint(img->get_Height());
+
+        if (widthRatio < 1)
+        {
+            croppedImage->get_ImageData()->set_CropRight(1 - widthRatio);
+        }
+
+        if (heightRatio < 1)
+        {
+            croppedImage->get_ImageData()->set_CropBottom(1 - heightRatio);
+        }
+
+        float leftToWidth = (float)124 / img->get_Width();
+        float topToHeight = (float)90 / img->get_Height();
+
+        croppedImage->get_ImageData()->set_CropLeft(leftToWidth);
+        croppedImage->get_ImageData()->set_CropRight(croppedImage->get_ImageData()->get_CropRight() - leftToWidth);
+
+        croppedImage->get_ImageData()->set_CropTop(topToHeight);
+        croppedImage->get_ImageData()->set_CropBottom(croppedImage->get_ImageData()->get_CropBottom() - topToHeight);
+
+        croppedImage->GetShapeRenderer()->Save(ArtifactsDir + u"WorkingWithImages.CropImages.jpg",
+                                               MakeObject<Saving::ImageSaveOptions>(SaveFormat::Jpeg));
+        //ExEnd:CropImages
+    }
 
     void CompressImages()
     {

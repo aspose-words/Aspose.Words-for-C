@@ -8,6 +8,9 @@
 #include <Aspose.Words.Cpp/Drawing/ShapeType.h>
 #include <Aspose.Words.Cpp/Drawing/WrapType.h>
 #include <Aspose.Words.Cpp/Fields/FieldMergeField.h>
+#include <Aspose.Words.Cpp/Fields/FieldNextIf.h>
+#include <Aspose.Words.Cpp/Fields/FieldSkipIf.h>
+#include <Aspose.Words.Cpp/Fields/FieldType.h>
 #include <Aspose.Words.Cpp/Fields/FormField.h>
 #include <Aspose.Words.Cpp/Fields/MergeFieldImageDimension.h>
 #include <Aspose.Words.Cpp/Fields/MergeFieldImageDimensionUnit.h>
@@ -64,6 +67,28 @@ public:
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.MailMergeFormFields.docx");
         //ExEnd:MailMergeFormFields
+    }
+
+    void FieldNext()
+    {
+        //ExStart:FieldNext
+        //GistId:b4bab1bf22437a86d8062e91cf154494
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        // Use NextIf field. A NEXTIF field has the same function as a NEXT field,
+        // but it skips to the next row only if a statement constructed by the following 3 properties is true.
+        auto fieldNextIf = System::ExplicitCast<FieldNextIf>(builder->InsertField(FieldType::FieldNextIf, true));
+
+        // Or use SkipIf field.
+        auto fieldSkipIf = System::ExplicitCast<FieldSkipIf>(builder->InsertField(FieldType::FieldSkipIf, true));
+
+        fieldNextIf->set_LeftExpression(u"5");
+        fieldNextIf->set_RightExpression(u"2 + 3");
+        fieldNextIf->set_ComparisonOperator(u"=");
+
+        doc->Save(ArtifactsDir + u"WorkingWithFields.FieldNext.docx");
+        //ExEnd:FieldNext
     }
 
     //ExStart:HandleMergeField

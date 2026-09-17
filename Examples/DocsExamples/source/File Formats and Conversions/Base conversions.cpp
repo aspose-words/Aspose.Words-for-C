@@ -64,6 +64,34 @@ TEST_F(BaseConversions, DocxToTxt)
     s_instance->DocxToTxt();
 }
 
+TEST_F(BaseConversions, DocxToHtml)
+{
+    s_instance->DocxToHtml();
+}
+
+#ifdef ASPOSE_EMAIL_AVAILABLE
+// Sends mail through an SMTP server, so it is not run as part of the suite.
+TEST_F(BaseConversions, DISABLED_DocxToMhtml)
+{
+    s_instance->DocxToMhtml();
+}
+#endif
+
+TEST_F(BaseConversions, DocxToXlsx)
+{
+    s_instance->DocxToXlsx();
+}
+
+TEST_F(BaseConversions, FindReplaceXlsx)
+{
+    s_instance->FindReplaceXlsx();
+}
+
+TEST_F(BaseConversions, CompressXlsx)
+{
+    s_instance->CompressXlsx();
+}
+
 TEST_F(BaseConversions, TxtToDocx)
 {
     s_instance->TxtToDocx();

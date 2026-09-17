@@ -44,6 +44,21 @@ TEST_F(WorkingWithImageSaveOptions, GetJpegPageRange)
     s_instance->GetJpegPageRange();
 }
 
+TEST_F(WorkingWithImageSaveOptions, Format1BppIndexed)
+{
+    s_instance->Format1BppIndexed();
+}
+
+TEST_F(WorkingWithImageSaveOptions, HorizontalLayout)
+{
+    s_instance->HorizontalLayout();
+}
+
+TEST_F(WorkingWithImageSaveOptions, GridLayout)
+{
+    s_instance->GridLayout();
+}
+
 TEST_F(WorkingWithImageSaveOptions, PageSavingCallback)
 {
     s_instance->PageSavingCallback();

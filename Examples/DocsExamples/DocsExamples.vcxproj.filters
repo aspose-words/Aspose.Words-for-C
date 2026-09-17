@@ -10,6 +10,9 @@
     <Filter Include="gtest\gmock">
       <UniqueIdentifier>{4dddc9dc-c052-4f97-a09d-fa36157d1a0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AI-powered Features">
+      <UniqueIdentifier>{1b99ad51-1615-4a22-8e4f-f14c2f805a7f}</UniqueIdentifier>
+    </Filter>
     <Filter Include="File Formats and Conversions">
       <UniqueIdentifier>{3995bb76-dacf-45ac-be4a-eadc2bfdc935}</UniqueIdentifier>
     </Filter>
@@ -71,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="..\gtest\gmock-gtest-all.cc">
       <Filter>gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AI-powered Features\Working with AI.cpp">
+      <Filter>AI-powered Features</Filter>
     </ClCompile>
     <ClCompile Include="source\DocsExamplesBase.cpp" />
     <ClCompile Include="source\File Formats and Conversions\Working with FileFormat.cpp">
@@ -195,6 +201,9 @@
     </ClCompile>
     <ClCompile Include="source\Programming with Documents\Working with VBA Macros.cpp">
       <Filter>Programming with Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with BarcodeGenerator.cpp">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
     </ClCompile>
     <ClCompile Include="source\Programming with Documents\Working with Graphic Elements\Working with Charts.cpp">
       <Filter>Programming with Documents\Working with Graphic Elements</Filter>
@@ -333,6 +342,9 @@
     <ClInclude Include="..\gtest\gmock\gmock.h">
       <Filter>gtest\gmock</Filter>
     </ClInclude>
+    <ClInclude Include="source\AI-powered Features\Working with AI.h">
+      <Filter>AI-powered Features</Filter>
+    </ClInclude>
     <ClInclude Include="source\DocsExamplesBase.h" />
     <ClInclude Include="source\File Formats and Conversions\Base conversions.h">
       <Filter>File Formats and Conversions</Filter>
@@ -465,6 +477,12 @@
     </ClInclude>
     <ClInclude Include="source\Programming with Documents\Working with VBA Macros.h">
       <Filter>Programming with Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\CustomBarcodeGenerator.h">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with BarcodeGenerator.h">
+      <Filter>Programming with Documents\Working with Graphic Elements</Filter>
     </ClInclude>
     <ClInclude Include="source\Programming with Documents\Working with Graphic Elements\Working with Charts.h">
       <Filter>Programming with Documents\Working with Graphic Elements</Filter>
@@ -613,8 +631,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)tools\aspose_types.natvis" />
   </ItemGroup>
 </Project>

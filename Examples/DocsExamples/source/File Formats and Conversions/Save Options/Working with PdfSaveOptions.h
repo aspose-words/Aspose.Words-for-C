@@ -1,11 +1,16 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <iostream>
 #include <Aspose.Words.Cpp/DigitalSignatures/CertificateHolder.h>
 #include <Aspose.Words.Cpp/Document.h>
+#include <Aspose.Words.Cpp/Fields/Field.h>
+#include <Aspose.Words.Cpp/Fields/FieldCollection.h>
+#include <Aspose.Words.Cpp/Fields/FieldHyperlink.h>
+#include <Aspose.Words.Cpp/Fields/FieldType.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/IWarningCallback.h>
+#include <Aspose.Words.Cpp/Range.h>
 #include <Aspose.Words.Cpp/Properties/CustomDocumentProperties.h>
 #include <Aspose.Words.Cpp/Properties/DocumentProperty.h>
 #include <Aspose.Words.Cpp/Saving/Dml3DEffectsRenderingMode.h>
@@ -358,6 +363,35 @@ public:
 
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.InterpolateImages.pdf", saveOptions);
         //ExEnd:SetImageInterpolation
+    }
+
+    void UpdateScreenTip()
+    {
+        //ExStart:UpdateScreenTip
+        //GistId:8b0ab362f95040ada1255a0473acefe2
+        auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
+
+        for (const auto& field : System::IterateOver(doc->get_Range()->get_Fields()))
+        {
+            if (field->get_Type() == Fields::FieldType::FieldHyperlink)
+            {
+                auto link = System::ExplicitCast<Fields::FieldHyperlink>(field);
+                if (link->get_SubAddress().StartsWith(u"#_Toc"))
+                {
+                    link->set_ScreenTip(link->get_DisplayResult());
+                }
+            }
+        }
+
+        auto saveOptions = MakeObject<PdfSaveOptions>();
+        saveOptions->set_Compliance(PdfCompliance::PdfUa1);
+        saveOptions->set_DisplayDocTitle(true);
+        saveOptions->set_ExportDocumentStructure(true);
+        saveOptions->get_OutlineOptions()->set_HeadingsOutlineLevels(3);
+        saveOptions->get_OutlineOptions()->set_CreateMissingOutlineLevels(true);
+
+        doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.UpdateScreenTip.pdf", saveOptions);
+        //ExEnd:UpdateScreenTip
     }
 
     void OptimizeOutput()

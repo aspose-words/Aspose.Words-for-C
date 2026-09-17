@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/ControlChar.h>
@@ -127,7 +127,8 @@ public:
         //ExEnd:RemoveFooters
     }
 
-    //ExStart:RemoveTOCFromDocument
+    //ExStart:RemoveToc
+    //GistId:db118a3e1559b9c88355356df9d7ea10
     void RemoveToc()
     {
         auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
@@ -191,7 +192,7 @@ public:
             node->Remove();
         }
     }
-    //ExEnd:RemoveTOCFromDocument
+    //ExEnd:RemoveToc
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Contents_Management

@@ -28,6 +28,11 @@ protected:
 
 System::SharedPtr<::DocsExamples::Programming_with_Documents::Working_with_Document::DocumentFormatting> DocumentFormatting::s_instance;
 
+TEST_F(DocumentFormatting, GetParagraphLines)
+{
+    s_instance->GetParagraphLines();
+}
+
 TEST_F(DocumentFormatting, SpaceBetweenAsianAndLatinText)
 {
     s_instance->SpaceBetweenAsianAndLatinText();

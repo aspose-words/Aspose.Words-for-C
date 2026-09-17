@@ -43,6 +43,11 @@ TEST_F(WorkingWithComments, AddRemoveCommentReply)
     s_instance->AddRemoveCommentReply();
 }
 
+TEST_F(WorkingWithComments, RemoveRangeText)
+{
+    s_instance->RemoveRangeText();
+}
+
 TEST_F(WorkingWithComments, ProcessComments)
 {
     s_instance->ProcessComments();

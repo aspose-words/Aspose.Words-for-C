@@ -24,6 +24,10 @@
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartNumberFormat.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartSeries.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartSeriesCollection.h>
+#include <Aspose.Words.Cpp/Drawing/Charts/ChartFormat.h>
+#include <Aspose.Words.Cpp/Drawing/Fill.h>
+#include <Aspose.Words.Cpp/Drawing/Stroke.h>
+#include <drawing/color.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartTitle.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/ChartType.h>
 #include <Aspose.Words.Cpp/Drawing/Charts/LegendPosition.h>
@@ -371,6 +375,67 @@ public:
 
         doc->Save(ArtifactsDir + u"WorkingWithCharts.TickMultiLineLabelAlignment.docx");
         //ExEnd:TickMultiLineLabelAlignment
+    }
+
+    void FillFormatting()
+    {
+        //ExStart:FillFormatting
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<Shape> shape = builder->InsertChart(ChartType::Column, 432, 252);
+
+        SharedPtr<Chart> chart = shape->get_Chart();
+        SharedPtr<ChartSeriesCollection> seriesColl = chart->get_Series();
+
+        // Delete default generated series.
+        seriesColl->Clear();
+
+        // Create category names array.
+        ArrayPtr<String> categories = MakeArray<String>({u"AW Category 1", u"AW Category 2"});
+
+        // Adding new series. Value and category arrays must be the same size.
+        SharedPtr<ChartSeries> series1 = seriesColl->Add(u"AW Series 1", categories, MakeArray<double>({1, 2}));
+        SharedPtr<ChartSeries> series2 = seriesColl->Add(u"AW Series 2", categories, MakeArray<double>({3, 4}));
+        SharedPtr<ChartSeries> series3 = seriesColl->Add(u"AW Series 3", categories, MakeArray<double>({5, 6}));
+
+        // Set series color.
+        series1->get_Format()->get_Fill()->set_ForeColor(System::Drawing::Color::get_Red());
+        series2->get_Format()->get_Fill()->set_ForeColor(System::Drawing::Color::get_Yellow());
+        series3->get_Format()->get_Fill()->set_ForeColor(System::Drawing::Color::get_Blue());
+
+        doc->Save(ArtifactsDir + u"WorkingWithCharts.FillFormatting.docx");
+        //ExEnd:FillFormatting
+    }
+
+    void StrokeFormatting()
+    {
+        //ExStart:StrokeFormatting
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        SharedPtr<Shape> shape = builder->InsertChart(ChartType::Line, 432, 252);
+
+        SharedPtr<Chart> chart = shape->get_Chart();
+        SharedPtr<ChartSeriesCollection> seriesColl = chart->get_Series();
+
+        // Delete default generated series.
+        seriesColl->Clear();
+
+        // Adding new series.
+        SharedPtr<ChartSeries> series1 = seriesColl->Add(u"AW Series 1", MakeArray<double>({0.7, 1.8, 2.6}), MakeArray<double>({2.7, 3.2, 0.8}));
+        SharedPtr<ChartSeries> series2 = seriesColl->Add(u"AW Series 2", MakeArray<double>({0.5, 1.5, 2.5}), MakeArray<double>({3, 1, 2}));
+
+        // Set series color.
+        series1->get_Format()->get_Stroke()->set_ForeColor(System::Drawing::Color::get_Red());
+        series1->get_Format()->get_Stroke()->set_Weight(5);
+        series2->get_Format()->get_Stroke()->set_ForeColor(System::Drawing::Color::get_LightGreen());
+        series2->get_Format()->get_Stroke()->set_Weight(5);
+
+        doc->Save(ArtifactsDir + u"WorkingWithCharts.StrokeFormatting.docx");
+        //ExEnd:StrokeFormatting
     }
 
     void ChartDataLabel()

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Body.h>
@@ -54,6 +54,30 @@ namespace DocsExamples { namespace Programming_with_Documents { namespace Workin
 class JoinAndAppendDocuments : public DocsExamplesBase
 {
 public:
+    void InsertDocumentInlineWithBuilder()
+    {
+        //ExStart:InsertDocumentInlineWithBuilder
+        //GistId:db2dfc4150d7c714bcac3782ae241d03
+        auto srcDoc = MakeObject<DocumentBuilder>();
+        srcDoc->Write(u"[src content]");
+
+        // Create destination document.
+        auto dstDoc = MakeObject<DocumentBuilder>();
+        dstDoc->Write(u"Before ");
+        dstDoc->InsertNode(MakeObject<BookmarkStart>(dstDoc->get_Document(), u"src_place"));
+        dstDoc->InsertNode(MakeObject<BookmarkEnd>(dstDoc->get_Document(), u"src_place"));
+        dstDoc->Write(u" after");
+
+        ASSERT_EQ(u"Before  after", dstDoc->get_Document()->GetText().TrimEnd());
+
+        // Insert source document into destination inline.
+        dstDoc->MoveToBookmark(u"src_place");
+        dstDoc->InsertDocumentInline(srcDoc->get_Document(), ImportFormatMode::UseDestinationStyles, MakeObject<ImportFormatOptions>());
+
+        ASSERT_EQ(u"Before [src content] after", dstDoc->get_Document()->GetText().TrimEnd());
+        //ExEnd:InsertDocumentInlineWithBuilder
+    }
+
     void SimpleAppendDocument()
     {
         auto srcDoc = MakeObject<Document>(MyDir + u"Document source.docx");

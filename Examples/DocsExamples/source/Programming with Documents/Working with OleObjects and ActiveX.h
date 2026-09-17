@@ -104,6 +104,45 @@ public:
         //ExEnd:InsertOLEObjectAsIconUsingStream
     }
 
+    void InsertOnlineVideo()
+    {
+        //ExStart:InsertOnlineVideo
+        //GistId:4996b573cf231d9f66ab0d1f3f981222
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        String url = u"https://youtu.be/t_1LYZ102RA";
+        double width = 360;
+        double height = 270;
+
+        builder->InsertOnlineVideo(url, width, height);
+
+        doc->Save(ArtifactsDir + u"WorkingWithOleObjectsAndActiveX.InsertOnlineVideo.docx");
+        //ExEnd:InsertOnlineVideo
+    }
+
+    void InsertOnlineVideoWithEmbedHtml()
+    {
+        //ExStart:InsertOnlineVideoWithEmbedHtml
+        //GistId:4996b573cf231d9f66ab0d1f3f981222
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
+
+        double width = 360;
+        double height = 270;
+
+        String videoUrl = u"https://vimeo.com/52477838";
+        String videoEmbedCode = String(u"<iframe src=\"https://player.vimeo.com/video/52477838\" width=\"640\" height=\"360\" frameborder=\"0\" ") +
+                                u"title=\"Aspose\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
+
+        ArrayPtr<uint8_t> thumbnailImageBytes = System::IO::File::ReadAllBytes(ImagesDir + u"Logo.jpg");
+
+        builder->InsertOnlineVideo(videoUrl, videoEmbedCode, thumbnailImageBytes, width, height);
+
+        doc->Save(ArtifactsDir + u"WorkingWithOleObjectsAndActiveX.InsertOnlineVideoWithEmbedHtml.docx");
+        //ExEnd:InsertOnlineVideoWithEmbedHtml
+    }
+
     void ReadActiveXControlProperties()
     {
         auto doc = MakeObject<Document>(MyDir + u"ActiveX controls.docx");
