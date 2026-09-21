@@ -55,12 +55,13 @@ class CloneAndCombineDocuments : public DocsExamplesBase
 public:
     void CloningDocument()
     {
-        //ExStart:CloningDocument
+        //ExStart:CloneDocument
+        //GistId:b2f62f736a2090163de7b0f221cf46d4
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         SharedPtr<Document> clone = doc->Clone();
         clone->Save(ArtifactsDir + u"CloneAndCombineDocuments.CloningDocument.docx");
-        //ExEnd:CloningDocument
+        //ExEnd:CloneDocument
     }
 
     void InsertDocumentAtReplace()

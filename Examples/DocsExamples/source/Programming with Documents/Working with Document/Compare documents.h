@@ -29,6 +29,7 @@ public:
     void CompareForEqual()
     {
         //ExStart:CompareForEqual
+        //GistId:66cba61d079d8ef1e676820633ba4586
         auto docA = MakeObject<Document>(MyDir + u"Document.docx");
         SharedPtr<Document> docB = docA->Clone();
 
@@ -42,6 +43,7 @@ public:
     void CompareOptions_()
     {
         //ExStart:CompareOptions
+        //GistId:66cba61d079d8ef1e676820633ba4586
         auto docA = MakeObject<Document>(MyDir + u"Document.docx");
         SharedPtr<Document> docB = docA->Clone();
 

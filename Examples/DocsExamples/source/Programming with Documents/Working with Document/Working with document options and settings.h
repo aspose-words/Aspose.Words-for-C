@@ -47,13 +47,14 @@ class WorkingWithDocumentOptionsAndSettings : public DocsExamplesBase
 public:
     void OptimizeForMsWord()
     {
-        //ExStart:OptimizeForMsWord
+        //ExStart:OptimizeFor
+        //GistId:5d2997d42c1f1fad79b18873f170855f
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2016);
 
         doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.OptimizeForMsWord.docx");
-        //ExEnd:OptimizeForMsWord
+        //ExEnd:OptimizeFor
     }
 
     void ShowGrammaticalAndSpellingErrors()
@@ -70,7 +71,8 @@ public:
 
     void CleanupUnusedStylesAndLists()
     {
-        //ExStart:CleanupUnusedStylesandLists
+        //ExStart:CleanupUnusedStylesAndLists
+        //GistId:669f3d08f45b14f75f9d2cb17fa1056a
         auto doc = MakeObject<Document>(MyDir + u"Unused styles.docx");
 
         // Combined with the built-in styles, the document now has eight styles.
@@ -91,12 +93,13 @@ public:
                   << std::endl;
 
         doc->Save(ArtifactsDir + u"WorkingWithDocumentOptionsAndSettings.CleanupUnusedStylesAndLists.docx");
-        //ExEnd:CleanupUnusedStylesandLists
+        //ExEnd:CleanupUnusedStylesAndLists
     }
 
     void CleanupDuplicateStyle()
     {
         //ExStart:CleanupDuplicateStyle
+        //GistId:669f3d08f45b14f75f9d2cb17fa1056a
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         // Count of styles before Cleanup.
@@ -117,6 +120,7 @@ public:
     void ViewOptions()
     {
         //ExStart:SetViewOption
+        //GistId:5d2997d42c1f1fad79b18873f170855f
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         doc->get_ViewOptions()->set_ViewType(ViewType::PageLayout);
@@ -129,6 +133,7 @@ public:
     void DocumentPageSetup()
     {
         //ExStart:DocumentPageSetup
+        //GistId:5d2997d42c1f1fad79b18873f170855f
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         // Set the layout mode for a section allowing to define the document grid behavior.
@@ -144,12 +149,13 @@ public:
 
     void AddJapaneseAsEditingLanguages()
     {
-        //ExStart:AddJapaneseAsEditinglanguages
+        //ExStart:AddEditingLanguage
+        //GistId:40be8275fc43f78f5e5877212e4e1bf3
         auto loadOptions = MakeObject<LoadOptions>();
 
         // Set language preferences that will be used when document is loading.
         loadOptions->get_LanguagePreferences()->AddEditingLanguage(EditingLanguage::Japanese);
-        //ExEnd:AddJapaneseAsEditinglanguages
+        //ExEnd:AddEditingLanguage
 
         auto doc = MakeObject<Document>(MyDir + u"No default editing language.docx", loadOptions);
 
@@ -163,6 +169,7 @@ public:
     void SetRussianAsDefaultEditingLanguage()
     {
         //ExStart:SetRussianAsDefaultEditingLanguage
+        //GistId:5d2997d42c1f1fad79b18873f170855f
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->get_LanguagePreferences()->set_DefaultEditingLanguage(EditingLanguage::Russian);
 

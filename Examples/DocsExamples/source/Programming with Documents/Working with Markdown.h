@@ -78,6 +78,7 @@ public:
     void BoldText()
     {
         //ExStart:BoldText
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -90,6 +91,7 @@ public:
     void ItalicText()
     {
         //ExStart:ItalicText
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -102,6 +104,7 @@ public:
     void Strikethrough()
     {
         //ExStart:Strikethrough
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -114,6 +117,7 @@ public:
     void InlineCode()
     {
         //ExStart:InlineCode
+        //GistId:51b4cb9c451832f23527892e19c7bca6
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -132,6 +136,7 @@ public:
     void Autolink()
     {
         //ExStart:Autolink
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -144,6 +149,7 @@ public:
     void Link()
     {
         //ExStart:Link
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -155,6 +161,7 @@ public:
     void Image()
     {
         //ExStart:Image
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -170,6 +177,7 @@ public:
     void HorizontalRule()
     {
         //ExStart:HorizontalRule
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -181,6 +189,7 @@ public:
     void Heading()
     {
         //ExStart:Heading
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -197,6 +206,7 @@ public:
     void SetextHeading()
     {
         //ExStart:SetextHeading
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -233,6 +243,7 @@ public:
     void IndentedCode()
     {
         //ExStart:IndentedCode
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -245,6 +256,7 @@ public:
     void FencedCode()
     {
         //ExStart:FencedCode
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -261,6 +273,7 @@ public:
     void Quote()
     {
         //ExStart:Quote
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -279,6 +292,7 @@ public:
     void BulletedList()
     {
         //ExStart:BulletedList
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -298,6 +312,7 @@ public:
     void OrderedList()
     {
         //ExStart:OrderedList
+        //GistId:0697355b7f872839932388d269ed6a63
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -318,6 +333,7 @@ public:
     void Table()
     {
         //ExStart:Table
+        //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
         auto builder = MakeObject<DocumentBuilder>();
 
@@ -338,6 +354,7 @@ public:
     void ReadMarkdownDocument()
     {
         //ExStart:ReadMarkdownDocument
+        //GistId:19de942ef8827201c1dca99f76c59133
         auto doc = MakeObject<Document>(MyDir + u"Quotes.md");
 
         // Let's remove Heading formatting from a Quote in the very last paragraph.
@@ -351,6 +368,7 @@ public:
     void Emphases()
     {
         //ExStart:Emphases
+        //GistId:19de942ef8827201c1dca99f76c59133
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 

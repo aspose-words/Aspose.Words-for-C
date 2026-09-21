@@ -35,7 +35,8 @@ class WorkingWithWebExtension : public DocsExamplesBase
 public:
     void UsingWebExtensionTaskPanes()
     {
-        //ExStart:UsingWebExtensionTaskPanes
+        //ExStart:WebExtensionTaskPanes
+        //GistId:8c31c018ea71c92828223776b1a113f7
         auto doc = MakeObject<Document>();
 
         auto taskPane = MakeObject<TaskPane>();
@@ -54,9 +55,10 @@ public:
             MakeObject<WebExtensionBinding>(u"UnnamedBinding_0_1506535429545", WebExtensionBindingType::Text, u"194740422"));
 
         doc->Save(ArtifactsDir + u"WorkingWithWebExtension.UsingWebExtensionTaskPanes.docx");
-        //ExEnd:UsingWebExtensionTaskPanes
+        //ExEnd:WebExtensionTaskPanes
 
         //ExStart:GetListOfAddins
+        //GistId:8c31c018ea71c92828223776b1a113f7
         doc = MakeObject<Document>(ArtifactsDir + u"WorkingWithWebExtension.UsingWebExtensionTaskPanes.docx");
 
         std::cout << "Task panes sources:\n" << std::endl;

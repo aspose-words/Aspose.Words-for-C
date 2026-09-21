@@ -23,6 +23,7 @@ public:
     void SavingImagesAsWmf()
     {
         //ExStart:SavingImagesAsWmf
+        //GistId:6f849e51240635a6322ab0460938c922
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto saveOptions = MakeObject<RtfSaveOptions>();

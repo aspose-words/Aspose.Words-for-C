@@ -410,7 +410,7 @@ public:
 
     void SetTableCellFormatting()
     {
-        //ExStart:DocumentBuilderSetTableCellFormatting
+        //ExStart:SetTableCellFormatting
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -430,12 +430,12 @@ public:
         builder->EndTable();
 
         doc->Save(ArtifactsDir + u"WorkingWithTableStylesAndFormatting.DocumentBuilderSetTableCellFormatting.docx");
-        //ExEnd:DocumentBuilderSetTableCellFormatting
+        //ExEnd:SetTableCellFormatting
     }
 
     void SetTableRowFormatting()
     {
-        //ExStart:DocumentBuilderSetTableRowFormatting
+        //ExStart:SetTableRowFormatting
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -458,7 +458,7 @@ public:
         builder->EndTable();
 
         doc->Save(ArtifactsDir + u"WorkingWithTableStylesAndFormatting.DocumentBuilderSetTableRowFormatting.docx");
-        //ExEnd:DocumentBuilderSetTableRowFormatting
+        //ExEnd:SetTableRowFormatting
     }
 };
 

@@ -85,6 +85,7 @@ public:
     void ChangeFieldUpdateCultureSource()
     {
         //ExStart:ChangeFieldUpdateCultureSource
+        //GistId:9e90defe4a7bcafb004f73a2ef236986
         //ExStart:DocumentBuilderInsertField
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -108,19 +109,21 @@ public:
 
     void SpecifyLocaleAtFieldLevel()
     {
-        //ExStart:SpecifylocaleAtFieldlevel
+        //ExStart:SpecifyLocaleAtFieldLevel
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto builder = MakeObject<DocumentBuilder>();
 
         SharedPtr<Field> field = builder->InsertField(FieldType::FieldDate, true);
         field->set_LocaleId(1049);
 
         builder->get_Document()->Save(ArtifactsDir + u"WorkingWithFields.SpecifylocaleAtFieldlevel.docx");
-        //ExEnd:SpecifylocaleAtFieldlevel
+        //ExEnd:SpecifyLocaleAtFieldLevel
     }
 
     void ReplaceHyperlinks()
     {
         //ExStart:ReplaceHyperlinks
+        //GistId:0213851d47551e83af42233f4d075cf6
         auto doc = MakeObject<Document>(MyDir + u"Hyperlinks.docx");
 
         for (const auto& field : System::IterateOver(doc->get_Range()->get_Fields()))
@@ -147,6 +150,7 @@ public:
     void RenameMergeFields()
     {
         //ExStart:RenameMergeFields
+        //GistId:bf0f8a6b40b69a5274ab3553315e147f
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -269,6 +273,7 @@ public:
     void RemoveField()
     {
         //ExStart:RemoveField
+        //GistId:8c604665c1b97795df7a1e665f6b44ce
         auto doc = MakeObject<Document>(MyDir + u"Various fields.docx");
 
         SharedPtr<Field> field = doc->get_Range()->get_Fields()->idx_get(0);
@@ -278,7 +283,8 @@ public:
 
     void InsertTOAFieldWithoutDocumentBuilder()
     {
-        //ExStart:InsertTOAFieldWithoutDocumentBuilder
+        //ExStart:InsertToaFieldWithoutDocumentBuilder
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
         auto para = MakeObject<Paragraph>(doc);
 
@@ -301,12 +307,13 @@ public:
         fieldToa->Update();
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.InsertTOAFieldWithoutDocumentBuilder.docx");
-        //ExEnd:InsertTOAFieldWithoutDocumentBuilder
+        //ExEnd:InsertToaFieldWithoutDocumentBuilder
     }
 
     void InsertNestedFields()
     {
         //ExStart:InsertNestedFields
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -334,7 +341,8 @@ public:
 
     void InsertMergeFieldUsingDOM()
     {
-        //ExStart:InsertMergeFieldUsingDOM
+        //ExStart:InsertMergeFieldUsingDom
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -366,12 +374,13 @@ public:
         field->Update();
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.InsertMergeFieldUsingDOM.docx");
-        //ExEnd:InsertMergeFieldUsingDOM
+        //ExEnd:InsertMergeFieldUsingDom
     }
 
     void InsertMailMergeAddressBlockFieldUsingDOM()
     {
-        //ExStart:InsertMailMergeAddressBlockFieldUsingDOM
+        //ExStart:InsertAddressBlockFieldUsingDom
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -402,12 +411,13 @@ public:
         field->Update();
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.InsertMailMergeAddressBlockFieldUsingDOM.docx");
-        //ExEnd:InsertMailMergeAddressBlockFieldUsingDOM
+        //ExEnd:InsertAddressBlockFieldUsingDom
     }
 
     void InsertFieldIncludeTextWithoutDocumentBuilder()
     {
         //ExStart:InsertFieldIncludeTextWithoutDocumentBuilder
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
 
         auto para = MakeObject<Paragraph>(doc);
@@ -430,6 +440,7 @@ public:
     void InsertFieldNone()
     {
         //ExStart:InsertFieldNone
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -442,6 +453,7 @@ public:
     void InsertField()
     {
         //ExStart:InsertField
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -454,6 +466,7 @@ public:
     void InsertAuthorField()
     {
         //ExStart:InsertAuthorField
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
 
         auto para = System::ExplicitCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
@@ -473,7 +486,8 @@ public:
 
     void InsertASKFieldWithOutDocumentBuilder()
     {
-        //ExStart:InsertASKFieldWithOutDocumentBuilder
+        //ExStart:InsertAskFieldWithoutDocumentBuilder
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
 
         auto para = System::ExplicitCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
@@ -498,12 +512,13 @@ public:
         field->Update();
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.InsertASKFieldWithOutDocumentBuilder.docx");
-        //ExEnd:InsertASKFieldWithOutDocumentBuilder
+        //ExEnd:InsertAskFieldWithoutDocumentBuilder
     }
 
     void InsertAdvanceFieldWithOutDocumentBuilder()
     {
-        //ExStart:InsertAdvanceFieldWithOutDocumentBuilder
+        //ExStart:InsertAdvanceFieldWithoutDocumentBuilder
+        //GistId:1cf07762df56f15067d6aef90b14b3db
         auto doc = MakeObject<Document>();
 
         auto para = System::ExplicitCast<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)->idx_get(0));
@@ -534,12 +549,13 @@ public:
         field->Update();
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.InsertAdvanceFieldWithOutDocumentBuilder.docx");
-        //ExEnd:InsertAdvanceFieldWithOutDocumentBuilder
+        //ExEnd:InsertAdvanceFieldWithoutDocumentBuilder
     }
 
     void GetMailMergeFieldNames()
     {
         //ExStart:GetFieldNames
+        //GistId:b4bab1bf22437a86d8062e91cf154494
         auto doc = MakeObject<Document>();
 
         ArrayPtr<String> fieldNames = doc->get_MailMerge()->GetFieldNames();
@@ -550,6 +566,7 @@ public:
     void MappedDataFields()
     {
         //ExStart:MappedDataFields
+        //GistId:b4bab1bf22437a86d8062e91cf154494
         auto doc = MakeObject<Document>();
 
         doc->get_MailMerge()->get_MappedDataFields()->Add(u"MyFieldName_InDocument", u"MyFieldName_InDataSource");
@@ -559,6 +576,7 @@ public:
     void DeleteFields()
     {
         //ExStart:DeleteFields
+        //GistId:f39874821cb317d245a769c9ce346fea
         auto doc = MakeObject<Document>();
 
         doc->get_MailMerge()->DeleteFields();
@@ -568,6 +586,7 @@ public:
     void FieldUpdateCulture()
     {
         //ExStart:FieldUpdateCultureProvider
+        //GistId:79b46682fbfd7f02f64783b163ed95fc
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -580,7 +599,8 @@ public:
         //ExEnd:FieldUpdateCultureProvider
     }
 
-    //ExStart:FieldUpdateCultureProviderGetCulture
+    //ExStart:FieldUpdateCulture
+    //GistId:79b46682fbfd7f02f64783b163ed95fc
     class FieldUpdateCultureProvider : public IFieldUpdateCultureProvider
     {
     public:
@@ -620,12 +640,14 @@ public:
             }
         }
     };
-    //ExEnd:FieldUpdateCultureProviderGetCulture
+    //ExEnd:FieldUpdateCulture
 
     void FieldDisplayResults()
     {
         //ExStart:FieldDisplayResults
+        //GistId:bf0f8a6b40b69a5274ab3553315e147f
         //ExStart:UpdateDocFields
+        //GistId:08db64c4d86842c4afd1ecb925ed07c4
         auto document = MakeObject<Document>(MyDir + u"Various fields.docx");
 
         document->UpdateFields();
@@ -640,19 +662,21 @@ public:
 
     void EvaluateIFCondition()
     {
-        //ExStart:EvaluateIFCondition
+        //ExStart:EvaluateIfCondition
+        //GistId:79b46682fbfd7f02f64783b163ed95fc
         auto builder = MakeObject<DocumentBuilder>();
 
         auto field = System::ExplicitCast<FieldIf>(builder->InsertField(u"IF 1 = 1", nullptr));
         FieldIfComparisonResult actualResult = field->EvaluateCondition();
 
         std::cout << System::EnumGetName(actualResult) << std::endl;
-        //ExEnd:EvaluateIFCondition
+        //ExEnd:EvaluateIfCondition
     }
 
     void ConvertFieldsInParagraph()
     {
-        //ExStart:ConvertFieldsInParagraph
+        //ExStart:UnlinkFieldsInParagraph
+        //GistId:f3592014d179ecb43905e37b2a68bc92
         auto doc = MakeObject<Document>(MyDir + u"Linked fields.docx");
 
         // Pass the appropriate parameters to convert all IF fields to text that are encountered only in the last
@@ -667,12 +691,13 @@ public:
             ->ForEach(std::function<void(SharedPtr<Field>)>([](SharedPtr<Field> f) { f->Unlink(); }));
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.TestFile.docx");
-        //ExEnd:ConvertFieldsInParagraph
+        //ExEnd:UnlinkFieldsInParagraph
     }
 
     void ConvertFieldsInDocument()
     {
-        //ExStart:ConvertFieldsInDocument
+        //ExStart:UnlinkFieldsInDocument
+        //GistId:f3592014d179ecb43905e37b2a68bc92
         auto doc = MakeObject<Document>(MyDir + u"Linked fields.docx");
 
         // Pass the appropriate parameters to convert all IF fields encountered in the document (including headers and footers) to text.
@@ -684,12 +709,13 @@ public:
 
         // Save the document with fields transformed to disk
         doc->Save(ArtifactsDir + u"WorkingWithFields.ConvertFieldsInDocument.docx");
-        //ExEnd:ConvertFieldsInDocument
+        //ExEnd:UnlinkFieldsInDocument
     }
 
     void ConvertFieldsInBody()
     {
-        //ExStart:ConvertFieldsInBody
+        //ExStart:UnlinkFieldsInBody
+        //GistId:f3592014d179ecb43905e37b2a68bc92
         auto doc = MakeObject<Document>(MyDir + u"Linked fields.docx");
 
         // Pass the appropriate parameters to convert PAGE fields encountered to text only in the body of the first section.
@@ -702,7 +728,7 @@ public:
             ->ForEach(std::function<void(SharedPtr<Field> f)>([](SharedPtr<Field> f) { f->Unlink(); }));
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.ConvertFieldsInBody.docx");
-        //ExEnd:ConvertFieldsInBody
+        //ExEnd:UnlinkFieldsInBody
     }
 
     void FieldCode()
@@ -953,6 +979,7 @@ public:
     void ChangeLocale()
     {
         //ExStart:ChangeLocale
+        //GistId:9e90defe4a7bcafb004f73a2ef236986
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 

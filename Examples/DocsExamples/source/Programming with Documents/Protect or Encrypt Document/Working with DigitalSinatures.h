@@ -107,7 +107,7 @@ public:
 
     void SetSignatureProviderId()
     {
-        //ExStart:SetSignatureProviderID
+        //ExStart:SignatureProviderId
         auto doc = MakeObject<Document>(MyDir + u"Signature line.docx");
 
         SharedPtr<SignatureLine> signatureLine =
@@ -120,7 +120,7 @@ public:
         SharedPtr<CertificateHolder> certHolder = CertificateHolder::Create(MyDir + u"morzal.pfx", u"aw");
 
         DigitalSignatureUtil::Sign(MyDir + u"Digitally signed.docx", ArtifactsDir + u"SignDocuments.SetSignatureProviderId.docx", certHolder, signOptions);
-        //ExEnd:SetSignatureProviderID
+        //ExEnd:SignatureProviderId
     }
 
     void CreateNewSignatureLineAndSetProviderId()

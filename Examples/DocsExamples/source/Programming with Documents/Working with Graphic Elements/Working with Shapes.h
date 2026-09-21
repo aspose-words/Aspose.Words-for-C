@@ -64,6 +64,7 @@ public:
     void AddGroupShape()
     {
         //ExStart:AddGroupShape
+        //GistId:072edc4bbb0dd0eebf1f61f610bd8d36
         auto doc = MakeObject<Document>();
         doc->EnsureMinimum();
 
@@ -93,6 +94,7 @@ public:
     void InsertShape()
     {
         //ExStart:InsertShape
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -115,6 +117,7 @@ public:
     void AspectRatioLocked()
     {
         //ExStart:AspectRatioLocked
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -128,6 +131,7 @@ public:
     void LayoutInCell()
     {
         //ExStart:LayoutInCell
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -180,6 +184,7 @@ public:
     void AddCornersSnipped()
     {
         //ExStart:AddCornersSnipped
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -195,6 +200,7 @@ public:
     void GetActualShapeBoundsPoints()
     {
         //ExStart:GetActualShapeBoundsPoints
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -209,6 +215,7 @@ public:
     void VerticalAnchor()
     {
         //ExStart:VerticalAnchor
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -225,6 +232,7 @@ public:
     void DetectSmartArtShape()
     {
         //ExStart:DetectSmartArtShape
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto doc = MakeObject<Document>(MyDir + u"SmartArt.docx");
 
         int count = doc->GetChildNodes(NodeType::Shape, true)
@@ -240,6 +248,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"SmartArt.docx");
 
         //ExStart:UpdateSmartArtDrawing
+        //GistId:683cdbe52b97598d9d4ee4695b4f83c9
         for (const auto& shape : System::IterateOver<Shape>(doc->GetChildNodes(NodeType::Shape, true)))
         {
             if (shape->get_HasSmartArt())

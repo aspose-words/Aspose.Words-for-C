@@ -19,6 +19,7 @@ class CreateMailMergeTemplate : public System::Object
 {
 public:
     //ExStart:CreateMailMergeTemplate
+    //GistId:0a1baaa127443b485cc692c8d98ee353
     SharedPtr<Document> Template()
     {
         auto builder = MakeObject<DocumentBuilder>();

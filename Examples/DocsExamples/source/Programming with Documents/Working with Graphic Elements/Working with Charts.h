@@ -58,6 +58,7 @@ public:
     void FormatNumberOfDataLabel()
     {
         //ExStart:FormatNumberOfDataLabel
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -89,6 +90,7 @@ public:
     void CreateChartUsingShape()
     {
         //ExStart:CreateChartUsingShape
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -111,6 +113,7 @@ public:
     void InsertSimpleColumnChart()
     {
         //ExStart:InsertSimpleColumnChart
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -119,6 +122,7 @@ public:
 
         SharedPtr<Chart> chart = shape->get_Chart();
         //ExStart:ChartSeriesCollection
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         SharedPtr<ChartSeriesCollection> seriesColl = chart->get_Series();
 
         std::cout << seriesColl->get_Count() << std::endl;
@@ -144,6 +148,7 @@ public:
     void InsertColumnChart()
     {
         //ExStart:InsertColumnChart
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -159,6 +164,7 @@ public:
     void InsertAreaChart()
     {
         //ExStart:InsertAreaChart
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -177,6 +183,7 @@ public:
     void InsertBubbleChart()
     {
         //ExStart:InsertBubbleChart
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -192,6 +199,7 @@ public:
     void InsertScatterChart()
     {
         //ExStart:InsertScatterChart
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -206,7 +214,8 @@ public:
 
     void DefineXYAxisProperties()
     {
-        //ExStart:DefineXYAxisProperties
+        //ExStart:DefineAxisProperties
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -243,12 +252,13 @@ public:
         yAxis->get_Scaling()->set_Maximum(MakeObject<AxisBound>(700.0));
 
         doc->Save(ArtifactsDir + u"WorkingWithCharts.DefineXYAxisProperties.docx");
-        //ExEnd:DefineXYAxisProperties
+        //ExEnd:DefineAxisProperties
     }
 
     void DateTimeValuesToAxis()
     {
-        //ExStart:SetDateTimeValuesToAxis
+        //ExStart:DateTimeValuesToAxis
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -273,12 +283,13 @@ public:
         xAxis->set_MinorTickMark(AxisTickMark::Outside);
 
         doc->Save(ArtifactsDir + u"WorkingWithCharts.DateTimeValuesToAxis.docx");
-        //ExEnd:SetDateTimeValuesToAxis
+        //ExEnd:DateTimeValuesToAxis
     }
 
     void NumberFormatForAxis()
     {
-        //ExStart:SetNumberFormatForAxis
+        //ExStart:NumberFormatForAxis
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -294,12 +305,13 @@ public:
         chart->get_AxisY()->get_NumberFormat()->set_FormatCode(u"#,##0");
 
         doc->Save(ArtifactsDir + u"WorkingWithCharts.NumberFormatForAxis.docx");
-        //ExEnd:SetNumberFormatForAxis
+        //ExEnd:NumberFormatForAxis
     }
 
     void BoundsOfAxis()
     {
-        //ExStart:SetboundsOfAxis
+        //ExStart:BoundsOfAxis
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -316,12 +328,13 @@ public:
         chart->get_AxisY()->get_Scaling()->set_Maximum(MakeObject<AxisBound>(6.0));
 
         doc->Save(ArtifactsDir + u"WorkingWithCharts.BoundsOfAxis.docx");
-        //ExEnd:SetboundsOfAxis
+        //ExEnd:BoundsOfAxis
     }
 
     void IntervalUnitBetweenLabelsOnAxis()
     {
-        //ExStart:SetIntervalUnitBetweenLabelsOnAxis
+        //ExStart:IntervalUnitBetweenLabelsOnAxis
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -337,12 +350,13 @@ public:
         chart->get_AxisX()->get_TickLabels()->set_Spacing(2);
 
         doc->Save(ArtifactsDir + u"WorkingWithCharts.IntervalUnitBetweenLabelsOnAxis.docx");
-        //ExEnd:SetIntervalUnitBetweenLabelsOnAxis
+        //ExEnd:IntervalUnitBetweenLabelsOnAxis
     }
 
     void HideChartAxis()
     {
         //ExStart:HideChartAxis
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -364,6 +378,7 @@ public:
     void TickMultiLineLabelAlignment()
     {
         //ExStart:TickMultiLineLabelAlignment
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -441,6 +456,7 @@ public:
     void ChartDataLabel()
     {
         //ExStart:WorkWithChartDataLabel
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -469,6 +485,7 @@ public:
     void DefaultOptionsForDataLabels()
     {
         //ExStart:DefaultOptionsForDataLabels
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -494,6 +511,7 @@ public:
     void SingleChartDataPoint()
     {
         //ExStart:WorkWithSingleChartDataPoint
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -533,6 +551,7 @@ public:
         SharedPtr<Chart> chart = shape->get_Chart();
 
         //ExStart:WorkWithSingleChartSeries
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         SharedPtr<ChartSeries> series0 = chart->get_Series()->idx_get(0);
         SharedPtr<ChartSeries> series1 = chart->get_Series()->idx_get(1);
 
@@ -545,6 +564,7 @@ public:
         //ExEnd:WorkWithSingleChartSeries
 
         //ExStart:ChartDataPoint
+        //GistId:23d39c0b874655d7e7354f1ecc122e39
         // Specifies whether by default the parent element shall inverts its colors if the value is negative.
         series0->set_InvertIfNegative(true);
 

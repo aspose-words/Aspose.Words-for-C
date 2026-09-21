@@ -69,6 +69,7 @@ public:
         auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExStart:RenderShapeAsEmf
+        //GistId:7fc867ac8ef1b729b6f70580fbc5b3f9
         SharedPtr<ShapeRenderer> render = shape->GetShapeRenderer();
 
         auto imageOptions = MakeObject<ImageSaveOptions>(SaveFormat::Emf);
@@ -85,6 +86,7 @@ public:
         auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExStart:RenderShapeAsJpeg
+        //GistId:7fc867ac8ef1b729b6f70580fbc5b3f9
         auto render = MakeObject<ShapeRenderer>(shape);
 
         auto imageOptions = MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);
@@ -99,6 +101,7 @@ public:
     }
 
     //ExStart:RenderShapeToGraphics
+    //GistId:7fc867ac8ef1b729b6f70580fbc5b3f9
     void RenderShapeToGraphics()
     {
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
@@ -184,6 +187,7 @@ public:
         auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExStart:FindShapeSizes
+        //GistId:7fc867ac8ef1b729b6f70580fbc5b3f9
         System::Drawing::Size shapeRenderedSize = shape->GetShapeRenderer()->GetSizeInPixels(1.0f, 96.0f);
 
         {
@@ -204,6 +208,7 @@ public:
         auto shape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
 
         //ExStart:RenderShapeImage
+        //GistId:7fc867ac8ef1b729b6f70580fbc5b3f9
         shape->GetShapeRenderer()->Save(ArtifactsDir + u"RenderShape.RenderShapeImage.jpg", System::MakeObject<Aspose::Words::Saving::ImageSaveOptions>(SaveFormat::Jpeg));
         //ExEnd:RenderShapeImage
     }

@@ -57,6 +57,7 @@ public:
     void AccessBookmarks()
     {
         //ExStart:AccessBookmarks
+        //GistId:c4555b1a088856e21394104faeb86e51
         auto doc = MakeObject<Document>(MyDir + u"Bookmarks.docx");
 
         // By index:
@@ -69,6 +70,7 @@ public:
     void UpdateBookmarkData()
     {
         //ExStart:UpdateBookmarkData
+        //GistId:c4555b1a088856e21394104faeb86e51
         auto doc = MakeObject<Document>(MyDir + u"Bookmarks.docx");
 
         SharedPtr<Bookmark> bookmark = doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark1");
@@ -84,6 +86,7 @@ public:
     void BookmarkTableColumns()
     {
         //ExStart:BookmarkTable
+        //GistId:c4555b1a088856e21394104faeb86e51
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -113,6 +116,7 @@ public:
         //ExEnd:BookmarkTable
 
         //ExStart:BookmarkTableColumns
+        //GistId:c4555b1a088856e21394104faeb86e51
         for (const auto& bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
         {
             std::cout << "Bookmark: " << bookmark->get_Name() << (bookmark->get_IsColumn() ? String(u" (Column)") : String(u"")) << std::endl;
@@ -194,6 +198,7 @@ public:
     void CreateBookmark()
     {
         //ExStart:CreateBookmark
+        //GistId:c4555b1a088856e21394104faeb86e51
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -218,6 +223,7 @@ public:
     void ShowHideBookmarks()
     {
         //ExStart:ShowHideBookmarks
+        //GistId:c4555b1a088856e21394104faeb86e51
         auto doc = MakeObject<Document>(MyDir + u"Bookmarks.docx");
 
         ShowHideBookmarkedContent(doc, u"MyBookmark1", false);
@@ -227,6 +233,7 @@ public:
     }
 
     //ExStart:ShowHideBookmarkedContent
+    //GistId:c4555b1a088856e21394104faeb86e51
     void ShowHideBookmarkedContent(SharedPtr<Document> doc, String bookmarkName, bool showHide)
     {
         SharedPtr<Bookmark> bm = doc->get_Range()->get_Bookmarks()->idx_get(bookmarkName);

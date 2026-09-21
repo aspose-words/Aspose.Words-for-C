@@ -144,6 +144,7 @@ public:
     void SpaceBetweenAsianAndLatinText()
     {
         //ExStart:SpaceBetweenAsianAndLatinText
+        //GistId:4f54ffd5c7580f0d146b53e52d986f38
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -161,6 +162,7 @@ public:
     void AsianTypographyLineBreakGroup()
     {
         //ExStart:AsianTypographyLineBreakGroup
+        //GistId:4f54ffd5c7580f0d146b53e52d986f38
         auto doc = MakeObject<Document>(MyDir + u"Asian typography.docx");
 
         SharedPtr<ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
@@ -175,6 +177,7 @@ public:
     void ParagraphFormatting()
     {
         //ExStart:ParagraphFormatting
+        //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -194,6 +197,7 @@ public:
     void MultilevelListFormatting()
     {
         //ExStart:MultilevelListFormatting
+        //GistId:a1dfeba1e0480d5b277a61742c8921af
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -224,6 +228,7 @@ public:
     void ApplyParagraphStyle()
     {
         //ExStart:ApplyParagraphStyle
+        //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -237,6 +242,7 @@ public:
     void ApplyBordersAndShadingToParagraph()
     {
         //ExStart:ApplyBordersAndShadingToParagraph
+        //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -281,7 +287,7 @@ public:
 
     void SnapToGrid()
     {
-        //ExStart:SetSnapToGrid
+        //ExStart:SnapToGrid
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -295,12 +301,13 @@ public:
         par->get_Runs()->idx_get(0)->get_Font()->set_SnapToGrid(true);
 
         doc->Save(ArtifactsDir + u"Paragraph.SnapToGrid.docx");
-        //ExEnd:SetSnapToGrid
+        //ExEnd:SnapToGrid
     }
 
     void GetParagraphStyleSeparator()
     {
         //ExStart:GetParagraphStyleSeparator
+        //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         for (const auto& paragraph : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))

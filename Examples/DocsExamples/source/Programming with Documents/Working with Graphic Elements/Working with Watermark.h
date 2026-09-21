@@ -48,7 +48,8 @@ class WorkWithWatermark : public DocsExamplesBase
 public:
     void AddTextWatermarkWithSpecificOptions()
     {
-        //ExStart:AddTextWatermarkWithSpecificOptions
+        //ExStart:AddTextWatermark
+        //GistId:1f690a31c188a851d80d7aed4ff7e44c
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto options = MakeObject<TextWatermarkOptions>();
@@ -61,12 +62,13 @@ public:
         doc->get_Watermark()->SetText(u"Test", options);
 
         doc->Save(ArtifactsDir + u"WorkWithWatermark.AddTextWatermarkWithSpecificOptions.docx");
-        //ExEnd:AddTextWatermarkWithSpecificOptions
+        //ExEnd:AddTextWatermark
     }
 
     void AddImageWatermarkWithSpecificOptions()
     {
-        //ExStart:AddImageWatermarkWithSpecificOptions
+        //ExStart:AddImageWatermark
+        //GistId:1f690a31c188a851d80d7aed4ff7e44c
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto options = MakeObject<ImageWatermarkOptions>();
@@ -76,7 +78,7 @@ public:
         doc->get_Watermark()->SetImage(System::Drawing::Image::FromFile(ImagesDir + u"Transparent background logo.png"), options);
 
         doc->Save(ArtifactsDir + u"WorkWithWatermark.AddImageWatermark.docx");
-        //ExEnd:AddImageWatermarkWithSpecificOptions
+        //ExEnd:AddImageWatermark
     }
 
     void RemoveWatermarkFromDocument()
@@ -111,7 +113,8 @@ public:
         //ExEnd:RemoveDocumentWatermark
     }
 
-    //ExStart:AddWatermark
+    //ExStart:AddDocumentWatermark
+    //GistId:1f690a31c188a851d80d7aed4ff7e44c
     void AddAndRemoveWatermark()
     {
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
@@ -185,9 +188,10 @@ public:
         // Insert a clone of the watermark into the header.
         header->AppendChild(watermarkPara->Clone(true));
     }
-    //ExEnd:AddWatermark
+    //ExEnd:AddDocumentWatermark
 
-    //ExStart:RemoveWatermark
+    //ExStart:RemoveWatermarkShape
+    //GistId:1f690a31c188a851d80d7aed4ff7e44c
     void RemoveWatermarkText(SharedPtr<Document> doc)
     {
         for (const auto& hf : System::IterateOver<HeaderFooter>(doc->GetChildNodes(NodeType::HeaderFooter, true)))
@@ -201,7 +205,7 @@ public:
             }
         }
     }
-    //ExEnd:RemoveWatermark
+    //ExEnd:RemoveWatermarkShape
 };
 
 }}} // namespace DocsExamples::Programming_with_Documents::Working_with_Graphic_Elements

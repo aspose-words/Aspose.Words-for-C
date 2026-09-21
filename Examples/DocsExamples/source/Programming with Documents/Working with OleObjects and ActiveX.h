@@ -43,19 +43,21 @@ class WorkingWithOleObjectsAndActiveX : public DocsExamplesBase
 public:
     void InsertOleObject()
     {
-        //ExStart:DocumentBuilderInsertOleObject
+        //ExStart:InsertOleObject
+        //GistId:4996b573cf231d9f66ab0d1f3f981222
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         builder->InsertOleObject(u"http://www.aspose.com", u"htmlfile", true, true, nullptr);
 
         doc->Save(ArtifactsDir + u"WorkingWithOleObjectsAndActiveX.InsertOleObject.docx");
-        //ExEnd:DocumentBuilderInsertOleObject
+        //ExEnd:InsertOleObject
     }
 
     void InsertOleObjectWithOlePackage()
     {
         //ExStart:InsertOleObjectwithOlePackage
+        //GistId:4996b573cf231d9f66ab0d1f3f981222
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -71,27 +73,30 @@ public:
         }
         //ExEnd:InsertOleObjectwithOlePackage
 
-        //ExStart:GetAccessToOLEObjectRawData
+        //ExStart:GetAccessToOleObjectRawData
+        //GistId:4996b573cf231d9f66ab0d1f3f981222
         auto oleShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         ArrayPtr<uint8_t> oleRawData = oleShape->get_OleFormat()->GetRawData();
-        //ExEnd:GetAccessToOLEObjectRawData
+        //ExEnd:GetAccessToOleObjectRawData
     }
 
     void InsertOleObjectAsIcon()
     {
-        //ExStart:InsertOLEObjectAsIcon
+        //ExStart:InsertOleObjectAsIcon
+        //GistId:4996b573cf231d9f66ab0d1f3f981222
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         builder->InsertOleObjectAsIcon(MyDir + u"Presentation.pptx", false, ImagesDir + u"Logo icon.ico", u"My embedded file");
 
         doc->Save(ArtifactsDir + u"WorkingWithOleObjectsAndActiveX.InsertOleObjectAsIcon.docx");
-        //ExEnd:InsertOLEObjectAsIcon
+        //ExEnd:InsertOleObjectAsIcon
     }
 
     void InsertOleObjectAsIconUsingStream()
     {
-        //ExStart:InsertOLEObjectAsIconUsingStream
+        //ExStart:InsertOleObjectAsIconUsingStream
+        //GistId:4996b573cf231d9f66ab0d1f3f981222
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -101,7 +106,7 @@ public:
         }
 
         doc->Save(ArtifactsDir + u"WorkingWithOleObjectsAndActiveX.InsertOleObjectAsIconUsingStream.docx");
-        //ExEnd:InsertOLEObjectAsIconUsingStream
+        //ExEnd:InsertOleObjectAsIconUsingStream
     }
 
     void InsertOnlineVideo()

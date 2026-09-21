@@ -24,7 +24,8 @@ class WorkingWithTextboxes : public System::Object
 public:
     void CreateALink()
     {
-        //ExStart:CreateALink
+        //ExStart:CreateLink
+        //GistId:68b6041746b3d6bf5137cff8e6385b5f
         auto doc = MakeObject<Document>();
 
         auto shape1 = MakeObject<Shape>(doc, ShapeType::TextBox);
@@ -37,12 +38,13 @@ public:
         {
             textBox1->set_Next(textBox2);
         }
-        //ExEnd:CreateALink
+        //ExEnd:CreateLink
     }
 
     void CheckSequence()
     {
         //ExStart:CheckSequence
+        //GistId:68b6041746b3d6bf5137cff8e6385b5f
         auto doc = MakeObject<Document>();
 
         auto shape = MakeObject<Shape>(doc, ShapeType::TextBox);
@@ -67,7 +69,8 @@ public:
 
     void BreakALink()
     {
-        //ExStart:BreakALink
+        //ExStart:BreakLink
+        //GistId:68b6041746b3d6bf5137cff8e6385b5f
         auto doc = MakeObject<Document>();
 
         auto shape = MakeObject<Shape>(doc, ShapeType::TextBox);
@@ -84,7 +87,7 @@ public:
         {
             textBox->get_Previous()->BreakForwardLink();
         }
-        //ExEnd:BreakALink
+        //ExEnd:BreakLink
     }
 };
 

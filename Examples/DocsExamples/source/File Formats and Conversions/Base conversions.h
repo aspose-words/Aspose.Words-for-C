@@ -55,6 +55,7 @@ public:
     void DocToDocx()
     {
         //ExStart:LoadAndSave
+        //GistId:7ee438947078cf070c5bc36a4e45a18c
         //ExStart:OpenDocument
         auto doc = MakeObject<Document>(MyDir + u"Document.doc");
         //ExEnd:OpenDocument
@@ -66,14 +67,16 @@ public:
     void DocxToRtf()
     {
         //ExStart:LoadAndSaveToStream
-        //ExStart:OpeningFromStream
+        //GistId:7ee438947078cf070c5bc36a4e45a18c
+        //ExStart:OpenFromStream
+        //GistId:1d626c7186a318d22d022dc96dd91d55
         // Read only access is enough for Aspose.Words to load a document.
         SharedPtr<System::IO::Stream> stream = System::IO::File::OpenRead(MyDir + u"Document.docx");
 
         auto doc = MakeObject<Document>(stream);
         // You can close the stream now, it is no longer needed because the document is in memory.
         stream->Close();
-        //ExEnd:OpeningFromStream
+        //ExEnd:OpenFromStream
 
         // ... do something with the document.
 
@@ -100,6 +103,7 @@ public:
     void DocxToByte()
     {
         //ExStart:DocxToByte
+        //GistId:f8a622f8bc1cf3c2fa8a7a9be359faa2
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto outStream = MakeObject<System::IO::MemoryStream>();
@@ -123,14 +127,15 @@ public:
 
     void DocxToMarkdown()
     {
-        //ExStart:SaveToMarkdownDocument
+        //ExStart:DocxToMarkdown
+        //GistId:51b4cb9c451832f23527892e19c7bca6
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         builder->Writeln(u"Some text!");
 
         doc->Save(ArtifactsDir + u"BaseConversions.DocxToMarkdown.md");
-        //ExEnd:SaveToMarkdownDocument
+        //ExEnd:DocxToMarkdown
     }
 
     void DocxToTxt()

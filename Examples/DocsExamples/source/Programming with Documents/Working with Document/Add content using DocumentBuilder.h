@@ -83,6 +83,7 @@ public:
     void CreateNewDocument()
     {
         //ExStart:CreateNewDocument
+        //GistId:1d626c7186a318d22d022dc96dd91d55
         auto doc = MakeObject<Document>();
 
         // Use a document builder to add content to the document.
@@ -95,7 +96,7 @@ public:
 
     void DocumentBuilderInsertBookmark()
     {
-        //ExStart:DocumentBuilderInsertBookmark
+        //ExStart:InsertBookmark
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -104,7 +105,7 @@ public:
         builder->EndBookmark(u"FineBookmark");
 
         doc->Save(ArtifactsDir + u"AddContentUsingDocumentBuilder.DocumentBuilderInsertBookmark.docx");
-        //ExEnd:DocumentBuilderInsertBookmark
+        //ExEnd:InsertBookmark
     }
 
     void BuildTable()
@@ -146,6 +147,7 @@ public:
     void InsertHorizontalRule()
     {
         //ExStart:InsertHorizontalRule
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -159,6 +161,7 @@ public:
     void HorizontalRuleFormat_()
     {
         //ExStart:HorizontalRuleFormat
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto builder = MakeObject<DocumentBuilder>();
 
         SharedPtr<Shape> shape = builder->InsertHorizontalRule();
@@ -195,6 +198,7 @@ public:
     void InsertTextInputFormField()
     {
         //ExStart:InsertTextInputFormField
+        //GistId:b09907fef4643433271e4e0e912921b0
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -207,6 +211,7 @@ public:
     void InsertCheckBoxFormField()
     {
         //ExStart:InsertCheckBoxFormField
+        //GistId:b09907fef4643433271e4e0e912921b0
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -219,6 +224,7 @@ public:
     void InsertComboBoxFormField()
     {
         //ExStart:InsertComboBoxFormField
+        //GistId:b09907fef4643433271e4e0e912921b0
         ArrayPtr<String> items = MakeArray<String>({u"One", u"Two", u"Three"});
 
         auto doc = MakeObject<Document>();
@@ -246,6 +252,7 @@ public:
     void InsertHyperlink()
     {
         //ExStart:InsertHyperlink
+        //GistId:0213851d47551e83af42233f4d075cf6
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -265,6 +272,7 @@ public:
     void InsertTableOfContents()
     {
         //ExStart:InsertTableOfContents
+        //GistId:db118a3e1559b9c88355356df9d7ea10
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -303,6 +311,7 @@ public:
         builder->Writeln(u"Heading 3.3");
 
         //ExStart:UpdateFields
+        //GistId:db118a3e1559b9c88355356df9d7ea10
         // The newly inserted table of contents will be initially empty.
         // It needs to be populated by updating the fields in the document.
         doc->UpdateFields();
@@ -315,6 +324,7 @@ public:
     void InsertInlineImage()
     {
         //ExStart:InsertInlineImage
+        //GistId:6f849e51240635a6322ab0460938c922
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -327,6 +337,7 @@ public:
     void InsertFloatingImage()
     {
         //ExStart:InsertFloatingImage
+        //GistId:6f849e51240635a6322ab0460938c922
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -340,6 +351,7 @@ public:
     void InsertParagraph()
     {
         //ExStart:InsertParagraph
+        //GistId:ecf2c438314e6c8318ca9833c7f62326
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -363,19 +375,21 @@ public:
 
     void InsertTCField()
     {
-        //ExStart:InsertTCField
+        //ExStart:InsertTcField
+        //GistId:db118a3e1559b9c88355356df9d7ea10
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         builder->InsertField(u"TC \"Entry Text\" \\f t");
 
         doc->Save(ArtifactsDir + u"AddContentUsingDocumentBuilder.InsertTCField.docx");
-        //ExEnd:InsertTCField
+        //ExEnd:InsertTcField
     }
 
     void InsertTCFieldsAtText()
     {
-        //ExStart:InsertTCFieldsAtText
+        //ExStart:InsertTcFieldsAtText
+        //GistId:db118a3e1559b9c88355356df9d7ea10
         auto doc = MakeObject<Document>();
 
         auto options = MakeObject<FindReplaceOptions>();
@@ -383,7 +397,7 @@ public:
         options->set_ReplacingCallback(MakeObject<AddContentUsingDocumentBuilder::InsertTCFieldHandler>(u"Chapter 1", u"\\l 1"));
 
         doc->get_Range()->Replace(MakeObject<System::Text::RegularExpressions::Regex>(u"The Beginning"), u"", options);
-        //ExEnd:InsertTCFieldsAtText
+        //ExEnd:InsertTcFieldsAtText
     }
 
     //ExStart:InsertTCFieldHandler
@@ -435,7 +449,9 @@ public:
     void MoveToNode()
     {
         //ExStart:MoveToNode
+        //GistId:1a2c340d1a9dde6fe70c2733084d9aab
         //ExStart:MoveToBookmark
+        //GistId:1a2c340d1a9dde6fe70c2733084d9aab
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -472,6 +488,7 @@ public:
     void MoveToDocumentStartEnd()
     {
         //ExStart:MoveToDocumentStartEnd
+        //GistId:1a2c340d1a9dde6fe70c2733084d9aab
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -488,6 +505,7 @@ public:
     void MoveToSection()
     {
         //ExStart:MoveToSection
+        //GistId:1a2c340d1a9dde6fe70c2733084d9aab
         auto doc = MakeObject<Document>();
         doc->AppendChild(MakeObject<Section>(doc));
 
@@ -517,6 +535,7 @@ public:
     void MoveToHeadersFooters()
     {
         //ExStart:MoveToHeadersFooters
+        //GistId:1a2c340d1a9dde6fe70c2733084d9aab
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -556,6 +575,7 @@ public:
     void MoveToTableCell()
     {
         //ExStart:MoveToTableCell
+        //GistId:1a2c340d1a9dde6fe70c2733084d9aab
         auto doc = MakeObject<Document>(MyDir + u"Tables.docx");
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -572,6 +592,7 @@ public:
     void MoveToBookmarkEnd()
     {
         //ExStart:MoveToBookmarkEnd
+        //GistId:ecf2c438314e6c8318ca9833c7f62326
         auto doc = MakeObject<Document>(MyDir + u"Bookmarks.docx");
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -583,6 +604,7 @@ public:
     void MoveToMergeField()
     {
         //ExStart:MoveToMergeField
+        //GistId:1a2c340d1a9dde6fe70c2733084d9aab
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 

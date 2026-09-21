@@ -36,7 +36,7 @@ class BaseOperations : public DocsExamplesBase
 public:
     void SimpleMailMerge()
     {
-        //ExStart:SimpleMailMerge
+        //ExStart:ExecuteSimpleMailMerge
         //GistId:3435df005db9907ec9ba3a6b777ae6fb
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -56,19 +56,20 @@ public:
                 { boxHelper(u"John Doe"), boxHelper(u"Hawaiian"), boxHelper(u"2")}));
 
         doc->Save(ArtifactsDir + u"BaseOperations.SimpleMailMerge.docx");
-        //ExEnd:SimpleMailMerge
+        //ExEnd:ExecuteSimpleMailMerge
     }
 
     void UseIfElseMustache()
     {
-        //ExStart:UseOfifelseMustacheSyntax
+        //ExStart:UseIfElseMustache
+        //GistId:544788f602e697802e313a641cedb9b8
         auto doc = MakeObject<Document>(MyDir + u"Mail merge destinations - Mustache syntax.docx");
 
         doc->get_MailMerge()->set_UseNonMergeFields(true);
         doc->get_MailMerge()->Execute(MakeArray<String>({u"GENDER"}), MakeArray<SharedPtr<System::Object>>({System::ObjectExt::Box<String>(u"MALE")}));
 
         doc->Save(ArtifactsDir + u"BaseOperations.IfElseMustache.docx");
-        //ExEnd:UseOfifelseMustacheSyntax
+        //ExEnd:UseIfElseMustache
     }
 
     void GetRegionsByName()

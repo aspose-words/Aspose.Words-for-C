@@ -64,6 +64,7 @@ public:
     void AcceptRevisions()
     {
         //ExStart:AcceptAllRevisions
+        //GistId:e8d71fde166d275d0fc9471c56c3ad39
         auto doc = MakeObject<Document>();
         SharedPtr<Body> body = doc->get_FirstSection()->get_Body();
         SharedPtr<Paragraph> para = body->get_FirstParagraph();
@@ -142,19 +143,20 @@ public:
 
     void RemoveCommentsInPdf()
     {
-        //ExStart:RemoveCommentsInPDF
+        //ExStart:RemoveCommentsInPdf
         auto doc = MakeObject<Document>(MyDir + u"Revisions.docx");
 
         // Do not render the comments in PDF.
         doc->get_LayoutOptions()->set_CommentDisplayMode(CommentDisplayMode::Hide);
 
         doc->Save(ArtifactsDir + u"WorkingWithRevisions.RemoveCommentsInPdf.pdf");
-        //ExEnd:RemoveCommentsInPDF
+        //ExEnd:RemoveCommentsInPdf
     }
 
     void ShowRevisionsInBalloons()
     {
         //ExStart:ShowRevisionsInBalloons
+        //GistId:ce015d9bade4e0294485ffb47462ded4
         //ExStart:SetMeasurementUnit
         //ExStart:SetRevisionBarsPosition
         auto doc = MakeObject<Document>(MyDir + u"Revisions.docx");
@@ -217,6 +219,7 @@ public:
     void MoveNodeInTrackedDocument()
     {
         //ExStart:MoveNodeInTrackedDocument
+        //GistId:e8d71fde166d275d0fc9471c56c3ad39
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
         builder->Writeln(u"Paragraph 1");
@@ -254,6 +257,7 @@ public:
     void ShapeRevision()
     {
         //ExStart:ShapeRevision
+        //GistId:e8d71fde166d275d0fc9471c56c3ad39
         auto doc = MakeObject<Document>();
 
         // Insert an inline shape without tracking revisions.

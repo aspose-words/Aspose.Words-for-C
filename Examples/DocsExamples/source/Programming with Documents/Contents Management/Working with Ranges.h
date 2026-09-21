@@ -23,6 +23,7 @@ public:
     void RangesDeleteText()
     {
         //ExStart:RangesDeleteText
+        //GistId:9164e9c0658006e51db723b0742c12fc
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
         doc->get_Sections()->idx_get(0)->get_Range()->Delete();
         //ExEnd:RangesDeleteText
@@ -31,6 +32,7 @@ public:
     void RangesGetText()
     {
         //ExStart:RangesGetText
+        //GistId:9164e9c0658006e51db723b0742c12fc
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
         String text = doc->get_Range()->get_Text();
         //ExEnd:RangesGetText

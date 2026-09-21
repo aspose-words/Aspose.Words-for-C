@@ -63,6 +63,7 @@ public:
     }
 
     //ExStart:PdfRenderWarnings
+    //GistId:f9c5250f94e595ea3590b3be679475ba
     void PdfRenderWarnings()
     {
         auto doc = MakeObject<Document>(MyDir + u"WMF with image.docx");
@@ -136,7 +137,8 @@ public:
 
     void EmbeddedAllFonts()
     {
-        //ExStart:EmbeddAllFonts
+        //ExStart:EmbeddedAllFonts
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // The output PDF will be embedded with all fonts found in the document.
@@ -144,12 +146,13 @@ public:
         saveOptions->set_EmbedFullFonts(true);
 
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.EmbeddedFontsInPdf.pdf", saveOptions);
-        //ExEnd:EmbeddAllFonts
+        //ExEnd:EmbeddedAllFonts
     }
 
     void EmbeddedSubsetFonts()
     {
-        //ExStart:EmbeddSubsetFonts
+        //ExStart:EmbeddedSubsetFonts
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // The output PDF will contain subsets of the fonts in the document.
@@ -158,12 +161,13 @@ public:
         saveOptions->set_EmbedFullFonts(false);
 
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.EmbeddSubsetFonts.pdf", saveOptions);
-        //ExEnd:EmbeddSubsetFonts
+        //ExEnd:EmbeddedSubsetFonts
     }
 
     void DisableEmbedWindowsFonts()
     {
         //ExStart:DisableEmbedWindowsFonts
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // The output PDF will be saved without embedding standard windows fonts.
@@ -189,6 +193,7 @@ public:
     void AvoidEmbeddingCoreFonts()
     {
         //ExStart:AvoidEmbeddingCoreFonts
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // The output PDF will not be embedded with core fonts such as Arial, Times New Roman etc.
@@ -202,6 +207,7 @@ public:
     void ExportHeaderFooterBookmarks()
     {
         //ExStart:ExportHeaderFooterBookmarks
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>(MyDir + u"Bookmarks in headers and footers.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
@@ -257,6 +263,7 @@ public:
     void DownsamplingImages()
     {
         //ExStart:DownsamplingImages
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // We can set a minimum threshold for downsampling.
@@ -271,7 +278,8 @@ public:
 
     void SetOutlineOptions()
     {
-        //ExStart:SetOutlineOptions
+        //ExStart:OutlineOptions
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
@@ -279,12 +287,13 @@ public:
         saveOptions->get_OutlineOptions()->set_ExpandedOutlineLevels(1);
 
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.SetOutlineOptions.pdf", saveOptions);
-        //ExEnd:SetOutlineOptions
+        //ExEnd:OutlineOptions
     }
 
     void CustomPropertiesExport()
     {
         //ExStart:CustomPropertiesExport
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>();
         doc->get_CustomDocumentProperties()->Add(u"Company", String(u"Aspose"));
 
@@ -298,6 +307,7 @@ public:
     void ExportDocumentStructure()
     {
         //ExStart:ExportDocumentStructure
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>(MyDir + u"Paragraphs.docx");
 
         // The file size will be increased and the structure will be visible in the "Content" navigation pane
@@ -311,7 +321,8 @@ public:
 
     void ImageCompression()
     {
-        //ExStart:PdfImageCompression
+        //ExStart:ImageCompression
+        //GistId:6debb84fc15c7e5b8e35384d9c116215
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
@@ -326,19 +337,20 @@ public:
         saveOptionsA2U->set_JpegQuality(100);
 
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.PdfImageCompression_A2u.pdf", saveOptionsA2U);
-        //ExEnd:PdfImageCompression
+        //ExEnd:ImageCompression
     }
 
     void UpdateLastPrintedProperty()
     {
-        //ExStart:UpdateIfLastPrinted
+        //ExStart:UpdateLastPrinted
+        //GistId:83e5c469d0e72b5114fb8a05a1d01977
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
         saveOptions->set_UpdateLastPrintedProperty(true);
 
         doc->Save(ArtifactsDir + u"WorkingWithPdfSaveOptions.UpdateIfLastPrinted.pdf", saveOptions);
-        //ExEnd:UpdateIfLastPrinted
+        //ExEnd:UpdateLastPrinted
     }
 
     void Dml3DEffectsRendering()

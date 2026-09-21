@@ -33,6 +33,7 @@ public:
     void DetectFileFormat()
     {
         //ExStart:CheckFormatCompatibility
+        //GistId:7fe3fc4004f081628a63608db70332b3
         String supportedDir = ArtifactsDir + u"Supported";
         String unknownDir = ArtifactsDir + u"Unknown";
         String encryptedDir = ArtifactsDir + u"Encrypted";
@@ -56,10 +57,11 @@ public:
             System::IO::Directory::CreateDirectory_(pre97Dir);
         }
 
-        //ExStart:GetListOfFilesInFolder
+        //ExStart:GetFiles
+        //GistId:7fe3fc4004f081628a63608db70332b3
         SharedPtr<System::Collections::Generic::IEnumerable<String>> fileList =
             System::IO::Directory::GetFiles(MyDir)->LINQ_Where([](String name) { return !name.EndsWith(u"Corrupted document.docx"); });
-        //ExEnd:GetListOfFilesInFolder
+        //ExEnd:GetFiles
         for (const auto& fileName : System::IterateOver(fileList))
         {
             String nameOnly = System::IO::Path::GetFileName(fileName);

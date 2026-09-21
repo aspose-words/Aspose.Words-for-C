@@ -453,6 +453,7 @@ public:
     void ExtractContentBasedOnStyles()
     {
         //ExStart:ExtractContentBasedOnStyles
+        //GistId:a73b495f610523670f0847331ef4d6fc
         auto doc = MakeObject<Document>(MyDir + u"Styles.docx");
 
         const String paraStyle = u"Heading 1";
@@ -477,6 +478,7 @@ public:
     }
 
     //ExStart:RunsByStyleName
+    //GistId:a73b495f610523670f0847331ef4d6fc
     SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> RunsByStyleName(SharedPtr<Document> doc, String styleName)
     {
         SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runsWithStyle = MakeObject<System::Collections::Generic::List<SharedPtr<Run>>>();

@@ -73,7 +73,8 @@ public:
 
     void CurrentStateOfCheckBox()
     {
-        //ExStart:SetCurrentStateOfCheckBox
+        //ExStart:CurrentStateOfCheckBox
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         // Get the first content control from the document.
@@ -85,12 +86,13 @@ public:
         }
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.CurrentStateOfCheckBox.docx");
-        //ExEnd:SetCurrentStateOfCheckBox
+        //ExEnd:CurrentStateOfCheckBox
     }
 
     void ModifyContentControls()
     {
-        //ExStart:ModifyContentControls
+        //ExStart:ModifySdt
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         for (const auto& sdt : System::IterateOver<StructuredDocumentTag>(doc->GetChildNodes(NodeType::StructuredDocumentTag, true)))
@@ -127,12 +129,13 @@ public:
         }
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.ModifyContentControls.docx");
-        //ExEnd:ModifyContentControls
+        //ExEnd:ModifySdt
     }
 
     void ComboBoxContentControl()
     {
-        //ExStart:ComboBoxContentControl
+        //ExStart:SdtComboBox
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>();
 
         auto sdt = MakeObject<StructuredDocumentTag>(doc, SdtType::ComboBox, MarkupLevel::Block);
@@ -142,7 +145,7 @@ public:
         doc->get_FirstSection()->get_Body()->AppendChild(sdt);
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.ComboBoxContentControl.docx");
-        //ExEnd:ComboBoxContentControl
+        //ExEnd:SdtComboBox
     }
 
     void RichTextBoxContentControl()
@@ -167,31 +170,34 @@ public:
 
     void SetContentControlColor()
     {
-        //ExStart:SetContentControlColor
+        //ExStart:SdtColor
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         sdt->set_Color(System::Drawing::Color::get_Red());
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.SetContentControlColor.docx");
-        //ExEnd:SetContentControlColor
+        //ExEnd:SdtColor
     }
 
     void ClearContentsControl()
     {
-        //ExStart:ClearContentsControl
+        //ExStart:ClearSdt
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
         sdt->Clear();
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.ClearContentsControl.doc");
-        //ExEnd:ClearContentsControl
+        //ExEnd:ClearSdt
     }
 
     void BindSdTtoCustomXmlPart()
     {
-        //ExStart:BindSDTtoCustomXmlPart
+        //ExStart:BindSdtToCustomXmlPart
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>();
         SharedPtr<CustomXmlPart> xmlPart = doc->get_CustomXmlParts()->Add(System::Guid::NewGuid().ToString(u"B"), u"<root><text>Hello, World!</text></root>");
 
@@ -201,12 +207,13 @@ public:
         sdt->get_XmlMapping()->SetMapping(xmlPart, u"/root[1]/text[1]", u"");
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.BindSDTtoCustomXmlPart.doc");
-        //ExEnd:BindSDTtoCustomXmlPart
+        //ExEnd:BindSdtToCustomXmlPart
     }
 
     void SetContentControlStyle()
     {
-        //ExStart:SetContentControlStyle
+        //ExStart:SdtStyle
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
@@ -214,12 +221,13 @@ public:
         sdt->set_Style(style);
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.SetContentControlStyle.docx");
-        //ExEnd:SetContentControlStyle
+        //ExEnd:SdtStyle
     }
 
     void CreatingTableRepeatingSectionMappedToCustomXmlPart()
     {
-        //ExStart:CreatingTableRepeatingSectionMappedToCustomXmlPart
+        //ExStart:RepeatingSectionMappedToCustomXmlPart
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -258,12 +266,12 @@ public:
         row->AppendChild(authorSdt);
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.CreatingTableRepeatingSectionMappedToCustomXmlPart.docx");
-        //ExEnd:CreatingTableRepeatingSectionMappedToCustomXmlPart
+        //ExEnd:RepeatingSectionMappedToCustomXmlPart
     }
 
     void MultiSection()
     {
-        //ExStart:MultiSectionSDT
+        //ExStart:MultiSection
         auto doc = MakeObject<Document>(MyDir + u"Multi-section structured document tags.docx");
 
         SharedPtr<NodeCollection> tags = doc->GetChildNodes(NodeType::StructuredDocumentTagRangeStart, true);
@@ -272,12 +280,13 @@ public:
         {
             std::cout << tag->get_Title() << std::endl;
         }
-        //ExEnd:MultiSectionSDT
+        //ExEnd:MultiSection
     }
 
     void StructuredDocumentTagRangeStartXmlMapping()
     {
-        //ExStart:StructuredDocumentTagRangeStartXmlMapping
+        //ExStart:SdtRangeStartXmlMapping
+        //GistId:089defec1b191de967e6099effeabda7
         auto doc = MakeObject<Document>(MyDir + u"Multi-section structured document tags.docx");
 
         // Construct an XML part that contains data and add it to the document's CustomXmlPart collection.
@@ -295,7 +304,7 @@ public:
         sdtRangeStart->get_XmlMapping()->SetMapping(xmlPart, u"/root[1]/text[2]", nullptr);
 
         doc->Save(ArtifactsDir + u"WorkingWithSdt.StructuredDocumentTagRangeStartXmlMapping.docx");
-        //ExEnd:StructuredDocumentTagRangeStartXmlMapping
+        //ExEnd:SdtRangeStartXmlMapping
     }
 };
 

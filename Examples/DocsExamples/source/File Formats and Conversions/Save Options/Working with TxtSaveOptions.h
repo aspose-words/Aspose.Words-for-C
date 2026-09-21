@@ -28,6 +28,7 @@ public:
     void AddBidiMarks()
     {
         //ExStart:AddBidiMarks
+        //GistId:ddafc3430967fb4f4f70085fa577d01a
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -45,7 +46,8 @@ public:
 
     void UseTabCharacterPerLevelForListIndentation()
     {
-        //ExStart:UseTabCharacterPerLevelForListIndentation
+        //ExStart:UseTabForListIndentation
+        //GistId:ddafc3430967fb4f4f70085fa577d01a
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -62,12 +64,13 @@ public:
         saveOptions->get_ListIndentation()->set_Character(u'\t');
 
         doc->Save(ArtifactsDir + u"WorkingWithTxtSaveOptions.UseTabCharacterPerLevelForListIndentation.txt", saveOptions);
-        //ExEnd:UseTabCharacterPerLevelForListIndentation
+        //ExEnd:UseTabForListIndentation
     }
 
     void UseSpaceCharacterPerLevelForListIndentation()
     {
-        //ExStart:UseSpaceCharacterPerLevelForListIndentation
+        //ExStart:UseSpaceForListIndentation
+        //GistId:ddafc3430967fb4f4f70085fa577d01a
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -84,7 +87,7 @@ public:
         saveOptions->get_ListIndentation()->set_Character(u' ');
 
         doc->Save(ArtifactsDir + u"WorkingWithTxtSaveOptions.UseSpaceCharacterPerLevelForListIndentation.txt", saveOptions);
-        //ExEnd:UseSpaceCharacterPerLevelForListIndentation
+        //ExEnd:UseSpaceForListIndentation
     }
 };
 

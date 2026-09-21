@@ -81,6 +81,7 @@ public:
     void GetFontLineSpacing()
     {
         //ExStart:GetFontLineSpacing
+        //GistId:7cb86f131b74afcbebc153f0039e3947
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -94,7 +95,7 @@ public:
 
     void CheckDMLTextEffect()
     {
-        //ExStart:CheckDMLTextEffect
+        //ExStart:CheckDmlTextEffect
         auto doc = MakeObject<Document>(MyDir + u"DrawingML text effects.docx");
 
         SharedPtr<RunCollection> runs = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs();
@@ -106,12 +107,13 @@ public:
         std::cout << System::Convert::ToString(runFont->HasDmlEffect(TextDmlEffect::Reflection)) << std::endl;
         std::cout << System::Convert::ToString(runFont->HasDmlEffect(TextDmlEffect::Outline)) << std::endl;
         std::cout << System::Convert::ToString(runFont->HasDmlEffect(TextDmlEffect::Fill)) << std::endl;
-        //ExEnd:CheckDMLTextEffect
+        //ExEnd:CheckDmlTextEffect
     }
 
     void SetFontFormatting()
     {
-        //ExStart:DocumentBuilderSetFontFormatting
+        //ExStart:SetFontFormatting
+        //GistId:7cb86f131b74afcbebc153f0039e3947
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -127,12 +129,13 @@ public:
         builder->Writeln(u"I'm a very nice formatted string.");
 
         doc->Save(ArtifactsDir + u"WorkingWithFonts.SetFontFormatting.docx");
-        //ExEnd:DocumentBuilderSetFontFormatting
+        //ExEnd:SetFontFormatting
     }
 
     void SetFontEmphasisMark()
     {
         //ExStart:SetFontEmphasisMark
+        //GistId:7cb86f131b74afcbebc153f0039e3947
         auto document = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(document);
 
@@ -149,13 +152,14 @@ public:
 
     void SetFontsFolders()
     {
-        //ExStart:SetFontsFolders
+        //ExStart:FontsFolders
+        //GistId:7e64f6d40825be58a8c12f1307c12964
         FontSettings::get_DefaultInstance()->SetFontsSources(
             MakeArray<SharedPtr<FontSourceBase>>({MakeObject<SystemFontSource>(), MakeObject<FolderFontSource>(u"C:\\MyFonts\\", true)}));
 
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
         doc->Save(ArtifactsDir + u"WorkingWithFonts.SetFontsFolders.pdf");
-        //ExEnd:SetFontsFolders
+        //ExEnd:FontsFolders
     }
 
     void EnableDisableFontSubstitution()
@@ -175,7 +179,8 @@ public:
 
     void SetFontFallbackSettings()
     {
-        //ExStart:SetFontFallbackSettings
+        //ExStart:FontFallbackSettings
+        //GistId:a08698f540d47082b4e2dbb1cb67fc1b
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto fontSettings = MakeObject<FontSettings>();
@@ -184,12 +189,13 @@ public:
         doc->set_FontSettings(fontSettings);
 
         doc->Save(ArtifactsDir + u"WorkingWithFonts.SetFontFallbackSettings.pdf");
-        //ExEnd:SetFontFallbackSettings
+        //ExEnd:FontFallbackSettings
     }
 
     void NotoFallbackSettings()
     {
-        //ExStart:SetPredefinedFontFallbackSettings
+        //ExStart:NotoFallbackSettings
+        //GistId:a08698f540d47082b4e2dbb1cb67fc1b
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto fontSettings = MakeObject<FontSettings>();
@@ -198,14 +204,15 @@ public:
         doc->set_FontSettings(fontSettings);
 
         doc->Save(ArtifactsDir + u"WorkingWithFonts.NotoFallbackSettings.pdf");
-        //ExEnd:SetPredefinedFontFallbackSettings
+        //ExEnd:NotoFallbackSettings
     }
 
     void SetFontsFoldersDefaultInstance()
     {
-        //ExStart:SetFontsFoldersDefaultInstance
+        //ExStart:DefaultInstance
+        //GistId:7e64f6d40825be58a8c12f1307c12964
         FontSettings::get_DefaultInstance()->SetFontsFolder(u"C:\\MyFonts\\", true);
-        //ExEnd:SetFontsFoldersDefaultInstance
+        //ExEnd:DefaultInstance
 
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
         doc->Save(ArtifactsDir + u"WorkingWithFonts.SetFontsFoldersDefaultInstance.pdf");
@@ -213,7 +220,8 @@ public:
 
     void SetFontsFoldersMultipleFolders()
     {
-        //ExStart:SetFontsFoldersMultipleFolders
+        //ExStart:MultipleFolders
+        //GistId:7e64f6d40825be58a8c12f1307c12964
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto fontSettings = MakeObject<FontSettings>();
@@ -225,7 +233,7 @@ public:
         doc->set_FontSettings(fontSettings);
 
         doc->Save(ArtifactsDir + u"WorkingWithFonts.SetFontsFoldersMultipleFolders.pdf");
-        //ExEnd:SetFontsFoldersMultipleFolders
+        //ExEnd:MultipleFolders
     }
 
     void SetFontsFoldersSystemAndCustomFolder()
@@ -257,10 +265,11 @@ public:
 
     void SetFontsFoldersWithPriority()
     {
-        //ExStart:SetFontsFoldersWithPriority
+        //ExStart:FontsFoldersWithPriority
+        //GistId:7e64f6d40825be58a8c12f1307c12964
         FontSettings::get_DefaultInstance()->SetFontsSources(
             MakeArray<SharedPtr<FontSourceBase>>({MakeObject<SystemFontSource>(), MakeObject<FolderFontSource>(u"C:\\MyFonts\\", true, 1)}));
-        //ExEnd:SetFontsFoldersWithPriority
+        //ExEnd:FontsFoldersWithPriority
 
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
         doc->Save(ArtifactsDir + u"WorkingWithFonts.SetFontsFoldersWithPriority.pdf");
@@ -268,7 +277,8 @@ public:
 
     void SetTrueTypeFontsFolder()
     {
-        //ExStart:SetTrueTypeFontsFolder
+        //ExStart:TrueTypeFontsFolder
+        //GistId:7e64f6d40825be58a8c12f1307c12964
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto fontSettings = MakeObject<FontSettings>();
@@ -280,7 +290,7 @@ public:
         doc->set_FontSettings(fontSettings);
 
         doc->Save(ArtifactsDir + u"WorkingWithFonts.SetTrueTypeFontsFolder.pdf");
-        //ExEnd:SetTrueTypeFontsFolder
+        //ExEnd:TrueTypeFontsFolder
     }
 
     void SpecifyDefaultFontWhenRendering()
@@ -330,18 +340,21 @@ public:
 
     void FontSettingsWithLoadOption()
     {
-        //ExStart:FontSettingsWithLoadOption
+        //ExStart:LoadOptionFontSettings
+        //GistId:a08698f540d47082b4e2dbb1cb67fc1b
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_FontSettings(MakeObject<FontSettings>());
 
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx", loadOptions);
-        //ExEnd:FontSettingsWithLoadOption
+        //ExEnd:LoadOptionFontSettings
     }
 
     void FontSettingsDefaultInstance()
     {
         //ExStart:FontSettingsFontSource
+        //GistId:a08698f540d47082b4e2dbb1cb67fc1b
         //ExStart:FontSettingsDefaultInstance
+        //GistId:a08698f540d47082b4e2dbb1cb67fc1b
         SharedPtr<FontSettings> fontSettings = FontSettings::get_DefaultInstance();
         //ExEnd:FontSettingsDefaultInstance
         fontSettings->SetFontsSources(
@@ -355,7 +368,8 @@ public:
 
     void GetListOfAvailableFonts()
     {
-        //ExStart:GetListOfAvailableFonts
+        //ExStart:AvailableFonts
+        //GistId:7e64f6d40825be58a8c12f1307c12964
         auto fontSettings = MakeObject<FontSettings>();
         SharedPtr<System::Collections::Generic::List<SharedPtr<FontSourceBase>>> fontSources =
             MakeObject<System::Collections::Generic::List<SharedPtr<FontSourceBase>>>(fontSettings->GetFontsSources());
@@ -374,7 +388,7 @@ public:
             std::cout << (String(u"Version  : ") + fontInfo->get_Version()) << std::endl;
             std::cout << (String(u"FilePath : ") + fontInfo->get_FilePath()) << std::endl;
         }
-        //ExEnd:GetListOfAvailableFonts
+        //ExEnd:AvailableFonts
     }
 
     void ReceiveNotificationsOfFonts()
@@ -466,6 +480,7 @@ public:
     //ExEnd:ResourceSteam
 
     //ExStart:GetSubstitutionWithoutSuffixes
+    //GistId:a08698f540d47082b4e2dbb1cb67fc1b
     void GetSubstitutionWithoutSuffixes()
     {
         auto doc = MakeObject<Document>(MyDir + u"Get substitution without suffixes.docx");

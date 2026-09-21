@@ -29,7 +29,8 @@ class WorkingWithMarkdownSaveOptions : public DocsExamplesBase
 public:
     void ExportIntoMarkdownWithTableContentAlignment()
     {
-        //ExStart:ExportIntoMarkdownWithTableContentAlignment
+        //ExStart:MarkdownTableContentAlignment
+        //GistId:19de942ef8827201c1dca99f76c59133
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -54,12 +55,13 @@ public:
         // The alignment in this case will be taken from the first paragraph in corresponding table column.
         saveOptions->set_TableContentAlignment(TableContentAlignment::Auto);
         doc->Save(ArtifactsDir + u"WorkingWithMarkdownSaveOptions.AutoTableContentAlignment.md", saveOptions);
-        //ExEnd:ExportIntoMarkdownWithTableContentAlignment
+        //ExEnd:MarkdownTableContentAlignment
     }
 
     void SetImagesFolder()
     {
-        //ExStart:SetImagesFolder
+        //ExStart:ImagesFolder
+        //GistId:51b4cb9c451832f23527892e19c7bca6
         auto doc = MakeObject<Document>(MyDir + u"Image bullet points.docx");
 
         auto saveOptions = MakeObject<MarkdownSaveOptions>();
@@ -69,7 +71,7 @@ public:
             auto stream = MakeObject<System::IO::MemoryStream>();
             doc->Save(stream, saveOptions);
         }
-        //ExEnd:SetImagesFolder
+        //ExEnd:ImagesFolder
     }
 };
 

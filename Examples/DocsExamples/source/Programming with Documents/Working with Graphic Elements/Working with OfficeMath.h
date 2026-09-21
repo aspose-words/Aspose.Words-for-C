@@ -29,6 +29,7 @@ public:
     void MathEquations()
     {
         //ExStart:MathEquations
+        //GistId:e19d5874b376b07466fd7a397d554648
         auto doc = MakeObject<Document>(MyDir + u"Office math.docx");
         auto officeMath = System::ExplicitCast<OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
 

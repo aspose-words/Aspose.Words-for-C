@@ -74,16 +74,18 @@ public:
 
     void ChangeStyleOfTocLevel()
     {
-        //ExStart:ChangeStyleOfTOCLevel
+        //ExStart:ChangeStyleOfTocLevel
+        //GistId:db118a3e1559b9c88355356df9d7ea10
         auto doc = MakeObject<Document>();
         // Retrieve the style used for the first level of the TOC and change the formatting of the style.
         doc->get_Styles()->idx_get(StyleIdentifier::Toc1)->get_Font()->set_Bold(true);
-        //ExEnd:ChangeStyleOfTOCLevel
+        //ExEnd:ChangeStyleOfTocLevel
     }
 
     void ChangeTocTabStops()
     {
-        //ExStart:ChangeTOCTabStops
+        //ExStart:ChangeTocTabStops
+        //GistId:db118a3e1559b9c88355356df9d7ea10
         auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
 
         for (const auto& para : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
@@ -106,7 +108,7 @@ public:
         }
 
         doc->Save(ArtifactsDir + u"WorkingWithTableOfContent.ChangeTocTabStops.docx");
-        //ExEnd:ChangeTOCTabStops
+        //ExEnd:ChangeTocTabStops
     }
 };
 

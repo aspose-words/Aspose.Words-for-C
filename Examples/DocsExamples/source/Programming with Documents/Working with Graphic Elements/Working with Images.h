@@ -152,6 +152,7 @@ public:
     void InsertBarcodeImage()
     {
         //ExStart:InsertBarcodeImage
+        //GistId:6f849e51240635a6322ab0460938c922
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -178,6 +179,7 @@ public:
     }
 
     //ExStart:InsertBarcodeIntoFooter
+    //GistId:6f849e51240635a6322ab0460938c922
     void InsertBarcodeIntoFooter(SharedPtr<DocumentBuilder> builder, SharedPtr<Section> section, HeaderFooterType footerType)
     {
         // Move to the footer type in the specific section.

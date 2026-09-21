@@ -36,7 +36,8 @@ class WorkingWithImageSaveOptions : public DocsExamplesBase
 public:
     void ExposeThresholdControlForTiffBinarization()
     {
-        //ExStart:ExposeThresholdControlForTiffBinarization
+        //ExStart:ExposeThresholdControl
+        //GistId:b20a0ec0e1ff0556aa20d12f486e1963
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -46,16 +47,18 @@ public:
         saveOptions->set_ThresholdForFloydSteinbergDithering(254);
 
         doc->Save(ArtifactsDir + u"WorkingWithImageSaveOptions.ExposeThresholdControlForTiffBinarization.tiff", saveOptions);
-        //ExEnd:ExposeThresholdControlForTiffBinarization
+        //ExEnd:ExposeThresholdControl
     }
 
     void GetTiffPageRange()
     {
         //ExStart:GetTiffPageRange
+        //GistId:b20a0ec0e1ff0556aa20d12f486e1963
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
-        //ExStart:SaveAsTIFF
+        //ExStart:SaveAsTiff
+        //GistId:b20a0ec0e1ff0556aa20d12f486e1963
         doc->Save(ArtifactsDir + u"WorkingWithImageSaveOptions.MultipageTiff.tiff");
-        //ExEnd:SaveAsTIFF
+        //ExEnd:SaveAsTiff
 
         //ExStart:SaveAsTIFFUsingImageSaveOptions
         auto saveOptions = MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -71,6 +74,7 @@ public:
     void GetJpegPageRange()
     {
         //ExStart:GetJpegPageRange
+        //GistId:ebbb90d74ef57db456685052a18f8e86
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto options = MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);

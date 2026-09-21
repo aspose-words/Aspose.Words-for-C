@@ -1030,7 +1030,7 @@ public:
 
     void AutoFitToPageWidth()
     {
-        //ExStart:AutoFitToPageWidth
+        //ExStart:AutoFitPageWidth
         //GistId:4f1d7039f19f9f49472a50cc0d0fc475
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -1049,7 +1049,7 @@ public:
         builder->Writeln(u"Cell #3");
 
         doc->Save(ArtifactsDir + u"WorkingWithTables.AutoFitToPageWidth.docx");
-        //ExEnd:AutoFitToPageWidth
+        //ExEnd:AutoFitPageWidth
     }
 
     void PreferredWidthSettings()
@@ -1163,7 +1163,7 @@ public:
 
     void SetRelativeHorizontalOrVerticalPosition()
     {
-        //ExStart:SetRelativeHorizontalOrVerticalPosition
+        //ExStart:RelativeHorizontalOrVerticalPosition
         auto doc = MakeObject<Document>(MyDir + u"Table wrapped by text.docx");
 
         SharedPtr<Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
@@ -1171,7 +1171,7 @@ public:
         table->set_VerticalAnchor(RelativeVerticalPosition::Page);
 
         doc->Save(ArtifactsDir + u"WorkingWithTables.SetRelativeHorizontalOrVerticalPosition.docx");
-        //ExEnd:SetRelativeHorizontalOrVerticalPosition
+        //ExEnd:RelativeHorizontalOrVerticalPosition
     }
 };
 

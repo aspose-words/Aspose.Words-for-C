@@ -47,6 +47,7 @@ public:
     void UpdateDirtyFields()
     {
         //ExStart:UpdateDirtyFields
+        //GistId:08db64c4d86842c4afd1ecb925ed07c4
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_UpdateDirtyFields(true);
 
@@ -61,6 +62,7 @@ public:
         //ExStart:LoadSaveEncryptedDocument
         //GistId:b4e8a7baa7d3c08127f9a043487de21b
         //ExStart:OpenEncryptedDocument
+        //GistId:40be8275fc43f78f5e5877212e4e1bf3
         auto doc = MakeObject<Document>(MyDir + u"Encrypted.docx", MakeObject<LoadOptions>(u"docPassword"));
         //ExEnd:OpenEncryptedDocument
 
@@ -81,6 +83,7 @@ public:
     void ConvertShapeToOfficeMath()
     {
         //ExStart:ConvertShapeToOfficeMath
+        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_ConvertShapeToOfficeMath(true);
 
@@ -92,7 +95,8 @@ public:
 
     void SetMsWordVersion()
     {
-        //ExStart:SetMSWordVersion
+        //ExStart:SetMsWordVersion
+        //GistId:40be8275fc43f78f5e5877212e4e1bf3
         // Create a new LoadOptions object, which will load documents according to MS Word 2019 specification by default
         // and change the loading version to Microsoft Word 2010.
         auto loadOptions = MakeObject<LoadOptions>();
@@ -101,22 +105,24 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Document.docx", loadOptions);
 
         doc->Save(ArtifactsDir + u"WorkingWithLoadOptions.SetMsWordVersion.docx");
-        //ExEnd:SetMSWordVersion
+        //ExEnd:SetMsWordVersion
     }
 
     void UseTempFolder()
     {
-        //ExStart:UseTempFolder
+        //ExStart:TempFolder
+        //GistId:40be8275fc43f78f5e5877212e4e1bf3
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_TempFolder(ArtifactsDir);
 
         auto doc = MakeObject<Document>(MyDir + u"Document.docx", loadOptions);
-        //ExEnd:UseTempFolder
+        //ExEnd:TempFolder
     }
 
     void WarningCallback()
     {
         //ExStart:WarningCallback
+        //GistId:40be8275fc43f78f5e5877212e4e1bf3
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_WarningCallback(MakeObject<WorkingWithLoadOptions::DocumentLoadingWarningCallback>());
 
@@ -124,7 +130,8 @@ public:
         //ExEnd:WarningCallback
     }
 
-    //ExStart:DocumentLoadingWarningCallback
+    //ExStart:IWarningCallback
+    //GistId:40be8275fc43f78f5e5877212e4e1bf3
     class DocumentLoadingWarningCallback : public IWarningCallback
     {
     public:
@@ -135,11 +142,12 @@ public:
             std::cout << "\tDescription: " << info->get_Description() << std::endl;
         }
     };
-    //ExEnd:DocumentLoadingWarningCallback
+    //ExEnd:IWarningCallback
 
     void ResourceLoadingCallback()
     {
         //ExStart:ResourceLoadingCallback
+        //GistId:40be8275fc43f78f5e5877212e4e1bf3
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_ResourceLoadingCallback(MakeObject<WorkingWithLoadOptions::HtmlLinkedResourceLoadingCallback>());
 
@@ -151,7 +159,8 @@ public:
         //ExEnd:ResourceLoadingCallback
     }
 
-    //ExStart:HtmlLinkedResourceLoadingCallback
+    //ExStart:IResourceLoadingCallback
+    //GistId:40be8275fc43f78f5e5877212e4e1bf3
     class HtmlLinkedResourceLoadingCallback : public IResourceLoadingCallback
     {
     public:
@@ -192,11 +201,12 @@ public:
             }
         }
     };
-    //ExEnd:HtmlLinkedResourceLoadingCallback
+    //ExEnd:IResourceLoadingCallback
 
     void LoadWithEncoding()
     {
         //ExStart:LoadWithEncoding
+        //GistId:40be8275fc43f78f5e5877212e4e1bf3
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_Encoding(System::Text::Encoding::get_UTF7());
 
@@ -216,12 +226,12 @@ public:
 
     void LoadChm()
     {
-        //ExStart:LoadCHM
+        //ExStart:LoadChm
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_Encoding(System::Text::Encoding::GetEncoding(u"windows-1251"));
 
         auto doc = MakeObject<Document>(MyDir + u"HTML help.chm", loadOptions);
-        //ExEnd:LoadCHM
+        //ExEnd:LoadChm
     }
 };
 

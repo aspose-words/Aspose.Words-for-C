@@ -32,29 +32,32 @@ class WorkingWithHyphenation : public DocsExamplesBase
 public:
     void HyphenateWordsOfLanguages()
     {
-        //ExStart:HyphenateWordsOfLanguages
+        //ExStart:HyphenateWords
+        //GistId:a52aacf87a36f7881ba29d25de92fb83
         auto doc = MakeObject<Document>(MyDir + u"German text.docx");
 
         Hyphenation::RegisterDictionary(u"en-US", MyDir + u"hyph_en_US.dic");
         Hyphenation::RegisterDictionary(u"de-CH", MyDir + u"hyph_de_CH.dic");
 
         doc->Save(ArtifactsDir + u"WorkingWithHyphenation.HyphenateWordsOfLanguages.pdf");
-        //ExEnd:HyphenateWordsOfLanguages
+        //ExEnd:HyphenateWords
     }
 
     void LoadHyphenationDictionaryForLanguage()
     {
-        //ExStart:LoadHyphenationDictionaryForLanguage
+        //ExStart:LoadHyphenationDictionary
+        //GistId:a52aacf87a36f7881ba29d25de92fb83
         auto doc = MakeObject<Document>(MyDir + u"German text.docx");
 
         SharedPtr<System::IO::Stream> stream = System::IO::File::OpenRead(MyDir + u"hyph_de_CH.dic");
         Hyphenation::RegisterDictionary(u"de-CH", stream);
 
         doc->Save(ArtifactsDir + u"WorkingWithHyphenation.LoadHyphenationDictionaryForLanguage.pdf");
-        //ExEnd:LoadHyphenationDictionaryForLanguage
+        //ExEnd:LoadHyphenationDictionary
     }
 
     //ExStart:CustomHyphenation
+    //GistId:a52aacf87a36f7881ba29d25de92fb83
     void HyphenationCallback()
     {
 

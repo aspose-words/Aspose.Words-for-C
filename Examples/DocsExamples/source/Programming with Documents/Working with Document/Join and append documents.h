@@ -264,7 +264,7 @@ public:
     }
     //ExEnd:ConvertNumPageFieldsToPageRef
 
-    //ExStart:GetRemoveField
+    //ExStart:RemoveNumPageField
     void RemoveField(SharedPtr<FieldStart> fieldStart)
     {
         bool isRemoving = true;
@@ -300,7 +300,7 @@ public:
 
         return builder->ToString();
     }
-    //ExEnd:GetRemoveField
+    //ExEnd:RemoveNumPageField
 
     void DifferentPageSetup()
     {

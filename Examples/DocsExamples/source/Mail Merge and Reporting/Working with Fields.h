@@ -48,6 +48,7 @@ public:
     void MailMergeFormFields()
     {
         //ExStart:MailMergeFormFields
+        //GistId:0a1baaa127443b485cc692c8d98ee353
         auto doc = MakeObject<Document>(MyDir + u"Mail merge destinations - Fax.docx");
 
         // Setup mail merge event handler to do the custom work.
@@ -92,6 +93,7 @@ public:
     }
 
     //ExStart:HandleMergeField
+    //GistId:8a66b5cea0f9f8b862c092c9b93ccb3c
     class HandleMergeField : public IFieldMergingCallback
     {
     private:
@@ -146,6 +148,7 @@ public:
     void MailMergeImageField()
     {
         //ExStart:MailMergeImageField
+        //GistId:8a66b5cea0f9f8b862c092c9b93ccb3c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -167,6 +170,7 @@ public:
     }
 
     //ExStart:ImageFieldMergingHandler
+    //GistId:8a66b5cea0f9f8b862c092c9b93ccb3c
     class ImageFieldMergingHandler : public IFieldMergingCallback
     {
     private:
@@ -191,6 +195,7 @@ public:
     //ExEnd:ImageFieldMergingHandler
 
     //ExStart:DataSourceRoot
+    //GistId:8a66b5cea0f9f8b862c092c9b93ccb3c
     class DataSourceRoot : public IMailMergeDataSourceRoot
     {
     private:

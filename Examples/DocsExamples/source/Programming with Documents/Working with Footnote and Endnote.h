@@ -30,31 +30,34 @@ class WorkingWithFootnotes : public DocsExamplesBase
 public:
     void SetFootNoteColumns()
     {
-        //ExStart:SetFootNoteColumns
+        //ExStart:SetFootnoteColumns
+        //GistId:3b39c2019380ee905e7d9596494916a4
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         // Specify the number of columns with which the footnotes area is formatted.
         doc->get_FootnoteOptions()->set_Columns(3);
 
         doc->Save(ArtifactsDir + u"WorkingWithFootnotes.SetFootNoteColumns.docx");
-        //ExEnd:SetFootNoteColumns
+        //ExEnd:SetFootnoteColumns
     }
 
     void SetFootnoteAndEndNotePosition()
     {
-        //ExStart:SetFootnoteAndEndNotePosition
+        //ExStart:SetFootnoteAndEndnotePosition
+        //GistId:3b39c2019380ee905e7d9596494916a4
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         doc->get_FootnoteOptions()->set_Position(FootnotePosition::BeneathText);
         doc->get_EndnoteOptions()->set_Position(EndnotePosition::EndOfSection);
 
         doc->Save(ArtifactsDir + u"WorkingWithFootnotes.SetFootnoteAndEndNotePosition.docx");
-        //ExEnd:SetFootnoteAndEndNotePosition
+        //ExEnd:SetFootnoteAndEndnotePosition
     }
 
     void SetEndnoteOptions()
     {
         //ExStart:SetEndnoteOptions
+        //GistId:3b39c2019380ee905e7d9596494916a4
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
         auto builder = MakeObject<DocumentBuilder>(doc);
 

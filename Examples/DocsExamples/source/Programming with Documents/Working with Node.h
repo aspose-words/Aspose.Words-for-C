@@ -37,16 +37,18 @@ class WorkingWithNode : public DocsExamplesBase
 public:
     void UseNodeType()
     {
-        //ExStart:UseNodeType
+        //ExStart:GetNodeType
+        //GistId:3e9d92093b2f5995f984791bfc10c944
         auto doc = MakeObject<Document>();
 
         NodeType type = doc->get_NodeType();
-        //ExEnd:UseNodeType
+        //ExEnd:GetNodeType
     }
 
     void GetParentNode()
     {
         //ExStart:GetParentNode
+        //GistId:3e9d92093b2f5995f984791bfc10c944
         auto doc = MakeObject<Document>();
 
         // The section is the first child node of the document.
@@ -60,6 +62,7 @@ public:
     void OwnerDocument()
     {
         //ExStart:OwnerDocument
+        //GistId:3e9d92093b2f5995f984791bfc10c944
         auto doc = MakeObject<Document>();
 
         // Creating a new node of any type requires a document passed into the constructor.
@@ -86,6 +89,7 @@ public:
     void EnumerateChildNodes()
     {
         //ExStart:EnumerateChildNodes
+        //GistId:3e9d92093b2f5995f984791bfc10c944
         auto doc = MakeObject<Document>();
         auto paragraph = System::ExplicitCast<Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
 
@@ -103,6 +107,7 @@ public:
     }
 
     //ExStart:RecurseAllNodes
+    //GistId:3e9d92093b2f5995f984791bfc10c944
     void RecurseAllNodes()
     {
         auto doc = MakeObject<Document>(MyDir + u"Paragraphs.docx");
@@ -134,6 +139,7 @@ public:
     void TypedAccess()
     {
         //ExStart:TypedAccess
+        //GistId:3e9d92093b2f5995f984791bfc10c944
         auto doc = MakeObject<Document>();
 
         SharedPtr<Section> section = doc->get_FirstSection();

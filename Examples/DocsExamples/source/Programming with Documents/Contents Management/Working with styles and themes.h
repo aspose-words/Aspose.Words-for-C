@@ -35,6 +35,7 @@ public:
     void AccessStyles()
     {
         //ExStart:AccessStyles
+        //GistId:a73b495f610523670f0847331ef4d6fc
         auto doc = MakeObject<Document>();
 
         String styleName = u"";
@@ -60,6 +61,7 @@ public:
     void CopyStyles()
     {
         //ExStart:CopyStyles
+        //GistId:a73b495f610523670f0847331ef4d6fc
         auto doc = MakeObject<Document>();
         auto target = MakeObject<Document>(MyDir + u"Rendering.docx");
 
@@ -72,6 +74,7 @@ public:
     void GetThemeProperties()
     {
         //ExStart:GetThemeProperties
+        //GistId:a73b495f610523670f0847331ef4d6fc
         auto doc = MakeObject<Document>();
 
         SharedPtr<Aspose::Words::Themes::Theme> theme = doc->get_Theme();
@@ -85,6 +88,7 @@ public:
     void SetThemeProperties()
     {
         //ExStart:SetThemeProperties
+        //GistId:a73b495f610523670f0847331ef4d6fc
         auto doc = MakeObject<Document>();
 
         SharedPtr<Aspose::Words::Themes::Theme> theme = doc->get_Theme();
@@ -96,6 +100,7 @@ public:
     void InsertStyleSeparator()
     {
         //ExStart:InsertStyleSeparator
+        //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 

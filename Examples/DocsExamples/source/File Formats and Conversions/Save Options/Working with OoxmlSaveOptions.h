@@ -54,14 +54,15 @@ public:
 
     void UpdateLastSavedTimeProperty()
     {
-        //ExStart:UpdateLastSavedTimeProperty
+        //ExStart:UpdateLastSavedTime
+        //GistId:83e5c469d0e72b5114fb8a05a1d01977
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto saveOptions = MakeObject<OoxmlSaveOptions>();
         saveOptions->set_UpdateLastSavedTimeProperty(true);
 
         doc->Save(ArtifactsDir + u"WorkingWithOoxmlSaveOptions.UpdateLastSavedTimeProperty.docx", saveOptions);
-        //ExEnd:UpdateLastSavedTimeProperty
+        //ExEnd:UpdateLastSavedTime
     }
 
     void KeepLegacyControlChars()
