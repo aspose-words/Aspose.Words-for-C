@@ -44,4 +44,9 @@ TEST_F(WorkingWithTxtSaveOptions, UseSpaceCharacterPerLevelForListIndentation)
     s_instance->UseSpaceCharacterPerLevelForListIndentation();
 }
 
+TEST_F(WorkingWithTxtSaveOptions, ExportHeadersFootersMode)
+{
+    s_instance->ExportHeadersFootersMode();
+}
+
 }}}} // namespace DocsExamples::File_Formats_and_Conversions::Save_Options::gtest_test

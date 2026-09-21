@@ -7,7 +7,14 @@
 #include <Aspose.Words.Cpp/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Saving/TxtListIndentation.h>
+#include <Aspose.Words.Cpp/BreakType.h>
+#include <Aspose.Words.Cpp/HeaderFooter.h>
+#include <Aspose.Words.Cpp/HeaderFooterCollection.h>
+#include <Aspose.Words.Cpp/HeaderFooterType.h>
+#include <Aspose.Words.Cpp/SaveFormat.h>
+#include <Aspose.Words.Cpp/Saving/TxtExportHeadersFootersMode.h>
 #include <Aspose.Words.Cpp/Saving/TxtSaveOptions.h>
+#include <Aspose.Words.Cpp/Section.h>
 
 #include "DocsExamplesBase.h"
 
@@ -88,6 +95,48 @@ public:
 
         doc->Save(ArtifactsDir + u"WorkingWithTxtSaveOptions.UseSpaceCharacterPerLevelForListIndentation.txt", saveOptions);
         //ExEnd:UseSpaceForListIndentation
+    }
+
+    void ExportHeadersFootersMode()
+    {
+        //ExStart:ExportHeadersFootersMode
+        //GistId:ddafc3430967fb4f4f70085fa577d01a
+        auto doc = MakeObject<Document>();
+
+        // Insert even and primary headers/footers into the document.
+        // The primary header/footers will override the even headers/footers.
+        doc->get_FirstSection()->get_HeadersFooters()->Add(MakeObject<HeaderFooter>(doc, HeaderFooterType::HeaderEven));
+        doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderEven)->AppendParagraph(u"Even header");
+        doc->get_FirstSection()->get_HeadersFooters()->Add(MakeObject<HeaderFooter>(doc, HeaderFooterType::FooterEven));
+        doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterEven)->AppendParagraph(u"Even footer");
+        doc->get_FirstSection()->get_HeadersFooters()->Add(MakeObject<HeaderFooter>(doc, HeaderFooterType::HeaderPrimary));
+        doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->AppendParagraph(u"Primary header");
+        doc->get_FirstSection()->get_HeadersFooters()->Add(MakeObject<HeaderFooter>(doc, HeaderFooterType::FooterPrimary));
+        doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->AppendParagraph(u"Primary footer");
+
+        // Insert pages to display these headers and footers.
+        auto builder = MakeObject<DocumentBuilder>(doc);
+        builder->Writeln(u"Page 1");
+        builder->InsertBreak(BreakType::PageBreak);
+        builder->Writeln(u"Page 2");
+        builder->InsertBreak(BreakType::PageBreak);
+        builder->Write(u"Page 3");
+
+        auto options = MakeObject<TxtSaveOptions>();
+        options->set_SaveFormat(SaveFormat::Text);
+
+        // All headers and footers are placed at the very end of the output document.
+        options->set_ExportHeadersFootersMode(TxtExportHeadersFootersMode::AllAtEnd);
+        doc->Save(ArtifactsDir + u"WorkingWithTxtSaveOptions.HeadersFootersMode.AllAtEnd.txt", options);
+
+        // Only primary headers and footers are exported at the beginning and end of each section.
+        options->set_ExportHeadersFootersMode(TxtExportHeadersFootersMode::PrimaryOnly);
+        doc->Save(ArtifactsDir + u"WorkingWithTxtSaveOptions.HeadersFootersMode.PrimaryOnly.txt", options);
+
+        // No headers and footers are exported.
+        options->set_ExportHeadersFootersMode(TxtExportHeadersFootersMode::None);
+        doc->Save(ArtifactsDir + u"WorkingWithTxtSaveOptions.HeadersFootersMode.None.txt", options);
+        //ExEnd:ExportHeadersFootersMode
     }
 };
 

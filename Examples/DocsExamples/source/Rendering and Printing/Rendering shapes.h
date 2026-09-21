@@ -9,8 +9,11 @@
 #include <Aspose.Words.Cpp/Drawing/Shape.h>
 #include <Aspose.Words.Cpp/Drawing/ShapeBase.h>
 #include <Aspose.Words.Cpp/Drawing/ShapeType.h>
-#include <Aspose.Words.Cpp/FileFormatUtil.h>
+#include <Aspose.Words.Cpp/HeaderFooter.h>
+#include <Aspose.Words.Cpp/ImportFormatMode.h>
 #include <Aspose.Words.Cpp/InlineStory.h>
+#include <Aspose.Words.Cpp/Layout/LayoutEntityType.h>
+#include <Aspose.Words.Cpp/Layout/LayoutEnumerator.h>
 #include <Aspose.Words.Cpp/Node.h>
 #include <Aspose.Words.Cpp/NodeCollection.h>
 #include <Aspose.Words.Cpp/NodeType.h>
@@ -21,24 +24,24 @@
 #include <Aspose.Words.Cpp/Saving/ImageColorMode.h>
 #include <Aspose.Words.Cpp/Saving/ImageSaveOptions.h>
 #include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/SectionCollection.h>
 #include <Aspose.Words.Cpp/Story.h>
 #include <Aspose.Words.Cpp/Tables/Cell.h>
 #include <Aspose.Words.Cpp/Tables/Row.h>
 #include <drawing/bitmap.h>
 #include <drawing/color.h>
 #include <drawing/graphics.h>
-#include <drawing/graphics_unit.h>
 #include <drawing/imaging/image_format.h>
 #include <drawing/point.h>
 #include <drawing/rectangle.h>
+#include <drawing/rectangle_f.h>
 #include <drawing/size.h>
 #include <system/details/dispose_guard.h>
 #include <system/exceptions.h>
 #include <system/io/file_mode.h>
 #include <system/io/file_stream.h>
-#include <system/io/memory_stream.h>
-#include <system/io/path.h>
 #include <system/math.h>
+#include <system/enumerator_adapter.h>
 #include <system/object_ext.h>
 #include <system/primitive_types.h>
 
@@ -52,6 +55,7 @@ using System::String;
 
 using namespace Aspose::Words;
 using namespace Aspose::Words::Drawing;
+using namespace Aspose::Words::Layout;
 using namespace Aspose::Words::Rendering;
 using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Tables;
@@ -148,7 +152,8 @@ public:
 
         //ExStart:RenderCellToImage
         auto cell = System::ExplicitCast<Cell>(doc->GetChild(NodeType::Cell, 2, true));
-        RenderNode(cell, ArtifactsDir + u"RenderShape.RenderCellToImage.png", nullptr);
+        SharedPtr<Document> tmp = ConvertToImage(doc, cell);
+        tmp->Save(ArtifactsDir + u"RenderShape.RenderCellToImage.png");
         //ExEnd:RenderCellToImage
     }
 
@@ -158,7 +163,8 @@ public:
 
         //ExStart:RenderRowToImage
         auto row = System::ExplicitCast<Row>(doc->GetChild(NodeType::Row, 0, true));
-        RenderNode(row, ArtifactsDir + u"RenderShape.RenderRowToImage.png", nullptr);
+        SharedPtr<Document> tmp = ConvertToImage(doc, row);
+        tmp->Save(ArtifactsDir + u"RenderShape.RenderRowToImage.png");
         //ExEnd:RenderRowToImage
     }
 
@@ -176,7 +182,8 @@ public:
         auto options = MakeObject<ImageSaveOptions>(SaveFormat::Png);
         options->set_PaperColor(System::Drawing::Color::get_LightPink());
 
-        RenderNode(textBoxShape->get_LastParagraph(), ArtifactsDir + u"RenderShape.RenderParagraphToImage.png", options);
+        SharedPtr<Document> tmp = ConvertToImage(doc, textBoxShape->get_LastParagraph());
+        tmp->Save(ArtifactsDir + u"RenderShape.RenderParagraphToImage.png");
         //ExEnd:RenderParagraphToImage
     }
 
@@ -214,88 +221,103 @@ public:
     }
 
     /// <summary>
-    /// Renders any node in a document to the path specified using the image save options.
+    /// Renders any node in a document into an image.
     /// </summary>
+    /// <param name="doc">The current document.</param>
     /// <param name="node">The node to render.</param>
-    /// <param name="filePath">The path to save the rendered image to.</param>
-    /// <param name="imageOptions">The image options to use during rendering. This can be null.</param>
-    void RenderNode(SharedPtr<Node> node, String filePath, SharedPtr<ImageSaveOptions> imageOptions)
+    SharedPtr<Document> ConvertToImage(SharedPtr<Document> doc, SharedPtr<CompositeNode> node)
     {
-        if (imageOptions == nullptr)
+        SharedPtr<Document> tmp = CreateTemporaryDocument(doc, node);
+        AppendNodeContent(tmp, node);
+        AdjustDocumentLayout(tmp);
+
+        return tmp;
+    }
+
+    /// <summary>
+    /// Creates a temporary document for further rendering.
+    /// </summary>
+    SharedPtr<Document> CreateTemporaryDocument(SharedPtr<Document> doc, SharedPtr<CompositeNode> node)
+    {
+        auto tmp = System::ExplicitCast<Document>(doc->Clone(false));
+        tmp->get_Sections()->Add(tmp->ImportNode(node->GetAncestor(NodeType::Section), false, ImportFormatMode::UseDestinationStyles));
+        tmp->get_FirstSection()->AppendChild(MakeObject<Body>(tmp));
+        tmp->get_FirstSection()->get_PageSetup()->set_TopMargin(0);
+        tmp->get_FirstSection()->get_PageSetup()->set_BottomMargin(0);
+
+        return tmp;
+    }
+
+    /// <summary>
+    /// Adds a node to a temporary document.
+    /// </summary>
+    void AppendNodeContent(SharedPtr<Document> tmp, SharedPtr<CompositeNode> node)
+    {
+        auto headerFooter = System::AsCast<HeaderFooter>(node);
+        if (headerFooter != nullptr)
         {
-            imageOptions = MakeObject<ImageSaveOptions>(FileFormatUtil::ExtensionToSaveFormat(System::IO::Path::GetExtension(filePath)));
-        }
-
-        // Store the paper color to be used on the final image and change to transparent.
-        // This will cause any content around the rendered node to be removed later on.
-        System::Drawing::Color savePaperColor = imageOptions->get_PaperColor();
-        imageOptions->set_PaperColor(System::Drawing::Color::get_Transparent());
-
-        // There a bug which affects the cache of a cloned node.
-        // To avoid this, we clone the entire document, including all nodes,
-        // finding the matching node in the cloned document and rendering that instead.
-        auto doc = System::ExplicitCast<Document>(node->get_Document()->Clone(true));
-        node = doc->GetChild(NodeType::Any, node->get_Document()->GetChildNodes(NodeType::Any, true)->IndexOf(node), true);
-
-        // Create a temporary shape to store the target node in. This shape will be rendered to retrieve
-        // the rendered content of the node.
-        auto shape = MakeObject<Shape>(doc, ShapeType::TextBox);
-        auto parentSection = System::ExplicitCast<Section>(node->GetAncestor(NodeType::Section));
-
-        // Assume that the node cannot be larger than the page in size.
-        shape->set_Width(parentSection->get_PageSetup()->get_PageWidth());
-        shape->set_Height(parentSection->get_PageSetup()->get_PageHeight());
-        shape->set_FillColor(System::Drawing::Color::get_Transparent());
-
-        // Don't draw a surronding line on the shape.
-        shape->set_Stroked(false);
-
-        // Move up through the DOM until we find a suitable node to insert into a Shape
-        // (a node with a parent can contain paragraphs, tables the same as a shape). Each parent node is cloned
-        // on the way up so even a descendant node passed to this method can be rendered. Since we are working
-        // with the actual nodes of the document we need to clone the target node into the temporary shape.
-        SharedPtr<Node> currentNode = node;
-        while (!(System::ObjectExt::Is<InlineStory>(currentNode->get_ParentNode()) || System::ObjectExt::Is<Story>(currentNode->get_ParentNode()) ||
-                 System::ObjectExt::Is<ShapeBase>(currentNode->get_ParentNode())))
-        {
-            auto parent = System::ExplicitCast<CompositeNode>(currentNode->get_ParentNode()->Clone(false));
-            currentNode = currentNode->get_ParentNode();
-            parent->AppendChild(node->Clone(true));
-            node = parent;
-            // Store this new node to be inserted into the shape.
-        }
-
-        // We must add the shape to the document tree to have it rendered.
-        shape->AppendChild(node->Clone(true));
-        parentSection->get_Body()->get_FirstParagraph()->AppendChild(shape);
-
-        // Render the shape to stream so we can take advantage of the effects of the ImageSaveOptions class.
-        // Retrieve the rendered image and remove the shape from the document.
-        auto stream = MakeObject<System::IO::MemoryStream>();
-        SharedPtr<ShapeRenderer> renderer = shape->GetShapeRenderer();
-        renderer->Save(stream, imageOptions);
-        shape->Remove();
-
-        System::Drawing::Rectangle crop =
-            renderer->GetOpaqueBoundsInPixels(imageOptions->get_Scale(), imageOptions->get_HorizontalResolution(), imageOptions->get_VerticalResolution());
-
-        {
-            auto renderedImage = MakeObject<System::Drawing::Bitmap>(stream);
-            auto croppedImage = MakeObject<System::Drawing::Bitmap>(crop.get_Width(), crop.get_Height());
-            croppedImage->SetResolution(imageOptions->get_HorizontalResolution(), imageOptions->get_VerticalResolution());
-
-            // Create the final image with the proper background color.
+            for (const auto& hfNode : System::IterateOver(headerFooter->GetChildNodes(NodeType::Any, false)))
             {
-                SharedPtr<System::Drawing::Graphics> g = System::Drawing::Graphics::FromImage(croppedImage);
-                g->Clear(savePaperColor);
-                g->DrawImage(renderedImage, System::Drawing::Rectangle(0, 0, croppedImage->get_Width(), croppedImage->get_Height()), crop.get_X(), crop.get_Y(),
-                             crop.get_Width(), crop.get_Height(), System::Drawing::GraphicsUnit::Pixel);
-
-                croppedImage->Save(filePath);
+                tmp->get_FirstSection()->get_Body()->AppendChild(tmp->ImportNode(hfNode, true, ImportFormatMode::UseDestinationStyles));
             }
+        }
+        else
+        {
+            AppendNonHeaderFooterContent(tmp, node);
         }
     }
 
+    void AppendNonHeaderFooterContent(SharedPtr<Document> tmp, SharedPtr<CompositeNode> node)
+    {
+        SharedPtr<Node> parentNode = node->get_ParentNode();
+        while (!(System::ObjectExt::Is<InlineStory>(parentNode) || System::ObjectExt::Is<Story>(parentNode) ||
+                 System::ObjectExt::Is<ShapeBase>(parentNode)))
+        {
+            auto parent = System::ExplicitCast<CompositeNode>(parentNode->Clone(false));
+            parent->AppendChild(node->Clone(true));
+            node = parent;
+
+            parentNode = parentNode->get_ParentNode();
+        }
+
+        tmp->get_FirstSection()->get_Body()->AppendChild(tmp->ImportNode(node, true, ImportFormatMode::UseDestinationStyles));
+    }
+
+    /// <summary>
+    /// Adjusts the layout of the document to fit the content area.
+    /// </summary>
+    void AdjustDocumentLayout(SharedPtr<Document> tmp)
+    {
+        auto enumerator = MakeObject<LayoutEnumerator>(tmp);
+        System::Drawing::RectangleF rect = System::Drawing::RectangleF::Empty;
+        rect = CalculateVisibleRect(enumerator, rect);
+
+        tmp->get_FirstSection()->get_PageSetup()->set_PageHeight(rect.get_Height());
+        tmp->UpdatePageLayout();
+    }
+
+    /// <summary>
+    /// Calculates the visible area of the content.
+    /// </summary>
+    System::Drawing::RectangleF CalculateVisibleRect(SharedPtr<LayoutEnumerator> enumerator, System::Drawing::RectangleF rect)
+    {
+        System::Drawing::RectangleF result = rect;
+        do
+        {
+            if (enumerator->MoveFirstChild())
+            {
+                if (enumerator->get_Type() == LayoutEntityType::Line || enumerator->get_Type() == LayoutEntityType::Span)
+                {
+                    result = result.get_IsEmpty() ? enumerator->get_Rectangle()
+                                                  : System::Drawing::RectangleF::Union(result, enumerator->get_Rectangle());
+                }
+                result = CalculateVisibleRect(enumerator, result);
+                enumerator->MoveParent();
+            }
+        } while (enumerator->MoveNext());
+
+        return result;
+    }
     /// <summary>
     /// Finds the minimum bounding box around non-transparent pixels in a Bitmap.
     /// </summary>

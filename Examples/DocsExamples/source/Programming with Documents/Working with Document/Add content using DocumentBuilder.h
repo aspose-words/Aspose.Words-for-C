@@ -40,6 +40,8 @@
 #include <Aspose.Words.Cpp/Replacing/ReplacingArgs.h>
 #include <Aspose.Words.Cpp/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Section.h>
+#include <Aspose.Words.Cpp/Style.h>
+#include <Aspose.Words.Cpp/StyleCollection.h>
 #include <Aspose.Words.Cpp/StyleIdentifier.h>
 #include <Aspose.Words.Cpp/Tables/AutoFitBehavior.h>
 #include <Aspose.Words.Cpp/Tables/Cell.h>
@@ -257,12 +259,11 @@ public:
         auto builder = MakeObject<DocumentBuilder>(doc);
 
         builder->Write(u"Please make sure to visit ");
-        builder->get_Font()->set_Color(System::Drawing::Color::get_Blue());
-        builder->get_Font()->set_Underline(Underline::Single);
 
+        builder->get_Font()->set_Style(doc->get_Styles()->idx_get(StyleIdentifier::Hyperlink));
         builder->InsertHyperlink(u"Aspose Website", u"http://www.aspose.com", false);
-
         builder->get_Font()->ClearFormatting();
+
         builder->Write(u" for more information.");
 
         doc->Save(ArtifactsDir + u"AddContentUsingDocumentBuilder.InsertHyperlink.docx");

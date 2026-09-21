@@ -157,18 +157,17 @@ public:
         builder->InsertField(u"MERGEFIELD MyMergeField1 \\* MERGEFORMAT");
         builder->InsertField(u"MERGEFIELD MyMergeField2 \\* MERGEFORMAT");
 
-        // Select all field start nodes so we can find the merge fields.
-        SharedPtr<NodeCollection> fieldStarts = doc->GetChildNodes(NodeType::FieldStart, true);
-        for (const auto& fieldStart : System::IterateOver<FieldStart>(fieldStarts))
+        for (const auto& f : System::IterateOver(doc->get_Range()->get_Fields()))
         {
-            if (fieldStart->get_FieldType() == FieldType::FieldMergeField)
+            if (f->get_Type() == FieldType::FieldMergeField)
             {
-                auto mergeField = MakeObject<WorkingWithFields::MergeField>(fieldStart);
-                mergeField->set_Name(mergeField->get_Name() + u"_Renamed");
+                auto mergeField = System::ExplicitCast<FieldMergeField>(f);
+                mergeField->set_FieldName(mergeField->get_FieldName() + u"_Renamed");
+                mergeField->Update();
             }
         }
 
-        doc->Save(ArtifactsDir + u"WorkingWithFields.RenameMergeFields.doc");
+        doc->Save(ArtifactsDir + u"WorkingWithFields.RenameMergeFields.docx");
         //ExEnd:RenameMergeFields
     }
 
@@ -585,7 +584,7 @@ public:
 
     void FieldUpdateCulture()
     {
-        //ExStart:FieldUpdateCultureProvider
+        //ExStart:FieldUpdateCulture
         //GistId:79b46682fbfd7f02f64783b163ed95fc
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -596,10 +595,10 @@ public:
         doc->get_FieldOptions()->set_FieldUpdateCultureProvider(MakeObject<WorkingWithFields::FieldUpdateCultureProvider>());
 
         doc->Save(ArtifactsDir + u"WorkingWithFields.FieldUpdateCulture.pdf");
-        //ExEnd:FieldUpdateCultureProvider
+        //ExEnd:FieldUpdateCulture
     }
 
-    //ExStart:FieldUpdateCulture
+    //ExStart:FieldUpdateCultureProvider
     //GistId:79b46682fbfd7f02f64783b163ed95fc
     class FieldUpdateCultureProvider : public IFieldUpdateCultureProvider
     {
@@ -640,7 +639,7 @@ public:
             }
         }
     };
-    //ExEnd:FieldUpdateCulture
+    //ExEnd:FieldUpdateCultureProvider
 
     void FieldDisplayResults()
     {

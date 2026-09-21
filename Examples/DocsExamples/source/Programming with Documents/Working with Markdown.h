@@ -6,8 +6,6 @@
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Drawing/ImageData.h>
 #include <Aspose.Words.Cpp/Drawing/Shape.h>
-#include <Aspose.Words.Cpp/Drawing/ShapeType.h>
-#include <Aspose.Words.Cpp/Drawing/WrapType.h>
 #include <Aspose.Words.Cpp/Fields/Field.h>
 #include <Aspose.Words.Cpp/Font.h>
 #include <Aspose.Words.Cpp/IWarningCallback.h>
@@ -166,11 +164,8 @@ public:
         auto builder = MakeObject<DocumentBuilder>();
 
         // Insert image.
-        auto shape = MakeObject<Shape>(builder->get_Document(), ShapeType::Image);
-        shape->set_WrapType(WrapType::Inline);
-        shape->get_ImageData()->set_SourceFullName(u"/attachment/1456/pic001.png");
+        SharedPtr<Shape> shape = builder->InsertImage(ImagesDir + u"Logo.jpg");
         shape->get_ImageData()->set_Title(u"title");
-        builder->InsertNode(shape);
         //ExEnd:Image
     }
 
@@ -191,15 +186,34 @@ public:
         //ExStart:Heading
         //GistId:0697355b7f872839932388d269ed6a63
         // Use a document builder to add content to the document.
-        auto builder = MakeObject<DocumentBuilder>();
+        auto doc = MakeObject<Document>();
+        auto builder = MakeObject<DocumentBuilder>(doc);
 
         // By default Heading styles in Word may have Bold and Italic formatting.
         // If we do not want to be emphasized, set these properties explicitly to false.
         builder->get_Font()->set_Bold(false);
         builder->get_Font()->set_Italic(false);
 
-        builder->get_ParagraphFormat()->set_StyleName(u"Heading 1");
-        builder->Writeln(u"This is an H1 tag");
+        builder->Writeln(u"The following produces headings:");
+        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 1"));
+        builder->Writeln(u"Heading1");
+        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 2"));
+        builder->Writeln(u"Heading2");
+        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 3"));
+        builder->Writeln(u"Heading3");
+        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 4"));
+        builder->Writeln(u"Heading4");
+        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 5"));
+        builder->Writeln(u"Heading5");
+        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 6"));
+        builder->Writeln(u"Heading6");
+
+        // Note, emphases are also allowed inside Headings:
+        builder->get_Font()->set_Bold(true);
+        builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 1"));
+        builder->Writeln(u"Bold Heading1");
+
+        doc->Save(ArtifactsDir + u"WorkingWithMarkdown.Heading.md");
         //ExEnd:Heading
     }
 
@@ -316,9 +330,7 @@ public:
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
-        builder->get_ListFormat()->ApplyBulletDefault();
-        builder->get_ListFormat()->get_List()->get_ListLevels()->idx_get(0)->set_NumberFormat(String::Format(u"{0}.", (char16_t)0));
-        builder->get_ListFormat()->get_List()->get_ListLevels()->idx_get(1)->set_NumberFormat(String::Format(u"{0}.", (char16_t)1));
+        builder->get_ListFormat()->ApplyNumberDefault();
 
         builder->Writeln(u"Item 1");
         builder->Writeln(u"Item 2");

@@ -11,16 +11,12 @@
 #include <Aspose.Words.Cpp/ControlChar.h>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Fields/Field.h>
-#include <Aspose.Words.Cpp/Fields/FieldStart.h>
 #include <Aspose.Words.Cpp/ImportFormatMode.h>
-#include <Aspose.Words.Cpp/MailMerging/MailMerge.h>
 #include <Aspose.Words.Cpp/Node.h>
 #include <Aspose.Words.Cpp/NodeImporter.h>
 #include <Aspose.Words.Cpp/NodeType.h>
 #include <Aspose.Words.Cpp/Paragraph.h>
 #include <Aspose.Words.Cpp/Range.h>
-#include <Aspose.Words.Cpp/SaveFormat.h>
 #include <Aspose.Words.Cpp/Saving/BookmarksOutlineLevelCollection.h>
 #include <Aspose.Words.Cpp/Saving/OutlineOptions.h>
 #include <Aspose.Words.Cpp/Saving/PdfSaveOptions.h>
@@ -33,6 +29,8 @@
 #include <system/array.h>
 #include <system/enumerator_adapter.h>
 #include <system/exceptions.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Run.h>
 #include <system/object_ext.h>
 #include <system/type_info.h>
 
@@ -45,7 +43,6 @@ using System::SharedPtr;
 using System::String;
 
 using namespace Aspose::Words;
-using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::Saving;
 using namespace Aspose::Words::Tables;
 
@@ -234,57 +231,20 @@ public:
 
     //ExStart:ShowHideBookmarkedContent
     //GistId:c4555b1a088856e21394104faeb86e51
-    void ShowHideBookmarkedContent(SharedPtr<Document> doc, String bookmarkName, bool showHide)
+    void ShowHideBookmarkedContent(SharedPtr<Document> doc, String bookmarkName, bool isHidden)
     {
         SharedPtr<Bookmark> bm = doc->get_Range()->get_Bookmarks()->idx_get(bookmarkName);
 
-        auto builder = MakeObject<DocumentBuilder>(doc);
-        builder->MoveToDocumentEnd();
-
-        // {IF "{MERGEFIELD bookmark}" = "true" "" ""}
-        SharedPtr<Field> field = builder->InsertField(u"IF \"", nullptr);
-        builder->MoveTo(field->get_Start()->get_NextSibling());
-        builder->InsertField(String(u"MERGEFIELD ") + bookmarkName + u"", nullptr);
-        builder->Write(u"\" = \"true\" ");
-        builder->Write(u"\"");
-        builder->Write(u"\"");
-        builder->Write(u" \"\"");
-
-        SharedPtr<Node> currentNode = field->get_Start();
-        bool flag = true;
-        while (currentNode != nullptr && flag)
+        SharedPtr<Node> currentNode = bm->get_BookmarkStart();
+        while (currentNode != nullptr && currentNode->get_NodeType() != NodeType::BookmarkEnd)
         {
             if (currentNode->get_NodeType() == NodeType::Run)
             {
-                if (currentNode->ToString(SaveFormat::Text).Trim() == u"\"")
-                {
-                    flag = false;
-                }
+                auto run = System::ExplicitCast<Run>(currentNode);
+                run->get_Font()->set_Hidden(isHidden);
             }
-
-            SharedPtr<Node> nextNode = currentNode->get_NextSibling();
-
-            bm->get_BookmarkStart()->get_ParentNode()->InsertBefore(currentNode, bm->get_BookmarkStart());
-            currentNode = nextNode;
+            currentNode = currentNode->get_NextSibling();
         }
-
-        SharedPtr<Node> endNode = bm->get_BookmarkEnd();
-        flag = true;
-        while (currentNode != nullptr && flag)
-        {
-            if (currentNode->get_NodeType() == NodeType::FieldEnd)
-            {
-                flag = false;
-            }
-
-            SharedPtr<Node> nextNode = currentNode->get_NextSibling();
-
-            bm->get_BookmarkEnd()->get_ParentNode()->InsertAfter(currentNode, endNode);
-            endNode = currentNode;
-            currentNode = nextNode;
-        }
-
-        doc->get_MailMerge()->Execute(MakeArray<String>({bookmarkName}), MakeArray<SharedPtr<System::Object>>({System::ObjectExt::Box<bool>(showHide)}));
     }
     //ExEnd:ShowHideBookmarkedContent
 

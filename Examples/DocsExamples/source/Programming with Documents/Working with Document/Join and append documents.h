@@ -15,6 +15,11 @@
 #include <Aspose.Words.Cpp/HeaderFooterCollection.h>
 #include <Aspose.Words.Cpp/ImportFormatMode.h>
 #include <Aspose.Words.Cpp/ImportFormatOptions.h>
+#include <Aspose.Words.Cpp/Font.h>
+#include <Aspose.Words.Cpp/Style.h>
+#include <Aspose.Words.Cpp/StyleCollection.h>
+#include <Aspose.Words.Cpp/StyleType.h>
+#include <drawing/color.h>
 #include <Aspose.Words.Cpp/Lists/List.h>
 #include <Aspose.Words.Cpp/Lists/ListCollection.h>
 #include <Aspose.Words.Cpp/Lists/ListFormat.h>
@@ -520,18 +525,31 @@ public:
     void SmartStyleBehavior()
     {
         //ExStart:SmartStyleBehavior
-        auto srcDoc = MakeObject<Document>(MyDir + u"Document source.docx");
-        auto dstDoc = MakeObject<Document>(MyDir + u"Northwind traders.docx");
+        auto dstDoc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(dstDoc);
 
-        builder->MoveToDocumentEnd();
-        builder->InsertBreak(BreakType::PageBreak);
+        SharedPtr<Style> myStyle = builder->get_Document()->get_Styles()->Add(StyleType::Paragraph, u"MyStyle");
+        myStyle->get_Font()->set_Size(14);
+        myStyle->get_Font()->set_Name(u"Courier New");
+        myStyle->get_Font()->set_Color(System::Drawing::Color::get_Blue());
 
+        builder->get_ParagraphFormat()->set_StyleName(myStyle->get_Name());
+        builder->Writeln(u"Hello world!");
+
+        // Clone the document and edit the clone's "MyStyle" style, so it is a different color than that of the original.
+        // If we insert the clone into the original document, the two styles with the same name will cause a clash.
+        SharedPtr<Document> srcDoc = dstDoc->Clone();
+        srcDoc->get_Styles()->idx_get(u"MyStyle")->get_Font()->set_Color(System::Drawing::Color::get_Red());
+
+        // When we enable SmartStyleBehavior and use the KeepSourceFormatting import format mode,
+        // Aspose.Words will resolve style clashes by converting source document styles.
+        // with the same names as destination styles into direct paragraph attributes.
         auto options = MakeObject<ImportFormatOptions>();
         options->set_SmartStyleBehavior(true);
 
-        builder->InsertDocument(srcDoc, ImportFormatMode::UseDestinationStyles, options);
-        builder->get_Document()->Save(ArtifactsDir + u"JoinAndAppendDocuments.SmartStyleBehavior.docx");
+        builder->InsertDocument(srcDoc, ImportFormatMode::KeepSourceFormatting, options);
+
+        dstDoc->Save(ArtifactsDir + u"JoinAndAppendDocuments.SmartStyleBehavior.docx");
         //ExEnd:SmartStyleBehavior
     }
 
@@ -554,21 +572,18 @@ public:
     void KeepSourceNumbering()
     {
         //ExStart:KeepSourceNumbering
-        auto srcDoc = MakeObject<Document>(MyDir + u"Document source.docx");
-        auto dstDoc = MakeObject<Document>(MyDir + u"Northwind traders.docx");
+        auto srcDoc = MakeObject<Document>(MyDir + u"List source.docx");
+        auto dstDoc = MakeObject<Document>(MyDir + u"List destination.docx");
 
-        // Keep source list formatting when importing numbered paragraphs.
-        auto importFormatOptions = MakeObject<ImportFormatOptions>();
-        importFormatOptions->set_KeepSourceNumbering(true);
+        auto options = MakeObject<ImportFormatOptions>();
+        // If there is a clash of list styles, apply the list format of the source document.
+        // Set the "KeepSourceNumbering" property to "false" to not import any list numbers into the destination document.
+        // Set the "KeepSourceNumbering" property to "true" import all clashing
+        // list style numbering with the same appearance that it had in the source document.
+        options->set_KeepSourceNumbering(true);
 
-        auto importer = MakeObject<NodeImporter>(srcDoc, dstDoc, ImportFormatMode::KeepSourceFormatting, importFormatOptions);
-
-        SharedPtr<ParagraphCollection> srcParas = srcDoc->get_FirstSection()->get_Body()->get_Paragraphs();
-        for (const auto& srcPara : System::IterateOver<Paragraph>(srcParas))
-        {
-            SharedPtr<Node> importedNode = importer->ImportNode(srcPara, false);
-            dstDoc->get_FirstSection()->get_Body()->AppendChild(importedNode);
-        }
+        dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting, options);
+        dstDoc->UpdateListLabels();
 
         dstDoc->Save(ArtifactsDir + u"JoinAndAppendDocuments.KeepSourceNumbering.docx");
         //ExEnd:KeepSourceNumbering

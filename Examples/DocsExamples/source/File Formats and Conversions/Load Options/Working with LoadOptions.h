@@ -4,6 +4,7 @@
 #include <iostream>
 #include <Aspose.Words.Cpp/Document.h>
 #include <Aspose.Words.Cpp/IWarningCallback.h>
+#include <Aspose.Words.Cpp/IncorrectPasswordException.h>
 #include <Aspose.Words.Cpp/Loading/IResourceLoadingCallback.h>
 #include <Aspose.Words.Cpp/Loading/LoadOptions.h>
 #include <Aspose.Words.Cpp/Loading/ResourceLoadingAction.h>
@@ -76,7 +77,7 @@ public:
         //GistId:b4e8a7baa7d3c08127f9a043487de21b
         // We will not be able to open this document with Microsoft Word or
         // Aspose.Words without providing the correct password.
-        auto doc = MakeObject<Document>(MyDir + u"Encrypted.docx");
+        ASSERT_THROW(MakeObject<Document>(MyDir + u"Encrypted.docx"), IncorrectPasswordException);
         //ExEnd:LoadEncryptedDocumentWithoutPassword
     }
 
