@@ -55,4 +55,14 @@ TEST_F(WorkingWithCleanupOptions, RemoveEmptyTableRows)
     s_instance->RemoveEmptyTableRows();
 }
 
+TEST_F(WorkingWithCleanupOptions, RemoveUnmergedRegions)
+{
+    s_instance->RemoveUnmergedRegions();
+}
+
+TEST_F(WorkingWithCleanupOptions, RemoveRowsFromTable)
+{
+    s_instance->RemoveRowsFromTable();
+}
+
 }}} // namespace DocsExamples::Mail_Merge_and_Reporting::gtest_test
