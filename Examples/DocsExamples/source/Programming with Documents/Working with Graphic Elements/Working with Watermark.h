@@ -49,7 +49,7 @@ public:
     void AddTextWatermarkWithSpecificOptions()
     {
         //ExStart:AddTextWatermark
-        //GistId:1f690a31c188a851d80d7aed4ff7e44c
+        //GistId:a00783a7985635cc6158a9ceebf93327
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto options = MakeObject<TextWatermarkOptions>();
@@ -68,7 +68,7 @@ public:
     void AddImageWatermarkWithSpecificOptions()
     {
         //ExStart:AddImageWatermark
-        //GistId:1f690a31c188a851d80d7aed4ff7e44c
+        //GistId:a00783a7985635cc6158a9ceebf93327
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto options = MakeObject<ImageWatermarkOptions>();
@@ -84,7 +84,7 @@ public:
     void RemoveWatermarkFromDocument()
     {
         //ExStart:RemoveDocumentWatermark
-        //GistId:1f690a31c188a851d80d7aed4ff7e44c
+        //GistId:a00783a7985635cc6158a9ceebf93327
         auto doc = MakeObject<Document>();
 
         // Add a plain text watermark.
@@ -114,7 +114,7 @@ public:
     }
 
     //ExStart:AddDocumentWatermark
-    //GistId:1f690a31c188a851d80d7aed4ff7e44c
+    //GistId:a00783a7985635cc6158a9ceebf93327
     void AddAndRemoveWatermark()
     {
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
@@ -134,7 +134,7 @@ public:
     void InsertWatermarkText(SharedPtr<Document> doc, String watermarkText)
     {
         //ExStart:SetShapeName
-        //GistId:1f690a31c188a851d80d7aed4ff7e44c
+        //GistId:a00783a7985635cc6158a9ceebf93327
         // Create a watermark shape, this will be a WordArt shape.
         auto watermark = MakeObject<Shape>(doc, ShapeType::TextPlainText);
         watermark->set_Name(u"Watermark");
@@ -191,7 +191,7 @@ public:
     //ExEnd:AddDocumentWatermark
 
     //ExStart:RemoveWatermarkShape
-    //GistId:1f690a31c188a851d80d7aed4ff7e44c
+    //GistId:a00783a7985635cc6158a9ceebf93327
     void RemoveWatermarkText(SharedPtr<Document> doc)
     {
         for (const auto& hf : System::IterateOver<HeaderFooter>(doc->GetChildNodes(NodeType::HeaderFooter, true)))

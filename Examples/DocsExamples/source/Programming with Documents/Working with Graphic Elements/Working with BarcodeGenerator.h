@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #ifdef ASPOSE_BARCODE_AVAILABLE
 
@@ -23,7 +23,7 @@ public:
     void BarcodeGenerator()
     {
         //ExStart:BarcodeGenerator
-        //GistId:00d34dba66626dbc0175b60bb3b71c8a
+        //GistId:c9ce0847b39f05c1bc89daf438acc0bf
         auto doc = MakeObject<Document>(MyDir + u"Field sample - BARCODE.docx");
 
         doc->get_FieldOptions()->set_BarcodeGenerator(MakeObject<DocsExamples::CustomBarcodeGenerator>());
