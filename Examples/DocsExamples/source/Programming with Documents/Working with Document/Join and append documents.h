@@ -62,7 +62,7 @@ public:
     void InsertDocumentInlineWithBuilder()
     {
         //ExStart:InsertDocumentInlineWithBuilder
-        //GistId:db2dfc4150d7c714bcac3782ae241d03
+        //GistId:34934bfeabca5cf3dd3ca3c277e85771
         auto srcDoc = MakeObject<DocumentBuilder>();
         srcDoc->Write(u"[src content]");
 

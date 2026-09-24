@@ -38,7 +38,7 @@ public:
     void GetVariables()
     {
         //ExStart:GetVariables
-        //GistId:0593a8803015363f3026f648332e7026
+        //GistId:a0884850400006e40a0b3d5a7092897b
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         String variables = u"";
@@ -63,7 +63,7 @@ public:
     void EnumerateProperties()
     {
         //ExStart:EnumerateProperties
-        //GistId:0593a8803015363f3026f648332e7026
+        //GistId:a0884850400006e40a0b3d5a7092897b
         auto doc = MakeObject<Document>(MyDir + u"Properties.docx");
 
         std::cout << "1. Document name: " << doc->get_OriginalFileName() << std::endl;
@@ -86,7 +86,7 @@ public:
     void AddCustomDocumentProperties()
     {
         //ExStart:AddCustomProperties
-        //GistId:0593a8803015363f3026f648332e7026
+        //GistId:a0884850400006e40a0b3d5a7092897b
         auto doc = MakeObject<Document>(MyDir + u"Properties.docx");
 
         SharedPtr<CustomDocumentProperties> customDocumentProperties = doc->get_CustomDocumentProperties();
@@ -107,7 +107,7 @@ public:
     void RemoveCustomDocumentProperties()
     {
         //ExStart:RemoveCustomProperties
-        //GistId:0593a8803015363f3026f648332e7026
+        //GistId:a0884850400006e40a0b3d5a7092897b
         auto doc = MakeObject<Document>(MyDir + u"Properties.docx");
         doc->get_CustomDocumentProperties()->Remove(u"Authorized Date");
         //ExEnd:RemoveCustomProperties
@@ -116,7 +116,7 @@ public:
     void RemovePersonalInformation()
     {
         //ExStart:RemovePersonalInformation
-        //GistId:0593a8803015363f3026f648332e7026
+        //GistId:a0884850400006e40a0b3d5a7092897b
         auto doc = MakeObject<Document>(MyDir + u"Properties.docx");
         doc->set_RemovePersonalInformation(true);
 
@@ -127,7 +127,7 @@ public:
     void ConfiguringLinkToContent()
     {
         //ExStart:ConfiguringLinkToContent
-        //GistId:0593a8803015363f3026f648332e7026
+        //GistId:a0884850400006e40a0b3d5a7092897b
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -152,7 +152,7 @@ public:
     void ConvertBetweenMeasurementUnits()
     {
         //ExStart:ConvertBetweenMeasurementUnits
-        //GistId:f266e937d2c656f9441071e9a7b053c1
+        //GistId:a89c0280d14492b34b87b745836529d9
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -169,7 +169,7 @@ public:
     void UseControlCharacters()
     {
         //ExStart:UseControlCharacters
-        //GistId:6269ddb6427f9ad20623d975774a615e
+        //GistId:6a1d8abde6122fc8bbcc06db962b7a50
         const String text = u"test\r";
         // Replace "\r" control character with "\r\n".
         String replace = text.Replace(ControlChar::Cr(), ControlChar::CrLf());

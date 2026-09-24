@@ -36,7 +36,7 @@ public:
     void UsingWebExtensionTaskPanes()
     {
         //ExStart:WebExtensionTaskPanes
-        //GistId:8c31c018ea71c92828223776b1a113f7
+        //GistId:4a3dcb1881c9f8f88e1a8317546dcfa8
         auto doc = MakeObject<Document>();
 
         auto taskPane = MakeObject<TaskPane>();
@@ -58,7 +58,7 @@ public:
         //ExEnd:WebExtensionTaskPanes
 
         //ExStart:GetListOfAddins
-        //GistId:8c31c018ea71c92828223776b1a113f7
+        //GistId:4a3dcb1881c9f8f88e1a8317546dcfa8
         doc = MakeObject<Document>(ArtifactsDir + u"WorkingWithWebExtension.UsingWebExtensionTaskPanes.docx");
 
         std::cout << "Task panes sources:\n" << std::endl;

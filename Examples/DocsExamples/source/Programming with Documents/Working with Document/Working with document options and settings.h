@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -48,7 +48,7 @@ public:
     void OptimizeForMsWord()
     {
         //ExStart:OptimizeFor
-        //GistId:5d2997d42c1f1fad79b18873f170855f
+        //GistId:b67a28742c3da0d0c633915873701cd8
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2016);
@@ -72,7 +72,7 @@ public:
     void CleanupUnusedStylesAndLists()
     {
         //ExStart:CleanupUnusedStylesAndLists
-        //GistId:669f3d08f45b14f75f9d2cb17fa1056a
+        //GistId:6c31bbbeef22be0304e77b322569dd06
         auto doc = MakeObject<Document>(MyDir + u"Unused styles.docx");
 
         // Combined with the built-in styles, the document now has eight styles.
@@ -99,7 +99,7 @@ public:
     void CleanupDuplicateStyle()
     {
         //ExStart:CleanupDuplicateStyle
-        //GistId:669f3d08f45b14f75f9d2cb17fa1056a
+        //GistId:6c31bbbeef22be0304e77b322569dd06
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         // Count of styles before Cleanup.
@@ -120,7 +120,7 @@ public:
     void ViewOptions()
     {
         //ExStart:SetViewOption
-        //GistId:5d2997d42c1f1fad79b18873f170855f
+        //GistId:b67a28742c3da0d0c633915873701cd8
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         doc->get_ViewOptions()->set_ViewType(ViewType::PageLayout);
@@ -133,7 +133,7 @@ public:
     void DocumentPageSetup()
     {
         //ExStart:DocumentPageSetup
-        //GistId:5d2997d42c1f1fad79b18873f170855f
+        //GistId:b67a28742c3da0d0c633915873701cd8
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         // Set the layout mode for a section allowing to define the document grid behavior.
@@ -150,7 +150,7 @@ public:
     void AddJapaneseAsEditingLanguages()
     {
         //ExStart:AddEditingLanguage
-        //GistId:40be8275fc43f78f5e5877212e4e1bf3
+        //GistId:f648a63c3023a789293f3406e54348d3
         auto loadOptions = MakeObject<LoadOptions>();
 
         // Set language preferences that will be used when document is loading.
@@ -169,7 +169,7 @@ public:
     void SetRussianAsDefaultEditingLanguage()
     {
         //ExStart:SetRussianAsDefaultEditingLanguage
-        //GistId:5d2997d42c1f1fad79b18873f170855f
+        //GistId:b67a28742c3da0d0c633915873701cd8
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->get_LanguagePreferences()->set_DefaultEditingLanguage(EditingLanguage::Russian);
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <Aspose.Words.Cpp/Body.h>
@@ -56,7 +56,7 @@ public:
     void CloningDocument()
     {
         //ExStart:CloneDocument
-        //GistId:b2f62f736a2090163de7b0f221cf46d4
+        //GistId:1010a52a2a240890b80a92f24e2a9c8b
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         SharedPtr<Document> clone = doc->Clone();

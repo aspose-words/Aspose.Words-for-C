@@ -52,7 +52,7 @@ class DocumentFormatting : public DocsExamplesBase
 {
 public:
     //ExStart:GetParagraphLines
-    //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
+    //GistId:52fedeac237e3cd178ad8a516d496e8e
     void GetParagraphLines()
     {
         auto doc = MakeObject<Document>(MyDir + u"Properties.docx");
@@ -144,7 +144,7 @@ public:
     void SpaceBetweenAsianAndLatinText()
     {
         //ExStart:SpaceBetweenAsianAndLatinText
-        //GistId:4f54ffd5c7580f0d146b53e52d986f38
+        //GistId:b9230cb4ed425511afbb57c3223c7c7a
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -162,7 +162,7 @@ public:
     void AsianTypographyLineBreakGroup()
     {
         //ExStart:AsianTypographyLineBreakGroup
-        //GistId:4f54ffd5c7580f0d146b53e52d986f38
+        //GistId:b9230cb4ed425511afbb57c3223c7c7a
         auto doc = MakeObject<Document>(MyDir + u"Asian typography.docx");
 
         SharedPtr<ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
@@ -177,7 +177,7 @@ public:
     void ParagraphFormatting()
     {
         //ExStart:ParagraphFormatting
-        //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
+        //GistId:52fedeac237e3cd178ad8a516d496e8e
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -197,7 +197,7 @@ public:
     void MultilevelListFormatting()
     {
         //ExStart:MultilevelListFormatting
-        //GistId:a1dfeba1e0480d5b277a61742c8921af
+        //GistId:3cea17411b8dd8066ca5ceddd7829bde
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -228,7 +228,7 @@ public:
     void ApplyParagraphStyle()
     {
         //ExStart:ApplyParagraphStyle
-        //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
+        //GistId:52fedeac237e3cd178ad8a516d496e8e
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -242,7 +242,7 @@ public:
     void ApplyBordersAndShadingToParagraph()
     {
         //ExStart:ApplyBordersAndShadingToParagraph
-        //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
+        //GistId:52fedeac237e3cd178ad8a516d496e8e
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -307,7 +307,7 @@ public:
     void GetParagraphStyleSeparator()
     {
         //ExStart:GetParagraphStyleSeparator
-        //GistId:4b5526c3c0d9cad73e05fb4b18d2c3d2
+        //GistId:52fedeac237e3cd178ad8a516d496e8e
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         for (const auto& paragraph : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
