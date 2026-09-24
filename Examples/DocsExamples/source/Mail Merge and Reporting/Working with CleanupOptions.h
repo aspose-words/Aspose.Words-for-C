@@ -60,7 +60,7 @@ public:
     void RemoveEmptyParagraphs()
     {
         //ExStart:RemoveEmptyParagraphs
-        //GistId:f39874821cb317d245a769c9ce346fea
+        //GistId:d8493068a7e1bf6b4b8a3aa992e4c561
         auto doc = MakeObject<Document>(MyDir + u"Table with fields.docx");
 
         doc->get_MailMerge()->set_CleanupOptions(MailMergeCleanupOptions::RemoveEmptyParagraphs);
@@ -78,7 +78,7 @@ public:
     void RemoveUnusedFields()
     {
         //ExStart:RemoveUnusedFields
-        //GistId:f39874821cb317d245a769c9ce346fea
+        //GistId:d8493068a7e1bf6b4b8a3aa992e4c561
         auto doc = MakeObject<Document>(MyDir + u"Table with fields.docx");
 
         doc->get_MailMerge()->set_CleanupOptions(MailMergeCleanupOptions::RemoveUnusedFields);
@@ -96,7 +96,7 @@ public:
     void RemoveContainingFields()
     {
         //ExStart:RemoveContainingFields
-        //GistId:f39874821cb317d245a769c9ce346fea
+        //GistId:d8493068a7e1bf6b4b8a3aa992e4c561
         auto doc = MakeObject<Document>(MyDir + u"Table with fields.docx");
 
         doc->get_MailMerge()->set_CleanupOptions(MailMergeCleanupOptions::RemoveContainingFields);
@@ -114,7 +114,7 @@ public:
     void RemoveEmptyTableRows()
     {
         //ExStart:RemoveEmptyTableRows
-        //GistId:f39874821cb317d245a769c9ce346fea
+        //GistId:d8493068a7e1bf6b4b8a3aa992e4c561
         auto doc = MakeObject<Document>(MyDir + u"Table with fields.docx");
 
         doc->get_MailMerge()->set_CleanupOptions(MailMergeCleanupOptions::RemoveEmptyTableRows);
@@ -132,7 +132,7 @@ public:
     void RemoveUnmergedRegions()
     {
         //ExStart:RemoveUnmergedRegions
-        //GistId:f39874821cb317d245a769c9ce346fea
+        //GistId:d8493068a7e1bf6b4b8a3aa992e4c561
         auto doc = MakeObject<Document>(MyDir + u"Mail merge destination - Northwind suppliers.docx");
 
         auto data = MakeObject<EmptyDataSource>();

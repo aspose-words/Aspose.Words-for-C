@@ -37,7 +37,7 @@ public:
     void SimpleMailMerge()
     {
         //ExStart:ExecuteSimpleMailMerge
-        //GistId:3435df005db9907ec9ba3a6b777ae6fb
+        //GistId:533914df569fd0a1003bec94eff1d505
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
         
@@ -62,7 +62,7 @@ public:
     void UseIfElseMustache()
     {
         //ExStart:UseIfElseMustache
-        //GistId:544788f602e697802e313a641cedb9b8
+        //GistId:c1bbd76f39074502f828f4ae24ee3681
         auto doc = MakeObject<Document>(MyDir + u"Mail merge destinations - Mustache syntax.docx");
 
         doc->get_MailMerge()->set_UseNonMergeFields(true);
@@ -75,11 +75,11 @@ public:
     void GetRegionsByName()
     {
         //ExStart:GetRegionsByName
-        //GistId:b4bab1bf22437a86d8062e91cf154494
+        //GistId:5c23f9f9a360347715de2a3123b0604f
         auto doc = MakeObject<Document>(MyDir + u"Mail merge regions.docx");
 
         //ExStart:GetRegionsHierarchy
-        //GistId:b4bab1bf22437a86d8062e91cf154494
+        //GistId:5c23f9f9a360347715de2a3123b0604f
         SharedPtr<MailMergeRegionInfo> regionInfo = doc->get_MailMerge()->GetRegionsHierarchy();
         //ExEnd:GetRegionsHierarchy
 
