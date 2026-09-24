@@ -33,7 +33,7 @@ public:
     void PasswordProtection()
     {
         //ExStart:PasswordProtection
-        //GistId:856ba85fa704fa728b0ec20aafddd16b
+        //GistId:21646e2253e30ede115ff1cefdc76cca
         auto doc = MakeObject<Document>();
 
         // Apply document protection.
@@ -46,7 +46,7 @@ public:
     void AllowOnlyFormFieldsProtect()
     {
         //ExStart:AllowOnlyFormFieldsProtect
-        //GistId:856ba85fa704fa728b0ec20aafddd16b
+        //GistId:21646e2253e30ede115ff1cefdc76cca
         // Insert two sections with some text.
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -63,7 +63,7 @@ public:
     void RemoveDocumentProtection()
     {
         //ExStart:RemoveDocumentProtection
-        //GistId:856ba85fa704fa728b0ec20aafddd16b
+        //GistId:21646e2253e30ede115ff1cefdc76cca
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -81,7 +81,7 @@ public:
     void UnrestrictedEditableRegions()
     {
         //ExStart:UnrestrictedEditableRegions
-        //GistId:856ba85fa704fa728b0ec20aafddd16b
+        //GistId:21646e2253e30ede115ff1cefdc76cca
         // Upload a document and make it as read-only.
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -111,7 +111,7 @@ public:
     void UnrestrictedSection()
     {
         //ExStart:UnrestrictedSection
-        //GistId:856ba85fa704fa728b0ec20aafddd16b
+        //GistId:21646e2253e30ede115ff1cefdc76cca
         // Insert two sections with some text.
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -144,7 +144,7 @@ public:
     void ReadOnlyProtection()
     {
         //ExStart:ReadOnlyProtection
-        //GistId:7cf6735e83804ba8942663695b22ee42
+        //GistId:1e82492d8963b601b589076c34b22c90
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -165,7 +165,7 @@ public:
     void RemoveReadOnlyRestriction()
     {
         //ExStart:RemoveReadOnlyRestriction
-        //GistId:7cf6735e83804ba8942663695b22ee42
+        //GistId:1e82492d8963b601b589076c34b22c90
         auto doc = MakeObject<Document>();
 
         // Enter a password that's up to 15 characters long.
