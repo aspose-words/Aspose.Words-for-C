@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExSmartTag.h"
+﻿#include "ExSmartTag.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -11,12 +6,10 @@
 #include <system/object_ext.h>
 #include <system/linq/enumerable.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
@@ -42,21 +35,21 @@ RTTI_INFO_IMPL_HASH(3831900680u, ::Aspose::Words::ApiExamples::ExSmartTag::Smart
 
 Aspose::Words::VisitorAction ExSmartTag::SmartTagPrinter::VisitSmartTagStart(System::SharedPtr<Aspose::Words::Markup::SmartTag> smartTag)
 {
-    std::cout << System::String::Format(u"Smart tag type: {0}", smartTag->get_Element()) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"Smart tag type: {0}", smartTag->get_Element()));
     return Aspose::Words::VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExSmartTag::SmartTagPrinter::VisitSmartTagEnd(System::SharedPtr<Aspose::Words::Markup::SmartTag> smartTag)
 {
-    std::cout << System::String::Format(u"\tContents: \"{0}\"", smartTag->ToString(Aspose::Words::SaveFormat::Text)) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"\tContents: \"{0}\"", smartTag->ToString(Aspose::Words::SaveFormat::Text)));
     
     if (smartTag->get_Properties()->get_Count() == 0)
     {
-        std::cout << "\tContains no properties" << std::endl;
+        System::Console::WriteLine(u"\tContains no properties");
     }
     else
     {
-        std::cout << "\tProperties: ";
+        System::Console::Write(u"\tProperties: ");
         auto properties = System::MakeArray<System::String>(smartTag->get_Properties()->get_Count());
         int32_t index = 0;
         
@@ -65,7 +58,7 @@ Aspose::Words::VisitorAction ExSmartTag::SmartTagPrinter::VisitSmartTagEnd(Syste
             properties[index++] = System::String::Format(u"\"{0}\" = \"{1}\"", cxp->get_Name(), cxp->get_Value());
         }
         
-        std::cout << System::String::Join(u", ", properties) << std::endl;
+        System::Console::WriteLine(System::String::Join(u", ", properties));
     }
     
     return Aspose::Words::VisitorAction::Continue;
@@ -79,7 +72,7 @@ void ExSmartTag::TestCreate(System::SharedPtr<Aspose::Words::Document> doc)
     auto smartTag = System::ExplicitCast<Aspose::Words::Markup::SmartTag>(doc->GetChild(Aspose::Words::NodeType::SmartTag, 0, true));
     
     ASSERT_EQ(u"date", smartTag->get_Element());
-    ASSERT_EQ(u"May 29, 2019", smartTag->GetText());
+    ASSERT_EQ((u"May 29, 2019"), smartTag->GetText());
     ASSERT_EQ(u"urn:schemas-microsoft-com:office:smarttags", smartTag->get_Uri());
     
     ASSERT_EQ(u"Day", smartTag->get_Properties()->idx_get(0)->get_Name());
@@ -99,7 +92,6 @@ void ExSmartTag::TestCreate(System::SharedPtr<Aspose::Words::Document> doc)
     ASSERT_EQ(u"urn:schemas-microsoft-com:office:smarttags", smartTag->get_Uri());
     ASSERT_EQ(0, smartTag->get_Properties()->get_Count());
 }
-
 
 namespace gtest_test
 {
@@ -181,7 +173,7 @@ void ExSmartTag::Create()
     doc->RemoveSmartTags();
     
     ASSERT_EQ(0, doc->GetChildNodes(Aspose::Words::NodeType::SmartTag, true)->get_Count());
-    TestCreate(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"SmartTag.Create.doc"));
+    TestCreate(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"SmartTag.Create.doc")));
     //ExSkip
 }
 
@@ -211,14 +203,14 @@ void ExSmartTag::Properties()
     //ExFor:CustomXmlPropertyCollection.Remove(String)
     //ExFor:CustomXmlPropertyCollection.RemoveAt(Int32)
     //ExSummary:Shows how to work with smart tag properties to get in depth information about smart tags.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Smart tags.doc");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Smart tags.doc"));
     
     // A smart tag appears in a document with Microsoft Word recognizes a part of its text as some form of data,
     // such as a name, date, or address, and converts it to a hyperlink that displays a purple dotted underline.
     // In Word 2003, we can enable smart tags via "Tools" -> "AutoCorrect options..." -> "SmartTags".
     // In our input document, there are three objects that Microsoft Word registered as smart tags.
     // Smart tags may be nested, so this collection contains more.
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Markup::SmartTag>> smartTags = doc->GetChildNodes(Aspose::Words::NodeType::SmartTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::SmartTag> >()->LINQ_ToArray();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Markup::SmartTag>> smartTags = doc->GetChildNodes(Aspose::Words::NodeType::SmartTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::SmartTag>>()->LINQ_ToArray();
     
     ASSERT_EQ(8, smartTags->get_Length());
     
@@ -232,7 +224,7 @@ void ExSmartTag::Properties()
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::SharedPtr<Aspose::Words::Markup::CustomXmlProperty>>> enumerator = properties->GetEnumerator();
         while (enumerator->MoveNext())
         {
-            std::cout << System::String::Format(u"Property name: {0}, value: {1}", enumerator->get_Current()->get_Name(), enumerator->get_Current()->get_Value()) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"Property name: {0}, value: {1}", enumerator->get_Current()->get_Name(), enumerator->get_Current()->get_Value()));
             ASSERT_EQ(u"", enumerator->get_Current()->get_Uri());
         }
     }

@@ -1,16 +1,10 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExBorder.h"
+﻿#include "ExBorder.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
 #include <system/enumerator_adapter.h>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Themes/ThemeColor.h>
@@ -30,7 +24,6 @@
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Borders/LineStyle.h>
@@ -105,7 +98,7 @@ void ExBorder::FontBorder()
     doc->Save(get_ArtifactsDir() + u"Border.FontBorder.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Border.FontBorder.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Border.FontBorder.docx"));
     System::SharedPtr<Aspose::Words::Border> border = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Border();
     
     ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), border->get_Color().ToArgb());
@@ -148,7 +141,7 @@ void ExBorder::ParagraphTopBorder()
     doc->Save(get_ArtifactsDir() + u"Border.ParagraphTopBorder.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Border.ParagraphTopBorder.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Border.ParagraphTopBorder.docx"));
     System::SharedPtr<Aspose::Words::Border> border = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()->get_Top();
     
     ASPOSE_ASSERT_EQ(4.0, border->get_LineWidth());
@@ -173,7 +166,7 @@ void ExBorder::ClearFormatting()
     //ExFor:Border.ClearFormatting
     //ExFor:Border.IsVisible
     //ExSummary:Shows how to remove borders from a paragraph.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Borders.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Borders.docx"));
     
     // Each paragraph has an individual set of borders.
     // We can access the settings for the appearance of these borders via the paragraph format object.
@@ -184,7 +177,7 @@ void ExBorder::ClearFormatting()
     ASSERT_EQ(Aspose::Words::LineStyle::Single, borders->idx_get(0)->get_LineStyle());
     ASSERT_TRUE(borders->idx_get(0)->get_IsVisible());
     
-    // We can remove a border at once by running the ClearFormatting method. 
+    // We can remove a border at once by running the ClearFormatting method.
     // Running this method on every border of a paragraph will remove all its borders.
     for (auto&& border : System::IterateOver(borders))
     {
@@ -199,7 +192,7 @@ void ExBorder::ClearFormatting()
     doc->Save(get_ArtifactsDir() + u"Border.ClearFormatting.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Border.ClearFormatting.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Border.ClearFormatting.docx"));
     
     for (auto&& testBorder : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
     {
@@ -268,7 +261,7 @@ void ExBorder::SharedElements()
     doc->Save(get_ArtifactsDir() + u"Border.SharedElements.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Border.SharedElements.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Border.SharedElements.docx"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
     for (auto&& testBorder : System::IterateOver(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Borders()))
@@ -317,7 +310,7 @@ void ExBorder::HorizontalBorders()
     doc->Save(get_ArtifactsDir() + u"Border.HorizontalBorders.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Border.HorizontalBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Border.HorizontalBorders.docx"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
     ASSERT_EQ(Aspose::Words::LineStyle::DashSmallGap, paragraphs->idx_get(0)->get_ParagraphFormat()->get_Borders()->idx_get(Aspose::Words::BorderType::Horizontal)->get_LineStyle());
@@ -378,7 +371,7 @@ void ExBorder::VerticalBorders()
     doc->Save(get_ArtifactsDir() + u"Border.VerticalBorders.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Border.VerticalBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Border.VerticalBorders.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     for (auto&& row : System::IterateOver<Aspose::Words::Tables::Row>(table->GetChildNodes(Aspose::Words::NodeType::Row, true)))

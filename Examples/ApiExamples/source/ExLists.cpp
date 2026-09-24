@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExLists.h"
+﻿#include "ExLists.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -13,10 +8,9 @@
 #include <system/func.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
+#include <system/console.h>
 #include <system/collections/list.h>
 #include <system/collections/ienumerable.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/color.h>
 #include <cstdint>
@@ -84,54 +78,54 @@ void ExLists::TestOutlineHeadingTemplates(System::SharedPtr<Aspose::Words::Docum
     System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->idx_get(0);
     // Article section list template.
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"Article \u0000.", 0.0, Aspose::Words::NumberStyle::UppercaseRoman, list->get_ListLevels()->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"Section \u0000.\u0001", 0.0, Aspose::Words::NumberStyle::LeadingZero, list->get_ListLevels()->idx_get(1));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"(\u0002)", 14.4, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(2));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"(\u0003)", 36.0, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(3));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0004)", 28.8, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(4));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0005)", 36.0, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(5));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0006)", 50.4, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(6));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\a.", 50.4, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(7));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\b.", 72.0, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(8));
+    TestUtil::VerifyListLevel(u"Article \u0000.", 0.0, Aspose::Words::NumberStyle::UppercaseRoman, list->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"Section \u0000.\u0001", 0.0, Aspose::Words::NumberStyle::LeadingZero, list->get_ListLevels()->idx_get(1));
+    TestUtil::VerifyListLevel(u"(\u0002)", 14.4, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(2));
+    TestUtil::VerifyListLevel(u"(\u0003)", 36.0, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(3));
+    TestUtil::VerifyListLevel(u"\u0004)", 28.8, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(4));
+    TestUtil::VerifyListLevel(u"\u0005)", 36.0, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(5));
+    TestUtil::VerifyListLevel(u"\u0006)", 50.4, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(6));
+    TestUtil::VerifyListLevel(u"\a.", 50.4, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(7));
+    TestUtil::VerifyListLevel(u"\b.", 72.0, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(8));
     
     list = doc->get_Lists()->idx_get(1);
     // Legal list template.
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.\u0001", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(1));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(2));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(3));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(4));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004.\u0005", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(5));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004.\u0005.\u0006", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(6));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004.\u0005.\u0006.\a", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(7));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004.\u0005.\u0006.\a.\b", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(8));
+    TestUtil::VerifyListLevel(u"\u0000", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000.\u0001", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(1));
+    TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(2));
+    TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(3));
+    TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(4));
+    TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004.\u0005", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(5));
+    TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004.\u0005.\u0006", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(6));
+    TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004.\u0005.\u0006.\a", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(7));
+    TestUtil::VerifyListLevel(u"\u0000.\u0001.\u0002.\u0003.\u0004.\u0005.\u0006.\a.\b", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(8));
     
     list = doc->get_Lists()->idx_get(2);
     // Numbered list template.
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.", 0.0, Aspose::Words::NumberStyle::UppercaseRoman, list->get_ListLevels()->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0001.", 36.0, Aspose::Words::NumberStyle::UppercaseLetter, list->get_ListLevels()->idx_get(1));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0002.", 72.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(2));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0003)", 108.0, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(3));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"(\u0004)", 144.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(4));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"(\u0005)", 180.0, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(5));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"(\u0006)", 216.0, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(6));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"(\a)", 252.0, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(7));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"(\b)", 288.0, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(8));
+    TestUtil::VerifyListLevel(u"\u0000.", 0.0, Aspose::Words::NumberStyle::UppercaseRoman, list->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0001.", 36.0, Aspose::Words::NumberStyle::UppercaseLetter, list->get_ListLevels()->idx_get(1));
+    TestUtil::VerifyListLevel(u"\u0002.", 72.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(2));
+    TestUtil::VerifyListLevel(u"\u0003)", 108.0, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(3));
+    TestUtil::VerifyListLevel(u"(\u0004)", 144.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(4));
+    TestUtil::VerifyListLevel(u"(\u0005)", 180.0, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(5));
+    TestUtil::VerifyListLevel(u"(\u0006)", 216.0, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(6));
+    TestUtil::VerifyListLevel(u"(\a)", 252.0, Aspose::Words::NumberStyle::LowercaseLetter, list->get_ListLevels()->idx_get(7));
+    TestUtil::VerifyListLevel(u"(\b)", 288.0, Aspose::Words::NumberStyle::LowercaseRoman, list->get_ListLevels()->idx_get(8));
     
     list = doc->get_Lists()->idx_get(3);
     // Chapter list template.
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"Chapter \u0000", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(1));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(2));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(3));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(4));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(5));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(6));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(7));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(8));
+    TestUtil::VerifyListLevel(u"Chapter \u0000", 0.0, Aspose::Words::NumberStyle::Arabic, list->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(1));
+    TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(2));
+    TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(3));
+    TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(4));
+    TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(5));
+    TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(6));
+    TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(7));
+    TestUtil::VerifyListLevel(u"", 0.0, Aspose::Words::NumberStyle::None, list->get_ListLevels()->idx_get(8));
 }
 
 void ExLists::AddListSample(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::SharedPtr<Aspose::Words::Lists::List> list)
@@ -164,7 +158,6 @@ void ExLists::TestPrintOutAllLists(System::SharedPtr<Aspose::Words::Document> li
         }
     }
 }
-
 
 namespace gtest_test
 {
@@ -214,8 +207,8 @@ void ExLists::ApplyDefaultBulletsAndNumbers()
     builder->Writeln(u"Aspose.Words main advantages are:");
     
     // A list allows us to organize and decorate sets of paragraphs with prefix symbols and indents.
-    // We can create nested lists by increasing the indent level. 
-    // We can begin and end a list by using a document builder's "ListFormat" property. 
+    // We can create nested lists by increasing the indent level.
+    // We can begin and end a list by using a document builder's "ListFormat" property.
     // Each paragraph that we add between a list's start and the end will become an item in the list.
     // Below are two types of lists that we can create with a document builder.
     // 1 -  A bulleted list:
@@ -266,7 +259,7 @@ void ExLists::ApplyDefaultBulletsAndNumbers()
     builder->Writeln(u"Saving documents in different formats:");
     
     // If we increase the list level to a level that we have added items to previously,
-    // the nested list will be separate from the previous, and its numbering will start from the beginning. 
+    // the nested list will be separate from the previous, and its numbering will start from the beginning.
     // These list items will have symbols of "a.", "b.", "c.", "d.", and "e".
     builder->get_ListFormat()->ListIndent();
     builder->Writeln(u"DOC");
@@ -285,11 +278,11 @@ void ExLists::ApplyDefaultBulletsAndNumbers()
     doc->Save(get_ArtifactsDir() + u"Lists.ApplyDefaultBulletsAndNumbers.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.ApplyDefaultBulletsAndNumbers.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.ApplyDefaultBulletsAndNumbers.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, doc->get_Lists()->idx_get(1)->get_ListLevels()->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0001.", 54.0, Aspose::Words::NumberStyle::LowercaseLetter, doc->get_Lists()->idx_get(1)->get_ListLevels()->idx_get(1));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\uf0b7", 18.0, Aspose::Words::NumberStyle::Bullet, doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, doc->get_Lists()->idx_get(1)->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0001.", 54.0, Aspose::Words::NumberStyle::LowercaseLetter, doc->get_Lists()->idx_get(1)->get_ListLevels()->idx_get(1));
+    TestUtil::VerifyListLevel(u"\uf0b7", 18.0, Aspose::Words::NumberStyle::Bullet, doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0));
 }
 
 namespace gtest_test
@@ -321,8 +314,8 @@ void ExLists::SpecifyListLevel()
     ASSERT_FALSE(builder->get_ListFormat()->get_IsListItem());
     
     // A list allows us to organize and decorate sets of paragraphs with prefix symbols and indents.
-    // We can create nested lists by increasing the indent level. 
-    // We can begin and end a list by using a document builder's "ListFormat" property. 
+    // We can create nested lists by increasing the indent level.
+    // We can begin and end a list by using a document builder's "ListFormat" property.
     // Each paragraph that we add between a list's start and the end will become an item in the list.
     // Below are two types of lists that we can create using a document builder.
     // 1 -  A numbered list:
@@ -334,7 +327,7 @@ void ExLists::SpecifyListLevel()
     // By setting the "ListLevelNumber" property, we can increase the list level
     // to begin a self-contained sub-list at the current list item.
     // The Microsoft Word list template called "NumberDefault" uses numbers to create list levels for the first list level.
-    // Deeper list levels use letters and lowercase Roman numerals. 
+    // Deeper list levels use letters and lowercase Roman numerals.
     for (int32_t i = 0; i < 9; i++)
     {
         builder->get_ListFormat()->set_ListLevelNumber(i);
@@ -360,9 +353,9 @@ void ExLists::SpecifyListLevel()
     doc->Save(get_ArtifactsDir() + u"Lists.SpecifyListLevel.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.SpecifyListLevel.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.SpecifyListLevel.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0));
 }
 
 namespace gtest_test
@@ -388,8 +381,8 @@ void ExLists::NestedLists()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // A list allows us to organize and decorate sets of paragraphs with prefix symbols and indents.
-    // We can create nested lists by increasing the indent level. 
-    // We can begin and end a list by using a document builder's "ListFormat" property. 
+    // We can create nested lists by increasing the indent level.
+    // We can begin and end a list by using a document builder's "ListFormat" property.
     // Each paragraph that we add between a list's start and the end will become an item in the list.
     // Create an outline list for the headings.
     System::SharedPtr<Aspose::Words::Lists::List> outlineList = doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::OutlineNumbers);
@@ -430,11 +423,11 @@ void ExLists::NestedLists()
     builder->get_Document()->Save(get_ArtifactsDir() + u"Lists.NestedLists.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.NestedLists.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.NestedLists.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000)", 0.0, Aspose::Words::NumberStyle::Arabic, doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, doc->get_Lists()->idx_get(1)->get_ListLevels()->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\uf0b7", 18.0, Aspose::Words::NumberStyle::Bullet, doc->get_Lists()->idx_get(2)->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000)", 0.0, Aspose::Words::NumberStyle::Arabic, doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, doc->get_Lists()->idx_get(1)->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\uf0b7", 18.0, Aspose::Words::NumberStyle::Bullet, doc->get_Lists()->idx_get(2)->get_ListLevels()->idx_get(0));
 }
 
 namespace gtest_test
@@ -472,8 +465,8 @@ void ExLists::CreateCustomList()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     // A list allows us to organize and decorate sets of paragraphs with prefix symbols and indents.
-    // We can create nested lists by increasing the indent level. 
-    // We can begin and end a list by using a document builder's "ListFormat" property. 
+    // We can create nested lists by increasing the indent level.
+    // We can begin and end a list by using a document builder's "ListFormat" property.
     // Each paragraph that we add between a list's start and the end will become an item in the list.
     // Create a list from a Microsoft Word template, and customize the first two of its list levels.
     System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::NumberDefault);
@@ -520,18 +513,18 @@ void ExLists::CreateCustomList()
     builder->get_Document()->Save(get_ArtifactsDir() + u"Lists.CreateCustomList.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.CreateCustomList.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.CreateCustomList.docx"));
     
     listLevel = doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0);
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000", -36.0, Aspose::Words::NumberStyle::OrdinalText, listLevel);
+    TestUtil::VerifyListLevel(u"\u0000", -36.0, Aspose::Words::NumberStyle::OrdinalText, listLevel);
     ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), listLevel->get_Font()->get_Color().ToArgb());
     ASPOSE_ASSERT_EQ(24.0, listLevel->get_Font()->get_Size());
     ASSERT_EQ(21, listLevel->get_StartAt());
     
     listLevel = doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(1);
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\xf0af", 144.0, Aspose::Words::NumberStyle::Bullet, listLevel);
+    TestUtil::VerifyListLevel(u"\xf0af", 144.0, Aspose::Words::NumberStyle::Bullet, listLevel);
     ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), listLevel->get_Font()->get_Color().ToArgb());
     ASPOSE_ASSERT_EQ(24.0, listLevel->get_Font()->get_Size());
     ASSERT_EQ(1, listLevel->get_StartAt());
@@ -561,8 +554,8 @@ void ExLists::RestartNumberingUsingListCopy()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     // A list allows us to organize and decorate sets of paragraphs with prefix symbols and indents.
-    // We can create nested lists by increasing the indent level. 
-    // We can begin and end a list by using a document builder's "ListFormat" property. 
+    // We can create nested lists by increasing the indent level.
+    // We can begin and end a list by using a document builder's "ListFormat" property.
     // Each paragraph that we add between a list's start and the end will become an item in the list.
     // Create a list from a Microsoft Word template, and customize its first list level.
     System::SharedPtr<Aspose::Words::Lists::List> list1 = doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::NumberArabicParenthesis);
@@ -594,16 +587,16 @@ void ExLists::RestartNumberingUsingListCopy()
     doc->Save(get_ArtifactsDir() + u"Lists.RestartNumberingUsingListCopy.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.RestartNumberingUsingListCopy.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.RestartNumberingUsingListCopy.docx"));
     
     list1 = doc->get_Lists()->idx_get(0);
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000)", 18.0, Aspose::Words::NumberStyle::Arabic, list1->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000)", 18.0, Aspose::Words::NumberStyle::Arabic, list1->get_ListLevels()->idx_get(0));
     ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), list1->get_ListLevels()->idx_get(0)->get_Font()->get_Color().ToArgb());
     ASPOSE_ASSERT_EQ(10.0, list1->get_ListLevels()->idx_get(0)->get_Font()->get_Size());
     ASSERT_EQ(1, list1->get_ListLevels()->idx_get(0)->get_StartAt());
     
     list2 = doc->get_Lists()->idx_get(1);
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000)", 18.0, Aspose::Words::NumberStyle::Arabic, list2->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000)", 18.0, Aspose::Words::NumberStyle::Arabic, list2->get_ListLevels()->idx_get(0));
     ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), list2->get_ListLevels()->idx_get(0)->get_Font()->get_Color().ToArgb());
     ASPOSE_ASSERT_EQ(10.0, list2->get_ListLevels()->idx_get(0)->get_Font()->get_Size());
     ASSERT_EQ(10, list2->get_ListLevels()->idx_get(0)->get_StartAt());
@@ -637,8 +630,8 @@ void ExLists::CreateAndUseListStyle()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     // A list allows us to organize and decorate sets of paragraphs with prefix symbols and indents.
-    // We can create nested lists by increasing the indent level. 
-    // We can begin and end a list by using a document builder's "ListFormat" property. 
+    // We can create nested lists by increasing the indent level.
+    // We can begin and end a list by using a document builder's "ListFormat" property.
     // Each paragraph that we add between a list's start and the end will become an item in the list.
     // We can contain an entire List object within a style.
     System::SharedPtr<Aspose::Words::Style> listStyle = doc->get_Styles()->Add(Aspose::Words::StyleType::List, u"MyListStyle");
@@ -687,11 +680,11 @@ void ExLists::CreateAndUseListStyle()
     builder->get_Document()->Save(get_ArtifactsDir() + u"Lists.CreateAndUseListStyle.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.CreateAndUseListStyle.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.CreateAndUseListStyle.docx"));
     
     list1 = doc->get_Lists()->idx_get(0);
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, list1->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, list1->get_ListLevels()->idx_get(0));
     ASSERT_TRUE(list1->get_IsListStyleDefinition());
     ASSERT_FALSE(list1->get_IsListStyleReference());
     ASSERT_TRUE(list1->get_IsMultiLevel());
@@ -701,14 +694,14 @@ void ExLists::CreateAndUseListStyle()
     
     list2 = doc->get_Lists()->idx_get(1);
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, list2->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, list2->get_ListLevels()->idx_get(0));
     ASSERT_FALSE(list2->get_IsListStyleDefinition());
     ASSERT_TRUE(list2->get_IsListStyleReference());
     ASSERT_TRUE(list2->get_IsMultiLevel());
     
     list3 = doc->get_Lists()->idx_get(2);
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, list3->get_ListLevels()->idx_get(0));
+    TestUtil::VerifyListLevel(u"\u0000.", 18.0, Aspose::Words::NumberStyle::Arabic, list3->get_ListLevels()->idx_get(0));
     ASSERT_FALSE(list3->get_IsListStyleDefinition());
     ASSERT_TRUE(list3->get_IsListStyleReference());
     ASSERT_TRUE(list3->get_IsMultiLevel());
@@ -749,17 +742,17 @@ void ExLists::DetectBulletedParagraphs()
     
     System::SharedPtr<Aspose::Words::NodeCollection> paras = doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true);
     
-    for (auto&& para : paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph> >()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
+    for (auto&& para : paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph>>()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
     {
         return p->get_ListFormat()->get_IsListItem();
     })))->LINQ_ToList())
     {
-        std::cout << System::String::Format(u"This paragraph belongs to list ID# {0}, number style \"{1}\"", para->get_ListFormat()->get_List()->get_ListId(), para->get_ListFormat()->get_ListLevel()->get_NumberStyle()) << std::endl;
-        std::cout << System::String::Format(u"\t\"{0}\"", para->GetText().Trim()) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"This paragraph belongs to list ID# {0}, number style \"{1}\"", para->get_ListFormat()->get_List()->get_ListId(), para->get_ListFormat()->get_ListLevel()->get_NumberStyle()));
+        System::Console::WriteLine(System::String::Format(u"\t\"{0}\"", para->GetText().Trim()));
     }
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     paras = doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true);
     
     ASSERT_EQ(6, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
@@ -842,7 +835,7 @@ void ExLists::ApplyExistingListToParagraphs()
     doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::NumberDefault);
     System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->idx_get(0);
     
-    for (auto&& paragraph : System::IterateOver(paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph> >()))
+    for (auto&& paragraph : System::IterateOver(paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph>>()))
     {
         paragraph->get_ListFormat()->set_List(list);
         paragraph->get_ListFormat()->set_ListLevelNumber(2);
@@ -854,7 +847,7 @@ void ExLists::ApplyExistingListToParagraphs()
     }))));
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     paras = doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true);
     
     ASSERT_EQ(3, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
@@ -898,7 +891,7 @@ void ExLists::ApplyNewListToParagraphs()
     
     System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::NumberUppercaseLetterDot);
     
-    for (auto&& paragraph : System::IterateOver(paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph> >()))
+    for (auto&& paragraph : System::IterateOver(paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph>>()))
     {
         paragraph->get_ListFormat()->set_List(list);
         paragraph->get_ListFormat()->set_ListLevelNumber(1);
@@ -910,7 +903,7 @@ void ExLists::ApplyNewListToParagraphs()
     }))));
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     paras = doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true);
     
     ASSERT_EQ(3, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
@@ -953,7 +946,7 @@ void ExLists::OutlineHeadingTemplates()
     AddOutlineHeadingParagraphs(builder, list, u"Aspose.Words Outline - \"Chapters\"");
     
     doc->Save(get_ArtifactsDir() + u"Lists.OutlineHeadingTemplates.docx");
-    TestOutlineHeadingTemplates(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.OutlineHeadingTemplates.docx"));
+    TestOutlineHeadingTemplates(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.OutlineHeadingTemplates.docx")));
     //ExSkip
 }
 
@@ -969,7 +962,7 @@ TEST_F(ExLists, OutlineHeadingTemplates)
 
 void ExLists::PrintOutAllLists()
 {
-    auto srcDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto srcDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto dstDoc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(dstDoc);
@@ -981,7 +974,7 @@ void ExLists::PrintOutAllLists()
     }
     
     dstDoc->Save(get_ArtifactsDir() + u"Lists.PrintOutAllLists.docx");
-    TestPrintOutAllLists(srcDoc, System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.PrintOutAllLists.docx"));
+    TestPrintOutAllLists(srcDoc, System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.PrintOutAllLists.docx")));
     //ExSkip
 }
 
@@ -1013,13 +1006,13 @@ void ExLists::ListDocument()
     System::SharedPtr<Aspose::Words::Lists::List> list = lists->Add(Aspose::Words::Lists::ListTemplate::BulletDefault);
     ASPOSE_ASSERT_EQ(doc, list->get_Document());
     
-    std::cout << (System::String(u"Current list count: ") + lists->get_Count()) << std::endl;
-    std::cout << (System::String(u"Is the first document list: ") + (System::ObjectExt::Equals(lists->idx_get(0), list))) << std::endl;
-    std::cout << (System::String(u"ListId: ") + list->get_ListId()) << std::endl;
-    std::cout << (System::String(u"List is the same by ListId: ") + (System::ObjectExt::Equals(lists->GetListByListId(1), list))) << std::endl;
+    System::Console::WriteLine(System::String(u"Current list count: ") + lists->get_Count());
+    System::Console::WriteLine(System::String(u"Is the first document list: ") + (System::ObjectExt::Equals(lists->idx_get(0), list)));
+    System::Console::WriteLine(System::String(u"ListId: ") + list->get_ListId());
+    System::Console::WriteLine(System::String(u"List is the same by ListId: ") + (System::ObjectExt::Equals(lists->GetListByListId(1), list)));
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     lists = doc->get_Lists();
     
     ASPOSE_ASSERT_EQ(doc, lists->get_Document());
@@ -1051,8 +1044,8 @@ void ExLists::CreateListRestartAfterHigher()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // A list allows us to organize and decorate sets of paragraphs with prefix symbols and indents.
-    // We can create nested lists by increasing the indent level. 
-    // We can begin and end a list by using a document builder's "ListFormat" property. 
+    // We can create nested lists by increasing the indent level.
+    // We can begin and end a list by using a document builder's "ListFormat" property.
     // Each paragraph that we add between a list's start and the end will become an item in the list.
     System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::NumberDefault);
     
@@ -1102,18 +1095,18 @@ void ExLists::CreateListRestartAfterHigher()
     doc->Save(get_ArtifactsDir() + u"Lists.CreateListRestartAfterHigher.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.CreateListRestartAfterHigher.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.CreateListRestartAfterHigher.docx"));
     
     System::SharedPtr<Aspose::Words::Lists::ListLevel> listLevel = doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0);
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"Appendix \u0000", 18.0, Aspose::Words::NumberStyle::UppercaseLetter, listLevel);
+    TestUtil::VerifyListLevel(u"Appendix \u0000", 18.0, Aspose::Words::NumberStyle::UppercaseLetter, listLevel);
     ASSERT_FALSE(listLevel->get_IsLegal());
     ASSERT_EQ(-1, listLevel->get_RestartAfterLevel());
     ASSERT_EQ(u"Heading 1", listLevel->get_LinkedStyle()->get_Name());
     
     listLevel = doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(1);
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyListLevel(u"Section (\u0000.\u0001)", 54.0, Aspose::Words::NumberStyle::LeadingZero, listLevel);
+    TestUtil::VerifyListLevel(u"Section (\u0000.\u0001)", 54.0, Aspose::Words::NumberStyle::LeadingZero, listLevel);
     ASSERT_TRUE(listLevel->get_IsLegal());
     ASSERT_EQ(0, listLevel->get_RestartAfterLevel());
     ASSERT_TRUE(System::TestTools::IsNull(listLevel->get_LinkedStyle()));
@@ -1139,37 +1132,37 @@ void ExLists::GetListLabels()
     //ExFor:ListLabel.LabelValue
     //ExFor:ListLabel.LabelString
     //ExSummary:Shows how to extract the list labels of all paragraphs that are list items.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     doc->UpdateListLabels();
     
     System::SharedPtr<Aspose::Words::NodeCollection> paras = doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true);
     
     // Find if we have the paragraph list. In our document, our list uses plain Arabic numbers,
     // which start at three and ends at six.
-    for (auto&& paragraph : paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph> >()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
+    for (auto&& paragraph : paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph>>()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
     {
         return p->get_ListFormat()->get_IsListItem();
     })))->LINQ_ToList())
     {
-        std::cout << System::String::Format(u"List item paragraph #{0}", paras->IndexOf(paragraph)) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"List item paragraph #{0}", paras->IndexOf(paragraph)));
         
         // This is the text we get when getting when we output this node to text format.
-        // This text output will omit list labels. Trim any paragraph formatting characters. 
+        // This text output will omit list labels. Trim any paragraph formatting characters.
         System::String paragraphText = paragraph->ToString(Aspose::Words::SaveFormat::Text).Trim();
-        std::cout << System::String::Format(u"\tExported Text: {0}", paragraphText) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"\tExported Text: {0}", paragraphText));
         
         System::SharedPtr<Aspose::Words::Lists::ListLabel> label = paragraph->get_ListLabel();
         
         // This gets the position of the paragraph in the current level of the list. If we have a list with multiple levels,
         // this will tell us what position it is on that level.
-        std::cout << System::String::Format(u"\tNumerical Id: {0}", label->get_LabelValue()) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"\tNumerical Id: {0}", label->get_LabelValue()));
         
         // Combine them together to include the list label with the text in the output.
-        std::cout << System::String::Format(u"\tList label combined with text: {0} {1}", label->get_LabelString(), paragraphText) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"\tList label combined with text: {0} {1}", label->get_LabelString(), paragraphText));
     }
     //ExEnd
     
-    ASSERT_EQ(10, paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph> >()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
+    ASSERT_EQ(10, paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
     {
         return p->get_ListFormat()->get_IsListItem();
     }))));
@@ -1215,7 +1208,7 @@ void ExLists::CreatePictureBullet()
     ASSERT_TRUE(System::TestTools::IsNull(list->get_ListLevels()->idx_get(0)->get_ImageData()));
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Lists.CreatePictureBullet.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Lists.CreatePictureBullet.docx"));
     
     ASSERT_TRUE(doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0)->get_ImageData()->get_HasImage());
 }
@@ -1238,7 +1231,7 @@ void ExLists::GetCustomNumberStyleFormat()
     //ExFor:ListLevel.CustomNumberStyleFormat
     //ExFor:ListLevel.GetEffectiveValue(Int32, NumberStyle, String)
     //ExSummary:Shows how to get the format for a list with the custom number style.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"List with leading zero.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List with leading zero.docx"));
     
     System::SharedPtr<Aspose::Words::Lists::ListLevel> listLevel = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ListFormat()->get_ListLevel();
     
@@ -1249,24 +1242,24 @@ void ExLists::GetCustomNumberStyleFormat()
         customNumberStyleFormat = listLevel->get_CustomNumberStyleFormat();
     }
     
-    ASSERT_EQ(u"001, 002, 003, ...", customNumberStyleFormat);
+    ASSERT_EQ((u"001, 002, 003, ..."), customNumberStyleFormat);
     
     // We can get value for the specified index of the list item.
-    ASSERT_EQ(u"iv", Aspose::Words::Lists::ListLevel::GetEffectiveValue(4, Aspose::Words::NumberStyle::LowercaseRoman, nullptr));
-    ASSERT_EQ(u"005", Aspose::Words::Lists::ListLevel::GetEffectiveValue(5, Aspose::Words::NumberStyle::Custom, customNumberStyleFormat));
+    ASSERT_EQ(u"iv", ListLevel::GetEffectiveValue(4, Aspose::Words::NumberStyle::LowercaseRoman, nullptr));
+    ASSERT_EQ(u"005", ListLevel::GetEffectiveValue(5, Aspose::Words::NumberStyle::Custom, customNumberStyleFormat));
     //ExEnd
     
     ASSERT_THROW(static_cast<std::function<void()>>([&customNumberStyleFormat]() -> void
     {
-        Aspose::Words::Lists::ListLevel::GetEffectiveValue(5, Aspose::Words::NumberStyle::LowercaseRoman, customNumberStyleFormat);
+        ListLevel::GetEffectiveValue(5, Aspose::Words::NumberStyle::LowercaseRoman, customNumberStyleFormat);
     })(), System::ArgumentException);
     ASSERT_THROW(static_cast<std::function<void()>>([]() -> void
     {
-        Aspose::Words::Lists::ListLevel::GetEffectiveValue(5, Aspose::Words::NumberStyle::Custom, nullptr);
+        ListLevel::GetEffectiveValue(5, Aspose::Words::NumberStyle::Custom, nullptr);
     })(), System::ArgumentException);
     ASSERT_THROW(static_cast<std::function<void()>>([]() -> void
     {
-        Aspose::Words::Lists::ListLevel::GetEffectiveValue(5, Aspose::Words::NumberStyle::Custom, u"....");
+        ListLevel::GetEffectiveValue(5, Aspose::Words::NumberStyle::Custom, u"....");
     })(), System::ArgumentException);
 }
 
@@ -1285,7 +1278,7 @@ void ExLists::HasSameTemplate()
     //ExStart
     //ExFor:List.HasSameTemplate(List)
     //ExSummary:Shows how to define lists with the same ListDefId.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Different lists.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Different lists.docx"));
     
     ASSERT_TRUE(doc->get_Lists()->idx_get(0)->HasSameTemplate(doc->get_Lists()->idx_get(1)));
     ASSERT_FALSE(doc->get_Lists()->idx_get(1)->HasSameTemplate(doc->get_Lists()->idx_get(2)));
@@ -1308,7 +1301,7 @@ void ExLists::SetCustomNumberStyleFormat()
     //GistId:ac8ba4eb35f3fbb8066b48c999da63b0
     //ExFor:ListLevel.CustomNumberStyleFormat
     //ExSummary:Shows how to set customer number style format.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"List with leading zero.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List with leading zero.docx"));
     
     doc->UpdateListLabels();
     
@@ -1402,7 +1395,7 @@ void ExLists::RemoveTabStopFromListLevel()
     //ExEnd:RemoveTabStopFromListLevel
     
     // Verify the tab stop was removed.
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Paragraph.RemoveTabStopFromListLevel.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Paragraph.RemoveTabStopFromListLevel.docx"));
     System::SharedPtr<Aspose::Words::Lists::ListLevel> effectiveListLevel = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ListFormat()->get_ListLevel();
     ASSERT_FALSE(System::TestTools::IsNull(effectiveListLevel));
 }

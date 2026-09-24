@@ -1,12 +1,9 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
 #include <system/date_time.h>
 #include <system/collections/list.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Fields/IFieldResultFormatter.h>
 #include <Aspose.Words.Cpp/Model/Fields/Format/GeneralFormat.h>
@@ -172,7 +169,17 @@ public:
     void InsertChartRelativePosition();
     void InsertField();
     void InsertFieldAndUpdate(bool updateInsertedFieldsImmediately);
+    //ExStart
+    //ExFor:IFieldResultFormatter
+    //ExFor:IFieldResultFormatter.Format(Double, GeneralFormat)
+    //ExFor:IFieldResultFormatter.Format(String, GeneralFormat)
+    //ExFor:IFieldResultFormatter.FormatDateTime(DateTime, String, CalendarType)
+    //ExFor:IFieldResultFormatter.FormatNumeric(Double, String)
+    //ExFor:FieldOptions.ResultFormatter
+    //ExFor:CalendarType
+    //ExSummary:Shows how to automatically apply a custom format to field results as the fields are updated.
     void FieldResultFormatting();
+    //ExEnd
     void InsertVideoWithUrl();
     void InsertUnderline();
     void CurrentStory();

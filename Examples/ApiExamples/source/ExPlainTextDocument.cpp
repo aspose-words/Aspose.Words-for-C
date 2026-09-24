@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExPlainTextDocument.h"
+﻿#include "ExPlainTextDocument.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -11,8 +6,6 @@
 #include <system/string.h>
 #include <system/io/file_stream.h>
 #include <system/io/file_mode.h>
-#include <system/details/dispose_guard.h>
-#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Properties/DocumentProperty.h>
@@ -240,7 +233,7 @@ void ExPlainTextDocument::CustomDocumentProperties()
     auto plaintext = System::MakeObject<Aspose::Words::PlainTextDocument>(get_ArtifactsDir() + u"PlainTextDocument.CustomDocumentProperties.docx");
     
     ASSERT_EQ(u"Hello world!", plaintext->get_Text().Trim());
-    ASPOSE_ASSERT_EQ(u"123 Main St, London, UK", plaintext->get_CustomDocumentProperties()->idx_get(u"Location of writing")->get_Value());
+    ASPOSE_ASSERT_EQ((u"123 Main St, London, UK"), plaintext->get_CustomDocumentProperties()->idx_get(u"Location of writing")->get_Value());
     //ExEnd
 }
 

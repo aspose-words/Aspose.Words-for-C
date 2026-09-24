@@ -1,17 +1,11 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExBuildingBlocks.h"
+﻿#include "ExBuildingBlocks.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
+#include <system/console.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
@@ -253,7 +247,7 @@ void ExBuildingBlocks::GlossaryDocument()
     
     // 2 -  Get a building block by index:
     ASSERT_EQ(u"Block 2", glossaryDoc->get_BuildingBlocks()->idx_get(1)->get_Name());
-    ASSERT_EQ(u"Block 3", glossaryDoc->get_BuildingBlocks()->ToArray()->idx_get(2)->get_Name());
+    ASSERT_EQ(u"Block 3", glossaryDoc->get_BuildingBlocks()->ToArray()[2]->get_Name());
     
     // 3 -  Get the first building block that matches a gallery, name and category:
     ASSERT_EQ(u"Block 4", glossaryDoc->GetBuildingBlock(Aspose::Words::BuildingBlocks::BuildingBlockGallery::All, u"(Empty Category)", u"Block 4")->get_Name());
@@ -270,7 +264,7 @@ void ExBuildingBlocks::GlossaryDocument()
     ASSERT_EQ(5, visitor->GetDictionary()->get_Count());
     //ExSkip
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     
     // In Microsoft Word, we can access the building blocks via "Insert" -> "Quick Parts" -> "Building Blocks Organizer".
     doc->Save(get_ArtifactsDir() + u"BuildingBlocks.GlossaryDocument.dotx");

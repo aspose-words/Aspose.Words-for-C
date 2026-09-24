@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExRenameMergeFields.h"
+﻿#include "ExRenameMergeFields.h"
 
 #include <system/text/string_builder.h>
 #include <system/text/regularexpressions/match.h>
@@ -15,6 +10,7 @@
 #include <system/enumerator_adapter.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
+#include <mutex>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
@@ -79,7 +75,7 @@ void ExRenameMergeFields::Rename()
     
     // Select all field start nodes so we can find the MERGEFIELDs.
     System::SharedPtr<Aspose::Words::NodeCollection> fieldStarts = doc->GetChildNodes(Aspose::Words::NodeType::FieldStart, true);
-    for (auto&& fieldStart : System::IterateOver(fieldStarts->LINQ_OfType<System::SharedPtr<Aspose::Words::Fields::FieldStart> >()))
+    for (auto&& fieldStart : System::IterateOver(fieldStarts->LINQ_OfType<System::SharedPtr<Aspose::Words::Fields::FieldStart>>()))
     {
         if (fieldStart->get_FieldType() == Aspose::Words::Fields::FieldType::FieldMergeField)
         {
@@ -103,6 +99,18 @@ TEST_F(ExRenameMergeFields, Rename)
 
 RTTI_INFO_IMPL_HASH(1854326943u, ::Aspose::Words::ApiExamples::MergeField, ThisTypeBaseTypesInfo);
 
+System::SharedPtr<System::Text::RegularExpressions::Regex>& MergeField::gRegex()
+{
+    static System::SharedPtr<System::Text::RegularExpressions::Regex> value;
+    static std::once_flag once;
+    std::call_once(once, []
+    {
+        value = System::MakeObject<System::Text::RegularExpressions::Regex>(u"\\s*(?<start>MERGEFIELD\\s|)(\\s|)(?<name>\\S+)\\s+");
+    });
+    return value;
+}
+
+
 System::String MergeField::get_Name()
 {
     return GetTextSameParent(mFieldSeparator->get_NextSibling(), mFieldEnd).Trim(System::MakeArray<char16_t>({u'«', u'»'}));
@@ -110,7 +118,7 @@ System::String MergeField::get_Name()
 
 void MergeField::set_Name(System::String value)
 {
-    // Merge field name is stored in the field result which is a Run 
+    // Merge field name is stored in the field result which is a Run
     // node between field separator and field end.
     auto fieldResult = System::ExplicitCast<Aspose::Words::Run>(mFieldSeparator->get_NextSibling());
     fieldResult->set_Text(System::String::Format(u"«{0}»", value));
@@ -119,12 +127,6 @@ void MergeField::set_Name(System::String value)
     RemoveSameParent(fieldResult->get_NextSibling(), mFieldEnd);
     
     UpdateFieldCode(value);
-}
-
-System::SharedPtr<System::Text::RegularExpressions::Regex>& MergeField::gRegex()
-{
-    static System::SharedPtr<System::Text::RegularExpressions::Regex> value = System::MakeObject<System::Text::RegularExpressions::Regex>(u"\\s*(?<start>MERGEFIELD\\s|)(\\s|)(?<name>\\S+)\\s+");
-    return value;
 }
 
 MergeField::MergeField(System::SharedPtr<Aspose::Words::Fields::FieldStart> fieldStart)
@@ -143,9 +145,9 @@ MergeField::MergeField(System::SharedPtr<Aspose::Words::Fields::FieldStart> fiel
         throw System::InvalidOperationException(u"Cannot find field separator.");
     }
     
-    // Find the field end node. Normally field end will always be found, but in the example document 
-    // there happens to be a paragraph break included in the hyperlink and this puts the field end 
-    // in the next paragraph. It will be much more complicated to handle fields which span several 
+    // Find the field end node. Normally field end will always be found, but in the example document
+    // there happens to be a paragraph break included in the hyperlink and this puts the field end
+    // in the next paragraph. It will be much more complicated to handle fields which span several
     // paragraphs correctly, but in this case allowing field end to be null is enough for our purposes.
     mFieldEnd = FindNextSibling(mFieldSeparator, Aspose::Words::NodeType::FieldEnd);
 }

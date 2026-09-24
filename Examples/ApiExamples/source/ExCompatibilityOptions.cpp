@@ -1,17 +1,11 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExCompatibilityOptions.h"
+﻿#include "ExCompatibilityOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/enumerator_adapter.h>
+#include <system/console.h>
 #include <system/collections/list.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
@@ -101,15 +95,15 @@ void ExCompatibilityOptions::PrintCompatibilityOptions(System::SharedPtr<Aspose:
     AddOptionName(options->get_WPJustification(), u"WPJustification", enabledOptions, disabledOptions);
     AddOptionName(options->get_WPSpaceWidth(), u"WPSpaceWidth", enabledOptions, disabledOptions);
     AddOptionName(options->get_WrapTrailSpaces(), u"WrapTrailSpaces", enabledOptions, disabledOptions);
-    std::cout << "\tEnabled options:" << std::endl;
+    System::Console::WriteLine(u"\tEnabled options:");
     for (auto&& optionName : System::IterateOver(enabledOptions))
     {
-        std::cout << System::String::Format(u"\t\t{0}", optionName) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"\t\t{0}", optionName));
     }
-    std::cout << "\tDisabled options:" << std::endl;
+    System::Console::WriteLine(u"\tDisabled options:");
     for (auto&& optionName : System::IterateOver(disabledOptions))
     {
-        std::cout << System::String::Format(u"\t\t{0}", optionName) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"\t\t{0}", optionName));
     }
 }
 
@@ -124,7 +118,6 @@ void ExCompatibilityOptions::AddOptionName(bool option, System::String optionNam
         disabledOptions->Add(optionName);
     }
 }
-
 
 namespace gtest_test
 {
@@ -166,7 +159,7 @@ void ExCompatibilityOptions::OptimizeFor()
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> options = doc->get_CompatibilityOptions();
     
     // Print the default settings for a blank document.
-    std::cout << "\nDefault optimization settings:" << std::endl;
+    System::Console::WriteLine(u"\nDefault optimization settings:");
     PrintCompatibilityOptions(options);
     
     // We can access these settings in Microsoft Word via "File" -> "Options" -> "Advanced" -> "Compatibility options for...".
@@ -174,11 +167,11 @@ void ExCompatibilityOptions::OptimizeFor()
     
     // We can use the OptimizeFor method to ensure optimal compatibility with a specific Microsoft Word version.
     doc->get_CompatibilityOptions()->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2010);
-    std::cout << "\nOptimized for Word 2010:" << std::endl;
+    System::Console::WriteLine(u"\nOptimized for Word 2010:");
     PrintCompatibilityOptions(options);
     
     doc->get_CompatibilityOptions()->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2000);
-    std::cout << "\nOptimized for Word 2000:" << std::endl;
+    System::Console::WriteLine(u"\nOptimized for Word 2000:");
     PrintCompatibilityOptions(options);
 }
 

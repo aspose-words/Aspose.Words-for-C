@@ -1,12 +1,9 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <xml/xpath/xpath_navigator.h>
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeChangingArgs.h>
 #include <Aspose.Words.Cpp/Model/Nodes/INodeChangingCallback.h>
@@ -58,12 +55,44 @@ public:
     void GetParentNode();
     void OwnerDocument();
     void ChildNodesEnumerate();
+    //ExStart
+    //ExFor:Node.NextSibling
+    //ExFor:CompositeNode.FirstChild
+    //ExFor:Node.IsComposite
+    //ExFor:CompositeNode.IsComposite
+    //ExFor:Node.NodeTypeToString
+    //ExFor:Paragraph.NodeType
+    //ExFor:Table.NodeType
+    //ExFor:Node.NodeType
+    //ExFor:Footnote.NodeType
+    //ExFor:FormField.NodeType
+    //ExFor:SmartTag.NodeType
+    //ExFor:Cell.NodeType
+    //ExFor:Row.NodeType
+    //ExFor:Document.NodeType
+    //ExFor:Comment.NodeType
+    //ExFor:Run.NodeType
+    //ExFor:Section.NodeType
+    //ExFor:SpecialChar.NodeType
+    //ExFor:Shape.NodeType
+    //ExFor:FieldEnd.NodeType
+    //ExFor:FieldSeparator.NodeType
+    //ExFor:FieldStart.NodeType
+    //ExFor:BookmarkStart.NodeType
+    //ExFor:CommentRangeEnd.NodeType
+    //ExFor:BuildingBlock.NodeType
+    //ExFor:GlossaryDocument.NodeType
+    //ExFor:BookmarkEnd.NodeType
+    //ExFor:GroupShape.NodeType
+    //ExFor:CommentRangeStart.NodeType
+    //ExSummary:Shows how to traverse a composite node's tree of child nodes.
     void RecurseChildren();
     /// <summary>
     /// Recursively traverses a node tree while printing the type of each node
     /// with an indent depending on depth as well as the contents of all inline nodes.
     /// </summary>
     void TraverseAllNodes(System::SharedPtr<Aspose::Words::CompositeNode> parentNode, int32_t depth);
+    //ExEnd
     void RemoveNodes();
     void EnumNextSibling();
     void TypedAccess();
@@ -74,7 +103,14 @@ public:
     void ConvertNodeToHtmlWithDefaultOptions();
     void TypedNodeCollectionToArray();
     void NodeEnumerationHotRemove();
+    //ExStart
+    //ExFor:NodeChangingAction
+    //ExFor:NodeChangingArgs.Action
+    //ExFor:NodeChangingArgs.NewParent
+    //ExFor:NodeChangingArgs.OldParent
+    //ExSummary:Shows how to use a NodeChangingCallback to monitor changes to the document tree in real-time as we edit it.
     void NodeChangingCallback();
+    //ExEnd
     void NodeCollection();
     
 protected:
@@ -85,6 +121,7 @@ protected:
     /// Prints the text contents of the current node only if it is a Run.
     /// </summary>
     static void MapDocument(System::SharedPtr<System::Xml::XPath::XPathNavigator> navigator, System::SharedPtr<System::Text::StringBuilder> stringBuilder, int32_t depth);
+    //ExEnd
     void TestNodeXPathNavigator(System::String navigatorResult, System::SharedPtr<Aspose::Words::Document> doc);
     
 };

@@ -1,18 +1,10 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExBorderCollection.h"
+﻿#include "ExBorderCollection.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
-#include <system/string.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
 #include <system/collections/ienumerator.h>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
@@ -21,7 +13,6 @@
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Model/Borders/LineStyle.h>
@@ -95,7 +86,7 @@ void ExBorderCollection::GetBordersEnumerator()
     doc->Save(get_ArtifactsDir() + u"BorderCollection.GetBordersEnumerator.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"BorderCollection.GetBordersEnumerator.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"BorderCollection.GetBordersEnumerator.docx"));
     
     for (auto&& border : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
     {
@@ -120,7 +111,7 @@ void ExBorderCollection::RemoveAllBorders()
     //ExStart
     //ExFor:BorderCollection.ClearFormatting
     //ExSummary:Shows how to remove all borders from all paragraphs in a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Borders.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Borders.docx"));
     
     // The first paragraph of this document has visible borders with these settings.
     System::SharedPtr<Aspose::Words::BorderCollection> firstParagraphBorders = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders();
@@ -145,7 +136,7 @@ void ExBorderCollection::RemoveAllBorders()
     doc->Save(get_ArtifactsDir() + u"BorderCollection.RemoveAllBorders.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"BorderCollection.RemoveAllBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"BorderCollection.RemoveAllBorders.docx"));
     
     for (auto&& border : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
     {

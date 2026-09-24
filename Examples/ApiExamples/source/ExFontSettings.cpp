@@ -1,14 +1,8 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExFontSettings.h"
+﻿#include "ExFontSettings.h"
 
 #include <xml/xml_node_list.h>
 #include <xml/xml_node.h>
 #include <xml/xml_namespace_manager.h>
-#include <xml/xml_name_table.h>
 #include <xml/xml_document.h>
 #include <xml/xml_attribute_collection.h>
 #include <xml/xml_attribute.h>
@@ -27,17 +21,13 @@
 #include <system/io/file.h>
 #include <system/func.h>
 #include <system/environment.h>
-#include <system/enumerator_adapter.h>
-#include <system/enum_helpers.h>
-#include <system/details/dispose_guard.h>
 #include <system/default.h>
 #include <system/convert.h>
+#include <system/console.h>
 #include <system/collections/list.h>
 #include <system/collections/ilist.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
@@ -87,7 +77,7 @@ void ExFontSettings::HandleDocumentWarnings::Warning(System::SharedPtr<Aspose::W
     // We are only interested in fonts being substituted
     if (info->get_WarningType() == Aspose::Words::WarningType::FontSubstitution)
     {
-        std::cout << (System::String(u"Font substitution: ") + info->get_Description()) << std::endl;
+        System::Console::WriteLine(System::String(u"Font substitution: ") + info->get_Description());
         FontWarnings->Warning(info);
     }
 }
@@ -177,9 +167,9 @@ void ExFontSettings::DefaultFontInstance()
     //ExSummary:Shows how to configure the default font settings instance.
     // Configure the default font settings instance to use the "Courier New" font
     // as a backup substitute when we attempt to use an unknown font.
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Courier New");
+    FontSettings::get_DefaultInstance()->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Courier New");
     
-    ASSERT_TRUE(Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->get_SubstitutionSettings()->get_DefaultFontSubstitution()->get_Enabled());
+    ASSERT_TRUE(FontSettings::get_DefaultInstance()->get_SubstitutionSettings()->get_DefaultFontSubstitution()->get_Enabled());
     
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
@@ -219,7 +209,7 @@ void ExFontSettings::DefaultFontName()
     builder->get_Font()->set_Name(u"Arvo");
     builder->Writeln(u"The quick brown fox jumps over the lazy dog.");
     
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> fontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> fontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     // The font sources that the document uses contain the font "Arial", but not "Arvo".
     ASSERT_EQ(1, fontSources->get_Length());
@@ -234,7 +224,7 @@ void ExFontSettings::DefaultFontName()
     
     // Set the "DefaultFontName" property to "Courier New" to,
     // while rendering the document, apply that font in all cases when another font is not available.
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Courier New");
+    FontSettings::get_DefaultInstance()->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Courier New");
     
     ASSERT_TRUE(fontSources[0]->GetAvailableFonts()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f)>>([](System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f) -> bool
     {
@@ -259,22 +249,22 @@ TEST_F(ExFontSettings, DefaultFontName)
 void ExFontSettings::UpdatePageLayoutWarnings()
 {
     // Store the font sources currently used so we can restore them later
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     // Load the document to render
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     // Create a new class implementing IWarningCallback and assign it to the PdfSaveOptions class
     auto callback = System::MakeObject<Aspose::Words::ApiExamples::ExFontSettings::HandleDocumentWarnings>();
     doc->set_WarningCallback(callback);
     
     // We can choose the default font to use in the case of any missing fonts
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Arial");
+    FontSettings::get_DefaultInstance()->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Arial");
     
     // For testing we will set Aspose.Words to look for fonts only in a folder which does not exist. Since Aspose.Words won't
     // find any fonts in the specified directory, then during rendering the fonts in the document will be substituted with the default
     // font specified under FontSettings.DefaultFontName. We can pick up on this substitution using our callback
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsFolder(System::String::Empty, false);
+    FontSettings::get_DefaultInstance()->SetFontsFolder(System::String::Empty, false);
     
     // When you call UpdatePageLayout the document is rendered in memory. Any warnings that occurred during rendering
     // are stored until the document save and then sent to the appropriate WarningCallback
@@ -288,7 +278,7 @@ void ExFontSettings::UpdatePageLayoutWarnings()
     ASSERT_TRUE(callback->FontWarnings->idx_get(0)->get_Description().Contains(u"has not been found"));
     
     // Restore default fonts
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
+    FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
 }
 
 namespace gtest_test
@@ -314,16 +304,16 @@ void ExFontSettings::SubstitutionWarning()
     
     // Store the current collection of font sources, which will be the default font source for every document
     // for which we do not specify a different font source.
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     // For testing purposes, we will set Aspose.Words to look for fonts only in a folder that does not exist.
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsFolder(System::String::Empty, false);
+    FontSettings::get_DefaultInstance()->SetFontsFolder(System::String::Empty, false);
     
     // When rendering the document, there will be no place to find the "Times New Roman" font.
     // This will cause a font substitution warning, which our callback will detect.
     doc->Save(get_ArtifactsDir() + u"FontSettings.SubstitutionWarning.pdf");
     
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
+    FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
     
     ASSERT_EQ(1, callback->FontSubstitutionWarnings->get_Count());
     //ExSkip
@@ -346,7 +336,7 @@ void ExFontSettings::FontSourceWarning()
     auto settings = System::MakeObject<Aspose::Words::Fonts::FontSettings>();
     settings->SetFontsFolder(u"bad folder?", false);
     
-    System::SharedPtr<Aspose::Words::Fonts::FontSourceBase> source = settings->GetFontsSources()->idx_get(0);
+    System::SharedPtr<Aspose::Words::Fonts::FontSourceBase> source = settings->GetFontsSources()[0];
     auto callback = System::MakeObject<Aspose::Words::ApiExamples::ExFontSettings::FontSourceWarningCollector>();
     source->set_WarningCallback(callback);
     
@@ -384,7 +374,7 @@ void ExFontSettings::EnableFontSubstitution()
     //ExFor:DocumentBase.WarningCallback
     //ExSummary:Shows how to set the property for finding the closest match for a missing font from the available font sources.
     // Open a document that contains text formatted with a font that does not exist in any of our font sources.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Missing font.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Missing font.docx"));
     
     // Assign a callback for handling font substitution warnings.
     auto warningCollector = System::MakeObject<Aspose::Words::WarningInfoCollection>();
@@ -406,7 +396,7 @@ void ExFontSettings::EnableFontSubstitution()
     {
         if (info->get_WarningType() == Aspose::Words::WarningType::FontSubstitution)
         {
-            std::cout << info->get_Description() << std::endl;
+            System::Console::WriteLine(info->get_Description());
         }
     }
     //ExEnd
@@ -432,7 +422,7 @@ TEST_F(ExFontSettings, EnableFontSubstitution)
 
 void ExFontSettings::SubstitutionWarningsClosestMatch()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Bullet points with alternative font.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Bullet points with alternative font.docx"));
     
     auto callback = System::MakeObject<Aspose::Words::WarningInfoCollection>();
     doc->set_WarningCallback(callback);
@@ -454,7 +444,7 @@ TEST_F(ExFontSettings, SubstitutionWarningsClosestMatch)
 
 void ExFontSettings::DisableFontSubstitution()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Missing font.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Missing font.docx"));
     
     auto callback = System::MakeObject<Aspose::Words::WarningInfoCollection>();
     doc->set_WarningCallback(callback);
@@ -504,7 +494,7 @@ void ExFontSettings::SubstitutionWarnings()
     //ExFor:WarningSource
     //ExFor:FontSubstitutionReason
     //ExSummary:Shows how to get additional information about font substitution.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto callback = System::MakeObject<Aspose::Words::WarningInfoCollection>();
     doc->set_WarningCallback(callback);
@@ -542,25 +532,25 @@ TEST_F(ExFontSettings, SkipMono_SubstitutionWarnings)
 
 void ExFontSettings::GetSubstitutionWithoutSuffixes()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Get substitution without suffixes.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Get substitution without suffixes.docx"));
     
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     auto substitutionWarningHandler = System::MakeObject<Aspose::Words::WarningInfoCollection>();
     doc->set_WarningCallback(substitutionWarningHandler);
     
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>>> fontSources = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>>>(Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources());
+    auto fontSources = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>>>(FontSettings::get_DefaultInstance()->GetFontsSources());
     auto folderFontSource = System::MakeObject<Aspose::Words::Fonts::FolderFontSource>(get_FontsDir(), true);
     fontSources->Add(folderFontSource);
     
     System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> updatedFontSources = fontSources->ToArray();
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsSources(updatedFontSources);
+    FontSettings::get_DefaultInstance()->SetFontsSources(updatedFontSources);
     
     doc->Save(get_ArtifactsDir() + u"Font.GetSubstitutionWithoutSuffixes.pdf");
     
     ASSERT_EQ(u"Font 'DINOT-Regular' has not been found. Using 'DINOT' font instead. Reason: font name substitution.", substitutionWarningHandler->idx_get(0)->get_Description());
     
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
+    FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
 }
 
 namespace gtest_test
@@ -660,7 +650,7 @@ void ExFontSettings::SetFontsFolder(bool recursive)
     // Our font sources do not contain the font that we have used for text in this document.
     // If we use these font settings while rendering this document,
     // Aspose.Words will apply a fallback font to text which has a font that Aspose.Words cannot locate.
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     ASSERT_EQ(1, originalFontSources->get_Length());
     ASSERT_TRUE(originalFontSources[0]->GetAvailableFonts()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f)>>([](System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f) -> bool
@@ -683,9 +673,9 @@ void ExFontSettings::SetFontsFolder(bool recursive)
     // that we are passing in the first argument, but not include any fonts in any of that directory's subfolders.
     // Pass "true" as the "recursive" argument to include all font files in the directory that we are passing
     // in the first argument, as well as all the fonts in its subdirectories.
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsFolder(get_FontsDir(), recursive);
+    FontSettings::get_DefaultInstance()->SetFontsFolder(get_FontsDir(), recursive);
     
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> newFontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> newFontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     ASSERT_EQ(1, newFontSources->get_Length());
     ASSERT_FALSE(newFontSources[0]->GetAvailableFonts()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f)>>([](System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f) -> bool
@@ -718,7 +708,7 @@ void ExFontSettings::SetFontsFolder(bool recursive)
     doc->Save(get_ArtifactsDir() + u"FontSettings.SetFontsFolder.pdf");
     
     // Restore the original font sources.
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
+    FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
     //ExEnd
 }
 
@@ -766,7 +756,7 @@ void ExFontSettings::SetFontsFolders(bool recursive)
     // Our font sources do not contain the font that we have used for text in this document.
     // If we use these font settings while rendering this document,
     // Aspose.Words will apply a fallback font to text which has a font that Aspose.Words cannot locate.
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     ASSERT_EQ(1, originalFontSources->get_Length());
     ASSERT_TRUE(originalFontSources[0]->GetAvailableFonts()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f)>>([](System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f) -> bool
@@ -789,9 +779,10 @@ void ExFontSettings::SetFontsFolders(bool recursive)
     // that we are passing in the first argument, but not include any fonts from any of the directories' subfolders.
     // Pass "true" as the "recursive" argument to include all font files in the directories that we are passing
     // in the first argument, as well as all the fonts in their subdirectories.
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsFolders(System::MakeArray<System::String>({get_FontsDir() + u"/Amethysta", get_FontsDir() + u"/Junction"}), recursive);
+    FontSettings::get_DefaultInstance()->SetFontsFolders(System::MakeArray<System::String>({
+        get_FontsDir() + u"/Amethysta", get_FontsDir() + u"/Junction"}), recursive);
     
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> newFontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> newFontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     ASSERT_EQ(2, newFontSources->get_Length());
     ASSERT_FALSE(newFontSources[0]->GetAvailableFonts()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f)>>([](System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f) -> bool
@@ -821,7 +812,7 @@ void ExFontSettings::SetFontsFolders(bool recursive)
     doc->Save(get_ArtifactsDir() + u"FontSettings.SetFontsFolders.pdf");
     
     // Restore the original font sources.
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
+    FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
     //ExEnd
 }
 
@@ -869,7 +860,7 @@ void ExFontSettings::AddFontSource()
     builder->get_Font()->set_Name(u"Junction Light");
     builder->Writeln(u"The quick brown fox jumps over the lazy dog.");
     
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> originalFontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     ASSERT_EQ(1, originalFontSources->get_Length());
     
@@ -894,10 +885,10 @@ void ExFontSettings::AddFontSource()
     
     // Apply a new array of font sources that contains the original font sources, as well as our custom fonts.
     System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> updatedFontSources = System::MakeArray<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>>({originalFontSources[0], folderFontSource});
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsSources(updatedFontSources);
+    FontSettings::get_DefaultInstance()->SetFontsSources(updatedFontSources);
     
     // Verify that Aspose.Words has access to all required fonts before we render the document to PDF.
-    updatedFontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    updatedFontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     ASSERT_TRUE(updatedFontSources[0]->GetAvailableFonts()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f)>>([](System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f) -> bool
     {
@@ -915,7 +906,7 @@ void ExFontSettings::AddFontSource()
     doc->Save(get_ArtifactsDir() + u"FontSettings.AddFontSource.pdf");
     
     // Restore the original font sources.
-    Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
+    FontSettings::get_DefaultInstance()->SetFontsSources(originalFontSources);
     //ExEnd
 }
 
@@ -940,7 +931,7 @@ void ExFontSettings::SetSpecifyFontFolder()
     
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx", loadOptions);
     
-    System::SharedPtr<Aspose::Words::Fonts::FolderFontSource> folderSource = (System::ExplicitCast<Aspose::Words::Fonts::FolderFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(0)));
+    System::SharedPtr<Aspose::Words::Fonts::FolderFontSource> folderSource = (System::ExplicitCast<Aspose::Words::Fonts::FolderFontSource>(doc->get_FontSettings()->GetFontsSources()[0]));
     
     ASSERT_EQ(get_FontsDir(), folderSource->get_FolderPath());
     ASSERT_FALSE(folderSource->get_ScanSubfolders());
@@ -970,7 +961,7 @@ void ExFontSettings::TableSubstitution()
     builder->get_Font()->set_Name(u"Amethysta");
     builder->Writeln(u"The quick brown fox jumps over the lazy dog.");
     
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> fontSources = Aspose::Words::Fonts::FontSettings::get_DefaultInstance()->GetFontsSources();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Fonts::FontSourceBase>> fontSources = FontSettings::get_DefaultInstance()->GetFontsSources();
     
     // The default font sources contain the first font that the document uses.
     ASSERT_EQ(1, fontSources->get_Length());
@@ -990,7 +981,8 @@ void ExFontSettings::TableSubstitution()
     // Set two substitution fonts for "Amethysta": "Arvo", and "Courier New".
     // If the first substitute is unavailable, Aspose.Words attempts to use the second substitute, and so on.
     doc->set_FontSettings(System::MakeObject<Aspose::Words::Fonts::FontSettings>());
-    doc->get_FontSettings()->get_SubstitutionSettings()->get_TableSubstitution()->SetSubstitutes(u"Amethysta", System::MakeArray<System::String>({u"Arvo", u"Courier New"}));
+    doc->get_FontSettings()->get_SubstitutionSettings()->get_TableSubstitution()->SetSubstitutes(u"Amethysta", System::MakeArray<System::String>({
+        u"Arvo", u"Courier New"}));
     
     // "Amethysta" is unavailable, and the substitution rule states that the first font to use as a substitute is "Arvo".
     ASSERT_FALSE(fontSources[0]->GetAvailableFonts()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f)>>([](System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo> f) -> bool
@@ -1029,11 +1021,11 @@ void ExFontSettings::SetSpecifyFontFolders()
     loadOptions->set_FontSettings(fontSettings);
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx", loadOptions);
     
-    System::SharedPtr<Aspose::Words::Fonts::FolderFontSource> folderSource = (System::ExplicitCast<Aspose::Words::Fonts::FolderFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(0)));
+    System::SharedPtr<Aspose::Words::Fonts::FolderFontSource> folderSource = (System::ExplicitCast<Aspose::Words::Fonts::FolderFontSource>(doc->get_FontSettings()->GetFontsSources()[0]));
     ASSERT_EQ(get_FontsDir(), folderSource->get_FolderPath());
     ASSERT_TRUE(folderSource->get_ScanSubfolders());
     
-    folderSource = (System::ExplicitCast<Aspose::Words::Fonts::FolderFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(1)));
+    folderSource = (System::ExplicitCast<Aspose::Words::Fonts::FolderFontSource>(doc->get_FontSettings()->GetFontsSources()[1]));
     ASSERT_EQ(u"C:\\Windows\\Fonts\\", folderSource->get_FolderPath());
     ASSERT_TRUE(folderSource->get_ScanSubfolders());
 }
@@ -1054,7 +1046,7 @@ void ExFontSettings::AddFontSubstitutes()
     fontSettings->get_SubstitutionSettings()->get_TableSubstitution()->SetSubstitutes(u"Slab", System::MakeArray<System::String>({u"Times New Roman", u"Arial"}));
     fontSettings->get_SubstitutionSettings()->get_TableSubstitution()->AddSubstitutes(u"Arvo", System::MakeArray<System::String>({u"Open Sans", u"Arial"}));
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     doc->set_FontSettings(fontSettings);
     
     System::ArrayPtr<System::String> alternativeFonts = doc->get_FontSettings()->get_SubstitutionSettings()->get_TableSubstitution()->GetSubstitutes(u"Slab")->LINQ_ToArray();
@@ -1128,7 +1120,7 @@ void ExFontSettings::FontSourceSystem()
     // By default, a blank document always contains a system font source.
     ASSERT_EQ(1, doc->get_FontSettings()->GetFontsSources()->get_Length());
     
-    auto systemFontSource = System::ExplicitCast<Aspose::Words::Fonts::SystemFontSource>(doc->get_FontSettings()->GetFontsSources()->idx_get(0));
+    auto systemFontSource = System::ExplicitCast<Aspose::Words::Fonts::SystemFontSource>(doc->get_FontSettings()->GetFontsSources()[0]);
     ASSERT_EQ(Aspose::Words::Fonts::FontSourceType::SystemFonts, systemFontSource->get_Type());
     ASSERT_EQ(0, systemFontSource->get_Priority());
     
@@ -1138,7 +1130,7 @@ void ExFontSettings::FontSourceSystem()
     {
         const System::String fontsPath = u"C:\\WINDOWS\\Fonts";
         System::String actual = System::Default<System::String>();
-        System::String condExpression = Aspose::Words::Fonts::SystemFontSource::GetSystemFontFolders()->LINQ_FirstOrDefault();
+        System::String condExpression = SystemFontSource::GetSystemFontFolders()->LINQ_FirstOrDefault();
         if (condExpression != nullptr)
         {
             actual = condExpression.ToLower();
@@ -1146,15 +1138,15 @@ void ExFontSettings::FontSourceSystem()
         ASSERT_EQ(fontsPath.ToLower(), actual);
     }
     
-    for (System::String systemFontFolder : Aspose::Words::Fonts::SystemFontSource::GetSystemFontFolders())
+    for (System::String systemFontFolder : SystemFontSource::GetSystemFontFolders())
     {
-        std::cout << systemFontFolder << std::endl;
+        System::Console::WriteLine(systemFontFolder);
     }
-    
     
     // Set a font that exists in the Windows Fonts directory as a substitute for one that does not.
     doc->get_FontSettings()->get_SubstitutionSettings()->get_FontInfoSubstitution()->set_Enabled(true);
-    doc->get_FontSettings()->get_SubstitutionSettings()->get_TableSubstitution()->AddSubstitutes(u"Kreon-Regular", System::MakeArray<System::String>({u"Calibri"}));
+    doc->get_FontSettings()->get_SubstitutionSettings()->get_TableSubstitution()->AddSubstitutes(u"Kreon-Regular", System::MakeArray<System::String>({
+        u"Calibri"}));
     
     ASSERT_EQ(1, doc->get_FontSettings()->get_SubstitutionSettings()->get_TableSubstitution()->GetSubstitutes(u"Kreon-Regular")->LINQ_Count());
     ASSERT_TRUE(doc->get_FontSettings()->get_SubstitutionSettings()->get_TableSubstitution()->GetSubstitutes(u"Kreon-Regular")->LINQ_ToArray()->Contains(u"Calibri"));
@@ -1168,7 +1160,7 @@ void ExFontSettings::FontSourceSystem()
     doc->get_FontSettings()->ResetFontSources();
     
     ASSERT_EQ(1, doc->get_FontSettings()->GetFontsSources()->get_Length());
-    ASSERT_EQ(Aspose::Words::Fonts::FontSourceType::SystemFonts, doc->get_FontSettings()->GetFontsSources()->idx_get(0)->get_Type());
+    ASSERT_EQ(Aspose::Words::Fonts::FontSourceType::SystemFonts, doc->get_FontSettings()->GetFontsSources()[0]->get_Type());
     ASSERT_EQ(1, doc->get_FontSettings()->get_SubstitutionSettings()->get_TableSubstitution()->GetSubstitutes(u"Kreon-Regular")->LINQ_Count());
     ASSERT_TRUE(doc->get_FontSettings()->get_SubstitutionSettings()->get_FontNameSubstitution()->get_Enabled());
     //ExEnd
@@ -1190,7 +1182,7 @@ void ExFontSettings::LoadFontFallbackSettingsFromFile()
     //ExFor:FontFallbackSettings.Load(String)
     //ExFor:FontFallbackSettings.Save(String)
     //ExSummary:Shows how to load and save font fallback settings to/from an XML document in the local file system.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Load an XML document that defines a set of font fallback settings.
     auto fontSettings = System::MakeObject<Aspose::Words::Fonts::FontSettings>();
@@ -1220,7 +1212,7 @@ void ExFontSettings::LoadFontFallbackSettingsFromStream()
     //ExFor:FontFallbackSettings.Load(Stream)
     //ExFor:FontFallbackSettings.Save(Stream)
     //ExSummary:Shows how to load and save font fallback settings to/from a stream.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Load an XML document that defines a set of font fallback settings.
     {
@@ -1251,9 +1243,9 @@ void ExFontSettings::LoadFontFallbackSettingsFromStream()
     ASSERT_EQ(u"Vijaya", rules->idx_get(0)->get_Attributes()->idx_get(u"FallbackFonts")->get_Value());
     
     ASSERT_EQ(u"1F300-1F64F", rules->idx_get(1)->get_Attributes()->idx_get(u"Ranges")->get_Value());
-    ASSERT_EQ(u"Segoe UI Emoji, Segoe UI Symbol", rules->idx_get(1)->get_Attributes()->idx_get(u"FallbackFonts")->get_Value());
+    ASSERT_EQ((u"Segoe UI Emoji, Segoe UI Symbol"), rules->idx_get(1)->get_Attributes()->idx_get(u"FallbackFonts")->get_Value());
     
-    ASSERT_EQ(u"2000-206F, 2070-209F, 20B9", rules->idx_get(2)->get_Attributes()->idx_get(u"Ranges")->get_Value());
+    ASSERT_EQ((u"2000-206F, 2070-209F, 20B9"), rules->idx_get(2)->get_Attributes()->idx_get(u"Ranges")->get_Value());
     ASSERT_EQ(u"Arial", rules->idx_get(2)->get_Attributes()->idx_get(u"FallbackFonts")->get_Value());
     
     ASSERT_EQ(u"3040-309F", rules->idx_get(3)->get_Attributes()->idx_get(u"Ranges")->get_Value());
@@ -1367,7 +1359,8 @@ void ExFontSettings::FontConfigSubstitution()
     auto fontSettings = System::MakeObject<Aspose::Words::Fonts::FontSettings>();
     System::SharedPtr<Aspose::Words::Fonts::FontConfigSubstitutionRule> fontConfigSubstitution = fontSettings->get_SubstitutionSettings()->get_FontConfigSubstitution();
     
-    bool isWindows = System::MakeArray<System::PlatformID>({System::PlatformID::Win32NT, System::PlatformID::Win32S, System::PlatformID::Win32Windows, System::PlatformID::WinCE})->LINQ_Any(static_cast<System::Func<System::PlatformID, bool>>(static_cast<std::function<bool(System::PlatformID p)>>([](System::PlatformID p) -> bool
+    bool isWindows = System::MakeArray<System::PlatformID>({System::PlatformID::Win32NT, System::PlatformID::Win32S, 
+        System::PlatformID::Win32Windows, System::PlatformID::WinCE})->LINQ_Any(static_cast<System::Func<System::PlatformID, bool>>(static_cast<std::function<bool(System::PlatformID p)>>([](System::PlatformID p) -> bool
     {
         return System::Environment::get_OSVersion().get_Platform() == p;
     })));
@@ -1498,15 +1491,12 @@ void ExFontSettings::FallbackSettingsCustom()
             case 0x0021:
                 builder->Writeln(u"\n\n0x0021 - 0x00FF: \nBasic Latin/Latin-1 Supplement Unicode blocks in \"AllegroOpen\" font:");
                 break;
-            
             case 0x0100:
                 builder->Writeln(u"\n\n0x0100 - 0x024F: \nLatin Extended A/B blocks, mostly in \"AllegroOpen\" font:");
                 break;
-            
             case 0x0250:
                 builder->Writeln(u"\n\n0x0250 - 0x052F: \nIPA/Greek/Cyrillic blocks in \"M+ 2m\" font:");
                 break;
-            
         }
         
         builder->Write(System::String::Format(u"{0}", System::Convert::ToChar(i)));
@@ -1596,7 +1586,7 @@ void ExFontSettings::TableSubstitutionRule()
     rules = fallbackSettingsDoc->SelectNodes(u"//aw:TableSubstitutionSettings/aw:SubstitutesTable/aw:Item", manager);
     
     ASSERT_EQ(u"Times New Roman CE", rules->idx_get(31)->get_Attributes()->idx_get(u"OriginalFont")->get_Value());
-    ASSERT_EQ(u"FreeSerif, Liberation Serif, DejaVu Serif", rules->idx_get(31)->get_Attributes()->idx_get(u"SubstituteFonts")->get_Value());
+    ASSERT_EQ((u"FreeSerif, Liberation Serif, DejaVu Serif"), rules->idx_get(31)->get_Attributes()->idx_get(u"SubstituteFonts")->get_Value());
 }
 
 namespace gtest_test

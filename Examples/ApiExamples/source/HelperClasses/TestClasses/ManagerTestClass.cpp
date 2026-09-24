@@ -1,5 +1,6 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-#include "HelperClasses/TestClasses/ManagerTestClass.h"
+﻿#include "HelperClasses/TestClasses/ManagerTestClass.h"
+
+#include "HelperClasses/TestClasses/ContractTestClass.h"
 
 namespace Aspose {
 

@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExTable.h"
+﻿#include "ExTable.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/regularexpressions/regex.h>
@@ -15,13 +10,9 @@
 #include <system/linq/enumerable.h>
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
-#include <system/enum_helpers.h>
-#include <system/enum.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/rectangle.h>
 #include <drawing/point.h>
@@ -185,12 +176,16 @@ void ExTable::MergeCells(System::SharedPtr<Aspose::Words::Tables::Cell> startCel
     System::SharedPtr<Aspose::Words::Tables::Table> parentTable = startCell->get_ParentRow()->get_ParentTable();
     
     // Find the row and cell indices for the start and end cells.
-    System::Drawing::Point startCellPos(startCell->get_ParentRow()->IndexOf(startCell), parentTable->IndexOf(startCell->get_ParentRow()));
+    System::Drawing::Point startCellPos(startCell->get_ParentRow()->IndexOf(startCell),
+    parentTable->IndexOf(startCell->get_ParentRow()));
     System::Drawing::Point endCellPos(endCell->get_ParentRow()->IndexOf(endCell), parentTable->IndexOf(endCell->get_ParentRow()));
     
     // Create a range of cells to be merged based on these indices.
     // Inverse each index if the end cell is before the start cell.
-    System::Drawing::Rectangle mergeRange(System::Math::Min(startCellPos.get_X(), endCellPos.get_X()), System::Math::Min(startCellPos.get_Y(), endCellPos.get_Y()), System::Math::Abs(endCellPos.get_X() - startCellPos.get_X()) + 1, System::Math::Abs(endCellPos.get_Y() - startCellPos.get_Y()) + 1);
+    System::Drawing::Rectangle mergeRange(System::Math::Min(startCellPos.get_X(), endCellPos.get_X()),
+    System::Math::Min(startCellPos.get_Y(), endCellPos.get_Y()),
+    System::Math::Abs(endCellPos.get_X() - startCellPos.get_X()) + 1,
+    System::Math::Abs(endCellPos.get_Y() - startCellPos.get_Y()) + 1);
     
     for (auto&& row : System::IterateOver<Aspose::Words::Tables::Row>(parentTable->get_Rows()))
     {
@@ -277,7 +272,7 @@ void ExTable::ConvertWith(System::String separator, System::SharedPtr<Aspose::Wo
                     {
                         (System::ExplicitCast<Aspose::Words::Paragraph>(currentPara))->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, separator));
                         // If the separator is a tab, calculate the tab stop position based on the width of the previous cell.
-                        if (separator == Aspose::Words::ControlChar::Tab())
+                        if (separator == ControlChar::Tab())
                         {
                             System::SharedPtr<Aspose::Words::Tables::Cell> previousCell = cell->get_PreviousCell();
                             if (previousCell != nullptr)
@@ -343,7 +338,6 @@ System::SharedPtr<Aspose::Words::Tables::Cell> ExTable::CalculateColSpan(System:
     return cell;
 }
 
-
 namespace gtest_test
 {
 
@@ -408,7 +402,7 @@ void ExTable::CreateTable()
     doc->Save(get_ArtifactsDir() + u"Table.CreateTable.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.CreateTable.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CreateTable.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(1, table->get_Rows()->get_Count());
@@ -450,12 +444,12 @@ void ExTable::Padding()
     table->set_RightPadding(60);
     table->set_TopPadding(10);
     table->set_BottomPadding(90);
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(250));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(250));
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.SetRowFormatting.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBuilder.SetRowFormatting.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.SetRowFormatting.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASPOSE_ASSERT_EQ(30.0, table->get_LeftPadding());
@@ -512,7 +506,7 @@ void ExTable::RowCellFormat()
     doc->Save(get_ArtifactsDir() + u"Table.RowCellFormat.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.RowCellFormat.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.RowCellFormat.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(u"City\aCountry\a\aLondon\aU.K.\a\a", table->GetText().Trim());
@@ -555,14 +549,14 @@ void ExTable::DisplayContentOfTables()
     //ExFor:TableCollection.Item(Int32)
     //ExFor:TableCollection.ToArray
     //ExSummary:Shows how to iterate through all tables in the document and print the contents of each cell.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::TableCollection> tables = doc->get_FirstSection()->get_Body()->get_Tables();
     
     ASSERT_EQ(2, tables->ToArray()->get_Length());
     
     for (int32_t i = 0; i < tables->get_Count(); i++)
     {
-        std::cout << System::String::Format(u"Start of Table {0}", i) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"Start of Table {0}", i));
         
         System::SharedPtr<Aspose::Words::Tables::RowCollection> rows = tables->idx_get(i)->get_Rows();
         
@@ -572,7 +566,7 @@ void ExTable::DisplayContentOfTables()
         
         for (int32_t j = 0; j < rows->get_Count(); j++)
         {
-            std::cout << System::String::Format(u"\tStart of Row {0}", j) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"\tStart of Row {0}", j));
             
             System::SharedPtr<Aspose::Words::Tables::CellCollection> cells = rows->idx_get(j)->get_Cells();
             
@@ -583,13 +577,13 @@ void ExTable::DisplayContentOfTables()
             for (int32_t k = 0; k < cells->get_Count(); k++)
             {
                 System::String cellText = cells->idx_get(k)->ToString(Aspose::Words::SaveFormat::Text).Trim();
-                std::cout << System::String::Format(u"\t\tContents of Cell:{0} = \"{1}\"", k, cellText) << std::endl;
+                System::Console::WriteLine(System::String::Format(u"\t\tContents of Cell:{0} = \"{1}\"", k, cellText));
             }
             
-            std::cout << System::String::Format(u"\tEnd of Row {0}", j) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"\tEnd of Row {0}", j));
         }
         
-        std::cout << System::String::Format(u"End of Table {0}\n", i) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"End of Table {0}\n", i));
     }
     //ExEnd
 }
@@ -718,7 +712,7 @@ void ExTable::SetOutlineBorders()
     //ExFor:TextureIndex
     //ExFor:Table.SetShading
     //ExSummary:Shows how to apply an outline border to a table.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Align the table to the center of the page.
@@ -740,7 +734,7 @@ void ExTable::SetOutlineBorders()
     doc->Save(get_ArtifactsDir() + u"Table.SetOutlineBorders.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.SetOutlineBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.SetOutlineBorders.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(Aspose::Words::Tables::TableAlignment::Center, table->get_Alignment());
@@ -771,7 +765,7 @@ void ExTable::SetBorders()
     //ExStart
     //ExFor:Table.SetBorders
     //ExSummary:Shows how to format of all of a table's borders at once.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Clear all existing borders from the table.
@@ -783,7 +777,7 @@ void ExTable::SetBorders()
     doc->Save(get_ArtifactsDir() + u"Table.SetBorders.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.SetBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.SetBorders.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Top()->get_Color().ToArgb());
@@ -810,7 +804,7 @@ void ExTable::RowFormat()
     //ExFor:RowFormat
     //ExFor:Row.RowFormat
     //ExSummary:Shows how to modify formatting of a table row.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Use the first row's "RowFormat" property to set formatting that modifies that entire row's appearance.
@@ -822,7 +816,7 @@ void ExTable::RowFormat()
     doc->Save(get_ArtifactsDir() + u"Table.RowFormat.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.RowFormat.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.RowFormat.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(Aspose::Words::LineStyle::None, table->get_FirstRow()->get_RowFormat()->get_Borders()->get_LineStyle());
@@ -846,7 +840,7 @@ void ExTable::CellFormat()
     //ExFor:CellFormat
     //ExFor:Cell.CellFormat
     //ExSummary:Shows how to modify formatting of a table cell.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::Tables::Cell> firstCell = table->get_FirstRow()->get_FirstCell();
     
@@ -858,7 +852,7 @@ void ExTable::CellFormat()
     doc->Save(get_ArtifactsDir() + u"Table.CellFormat.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.CellFormat.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CellFormat.docx"));
     
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     ASPOSE_ASSERT_EQ(30, table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Width());
@@ -884,7 +878,7 @@ void ExTable::DistanceBetweenTableAndText()
     //ExFor:Table.DistanceRight
     //ExFor:Table.DistanceTop
     //ExSummary:Shows how to set distance between table boundaries and text.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table wrapped by text.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table wrapped by text.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     ASPOSE_ASSERT_EQ(25.9, table->get_DistanceTop());
@@ -938,7 +932,7 @@ void ExTable::Borders()
     doc->Save(get_ArtifactsDir() + u"Table.ClearBorders.docx");
     
     // Verify the values of the table's properties after re-opening the document.
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.ClearBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.ClearBorders.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     topBorder = table->get_FirstRow()->get_RowFormat()->get_Borders()->idx_get(Aspose::Words::BorderType::Top);
     
@@ -1030,7 +1024,7 @@ void ExTable::RemoveParagraphTextAndMark(bool isSmartParagraphBreakReplacement)
     doc->Save(get_ArtifactsDir() + u"Table.RemoveParagraphTextAndMark.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.RemoveParagraphTextAndMark.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.RemoveParagraphTextAndMark.docx"));
     
     ASSERT_EQ(isSmartParagraphBreakReplacement ? 1 : 2, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_Paragraphs()->get_Count());
 }
@@ -1064,7 +1058,7 @@ INSTANTIATE_TEST_SUITE_P(, ExTable_RemoveParagraphTextAndMark, ::testing::Values
 
 void ExTable::PrintTableRange()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
@@ -1072,16 +1066,16 @@ void ExTable::PrintTableRange()
     // You can call ToString on the desired node to retrieve the plain text content.
     
     // Print the plain text range of the table to the screen.
-    std::cout << "Contents of the table: " << std::endl;
-    std::cout << table->get_Range()->get_Text() << std::endl;
+    System::Console::WriteLine(u"Contents of the table: ");
+    System::Console::WriteLine(table->get_Range()->get_Text());
     
     // Print the contents of the second row to the screen.
-    std::cout << "\nContents of the row: " << std::endl;
-    std::cout << table->get_Rows()->idx_get(1)->get_Range()->get_Text() << std::endl;
+    System::Console::WriteLine(u"\nContents of the row: ");
+    System::Console::WriteLine(table->get_Rows()->idx_get(1)->get_Range()->get_Text());
     
     // Print the contents of the last cell in the table to the screen.
-    std::cout << "\nContents of the cell: " << std::endl;
-    std::cout << table->get_LastRow()->get_LastCell()->get_Range()->get_Text() << std::endl;
+    System::Console::WriteLine(u"\nContents of the cell: ");
+    System::Console::WriteLine(table->get_LastRow()->get_LastCell()->get_Range()->get_Text());
     
     ASSERT_EQ(u"\aColumn 1\aColumn 2\aColumn 3\aColumn 4\a\a", table->get_Rows()->idx_get(1)->get_Range()->get_Text());
     ASSERT_EQ(u"Cell 12 contents\a", table->get_LastRow()->get_LastCell()->get_Range()->get_Text());
@@ -1099,7 +1093,7 @@ TEST_F(ExTable, PrintTableRange)
 
 void ExTable::CloneTable()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
@@ -1139,7 +1133,7 @@ void ExTable::AllowBreakAcrossPages(bool allowBreakAcrossPages)
     //ExStart
     //ExFor:RowFormat.AllowBreakAcrossPages
     //ExSummary:Shows how to disable rows breaking across pages for every row in a table.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table spanning two pages.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table spanning two pages.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Set the "AllowBreakAcrossPages" property to "false" to keep the row
@@ -1154,7 +1148,7 @@ void ExTable::AllowBreakAcrossPages(bool allowBreakAcrossPages)
     doc->Save(get_ArtifactsDir() + u"Table.AllowBreakAcrossPages.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.AllowBreakAcrossPages.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.AllowBreakAcrossPages.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(3, table->get_Rows()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> r)>>([&allowBreakAcrossPages](System::SharedPtr<Aspose::Words::Node> r) -> bool
@@ -1200,11 +1194,11 @@ void ExTable::AllowAutoFitOnTable(bool allowAutoFit)
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = builder->StartTable();
     builder->InsertCell();
-    builder->get_CellFormat()->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(100));
+    builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPoints(100));
     builder->Write(System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit, ") + u"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
     
     builder->InsertCell();
-    builder->get_CellFormat()->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::Auto());
+    builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::Auto());
     builder->Write(System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit, ") + u"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
     builder->EndRow();
     builder->EndTable();
@@ -1220,13 +1214,13 @@ void ExTable::AllowAutoFitOnTable(bool allowAutoFit)
     
     if (allowAutoFit)
     {
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        TestUtil::FileContainsString(u"<td style=\"border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
     }
     else
     {
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:7.2pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        TestUtil::FileContainsString(u"<td style=\"width:7.2pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
     }
 }
 
@@ -1267,7 +1261,7 @@ void ExTable::KeepTableTogether()
     //ExFor:Cell.ParentRow
     //ExFor:Cell.Paragraphs
     //ExSummary:Shows how to set a table to stay together on the same page.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table spanning two pages.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table spanning two pages.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Enabling KeepWithNext for every paragraph in the table except for the
@@ -1288,7 +1282,7 @@ void ExTable::KeepTableTogether()
     doc->Save(get_ArtifactsDir() + u"Table.KeepTableTogether.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.KeepTableTogether.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.KeepTableTogether.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(table->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)))
@@ -1319,7 +1313,7 @@ void ExTable::GetIndexOfTableElements()
     //ExStart
     //ExFor:NodeCollection.IndexOf(Node)
     //ExSummary:Shows how to get the index of a node in a collection.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::NodeCollection> allTables = doc->GetChildNodes(Aspose::Words::NodeType::Table, true);
@@ -1353,7 +1347,7 @@ void ExTable::GetPreferredWidthTypeAndValue()
     //ExFor:PreferredWidth.Type
     //ExFor:PreferredWidth.Value
     //ExSummary:Shows how to verify the preferred width type and value of a table cell.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::Tables::Cell> firstCell = table->get_FirstRow()->get_FirstCell();
@@ -1410,7 +1404,7 @@ void ExTable::AllowCellSpacing(bool allowCellSpacing)
     ASSERT_TRUE(table->get_AllowCellSpacing());
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.AllowCellSpacing.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.AllowCellSpacing.html"));
     table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
     
     ASPOSE_ASSERT_EQ(allowCellSpacing, table->get_AllowCellSpacing());
@@ -1424,7 +1418,7 @@ void ExTable::AllowCellSpacing(bool allowCellSpacing)
         ASPOSE_ASSERT_EQ(0.0, table->get_CellSpacing());
     }
     
-    Aspose::Words::ApiExamples::TestUtil::FileContainsString(allowCellSpacing ? u"<td style=\"border-style:solid; border-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; -aw-border:0.5pt single #000000\">" : System::String(u"<td style=\"border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; ") + u"padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single #000000; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowCellSpacing.html");
+    TestUtil::FileContainsString(allowCellSpacing ? System::String(u"<td style=\"border-style:solid; border-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; -aw-border:0.5pt single #000000\">") : System::String(u"<td style=\"border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; ") + u"padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single #000000; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowCellSpacing.html");
 }
 
 namespace gtest_test
@@ -1467,7 +1461,7 @@ void ExTable::CreateNestedTable()
     outerTable->get_FirstRow()->get_FirstCell()->AppendChild<System::SharedPtr<Aspose::Words::Tables::Table>>(innerTable);
     
     doc->Save(get_ArtifactsDir() + u"Table.CreateNestedTable.docx");
-    TestCreateNestedTable(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.CreateNestedTable.docx"));
+    TestCreateNestedTable(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CreateNestedTable.docx")));
     //ExSkip
 }
 
@@ -1483,17 +1477,17 @@ TEST_F(ExTable, CreateNestedTable)
 
 void ExTable::CheckCellsMerged()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table with merged cells.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table with merged cells.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     for (auto&& row : System::IterateOver<Aspose::Words::Tables::Row>(table->get_Rows()))
     {
         for (auto&& cell : System::IterateOver<Aspose::Words::Tables::Cell>(row->get_Cells()))
         {
-            std::cout << PrintCellMergeType(cell) << std::endl;
+            System::Console::WriteLine(PrintCellMergeType(cell));
         }
     }
-    ASSERT_EQ(u"The cell at R1, C1 is vertically merged", PrintCellMergeType(table->get_FirstRow()->get_FirstCell()));
+    ASSERT_EQ((u"The cell at R1, C1 is vertically merged"), PrintCellMergeType(table->get_FirstRow()->get_FirstCell()));
     //ExSkip
 }
 
@@ -1509,7 +1503,7 @@ TEST_F(ExTable, CheckCellsMerged)
 
 void ExTable::MergeCellRange()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
@@ -1559,7 +1553,7 @@ void ExTable::CombineTables()
     //ExFor:CellFormat.ClearFormatting
     //ExFor:CompositeNode.HasChildNodes
     //ExSummary:Shows how to combine the rows from two tables into one.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     // Below are two ways of getting a table from a document.
     // 1 -  From the "Tables" collection of a Body node:
@@ -1580,7 +1574,7 @@ void ExTable::CombineTables()
     doc->Save(get_ArtifactsDir() + u"Table.CombineTables.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.CombineTables.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CombineTables.docx"));
     
     ASSERT_EQ(1, doc->GetChildNodes(Aspose::Words::NodeType::Table, true)->get_Count());
     ASSERT_EQ(9, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Rows()->get_Count());
@@ -1599,7 +1593,7 @@ TEST_F(ExTable, CombineTables)
 
 void ExTable::SplitTable()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
@@ -1623,7 +1617,7 @@ void ExTable::SplitTable()
         table->PrependChild<System::SharedPtr<Aspose::Words::Tables::Row>>(currentRow);
     } while (currentRow != row);
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     ASPOSE_ASSERT_EQ(row, table->get_FirstRow());
     ASSERT_EQ(2, firstTable->get_Rows()->get_Count());
@@ -1656,7 +1650,7 @@ void ExTable::WrapText()
     builder->InsertCell();
     builder->Write(u"Cell 2");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     builder->get_Font()->set_Size(16);
     builder->Writeln(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
@@ -1670,7 +1664,7 @@ void ExTable::WrapText()
     doc->Save(get_ArtifactsDir() + u"Table.WrapText.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.WrapText.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.WrapText.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(Aspose::Words::Tables::TextWrapping::Around, table->get_TextWrapping());
@@ -1696,7 +1690,7 @@ void ExTable::GetFloatingTableProperties()
     //ExFor:Table.AllowOverlap
     //ExFor:ShapeBase.AllowOverlap
     //ExSummary:Shows how to work with floating tables properties.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table wrapped by text.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table wrapped by text.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
@@ -1742,7 +1736,7 @@ void ExTable::ChangeFloatingTableProperties()
     builder->InsertCell();
     builder->Write(u"Table 1, cell 1");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     // Set the table's location to a place on the page, such as, in this case, the bottom right corner.
     table->set_RelativeVerticalAlignment(Aspose::Words::Drawing::VerticalAlignment::Bottom);
@@ -1752,7 +1746,7 @@ void ExTable::ChangeFloatingTableProperties()
     builder->InsertCell();
     builder->Write(u"Table 2, cell 1");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     // We can also set a horizontal and vertical offset in points from the paragraph's location where we inserted the table.
     table->set_AbsoluteVerticalDistance(50);
@@ -1761,7 +1755,7 @@ void ExTable::ChangeFloatingTableProperties()
     doc->Save(get_ArtifactsDir() + u"Table.ChangeFloatingTableProperties.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.ChangeFloatingTableProperties.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.ChangeFloatingTableProperties.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(Aspose::Words::Drawing::VerticalAlignment::Bottom, table->get_RelativeVerticalAlignment());
@@ -1836,7 +1830,7 @@ void ExTable::TableStyleCreation()
     doc->Save(get_ArtifactsDir() + u"Table.TableStyleCreation.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.TableStyleCreation.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.TableStyleCreation.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_FALSE(table->get_Bidi());
@@ -1897,7 +1891,7 @@ void ExTable::SetTableAlignment()
     builder->InsertCell();
     builder->Write(u"Aligned to the center of the page");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     table->set_Style(tableStyle);
     
@@ -1911,14 +1905,14 @@ void ExTable::SetTableAlignment()
     builder->InsertCell();
     builder->Write(u"Aligned according to left indent");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     table->set_Style(tableStyle);
     
     doc->Save(get_ArtifactsDir() + u"Table.SetTableAlignment.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.SetTableAlignment.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.SetTableAlignment.docx"));
     
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
     
@@ -2021,7 +2015,7 @@ void ExTable::ConditionalStyles()
             System::SharedPtr<Aspose::Words::ConditionalStyle> currentStyle = enumerator->get_Current();
             if (currentStyle != nullptr)
             {
-                std::cout << System::EnumGetName(currentStyle->get_Type()) << std::endl;
+                System::Console::WriteLine(System::ExplicitCast<System::Object>(currentStyle->get_Type()));
             }
         }
     }
@@ -2038,7 +2032,7 @@ void ExTable::ConditionalStyles()
     doc->Save(get_ArtifactsDir() + u"Table.ConditionalStyles.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.ConditionalStyles.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.ConditionalStyles.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(Aspose::Words::Tables::TableStyleOptions::Default | Aspose::Words::Tables::TableStyleOptions::LastRow | Aspose::Words::Tables::TableStyleOptions::LastColumn, table->get_StyleOptions());
@@ -2142,8 +2136,8 @@ void ExTable::AlternatingRowStyles()
         for (int32_t j = 0; j < 4; j++)
         {
             builder->InsertCell();
-            builder->Writeln(System::String::Format(u"{0} column.", (j % 2 == 0 ? System::String(u"Even") : System::String(u"Odd"))));
-            builder->Write(System::String::Format(u"Row banding {0}.", (i % 3 == 0 ? System::String(u"start") : System::String(u"continuation"))));
+            builder->Writeln(System::String::Format(u"{0} column.", j % 2 == 0 ? System::String(u"Even") : System::String(u"Odd")));
+            builder->Write(System::String::Format(u"Row banding {0}.", i % 3 == 0 ? System::String(u"start") : System::String(u"continuation")));
         }
         builder->EndRow();
     }
@@ -2174,7 +2168,7 @@ void ExTable::AlternatingRowStyles()
     doc->Save(get_ArtifactsDir() + u"Table.AlternatingRowStyles.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.AlternatingRowStyles.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.AlternatingRowStyles.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
     
@@ -2205,7 +2199,7 @@ void ExTable::ConvertToHorizontallyMergedCells()
     //ExStart
     //ExFor:Table.ConvertToHorizontallyMergedCells
     //ExSummary:Shows how to convert cells horizontally merged by width to cells merged by CellFormat.HorizontalMerge.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table with merged cells.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table with merged cells.docx"));
     
     // Microsoft Word does not write merge flags anymore, defining merged cells by width instead.
     // Aspose.Words by default define only 5 cells in a row, and none of them have the horizontal merge flag,
@@ -2255,7 +2249,7 @@ void ExTable::GetTextFromCells()
     //ExFor:Cell.NextCell
     //ExFor:Cell.PreviousCell
     //ExSummary:Shows how to enumerate through all table cells.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Enumerate through all cells of the table.
@@ -2263,7 +2257,7 @@ void ExTable::GetTextFromCells()
     {
         for (System::SharedPtr<Aspose::Words::Tables::Cell> cell = row->get_FirstCell(); cell != nullptr; cell = cell->get_NextCell())
         {
-            std::cout << cell->GetText() << std::endl;
+            System::Console::WriteLine(cell->GetText());
         }
     }
     //ExEnd
@@ -2281,7 +2275,7 @@ TEST_F(ExTable, GetTextFromCells)
 
 void ExTable::ConvertWithParagraphMark()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Nested tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Nested tables.docx"));
     auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
     
     // Replace the table with the new paragraph
@@ -2304,11 +2298,11 @@ TEST_F(ExTable, ConvertWithParagraphMark)
 
 void ExTable::ConvertWith()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Nested tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Nested tables.docx"));
     auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
     
     // Convert table to text with specified separator.
-    ConvertWith(Aspose::Words::ControlChar::Tab(), table);
+    ConvertWith(ControlChar::Tab(), table);
     // Remove table after convertion.
     table->Remove();
     
@@ -2327,7 +2321,7 @@ TEST_F(ExTable, ConvertWith)
 
 void ExTable::GetColSpanRowSpan()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Merged table.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Merged table.docx"));
     
     auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
     // Convert cells with merged columns into a format that can be easily manipulated.
@@ -2361,7 +2355,7 @@ void ExTable::GetColSpanRowSpan()
                 cell = cell->get_NextCell();
             }
             
-            std::cout << System::String::Format(u"RowIndex = {0}\t ColSpan = {1}\t RowSpan = {2}", rowIndex, colSpan, rowSpan) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"RowIndex = {0}\t ColSpan = {1}\t RowSpan = {2}", rowIndex, colSpan, rowSpan));
         }
     }
 }
@@ -2425,7 +2419,7 @@ void ExTable::AutofitToWindow()
 {
     auto expectedPercents = System::MakeArray<double>({51, 49});
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table wrapped by text.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table wrapped by text.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     table->AutoFit(Aspose::Words::Tables::AutoFitBehavior::AutoFitToWindow);
@@ -2463,14 +2457,14 @@ void ExTable::HiddenRow()
     //GistId:67c1d01ce69d189983b497fd497a7768
     //ExFor:Row.Hidden
     //ExSummary:Shows how to hide a table row.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Row> row = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_FirstRow();
     row->set_Hidden(true);
     
     doc->Save(get_ArtifactsDir() + u"Table.HiddenRow.docx");
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.HiddenRow.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.HiddenRow.docx"));
     
     row = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_FirstRow();
     ASSERT_TRUE(row->get_Hidden());

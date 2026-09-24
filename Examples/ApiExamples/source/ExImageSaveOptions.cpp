@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExImageSaveOptions.h"
+﻿#include "ExImageSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -17,7 +12,6 @@
 #include <system/collections/list.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/size.h>
 #include <drawing/color.h>
@@ -25,7 +19,6 @@
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
-#include <Aspose.Words.Cpp/Model/Styles/Style.h>
 #include <Aspose.Words.Cpp/Model/Saving/TiffCompression.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/PageSet/PageSet.h>
@@ -118,7 +111,7 @@ void ExImageSaveOptions::OnePage()
     doc->Save(get_ArtifactsDir() + u"ImageSaveOptions.OnePage.jpg", options);
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.OnePage.jpg");
+    TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.OnePage.jpg");
 }
 
 namespace gtest_test
@@ -209,9 +202,9 @@ void ExImageSaveOptions::PageSet()
     }
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.PageIndex.Page 1.gif");
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.PageIndex.Page 2.gif");
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.PageIndex.Page 3.gif");
+    TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.PageIndex.Page 1.gif");
+    TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.PageIndex.Page 2.gif");
+    TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.PageIndex.Page 3.gif");
     ASSERT_FALSE(System::IO::File::Exists(get_ArtifactsDir() + u"ImageSaveOptions.PageIndex.Page 4.gif"));
 }
 
@@ -230,7 +223,7 @@ void ExImageSaveOptions::WindowsMetaFile(Aspose::Words::Saving::MetafileRenderin
     //ExStart
     //ExFor:ImageSaveOptions.MetafileRenderingOptions
     //ExFor:MetafileRenderingOptions.UseGdiRasterOperationsEmulation
-    //ExSummary:Shows how to set the rendering mode when saving documents with Windows Metafile images to other image formats. 
+    //ExSummary:Shows how to set the rendering mode when saving documents with Windows Metafile images to other image formats.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
@@ -249,7 +242,7 @@ void ExImageSaveOptions::WindowsMetaFile(Aspose::Words::Saving::MetafileRenderin
     doc->Save(get_ArtifactsDir() + u"ImageSaveOptions.WindowsMetaFile.png", options);
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.WindowsMetaFile.png");
+    TestUtil::VerifyImage(816, 1056, get_ArtifactsDir() + u"ImageSaveOptions.WindowsMetaFile.png");
 }
 
 namespace gtest_test
@@ -311,7 +304,7 @@ void ExImageSaveOptions::PageByPage()
         // which to start rendering the document from.
         options->set_PageSet(System::MakeObject<Aspose::Words::Saving::PageSet>(i));
         // Export page at 2325x5325 pixels and 600 dpi.
-        options->set_Resolution(600.0f);
+        options->set_Resolution(600);
         options->set_ImageSize(System::Drawing::Size(2325, 5325));
         
         doc->Save(get_ArtifactsDir() + System::String::Format(u"ImageSaveOptions.PageByPage.{0}.tiff", i + 1), options);
@@ -368,7 +361,7 @@ void ExImageSaveOptions::PaperColor()
     doc->Save(get_ArtifactsDir() + u"ImageSaveOptions.PaperColor.LightCoral.png", imgOptions);
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::ImageContainsTransparency(get_ArtifactsDir() + u"ImageSaveOptions.PaperColor.Transparent.png");
+    TestUtil::ImageContainsTransparency(get_ArtifactsDir() + u"ImageSaveOptions.PaperColor.Transparent.png");
 }
 
 namespace gtest_test
@@ -462,7 +455,7 @@ void ExImageSaveOptions::EditImage()
     doc->Save(get_ArtifactsDir() + u"ImageSaveOptions.EditImage.png", options);
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(817, 1057, get_ArtifactsDir() + u"ImageSaveOptions.EditImage.png");
+    TestUtil::VerifyImage(817, 1057, get_ArtifactsDir() + u"ImageSaveOptions.EditImage.png");
 }
 
 namespace gtest_test
@@ -502,8 +495,8 @@ void ExImageSaveOptions::JpegQuality()
     doc->Save(get_ArtifactsDir() + u"ImageSaveOptions.JpegQuality.HighQuality.jpg", imageOptions);
     //ExEnd
     
-    ASSERT_TRUE(System::MakeObject<System::IO::FileInfo>(get_ArtifactsDir() + u"ImageSaveOptions.JpegQuality.HighCompression.jpg")->get_Length() < 18000);
-    ASSERT_TRUE(System::MakeObject<System::IO::FileInfo>(get_ArtifactsDir() + u"ImageSaveOptions.JpegQuality.HighQuality.jpg")->get_Length() < 75000);
+    ASSERT_TRUE(System::MakeObject<System::IO::FileInfo>(get_ArtifactsDir() + u"ImageSaveOptions.JpegQuality.HighCompression.jpg")->get_Length() < static_cast<int64_t>(18000));
+    ASSERT_TRUE(System::MakeObject<System::IO::FileInfo>(get_ArtifactsDir() + u"ImageSaveOptions.JpegQuality.HighQuality.jpg")->get_Length() < static_cast<int64_t>(75000));
 }
 
 namespace gtest_test
@@ -536,16 +529,16 @@ void ExImageSaveOptions::Resolution()
     auto options = System::MakeObject<Aspose::Words::Saving::ImageSaveOptions>(Aspose::Words::SaveFormat::Png);
     
     // Set the "Resolution" property to "72" to render the document in 72dpi.
-    options->set_Resolution(72.0f);
+    options->set_Resolution(72);
     doc->Save(get_ArtifactsDir() + u"ImageSaveOptions.Resolution.72dpi.png", options);
     
     // Set the "Resolution" property to "300" to render the document in 300dpi.
-    options->set_Resolution(300.0f);
+    options->set_Resolution(300);
     doc->Save(get_ArtifactsDir() + u"ImageSaveOptions.Resolution.300dpi.png", options);
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(612, 792, get_ArtifactsDir() + u"ImageSaveOptions.Resolution.72dpi.png");
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(2550, 3300, get_ArtifactsDir() + u"ImageSaveOptions.Resolution.300dpi.png");
+    TestUtil::VerifyImage(612, 792, get_ArtifactsDir() + u"ImageSaveOptions.Resolution.72dpi.png");
+    TestUtil::VerifyImage(2550, 3300, get_ArtifactsDir() + u"ImageSaveOptions.Resolution.300dpi.png");
 }
 
 namespace gtest_test
@@ -566,7 +559,7 @@ void ExImageSaveOptions::ExportVariousPageRanges()
     //ExFor:PageRange.#ctor(int, int)
     //ExFor:ImageSaveOptions.PageSet
     //ExSummary:Shows how to extract pages based on exact page ranges.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Images.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
     
     auto imageOptions = System::MakeObject<Aspose::Words::Saving::ImageSaveOptions>(Aspose::Words::SaveFormat::Tiff);
     auto pageSet = System::MakeObject<Aspose::Words::Saving::PageSet>(System::MakeArray<System::SharedPtr<Aspose::Words::Saving::PageRange>>({System::MakeObject<Aspose::Words::Saving::PageRange>(1, 1), System::MakeObject<Aspose::Words::Saving::PageRange>(2, 3), System::MakeObject<Aspose::Words::Saving::PageRange>(1, 3), System::MakeObject<Aspose::Words::Saving::PageRange>(2, 4), System::MakeObject<Aspose::Words::Saving::PageRange>(1, 1)}));
@@ -592,7 +585,7 @@ void ExImageSaveOptions::RenderInkObject()
     //ExFor:SaveOptions.ImlRenderingMode
     //ExFor:ImlRenderingMode
     //ExSummary:Shows how to render Ink object.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Ink object.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Ink object.docx"));
     
     // Set 'ImlRenderingMode.InkML' ignores fall-back shape of ink (InkML) object and renders InkML itself.
     // If the rendering result is unsatisfactory,
@@ -621,13 +614,13 @@ void ExImageSaveOptions::GridLayout()
     //ExFor:ImageSaveOptions.PageLayout
     //ExFor:MultiPageLayout
     //ExSummary:Shows how to save the document into JPG image with multi-page layout settings.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto options = System::MakeObject<Aspose::Words::Saving::ImageSaveOptions>(Aspose::Words::SaveFormat::Jpeg);
     // Set up a grid layout with:
     // - 3 columns per row.
     // - 10pts spacing between pages (horizontal and vertical).
-    options->set_PageLayout(Aspose::Words::Saving::MultiPageLayout::Grid(3, 10.0f, 10.0f));
+    options->set_PageLayout(MultiPageLayout::Grid(3, 10.0f, 10.0f));
     
     // Alternative layouts:
     // options.PageLayout = MultiPageLayout.Horizontal(10);
@@ -636,7 +629,7 @@ void ExImageSaveOptions::GridLayout()
     // Customize the background and border.
     options->get_PageLayout()->set_BackColor(System::Drawing::Color::get_LightGray());
     options->get_PageLayout()->set_BorderColor(System::Drawing::Color::get_Blue());
-    options->get_PageLayout()->set_BorderWidth(2.0f);
+    options->get_PageLayout()->set_BorderWidth(2);
     
     doc->Save(get_ArtifactsDir() + u"ImageSaveOptions.GridLayout.jpg", options);
     //ExEnd:GridLayout

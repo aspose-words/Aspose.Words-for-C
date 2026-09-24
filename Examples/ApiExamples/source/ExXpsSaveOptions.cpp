@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExXpsSaveOptions.h"
+﻿#include "ExXpsSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -13,7 +8,6 @@
 #include <system/enumerator_adapter.h>
 #include <system/date_time.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
@@ -27,7 +21,6 @@
 #include <Aspose.Words.Cpp/Model/Saving/OutlineOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/DigitalSignatureDetails.h>
 #include <Aspose.Words.Cpp/Model/Saving/CompressionLevel.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
@@ -139,7 +132,7 @@ void ExXpsSaveOptions::BookFold(bool renderTextAsBookFold)
     //ExFor:XpsSaveOptions.#ctor(SaveFormat)
     //ExFor:XpsSaveOptions.UseBookFoldPrintingSettings
     //ExSummary:Shows how to save a document to the XPS format in the form of a book fold.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraphs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     
     // Create an "XpsSaveOptions" object that we can pass to the document's "Save" method
     // to modify how that method converts the document to .XPS.
@@ -237,9 +230,9 @@ void ExXpsSaveOptions::XpsDigitalSignature()
     //GistId:708ce40a68fac5003d46f6b4acfd5ff1
     //ExFor:XpsSaveOptions.DigitalSignatureDetails
     //ExSummary:Shows how to sign XPS document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     auto options = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     options->set_SignTime(System::DateTime::get_Now());
     options->set_Comments(u"Some comments");

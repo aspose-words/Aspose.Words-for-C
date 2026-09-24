@@ -1,17 +1,11 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "DocumentHelper.h"
+﻿#include "DocumentHelper.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/io/stream_reader.h>
 #include <system/io/memory_stream.h>
-#include <system/details/dispose_guard.h>
-#include <iostream>
+#include <system/console.h>
 #include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
@@ -105,7 +99,7 @@ void DocumentHelper::FindTextInFile(System::String path, System::String expressi
             
             if (line.Contains(expression))
             {
-                std::cout << line << std::endl;
+                System::Console::WriteLine(line);
                 SUCCEED();
                 return;
             }
@@ -148,8 +142,8 @@ System::SharedPtr<Aspose::Words::Document> DocumentHelper::CreateTemplateDocumen
 
 bool DocumentHelper::CompareDocs(System::String filePathDoc1, System::String filePathDoc2)
 {
-    auto doc1 = System::MakeObject<Aspose::Words::Document>(filePathDoc1);
-    auto doc2 = System::MakeObject<Aspose::Words::Document>(filePathDoc2);
+    auto doc1 = System::MakeObject<Aspose::Words::Document>(System::String(filePathDoc1));
+    auto doc2 = System::MakeObject<Aspose::Words::Document>(System::String(filePathDoc2));
     
     if (doc1->GetText() == doc2->GetText())
     {
@@ -177,7 +171,6 @@ void DocumentHelper::InsertBuilderText(System::SharedPtr<Aspose::Words::Document
     {
         builder->Writeln(textString);
     }
-    
 }
 
 System::String DocumentHelper::GetParagraphText(System::SharedPtr<Aspose::Words::Document> doc, int32_t paraIndex)

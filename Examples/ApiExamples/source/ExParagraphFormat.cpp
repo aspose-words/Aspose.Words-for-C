@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExParagraphFormat.h"
+﻿#include "ExParagraphFormat.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -11,7 +6,6 @@
 #include <system/test_tools/compare.h>
 #include <system/string.h>
 #include <system/enumerator_adapter.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
@@ -25,7 +19,6 @@
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutCollector.h>
@@ -81,8 +74,8 @@ void ExParagraphFormat::AsianTypographyProperties()
     //ExFor:ParagraphFormat.FarEastLineBreakControl
     //ExFor:ParagraphFormat.WordWrap
     //ExFor:ParagraphFormat.HangingPunctuation
-    //ExSummary:Shows how to set special properties for Asian typography. 
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    //ExSummary:Shows how to set special properties for Asian typography.
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     System::SharedPtr<Aspose::Words::ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat();
     format->set_FarEastLineBreakControl(true);
@@ -92,7 +85,7 @@ void ExParagraphFormat::AsianTypographyProperties()
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.AsianTypographyProperties.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.AsianTypographyProperties.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.AsianTypographyProperties.docx"));
     format = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat();
     
     ASSERT_TRUE(format->get_FarEastLineBreakControl());
@@ -139,7 +132,7 @@ void ExParagraphFormat::DropCap(Aspose::Words::DropCapPosition dropCapPosition)
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.DropCap.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.DropCap.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.DropCap.docx"));
     
     ASSERT_EQ(dropCapPosition, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_DropCapPosition());
     ASSERT_EQ(Aspose::Words::DropCapPosition::None, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat()->get_DropCapPosition());
@@ -213,7 +206,7 @@ void ExParagraphFormat::LineSpacing()
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.LineSpacing.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.LineSpacing.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.LineSpacing.docx"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
     ASSERT_EQ(Aspose::Words::LineSpacingRule::AtLeast, paragraphs->idx_get(0)->get_ParagraphFormat()->get_LineSpacingRule());
@@ -270,7 +263,7 @@ void ExParagraphFormat::ParagraphSpacingAuto(bool autoSpacing)
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.ParagraphSpacingAuto.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.ParagraphSpacingAuto.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.ParagraphSpacingAuto.docx"));
     System::SharedPtr<Aspose::Words::ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
     
     ASPOSE_ASSERT_EQ(24.0, format->get_SpaceBefore());
@@ -347,7 +340,7 @@ void ExParagraphFormat::ParagraphSpacingSameStyle(bool noSpaceBetweenParagraphsO
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.ParagraphSpacingSameStyle.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.ParagraphSpacingSameStyle.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.ParagraphSpacingSameStyle.docx"));
     
     for (auto&& paragraph : System::IterateOver<Aspose::Words::Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
     {
@@ -419,7 +412,7 @@ void ExParagraphFormat::ParagraphOutlineLevel()
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.ParagraphOutlineLevel.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.ParagraphOutlineLevel.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.ParagraphOutlineLevel.docx"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
     ASSERT_EQ(Aspose::Words::OutlineLevel::Level1, paragraphs->idx_get(0)->get_ParagraphFormat()->get_OutlineLevel());
@@ -474,7 +467,7 @@ void ExParagraphFormat::PageBreakBefore(bool pageBreakBefore)
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.PageBreakBefore.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.PageBreakBefore.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.PageBreakBefore.docx"));
     paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
     ASPOSE_ASSERT_EQ(pageBreakBefore, paragraphs->idx_get(0)->get_ParagraphFormat()->get_PageBreakBefore());
@@ -521,7 +514,7 @@ void ExParagraphFormat::WidowControl(bool widowControl)
     // and the previous line where the orphan broke off is called a "Widow".
     // We can fix orphans and widows by rearranging text via font size, spacing, or page margins.
     // If we wish to preserve our document's dimensions, we can set this flag to "true"
-    // to push widows onto the same page as their respective orphans. 
+    // to push widows onto the same page as their respective orphans.
     // Leave this flag as "false" will leave widow/orphan pairs in text.
     // Every paragraph has this setting accessible in Microsoft Word via Home -> Paragraph -> Paragraph Settings
     // (button on bottom right hand corner of "Paragraph" tab) -> "Widow/Orphan control".
@@ -534,7 +527,7 @@ void ExParagraphFormat::WidowControl(bool widowControl)
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.WidowControl.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.WidowControl.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.WidowControl.docx"));
     
     ASPOSE_ASSERT_EQ(widowControl, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_WidowControl());
 }
@@ -588,7 +581,7 @@ void ExParagraphFormat::LinesToDrop()
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.LinesToDrop.odt");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.LinesToDrop.odt");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.LinesToDrop.odt"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
     ASSERT_EQ(4, paragraphs->idx_get(0)->get_ParagraphFormat()->get_LinesToDrop());
@@ -610,13 +603,13 @@ void ExParagraphFormat::SuppressHyphens(bool suppressAutoHyphens)
     //ExStart
     //ExFor:ParagraphFormat.SuppressAutoHyphens
     //ExSummary:Shows how to suppress hyphenation for a paragraph.
-    Aspose::Words::Hyphenation::RegisterDictionary(u"de-CH", get_MyDir() + u"hyph_de_CH.dic");
+    Hyphenation::RegisterDictionary(u"de-CH", get_MyDir() + u"hyph_de_CH.dic");
     
-    ASSERT_TRUE(Aspose::Words::Hyphenation::IsDictionaryRegistered(u"de-CH"));
+    ASSERT_TRUE(Hyphenation::IsDictionaryRegistered(u"de-CH"));
     
     // Open a document containing text with a locale matching that of our dictionary.
     // When we save this document to a fixed page save format, its text will have hyphenation.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"German text.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"German text.docx"));
     
     // We can set the "SuppressAutoHyphens" property to "true" to disable hyphenation
     // for a specific paragraph while keeping it enabled for the rest of the document.
@@ -708,7 +701,7 @@ void ExParagraphFormat::ParagraphSpacingAndIndents()
     builder->Write(System::String(u"测试文档测试文档测试文档测试文档测试文档测试文档测试文档测试文档测试") + u"文档测试文档测试文档测试文档测试文档测试文档测试文档测试文档测试文档测试文档");
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     format = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat();
     
     ASPOSE_ASSERT_EQ(format->get_CharacterUnitLeftIndent(), 10.0);
@@ -743,7 +736,7 @@ void ExParagraphFormat::ParagraphBaselineAlignment()
     //ExFor:BaselineAlignment
     //ExFor:ParagraphFormat.BaselineAlignment
     //ExSummary:Shows how to set fonts vertical position on a line.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
     System::SharedPtr<Aspose::Words::ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
     if (format->get_BaselineAlignment() == Aspose::Words::BaselineAlignment::Auto)
@@ -754,7 +747,7 @@ void ExParagraphFormat::ParagraphBaselineAlignment()
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.ParagraphBaselineAlignment.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.ParagraphBaselineAlignment.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.ParagraphBaselineAlignment.docx"));
     format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
     ASSERT_EQ(Aspose::Words::BaselineAlignment::Top, format->get_BaselineAlignment());
 }
@@ -775,7 +768,7 @@ void ExParagraphFormat::MirrorIndents()
     //GistId:5f20ac02cb42c6b08481aa1c5b0cd3db
     //ExFor:ParagraphFormat.MirrorIndents
     //ExSummary:Show how to make left and right indents the same.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     System::SharedPtr<Aspose::Words::ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
     
     format->set_MirrorIndents(true);
@@ -783,7 +776,7 @@ void ExParagraphFormat::MirrorIndents()
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.MirrorIndents.docx");
     //ExEnd:MirrorIndents
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ParagraphFormat.MirrorIndents.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.MirrorIndents.docx"));
     format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
     
     ASPOSE_ASSERT_EQ(true, format->get_MirrorIndents());

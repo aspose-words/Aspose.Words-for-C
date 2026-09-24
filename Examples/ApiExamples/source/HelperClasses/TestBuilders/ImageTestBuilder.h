@@ -1,13 +1,12 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
+﻿#pragma once
 
 #include <system/io/stream.h>
 #include <system/array.h>
 #include <drawing/image.h>
 #include <cstdint>
 
-#include "HelperClasses/TestClasses/ImageTestClass.h"
 #include "ApiExampleBase.h"
+#include "HelperClasses/TestClasses/ImageTestClass.h"
 
 
 using namespace Aspose::Words::ApiExamples::TestData::TestClasses;

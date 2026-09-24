@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Markup/Sdt/StructuredDocumentTagRangeStart.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 
@@ -56,8 +52,15 @@ public:
     void CustomXmlPart();
     void MultiSectionTags();
     void SdtChildNodes();
+    //ExStart
+    //ExFor:StructuredDocumentTagRangeStart.#ctor(DocumentBase, SdtType)
+    //ExFor:StructuredDocumentTagRangeEnd.#ctor(DocumentBase, int)
+    //ExFor:StructuredDocumentTagRangeStart.RemoveSelfOnly
+    //ExFor:StructuredDocumentTagRangeStart.RemoveAllChildren
+    //ExSummary:Shows how to create/remove structured document tag and its content.
     void SdtRangeExtendedMethods();
     System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTagRangeStart> InsertStructuredDocumentTagRanges(System::SharedPtr<Aspose::Words::Document> doc);
+    //ExEnd
     void GetSdt();
     void RangeSdt();
     void SdtAtRowLevel();

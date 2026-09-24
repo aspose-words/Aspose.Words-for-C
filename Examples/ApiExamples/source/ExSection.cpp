@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExSection.h"
+﻿#include "ExSection.h"
 
 #include <testing/test_predicates.h>
 #include <system/threading/thread.h>
@@ -13,8 +8,7 @@
 #include <system/globalization/culture_info.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
-#include <iostream>
-#include <gtest/gtest.h>
+#include <system/console.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
@@ -121,7 +115,7 @@ void ExSection::Protect()
     doc->Save(get_ArtifactsDir() + u"Section.Protect.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Section.Protect.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Section.Protect.docx"));
     
     ASSERT_FALSE(doc->get_Sections()->idx_get(0)->get_ProtectedForForms());
     ASSERT_TRUE(doc->get_Sections()->idx_get(1)->get_ProtectedForForms());
@@ -213,7 +207,7 @@ void ExSection::FirstAndLast()
     doc->Save(get_ArtifactsDir() + u"Section.Create.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Section.Create.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Section.Create.docx"));
     
     ASSERT_EQ(1, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Count());
     ASSERT_EQ(2, doc->get_LastSection()->get_PageSetup()->get_TextColumns()->get_Count());
@@ -378,7 +372,7 @@ void ExSection::BodyEnsureMinimum()
     // This body has no children, so we cannot add runs to it yet.
     ASSERT_EQ(0, doc->get_FirstSection()->get_Body()->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count());
     
-    // Call the "EnsureMinimum" to make sure that this body contains at least one empty paragraph. 
+    // Call the "EnsureMinimum" to make sure that this body contains at least one empty paragraph.
     body->EnsureMinimum();
     
     // Now, we can add runs to the body, and get the document to display them.
@@ -426,25 +420,22 @@ void ExSection::BodyChildNodes()
                 {
                     auto body = System::ExplicitCast<Aspose::Words::Body>(node);
                     
-                    std::cout << "Body:" << std::endl;
-                    std::cout << System::String::Format(u"\t\"{0}\"", body->GetText().Trim()) << std::endl;
+                    System::Console::WriteLine(u"Body:");
+                    System::Console::WriteLine(System::String::Format(u"\t\"{0}\"", body->GetText().Trim()));
                     break;
                 }
-            
             case Aspose::Words::NodeType::HeaderFooter:
                 {
                     auto headerFooter = System::ExplicitCast<Aspose::Words::HeaderFooter>(node);
                     
-                    std::cout << System::String::Format(u"HeaderFooter type: {0}:", headerFooter->get_HeaderFooterType()) << std::endl;
-                    std::cout << System::String::Format(u"\t\"{0}\"", headerFooter->GetText().Trim()) << std::endl;
+                    System::Console::WriteLine(System::String::Format(u"HeaderFooter type: {0}:", headerFooter->get_HeaderFooterType()));
+                    System::Console::WriteLine(System::String::Format(u"\t\"{0}\"", headerFooter->GetText().Trim()));
                     break;
                 }
-            
-            default: 
+            default:
                 {
                     throw System::Exception(u"Unexpected node type in a section.");
                 }
-            
         }
     }
     //ExEnd
@@ -465,7 +456,7 @@ void ExSection::Clear()
     //ExStart
     //ExFor:NodeCollection.Clear
     //ExSummary:Shows how to remove all sections from a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     // This document has one section with a few child nodes containing and displaying all the document's contents.
     ASSERT_EQ(1, doc->get_Sections()->get_Count());
@@ -507,7 +498,7 @@ void ExSection::PrependAppendContent()
     
     System::SharedPtr<Aspose::Words::Section> section = doc->get_Sections()->idx_get(2);
     
-    ASSERT_EQ(System::String(u"Section 3") + Aspose::Words::ControlChar::SectionBreak(), section->GetText());
+    ASSERT_EQ(System::String(u"Section 3") + ControlChar::SectionBreak(), section->GetText());
     
     // Insert the contents of the first section to the beginning of the third section.
     System::SharedPtr<Aspose::Words::Section> sectionToPrepend = doc->get_Sections()->idx_get(0);
@@ -519,7 +510,7 @@ void ExSection::PrependAppendContent()
     
     // The "PrependContent" and "AppendContent" methods did not create any new sections.
     ASSERT_EQ(3, doc->get_Sections()->get_Count());
-    ASSERT_EQ(System::String(u"Section 1") + Aspose::Words::ControlChar::ParagraphBreak() + u"Section 3" + Aspose::Words::ControlChar::ParagraphBreak() + u"Section 2" + Aspose::Words::ControlChar::SectionBreak(), section->GetText());
+    ASSERT_EQ(System::String(u"Section 1") + ControlChar::ParagraphBreak() + u"Section 3" + ControlChar::ParagraphBreak() + u"Section 2" + ControlChar::SectionBreak(), section->GetText());
     //ExEnd
 }
 
@@ -617,7 +608,7 @@ void ExSection::DeleteHeaderFooterShapes()
     
     // Create a primary header with a shape.
     builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::HeaderPrimary);
-    builder->InsertShape(Aspose::Words::Drawing::ShapeType::Rectangle, 100, 100);
+    builder->InsertShape(Aspose::Words::Drawing::ShapeType::Rectangle, static_cast<double>(100), static_cast<double>(100));
     
     // Create a primary footer with an image.
     builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::FooterPrimary);
@@ -646,7 +637,7 @@ TEST_F(ExSection, DeleteHeaderFooterShapes)
 
 void ExSection::SectionsCloneSection()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     System::SharedPtr<Aspose::Words::Section> cloneSection = doc->get_Sections()->idx_get(0)->Clone();
 }
 
@@ -662,7 +653,7 @@ TEST_F(ExSection, SectionsCloneSection)
 
 void ExSection::SectionsImportSection()
 {
-    auto srcDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto srcDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     auto dstDoc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Section> sourceSection = srcDoc->get_Sections()->idx_get(0);
@@ -789,7 +780,7 @@ void ExSection::CultureInfoPageSetupDefaults()
     sectionDe->get_PageSetup()->get_TextColumns()->set_Spacing(35.4);
     // 1.25 cm
     
-    docDe = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(docDe);
+    docDe = DocumentHelper::SaveOpen(docDe);
     
     System::SharedPtr<Aspose::Words::Section> sectionDeAfter = docDe->get_Sections()->idx_get(0);
     ASPOSE_ASSERT_EQ(90.0, sectionDeAfter->get_PageSetup()->get_LeftMargin());
@@ -824,7 +815,7 @@ void ExSection::PreserveWatermarks()
     //GistId:708ce40a68fac5003d46f6b4acfd5ff1
     //ExFor:Section.ClearHeadersFooters(bool)
     //ExSummary:Shows how to clear the contents of header and footer with or without a watermark.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Header and footer types.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Header and footer types.docx"));
     
     // Add a plain text watermark.
     doc->get_Watermark()->SetText(u"Aspose Watermark");

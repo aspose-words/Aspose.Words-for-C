@@ -1,10 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Drawing/Charts/MarkerSymbol.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartType.h>
@@ -45,11 +42,73 @@ public:
     void Surface3DChart();
     void DataLabelsBubbleChart();
     void DataLabelsPieChart();
+    //ExStart
+    //ExFor:ChartSeries
+    //ExFor:ChartSeries.DataLabels
+    //ExFor:ChartSeries.DataPoints
+    //ExFor:ChartSeries.Name
+    //ExFor:ChartSeries.Explosion
+    //ExFor:ChartDataLabel
+    //ExFor:ChartDataLabel.Index
+    //ExFor:ChartDataLabel.IsVisible
+    //ExFor:ChartDataLabel.NumberFormat
+    //ExFor:ChartDataLabel.Separator
+    //ExFor:ChartDataLabel.ShowCategoryName
+    //ExFor:ChartDataLabel.ShowDataLabelsRange
+    //ExFor:ChartDataLabel.ShowLeaderLines
+    //ExFor:ChartDataLabel.ShowLegendKey
+    //ExFor:ChartDataLabel.ShowPercentage
+    //ExFor:ChartDataLabel.ShowSeriesName
+    //ExFor:ChartDataLabel.ShowValue
+    //ExFor:ChartDataLabel.IsHidden
+    //ExFor:ChartDataLabel.Format
+    //ExFor:ChartDataLabel.ClearFormat
+    //ExFor:ChartDataLabelCollection
+    //ExFor:ChartDataLabelCollection.ShowDataLabelsRange
+    //ExFor:ChartDataLabelCollection.ClearFormat
+    //ExFor:ChartDataLabelCollection.Count
+    //ExFor:ChartDataLabelCollection.GetEnumerator
+    //ExFor:ChartDataLabelCollection.Item(Int32)
+    //ExSummary:Shows how to apply labels to data points in a line chart.
     void DataLabels();
+    //ExEnd
+    //ExStart
+    //ExFor:ChartSeries.Smooth
+    //ExFor:ChartSeries.InvertIfNegative
+    //ExFor:ChartDataPoint
+    //ExFor:ChartDataPoint.Format
+    //ExFor:ChartDataPoint.ClearFormat
+    //ExFor:ChartDataPoint.Index
+    //ExFor:ChartDataPointCollection
+    //ExFor:ChartDataPointCollection.ClearFormat
+    //ExFor:ChartDataPointCollection.Count
+    //ExFor:ChartDataPointCollection.GetEnumerator
+    //ExFor:ChartDataPointCollection.Item(Int32)
+    //ExFor:ChartMarker
+    //ExFor:ChartMarker.Size
+    //ExFor:ChartMarker.Symbol
+    //ExFor:IChartDataPoint
+    //ExFor:IChartDataPoint.InvertIfNegative
+    //ExFor:ChartDataPoint.InvertIfNegative
+    //ExFor:IChartDataPoint.Marker
+    //ExFor:MarkerSymbol
+    //ExSummary:Shows how to work with data points on a line chart.
     void ChartDataPoint();
+    //ExEnd
     void PieChartExplosion();
     void Bubble3D();
+    //ExStart
+    //ExFor:ChartAxis.Type
+    //ExFor:ChartAxisType
+    //ExFor:ChartType
+    //ExFor:Chart.Series
+    //ExFor:ChartSeriesCollection.Add(String,DateTime[],Double[])
+    //ExFor:ChartSeriesCollection.Add(String,Double[],Double[])
+    //ExFor:ChartSeriesCollection.Add(String,Double[],Double[],Double[])
+    //ExFor:ChartSeriesCollection.Add(String,String[],Double[])
+    //ExSummary:Shows how to create an appropriate type of chart series for a graph type.
     void ChartSeriesCollection();
+    //ExEnd
     void ChartSeriesCollectionModify();
     void AxisScaling();
     void AxisBound();

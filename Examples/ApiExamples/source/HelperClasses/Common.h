@@ -1,14 +1,13 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
+﻿#pragma once
 
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
 
+#include "HelperClasses/TestClasses/ManagerTestClass.h"
+#include "HelperClasses/TestClasses/ClientTestClass.h"
+#include "HelperClasses/TestClasses/ContractTestClass.h"
 #include "HelperClasses/TestClasses/ShareTestClass.h"
 #include "HelperClasses/TestClasses/ShareQuoteTestClass.h"
-#include "HelperClasses/TestClasses/ManagerTestClass.h"
-#include "HelperClasses/TestClasses/ContractTestClass.h"
-#include "HelperClasses/TestClasses/ClientTestClass.h"
 
 namespace Aspose
 {
@@ -16,14 +15,6 @@ namespace Words
 {
 namespace ApiExamples
 {
-namespace HelperClasses
-{
-namespace TestClasses
-{
-class ShareQuoteTestClass;
-class ShareTestClass;
-} // namespace TestClasses
-} // namespace HelperClasses
 namespace TestData
 {
 namespace TestClasses

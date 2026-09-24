@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExTxtLoadOptions.h"
+﻿#include "ExTxtLoadOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -16,10 +11,8 @@
 #include <system/io/memory_stream.h>
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
@@ -175,8 +168,8 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
     loadOptions->set_LeadingSpacesOptions(txtLeadingSpacesOptions);
     
     // Set the "TrailingSpacesOptions" property to "TxtTrailingSpacesOptions.Preserve"
-    // to preserve all whitespace characters at the end of every line. 
-    // Set the "TrailingSpacesOptions" property to "TxtTrailingSpacesOptions.Trim" to 
+    // to preserve all whitespace characters at the end of every line.
+    // Set the "TrailingSpacesOptions" property to "TxtTrailingSpacesOptions.Trim" to
     // remove all whitespace characters from the end of every line.
     loadOptions->set_TrailingSpacesOptions(txtTrailingSpacesOptions);
     
@@ -193,7 +186,6 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().StartsWith(u"Line 2"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().StartsWith(u"Line 3"));
             break;
-        
         case Aspose::Words::Loading::TxtLeadingSpacesOptions::Preserve:
             ASSERT_TRUE(paragraphs->LINQ_All(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> p)>>([](System::SharedPtr<Aspose::Words::Node> p) -> bool
             {
@@ -203,7 +195,6 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().StartsWith(u"    Line 2"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().StartsWith(u" Line 3"));
             break;
-        
         case Aspose::Words::Loading::TxtLeadingSpacesOptions::Trim:
             ASSERT_TRUE(paragraphs->LINQ_All(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> p)>>([](System::SharedPtr<Aspose::Words::Node> p) -> bool
             {
@@ -213,7 +204,6 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().StartsWith(u"Line 2"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().StartsWith(u"Line 3"));
             break;
-        
     }
     
     switch (txtTrailingSpacesOptions)
@@ -223,13 +213,11 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().EndsWith(u"Line 2   \r"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().EndsWith(u"Line 3       \f"));
             break;
-        
         case Aspose::Words::Loading::TxtTrailingSpacesOptions::Trim:
             ASSERT_TRUE(paragraphs->idx_get(0)->GetText().EndsWith(u"Line 1\r"));
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().EndsWith(u"Line 2\r"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().EndsWith(u"Line 3\f"));
             break;
-        
     }
     //ExEnd
 }
@@ -355,7 +343,7 @@ void ExTxtLoadOptions::DetectHyperlinks()
         // Print hyperlinks text.
         for (auto&& field : System::IterateOver(doc->get_Range()->get_Fields()))
         {
-            std::cout << field->get_Result() << std::endl;
+            System::Console::WriteLine(field->get_Result());
         }
         
         ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_Result().Trim(), u"https://www.aspose.com/");

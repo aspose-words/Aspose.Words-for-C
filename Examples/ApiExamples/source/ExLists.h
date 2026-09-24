@@ -1,10 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Lists/List.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
@@ -40,7 +37,14 @@ public:
     void RemoveBulletsFromParagraphs();
     void ApplyExistingListToParagraphs();
     void ApplyNewListToParagraphs();
+    //ExStart
+    //ExFor:ListTemplate
+    //ExSummary:Shows how to create a document that contains all outline headings list templates.
     void OutlineHeadingTemplates();
+    //ExStart
+    //ExFor:ListCollection
+    //ExFor:ListCollection.AddCopy(List)
+    //ExSummary:Shows how to create a document with a sample of all the lists from another document.
     void PrintOutAllLists();
     void ListDocument();
     void CreateListRestartAfterHigher();
@@ -55,8 +59,10 @@ public:
 protected:
 
     static void AddOutlineHeadingParagraphs(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::SharedPtr<Aspose::Words::Lists::List> list, System::String title);
+    //ExEnd
     void TestOutlineHeadingTemplates(System::SharedPtr<Aspose::Words::Document> doc);
     static void AddListSample(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::SharedPtr<Aspose::Words::Lists::List> list);
+    //ExEnd
     void TestPrintOutAllLists(System::SharedPtr<Aspose::Words::Document> listSourceDoc, System::SharedPtr<Aspose::Words::Document> outDoc);
     
 };

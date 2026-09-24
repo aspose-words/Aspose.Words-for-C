@@ -1,13 +1,10 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
 #include <system/guid.h>
 #include <system/collections/dictionary.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Document/VisitorAction.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>
 #include <Aspose.Words.Cpp/Model/BuildingBlocks/GlossaryDocument.h>
@@ -92,7 +89,46 @@ public:
     
 public:
 
+    //ExStart
+    //ExFor:Document.GlossaryDocument
+    //ExFor:BuildingBlock
+    //ExFor:BuildingBlock.#ctor(GlossaryDocument)
+    //ExFor:BuildingBlock.Accept(DocumentVisitor)
+    //ExFor:BuildingBlock.AcceptStart(DocumentVisitor)
+    //ExFor:BuildingBlock.AcceptEnd(DocumentVisitor)
+    //ExFor:BuildingBlock.Behavior
+    //ExFor:BuildingBlock.Category
+    //ExFor:BuildingBlock.Description
+    //ExFor:BuildingBlock.FirstSection
+    //ExFor:BuildingBlock.Gallery
+    //ExFor:BuildingBlock.Guid
+    //ExFor:BuildingBlock.LastSection
+    //ExFor:BuildingBlock.Name
+    //ExFor:BuildingBlock.Sections
+    //ExFor:BuildingBlock.Type
+    //ExFor:BuildingBlockBehavior
+    //ExFor:BuildingBlockType
+    //ExSummary:Shows how to add a custom building block to a document.
     void CreateAndInsert();
+    //ExEnd
+    //ExStart
+    //ExFor:GlossaryDocument
+    //ExFor:GlossaryDocument.Accept(DocumentVisitor)
+    //ExFor:GlossaryDocument.AcceptStart(DocumentVisitor)
+    //ExFor:GlossaryDocument.AcceptEnd(DocumentVisitor)
+    //ExFor:GlossaryDocument.BuildingBlocks
+    //ExFor:GlossaryDocument.FirstBuildingBlock
+    //ExFor:GlossaryDocument.GetBuildingBlock(BuildingBlockGallery,String,String)
+    //ExFor:GlossaryDocument.LastBuildingBlock
+    //ExFor:BuildingBlockCollection
+    //ExFor:BuildingBlockCollection.Item(Int32)
+    //ExFor:BuildingBlockCollection.ToArray
+    //ExFor:BuildingBlockGallery
+    //ExFor:DocumentVisitor.VisitBuildingBlockEnd(BuildingBlock)
+    //ExFor:DocumentVisitor.VisitBuildingBlockStart(BuildingBlock)
+    //ExFor:DocumentVisitor.VisitGlossaryDocumentEnd(GlossaryDocument)
+    //ExFor:DocumentVisitor.VisitGlossaryDocumentStart(GlossaryDocument)
+    //ExSummary:Shows ways of accessing building blocks in a glossary document.
     void GlossaryDocument();
     
 };

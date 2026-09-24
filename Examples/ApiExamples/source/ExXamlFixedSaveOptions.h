@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
 #include <system/collections/list.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Saving/ResourceSavingArgs.h>
 #include <Aspose.Words.Cpp/Model/Saving/IResourceSavingCallback.h>
 
@@ -58,10 +55,18 @@ private:
     
 public:
 
+    //ExStart
+    //ExFor:XamlFixedSaveOptions
+    //ExFor:XamlFixedSaveOptions.ResourceSavingCallback
+    //ExFor:XamlFixedSaveOptions.ResourcesFolder
+    //ExFor:XamlFixedSaveOptions.ResourcesFolderAlias
+    //ExFor:XamlFixedSaveOptions.SaveFormat
+    //ExSummary:Shows how to print the URIs of linked resources created while converting a document to fixed-form .xaml.
     void ResourceFolder();
     
 protected:
 
+    //ExEnd
     void TestResourceFolder(System::SharedPtr<Aspose::Words::ApiExamples::ExXamlFixedSaveOptions::ResourceUriPrinter> callback);
     
 };

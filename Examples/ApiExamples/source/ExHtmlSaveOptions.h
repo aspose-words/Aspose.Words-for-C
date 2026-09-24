@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
 #include <system/date_time.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/ImageSavingArgs.h>
 #include <Aspose.Words.Cpp/Model/Saving/IImageSavingCallback.h>
@@ -150,7 +147,26 @@ public:
     void HeadingLevels();
     void NegativeIndent(bool allowNegativeIndent);
     void FolderAlias();
+    //ExStart
+    //ExFor:HtmlSaveOptions.ExportFontResources
+    //ExFor:HtmlSaveOptions.FontSavingCallback
+    //ExFor:IFontSavingCallback
+    //ExFor:IFontSavingCallback.FontSaving
+    //ExFor:FontSavingArgs
+    //ExFor:FontSavingArgs.Bold
+    //ExFor:FontSavingArgs.Document
+    //ExFor:FontSavingArgs.FontFamilyName
+    //ExFor:FontSavingArgs.FontFileName
+    //ExFor:FontSavingArgs.FontStream
+    //ExFor:FontSavingArgs.IsExportNeeded
+    //ExFor:FontSavingArgs.IsSubsettingNeeded
+    //ExFor:FontSavingArgs.Italic
+    //ExFor:FontSavingArgs.KeepFontStreamOpen
+    //ExFor:FontSavingArgs.OriginalFileName
+    //ExFor:FontSavingArgs.OriginalFileSize
+    //ExSummary:Shows how to define custom logic for exporting fonts when saving to HTML.
     void SaveExportedFonts();
+    //ExEnd
     void HtmlVersions(Aspose::Words::Saving::HtmlVersion htmlVersion);
     void ExportXhtmlTransitional(bool showDoctypeDeclaration);
     void Doc2EpubSaveOptions();
@@ -170,9 +186,18 @@ public:
     void MetafileFormat(Aspose::Words::Saving::HtmlMetafileFormat htmlMetafileFormat);
     void OfficeMathOutputMode(Aspose::Words::Saving::HtmlOfficeMathOutputMode htmlOfficeMathOutputMode);
     void ImageFolder();
+    //ExStart
+    //ExFor:ImageSavingArgs.CurrentShape
+    //ExFor:ImageSavingArgs.Document
+    //ExFor:ImageSavingArgs.ImageStream
+    //ExFor:ImageSavingArgs.IsImageAvailable
+    //ExFor:ImageSavingArgs.KeepImageStreamOpen
+    //ExSummary:Shows how to involve an image saving callback in an HTML conversion process.
     void ImageSavingCallback();
+    //ExEnd
     void PrettyFormat(bool usePrettyFormat);
     void ProgressCallback(Aspose::Words::SaveFormat saveFormat, System::String ext);
+    //ExEnd
     void MobiAzw3DefaultEncoding(Aspose::Words::SaveFormat saveFormat);
     void HtmlReplaceBackslashWithYenSign();
     void RemoveJavaScriptFromLinks();

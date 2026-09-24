@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Loading/ResourceLoadingArgs.h>
 #include <Aspose.Words.Cpp/Model/Loading/ResourceLoadingAction.h>
 #include <Aspose.Words.Cpp/Model/Loading/IResourceLoadingCallback.h>
@@ -58,11 +54,23 @@ public:
     void ImportNode();
     void ImportNodeCustom();
     void BackgroundShape();
+    //ExStart
+    //ExFor:DocumentBase.ResourceLoadingCallback
+    //ExFor:IResourceLoadingCallback
+    //ExFor:IResourceLoadingCallback.ResourceLoading(ResourceLoadingArgs)
+    //ExFor:ResourceLoadingAction
+    //ExFor:ResourceLoadingArgs
+    //ExFor:ResourceLoadingArgs.OriginalUri
+    //ExFor:ResourceLoadingArgs.ResourceType
+    //ExFor:ResourceLoadingArgs.SetData(Byte[])
+    //ExFor:ResourceType
+    //ExSummary:Shows how to customize the process of loading external resources into a document.
     void ResourceLoadingCallback();
     void ImportNodeWithResolveThemeColors();
     
 protected:
 
+    //ExEnd
     void TestResourceLoadingCallback(System::SharedPtr<Aspose::Words::Document> doc);
     
 };

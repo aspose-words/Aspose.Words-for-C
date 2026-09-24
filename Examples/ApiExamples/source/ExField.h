@@ -1,9 +1,4 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
 #include <system/io/stream.h>
@@ -11,6 +6,7 @@
 #include <system/collections/ilist.h>
 #include <system/collections/dictionary.h>
 #include <system/array.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
 #include <Aspose.Words.Cpp/Model/Nodes/Node.h>
@@ -73,10 +69,12 @@ public:
 
     enum class InsertLinkedObjectAs
     {
+        // LinkedObjectAsText
         Text,
         Unicode,
         Html,
         Rtf,
+        // LinkedObjectAsImage
         Picture,
         Bitmap
     };
@@ -374,21 +372,71 @@ public:
     void UpdateTocPageNumbers();
     void FieldAdvance();
     void FieldAddressBlock();
+    //ExStart
+    //ExFor:FieldCollection
+    //ExFor:FieldCollection.Count
+    //ExFor:FieldCollection.GetEnumerator
+    //ExFor:FieldStart
+    //ExFor:FieldStart.Accept(DocumentVisitor)
+    //ExFor:FieldSeparator
+    //ExFor:FieldSeparator.Accept(DocumentVisitor)
+    //ExFor:FieldEnd
+    //ExFor:FieldEnd.Accept(DocumentVisitor)
+    //ExFor:FieldEnd.HasSeparator
+    //ExFor:Field.End
+    //ExFor:Field.Separator
+    //ExFor:Field.Start
+    //ExSummary:Shows how to work with a collection of fields.
     void FieldCollection();
     void RemoveFields();
     void FieldCompare();
     void FieldIf();
     void FieldAutoNum();
+    //ExStart
+    //ExFor:FieldAutoNumLgl
+    //ExFor:FieldAutoNumLgl.RemoveTrailingPeriod
+    //ExFor:FieldAutoNumLgl.SeparatorCharacter
+    //ExSummary:Shows how to organize a document using AUTONUMLGL fields.
     void FieldAutoNumLgl();
     void FieldAutoNumOut();
     void FieldAutoText();
+    //ExStart
+    //ExFor:FieldAutoTextList
+    //ExFor:FieldAutoTextList.EntryName
+    //ExFor:FieldAutoTextList.ListStyle
+    //ExFor:FieldAutoTextList.ScreenTip
+    //ExSummary:Shows how to use an AUTOTEXTLIST field to select from a list of AutoText entries.
     void FieldAutoTextList();
     void FieldListNum();
+    //ExStart
+    //ExFor:FieldToc
+    //ExFor:FieldToc.BookmarkName
+    //ExFor:FieldToc.CustomStyles
+    //ExFor:FieldToc.EntrySeparator
+    //ExFor:FieldToc.HeadingLevelRange
+    //ExFor:FieldToc.HideInWebLayout
+    //ExFor:FieldToc.InsertHyperlinks
+    //ExFor:FieldToc.PageNumberOmittingLevelRange
+    //ExFor:FieldToc.PreserveLineBreaks
+    //ExFor:FieldToc.PreserveTabs
+    //ExFor:FieldToc.UpdatePageNumbers
+    //ExFor:FieldToc.UseParagraphOutlineLevel
+    //ExFor:FieldOptions.CustomTocStyleSeparator
+    //ExSummary:Shows how to insert a TOC, and populate it with entries based on heading styles.
     void FieldToc();
     /// <summary>
     /// Start a new page and insert a paragraph of a specified style.
     /// </summary>
     void InsertNewPageWithHeading(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String captionText, System::String styleName);
+    //ExStart
+    //ExFor:FieldToc.EntryIdentifier
+    //ExFor:FieldToc.EntryLevelRange
+    //ExFor:FieldTC
+    //ExFor:FieldTC.OmitPageNumber
+    //ExFor:FieldTC.Text
+    //ExFor:FieldTC.TypeIdentifier
+    //ExFor:FieldTC.EntryLevel
+    //ExSummary:Shows how to insert a TOC field, and filter which TC fields end up as entries.
     void FieldTocEntryIdentifier();
     /// <summary>
     /// Use a document builder to insert a TC field.
@@ -397,7 +445,14 @@ public:
     void TocSeqPrefix();
     void TocSeqNumbering();
     void TocSeqBookmark();
+    //ExStart
+    //ExFor:Bibliography.BibliographyStyle
+    //ExFor:IBibliographyStylesProvider
+    //ExFor:IBibliographyStylesProvider.GetStyle(String)
+    //ExFor:FieldOptions.BibliographyStylesProvider
+    //ExSummary:Shows how to override built-in styles or provide custom one.
     void ChangeBibliographyStyles();
+    //ExEnd
     void FieldData();
     void FieldInclude();
     void FieldIncludePicture();
@@ -416,8 +471,47 @@ public:
     void FieldIndexYomi(bool sortEntriesUsingYomi);
     void FieldBarcode();
     void FieldDisplayBarcode();
+    //ExStart
+    //ExFor:FieldLink
+    //ExFor:FieldLink.AutoUpdate
+    //ExFor:FieldLink.FormatUpdateType
+    //ExFor:FieldLink.InsertAsBitmap
+    //ExFor:FieldLink.InsertAsHtml
+    //ExFor:FieldLink.InsertAsPicture
+    //ExFor:FieldLink.InsertAsRtf
+    //ExFor:FieldLink.InsertAsText
+    //ExFor:FieldLink.InsertAsUnicode
+    //ExFor:FieldLink.IsLinked
+    //ExFor:FieldLink.ProgId
+    //ExFor:FieldLink.SourceFullName
+    //ExFor:FieldLink.SourceItem
+    //ExFor:FieldDde
+    //ExFor:FieldDde.AutoUpdate
+    //ExFor:FieldDde.InsertAsBitmap
+    //ExFor:FieldDde.InsertAsHtml
+    //ExFor:FieldDde.InsertAsPicture
+    //ExFor:FieldDde.InsertAsRtf
+    //ExFor:FieldDde.InsertAsText
+    //ExFor:FieldDde.InsertAsUnicode
+    //ExFor:FieldDde.IsLinked
+    //ExFor:FieldDde.ProgId
+    //ExFor:FieldDde.SourceFullName
+    //ExFor:FieldDde.SourceItem
+    //ExFor:FieldDdeAuto
+    //ExFor:FieldDdeAuto.InsertAsBitmap
+    //ExFor:FieldDdeAuto.InsertAsHtml
+    //ExFor:FieldDdeAuto.InsertAsPicture
+    //ExFor:FieldDdeAuto.InsertAsRtf
+    //ExFor:FieldDdeAuto.InsertAsText
+    //ExFor:FieldDdeAuto.InsertAsUnicode
+    //ExFor:FieldDdeAuto.IsLinked
+    //ExFor:FieldDdeAuto.ProgId
+    //ExFor:FieldDdeAuto.SourceFullName
+    //ExFor:FieldDdeAuto.SourceItem
+    //ExSummary:Shows how to use various field types to link to other documents in the local file system, and display their contents.
     void FieldLinkedObjectsAsText(Aspose::Words::ApiExamples::ExField::InsertLinkedObjectAs insertLinkedObjectAs);
     void FieldLinkedObjectsAsImage(Aspose::Words::ApiExamples::ExField::InsertLinkedObjectAs insertLinkedObjectAs);
+    //ExEnd
     void FieldUserAddress();
     void FieldUserInitials();
     void FieldUserName();
@@ -448,34 +542,119 @@ public:
     /// Uses a document builder to insert a MERRGEFIELD with specified properties.
     /// </summary>
     void InsertMergeField(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String fieldName, System::String textBefore, System::String textAfter);
+    //ExStart
+    //ExFor:FieldNoteRef
+    //ExFor:FieldNoteRef.BookmarkName
+    //ExFor:FieldNoteRef.InsertHyperlink
+    //ExFor:FieldNoteRef.InsertReferenceMark
+    //ExFor:FieldNoteRef.InsertRelativePosition
+    //ExSummary:Shows to insert NOTEREF fields, and modify their appearance.
     void FieldNoteRef();
     void NoteRef();
+    //ExStart
+    //ExFor:FieldPageRef
+    //ExFor:FieldPageRef.BookmarkName
+    //ExFor:FieldPageRef.InsertHyperlink
+    //ExFor:FieldPageRef.InsertRelativePosition
+    //ExSummary:Shows to insert PAGEREF fields to display the relative location of bookmarks.
     void FieldPageRef();
+    //ExStart
+    //ExFor:FieldRef
+    //ExFor:FieldRef.BookmarkName
+    //ExFor:FieldRef.IncludeNoteOrComment
+    //ExFor:FieldRef.InsertHyperlink
+    //ExFor:FieldRef.InsertParagraphNumber
+    //ExFor:FieldRef.InsertParagraphNumberInFullContext
+    //ExFor:FieldRef.InsertParagraphNumberInRelativeContext
+    //ExFor:FieldRef.InsertRelativePosition
+    //ExFor:FieldRef.NumberSeparator
+    //ExFor:FieldRef.SuppressNonDelimiters
+    //ExSummary:Shows how to insert REF fields to reference bookmarks.
     void FieldRef();
     void FieldRD();
     void FieldSetRef();
     void FieldTemplate();
     void FieldSymbol();
     void FieldTitle();
+    //ExStart
+    //ExFor:FieldToa
+    //ExFor:FieldToa.BookmarkName
+    //ExFor:FieldToa.EntryCategory
+    //ExFor:FieldToa.EntrySeparator
+    //ExFor:FieldToa.PageNumberListSeparator
+    //ExFor:FieldToa.PageRangeSeparator
+    //ExFor:FieldToa.RemoveEntryFormatting
+    //ExFor:FieldToa.SequenceName
+    //ExFor:FieldToa.SequenceSeparator
+    //ExFor:FieldToa.UseHeading
+    //ExFor:FieldToa.UsePassim
+    //ExFor:FieldTA
+    //ExFor:FieldTA.EntryCategory
+    //ExFor:FieldTA.IsBold
+    //ExFor:FieldTA.IsItalic
+    //ExFor:FieldTA.LongCitation
+    //ExFor:FieldTA.PageRangeBookmarkName
+    //ExFor:FieldTA.ShortCitation
+    //ExSummary:Shows how to build and customize a table of authorities using TOA and TA fields.
     void FieldTOA();
     void FieldAddIn();
     void FieldEditTime();
+    //ExStart
+    //ExFor:FieldEQ
+    //ExSummary:Shows how to use the EQ field to display a variety of mathematical equations.
     void FieldEQ();
     void FieldEQAsOfficeMath();
     void FieldForms();
     void FieldFormula();
     void FieldLastSavedBy();
     void FieldOcx();
+    //ExStart
+    //ExFor:Field.Remove
+    //ExFor:FieldPrivate
+    //ExSummary:Shows how to process PRIVATE fields.
     void FieldPrivate();
+    //ExEnd
     void FieldSection();
+    //ExStart
+    //ExFor:FieldTime
+    //ExSummary:Shows how to display the current time using the TIME field.
     void FieldTime();
     void BidiOutline();
     void Legacy();
     void SetFieldIndexFormat();
+    //ExStart
+    //ExFor:ComparisonEvaluationResult.#ctor(bool)
+    //ExFor:ComparisonEvaluationResult.#ctor(string)
+    //ExFor:ComparisonEvaluationResult
+    //ExFor:ComparisonEvaluationResult.ErrorMessage
+    //ExFor:ComparisonEvaluationResult.Result
+    //ExFor:ComparisonExpression
+    //ExFor:ComparisonExpression.LeftExpression
+    //ExFor:ComparisonExpression.ComparisonOperator
+    //ExFor:ComparisonExpression.RightExpression
+    //ExFor:FieldOptions.ComparisonExpressionEvaluator
+    //ExFor:IComparisonExpressionEvaluator
+    //ExFor:IComparisonExpressionEvaluator.Evaluate(Field,ComparisonExpression)
+    //ExSummary:Shows how to implement custom evaluation for the IF and COMPARE fields.
     void ConditionEvaluationExtensionPoint(System::String fieldCode, int8_t comparisonResult, System::String comparisonError, System::String expectedResult);
+    //ExEnd
     void ComparisonExpressionEvaluatorNestedFields();
     void ComparisonExpressionEvaluatorHeaderFooterFields();
+    //ExStart
+    //ExFor:FieldOptions.FieldUpdatingCallback
+    //ExFor:FieldOptions.FieldUpdatingProgressCallback
+    //ExFor:IFieldUpdatingCallback
+    //ExFor:IFieldUpdatingProgressCallback
+    //ExFor:IFieldUpdatingProgressCallback.Notify(FieldUpdatingProgressArgs)
+    //ExFor:FieldUpdatingProgressArgs
+    //ExFor:FieldUpdatingProgressArgs.UpdateCompleted
+    //ExFor:FieldUpdatingProgressArgs.TotalFieldsCount
+    //ExFor:FieldUpdatingProgressArgs.UpdatedFieldsCount
+    //ExFor:IFieldUpdatingCallback.FieldUpdating(Field)
+    //ExFor:IFieldUpdatingCallback.FieldUpdated(Field)
+    //ExSummary:Shows how to use callback methods during a field update.
     void FieldUpdatingCallbackTest();
+    //ExEnd
     void BibliographySources();
     void BibliographyPersons();
     void CaptionlessTableOfFiguresLabel();
@@ -483,21 +662,29 @@ public:
 protected:
 
     static void RemoveSequence(System::SharedPtr<Aspose::Words::Node> start, System::SharedPtr<Aspose::Words::Node> end);
+    //ExEnd
     void TestFieldCollection(System::String fieldVisitorText);
     /// <summary>
     /// Uses a document builder to insert a clause numbered by an AUTONUMLGL field.
     /// </summary>
     static void InsertNumberedClause(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String heading, System::String contents, Aspose::Words::StyleIdentifier headingStyle);
+    //ExEnd
     void TestFieldAutoNumLgl(System::SharedPtr<Aspose::Words::Document> doc);
     /// <summary>
     /// Create an AutoText-type building block and add it to a glossary document.
     /// </summary>
     static void AppendAutoTextEntry(System::SharedPtr<Aspose::Words::BuildingBlocks::GlossaryDocument> glossaryDoc, System::String name, System::String contents);
+    //ExEnd
     void TestFieldAutoTextList(System::SharedPtr<Aspose::Words::Document> doc);
+    //ExEnd
     void TestFieldToc(System::SharedPtr<Aspose::Words::Document> doc);
+    //ExEnd
     void TestFieldTocEntryIdentifier(System::SharedPtr<Aspose::Words::Document> doc);
+    //ExEnd
     void TestFieldIncludeText(System::SharedPtr<Aspose::Words::Document> doc);
+    //ExEnd
     void TestMergeFieldImageDimension(System::SharedPtr<Aspose::Words::Document> doc);
+    //ExEnd
     void TestMergeFieldImages(System::SharedPtr<Aspose::Words::Document> doc);
     /// <summary>
     /// Use a document builder to insert a LINK field and set its properties according to parameters.
@@ -511,7 +698,9 @@ protected:
     /// Use a document builder to insert a DDEAUTO, field and set its properties according to parameters.
     /// </summary>
     static void InsertFieldDdeAuto(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, Aspose::Words::ApiExamples::ExField::InsertLinkedObjectAs insertLinkedObjectAs, System::String progId, System::String sourceFullName, System::String sourceItem, bool isLinked);
+    //ExEnd
     void TestFieldFillIn(System::SharedPtr<Aspose::Words::Document> doc);
+    //ExEnd
     void TestFieldNext(System::SharedPtr<Aspose::Words::Document> doc);
     /// <summary>
     /// Uses a document builder to insert a NOTEREF field with specified properties.
@@ -521,6 +710,7 @@ protected:
     /// Uses a document builder to insert a named bookmark with a footnote at the end.
     /// </summary>
     static void InsertBookmarkWithFootnote(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String bookmarkName, System::String bookmarkText, System::String footnoteText);
+    //ExEnd
     void TestNoteRef(System::SharedPtr<Aspose::Words::Document> doc);
     /// <summary>
     /// Uses a document builder to insert a PAGEREF field and sets its properties.
@@ -530,23 +720,28 @@ protected:
     /// Uses a document builder to insert a named bookmark.
     /// </summary>
     static void InsertAndNameBookmark(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String bookmarkName);
+    //ExEnd
     void TestPageRef(System::SharedPtr<Aspose::Words::Document> doc);
     /// <summary>
     /// Get the document builder to insert a REF field, reference a bookmark with it, and add text before and after it.
     /// </summary>
     static System::SharedPtr<Aspose::Words::Fields::FieldRef> InsertFieldRef(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String bookmarkName, System::String textBefore, System::String textAfter);
+    //ExEnd
     void TestFieldRef(System::SharedPtr<Aspose::Words::Document> doc);
     static System::SharedPtr<Aspose::Words::Fields::FieldTA> InsertToaEntry(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String entryCategory, System::String longCitation);
+    //ExEnd
     void TestFieldTOA(System::SharedPtr<Aspose::Words::Document> doc);
     /// <summary>
     /// Use a document builder to insert an EQ field, set its arguments and start a new paragraph.
     /// </summary>
     static System::SharedPtr<Aspose::Words::Fields::FieldEQ> InsertFieldEQ(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String args);
+    //ExEnd
     void TestFieldEQ(System::SharedPtr<Aspose::Words::Document> doc);
     /// <summary>
     /// Use a document builder to insert a TIME field, insert a new paragraph and return the field.
     /// </summary>
     static System::SharedPtr<Aspose::Words::Fields::FieldTime> InsertFieldTime(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String format);
+    //ExEnd
     void TestFieldTime(System::SharedPtr<Aspose::Words::Document> doc);
     
 };

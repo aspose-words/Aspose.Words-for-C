@@ -1,22 +1,13 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExMailMergeEvent.h"
+﻿#include "ExMailMergeEvent.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
-#include <system/primitive_types.h>
 #include <system/object_ext.h>
-#include <system/io/stream.h>
 #include <system/io/memory_stream.h>
 #include <system/char.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
-#include <cstdint>
 #include <Aspose.Words.Cpp/Model/Tables/CellFormat.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
@@ -53,7 +44,7 @@ void ExMailMergeEvent::HandleMergeFieldInsertHtml::FieldMerging(System::SharedPt
         builder->InsertHtml(System::ExplicitCast<System::String>(args->get_FieldValue()));
         
         // Since we have already inserted the merged content manually,
-        // we will not need to respond to this event by returning content via the "Text" property. 
+        // we will not need to respond to this event by returning content via the "Text" property.
         args->set_Text(System::String::Empty);
     }
 }
@@ -164,9 +155,8 @@ RTTI_INFO_IMPL_HASH(529416553u, ::Aspose::Words::ApiExamples::ExMailMergeEvent, 
 
 bool ExMailMergeEvent::IsOdd(int32_t value)
 {
-    return System::Equals((value / 2 * 2), value);
+    return System::ObjectExt::Equals((value / 2 * 2), value);
 }
-
 
 namespace gtest_test
 {
@@ -241,7 +231,7 @@ void ExMailMergeEvent::FieldFormats()
     
     builder->get_Document()->get_MailMerge()->Execute(System::MakeArray<System::String>({u"text_Field1", u"text_Field2", u"numeric_Field1"}), System::MakeArray<System::SharedPtr<System::Object>>({System::ExplicitCast<System::Object>(u"Field 1"), System::ExplicitCast<System::Object>(u"Field 2"), System::ExplicitCast<System::Object>(10)}));
     System::String t = doc->GetText().Trim();
-    ASSERT_EQ(u"Merge Value For \"Text_Field1\": Field 1, MERGE VALUE FOR \"TEXT_FIELD2\": FIELD 2, 10000.0", doc->GetText().Trim());
+    ASSERT_EQ((u"Merge Value For \"Text_Field1\": Field 1, MERGE VALUE FOR \"TEXT_FIELD2\": FIELD 2, 10000.0"), doc->GetText().Trim());
 }
 
 namespace gtest_test
@@ -268,7 +258,7 @@ void ExMailMergeEvent::ImageFromUrl()
     builder->InsertField(u"MERGEFIELD  Image:logo_FromWeb ");
     builder->InsertField(u"MERGEFIELD  Image:logo_FromFileSystem ");
     
-    // Create a data source that contains URIs of images that we will merge. 
+    // Create a data source that contains URIs of images that we will merge.
     // A URI can be a web URL that points to an image, or a local file system filename of an image file.
     System::ArrayPtr<System::String> columns = System::MakeArray<System::String>({u"logo_FromWeb", u"logo_FromFileSystem"});
     System::ArrayPtr<System::SharedPtr<System::Object>> URIs = System::MakeArray<System::SharedPtr<System::Object>>({System::ExplicitCast<System::Object>(get_ImageUrl()), System::ExplicitCast<System::Object>(get_ImageDir() + u"Logo.jpg")});
@@ -279,15 +269,15 @@ void ExMailMergeEvent::ImageFromUrl()
     doc->Save(get_ArtifactsDir() + u"MailMergeEvent.ImageFromUrl.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"MailMergeEvent.ImageFromUrl.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"MailMergeEvent.ImageFromUrl.docx"));
     
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 1, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 300, Aspose::Words::Drawing::ImageType::Png, imageShape);
+    TestUtil::VerifyImageInShape(400, 300, Aspose::Words::Drawing::ImageType::Png, imageShape);
 }
 
 namespace gtest_test

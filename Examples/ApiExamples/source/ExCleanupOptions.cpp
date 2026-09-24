@@ -1,15 +1,9 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExCleanupOptions.h"
+﻿#include "ExCleanupOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/string.h>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
@@ -75,7 +69,7 @@ void ExCleanupOptions::RemoveUnusedResources()
     //ExFor:CleanupOptions.UnusedLists
     //ExFor:CleanupOptions.UnusedStyles
     //ExFor:CleanupOptions.UnusedBuiltinStyles
-    //ExSummary:Shows how to remove all unused custom styles from a document. 
+    //ExSummary:Shows how to remove all unused custom styles from a document.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     doc->get_Styles()->Add(Aspose::Words::StyleType::List, u"MyListStyle1");
@@ -109,7 +103,7 @@ void ExCleanupOptions::RemoveUnusedResources()
     
     ASSERT_EQ(4, doc->get_Styles()->get_Count());
     
-    // Removing every node that a custom style is applied to marks it as "unused" again. 
+    // Removing every node that a custom style is applied to marks it as "unused" again.
     // Rerun the Cleanup method to remove them.
     doc->get_FirstSection()->get_Body()->RemoveAllChildren();
     doc->Cleanup(cleanupOptions);

@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
@@ -585,28 +582,133 @@ public:
     
 public:
 
+    //ExStart
+    //ExFor:Document.Accept(DocumentVisitor)
+    //ExFor:Section.Accept(DocumentVisitor)
+    //ExFor:SubDocument.Accept(DocumentVisitor)
+    //ExFor:CompositeNode.AcceptEnd(DocumentVisitor)
+    //ExFor:CompositeNode.AcceptStart(DocumentVisitor)
+    //ExFor:Document.AcceptEnd(DocumentVisitor)
+    //ExFor:Document.AcceptStart(DocumentVisitor)
+    //ExFor:DocumentVisitor
+    //ExFor:DocumentVisitor.VisitRun(Run)
+    //ExFor:DocumentVisitor.VisitDocumentEnd(Document)
+    //ExFor:DocumentVisitor.VisitDocumentStart(Document)
+    //ExFor:DocumentVisitor.VisitSectionEnd(Section)
+    //ExFor:DocumentVisitor.VisitSectionStart(Section)
+    //ExFor:DocumentVisitor.VisitBodyStart(Body)
+    //ExFor:DocumentVisitor.VisitBodyEnd(Body)
+    //ExFor:DocumentVisitor.VisitParagraphStart(Paragraph)
+    //ExFor:DocumentVisitor.VisitParagraphEnd(Paragraph)
+    //ExFor:DocumentVisitor.VisitSubDocument(SubDocument)
+    //ExFor:DocumentVisitor.VisitStructuredDocumentTagRangeEnd(StructuredDocumentTagRangeEnd)
+    //ExFor:DocumentVisitor.VisitStructuredDocumentTagRangeStart(StructuredDocumentTagRangeStart)
+    //ExSummary:Shows how to use a document visitor to print a document's node structure.
     void DocStructureToText();
+    //ExStart
+    //ExFor:Cell.Accept(DocumentVisitor)
+    //ExFor:Cell.AcceptStart(DocumentVisitor)
+    //ExFor:Cell.AcceptEnd(DocumentVisitor)
+    //ExFor:Cell.IsFirstCell
+    //ExFor:Cell.IsLastCell
+    //ExFor:DocumentVisitor.VisitTableEnd(Table)
+    //ExFor:DocumentVisitor.VisitTableStart(Table)
+    //ExFor:DocumentVisitor.VisitRowEnd(Row)
+    //ExFor:DocumentVisitor.VisitRowStart(Row)
+    //ExFor:DocumentVisitor.VisitCellStart(Cell)
+    //ExFor:DocumentVisitor.VisitCellEnd(Cell)
+    //ExFor:Row.Accept(DocumentVisitor)
+    //ExFor:Row.AcceptStart(DocumentVisitor)
+    //ExFor:Row.AcceptEnd(DocumentVisitor)
+    //ExFor:Row.FirstCell
+    //ExFor:Row.GetText
+    //ExFor:Row.IsFirstRow
+    //ExFor:Row.LastCell
+    //ExFor:Row.ParentTable
+    //ExSummary:Shows how to print the node structure of every table in a document.
     void TableToText();
+    //ExStart
+    //ExFor:DocumentVisitor.VisitCommentStart(Comment)
+    //ExFor:DocumentVisitor.VisitCommentEnd(Comment)
+    //ExFor:DocumentVisitor.VisitCommentRangeEnd(CommentRangeEnd)
+    //ExFor:DocumentVisitor.VisitCommentRangeStart(CommentRangeStart)
+    //ExSummary:Shows how to print the node structure of every comment and comment range in a document.
     void CommentsToText();
+    //ExStart
+    //ExFor:DocumentVisitor.VisitFieldStart
+    //ExFor:DocumentVisitor.VisitFieldEnd
+    //ExFor:DocumentVisitor.VisitFieldSeparator
+    //ExSummary:Shows how to print the node structure of every field in a document.
     void FieldToText();
+    //ExStart
+    //ExFor:DocumentVisitor.VisitHeaderFooterStart(HeaderFooter)
+    //ExFor:DocumentVisitor.VisitHeaderFooterEnd(HeaderFooter)
+    //ExFor:HeaderFooter.Accept(DocumentVisitor)
+    //ExFor:HeaderFooter.AcceptStart(DocumentVisitor)
+    //ExFor:HeaderFooter.AcceptEnd(DocumentVisitor)
+    //ExFor:HeaderFooterCollection.ToArray
+    //ExFor:Run.Accept(DocumentVisitor)
+    //ExFor:Run.GetText
+    //ExSummary:Shows how to print the node structure of every header and footer in a document.
     void HeaderFooterToText();
+    //ExStart
+    //ExFor:DocumentVisitor.VisitEditableRangeEnd(EditableRangeEnd)
+    //ExFor:DocumentVisitor.VisitEditableRangeStart(EditableRangeStart)
+    //ExSummary:Shows how to print the node structure of every editable range in a document.
     void EditableRangeToText();
+    //ExStart
+    //ExFor:DocumentVisitor.VisitFootnoteEnd(Footnote)
+    //ExFor:DocumentVisitor.VisitFootnoteStart(Footnote)
+    //ExFor:Footnote.Accept(DocumentVisitor)
+    //ExFor:Footnote.AcceptStart(DocumentVisitor)
+    //ExFor:Footnote.AcceptEnd(DocumentVisitor)
+    //ExSummary:Shows how to print the node structure of every footnote in a document.
     void FootnoteToText();
+    //ExStart
+    //ExFor:DocumentVisitor.VisitOfficeMathEnd(OfficeMath)
+    //ExFor:DocumentVisitor.VisitOfficeMathStart(OfficeMath)
+    //ExFor:MathObjectType
+    //ExFor:OfficeMath.Accept(DocumentVisitor)
+    //ExFor:OfficeMath.AcceptStart(DocumentVisitor)
+    //ExFor:OfficeMath.AcceptEnd(DocumentVisitor)
+    //ExFor:OfficeMath.MathObjectType
+    //ExSummary:Shows how to print the node structure of every office math node in a document.
     void OfficeMathToText();
+    //ExStart
+    //ExFor:DocumentVisitor.VisitSmartTagEnd(SmartTag)
+    //ExFor:DocumentVisitor.VisitSmartTagStart(SmartTag)
+    //ExSummary:Shows how to print the node structure of every smart tag in a document.
     void SmartTagToText();
+    //ExStart
+    //ExFor:StructuredDocumentTag.Accept(DocumentVisitor)
+    //ExFor:StructuredDocumentTag.AcceptStart(DocumentVisitor)
+    //ExFor:StructuredDocumentTag.AcceptEnd(DocumentVisitor)
+    //ExFor:DocumentVisitor.VisitStructuredDocumentTagEnd(StructuredDocumentTag)
+    //ExFor:DocumentVisitor.VisitStructuredDocumentTagStart(StructuredDocumentTag)
+    //ExSummary:Shows how to print the node structure of every structured document tag in a document.
     void StructuredDocumentTagToText();
     
 protected:
 
+    //ExEnd
     static void TestDocStructureToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::DocStructurePrinter> visitor);
+    //ExEnd
     static void TestTableToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::TableStructurePrinter> visitor);
+    //ExEnd
     static void TestCommentsToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::CommentStructurePrinter> visitor);
+    //ExEnd
     static void TestFieldToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::FieldStructurePrinter> visitor);
+    //ExEnd
     static void TestHeaderFooterToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::HeaderFooterStructurePrinter> visitor);
+    //ExEnd
     static void TestEditableRangeToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::EditableRangeStructurePrinter> visitor);
+    //ExEnd
     static void TestFootnoteToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::FootnoteStructurePrinter> visitor);
+    //ExEnd
     static void TestOfficeMathToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::OfficeMathStructurePrinter> visitor);
+    //ExEnd
     static void TestSmartTagToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::SmartTagStructurePrinter> visitor);
+    //ExEnd
     static void TestStructuredDocumentTagToText(System::SharedPtr<Aspose::Words::ApiExamples::ExDocumentVisitor::StructuredDocumentTagNodePrinter> visitor);
     
 };

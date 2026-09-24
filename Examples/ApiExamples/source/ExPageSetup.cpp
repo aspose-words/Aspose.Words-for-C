@@ -1,16 +1,10 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExPageSetup.h"
+﻿#include "ExPageSetup.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/enumerator_adapter.h>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/TextOrientation.h>
@@ -40,7 +34,6 @@
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Numbering/NumberStyle.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Nodes/CompositeNode.h>
 #include <Aspose.Words.Cpp/Model/Footnotes/FootnoteType.h>
 #include <Aspose.Words.Cpp/Model/Footnotes/FootnotePosition.h>
@@ -99,7 +92,6 @@ void ExPageSetup::TestSuppressEndnotes(System::SharedPtr<Aspose::Words::Document
     
     ASSERT_TRUE(pageSetup->get_SuppressEndnotes());
 }
-
 
 namespace gtest_test
 {
@@ -173,7 +165,7 @@ void ExPageSetup::ClearFormatting()
     doc->Save(get_ArtifactsDir() + u"PageSetup.ClearFormatting.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.ClearFormatting.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.ClearFormatting.docx"));
     
     ASSERT_EQ(Aspose::Words::Orientation::Landscape, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_Orientation());
     ASSERT_EQ(Aspose::Words::PageVerticalAlignment::Center, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_VerticalAlignment());
@@ -209,7 +201,7 @@ void ExPageSetup::DifferentFirstPageHeaderFooter(bool differentFirstPageHeaderFo
     builder->Writeln(u"First page footer.");
     
     // 2 -  The "Primary" header/footer, which appears on every page in the section.
-    // We can override the primary header/footer by a first and an even page header/footer. 
+    // We can override the primary header/footer by a first and an even page header/footer.
     builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::HeaderPrimary);
     builder->Writeln(u"Primary header.");
     
@@ -233,7 +225,7 @@ void ExPageSetup::DifferentFirstPageHeaderFooter(bool differentFirstPageHeaderFo
     doc->Save(get_ArtifactsDir() + u"PageSetup.DifferentFirstPageHeaderFooter.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.DifferentFirstPageHeaderFooter.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.DifferentFirstPageHeaderFooter.docx"));
     
     ASPOSE_ASSERT_EQ(differentFirstPageHeaderFooter, doc->get_FirstSection()->get_PageSetup()->get_DifferentFirstPageHeaderFooter());
 }
@@ -275,7 +267,7 @@ void ExPageSetup::OddAndEvenPagesHeaderFooter(bool oddAndEvenPagesHeaderFooter)
     
     // Below are two types of header/footers.
     // 1 -  The "Primary" header/footer, which appears on every page in the section.
-    // We can override the primary header/footer by a first and an even page header/footer. 
+    // We can override the primary header/footer by a first and an even page header/footer.
     builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::HeaderPrimary);
     builder->Writeln(u"Primary header.");
     
@@ -307,7 +299,7 @@ void ExPageSetup::OddAndEvenPagesHeaderFooter(bool oddAndEvenPagesHeaderFooter)
     doc->Save(get_ArtifactsDir() + u"PageSetup.OddAndEvenPagesHeaderFooter.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.OddAndEvenPagesHeaderFooter.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.OddAndEvenPagesHeaderFooter.docx"));
     
     ASPOSE_ASSERT_EQ(oddAndEvenPagesHeaderFooter, doc->get_FirstSection()->get_PageSetup()->get_OddAndEvenPagesHeaderFooter());
 }
@@ -363,7 +355,7 @@ void ExPageSetup::CharactersPerLine()
     doc->Save(get_ArtifactsDir() + u"PageSetup.CharactersPerLine.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.CharactersPerLine.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.CharactersPerLine.docx"));
     
     ASSERT_EQ(Aspose::Words::SectionLayoutMode::Grid, doc->get_FirstSection()->get_PageSetup()->get_LayoutMode());
     ASSERT_EQ(8, doc->get_FirstSection()->get_PageSetup()->get_CharactersPerLine());
@@ -405,7 +397,7 @@ void ExPageSetup::LinesPerPage()
     doc->Save(get_ArtifactsDir() + u"PageSetup.LinesPerPage.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.LinesPerPage.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.LinesPerPage.docx"));
     
     ASSERT_EQ(Aspose::Words::SectionLayoutMode::LineGrid, doc->get_FirstSection()->get_PageSetup()->get_LayoutMode());
     ASSERT_EQ(15, doc->get_FirstSection()->get_PageSetup()->get_LinesPerPage());
@@ -475,7 +467,7 @@ void ExPageSetup::SetSectionStart()
     doc->Save(get_ArtifactsDir() + u"PageSetup.SetSectionStart.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.SetSectionStart.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.SetSectionStart.docx"));
     
     ASSERT_EQ(Aspose::Words::SectionStart::NewPage, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_SectionStart());
     ASSERT_EQ(Aspose::Words::SectionStart::NewPage, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_SectionStart());
@@ -515,19 +507,19 @@ void ExPageSetup::PageMargins()
     
     builder->get_PageSetup()->set_PaperSize(Aspose::Words::PaperSize::Legal);
     builder->get_PageSetup()->set_Orientation(Aspose::Words::Orientation::Landscape);
-    builder->get_PageSetup()->set_TopMargin(Aspose::Words::ConvertUtil::InchToPoint(1.0));
-    builder->get_PageSetup()->set_BottomMargin(Aspose::Words::ConvertUtil::InchToPoint(1.0));
-    builder->get_PageSetup()->set_LeftMargin(Aspose::Words::ConvertUtil::InchToPoint(1.5));
-    builder->get_PageSetup()->set_RightMargin(Aspose::Words::ConvertUtil::InchToPoint(1.5));
-    builder->get_PageSetup()->set_HeaderDistance(Aspose::Words::ConvertUtil::InchToPoint(0.2));
-    builder->get_PageSetup()->set_FooterDistance(Aspose::Words::ConvertUtil::InchToPoint(0.2));
+    builder->get_PageSetup()->set_TopMargin(ConvertUtil::InchToPoint(1.0));
+    builder->get_PageSetup()->set_BottomMargin(ConvertUtil::InchToPoint(1.0));
+    builder->get_PageSetup()->set_LeftMargin(ConvertUtil::InchToPoint(1.5));
+    builder->get_PageSetup()->set_RightMargin(ConvertUtil::InchToPoint(1.5));
+    builder->get_PageSetup()->set_HeaderDistance(ConvertUtil::InchToPoint(0.2));
+    builder->get_PageSetup()->set_FooterDistance(ConvertUtil::InchToPoint(0.2));
     
     builder->Writeln(u"Hello world!");
     
     doc->Save(get_ArtifactsDir() + u"PageSetup.PageMargins.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.PageMargins.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.PageMargins.docx"));
     
     ASSERT_EQ(Aspose::Words::PaperSize::Legal, doc->get_FirstSection()->get_PageSetup()->get_PaperSize());
     ASPOSE_ASSERT_EQ(1008.0, doc->get_FirstSection()->get_PageSetup()->get_PageWidth());
@@ -594,7 +586,7 @@ void ExPageSetup::PaperSizes()
     doc->Save(get_ArtifactsDir() + u"PageSetup.PaperSizes.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.PaperSizes.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.PaperSizes.docx"));
     
     ASSERT_EQ(Aspose::Words::PaperSize::Tabloid, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_PaperSize());
     ASPOSE_ASSERT_EQ(792.0, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_PageWidth());
@@ -641,7 +633,7 @@ void ExPageSetup::ColumnsSameWidth()
     doc->Save(get_ArtifactsDir() + u"PageSetup.ColumnsSameWidth.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.ColumnsSameWidth.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.ColumnsSameWidth.docx"));
     
     ASPOSE_ASSERT_EQ(100.0, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Spacing());
     ASSERT_EQ(2, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Count());
@@ -696,7 +688,7 @@ void ExPageSetup::CustomColumnWidth()
     doc->Save(get_ArtifactsDir() + u"PageSetup.CustomColumnWidth.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.CustomColumnWidth.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.CustomColumnWidth.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_FALSE(pageSetup->get_TextColumns()->get_EvenlySpaced());
@@ -741,7 +733,7 @@ void ExPageSetup::VerticalLineBetweenColumns(bool lineBetween)
     doc->Save(get_ArtifactsDir() + u"PageSetup.VerticalLineBetweenColumns.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.VerticalLineBetweenColumns.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.VerticalLineBetweenColumns.docx"));
     
     ASPOSE_ASSERT_EQ(lineBetween, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_LineBetween());
 }
@@ -811,7 +803,7 @@ void ExPageSetup::LineNumbers()
     doc->Save(get_ArtifactsDir() + u"PageSetup.LineNumbers.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.LineNumbers.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.LineNumbers.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_EQ(1, pageSetup->get_LineStartingNumber());
@@ -857,7 +849,7 @@ void ExPageSetup::PageBorderProperties()
     doc->Save(get_ArtifactsDir() + u"PageSetup.PageBorderProperties.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.PageBorderProperties.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.PageBorderProperties.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_FALSE(pageSetup->get_BorderAlwaysInFront());
@@ -905,7 +897,7 @@ void ExPageSetup::PageBorders()
     doc->Save(get_ArtifactsDir() + u"PageSetup.PageBorders.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.PageBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.PageBorders.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     for (auto&& border : System::IterateOver(pageSetup->get_Borders()))
@@ -985,7 +977,7 @@ void ExPageSetup::PageNumbering()
     doc->Save(get_ArtifactsDir() + u"PageSetup.PageNumbering.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.PageNumbering.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.PageNumbering.docx"));
     pageSetup = doc->get_Sections()->idx_get(0)->get_PageSetup();
     
     ASSERT_TRUE(pageSetup->get_RestartPageNumbering());
@@ -1041,7 +1033,7 @@ void ExPageSetup::FootnoteOptions()
     doc->Save(get_ArtifactsDir() + u"PageSetup.FootnoteOptions.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.FootnoteOptions.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.FootnoteOptions.docx"));
     footnoteOptions = doc->get_FirstSection()->get_PageSetup()->get_FootnoteOptions();
     
     ASSERT_EQ(Aspose::Words::Notes::FootnotePosition::BeneathText, footnoteOptions->get_Position());
@@ -1091,7 +1083,7 @@ void ExPageSetup::Bidi(bool reverseColumns)
     doc->Save(get_ArtifactsDir() + u"PageSetup.Bidi.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.Bidi.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.Bidi.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_EQ(3, pageSetup->get_TextColumns()->get_Count());
@@ -1156,7 +1148,7 @@ void ExPageSetup::PageBorder()
     doc->Save(get_ArtifactsDir() + u"PageSetup.PageBorder.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.PageBorder.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.PageBorder.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_TRUE(pageSetup->get_BorderSurroundsHeader());
@@ -1194,7 +1186,7 @@ void ExPageSetup::Gutter()
     // which makes up for the center folding of pages in a book encroaching on the page's layout.
     System::SharedPtr<Aspose::Words::PageSetup> pageSetup = doc->get_Sections()->idx_get(0)->get_PageSetup();
     
-    // Determine how much space our pages have for text within the margins and then add an amount to pad a margin. 
+    // Determine how much space our pages have for text within the margins and then add an amount to pad a margin.
     ASSERT_NEAR(470.30, pageSetup->get_PageWidth() - pageSetup->get_LeftMargin() - pageSetup->get_RightMargin(), 0.01);
     
     pageSetup->set_Gutter(100.0);
@@ -1209,7 +1201,7 @@ void ExPageSetup::Gutter()
     doc->Save(get_ArtifactsDir() + u"PageSetup.Gutter.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.Gutter.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.Gutter.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASPOSE_ASSERT_EQ(100.0, pageSetup->get_Gutter());
@@ -1259,7 +1251,7 @@ void ExPageSetup::Booklet()
     doc->Save(get_ArtifactsDir() + u"PageSetup.Booklet.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.Booklet.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.Booklet.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_EQ(Aspose::Words::Settings::MultiplePagesType::BookFoldPrinting, pageSetup->get_MultiplePages());
@@ -1294,7 +1286,7 @@ void ExPageSetup::SetTextOrientation()
     doc->Save(get_ArtifactsDir() + u"PageSetup.SetTextOrientation.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.SetTextOrientation.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.SetTextOrientation.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_EQ(Aspose::Words::TextOrientation::Upward, pageSetup->get_TextOrientation());
@@ -1315,11 +1307,11 @@ void ExPageSetup::SuppressEndnotes()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     doc->RemoveAllChildren();
     
-    // By default, a document compiles all endnotes at its end. 
+    // By default, a document compiles all endnotes at its end.
     ASSERT_EQ(Aspose::Words::Notes::EndnotePosition::EndOfDocument, doc->get_EndnoteOptions()->get_Position());
     
     // We use the "Position" property of the document's "EndnoteOptions" object
-    // to collect endnotes at the end of each section instead. 
+    // to collect endnotes at the end of each section instead.
     doc->get_EndnoteOptions()->set_Position(Aspose::Words::Notes::EndnotePosition::EndOfSection);
     
     InsertSectionWithEndnote(doc, u"Section 1", u"Endnote 1, will stay in section 1");
@@ -1333,7 +1325,7 @@ void ExPageSetup::SuppressEndnotes()
     pageSetup->set_SuppressEndnotes(true);
     
     doc->Save(get_ArtifactsDir() + u"PageSetup.SuppressEndnotes.docx");
-    TestSuppressEndnotes(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"PageSetup.SuppressEndnotes.docx"));
+    TestSuppressEndnotes(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.SuppressEndnotes.docx")));
     //ExSkip
 }
 
@@ -1354,7 +1346,7 @@ void ExPageSetup::ChapterPageSeparator()
     //ExFor:ChapterPageSeparator
     //ExFor:PageSetup.ChapterPageSeparator
     //ExSummary:Shows how to work with page chapters.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
     System::SharedPtr<Aspose::Words::PageSetup> pageSetup = doc->get_FirstSection()->get_PageSetup();
     
@@ -1380,7 +1372,7 @@ void ExPageSetup::JisbPaperSize()
     //GistId:12a3a3cfe30f3145220db88428a9f814
     //ExFor:PageSetup.PaperSize
     //ExSummary:Shows how to set the paper size of JisB4 or JisB5.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
     System::SharedPtr<Aspose::Words::PageSetup> pageSetup = doc->get_FirstSection()->get_PageSetup();
     // Set the paper size to JisB4 (257x364mm).
@@ -1389,7 +1381,7 @@ void ExPageSetup::JisbPaperSize()
     pageSetup->set_PaperSize(Aspose::Words::PaperSize::JisB5);
     //ExEnd:JisbPaperSize
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_EQ(Aspose::Words::PaperSize::JisB5, pageSetup->get_PaperSize());

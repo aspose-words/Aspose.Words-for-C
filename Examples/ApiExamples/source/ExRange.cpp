@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExRange.h"
+﻿#include "ExRange.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/regularexpressions/regex.h>
@@ -16,12 +11,12 @@
 #include <system/func.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
+#include <system/details/object_builder.h>
 #include <system/date_time.h>
 #include <system/convert.h>
+#include <system/console.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/color.h>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
@@ -51,7 +46,6 @@
 #include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
 #include <Aspose.Words.Cpp/Model/Document/BreakType.h>
 
 
@@ -136,7 +130,7 @@ RTTI_INFO_IMPL_HASH(3299162058u, ::Aspose::Words::ApiExamples::ExRange::InsertDo
 
 Aspose::Words::Replacing::ReplaceAction ExRange::InsertDocumentAtReplaceHandler::Replacing(System::SharedPtr<Aspose::Words::Replacing::ReplacingArgs> args)
 {
-    auto subDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto subDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     // Insert a document after the paragraph containing the matched text.
     auto para = System::ExplicitCast<Aspose::Words::Paragraph>(args->get_MatchNode()->get_ParentNode());
@@ -207,7 +201,7 @@ void ExRange::InsertDocument(System::SharedPtr<Aspose::Words::Node> insertionDes
         
         auto importer = System::MakeObject<Aspose::Words::NodeImporter>(docToInsert, insertionDestination->get_Document(), Aspose::Words::ImportFormatMode::KeepSourceFormatting);
         
-        for (auto&& srcSection : System::IterateOver(docToInsert->get_Sections()->LINQ_OfType<System::SharedPtr<Aspose::Words::Section> >()))
+        for (auto&& srcSection : System::IterateOver(docToInsert->get_Sections()->LINQ_OfType<System::SharedPtr<Aspose::Words::Section>>()))
         {
             for (auto&& srcNode : System::IterateOver(srcSection->get_Body()))
             {
@@ -238,7 +232,6 @@ void ExRange::TestInsertDocumentAtReplace(System::SharedPtr<Aspose::Words::Docum
 {
     ASSERT_EQ(System::String(u"1) At text that can be identified by regex:\rHello World!\r") + u"2) At a MERGEFIELD:\r\u0013 MERGEFIELD  Document_1  \\* MERGEFORMAT \u0014«Document_1»\u0015\r" + u"3) At a bookmark:", doc->get_FirstSection()->get_Body()->GetText().Trim());
 }
-
 
 namespace gtest_test
 {
@@ -286,7 +279,7 @@ void ExRange::Replace()
     int32_t replacementCount = doc->get_Range()->Replace(u"_FullName_", u"John Doe");
     
     ASSERT_EQ(1, replacementCount);
-    ASSERT_EQ(u"Greetings, John Doe!", doc->GetText().Trim());
+    ASSERT_EQ((u"Greetings, John Doe!"), doc->GetText().Trim());
     //ExEnd
 }
 
@@ -358,7 +351,7 @@ void ExRange::ReplaceFindWholeWordsOnly(bool findWholeWordsOnly)
     //ExFor:Range.Replace(String, String, FindReplaceOptions)
     //ExFor:FindReplaceOptions
     //ExFor:FindReplaceOptions.FindWholeWordsOnly
-    //ExSummary:Shows how to toggle standalone word-only find-and-replace operations. 
+    //ExSummary:Shows how to toggle standalone word-only find-and-replace operations.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
@@ -592,7 +585,7 @@ void ExRange::IgnoreFieldCodes(bool ignoreFieldCodes)
     
     // Replace 'T' in document ignoring text inside field code or not.
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"T"), u"*", options);
-    std::cout << doc->GetText() << std::endl;
+    System::Console::WriteLine(doc->GetText());
     
     ASSERT_EQ(ignoreFieldCodes ? System::String(u"\u0013INCLUDETEXT\u0014*est I*!\u0015") : System::String(u"\u0013INCLUDE*EX*\u0014*est I*!\u0015"), doc->GetText().Trim());
     //ExEnd
@@ -657,7 +650,7 @@ void ExRange::IgnoreFootnote(bool isIgnoreFootnotes)
         ASSERT_EQ(u"Replaced Lorem ipsum", para->get_Runs()->idx_get(0)->get_Text());
     }
     
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Notes::Footnote>>> footnotes = doc->GetChildNodes(Aspose::Words::NodeType::Footnote, true)->LINQ_Cast<System::SharedPtr<Aspose::Words::Notes::Footnote> >()->LINQ_ToList();
+    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Notes::Footnote>>> footnotes = doc->GetChildNodes(Aspose::Words::NodeType::Footnote, true)->LINQ_Cast<System::SharedPtr<Aspose::Words::Notes::Footnote>>()->LINQ_ToList();
     ASSERT_EQ(isIgnoreFootnotes ? System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.") : System::String(u"Replaced Lorem ipsum dolor sit amet, consectetur adipiscing elit."), footnotes->idx_get(0)->ToString(Aspose::Words::SaveFormat::Text).Trim());
     ASSERT_EQ(isIgnoreFootnotes ? System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.") : System::String(u"Replaced Lorem ipsum dolor sit amet, consectetur adipiscing elit."), footnotes->idx_get(1)->ToString(Aspose::Words::SaveFormat::Text).Trim());
 }
@@ -698,13 +691,13 @@ void ExRange::IgnoreShapes()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     builder->Write(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-    builder->InsertShape(Aspose::Words::Drawing::ShapeType::Balloon, 200, 200);
+    builder->InsertShape(Aspose::Words::Drawing::ShapeType::Balloon, static_cast<double>(200), static_cast<double>(200));
     builder->Write(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
     
     auto findReplaceOptions = System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>();
     findReplaceOptions->set_IgnoreShapes(true);
     builder->get_Document()->get_Range()->Replace(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.", u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.", findReplaceOptions);
-    ASSERT_EQ(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.", builder->get_Document()->GetText().Trim());
+    ASSERT_EQ((u"Lorem ipsum dolor sit amet, consectetur adipiscing elit."), builder->get_Document()->GetText().Trim());
     //ExEnd
 }
 
@@ -794,7 +787,7 @@ void ExRange::ReplaceWithRegex()
     
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"gr(a|e)y"), u"lavender");
     
-    ASSERT_EQ(u"I decided to get the curtains in lavender, ideal for the lavender-accented room.", doc->GetText().Trim());
+    ASSERT_EQ((u"I decided to get the curtains in lavender, ideal for the lavender-accented room."), doc->GetText().Trim());
     //ExEnd
 }
 
@@ -858,11 +851,11 @@ void ExRange::ConvertNumbersToHexadecimal()
     
     int32_t replacementCount = doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"[0-9]+"), u"", options);
     
-    std::cout << numberHexer->GetLog() << std::endl;
+    System::Console::WriteLine(numberHexer->GetLog());
     
     ASSERT_EQ(4, replacementCount);
-    ASSERT_EQ(System::String(u"Numbers that the find-and-replace operation will convert to hexadecimal and highlight:\r") + u"0x7B, 0x1C8, 0x315 and 0x43E3.", doc->GetText().Trim());
-    ASSERT_EQ(4, doc->GetChildNodes(Aspose::Words::NodeType::Run, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Run> >()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Run>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Run> r)>>([](System::SharedPtr<Aspose::Words::Run> r) -> bool
+    ASSERT_EQ((System::String(u"Numbers that the find-and-replace operation will convert to hexadecimal and highlight:\r") + u"0x7B, 0x1C8, 0x315 and 0x43E3."), doc->GetText().Trim());
+    ASSERT_EQ(4, doc->GetChildNodes(Aspose::Words::NodeType::Run, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Run>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Run>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Run> r)>>([](System::SharedPtr<Aspose::Words::Run> r) -> bool
     {
         return r->get_Font()->get_HighlightColor().ToArgb() == System::Drawing::Color::get_LightGray().ToArgb();
     }))));
@@ -993,7 +986,7 @@ void ExRange::UseLegacyOrder(bool useLegacyOrder)
     // Insert three runs which we can search for using a regex pattern.
     // Place one of those runs inside a text box.
     builder->Writeln(u"[tag 1]");
-    System::SharedPtr<Aspose::Words::Drawing::Shape> textBox = builder->InsertShape(Aspose::Words::Drawing::ShapeType::TextBox, 100, 50);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> textBox = builder->InsertShape(Aspose::Words::Drawing::ShapeType::TextBox, static_cast<double>(100), static_cast<double>(50));
     builder->Writeln(u"[tag 2]");
     builder->MoveTo(textBox->get_FirstParagraph());
     builder->Write(u"[tag 3]");
@@ -1017,14 +1010,15 @@ void ExRange::UseLegacyOrder(bool useLegacyOrder)
     System::SharedPtr<System::Collections::Generic::List<System::String>> expected;
     if (useLegacyOrder)
     {
-        expected = [&]{ System::String init_0[] = {u"[tag 1]", u"[tag 3]", u"[tag 2]"}; auto list_0 = System::MakeObject<System::Collections::Generic::List<System::String>>(); list_0->AddInitializer(3, init_0); return list_0; }();
+        expected = System::BuildObject<System::Collections::Generic::List<System::String>>()
+            .Add({u"[tag 1]", u"[tag 3]", u"[tag 2]"}).Get();
     }
     else
     {
-        expected = [&]{ System::String init_1[] = {u"[tag 1]", u"[tag 2]", u"[tag 3]"}; auto list_1 = System::MakeObject<System::Collections::Generic::List<System::String>>(); list_1->AddInitializer(3, init_1); return list_1; }();
+        expected = System::BuildObject<System::Collections::Generic::List<System::String>>()
+            .Add({u"[tag 1]", u"[tag 2]", u"[tag 3]"}).Get();
     }
     ASPOSE_ASSERT_EQ(expected, callback->get_Matches());
-    
 }
 
 namespace gtest_test
@@ -1109,7 +1103,7 @@ INSTANTIATE_TEST_SUITE_P(, ExRange_UseSubstitutions, ::testing::ValuesIn(ExRange
 
 void ExRange::InsertDocumentAtReplace()
 {
-    auto mainDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document insertion destination.docx");
+    auto mainDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document insertion destination.docx"));
     
     // We can use a "FindReplaceOptions" object to modify the find-and-replace process.
     auto options = System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>();
@@ -1118,7 +1112,7 @@ void ExRange::InsertDocumentAtReplace()
     mainDoc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"\\[MY_DOCUMENT\\]"), u"", options);
     mainDoc->Save(get_ArtifactsDir() + u"InsertDocument.InsertDocumentAtReplace.docx");
     
-    TestInsertDocumentAtReplace(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InsertDocument.InsertDocumentAtReplace.docx"));
+    TestInsertDocumentAtReplace(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InsertDocument.InsertDocumentAtReplace.docx")));
     //ExSkip
 }
 
@@ -1166,11 +1160,9 @@ void ExRange::Direction(Aspose::Words::Replacing::FindReplaceDirection findRepla
         case Aspose::Words::Replacing::FindReplaceDirection::Forward:
             ASPOSE_ASSERT_EQ(System::MakeArray<System::String>({u"Match 1", u"Match 2", u"Match 3", u"Match 4"}), callback->get_Matches());
             break;
-        
         case Aspose::Words::Replacing::FindReplaceDirection::Backward:
             ASPOSE_ASSERT_EQ(System::MakeArray<System::String>({u"Match 4", u"Match 3", u"Match 2", u"Match 1"}), callback->get_Matches());
             break;
-        
     }
 }
 
@@ -1235,7 +1227,7 @@ void ExRange::IgnoreOfficeMath(bool isIgnoreOfficeMath)
     //GistId:571cc6e23284a2ec075d15d4c32e3bbf
     //ExFor:FindReplaceOptions.IgnoreOfficeMath
     //ExSummary:Shows how to find and replace text within OfficeMath.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
     ASSERT_EQ(u"i+b-c≥iM+bM-cM", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim());
     

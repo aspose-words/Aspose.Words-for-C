@@ -1,5 +1,4 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
+﻿#pragma once
 
 #include <system/object.h>
 #include <system/nullable.h>

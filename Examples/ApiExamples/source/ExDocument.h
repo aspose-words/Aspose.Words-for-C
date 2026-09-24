@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeChangingArgs.h>
 #include <Aspose.Words.Cpp/Model/Nodes/INodeChangingCallback.h>
 #include <Aspose.Words.Cpp/Model/Markup/CustomPartCollection.h>
@@ -79,6 +76,17 @@ public:
     void ConvertToTxt();
     void ConvertToEpub();
     void SaveToStream();
+    //ExStart
+    //ExFor:Range.Fields
+    //ExFor:INodeChangingCallback
+    //ExFor:INodeChangingCallback.NodeInserting
+    //ExFor:INodeChangingCallback.NodeInserted
+    //ExFor:INodeChangingCallback.NodeRemoving
+    //ExFor:INodeChangingCallback.NodeRemoved
+    //ExFor:NodeChangingArgs
+    //ExFor:NodeChangingArgs.Node
+    //ExFor:DocumentBase.NodeChangingCallback
+    //ExSummary:Shows how customize node changing with a callback.
     void FontChangeViaCallback();
     void AppendDocument();
     void AppendDocumentFromAutomation();
@@ -160,6 +168,7 @@ public:
     
 protected:
 
+    //ExEnd
     static void TestFontChangeViaCallback(System::String log);
     static void TestDocPackageCustomParts(System::SharedPtr<Aspose::Words::Markup::CustomPartCollection> parts);
     

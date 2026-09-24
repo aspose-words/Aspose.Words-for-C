@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExHtmlLoadOptions.h"
+﻿#include "ExHtmlLoadOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -12,10 +7,8 @@
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
 #include <system/io/memory_stream.h>
-#include <system/enum_helpers.h>
 #include <system/date_time.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/HtmlFixedSaveOptions.h>
@@ -141,11 +134,11 @@ void ExHtmlLoadOptions::SupportVml(bool supportVml)
     
     if (supportVml)
     {
-        Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+        TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     }
     else
     {
-        Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Png, imageShape);
+        TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Png, imageShape);
     }
 }
 
@@ -229,7 +222,7 @@ TEST_F(ExHtmlLoadOptions, WebRequestTimeout)
 
 void ExHtmlLoadOptions::LoadHtmlFixed()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
     saveOptions->set_SaveFormat(Aspose::Words::SaveFormat::HtmlFixed);
@@ -265,7 +258,7 @@ void ExHtmlLoadOptions::EncryptedHtml()
     //ExFor:HtmlLoadOptions.#ctor(String)
     //ExSummary:Shows how to encrypt an Html document, and then open it using a password.
     // Create and sign an encrypted HTML document from an encrypted .docx.
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     signOptions->set_Comments(u"Comment");
@@ -274,7 +267,7 @@ void ExHtmlLoadOptions::EncryptedHtml()
     
     System::String inputFileName = get_MyDir() + u"Encrypted.docx";
     System::String outputFileName = get_ArtifactsDir() + u"HtmlLoadOptions.EncryptedHtml.html";
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(inputFileName, outputFileName, certificateHolder, signOptions);
+    DigitalSignatureUtil::Sign(inputFileName, outputFileName, certificateHolder, signOptions);
     
     // To load and read this document, we will need to pass its decryption
     // password using a HtmlLoadOptions object.
@@ -308,7 +301,7 @@ void ExHtmlLoadOptions::BaseUri()
     //ExSummary:Shows how to specify a base URI when opening an html document.
     // Suppose we want to load an .html document that contains an image linked by a relative URI
     // while the image is in a different location. In that case, we will need to resolve the relative URI into an absolute one.
-    // We can provide a base URI using an HtmlLoadOptions object. 
+    // We can provide a base URI using an HtmlLoadOptions object.
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::HtmlLoadOptions>(Aspose::Words::LoadFormat::Html, u"", get_ImageDir());
     
     ASSERT_EQ(Aspose::Words::LoadFormat::Html, loadOptions->get_LoadFormat());
@@ -323,7 +316,7 @@ void ExHtmlLoadOptions::BaseUri()
     doc->Save(get_ArtifactsDir() + u"HtmlLoadOptions.BaseUri.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HtmlLoadOptions.BaseUri.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlLoadOptions.BaseUri.docx"));
     
     ASSERT_TRUE((System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_ImageData()->get_ImageBytes()->get_Length() > 0);
 }

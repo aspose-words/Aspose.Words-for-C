@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/ResourceSavingArgs.h>
 #include <Aspose.Words.Cpp/Model/Saving/IResourceSavingCallback.h>
@@ -96,14 +93,36 @@ public:
     void PageMargins();
     void PageMarginsException();
     void UsingMachineFonts(bool useTargetMachineFonts);
+    //ExStart
+    //ExFor:IResourceSavingCallback
+    //ExFor:IResourceSavingCallback.ResourceSaving(ResourceSavingArgs)
+    //ExFor:ResourceSavingArgs
+    //ExFor:ResourceSavingArgs.Document
+    //ExFor:ResourceSavingArgs.ResourceFileName
+    //ExFor:ResourceSavingArgs.ResourceFileUri
+    //ExSummary:Shows how to use a callback to track external resources created while converting a document to HTML.
     void ResourceSavingCallback();
+    //ExStart
+    //ExFor:HtmlFixedSaveOptions
+    //ExFor:HtmlFixedSaveOptions.ResourceSavingCallback
+    //ExFor:HtmlFixedSaveOptions.ResourcesFolder
+    //ExFor:HtmlFixedSaveOptions.ResourcesFolderAlias
+    //ExFor:HtmlFixedSaveOptions.SaveFormat
+    //ExFor:HtmlFixedSaveOptions.ShowPageBorder
+    //ExFor:IResourceSavingCallback
+    //ExFor:IResourceSavingCallback.ResourceSaving(ResourceSavingArgs)
+    //ExFor:ResourceSavingArgs.KeepResourceStreamOpen
+    //ExFor:ResourceSavingArgs.ResourceStream
+    //ExSummary:Shows how to use a callback to print the URIs of external resources created while converting a document to HTML.
     void HtmlFixedResourceFolder();
     void IdPrefix();
     void RemoveJavaScriptFromLinks();
     
 protected:
 
+    //ExEnd
     void TestResourceSavingCallback(System::SharedPtr<Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::FontSavingCallback> callback);
+    //ExEnd
     void TestHtmlFixedResourceFolder(System::SharedPtr<Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ResourceUriPrinter> callback);
     
 };

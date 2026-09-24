@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExPsSaveOptions.h"
+﻿#include "ExPsSaveOptions.h"
 
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/string.h>
@@ -14,7 +9,6 @@
 #include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/PsSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 
@@ -68,7 +62,7 @@ void ExPsSaveOptions::UseBookFoldPrintingSettings(bool renderTextAsBookFold)
     //ExFor:PsSaveOptions.SaveFormat
     //ExFor:PsSaveOptions.UseBookFoldPrintingSettings
     //ExSummary:Shows how to save a document to the Postscript format in the form of a book fold.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraphs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     
     // Create a "PsSaveOptions" object that we can pass to the document's "Save" method
     // to modify how that method converts the document to PostScript.

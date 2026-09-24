@@ -1,15 +1,9 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExAbsolutePositionTab.h"
+﻿#include "ExAbsolutePositionTab.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
@@ -89,7 +83,7 @@ System::SharedPtr<::Aspose::Words::ApiExamples::ExAbsolutePositionTab> ExAbsolut
 
 void ExAbsolutePositionTab::DocumentToTxt()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Absolute position tab.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Absolute position tab.docx"));
     
     // Extract the text contents of our document by accepting this custom document visitor.
     auto myDocTextExtractor = System::MakeObject<Aspose::Words::ApiExamples::ExAbsolutePositionTab::DocTextExtractor>();

@@ -1,13 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-//ExStart
-//ExFor:NodeList
-//ExFor:FieldStart
-//ExSummary:Shows how to find all hyperlinks in a Word document, and then change their URLs and display names.
-#include "ExReplaceHyperlinks.h"
+﻿#include "ExReplaceHyperlinks.h"
 
 #include <system/text/string_builder.h>
 #include <system/text/regularexpressions/match.h>
@@ -18,6 +9,7 @@
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
 #include <system/collections/ienumerable.h>
+#include <mutex>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -36,15 +28,15 @@ namespace ApiExamples {
 
 RTTI_INFO_IMPL_HASH(3705082897u, ::Aspose::Words::ApiExamples::ExReplaceHyperlinks, ThisTypeBaseTypesInfo);
 
-const System::String& ExReplaceHyperlinks::NewUrl()
+System::String& ExReplaceHyperlinks::NewUrl()
 {
-    static const System::String value = u"http://www.aspose.com";
+    static System::String value = u"http://www.aspose.com";
     return value;
 }
 
-const System::String& ExReplaceHyperlinks::NewName()
+System::String& ExReplaceHyperlinks::NewName()
 {
-    static const System::String value = u"Aspose - The .NET & Java Component Publisher";
+    static System::String value = u"Aspose - The .NET & Java Component Publisher";
     return value;
 }
 
@@ -82,13 +74,13 @@ System::SharedPtr<::Aspose::Words::ApiExamples::ExReplaceHyperlinks> ExReplaceHy
 
 void ExReplaceHyperlinks::Fields()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Hyperlinks.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Hyperlinks.docx"));
     
     // Hyperlinks in a Word documents are fields. To begin looking for hyperlinks, we must first find all the fields.
     // Use the "SelectNodes" method to find all the fields in the document via an XPath.
     System::SharedPtr<Aspose::Words::NodeList> fieldStarts = doc->SelectNodes(u"//FieldStart");
     
-    for (auto&& fieldStart : System::IterateOver(fieldStarts->LINQ_OfType<System::SharedPtr<Aspose::Words::Fields::FieldStart> >()))
+    for (auto&& fieldStart : System::IterateOver(fieldStarts->LINQ_OfType<System::SharedPtr<Aspose::Words::Fields::FieldStart>>()))
     {
         if (fieldStart->get_FieldType() == Aspose::Words::Fields::FieldType::FieldHyperlink)
         {
@@ -121,6 +113,18 @@ TEST_F(ExReplaceHyperlinks, Fields)
 
 RTTI_INFO_IMPL_HASH(2447104009u, ::Aspose::Words::ApiExamples::Hyperlink, ThisTypeBaseTypesInfo);
 
+System::SharedPtr<System::Text::RegularExpressions::Regex>& Hyperlink::gRegex()
+{
+    static System::SharedPtr<System::Text::RegularExpressions::Regex> value;
+    static std::once_flag once;
+    std::call_once(once, []
+    {
+        value = System::MakeObject<System::Text::RegularExpressions::Regex>(System::String(u"\\S+") + u"\\s+" + u"(?:\"\"\\s+)?" + u"(\\\\l\\s+)?" + u"\"" + u"([^\"]+)" + u"\"");
+    });
+    return value;
+}
+
+
 System::String Hyperlink::get_Name()
 {
     return GetTextSameParent(mFieldSeparator, mFieldEnd);
@@ -128,7 +132,7 @@ System::String Hyperlink::get_Name()
 
 void Hyperlink::set_Name(System::String value)
 {
-    // Hyperlink display name is stored in the field result, which is a Run 
+    // Hyperlink display name is stored in the field result, which is a Run
     // node between field separator and field end.
     auto fieldResult = System::ExplicitCast<Aspose::Words::Run>(mFieldSeparator->get_NextSibling());
     fieldResult->set_Text(value);
@@ -159,12 +163,6 @@ void Hyperlink::set_IsLocal(bool value)
     UpdateFieldCode();
 }
 
-System::SharedPtr<System::Text::RegularExpressions::Regex>& Hyperlink::gRegex()
-{
-    static System::SharedPtr<System::Text::RegularExpressions::Regex> value = System::MakeObject<System::Text::RegularExpressions::Regex>(System::String(u"\\S+") + u"\\s+" + u"(?:\"\"\\s+)?" + u"(\\\\l\\s+)?" + u"\"" + u"([^\"]+)" + u"\"");
-    return value;
-}
-
 Hyperlink::Hyperlink(System::SharedPtr<Aspose::Words::Fields::FieldStart> fieldStart) : mIsLocal(false)
 {
     if (fieldStart == nullptr)
@@ -185,9 +183,9 @@ Hyperlink::Hyperlink(System::SharedPtr<Aspose::Words::Fields::FieldStart> fieldS
         throw System::InvalidOperationException(u"Cannot find field separator.");
     }
     
-    // Normally, we can always find the field's end node, but the example document 
-    // contains a paragraph break inside a hyperlink, which puts the field end 
-    // in the next paragraph. It will be much more complicated to handle fields which span several 
+    // Normally, we can always find the field's end node, but the example document
+    // contains a paragraph break inside a hyperlink, which puts the field end
+    // in the next paragraph. It will be much more complicated to handle fields which span several
     // paragraphs correctly. In this case allowing field end to be null is enough.
     mFieldEnd = FindNextSibling(mFieldSeparator, Aspose::Words::NodeType::FieldEnd);
     
@@ -204,7 +202,7 @@ void Hyperlink::UpdateFieldCode()
 {
     // A field's field code is in a Run node between the field's start node and field separator.
     auto fieldCode = System::ExplicitCast<Aspose::Words::Run>(mFieldStart->get_NextSibling());
-    fieldCode->set_Text(System::String::Format(u"HYPERLINK {0}\"{1}\"", ((mIsLocal) ? System::String(u"\\l ") : System::String(u"")), mTarget));
+    fieldCode->set_Text(System::String::Format(u"HYPERLINK {0}\"{1}\"", (mIsLocal) ? System::String(u"\\l ") : System::String(u""), mTarget));
     
     // If the field code consists of more than one run, delete these runs.
     RemoveSameParent(fieldCode->get_NextSibling(), mFieldSeparator);

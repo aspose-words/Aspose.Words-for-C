@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExAI.h"
+﻿#include "ExAI.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -11,7 +6,6 @@
 #include <system/object_ext.h>
 #include <system/environment.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
@@ -84,12 +78,12 @@ void ExAI::AiSummarize()
     //ExFor:SummarizeOptions.SummaryLength
     //ExFor:SummaryLength
     //ExSummary:Shows how to summarize text using OpenAI and Google models.
-    auto firstDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
-    auto secondDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto firstDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
+    auto secondDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
     // Use OpenAI or Google generative language models.
-    System::SharedPtr<Aspose::Words::AI::AiModel> model = (System::ExplicitCast<Aspose::Words::AI::OpenAiModel>(Aspose::Words::AI::AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey)))->WithOrganization(u"Organization")->WithProject(u"Project");
+    System::SharedPtr<Aspose::Words::AI::AiModel> model = (System::ExplicitCast<Aspose::Words::AI::OpenAiModel>(AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey)))->WithOrganization(u"Organization")->WithProject(u"Project");
     
     auto options = System::MakeObject<Aspose::Words::AI::SummarizeOptions>();
     
@@ -120,11 +114,11 @@ void ExAI::AiTranslate()
     //ExFor:AiModel.Translate(Document, AI.Language)
     //ExFor:AI.Language
     //ExSummary:Shows how to translate text using Google models.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
     // Use Google generative language models.
-    System::SharedPtr<Aspose::Words::AI::AiModel> model = Aspose::Words::AI::AiModel::Create(Aspose::Words::AI::AiModelType::GeminiFlashLatest)->WithApiKey(apiKey);
+    System::SharedPtr<Aspose::Words::AI::AiModel> model = AiModel::Create(Aspose::Words::AI::AiModelType::GeminiFlashLatest)->WithApiKey(apiKey);
     
     System::SharedPtr<Aspose::Words::Document> translatedDoc = model->Translate(doc, Aspose::Words::AI::Language::Arabic);
     translatedDoc->Save(get_ArtifactsDir() + u"AI.AiTranslate.docx");
@@ -148,11 +142,11 @@ void ExAI::AiGrammar()
     //ExFor:AiModel.CheckGrammar(Document, CheckGrammarOptions)
     //ExFor:CheckGrammarOptions
     //ExSummary:Shows how to check the grammar of a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
     System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
     // Use OpenAI generative language models.
-    System::SharedPtr<Aspose::Words::AI::AiModel> model = Aspose::Words::AI::AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey);
+    System::SharedPtr<Aspose::Words::AI::AiModel> model = AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey);
     
     auto grammarOptions = System::MakeObject<Aspose::Words::AI::CheckGrammarOptions>();
     grammarOptions->set_ImproveStylistics(true);
@@ -179,7 +173,7 @@ void ExAI::ChangeDefaultUrl()
     //ExFor:AiModel.Url
     //ExSummary:Shows how to change model default url.
     System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
-    System::SharedPtr<Aspose::Words::AI::AiModel> model = Aspose::Words::AI::AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey);
+    System::SharedPtr<Aspose::Words::AI::AiModel> model = AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey);
     // Default value "https://api.openai.com/".
     model->set_Url(u"https://my.a.com/");
     //ExEnd:ChangeDefaultUrl
@@ -204,7 +198,7 @@ void ExAI::ChangeDefaultTimeout()
     //ExFor:AiModel.Timeout
     //ExSummary:Shows how to change model default timeout.
     System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
-    System::SharedPtr<Aspose::Words::AI::AiModel> model = Aspose::Words::AI::AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey);
+    System::SharedPtr<Aspose::Words::AI::AiModel> model = AiModel::Create(Aspose::Words::AI::AiModelType::Gpt4OMini)->WithApiKey(apiKey);
     // Default value 100000ms.
     model->set_Timeout(250000);
     //ExEnd:ChangeDefaultTimeout
@@ -233,7 +227,7 @@ void ExAI::Gemini()
     System::String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
     auto model = System::MakeObject<Aspose::Words::AI::GoogleAiModel>(u"gemini-flash-latest", apiKey);
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     auto summarizeOptions = System::MakeObject<Aspose::Words::AI::SummarizeOptions>();
     summarizeOptions->set_SummaryLength(Aspose::Words::AI::SummaryLength::VeryShort);
     System::SharedPtr<Aspose::Words::Document> summary = model->Summarize(doc, summarizeOptions);
@@ -260,7 +254,7 @@ void ExAI::OpenAiModelConstructor()
     // Create an OpenAI model instance using the constructor with model name and API key.
     auto model = System::MakeObject<Aspose::Words::AI::OpenAiModel>(u"gpt-4o-mini", apiKey);
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     // Summarize the document using the OpenAI model with short summary length.
     auto summarizeOptions = System::MakeObject<Aspose::Words::AI::SummarizeOptions>();
     summarizeOptions->set_SummaryLength(Aspose::Words::AI::SummaryLength::VeryShort);

@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
 #include <system/globalization/culture_info.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Fields/IFieldUpdateCultureProvider.h>
 #include <Aspose.Words.Cpp/Model/Fields/Field.h>
 
@@ -60,6 +57,11 @@ public:
     void PreProcessCulture();
     void TableOfAuthorityCategories();
     void UseInvariantCultureNumberFormat();
+    //ExStart
+    //ExFor:FieldOptions.FieldUpdateCultureProvider
+    //ExFor:IFieldUpdateCultureProvider
+    //ExFor:IFieldUpdateCultureProvider.GetCulture(string, Field)
+    //ExSummary:Shows how to specify a culture which parses date/time formatting for each field.
     void DefineDateTimeFormatting();
     
 };

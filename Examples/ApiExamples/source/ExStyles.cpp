@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExStyles.h"
+﻿#include "ExStyles.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -11,10 +6,9 @@
 #include <system/linq/enumerable.h>
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
-#include <iostream>
-#include <gtest/gtest.h>
+#include <system/array.h>
 #include <functional>
 #include <drawing/color.h>
 #include <cstdint>
@@ -37,7 +31,6 @@
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListTemplate.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListCollection.h>
 #include <Aspose.Words.Cpp/Model/Lists/List.h>
@@ -114,10 +107,10 @@ void ExStyles::Styles()
         while (stylesEnum->MoveNext())
         {
             System::SharedPtr<Aspose::Words::Style> curStyle = stylesEnum->get_Current();
-            std::cout << System::String::Format(u"Style name:\t\"{0}\", of type \"{1}\"", curStyle->get_Name(), curStyle->get_Type()) << std::endl;
-            std::cout << System::String::Format(u"\tSubsequent style:\t{0}", curStyle->get_NextParagraphStyleName()) << std::endl;
-            std::cout << System::String::Format(u"\tIs heading:\t\t\t{0}", curStyle->get_IsHeading()) << std::endl;
-            std::cout << System::String::Format(u"\tIs QuickStyle:\t\t{0}", curStyle->get_IsQuickStyle()) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"Style name:\t\"{0}\", of type \"{1}\"", curStyle->get_Name(), curStyle->get_Type()));
+            System::Console::WriteLine(System::String::Format(u"\tSubsequent style:\t{0}", curStyle->get_NextParagraphStyleName()));
+            System::Console::WriteLine(System::String::Format(u"\tIs heading:\t\t\t{0}", curStyle->get_IsHeading()));
+            System::Console::WriteLine(System::String::Format(u"\tIs QuickStyle:\t\t{0}", curStyle->get_IsQuickStyle()));
             
             ASPOSE_ASSERT_EQ(doc, curStyle->get_Document());
         }
@@ -258,7 +251,7 @@ void ExStyles::ChangeTocsTabStops()
     //ExFor:TabStop.Position
     //ExFor:TabStop.Leader
     //ExSummary:Shows how to modify the position of the right tab stop in TOC related paragraphs.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table of contents.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table of contents.docx"));
     
     // Iterate through all paragraphs with TOC result-based styles; this is any style between TOC and TOC9.
     for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)))
@@ -277,13 +270,13 @@ void ExStyles::ChangeTocsTabStops()
     doc->Save(get_ArtifactsDir() + u"Styles.ChangeTocsTabStops.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Styles.ChangeTocsTabStops.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Styles.ChangeTocsTabStops.docx"));
     
     for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)))
     {
         if (para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() >= Aspose::Words::StyleIdentifier::Toc1 && para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() <= Aspose::Words::StyleIdentifier::Toc9)
         {
-            System::SharedPtr<Aspose::Words::TabStop> tabStop = para->GetEffectiveTabStops()->idx_get(0);
+            System::SharedPtr<Aspose::Words::TabStop> tabStop = para->GetEffectiveTabStops()[0];
             ASPOSE_ASSERT_EQ(400.8, tabStop->get_Position());
             ASSERT_EQ(Aspose::Words::TabAlignment::Right, tabStop->get_Alignment());
             ASSERT_EQ(Aspose::Words::TabLeader::Dots, tabStop->get_Leader());
@@ -381,7 +374,7 @@ void ExStyles::DefaultStyles()
     doc->get_Styles()->get_DefaultParagraphFormat()->set_SpaceAfter(20);
     doc->get_Styles()->get_DefaultParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Right);
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     ASSERT_TRUE(doc->get_Styles()->get_DefaultFont()->get_Bold());
     ASSERT_EQ(u"PMingLiU", doc->get_Styles()->get_DefaultFont()->get_Name());
@@ -435,7 +428,7 @@ void ExStyles::ParagraphStyleBulletedList()
     builder->get_Document()->Save(get_ArtifactsDir() + u"Styles.ParagraphStyleBulletedList.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Styles.ParagraphStyleBulletedList.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Styles.ParagraphStyleBulletedList.docx"));
     
     style = doc->get_Styles()->idx_get(u"MyStyle1");
     
@@ -463,7 +456,7 @@ void ExStyles::StyleAliases()
     //ExFor:Style.Equals(Style)
     //ExFor:Style.LinkedStyleName
     //ExSummary:Shows how to use style aliases.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Style with alias.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Style with alias.docx"));
     
     // This document contains a style named "MyStyle,MyStyle Alias 1,MyStyle Alias 2".
     // If a style's name has multiple values separated by commas, each clause is a separate alias.
@@ -513,7 +506,7 @@ void ExStyles::LockStyle()
     doc->Save(get_ArtifactsDir() + u"Styles.LockStyle.docx");
     //ExEnd:LockStyle
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Styles.LockStyle.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Styles.LockStyle.docx"));
     ASSERT_TRUE(doc->get_Styles()->idx_get(Aspose::Words::StyleIdentifier::Heading1)->get_Locked());
 }
 

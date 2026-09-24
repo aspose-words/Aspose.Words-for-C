@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDocumentBase.h"
+﻿#include "ExDocumentBase.h"
 
 #include <testing/test_predicates.h>
 #include <system/type_info.h>
@@ -14,7 +9,6 @@
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/color.h>
 #include <cstdint>
@@ -72,11 +66,13 @@ Aspose::Words::Loading::ResourceLoadingAction ExDocumentBase::ImageNameHandler::
         if (switch_value_0 == u"Aspose logo")
         {
             args->SetData(System::IO::File::ReadAllBytes(get_ImageDir() + u"Logo.jpg"));
+            
             return Aspose::Words::Loading::ResourceLoadingAction::UserProvided;
         }
         else if (switch_value_0 == u"Watermark")
         {
             args->SetData(System::IO::File::ReadAllBytes(get_ImageDir() + u"Transparent background logo.png"));
+            
             return Aspose::Words::Loading::ResourceLoadingAction::UserProvided;
         }
     }
@@ -95,7 +91,6 @@ void ExDocumentBase::TestResourceLoadingCallback(System::SharedPtr<Aspose::Words
         ASSERT_FALSE(System::TestTools::IsEmpty(shape->get_ImageData()->get_ImageBytes()));
     }
 }
-
 
 namespace gtest_test
 {
@@ -168,7 +163,7 @@ void ExDocumentBase::SetPageColor()
     doc->Save(get_ArtifactsDir() + u"DocumentBase.SetPageColor.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBase.SetPageColor.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBase.SetPageColor.docx"));
     
     ASSERT_EQ(System::Drawing::Color::get_LightGray().ToArgb(), doc->get_PageColor().ToArgb());
 }
@@ -318,7 +313,7 @@ void ExDocumentBase::BackgroundShape()
     doc->Save(get_ArtifactsDir() + u"DocumentBase.BackgroundShape.Image.pdf", saveOptions);
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBase.BackgroundShape.FlatColor.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBase.BackgroundShape.FlatColor.docx"));
     
     ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), doc->get_BackgroundShape()->get_FillColor().ToArgb());
     ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
@@ -350,7 +345,7 @@ void ExDocumentBase::ResourceLoadingCallback()
     builder->InsertImage(u"Watermark");
     
     doc->Save(get_ArtifactsDir() + u"DocumentBase.ResourceLoadingCallback.docx");
-    TestResourceLoadingCallback(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBase.ResourceLoadingCallback.docx"));
+    TestResourceLoadingCallback(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBase.ResourceLoadingCallback.docx")));
     //ExSkip
 }
 
@@ -376,7 +371,7 @@ void ExDocumentBase::ImportNodeWithResolveThemeColors()
     
     // Move to the primary footer and insert a shape that uses theme colors.
     builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::FooterPrimary);
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertShape(Aspose::Words::Drawing::ShapeType::Rectangle, 100, 50);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertShape(Aspose::Words::Drawing::ShapeType::Rectangle, static_cast<double>(100), static_cast<double>(50));
     shape->get_Stroke()->set_ForeThemeColor(Aspose::Words::Themes::ThemeColor::Dark1);
     
     auto dstDoc = System::MakeObject<Aspose::Words::Document>();

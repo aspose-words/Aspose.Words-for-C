@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExFont.h"
+﻿#include "ExFont.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -18,15 +13,11 @@
 #include <system/globalization/culture_info.h>
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
-#include <system/enum_helpers.h>
-#include <system/enum.h>
-#include <system/convert.h>
+#include <system/console.h>
 #include <system/collections/ilist.h>
 #include <system/collections/ienumerator.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/color.h>
 #include <cstdint>
@@ -75,10 +66,7 @@
 #include <Aspose.Words.Cpp/Model/Borders/Border.h>
 
 
-using namespace Aspose::Words::Drawing;
-using namespace Aspose::Words::Fields;
 using namespace Aspose::Words::Fonts;
-using namespace Aspose::Words::Notes;
 using namespace Aspose::Words::Settings;
 using namespace Aspose::Words::Tables;
 using namespace Aspose::Words::Themes;
@@ -192,7 +180,7 @@ Aspose::Words::VisitorAction ExFont::RemoveHiddenContentVisitor::VisitFootnoteSt
 
 Aspose::Words::VisitorAction ExFont::RemoveHiddenContentVisitor::VisitSpecialChar(System::SharedPtr<Aspose::Words::SpecialChar> specialChar)
 {
-    std::cout << specialChar->GetText() << std::endl;
+    System::Console::WriteLine(specialChar->GetText());
     
     if (specialChar->get_Font()->get_Hidden())
     {
@@ -308,7 +296,6 @@ void ExFont::TestRemoveHiddenContent(System::SharedPtr<Aspose::Words::Document> 
     }
 }
 
-
 namespace gtest_test
 {
 
@@ -365,7 +352,7 @@ void ExFont::CreateFormattedRun()
     doc->Save(get_ArtifactsDir() + u"Font.CreateFormattedRun.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.CreateFormattedRun.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.CreateFormattedRun.docx"));
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Hello world!", run->GetText().Trim());
@@ -412,7 +399,7 @@ void ExFont::Caps()
     doc->Save(get_ArtifactsDir() + u"Font.Caps.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Caps.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Caps.docx"));
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"all capitals", run->GetText().Trim());
@@ -443,7 +430,7 @@ void ExFont::GetDocumentFonts()
     //ExFor:FontInfo.Name
     //ExFor:FontInfo.IsTrueType
     //ExSummary:Shows how to print the details of what fonts are present in a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Embedded font.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Embedded font.docx"));
     
     System::SharedPtr<Aspose::Words::Fonts::FontInfoCollection> allFonts = doc->get_FontInfos();
     ASSERT_EQ(5, allFonts->get_Count());
@@ -452,9 +439,9 @@ void ExFont::GetDocumentFonts()
     // Print all the used and unused fonts in the document.
     for (int32_t i = 0; i < allFonts->get_Count(); i++)
     {
-        std::cout << System::String::Format(u"Font index #{0}", i) << std::endl;
-        std::cout << System::String::Format(u"\tName: {0}", allFonts->idx_get(i)->get_Name()) << std::endl;
-        std::cout << System::String::Format(u"\tIs {0}a trueType font", (allFonts->idx_get(i)->get_IsTrueType() ? System::String(u"") : System::String(u"not "))) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"Font index #{0}", i));
+        System::Console::WriteLine(System::String::Format(u"\tName: {0}", allFonts->idx_get(i)->get_Name()));
+        System::Console::WriteLine(System::String::Format(u"\tIs {0}a trueType font", allFonts->idx_get(i)->get_IsTrueType() ? System::String(u"") : System::String(u"not ")));
     }
     //ExEnd
 }
@@ -497,7 +484,7 @@ void ExFont::FontInfoCollection(bool embedAllFonts)
     //ExFor:FontInfoCollection.EmbedSystemFonts
     //ExFor:FontInfoCollection.SaveSubsetFonts
     //ExSummary:Shows how to save a document with embedded TrueType fonts.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     System::SharedPtr<Aspose::Words::Fonts::FontInfoCollection> fontInfos = doc->get_FontInfos();
     fontInfos->set_EmbedTrueTypeFonts(embedAllFonts);
@@ -511,11 +498,11 @@ void ExFont::FontInfoCollection(bool embedAllFonts)
     
     if (embedAllFonts)
     {
-        ASSERT_TRUE(testedFileLength < 28000);
+        ASSERT_TRUE(testedFileLength < static_cast<int64_t>(28000));
     }
     else
     {
-        ASSERT_TRUE(testedFileLength < 13000);
+        ASSERT_TRUE(testedFileLength < static_cast<int64_t>(13000));
     }
 }
 
@@ -548,7 +535,7 @@ INSTANTIATE_TEST_SUITE_P(, ExFont_FontInfoCollection, ::testing::ValuesIn(ExFont
 
 void ExFont::WorkWithEmbeddedFonts(bool embedTrueTypeFonts, bool embedSystemFonts, bool saveSubsetFonts)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     System::SharedPtr<Aspose::Words::Fonts::FontInfoCollection> fontInfos = doc->get_FontInfos();
     fontInfos->set_EmbedTrueTypeFonts(embedTrueTypeFonts);
@@ -610,7 +597,7 @@ void ExFont::StrikeThrough()
     doc->Save(get_ArtifactsDir() + u"Font.StrikeThrough.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.StrikeThrough.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.StrikeThrough.docx"));
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
@@ -670,13 +657,13 @@ void ExFont::PositionSubscript()
     doc->Save(get_ArtifactsDir() + u"Font.PositionSubscript.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.PositionSubscript.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.PositionSubscript.docx"));
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Raised text.", run->GetText().Trim());
     ASPOSE_ASSERT_EQ(5, run->get_Font()->get_Position());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.PositionSubscript.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.PositionSubscript.docx"));
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(1);
     
     ASSERT_EQ(u"Lowered text.", run->GetText().Trim());
@@ -727,7 +714,7 @@ void ExFont::ScalingSpacing()
     doc->Save(get_ArtifactsDir() + u"Font.ScalingSpacing.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.ScalingSpacing.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.ScalingSpacing.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Wide characters", run->GetText().Trim());
@@ -769,7 +756,7 @@ void ExFont::Italic()
     doc->Save(get_ArtifactsDir() + u"Font.Italic.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Italic.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Italic.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Hello world!", run->GetText().Trim());
@@ -813,7 +800,7 @@ void ExFont::EngraveEmboss()
     doc->Save(get_ArtifactsDir() + u"Font.EngraveEmboss.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.EngraveEmboss.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.EngraveEmboss.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"This text is engraved.", run->GetText().Trim());
@@ -855,7 +842,7 @@ void ExFont::Shadow()
     doc->Save(get_ArtifactsDir() + u"Font.Shadow.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Shadow.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Shadow.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"This text has a shadow.", run->GetText().Trim());
@@ -891,7 +878,7 @@ void ExFont::Outline()
     doc->Save(get_ArtifactsDir() + u"Font.Outline.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Outline.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Outline.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"This text has an outline.", run->GetText().Trim());
@@ -929,7 +916,7 @@ void ExFont::Hidden()
     doc->Save(get_ArtifactsDir() + u"Font.Hidden.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Hidden.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Hidden.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"This text will not be visible in the document.", run->GetText().Trim());
@@ -972,7 +959,7 @@ void ExFont::Kerning()
     doc->Save(get_ArtifactsDir() + u"Font.Kerning.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Kerning.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Kerning.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"TALLY. (Kerning not applied)", run->GetText().Trim());
@@ -1014,10 +1001,10 @@ void ExFont::NoProofing()
     doc->Save(get_ArtifactsDir() + u"Font.NoProofing.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.NoProofing.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.NoProofing.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Proofing has been disabled, so these spelking errrs will not display red lines underneath.", run->GetText().Trim());
+    ASSERT_EQ((u"Proofing has been disabled, so these spelking errrs will not display red lines underneath."), run->GetText().Trim());
     ASSERT_TRUE(run->get_Font()->get_NoProofing());
 }
 
@@ -1051,7 +1038,7 @@ void ExFont::LocaleId()
     doc->Save(get_ArtifactsDir() + u"Font.LocaleId.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.LocaleId.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.LocaleId.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Привет!", run->GetText().Trim());
@@ -1090,7 +1077,7 @@ void ExFont::Underlines()
     doc->Save(get_ArtifactsDir() + u"Font.Underlines.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Underlines.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Underlines.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Underlined text.", run->GetText().Trim());
@@ -1123,7 +1110,7 @@ void ExFont::ComplexScript()
     doc->Save(get_ArtifactsDir() + u"Font.ComplexScript.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.ComplexScript.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.ComplexScript.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Text treated as complex script.", run->GetText().Trim());
@@ -1158,7 +1145,7 @@ void ExFont::SparklingText()
     doc->Save(get_ArtifactsDir() + u"Font.SparklingText.doc");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.SparklingText.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.SparklingText.doc"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Text with a sparkle effect.", run->GetText().Trim());
@@ -1203,7 +1190,7 @@ void ExFont::ForegroundAndBackground()
     doc->Save(get_ArtifactsDir() + u"Font.ForegroundAndBackground.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.ForegroundAndBackground.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.ForegroundAndBackground.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Foreground and background pattern colors for shading texture.", run->GetText().Trim());
@@ -1246,7 +1233,7 @@ void ExFont::Shading()
     doc->Save(get_ArtifactsDir() + u"Font.Shading.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Shading.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Shading.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"White text on an orange background with a two-tone texture.", run->GetText().Trim());
@@ -1308,7 +1295,7 @@ void ExFont::Bidi()
     doc->Save(get_ArtifactsDir() + u"Font.Bidi.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Bidi.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Bidi.docx"));
     
     for (auto&& run : System::IterateOver<Aspose::Words::Run>(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()))
     {
@@ -1318,12 +1305,10 @@ void ExFont::Bidi()
                 ASSERT_EQ(u"مرحبًا", run->GetText().Trim());
                 ASSERT_TRUE(run->get_Font()->get_Bidi());
                 break;
-            
             case 1:
                 ASSERT_EQ(u"Hello world!", run->GetText().Trim());
                 ASSERT_FALSE(run->get_Font()->get_Bidi());
                 break;
-            
         }
         
         ASSERT_EQ(1033, run->get_Font()->get_LocaleId());
@@ -1379,7 +1364,7 @@ void ExFont::FarEast()
     doc->Save(get_ArtifactsDir() + u"Font.FarEast.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.FarEast.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.FarEast.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Hello world!", run->GetText().Trim());
@@ -1435,10 +1420,10 @@ void ExFont::NameAscii()
     doc->Save(get_ArtifactsDir() + u"Font.NameAscii.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.NameAscii.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.NameAscii.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Hello, Привет", run->GetText().Trim());
+    ASSERT_EQ((u"Hello, Привет"), run->GetText().Trim());
     ASSERT_EQ(u"Calibri", run->get_Font()->get_Name());
     ASSERT_EQ(u"Calibri", run->get_Font()->get_NameAscii());
     ASSERT_EQ(u"Courier New", run->get_Font()->get_NameOther());
@@ -1491,7 +1476,7 @@ void ExFont::ChangeStyle()
     doc->Save(get_ArtifactsDir() + u"Font.ChangeStyle.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.ChangeStyle.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.ChangeStyle.docx"));
     System::SharedPtr<Aspose::Words::Run> docRun = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"Text originally in \"Emphasis\" style", docRun->GetText().Trim());
@@ -1580,7 +1565,7 @@ void ExFont::Style()
     doc->Save(get_ArtifactsDir() + u"Font.Style.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.Style.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Style.docx"));
     System::SharedPtr<Aspose::Words::Run> docRun = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"This text is in a custom style.", docRun->GetText().Trim());
@@ -1614,10 +1599,10 @@ void ExFont::GetAvailableFonts()
     
     for (auto&& fontInfo : System::IterateOver(folderFontSource[0]->GetAvailableFonts()))
     {
-        std::cout << "FontFamilyName : " << fontInfo->get_FontFamilyName() << std::endl;
-        std::cout << "FullFontName  : " << fontInfo->get_FullFontName() << std::endl;
-        std::cout << "Version  : " << fontInfo->get_Version() << std::endl;
-        std::cout << "FilePath : " << fontInfo->get_FilePath() << "\n" << std::endl;
+        System::Console::WriteLine(u"FontFamilyName : {0}", fontInfo->get_FontFamilyName());
+        System::Console::WriteLine(u"FullFontName  : {0}", fontInfo->get_FullFontName());
+        System::Console::WriteLine(u"Version  : {0}", fontInfo->get_Version());
+        System::Console::WriteLine(u"FilePath : {0}\n", fontInfo->get_FilePath());
     }
     //ExEnd
     
@@ -1668,7 +1653,7 @@ void ExFont::SetFontAutoColor()
     doc->Save(get_ArtifactsDir() + u"Font.SetFontAutoColor.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.SetFontAutoColor.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.SetFontAutoColor.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
     ASSERT_EQ(u"The text color automatically chosen for this run is white.", run->GetText().Trim());
@@ -1694,7 +1679,7 @@ TEST_F(ExFont, SetFontAutoColor)
 
 void ExFont::RemoveHiddenContentFromDocument()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Hidden content.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Hidden content.docx"));
     ASSERT_EQ(26, doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)->get_Count());
     //ExSkip
     ASSERT_EQ(2, doc->GetChildNodes(Aspose::Words::NodeType::Table, true)->get_Count());
@@ -1716,7 +1701,7 @@ void ExFont::RemoveHiddenContentFromDocument()
     doc->Accept(hiddenContentRemover);
     
     doc->Save(get_ArtifactsDir() + u"Font.RemoveHiddenContentFromDocument.docx");
-    TestRemoveHiddenContent(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Font.RemoveHiddenContentFromDocument.docx"));
+    TestRemoveHiddenContent(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.RemoveHiddenContentFromDocument.docx")));
     //ExSkip
 }
 
@@ -1770,7 +1755,7 @@ void ExFont::ExtractEmbeddedFont()
     //ExFor:FontInfoCollection.Item(Int32)
     //ExFor:FontInfoCollection.Item(String)
     //ExSummary:Shows how to extract an embedded font from a document, and save it to the local file system.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Embedded font.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Embedded font.docx"));
     
     System::SharedPtr<Aspose::Words::Fonts::FontInfo> embeddedFont = doc->get_FontInfos()->idx_get(u"Alte DIN 1451 Mittelschrift");
     System::ArrayPtr<uint8_t> embeddedFontBytes = embeddedFont->GetEmbeddedFont(Aspose::Words::Fonts::EmbeddedFontFormat::OpenType, Aspose::Words::Fonts::EmbeddedFontStyle::Regular);
@@ -1781,7 +1766,7 @@ void ExFont::ExtractEmbeddedFont()
     
     // Embedded font formats may be different in other formats such as .doc.
     // We need to know the correct format before we can extract the font.
-    doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Embedded font.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Embedded font.doc"));
     
     ASSERT_TRUE(System::TestTools::IsNull(doc->get_FontInfos()->idx_get(u"Alte DIN 1451 Mittelschrift")->GetEmbeddedFont(Aspose::Words::Fonts::EmbeddedFontFormat::OpenType, Aspose::Words::Fonts::EmbeddedFontStyle::Regular)));
     ASSERT_FALSE(System::TestTools::IsNull(doc->get_FontInfos()->idx_get(u"Alte DIN 1451 Mittelschrift")->GetEmbeddedFont(Aspose::Words::Fonts::EmbeddedFontFormat::EmbeddedOpenType, Aspose::Words::Fonts::EmbeddedFontStyle::Regular)));
@@ -1815,7 +1800,7 @@ void ExFont::GetFontInfoFromFile()
     //ExFor:FontInfo.Pitch
     //ExFor:FontInfoCollection.GetEnumerator
     //ExSummary:Shows how to access and print details of each font in a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     System::SharedPtr<System::Collections::Generic::IEnumerator<System::SharedPtr<Aspose::Words::Fonts::FontInfo>>> fontCollectionEnumerator = doc->get_FontInfos()->GetEnumerator();
     while (fontCollectionEnumerator->MoveNext())
@@ -1823,25 +1808,25 @@ void ExFont::GetFontInfoFromFile()
         System::SharedPtr<Aspose::Words::Fonts::FontInfo> fontInfo = fontCollectionEnumerator->get_Current();
         if (fontInfo != nullptr)
         {
-            std::cout << (System::String(u"Font name: ") + fontInfo->get_Name()) << std::endl;
+            System::Console::WriteLine(System::String(u"Font name: ") + fontInfo->get_Name());
             
             // Alt names are usually blank.
-            std::cout << (System::String(u"Alt name: ") + fontInfo->get_AltName()) << std::endl;
-            std::cout << (System::String(u"\t- Family: ") + System::ObjectExt::ToString(fontInfo->get_Family())) << std::endl;
-            std::cout << (System::String(u"\t- ") + (fontInfo->get_IsTrueType() ? System::String(u"Is TrueType") : System::String(u"Is not TrueType"))) << std::endl;
-            std::cout << (System::String(u"\t- Pitch: ") + System::ObjectExt::ToString(fontInfo->get_Pitch())) << std::endl;
-            std::cout << (System::String(u"\t- Charset: ") + fontInfo->get_Charset()) << std::endl;
-            std::cout << "\t- Panose:" << std::endl;
-            std::cout << (System::String(u"\t\tFamily Kind: ") + fontInfo->get_Panose()[0]) << std::endl;
-            std::cout << (System::String(u"\t\tSerif Style: ") + fontInfo->get_Panose()[1]) << std::endl;
-            std::cout << (System::String(u"\t\tWeight: ") + fontInfo->get_Panose()[2]) << std::endl;
-            std::cout << (System::String(u"\t\tProportion: ") + fontInfo->get_Panose()[3]) << std::endl;
-            std::cout << (System::String(u"\t\tContrast: ") + fontInfo->get_Panose()[4]) << std::endl;
-            std::cout << (System::String(u"\t\tStroke Variation: ") + fontInfo->get_Panose()[5]) << std::endl;
-            std::cout << (System::String(u"\t\tArm Style: ") + fontInfo->get_Panose()[6]) << std::endl;
-            std::cout << (System::String(u"\t\tLetterform: ") + fontInfo->get_Panose()[7]) << std::endl;
-            std::cout << (System::String(u"\t\tMidline: ") + fontInfo->get_Panose()[8]) << std::endl;
-            std::cout << (System::String(u"\t\tX-Height: ") + fontInfo->get_Panose()[9]) << std::endl;
+            System::Console::WriteLine(System::String(u"Alt name: ") + fontInfo->get_AltName());
+            System::Console::WriteLine(System::String(u"\t- Family: ") + System::ObjectExt::ToString(fontInfo->get_Family()));
+            System::Console::WriteLine(System::String(u"\t- ") + (fontInfo->get_IsTrueType() ? System::String(u"Is TrueType") : System::String(u"Is not TrueType")));
+            System::Console::WriteLine(System::String(u"\t- Pitch: ") + System::ObjectExt::ToString(fontInfo->get_Pitch()));
+            System::Console::WriteLine(System::String(u"\t- Charset: ") + fontInfo->get_Charset());
+            System::Console::WriteLine(u"\t- Panose:");
+            System::Console::WriteLine(System::String(u"\t\tFamily Kind: ") + fontInfo->get_Panose()[0]);
+            System::Console::WriteLine(System::String(u"\t\tSerif Style: ") + fontInfo->get_Panose()[1]);
+            System::Console::WriteLine(System::String(u"\t\tWeight: ") + fontInfo->get_Panose()[2]);
+            System::Console::WriteLine(System::String(u"\t\tProportion: ") + fontInfo->get_Panose()[3]);
+            System::Console::WriteLine(System::String(u"\t\tContrast: ") + fontInfo->get_Panose()[4]);
+            System::Console::WriteLine(System::String(u"\t\tStroke Variation: ") + fontInfo->get_Panose()[5]);
+            System::Console::WriteLine(System::String(u"\t\tArm Style: ") + fontInfo->get_Panose()[6]);
+            System::Console::WriteLine(System::String(u"\t\tLetterform: ") + fontInfo->get_Panose()[7]);
+            System::Console::WriteLine(System::String(u"\t\tMidline: ") + fontInfo->get_Panose()[8]);
+            System::Console::WriteLine(System::String(u"\t\tX-Height: ") + fontInfo->get_Panose()[9]);
         }
     }
     //ExEnd
@@ -1894,7 +1879,7 @@ void ExFont::HasDmlEffect()
     //ExFor:Font.HasDmlEffect(TextDmlEffect)
     //ExFor:TextDmlEffect
     //ExSummary:Shows how to check if a run displays a DrawingML text effect.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DrawingML text effects.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DrawingML text effects.docx"));
     
     System::SharedPtr<Aspose::Words::RunCollection> runs = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs();
     
@@ -1987,7 +1972,7 @@ void ExFont::ThemeFontsColors()
     doc->get_Theme()->get_MinorFonts()->set_ComplexScript(u"Andalus");
     
     System::SharedPtr<Aspose::Words::Font> font = doc->get_Styles()->idx_get(u"Normal")->get_Font();
-    std::cout << System::String::Format(u"Originally the Normal style theme color is: {0} and RGB color is: {1}\n", font->get_ThemeColor(), font->get_Color()) << std::endl;
+    System::Console::WriteLine(u"Originally the Normal style theme color is: {0} and RGB color is: {1}\n", font->get_ThemeColor(), font->get_Color());
     
     // We can use theme font and color instead of default values.
     font->set_ThemeFont(Aspose::Words::Themes::ThemeFont::Minor);
@@ -2134,7 +2119,7 @@ void ExFont::FontInfoEmbeddingLicensingRights()
     //ExFor:FontEmbeddingLicensingRights.BitmapEmbeddingOnly
     //ExFor:FontEmbeddingLicensingRights.NoSubsetting
     //ExSummary:Shows how to get license rights information for embedded fonts (FontInfo).
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Embedded font rights.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Embedded font rights.docx"));
     
     // Get the list of document fonts.
     System::SharedPtr<Aspose::Words::Fonts::FontInfoCollection> fontInfos = doc->get_FontInfos();
@@ -2142,9 +2127,9 @@ void ExFont::FontInfoEmbeddingLicensingRights()
     {
         if (fontInfo->get_EmbeddingLicensingRights() != nullptr)
         {
-            std::cout << System::EnumGetName(fontInfo->get_EmbeddingLicensingRights()->get_EmbeddingUsagePermissions()) << std::endl;
-            std::cout << System::Convert::ToString(fontInfo->get_EmbeddingLicensingRights()->get_BitmapEmbeddingOnly()) << std::endl;
-            std::cout << System::Convert::ToString(fontInfo->get_EmbeddingLicensingRights()->get_NoSubsetting()) << std::endl;
+            System::Console::WriteLine(System::ExplicitCast<System::Object>(fontInfo->get_EmbeddingLicensingRights()->get_EmbeddingUsagePermissions()));
+            System::Console::WriteLine(fontInfo->get_EmbeddingLicensingRights()->get_BitmapEmbeddingOnly());
+            System::Console::WriteLine(fontInfo->get_EmbeddingLicensingRights()->get_NoSubsetting());
         }
     }
     //ExEnd:FontInfoEmbeddingLicensingRights
@@ -2166,8 +2151,8 @@ void ExFont::PhysicalFontInfoEmbeddingLicensingRights()
     //GistId:708ce40a68fac5003d46f6b4acfd5ff1
     //ExFor:PhysicalFontInfo.EmbeddingLicensingRights
     //ExSummary:Shows how to get license rights information for embedded fonts (PhysicalFontInfo).
-    System::SharedPtr<Aspose::Words::Fonts::FontSettings> settings = Aspose::Words::Fonts::FontSettings::get_DefaultInstance();
-    System::SharedPtr<Aspose::Words::Fonts::FontSourceBase> source = settings->GetFontsSources()->idx_get(0);
+    System::SharedPtr<Aspose::Words::Fonts::FontSettings> settings = FontSettings::get_DefaultInstance();
+    System::SharedPtr<Aspose::Words::Fonts::FontSourceBase> source = settings->GetFontsSources()[0];
     
     // Get the list of available fonts.
     System::SharedPtr<System::Collections::Generic::IList<System::SharedPtr<Aspose::Words::Fonts::PhysicalFontInfo>>> fontInfos = source->GetAvailableFonts();
@@ -2175,9 +2160,9 @@ void ExFont::PhysicalFontInfoEmbeddingLicensingRights()
     {
         if (fontInfo->get_EmbeddingLicensingRights() != nullptr)
         {
-            std::cout << System::EnumGetName(fontInfo->get_EmbeddingLicensingRights()->get_EmbeddingUsagePermissions()) << std::endl;
-            std::cout << System::Convert::ToString(fontInfo->get_EmbeddingLicensingRights()->get_BitmapEmbeddingOnly()) << std::endl;
-            std::cout << System::Convert::ToString(fontInfo->get_EmbeddingLicensingRights()->get_NoSubsetting()) << std::endl;
+            System::Console::WriteLine(System::ExplicitCast<System::Object>(fontInfo->get_EmbeddingLicensingRights()->get_EmbeddingUsagePermissions()));
+            System::Console::WriteLine(fontInfo->get_EmbeddingLicensingRights()->get_BitmapEmbeddingOnly());
+            System::Console::WriteLine(fontInfo->get_EmbeddingLicensingRights()->get_NoSubsetting());
         }
     }
     //ExEnd:PhysicalFontInfoEmbeddingLicensingRights
@@ -2218,7 +2203,7 @@ void ExFont::NumberSpacing()
     doc->Save(get_ArtifactsDir() + u"Fonts.NumberSpacing.docx");
     //ExEnd:NumberSpacing
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Fonts.NumberSpacing.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Fonts.NumberSpacing.docx"));
     
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
     ASSERT_EQ(Aspose::Words::NumSpacing::Proportional, run->get_Font()->get_NumberSpacing());

@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExCharts.h"
+﻿#include "ExCharts.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -17,12 +12,10 @@
 #include <system/globalization/culture_info.h>
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
 #include <system/date_time.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/color.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
@@ -144,7 +137,6 @@ System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> ExCharts::AppendChart(S
     return chart;
 }
 
-
 namespace gtest_test
 {
 
@@ -193,7 +185,7 @@ void ExCharts::ChartTitle()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a chart shape with a document builder and get its chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bar, 400, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bar, static_cast<double>(400), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = chartShape->get_Chart();
     
     // Use the "Title" property to give our chart a title, which appears at the top center of the chart area.
@@ -202,7 +194,7 @@ void ExCharts::ChartTitle()
     title->get_Font()->set_Size(15);
     title->get_Font()->set_Color(System::Drawing::Color::get_Blue());
     
-    // Set the "Show" property to "true" to make the title visible. 
+    // Set the "Show" property to "true" to make the title visible.
     title->set_Show(true);
     
     // Set the "Overlay" property to "true" Give other chart elements more room by allowing them to overlap the title
@@ -211,7 +203,7 @@ void ExCharts::ChartTitle()
     doc->Save(get_ArtifactsDir() + u"Charts.ChartTitle.docx");
     //ExEnd:ChartTitle
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.ChartTitle.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.ChartTitle.docx"));
     chartShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
     ASSERT_EQ(Aspose::Words::Drawing::ShapeType::NonPrimitive, chartShape->get_ShapeType());
@@ -247,14 +239,15 @@ void ExCharts::DataLabelNumberFormat()
     
     // Add a line chart, then clear its demo data series to start with a clean chart,
     // and then set a title.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, 500, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, static_cast<double>(500), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Series()->Clear();
     chart->get_Title()->set_Text(u"Monthly sales report");
     
     // Insert a custom chart series with months as categories for the X-axis,
     // and respective decimal amounts for the Y-axis.
-    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"Revenue", System::MakeArray<System::String>({u"January", u"February", u"March"}), System::MakeArray<double>({25.611, 21.439, 33.750}));
+    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"Revenue", System::MakeArray<System::String>({
+        u"January", u"February", u"March"}), System::MakeArray<double>({25.611, 21.439, 33.750}));
     
     // Enable data labels, and then apply a custom number format for values displayed in the data labels.
     // This format will treat displayed decimal values as millions of US Dollars.
@@ -267,12 +260,12 @@ void ExCharts::DataLabelNumberFormat()
     doc->Save(get_ArtifactsDir() + u"Charts.DataLabelNumberFormat.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.DataLabelNumberFormat.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.DataLabelNumberFormat.docx"));
     series = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
     
     ASSERT_TRUE(series->get_HasDataLabels());
     ASSERT_TRUE(series->get_DataLabels()->get_ShowValue());
-    ASSERT_EQ(u"\"US$\" #,##0.000\"M\"", series->get_DataLabels()->get_NumberFormat()->get_FormatCode());
+    ASSERT_EQ((u"\"US$\" #,##0.000\"M\""), series->get_DataLabels()->get_NumberFormat()->get_FormatCode());
 }
 
 namespace gtest_test
@@ -316,14 +309,15 @@ void ExCharts::AxisProperties()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 500, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(500), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Clear the chart's demo data series to start with a clean chart.
     chart->get_Series()->Clear();
     
     // Insert a chart series with categories for the X-axis and respective numeric values for the Y-axis.
-    chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::String>({u"Word", u"PDF", u"Excel", u"GoogleDocs", u"Note"}), System::MakeArray<double>({640, 320, 280, 120, 150}));
+    chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::String>({u"Word", u"PDF", u"Excel", 
+        u"GoogleDocs", u"Note"}), System::MakeArray<double>({640, 320, 280, 120, 150}));
     
     // Chart axes have various options that can change their appearance,
     // such as their direction, major/minor unit ticks, and tick marks.
@@ -361,7 +355,7 @@ void ExCharts::AxisProperties()
     doc->Save(get_ArtifactsDir() + u"Charts.AxisProperties.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.AxisProperties.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.AxisProperties.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart();
     
     ASSERT_EQ(Aspose::Words::Drawing::Charts::AxisCategoryType::Category, chart->get_AxisX()->get_CategoryType());
@@ -410,7 +404,7 @@ void ExCharts::AxisCollection()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 500, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(500), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Hide the major grid lines on the primary and secondary Y axes.
@@ -455,14 +449,17 @@ void ExCharts::DateTimeValues()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, 500, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, static_cast<double>(500), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Clear the chart's demo data series to start with a clean chart.
     chart->get_Series()->Clear();
     
     // Add a custom series containing date/time values for the X-axis, and respective decimal values for the Y-axis.
-    chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::DateTime>({System::DateTime(2017, 11, 6), System::DateTime(2017, 11, 9), System::DateTime(2017, 11, 15), System::DateTime(2017, 11, 21), System::DateTime(2017, 11, 25), System::DateTime(2017, 11, 29)}), System::MakeArray<double>({1.2, 0.3, 2.1, 2.9, 4.2, 5.3}));
+    chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::DateTime>({System::DateTime(2017, 11, 6), 
+        System::DateTime(2017, 11, 9), System::DateTime(2017, 11, 15), System::DateTime(2017, 11, 21), 
+        System::DateTime(2017, 11, 25), System::DateTime(2017, 11, 29)}), System::MakeArray<double>({1.2, 0.3, 2.1, 
+        2.9, 4.2, 5.3}));
     
     
     // Set lower and upper bounds for the X-axis.
@@ -485,15 +482,15 @@ void ExCharts::DateTimeValues()
     yAxis->set_MajorUnit(100.0);
     yAxis->set_MinorUnit(50.0);
     yAxis->get_DisplayUnit()->set_Unit(Aspose::Words::Drawing::Charts::AxisBuiltInUnit::Hundreds);
-    yAxis->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(100.0));
-    yAxis->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(700.0));
+    yAxis->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(100)));
+    yAxis->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(700)));
     yAxis->set_HasMajorGridlines(true);
     yAxis->set_HasMinorGridlines(true);
     
     doc->Save(get_ArtifactsDir() + u"Charts.DateTimeValues.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.DateTimeValues.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.DateTimeValues.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart();
     
     ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(System::DateTime(2017, 11, 5).ToOADate()), chart->get_AxisX()->get_Scaling()->get_Minimum());
@@ -510,8 +507,8 @@ void ExCharts::DateTimeValues()
     ASPOSE_ASSERT_EQ(100.0, chart->get_AxisY()->get_MajorUnit());
     ASPOSE_ASSERT_EQ(50.0, chart->get_AxisY()->get_MinorUnit());
     ASSERT_EQ(Aspose::Words::Drawing::Charts::AxisBuiltInUnit::Hundreds, chart->get_AxisY()->get_DisplayUnit()->get_Unit());
-    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(100.0), chart->get_AxisY()->get_Scaling()->get_Minimum());
-    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(700.0), chart->get_AxisY()->get_Scaling()->get_Maximum());
+    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(100)), chart->get_AxisY()->get_Scaling()->get_Minimum());
+    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(700)), chart->get_AxisY()->get_Scaling()->get_Maximum());
     ASPOSE_ASSERT_EQ(true, chart->get_AxisY()->get_HasMajorGridlines());
     ASPOSE_ASSERT_EQ(true, chart->get_AxisY()->get_HasMinorGridlines());
 }
@@ -534,23 +531,24 @@ void ExCharts::HideChartAxis()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, 500, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, static_cast<double>(500), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Clear the chart's demo data series to start with a clean chart.
     chart->get_Series()->Clear();
     
     // Add a custom series with categories for the X-axis, and respective decimal values for the Y-axis.
-    chart->get_Series()->Add(u"AW Series 1", System::MakeArray<System::String>({u"Item 1", u"Item 2", u"Item 3", u"Item 4", u"Item 5"}), System::MakeArray<double>({1.2, 0.3, 2.1, 2.9, 4.2}));
+    chart->get_Series()->Add(u"AW Series 1", System::MakeArray<System::String>({u"Item 1", u"Item 2", u"Item 3", 
+        u"Item 4", u"Item 5"}), System::MakeArray<double>({1.2, 0.3, 2.1, 2.9, 4.2}));
     
-    // Hide the chart axes to simplify the appearance of the chart. 
+    // Hide the chart axes to simplify the appearance of the chart.
     chart->get_AxisX()->set_Hidden(true);
     chart->get_AxisY()->set_Hidden(true);
     
     doc->Save(get_ArtifactsDir() + u"Charts.HideChartAxis.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.HideChartAxis.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.HideChartAxis.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart();
     
     ASSERT_TRUE(chart->get_AxisX()->get_Hidden());
@@ -578,17 +576,18 @@ void ExCharts::SetNumberFormatToChartAxis()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 500, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(500), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Clear the chart's demo data series to start with a clean chart.
     chart->get_Series()->Clear();
     
     // Add a custom series to the chart with categories for the X-axis,
-    // and large respective numeric values for the Y-axis. 
-    chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::String>({u"Word", u"PDF", u"Excel", u"GoogleDocs", u"Note"}), System::MakeArray<double>({1900000, 850000, 2100000, 600000, 1500000}));
+    // and large respective numeric values for the Y-axis.
+    chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::String>({u"Word", u"PDF", u"Excel", 
+        u"GoogleDocs", u"Note"}), System::MakeArray<double>({1900000, 850000, 2100000, 600000, 1500000}));
     
-    // Set the number format of the Y-axis tick labels to not group digits with commas. 
+    // Set the number format of the Y-axis tick labels to not group digits with commas.
     chart->get_AxisY()->get_NumberFormat()->set_FormatCode(u"#,##0");
     
     // This flag can override the above value and draw the number format from the source cell.
@@ -597,10 +596,10 @@ void ExCharts::SetNumberFormatToChartAxis()
     doc->Save(get_ArtifactsDir() + u"Charts.SetNumberFormatToChartAxis.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.SetNumberFormatToChartAxis.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.SetNumberFormatToChartAxis.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart();
     
-    ASSERT_EQ(u"#,##0", chart->get_AxisY()->get_NumberFormat()->get_FormatCode());
+    ASSERT_EQ((u"#,##0"), chart->get_AxisY()->get_NumberFormat()->get_FormatCode());
 }
 
 namespace gtest_test
@@ -618,11 +617,12 @@ void ExCharts::TestDisplayChartsWithConversion(Aspose::Words::Drawing::Charts::C
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(chartType, 500, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(chartType, static_cast<double>(500), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Series()->Clear();
     
-    chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::String>({u"Word", u"PDF", u"Excel", u"GoogleDocs", u"Note"}), System::MakeArray<double>({1900000, 850000, 2100000, 600000, 1500000}));
+    chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::String>({u"Word", u"PDF", u"Excel", 
+        u"GoogleDocs", u"Note"}), System::MakeArray<double>({1900000, 850000, 2100000, 600000, 1500000}));
     
     doc->Save(get_ArtifactsDir() + u"Charts.TestDisplayChartsWithConversion.docx");
     doc->Save(get_ArtifactsDir() + u"Charts.TestDisplayChartsWithConversion.pdf");
@@ -663,7 +663,7 @@ void ExCharts::Surface3DChart()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Surface3D, 500, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Surface3D, static_cast<double>(500), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Series()->Clear();
     
@@ -698,13 +698,15 @@ void ExCharts::DataLabelsBubbleChart()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bubble, 500, 300)->get_Chart();
+    System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bubble, static_cast<double>(500), static_cast<double>(300))->get_Chart();
     
     // Clear the chart's demo data series to start with a clean chart.
     chart->get_Series()->Clear();
     
-    // Add a custom series with X/Y coordinates and diameter of each of the bubbles. 
-    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<double>({2.9, 3.5, 1.1, 4.0, 4.0}), System::MakeArray<double>({1.9, 8.5, 2.1, 6.0, 1.5}), System::MakeArray<double>({9.0, 4.5, 2.5, 8.0, 5.0}));
+    // Add a custom series with X/Y coordinates and diameter of each of the bubbles.
+    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<double>({
+        2.9, 3.5, 1.1, 4.0, 4.0}), System::MakeArray<double>({1.9, 8.5, 2.1, 6.0, 1.5}), System::MakeArray<double>({
+        9.0, 4.5, 2.5, 8.0, 5.0}));
     
     // Enable data labels, and then modify their appearance.
     series->set_HasDataLabels(true);
@@ -717,7 +719,7 @@ void ExCharts::DataLabelsBubbleChart()
     doc->Save(get_ArtifactsDir() + u"Charts.DataLabelsBubbleChart.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.DataLabelsBubbleChart.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.DataLabelsBubbleChart.docx"));
     dataLabels = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0)->get_DataLabels();
     
     ASSERT_TRUE(dataLabels->get_ShowBubbleSize());
@@ -748,13 +750,14 @@ void ExCharts::DataLabelsPieChart()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Pie, 500, 300)->get_Chart();
+    System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Pie, static_cast<double>(500), static_cast<double>(300))->get_Chart();
     
     // Clear the chart's demo data series to start with a clean chart.
     chart->get_Series()->Clear();
     
     // Insert a custom chart series with a category name for each of the sectors, and their frequency table.
-    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::String>({u"Word", u"PDF", u"Excel"}), System::MakeArray<double>({2.7, 3.2, 0.8}));
+    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"Aspose Test Series", System::MakeArray<System::String>({
+        u"Word", u"PDF", u"Excel"}), System::MakeArray<double>({2.7, 3.2, 0.8}));
     
     // Enable data labels that will display both percentage and frequency of each sector, and modify their appearance.
     series->set_HasDataLabels(true);
@@ -768,7 +771,7 @@ void ExCharts::DataLabelsPieChart()
     doc->Save(get_ArtifactsDir() + u"Charts.DataLabelsPieChart.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.DataLabelsPieChart.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.DataLabelsPieChart.docx"));
     dataLabels = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0)->get_DataLabels();
     
     ASSERT_TRUE(dataLabels->get_ShowLeaderLines());
@@ -793,7 +796,7 @@ void ExCharts::DataLabels()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, 400, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, static_cast<double>(400), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = chartShape->get_Chart();
     
     ASSERT_EQ(3, chart->get_Series()->get_Count());
@@ -814,7 +817,7 @@ void ExCharts::DataLabels()
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::SharedPtr<Aspose::Words::Drawing::Charts::ChartDataLabel>>> enumerator = chart->get_Series()->idx_get(0)->get_DataLabels()->GetEnumerator();
         while (enumerator->MoveNext())
         {
-            ASSERT_EQ(u", ", enumerator->get_Current()->get_Separator());
+            ASSERT_EQ((u", "), enumerator->get_Current()->get_Separator());
             enumerator->get_Current()->set_Separator(u" & ");
         }
     }
@@ -846,7 +849,7 @@ void ExCharts::ChartDataPoint()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, 500, 350);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, static_cast<double>(500), static_cast<double>(350));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     ASSERT_EQ(3, chart->get_Series()->get_Count());
@@ -903,7 +906,7 @@ void ExCharts::PieChartExplosion()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Pie, 500, 350);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Pie, static_cast<double>(500), static_cast<double>(350));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     ASSERT_EQ(1, chart->get_Series()->get_Count());
@@ -922,7 +925,7 @@ void ExCharts::PieChartExplosion()
     doc->Save(get_ArtifactsDir() + u"Charts.PieChartExplosion.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.PieChartExplosion.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.PieChartExplosion.docx"));
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
     
     ASSERT_EQ(10, series->get_DataPoints()->idx_get(0)->get_Explosion());
@@ -950,7 +953,7 @@ void ExCharts::Bubble3D()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bubble3D, 500, 350);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bubble3D, static_cast<double>(500), static_cast<double>(350));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     ASSERT_EQ(1, chart->get_Series()->get_Count());
@@ -968,7 +971,7 @@ void ExCharts::Bubble3D()
     doc->Save(get_ArtifactsDir() + u"Charts.Bubble3D.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.Bubble3D.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.Bubble3D.docx"));
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
     
     for (int32_t i = 0; i < 3; i++)
@@ -1027,8 +1030,10 @@ void ExCharts::ChartSeriesCollection()
     // Each series will need two decimal arrays of equal length.
     // The first array contains X-values, and the second contains corresponding Y-values
     // of data points on the chart's graph.
-    chart->get_Series()->Add(u"Series 1", System::MakeArray<double>({3.1, 3.5, 6.3, 4.1, 2.2, 8.3, 1.2, 3.6}), System::MakeArray<double>({3.1, 6.3, 4.6, 0.9, 8.5, 4.2, 2.3, 9.9}));
-    chart->get_Series()->Add(u"Series 2", System::MakeArray<double>({2.6, 7.3, 4.5, 6.6, 2.1, 9.3, 0.7, 3.3}), System::MakeArray<double>({7.1, 6.6, 3.5, 7.8, 7.7, 9.5, 1.3, 4.6}));
+    chart->get_Series()->Add(u"Series 1", System::MakeArray<double>({3.1, 3.5, 6.3, 4.1, 2.2, 8.3, 1.2, 3.6}), System::MakeArray<double>({
+        3.1, 6.3, 4.6, 0.9, 8.5, 4.2, 2.3, 9.9}));
+    chart->get_Series()->Add(u"Series 2", System::MakeArray<double>({2.6, 7.3, 4.5, 6.6, 2.1, 9.3, 0.7, 3.3}), System::MakeArray<double>({
+        7.1, 6.6, 3.5, 7.8, 7.7, 9.5, 1.3, 4.6}));
     
     ASSERT_EQ(Aspose::Words::Drawing::Charts::ChartAxisType::Value, chart->get_AxisX()->get_Type());
     ASSERT_EQ(Aspose::Words::Drawing::Charts::ChartAxisType::Value, chart->get_AxisY()->get_Type());
@@ -1039,7 +1044,8 @@ void ExCharts::ChartSeriesCollection()
     // Each series will need three decimal arrays of equal length.
     // The first array contains X-values, the second contains corresponding Y-values,
     // and the third contains diameters for each of the graph's data points.
-    chart->get_Series()->Add(u"Series 1", System::MakeArray<double>({1.1, 5.0, 9.8}), System::MakeArray<double>({1.2, 4.9, 9.9}), System::MakeArray<double>({2.0, 4.0, 8.0}));
+    chart->get_Series()->Add(u"Series 1", System::MakeArray<double>({1.1, 5.0, 9.8}), System::MakeArray<double>({1.2, 
+        4.9, 9.9}), System::MakeArray<double>({2.0, 4.0, 8.0}));
     
     doc->Save(get_ArtifactsDir() + u"Charts.ChartSeriesCollection.docx");
 }
@@ -1068,7 +1074,7 @@ void ExCharts::ChartSeriesCollectionModify()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a column chart that will contain three series of demo data by default.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 400, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(400), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = chartShape->get_Chart();
     
     // Each series has four decimal values: one for each of the four categories.
@@ -1082,7 +1088,7 @@ void ExCharts::ChartSeriesCollectionModify()
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries>>> enumerator = chart->get_Series()->GetEnumerator();
         while (enumerator->MoveNext())
         {
-            std::cout << enumerator->get_Current()->get_Name() << std::endl;
+            System::Console::WriteLine(enumerator->get_Current()->get_Name());
         }
     }
     
@@ -1141,14 +1147,15 @@ void ExCharts::AxisScaling()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Scatter, 450, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Scatter, static_cast<double>(450), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = chartShape->get_Chart();
     
     // Clear the chart's demo data series to start with a clean chart.
     chart->get_Series()->Clear();
     
     // Insert a series with X/Y coordinates for five points.
-    chart->get_Series()->Add(u"Series 1", System::MakeArray<double>({1.0, 2.0, 3.0, 4.0, 5.0}), System::MakeArray<double>({1.0, 20.0, 400.0, 8000.0, 160000.0}));
+    chart->get_Series()->Add(u"Series 1", System::MakeArray<double>({1.0, 2.0, 3.0, 4.0, 5.0}), System::MakeArray<double>({
+        1.0, 20.0, 400.0, 8000.0, 160000.0}));
     
     // The scaling of the X-axis is linear by default,
     // displaying evenly incrementing values that cover our X-value range (0, 1, 2, 3...).
@@ -1162,7 +1169,7 @@ void ExCharts::AxisScaling()
     doc->Save(get_ArtifactsDir() + u"Charts.AxisScaling.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.AxisScaling.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.AxisScaling.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart();
     
     ASSERT_EQ(Aspose::Words::Drawing::Charts::AxisScaleType::Linear, chart->get_AxisX()->get_Scaling()->get_Type());
@@ -1191,7 +1198,7 @@ void ExCharts::AxisBound()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Scatter, 450, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Scatter, static_cast<double>(450), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = chartShape->get_Chart();
     
     // Clear the chart's demo data series to start with a clean chart.
@@ -1199,7 +1206,8 @@ void ExCharts::AxisBound()
     
     // Add a series with two decimal arrays. The first array contains the X-values,
     // and the second contains corresponding Y-values for points in the scatter chart.
-    chart->get_Series()->Add(u"Series 1", System::MakeArray<double>({1.1, 5.4, 7.9, 3.5, 2.1, 9.7}), System::MakeArray<double>({2.1, 0.3, 0.6, 3.3, 1.4, 1.9}));
+    chart->get_Series()->Add(u"Series 1", System::MakeArray<double>({1.1, 5.4, 7.9, 3.5, 2.1, 9.7}), System::MakeArray<double>({
+        2.1, 0.3, 0.6, 3.3, 1.4, 1.9}));
     
     // By default, default scaling is applied to the graph's X and Y-axes,
     // so that both their ranges are big enough to encompass every X and Y-value of every series.
@@ -1207,16 +1215,16 @@ void ExCharts::AxisBound()
     
     // We can define our own axis bounds.
     // In this case, we will make both the X and Y-axis rulers show a range of 0 to 10.
-    chart->get_AxisX()->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(0.0));
-    chart->get_AxisX()->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(10.0));
-    chart->get_AxisY()->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(0.0));
-    chart->get_AxisY()->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(10.0));
+    chart->get_AxisX()->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(0)));
+    chart->get_AxisX()->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(10)));
+    chart->get_AxisY()->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(0)));
+    chart->get_AxisY()->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(10)));
     
     ASSERT_FALSE(chart->get_AxisX()->get_Scaling()->get_Minimum()->get_IsAuto());
     ASSERT_FALSE(chart->get_AxisY()->get_Scaling()->get_Minimum()->get_IsAuto());
     
     // Create a line chart with a series requiring a range of dates on the X-axis, and decimal values for the Y-axis.
-    chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, 450, 300);
+    chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, static_cast<double>(450), static_cast<double>(300));
     chart = chartShape->get_Chart();
     chart->get_Series()->Clear();
     
@@ -1233,7 +1241,7 @@ void ExCharts::AxisBound()
     doc->Save(get_ArtifactsDir() + u"Charts.AxisBound.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.AxisBound.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.AxisBound.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart();
     
     ASSERT_FALSE(chart->get_AxisX()->get_Scaling()->get_Minimum()->get_IsAuto());
@@ -1275,7 +1283,7 @@ void ExCharts::ChartLegend()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, 450, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, static_cast<double>(450), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     ASSERT_EQ(3, chart->get_Series()->get_Count());
@@ -1293,7 +1301,7 @@ void ExCharts::ChartLegend()
     doc->Save(get_ArtifactsDir() + u"Charts.ChartLegend.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.ChartLegend.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.ChartLegend.docx"));
     
     legend = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart()->get_Legend();
     
@@ -1320,7 +1328,7 @@ void ExCharts::AxisCross()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 450, 250);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(450), static_cast<double>(250));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     ASSERT_EQ(3, chart->get_Series()->get_Count());
@@ -1339,7 +1347,7 @@ void ExCharts::AxisCross()
     doc->Save(get_ArtifactsDir() + u"Charts.AxisCross.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.AxisCross.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.AxisCross.docx"));
     axis = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart()->get_AxisX();
     
     ASSERT_TRUE(axis->get_AxisBetweenCategories());
@@ -1374,7 +1382,7 @@ void ExCharts::AxisDisplayUnit()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Scatter, 450, 250);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Scatter, static_cast<double>(450), static_cast<double>(250));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     ASSERT_EQ(1, chart->get_Series()->get_Count());
@@ -1392,8 +1400,8 @@ void ExCharts::AxisDisplayUnit()
     
     // Set the Y-axis bounds to -10 and 20.
     // This Y-axis will now display 4 major tick marks and 27 minor tick marks.
-    axis->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(-10.0));
-    axis->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(20.0));
+    axis->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(-10)));
+    axis->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(20)));
     
     // For the X-axis, set the major tick marks at every 10 units,
     // every minor tick mark at 2.5 units.
@@ -1406,8 +1414,8 @@ void ExCharts::AxisDisplayUnit()
     axis->set_MinorTickMark(Aspose::Words::Drawing::Charts::AxisTickMark::Inside);
     
     // Set the X-axis bounds so that the X-axis spans 5 major tick marks and 12 minor tick marks.
-    axis->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(-10.0));
-    axis->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(30.0));
+    axis->get_Scaling()->set_Minimum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(-10)));
+    axis->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(30)));
     axis->get_TickLabels()->set_Alignment(Aspose::Words::ParagraphAlignment::Right);
     
     ASSERT_EQ(1, axis->get_TickLabels()->get_Spacing());
@@ -1425,7 +1433,7 @@ void ExCharts::AxisDisplayUnit()
     doc->Save(get_ArtifactsDir() + u"Charts.AxisDisplayUnit.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.AxisDisplayUnit.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.AxisDisplayUnit.docx"));
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
     ASPOSE_ASSERT_EQ(450.0, shape->get_Width());
@@ -1481,12 +1489,13 @@ void ExCharts::MarkerFormatting()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Scatter, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Scatter, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Delete default generated series.
     chart->get_Series()->Clear();
-    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"AW Series 1", System::MakeArray<double>({0.7, 1.8, 2.6, 3.9}), System::MakeArray<double>({2.7, 3.2, 0.8, 1.7}));
+    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"AW Series 1", System::MakeArray<double>({
+        0.7, 1.8, 2.6, 3.9}), System::MakeArray<double>({2.7, 3.2, 0.8, 1.7}));
     
     // Set marker formatting.
     series->get_Marker()->set_Size(40);
@@ -1526,7 +1535,7 @@ void ExCharts::SeriesColor()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> seriesColl = chart->get_Series();
@@ -1535,7 +1544,7 @@ void ExCharts::SeriesColor()
     seriesColl->Clear();
     
     // Create category names array.
-    auto categories = System::MakeArray<System::String>({u"Category 1", u"Category 2"});
+    System::ArrayPtr<System::String> categories = System::MakeArray<System::String>({u"Category 1", u"Category 2"});
     
     // Adding new series. Value and category arrays must be the same size.
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series1 = seriesColl->Add(u"Series 1", categories, System::MakeArray<double>({1, 2}));
@@ -1569,14 +1578,15 @@ void ExCharts::DataPointsFormatting()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Delete default generated series.
     chart->get_Series()->Clear();
     
     // Adding new series.
-    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"Series 1", System::MakeArray<System::String>({u"Category 1", u"Category 2", u"Category 3", u"Category 4"}), System::MakeArray<double>({1, 2, 3, 4}));
+    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"Series 1", System::MakeArray<System::String>({
+        u"Category 1", u"Category 2", u"Category 3", u"Category 4"}), System::MakeArray<double>({1, 2, 3, 4}));
     
     // Set column formatting.
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartDataPointCollection> dataPoints = series->get_DataPoints();
@@ -1609,7 +1619,7 @@ void ExCharts::LegendEntries()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> series = chart->get_Series();
@@ -1648,7 +1658,7 @@ void ExCharts::LegendFont()
     //ExFor:ChartLegend.Font
     //ExFor:ChartSeries.LegendEntry
     //ExSummary:Shows how to work with a legend font.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Reporting engine template - Chart series.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Reporting engine template - Chart series.docx"));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart();
     
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartLegend> chartLegend = chart->get_Legend();
@@ -1680,7 +1690,7 @@ void ExCharts::RemoveSpecificChartSeries()
     //ExFor:ChartSeries.SeriesType
     //ExFor:ChartSeriesType
     //ExSummary:Shows how to remove specific chart serie.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Reporting engine template - Chart series.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Reporting engine template - Chart series.docx"));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_Chart();
     
     // Remove all series of the Column type.
@@ -1723,7 +1733,7 @@ void ExCharts::PopulateChartWithData()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series1 = chart->get_Series()->idx_get(0);
     
@@ -1731,20 +1741,20 @@ void ExCharts::PopulateChartWithData()
     series1->ClearValues();
     
     // Populate the series with data.
-    series1->Add(Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(3), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(10), 10);
-    series1->Add(Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(5), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(5));
-    series1->Add(Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(7), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(11));
-    series1->Add(Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(9));
+    series1->Add(ChartXValue::FromDouble(3), ChartYValue::FromDouble(10), static_cast<double>(10));
+    series1->Add(ChartXValue::FromDouble(5), ChartYValue::FromDouble(5));
+    series1->Add(ChartXValue::FromDouble(7), ChartYValue::FromDouble(11));
+    series1->Add(ChartXValue::FromDouble(9));
     
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series2 = chart->get_Series()->idx_get(1);
     // Clear X and Y values of the second series.
     series2->Clear();
     
     // Populate the series with data.
-    series2->Add(Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(2), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(4));
-    series2->Add(Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(4), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(7));
-    series2->Add(Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(6), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(14));
-    series2->Add(Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(8), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(7));
+    series2->Add(ChartXValue::FromDouble(2), ChartYValue::FromDouble(4));
+    series2->Add(ChartXValue::FromDouble(4), ChartYValue::FromDouble(7));
+    series2->Add(ChartXValue::FromDouble(6), ChartYValue::FromDouble(14));
+    series2->Add(ChartXValue::FromDouble(8), ChartYValue::FromDouble(7));
     
     doc->Save(get_ArtifactsDir() + u"Charts.PopulateChartWithData.docx");
     //ExEnd
@@ -1769,7 +1779,7 @@ void ExCharts::GetChartSeriesData()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>();
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->idx_get(0);
     
@@ -1828,7 +1838,7 @@ void ExCharts::ChartDataValues()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>();
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> department1Series = chart->get_Series()->idx_get(0);
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> department2Series = chart->get_Series()->idx_get(1);
@@ -1838,9 +1848,9 @@ void ExCharts::ChartDataValues()
     department2Series->Remove(0);
     
     // Add new values to the both series.
-    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartXValue> newXCategory = Aspose::Words::Drawing::Charts::ChartXValue::FromString(u"Q1, 2023");
-    department1Series->Add(newXCategory, Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(10.3));
-    department2Series->Add(newXCategory, Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(5.7));
+    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartXValue> newXCategory = ChartXValue::FromString(u"Q1, 2023");
+    department1Series->Add(newXCategory, ChartYValue::FromDouble(10.3));
+    department2Series->Add(newXCategory, ChartYValue::FromDouble(5.7));
     
     doc->Save(get_ArtifactsDir() + u"Charts.ChartDataValues.docx");
     //ExEnd
@@ -1866,7 +1876,7 @@ void ExCharts::FormatDataLables()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Delete default generated series.
@@ -1919,7 +1929,7 @@ void ExCharts::ChartAxisTitle()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> seriesColl = chart->get_Series();
@@ -1960,7 +1970,7 @@ void ExCharts::CopyDataPointFormat()
     //ExFor:ChartDataPointCollection.HasDefaultFormat(int)
     //ExFor:ChartDataPointCollection.CopyFormat(int, int)
     //ExSummary:Shows how to copy data point format.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DataPoint format.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DataPoint format.docx"));
     
     // Get the chart and series to update format.
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
@@ -2005,7 +2015,7 @@ void ExCharts::ResetDataPointFill()
     //ExFor:ChartFormat.IsDefined
     //ExFor:ChartFormat.SetDefaultFill
     //ExSummary:Shows how to reset the fill to the default value defined in the series.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DataPoint format.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DataPoint format.docx"));
     
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = shape->get_Chart()->get_Series()->idx_get(0);
@@ -2046,7 +2056,7 @@ void ExCharts::DataTable()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> series = chart->get_Series();
@@ -2097,7 +2107,7 @@ void ExCharts::ChartFormat()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Delete series generated by default.
@@ -2128,7 +2138,7 @@ void ExCharts::ChartFormat()
     doc->Save(get_ArtifactsDir() + u"Charts.ChartFormat.docx");
     //ExEnd:ChartFormat
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.ChartFormat.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.ChartFormat.docx"));
     
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     chart = shape->get_Chart();
@@ -2166,7 +2176,7 @@ void ExCharts::SecondaryAxis()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, 450, 250);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, static_cast<double>(450), static_cast<double>(250));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> series = chart->get_Series();
     
@@ -2218,7 +2228,7 @@ void ExCharts::ConfigureGapOverlap()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 450, 250);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(450), static_cast<double>(250));
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesGroup> seriesGroup = shape->get_Chart()->get_SeriesGroups()->idx_get(0);
     
     // Set column gap width and overlap.
@@ -2249,7 +2259,7 @@ void ExCharts::BubbleScale()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a bubble 3D chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bubble3D, 450, 250);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bubble3D, static_cast<double>(450), static_cast<double>(250));
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesGroup> seriesGroup = shape->get_Chart()->get_SeriesGroups()->idx_get(0);
     
     // Set bubble scale to 200%.
@@ -2277,7 +2287,7 @@ void ExCharts::RemoveSecondaryAxis()
     //ExFor:ChartSeriesGroupCollection.Item(Int32)
     //ExFor:ChartSeriesGroupCollection.RemoveAt(Int32)
     //ExSummary:Show how to remove secondary axis.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Combo chart.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Combo chart.docx"));
     
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
@@ -2318,7 +2328,7 @@ void ExCharts::TreemapChart()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a Treemap chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Treemap, 450, 280);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Treemap, static_cast<double>(450), static_cast<double>(280));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Title()->set_Text(u"World Population");
     
@@ -2359,7 +2369,7 @@ void ExCharts::SunburstChart()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a Sunburst chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Sunburst, 450, 450);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Sunburst, static_cast<double>(450), static_cast<double>(450));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Title()->set_Text(u"Sales");
     
@@ -2398,7 +2408,7 @@ void ExCharts::HistogramChart()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a Histogram chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Histogram, 450, 450);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Histogram, static_cast<double>(450), static_cast<double>(450));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Title()->set_Text(u"Avg Temperature since 1991");
     
@@ -2432,7 +2442,7 @@ void ExCharts::ParetoChart()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a Pareto chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Pareto, 450, 450);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Pareto, static_cast<double>(450), static_cast<double>(450));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Title()->set_Text(u"Best-Selling Car");
     
@@ -2466,7 +2476,7 @@ void ExCharts::BoxAndWhiskerChart()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a Box & Whisker chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::BoxAndWhisker, 450, 450);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::BoxAndWhisker, static_cast<double>(450), static_cast<double>(450));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Title()->set_Text(u"Points by Years");
     
@@ -2503,7 +2513,7 @@ void ExCharts::WaterfallChart()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a Waterfall chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Waterfall, 450, 450);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Waterfall, static_cast<double>(450), static_cast<double>(450));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Title()->set_Text(u"New Zealand GDP");
     
@@ -2540,7 +2550,7 @@ void ExCharts::FunnelChart()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a Funnel chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Funnel, 450, 450);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Funnel, static_cast<double>(450), static_cast<double>(450));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     chart->get_Title()->set_Text(u"Population by Age Group");
     
@@ -2582,7 +2592,7 @@ void ExCharts::LabelOrientationRotation()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = shape->get_Chart()->get_Series()->idx_get(0);
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartDataLabelCollection> dataLabels = series->get_DataLabels();
     
@@ -2628,7 +2638,7 @@ void ExCharts::TickLabelsOrientationRotation()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a column chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::AxisTickLabels> xTickLabels = shape->get_Chart()->get_AxisX()->get_TickLabels();
     System::SharedPtr<Aspose::Words::Drawing::Charts::AxisTickLabels> yTickLabels = shape->get_Chart()->get_AxisY()->get_TickLabels();
     
@@ -2662,7 +2672,7 @@ void ExCharts::DoughnutChart()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Doughnut, 400, 400);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Doughnut, static_cast<double>(400), static_cast<double>(400));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     // Delete the default generated series.
     chart->get_Series()->Clear();
@@ -2698,7 +2708,7 @@ void ExCharts::PieOfPieChart()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::PieOfPie, 440, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::PieOfPie, static_cast<double>(440), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     // Delete the default generated series.
     chart->get_Series()->Clear();
@@ -2740,7 +2750,7 @@ void ExCharts::FormatCode()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a Bubble chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bubble, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Bubble, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Delete default generated series.
@@ -2762,16 +2772,16 @@ void ExCharts::FormatCode()
     doc->Save(get_ArtifactsDir() + u"Charts.FormatCode.docx");
     //ExEnd:FormatCode
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.FormatCode.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.FormatCode.docx"));
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     chart = shape->get_Chart();
     
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> seriesCollection = chart->get_Series();
     for (auto&& seriesProperties : System::IterateOver(seriesCollection))
     {
-        ASSERT_EQ(u"#,##0.0#", seriesProperties->get_XValues()->get_FormatCode());
-        ASSERT_EQ(u"#,##0.0#;[Red]\\-#,##0.0#", seriesProperties->get_YValues()->get_FormatCode());
-        ASSERT_EQ(u"#,##0.0#", seriesProperties->get_BubbleSizes()->get_FormatCode());
+        ASSERT_EQ((u"#,##0.0#"), seriesProperties->get_XValues()->get_FormatCode());
+        ASSERT_EQ((u"#,##0.0#;[Red]\\-#,##0.0#"), seriesProperties->get_YValues()->get_FormatCode());
+        ASSERT_EQ((u"#,##0.0#"), seriesProperties->get_BubbleSizes()->get_FormatCode());
     }
 }
 
@@ -2797,7 +2807,7 @@ void ExCharts::DataLablePosition()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert column chart.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> seriesColl = chart->get_Series();
     
@@ -2845,9 +2855,9 @@ void ExCharts::DoughnutChartLabelPosition()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    const int32_t chartWidth = 432;
-    const int32_t chartHeight = 252;
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Doughnut, chartWidth, chartHeight);
+    constexpr int32_t chartWidth = 432;
+    constexpr int32_t chartHeight = 252;
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Doughnut, static_cast<double>(chartWidth), static_cast<double>(chartHeight));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> seriesColl = chart->get_Series();
     // Delete default generated series.
@@ -2857,7 +2867,7 @@ void ExCharts::DoughnutChartLabelPosition()
     chart->get_Legend()->set_Position(Aspose::Words::Drawing::Charts::LegendPosition::None);
     
     // Generate data.
-    const int32_t dataLength = 20;
+    constexpr int32_t dataLength = 20;
     double totalValue = 0;
     auto categories = System::MakeArray<System::String>(dataLength);
     auto values = System::MakeArray<double>(dataLength, 0);
@@ -2971,17 +2981,17 @@ void ExCharts::InsertChartSeries()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, 432, 252);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Line, static_cast<double>(432), static_cast<double>(252));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series1 = chart->get_Series()->idx_get(0);
     
     // Clear X and Y values of the first series.
     series1->ClearValues();
     // Populate the series with data.
-    series1->Insert(0, Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(3));
-    series1->Insert(1, Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(3), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(10));
-    series1->Insert(2, Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(3), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(10));
-    series1->Insert(3, Aspose::Words::Drawing::Charts::ChartXValue::FromDouble(3), Aspose::Words::Drawing::Charts::ChartYValue::FromDouble(10), 10);
+    series1->Insert(0, ChartXValue::FromDouble(3));
+    series1->Insert(1, ChartXValue::FromDouble(3), ChartYValue::FromDouble(10));
+    series1->Insert(2, ChartXValue::FromDouble(3), ChartYValue::FromDouble(10));
+    series1->Insert(3, ChartXValue::FromDouble(3), ChartYValue::FromDouble(10), static_cast<double>(10));
     
     doc->Save(get_ArtifactsDir() + u"Charts.PopulateChartWithData.docx");
     //ExEnd
@@ -3006,11 +3016,11 @@ void ExCharts::SetChartStyle()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert a chart in the Black style.
-    builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 400, 250, Aspose::Words::Drawing::Charts::ChartStyle::Black);
+    builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(400), static_cast<double>(250), Aspose::Words::Drawing::Charts::ChartStyle::Black);
     
     doc->Save(get_ArtifactsDir() + u"Charts.SetChartStyle.docx");
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.SetChartStyle.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.SetChartStyle.docx"));
     
     // Get a chart to update.
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
@@ -3042,7 +3052,7 @@ void ExCharts::TitleOrientation()
     //ExSummary:Shows how to set orientation and rotation of chart and axis titles.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
-    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, 400, 300);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(Aspose::Words::Drawing::Charts::ChartType::Column, static_cast<double>(400), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = chartShape->get_Chart();
     
     chart->get_Title()->set_Text(u"Sample Chart");
@@ -3058,7 +3068,7 @@ void ExCharts::TitleOrientation()
     doc->Save(get_ArtifactsDir() + u"Charts.TitleOrientation.docx");
     //ExEnd:TitleOrientation
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Charts.TitleOrientation.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.TitleOrientation.docx"));
     chartShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     chart = chartShape->get_Chart();
     

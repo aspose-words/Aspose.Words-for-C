@@ -1,23 +1,7 @@
-#pragma once
+﻿#pragma once
 // Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
 
 #include <system/string.h>
-
-#include "HelperClasses/Common.h"
-
-namespace Aspose
-{
-namespace Words
-{
-namespace ApiExamples
-{
-namespace TestData
-{
-class Common;
-} // namespace TestData
-} // namespace ApiExamples
-} // namespace Words
-} // namespace Aspose
 
 namespace Aspose {
 
@@ -36,8 +20,6 @@ class ShareTestClass : public System::Object
     
     typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;
     RTTI_INFO_DECL();
-    
-    friend class TestData::Common;
     
 public:
 

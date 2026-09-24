@@ -1,18 +1,12 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDocumentVisitor.h"
+﻿#include "ExDocumentVisitor.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
 #include <system/date_time.h>
+#include <system/console.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Tables/RowCollection.h>
 #include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
@@ -27,7 +21,6 @@
 
 
 using namespace Aspose::Words::Fields;
-using namespace Aspose::Words::Markup;
 using namespace Aspose::Words::Math;
 using namespace Aspose::Words::Notes;
 using namespace Aspose::Words::Tables;
@@ -161,8 +154,7 @@ void ExDocumentVisitor::DocStructurePrinter::IndentAndAppendLine(System::String 
 
 RTTI_INFO_IMPL_HASH(2491243378u, ::Aspose::Words::ApiExamples::ExDocumentVisitor::TableStructurePrinter, ThisTypeBaseTypesInfo);
 
-ExDocumentVisitor::TableStructurePrinter::TableStructurePrinter() : mVisitorIsInsideTable(false)
-    , mDocTraversalDepth(0)
+ExDocumentVisitor::TableStructurePrinter::TableStructurePrinter() : mVisitorIsInsideTable(false), mDocTraversalDepth(0)
 {
     mVisitedTables = System::MakeObject<System::Text::StringBuilder>();
     mVisitorIsInsideTable = false;
@@ -215,7 +207,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitRowS
     System::String rowContents = row->GetText().TrimEnd(System::MakeArray<char16_t>({u'\x0007', u' '})).Replace(u"\u0007", u", ");
     int32_t rowWidth = row->IndexOf(row->get_LastCell()) + 1;
     int32_t rowIndex = row->get_ParentTable()->IndexOf(row);
-    System::String rowStatusInTable = row->get_IsFirstRow() && row->get_IsLastRow() ? u"only" : row->get_IsFirstRow() ? u"first" : row->get_IsLastRow() ? System::String(u"last") : System::String(u"");
+    System::String rowStatusInTable = row->get_IsFirstRow() && row->get_IsLastRow() ? System::String(u"only") : row->get_IsFirstRow() ? System::String(u"first") : row->get_IsLastRow() ? System::String(u"last") : System::String(u"");
     if (rowStatusInTable != u"")
     {
         rowStatusInTable = System::String::Format(u", the {0} row in this table,", rowStatusInTable);
@@ -239,7 +231,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitCell
 {
     System::SharedPtr<Aspose::Words::Tables::Row> row = cell->get_ParentRow();
     System::SharedPtr<Aspose::Words::Tables::Table> table = row->get_ParentTable();
-    System::String cellStatusInRow = cell->get_IsFirstCell() && cell->get_IsLastCell() ? u"only" : cell->get_IsFirstCell() ? u"first" : cell->get_IsLastCell() ? System::String(u"last") : System::String(u"");
+    System::String cellStatusInRow = cell->get_IsFirstCell() && cell->get_IsLastCell() ? System::String(u"only") : cell->get_IsFirstCell() ? System::String(u"first") : cell->get_IsLastCell() ? System::String(u"last") : System::String(u"");
     if (cellStatusInRow != u"")
     {
         cellStatusInRow = System::String::Format(u", the {0} cell in this row", cellStatusInRow);
@@ -340,8 +332,7 @@ void ExDocumentVisitor::CommentStructurePrinter::IndentAndAppendLine(System::Str
 
 RTTI_INFO_IMPL_HASH(1604398558u, ::Aspose::Words::ApiExamples::ExDocumentVisitor::FieldStructurePrinter, ThisTypeBaseTypesInfo);
 
-ExDocumentVisitor::FieldStructurePrinter::FieldStructurePrinter() : mVisitorIsInsideField(false)
-    , mDocTraversalDepth(0)
+ExDocumentVisitor::FieldStructurePrinter::FieldStructurePrinter() : mVisitorIsInsideField(false), mDocTraversalDepth(0)
 {
     mBuilder = System::MakeObject<System::Text::StringBuilder>();
     mVisitorIsInsideField = false;
@@ -451,8 +442,8 @@ void ExDocumentVisitor::HeaderFooterStructurePrinter::IndentAndAppendLine(System
 
 RTTI_INFO_IMPL_HASH(1581082717u, ::Aspose::Words::ApiExamples::ExDocumentVisitor::EditableRangeStructurePrinter, ThisTypeBaseTypesInfo);
 
-ExDocumentVisitor::EditableRangeStructurePrinter::EditableRangeStructurePrinter()
-    : mVisitorIsInsideEditableRange(false), mDocTraversalDepth(0)
+ExDocumentVisitor::EditableRangeStructurePrinter::EditableRangeStructurePrinter() : mVisitorIsInsideEditableRange(false)
+    , mDocTraversalDepth(0)
 {
     mBuilder = System::MakeObject<System::Text::StringBuilder>();
     mVisitorIsInsideEditableRange = false;
@@ -833,7 +824,6 @@ void ExDocumentVisitor::TestStructuredDocumentTagToText(System::SharedPtr<Aspose
     ASSERT_TRUE(visitorText.Contains(u"[StructuredDocumentTag end]"));
 }
 
-
 namespace gtest_test
 {
 
@@ -867,7 +857,7 @@ System::SharedPtr<::Aspose::Words::ApiExamples::ExDocumentVisitor> ExDocumentVis
 
 void ExDocumentVisitor::DocStructureToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::DocStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -875,7 +865,7 @@ void ExDocumentVisitor::DocStructureToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     TestDocStructureToText(visitor);
     //ExSkip
 }
@@ -892,7 +882,7 @@ TEST_F(ExDocumentVisitor, DocStructureToText)
 
 void ExDocumentVisitor::TableToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::TableStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -900,7 +890,7 @@ void ExDocumentVisitor::TableToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     TestTableToText(visitor);
     //ExSkip
 }
@@ -917,7 +907,7 @@ TEST_F(ExDocumentVisitor, TableToText)
 
 void ExDocumentVisitor::CommentsToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::CommentStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -925,7 +915,7 @@ void ExDocumentVisitor::CommentsToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     TestCommentsToText(visitor);
     //ExSkip
 }
@@ -942,7 +932,7 @@ TEST_F(ExDocumentVisitor, CommentsToText)
 
 void ExDocumentVisitor::FieldToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::FieldStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -950,7 +940,7 @@ void ExDocumentVisitor::FieldToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     TestFieldToText(visitor);
     //ExSkip
 }
@@ -967,7 +957,7 @@ TEST_F(ExDocumentVisitor, FieldToText)
 
 void ExDocumentVisitor::HeaderFooterToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::HeaderFooterStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -975,7 +965,7 @@ void ExDocumentVisitor::HeaderFooterToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     
     // An alternative way of accessing a document's header/footers section-by-section is by accessing the collection.
     System::ArrayPtr<System::SharedPtr<Aspose::Words::HeaderFooter>> headerFooters = doc->get_FirstSection()->get_HeadersFooters()->ToArray();
@@ -996,7 +986,7 @@ TEST_F(ExDocumentVisitor, HeaderFooterToText)
 
 void ExDocumentVisitor::EditableRangeToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::EditableRangeStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -1004,7 +994,7 @@ void ExDocumentVisitor::EditableRangeToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     TestEditableRangeToText(visitor);
     //ExSkip
 }
@@ -1021,7 +1011,7 @@ TEST_F(ExDocumentVisitor, EditableRangeToText)
 
 void ExDocumentVisitor::FootnoteToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::FootnoteStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -1029,7 +1019,7 @@ void ExDocumentVisitor::FootnoteToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     TestFootnoteToText(visitor);
     //ExSkip
 }
@@ -1046,7 +1036,7 @@ TEST_F(ExDocumentVisitor, FootnoteToText)
 
 void ExDocumentVisitor::OfficeMathToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::OfficeMathStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -1054,7 +1044,7 @@ void ExDocumentVisitor::OfficeMathToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     TestOfficeMathToText(visitor);
     //ExSkip
 }
@@ -1071,7 +1061,7 @@ TEST_F(ExDocumentVisitor, OfficeMathToText)
 
 void ExDocumentVisitor::SmartTagToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Smart tags.doc");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Smart tags.doc"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::SmartTagStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -1079,7 +1069,7 @@ void ExDocumentVisitor::SmartTagToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     TestSmartTagToText(visitor);
     //ExSkip
 }
@@ -1096,7 +1086,7 @@ TEST_F(ExDocumentVisitor, SmartTagToText)
 
 void ExDocumentVisitor::StructuredDocumentTagToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::StructuredDocumentTagNodePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -1104,7 +1094,7 @@ void ExDocumentVisitor::StructuredDocumentTagToText()
     // The visitor can read and modify each visited node.
     doc->Accept(visitor);
     
-    std::cout << visitor->GetText() << std::endl;
+    System::Console::WriteLine(visitor->GetText());
     TestStructuredDocumentTagToText(visitor);
     //ExSkip
 }

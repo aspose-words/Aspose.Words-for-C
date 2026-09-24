@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExStructuredDocumentTag.h"
+﻿#include "ExStructuredDocumentTag.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -17,24 +12,23 @@
 #include <system/func.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
 #include <system/default.h>
 #include <system/date_time.h>
-#include <system/convert.h>
+#include <system/console.h>
 #include <system/collections/list.h>
 #include <system/collections/ienumerator.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/color.h>
 #include <cstdint>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
 #include <Aspose.Words.Cpp/Model/Tables/TableCollection.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/Row.h>
 #include <Aspose.Words.Cpp/Model/Tables/Cell.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
@@ -94,7 +88,6 @@ System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTagRangeStart> ExStru
     return rangeStart;
 }
 
-
 namespace gtest_test
 {
 
@@ -133,9 +126,9 @@ void ExStructuredDocumentTag::RepeatingSection()
     //ExFor:StructuredDocumentTag.SdtType
     //ExFor:IStructuredDocumentTag.SdtType
     //ExSummary:Shows how to get the type of a structured document tag.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags.docx"));
     
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>> tags = doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag> >()->LINQ_ToList();
+    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>> tags = doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>()->LINQ_ToList();
     
     ASSERT_EQ(Aspose::Words::Markup::SdtType::RepeatingSection, tags->idx_get(0)->get_SdtType());
     ASSERT_EQ(Aspose::Words::Markup::SdtType::RepeatingSectionItem, tags->idx_get(1)->get_SdtType());
@@ -159,9 +152,9 @@ void ExStructuredDocumentTag::FlatOpcContent()
     //ExFor:StructuredDocumentTag.WordOpenXML
     //ExFor:IStructuredDocumentTag.WordOpenXML
     //ExSummary:Shows how to get XML contained within the node in the FlatOpc format.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags.docx"));
     
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>> tags = doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag> >()->LINQ_ToList();
+    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>> tags = doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>()->LINQ_ToList();
     
     ASSERT_TRUE(tags->idx_get(0)->get_WordOpenXML().Contains(u"<pkg:part pkg:name=\"/docProps/app.xml\" pkg:contentType=\"application/vnd.openxmlformats-officedocument.extended-properties+xml\">"));
     //ExEnd
@@ -212,7 +205,7 @@ void ExStructuredDocumentTag::ApplyStyle()
     {
         auto sdt = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(node);
         
-        std::cout << sdt->get_WordOpenXMLMinimal() << std::endl;
+        System::Console::WriteLine(sdt->get_WordOpenXMLMinimal());
         
         ASSERT_EQ(Aspose::Words::StyleIdentifier::Quote, sdt->get_Style()->get_StyleIdentifier());
         ASSERT_EQ(u"Quote", sdt->get_StyleName());
@@ -253,9 +246,9 @@ void ExStructuredDocumentTag::CheckBox()
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.CheckBox.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.CheckBox.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.CheckBox.docx"));
     
-    System::ArrayPtr<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>> tags = doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag> >()->LINQ_ToArray();
+    System::ArrayPtr<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>> tags = doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>()->LINQ_ToArray();
     
     ASPOSE_ASSERT_EQ(true, tags[0]->get_Checked());
     ASSERT_EQ(System::String::Empty, tags[0]->get_XmlMapping()->get_StoreItemId());
@@ -371,7 +364,7 @@ void ExStructuredDocumentTag::PlainText()
     tag->set_Multiline(true);
     
     // Set the "Appearance" property to "SdtAppearance.Tags" to show tags around content.
-    // By default structured document tag shows as BoundingBox. 
+    // By default structured document tag shows as BoundingBox.
     tag->set_Appearance(Aspose::Words::Markup::SdtAppearance::Tags);
     
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
@@ -388,7 +381,7 @@ void ExStructuredDocumentTag::PlainText()
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.PlainText.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.PlainText.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.PlainText.docx"));
     tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(Aspose::Words::NodeType::StructuredDocumentTag, 0, true));
     
     ASSERT_EQ(u"My plain text", tag->get_Title());
@@ -447,7 +440,7 @@ void ExStructuredDocumentTag::IsTemporary(bool isTemporary)
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.IsTemporary.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.IsTemporary.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.IsTemporary.docx"));
     
     ASSERT_EQ(2, doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true)->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> sdt)>>([&isTemporary](System::SharedPtr<Aspose::Words::Node> sdt) -> bool
     {
@@ -491,7 +484,7 @@ void ExStructuredDocumentTag::PlaceholderBuildingBlock(bool isShowingPlaceholder
     //ExFor:StructuredDocumentTag.PlaceholderName
     //ExFor:IStructuredDocumentTag.Placeholder
     //ExFor:IStructuredDocumentTag.PlaceholderName
-    //ExSummary:Shows how to use a building block's contents as a custom placeholder text for a structured document tag. 
+    //ExSummary:Shows how to use a building block's contents as a custom placeholder text for a structured document tag.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     // Insert a plain text structured document tag of the "PlainText" type, which will function as a text box.
@@ -531,7 +524,7 @@ void ExStructuredDocumentTag::PlaceholderBuildingBlock(bool isShowingPlaceholder
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.PlaceholderBuildingBlock.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.PlaceholderBuildingBlock.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.PlaceholderBuildingBlock.docx"));
     tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(Aspose::Words::NodeType::StructuredDocumentTag, 0, true));
     substituteBlock = System::ExplicitCast<Aspose::Words::BuildingBlocks::BuildingBlock>(doc->get_GlossaryDocument()->GetChild(Aspose::Words::NodeType::BuildingBlock, 0, true));
     
@@ -600,7 +593,7 @@ void ExStructuredDocumentTag::Lock()
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.Lock.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.Lock.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.Lock.docx"));
     tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(Aspose::Words::NodeType::StructuredDocumentTag, 0, true));
     
     ASSERT_TRUE(tag->get_LockContents());
@@ -672,12 +665,12 @@ void ExStructuredDocumentTag::ListItemCollection()
         {
             if (enumerator->get_Current() != nullptr)
             {
-                std::cout << System::String::Format(u"List item: {0}, value: {1}", enumerator->get_Current()->get_DisplayText(), enumerator->get_Current()->get_Value()) << std::endl;
+                System::Console::WriteLine(System::String::Format(u"List item: {0}, value: {1}", enumerator->get_Current()->get_DisplayText(), enumerator->get_Current()->get_Value()));
             }
         }
     }
     
-    // Remove the last list item. 
+    // Remove the last list item.
     listItems->RemoveAt(3);
     
     ASSERT_EQ(3, listItems->get_Count());
@@ -762,8 +755,8 @@ void ExStructuredDocumentTag::CreatingCustomXml()
         int32_t index = 0;
         while (enumerator->MoveNext())
         {
-            std::cout << System::String::Format(u"XML part index {0}, ID: {1}", index, enumerator->get_Current()->get_Id()) << std::endl;
-            std::cout << System::String::Format(u"\tContent: {0}", System::Text::Encoding::get_UTF8()->GetString(enumerator->get_Current()->get_Data())) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"XML part index {0}, ID: {1}", index, enumerator->get_Current()->get_Id()));
+            System::Console::WriteLine(System::String::Format(u"\tContent: {0}", System::Text::Encoding::get_UTF8()->GetString(enumerator->get_Current()->get_Data())));
             index++;
         }
     }
@@ -786,9 +779,9 @@ void ExStructuredDocumentTag::CreatingCustomXml()
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.CustomXml.docx");
     //ExEnd
     
-    ASSERT_TRUE(Aspose::Words::ApiExamples::DocumentHelper::CompareDocs(get_ArtifactsDir() + u"StructuredDocumentTag.CustomXml.docx", get_GoldsDir() + u"StructuredDocumentTag.CustomXml Gold.docx"));
+    ASSERT_TRUE(DocumentHelper::CompareDocs(get_ArtifactsDir() + u"StructuredDocumentTag.CustomXml.docx", get_GoldsDir() + u"StructuredDocumentTag.CustomXml Gold.docx"));
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.CustomXml.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.CustomXml.docx"));
     xmlPart = doc->get_CustomXmlParts()->idx_get(0);
     
     ASSERT_NO_THROW(static_cast<std::function<void()>>([&xmlPart]() -> void
@@ -829,12 +822,12 @@ void ExStructuredDocumentTag::DataChecksum()
     richText->get_XmlMapping()->SetMapping(doc->get_CustomXmlParts()->Add(System::ObjectExt::ToString(System::Guid::NewGuid()), u"<root><text>ContentControl</text></root>"), u"/root/text", u"");
     
     int64_t checksum = richText->get_XmlMapping()->get_CustomXmlPart()->get_DataChecksum();
-    std::cout << checksum << std::endl;
+    System::Console::WriteLine(checksum);
     
     richText->get_XmlMapping()->SetMapping(doc->get_CustomXmlParts()->Add(System::ObjectExt::ToString(System::Guid::NewGuid()), u"<root><text>Updated ContentControl</text></root>"), u"/root/text", u"");
     
     int64_t updatedChecksum = richText->get_XmlMapping()->get_CustomXmlPart()->get_DataChecksum();
-    std::cout << updatedChecksum << std::endl;
+    System::Console::WriteLine(updatedChecksum);
     
     // We changed the XmlPart of the tag, and the checksum was updated at runtime.
     ASSERT_NE(checksum, updatedChecksum);
@@ -888,7 +881,7 @@ void ExStructuredDocumentTag::XmlMapping()
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.XmlMapping.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.XmlMapping.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.XmlMapping.docx"));
     xmlPart = doc->get_CustomXmlParts()->idx_get(0);
     
     ASSERT_NO_THROW(static_cast<std::function<void()>>([&xmlPart]() -> void
@@ -918,7 +911,7 @@ void ExStructuredDocumentTag::StructuredDocumentTagRangeStartXmlMapping()
     //ExStart
     //ExFor:StructuredDocumentTagRangeStart.XmlMapping
     //ExSummary:Shows how to set XML mappings for the range start of a structured document tag.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Multi-section structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Multi-section structured document tags.docx"));
     
     // Construct an XML part that contains text and add it to the document's CustomXmlPart collection.
     System::String xmlPartId = System::Guid::NewGuid().ToString(u"B");
@@ -938,7 +931,7 @@ void ExStructuredDocumentTag::StructuredDocumentTagRangeStartXmlMapping()
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.StructuredDocumentTagRangeStartXmlMapping.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.StructuredDocumentTagRangeStartXmlMapping.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.StructuredDocumentTagRangeStartXmlMapping.docx"));
     xmlPart = doc->get_CustomXmlParts()->idx_get(0);
     
     ASSERT_NO_THROW(static_cast<std::function<void()>>([&xmlPart]() -> void
@@ -998,7 +991,7 @@ void ExStructuredDocumentTag::CustomXmlSchemaCollection()
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::String>> enumerator = schemas->GetEnumerator();
         while (enumerator->MoveNext())
         {
-            std::cout << enumerator->get_Current() << std::endl;
+            System::Console::WriteLine(enumerator->get_Current());
         }
     }
     
@@ -1031,7 +1024,7 @@ void ExStructuredDocumentTag::CustomXmlPartStoreItemIdReadOnly()
     //ExStart
     //ExFor:XmlMapping.StoreItemId
     //ExSummary:Shows how to get the custom XML data identifier of an XML part.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Custom XML part in structured document tag.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Custom XML part in structured document tag.docx"));
     
     // Structured document tags have IDs in the form of GUIDs.
     auto tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(Aspose::Words::NodeType::StructuredDocumentTag, 0, true));
@@ -1060,10 +1053,10 @@ void ExStructuredDocumentTag::CustomXmlPartStoreItemIdReadOnlyNull()
     
     builder->InsertNode(sdtCheckBox);
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     auto sdt = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(Aspose::Words::NodeType::StructuredDocumentTag, 0, true));
-    std::cout << (System::String(u"The Id of your custom xml part is: ") + sdt->get_XmlMapping()->get_StoreItemId()) << std::endl;
+    System::Console::WriteLine(System::String(u"The Id of your custom xml part is: ") + sdt->get_XmlMapping()->get_StoreItemId());
 }
 
 namespace gtest_test
@@ -1134,7 +1127,7 @@ TEST_F(ExStructuredDocumentTag, ClearTextFromStructuredDocumentTags)
 
 void ExStructuredDocumentTag::AccessToBuildingBlockPropertiesFromDocPartObjSdt()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags with building blocks.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags with building blocks.docx"));
     
     auto docPartObjSdt = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(Aspose::Words::NodeType::StructuredDocumentTag, 0, true));
     
@@ -1154,7 +1147,7 @@ TEST_F(ExStructuredDocumentTag, AccessToBuildingBlockPropertiesFromDocPartObjSdt
 
 void ExStructuredDocumentTag::AccessToBuildingBlockPropertiesFromPlainTextSdt()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags with building blocks.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags with building blocks.docx"));
     
     auto plainTextSdt = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(Aspose::Words::NodeType::StructuredDocumentTag, 1, true));
     
@@ -1284,8 +1277,8 @@ void ExStructuredDocumentTag::FillTableUsingRepeatingSectionItem()
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.RepeatingSectionItem.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.RepeatingSectionItem.docx");
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>> tags = doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag> >()->LINQ_ToList();
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.RepeatingSectionItem.docx"));
+    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>> tags = doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>()->LINQ_ToList();
     
     ASSERT_EQ(u"/books[1]/book", tags->idx_get(0)->get_XmlMapping()->get_XPath());
     ASSERT_EQ(System::String::Empty, tags->idx_get(0)->get_XmlMapping()->get_PrefixMappings());
@@ -1299,7 +1292,7 @@ void ExStructuredDocumentTag::FillTableUsingRepeatingSectionItem()
     ASSERT_EQ(u"/books[1]/book[1]/author[1]", tags->idx_get(3)->get_XmlMapping()->get_XPath());
     ASSERT_EQ(System::String::Empty, tags->idx_get(3)->get_XmlMapping()->get_PrefixMappings());
     
-    ASSERT_EQ(System::String(u"Title\u0007Author\u0007\u0007") + u"Everyday Italian\u0007Giada De Laurentiis\u0007\u0007" + u"The C Programming Language\u0007Brian W. Kernighan, Dennis M. Ritchie\u0007\u0007" + u"Learning XML\u0007Erik T. Ray\u0007\u0007", doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->GetText().Trim());
+    ASSERT_EQ((System::String(u"Title\u0007Author\u0007\u0007") + u"Everyday Italian\u0007Giada De Laurentiis\u0007\u0007" + u"The C Programming Language\u0007Brian W. Kernighan, Dennis M. Ritchie\u0007\u0007" + u"Learning XML\u0007Erik T. Ray\u0007\u0007"), doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->GetText().Trim());
 }
 
 namespace gtest_test
@@ -1362,7 +1355,7 @@ void ExStructuredDocumentTag::MultiSectionTags()
     //ExFor:StructuredDocumentTagRangeEnd
     //ExFor:StructuredDocumentTagRangeEnd.Id
     //ExSummary:Shows how to get the properties of multi-section structured document tags.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Multi-section structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Multi-section structured document tags.docx"));
     
     auto rangeStartTag = System::AsCast<Aspose::Words::Markup::StructuredDocumentTagRangeStart>(doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTagRangeStart, true)->idx_get(0));
     auto rangeEndTag = System::AsCast<Aspose::Words::Markup::StructuredDocumentTagRangeEnd>(doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTagRangeEnd, true)->idx_get(0));
@@ -1374,24 +1367,24 @@ void ExStructuredDocumentTag::MultiSectionTags()
     ASSERT_EQ(Aspose::Words::NodeType::StructuredDocumentTagRangeEnd, rangeEndTag->get_NodeType());
     //ExSkip
     
-    std::cout << "StructuredDocumentTagRangeStart values:" << std::endl;
-    std::cout << System::String::Format(u"\t|Id: {0}", rangeStartTag->get_Id()) << std::endl;
-    std::cout << System::String::Format(u"\t|Title: {0}", rangeStartTag->get_Title()) << std::endl;
-    std::cout << System::String::Format(u"\t|PlaceholderName: {0}", rangeStartTag->get_PlaceholderName()) << std::endl;
-    std::cout << System::String::Format(u"\t|IsShowingPlaceholderText: {0}", rangeStartTag->get_IsShowingPlaceholderText()) << std::endl;
-    std::cout << System::String::Format(u"\t|LockContentControl: {0}", rangeStartTag->get_LockContentControl()) << std::endl;
-    std::cout << System::String::Format(u"\t|LockContents: {0}", rangeStartTag->get_LockContents()) << std::endl;
-    std::cout << System::String::Format(u"\t|Level: {0}", rangeStartTag->get_Level()) << std::endl;
-    std::cout << System::String::Format(u"\t|NodeType: {0}", rangeStartTag->get_NodeType()) << std::endl;
-    std::cout << System::String::Format(u"\t|RangeEnd: {0}", rangeStartTag->get_RangeEnd()) << std::endl;
-    std::cout << System::String::Format(u"\t|Color: {0}", rangeStartTag->get_Color().ToArgb()) << std::endl;
-    std::cout << System::String::Format(u"\t|SdtType: {0}", rangeStartTag->get_SdtType()) << std::endl;
-    std::cout << System::String::Format(u"\t|FlatOpcContent: {0}", rangeStartTag->get_WordOpenXML()) << std::endl;
-    std::cout << System::String::Format(u"\t|Tag: {0}\n", rangeStartTag->get_Tag()) << std::endl;
+    System::Console::WriteLine(u"StructuredDocumentTagRangeStart values:");
+    System::Console::WriteLine(System::String::Format(u"\t|Id: {0}", rangeStartTag->get_Id()));
+    System::Console::WriteLine(System::String::Format(u"\t|Title: {0}", rangeStartTag->get_Title()));
+    System::Console::WriteLine(System::String::Format(u"\t|PlaceholderName: {0}", rangeStartTag->get_PlaceholderName()));
+    System::Console::WriteLine(System::String::Format(u"\t|IsShowingPlaceholderText: {0}", rangeStartTag->get_IsShowingPlaceholderText()));
+    System::Console::WriteLine(System::String::Format(u"\t|LockContentControl: {0}", rangeStartTag->get_LockContentControl()));
+    System::Console::WriteLine(System::String::Format(u"\t|LockContents: {0}", rangeStartTag->get_LockContents()));
+    System::Console::WriteLine(System::String::Format(u"\t|Level: {0}", rangeStartTag->get_Level()));
+    System::Console::WriteLine(System::String::Format(u"\t|NodeType: {0}", rangeStartTag->get_NodeType()));
+    System::Console::WriteLine(System::String::Format(u"\t|RangeEnd: {0}", rangeStartTag->get_RangeEnd()));
+    System::Console::WriteLine(System::String::Format(u"\t|Color: {0}", rangeStartTag->get_Color().ToArgb()));
+    System::Console::WriteLine(System::String::Format(u"\t|SdtType: {0}", rangeStartTag->get_SdtType()));
+    System::Console::WriteLine(System::String::Format(u"\t|FlatOpcContent: {0}", rangeStartTag->get_WordOpenXML()));
+    System::Console::WriteLine(System::String::Format(u"\t|Tag: {0}\n", rangeStartTag->get_Tag()));
     
-    std::cout << "StructuredDocumentTagRangeEnd values:" << std::endl;
-    std::cout << System::String::Format(u"\t|Id: {0}", rangeEndTag->get_Id()) << std::endl;
-    std::cout << System::String::Format(u"\t|NodeType: {0}", rangeEndTag->get_NodeType()) << std::endl;
+    System::Console::WriteLine(u"StructuredDocumentTagRangeEnd values:");
+    System::Console::WriteLine(System::String::Format(u"\t|Id: {0}", rangeEndTag->get_Id()));
+    System::Console::WriteLine(System::String::Format(u"\t|NodeType: {0}", rangeEndTag->get_NodeType()));
     //ExEnd
 }
 
@@ -1410,20 +1403,20 @@ void ExStructuredDocumentTag::SdtChildNodes()
     //ExStart
     //ExFor:StructuredDocumentTagRangeStart.GetChildNodes(NodeType, bool)
     //ExSummary:Shows how to get child nodes of StructuredDocumentTagRangeStart.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Multi-section structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Multi-section structured document tags.docx"));
     auto tag = System::AsCast<Aspose::Words::Markup::StructuredDocumentTagRangeStart>(doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTagRangeStart, true)->idx_get(0));
     
-    std::cout << "StructuredDocumentTagRangeStart values:" << std::endl;
-    std::cout << System::String::Format(u"\t|Child nodes count: {0}\n", tag->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count()) << std::endl;
+    System::Console::WriteLine(u"StructuredDocumentTagRangeStart values:");
+    System::Console::WriteLine(System::String::Format(u"\t|Child nodes count: {0}\n", tag->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count()));
     
     for (auto&& node : System::IterateOver(tag->GetChildNodes(Aspose::Words::NodeType::Any, false)))
     {
-        std::cout << System::String::Format(u"\t|Child node type: {0}", node->get_NodeType()) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"\t|Child node type: {0}", node->get_NodeType()));
     }
     
     for (auto&& node : System::IterateOver(tag->GetChildNodes(Aspose::Words::NodeType::Run, true)))
     {
-        std::cout << System::String::Format(u"\t|Child node text: {0}", node->GetText()) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"\t|Child node text: {0}", node->GetText()));
     }
     //ExEnd
 }
@@ -1499,14 +1492,14 @@ void ExStructuredDocumentTag::GetSdt()
     //ExFor:StructuredDocumentTagCollection.Remove(int)
     //ExFor:StructuredDocumentTagCollection.RemoveAt(int)
     //ExSummary:Shows how to remove structured document tag.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags.docx"));
     
     System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTagCollection> structuredDocumentTags = doc->get_Range()->get_StructuredDocumentTags();
     System::SharedPtr<Aspose::Words::Markup::IStructuredDocumentTag> sdt;
     for (int32_t i = 0; i < structuredDocumentTags->get_Count(); i++)
     {
         sdt = structuredDocumentTags->idx_get(i);
-        std::cout << sdt->get_Title() << std::endl;
+        System::Console::WriteLine(sdt->get_Title());
     }
     
     sdt = structuredDocumentTags->GetById(1691867797);
@@ -1540,16 +1533,16 @@ void ExStructuredDocumentTag::RangeSdt()
     //ExFor:IStructuredDocumentTag.IsMultiSection
     //ExFor:IStructuredDocumentTag.Title
     //ExSummary:Shows how to get structured document tag.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags by id.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags by id.docx"));
     
     // Get the structured document tag by Id.
     System::SharedPtr<Aspose::Words::Markup::IStructuredDocumentTag> sdt = doc->get_Range()->get_StructuredDocumentTags()->GetById(1160505028);
-    std::cout << System::Convert::ToString(sdt->get_IsMultiSection()) << std::endl;
-    std::cout << sdt->get_Title() << std::endl;
+    System::Console::WriteLine(sdt->get_IsMultiSection());
+    System::Console::WriteLine(sdt->get_Title());
     
     // Get the structured document tag or ranged tag by Title.
     sdt = doc->get_Range()->get_StructuredDocumentTags()->GetByTitle(u"Alias4");
-    std::cout << sdt->get_Id() << std::endl;
+    System::Console::WriteLine(sdt->get_Id());
     //ExEnd
 }
 
@@ -1616,7 +1609,7 @@ void ExStructuredDocumentTag::IgnoreStructuredDocumentTags()
     //ExStart
     //ExFor:FindReplaceOptions.IgnoreStructuredDocumentTags
     //ExSummary:Shows how to ignore content of tags from replacement.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags.docx"));
     
     // This paragraph contains SDT.
     auto p = System::ExplicitCast<Aspose::Words::Paragraph>(doc->get_FirstSection()->get_Body()->GetChild(Aspose::Words::NodeType::Paragraph, 2, true));
@@ -1629,7 +1622,7 @@ void ExStructuredDocumentTag::IgnoreStructuredDocumentTags()
     doc->Save(get_ArtifactsDir() + u"StructuredDocumentTag.IgnoreStructuredDocumentTags.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"StructuredDocumentTag.IgnoreStructuredDocumentTags.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.IgnoreStructuredDocumentTags.docx"));
     ASSERT_EQ(u"This document contains Structured Document Tags with text inside them\r\rRepeatingSection\rRichText\rreplacement", doc->GetText().Trim());
 }
 
@@ -1685,7 +1678,7 @@ void ExStructuredDocumentTag::RangeStartWordOpenXmlMinimal()
     //GistId:470c0da51e4317baae82ad9495747fed
     //ExFor:StructuredDocumentTagRangeStart.WordOpenXMLMinimal
     //ExSummary:Shows how to get minimal XML contained within the node in the FlatOpc format.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Multi-section structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Multi-section structured document tags.docx"));
     auto tag = System::AsCast<Aspose::Words::Markup::StructuredDocumentTagRangeStart>(doc->GetChild(Aspose::Words::NodeType::StructuredDocumentTagRangeStart, 0, true));
     
     ASSERT_TRUE(tag->get_WordOpenXMLMinimal().Contains(u"<pkg:part pkg:name=\"/docProps/app.xml\" pkg:contentType=\"application/vnd.openxmlformats-officedocument.extended-properties+xml\">"));
@@ -1711,9 +1704,9 @@ void ExStructuredDocumentTag::RemoveSelfOnly()
     //ExFor:IStructuredDocumentTag.GetChildNodes(NodeType, bool)
     //ExFor:IStructuredDocumentTag.RemoveSelfOnly
     //ExSummary:Shows how to remove structured document tag, but keeps content inside.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags.docx"));
     
-    // This collection provides a unified interface for accessing ranged and non-ranged structured tags. 
+    // This collection provides a unified interface for accessing ranged and non-ranged structured tags.
     System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<Aspose::Words::Markup::IStructuredDocumentTag>>> sdts = doc->get_Range()->get_StructuredDocumentTags()->LINQ_ToList();
     ASSERT_EQ(5, sdts->LINQ_Count());
     
@@ -1749,7 +1742,7 @@ void ExStructuredDocumentTag::Appearance()
     //ExFor:StructuredDocumentTagRangeStart.Appearance
     //ExFor:IStructuredDocumentTag.Appearance
     //ExSummary:Shows how to show tag around content.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Multi-section structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Multi-section structured document tags.docx"));
     auto tag = System::AsCast<Aspose::Words::Markup::StructuredDocumentTagRangeStart>(doc->GetChild(Aspose::Words::NodeType::StructuredDocumentTagRangeStart, 0, true));
     
     if (tag->get_Appearance() == Aspose::Words::Markup::SdtAppearance::Hidden)
@@ -1775,7 +1768,7 @@ void ExStructuredDocumentTag::InsertStructuredDocumentTag()
     //GistId:e06aa7a168b57907a5598e823a22bf0a
     //ExFor:DocumentBuilder.InsertStructuredDocumentTag(SdtType)
     //ExSummary:Shows how to simply insert structured document tag.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     builder->MoveTo(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(3));

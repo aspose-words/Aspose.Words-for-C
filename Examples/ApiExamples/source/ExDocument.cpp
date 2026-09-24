@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDocument.h"
+﻿#include "ExDocument.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/regularexpressions/regex.h>
@@ -20,23 +15,20 @@
 #include <system/io/file_mode.h>
 #include <system/io/file_access.h>
 #include <system/io/file.h>
+#include <system/io/directory_info.h>
 #include <system/io/directory.h>
 #include <system/globalization/culture_info.h>
 #include <system/func.h>
 #include <system/exceptions.h>
-#include <system/enumerator_adapter.h>
-#include <system/enum_helpers.h>
-#include <system/details/dispose_guard.h>
 #include <system/date_time.h>
 #include <system/convert.h>
+#include <system/console.h>
 #include <system/collections/list.h>
 #include <system/collections/ienumerator.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
 #include <security/cryptography/x509_certificates/x509_certificate_2.h>
 #include <security/cryptography/x509_certificates/x500_distinguished_name.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/size.h>
 #include <drawing/image.h>
@@ -138,7 +130,6 @@
 #include <Aspose.Words.Cpp/Model/Document/ProtectionType.h>
 #include <Aspose.Words.Cpp/Model/Document/PageExtractOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/LoadFormat.h>
-#include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
 #include <Aspose.Words.Cpp/Model/Document/IncorrectPasswordException.h>
 #include <Aspose.Words.Cpp/Model/Document/ImportFormatOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/FileFormatUtil.h>
@@ -158,8 +149,8 @@
 #include <Aspose.Words.Cpp/Layout/Public/LayoutOptions.h>
 #include <Aspose.Words.Cpp/Layout/Public/CommentDisplayMode.h>
 
-#include "TestUtil.h"
 #include "DocumentHelper.h"
+#include "TestUtil.h"
 
 
 using namespace Aspose::Words::DigitalSignatures;
@@ -260,7 +251,6 @@ void ExDocument::TestDocPackageCustomParts(System::SharedPtr<Aspose::Words::Mark
     ASSERT_EQ(0, parts->idx_get(2)->get_Data()->get_Length());
 }
 
-
 namespace gtest_test
 {
 
@@ -333,7 +323,7 @@ void ExDocument::Constructor()
     doc->get_FirstSection()->get_Body()->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     
     // 2 -  Load a document that exists in the local file system:
-    doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     // Loaded documents will have contents that we can access and edit.
     ASSERT_EQ(u"Hello World!", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim());
@@ -386,7 +376,7 @@ void ExDocument::ConvertToPdf()
     //ExFor:Document.#ctor(String)
     //ExFor:Document.Save(String)
     //ExSummary:Shows how to open a document and convert it to .PDF.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     doc->Save(get_ArtifactsDir() + u"Document.ConvertToPdf.pdf");
     //ExEnd
@@ -431,7 +421,7 @@ TEST_F(ExDocument, SaveToImageStream)
 
 void ExDocument::DetectMobiDocumentFormat()
 {
-    System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.mobi");
+    System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.mobi");
     ASSERT_EQ(info->get_LoadFormat(), Aspose::Words::LoadFormat::Mobi);
 }
 
@@ -467,8 +457,8 @@ void ExDocument::OpenFromStreamWithBaseUri()
         
         ASSERT_TRUE(shape->get_IsImage());
         ASSERT_FALSE(System::TestTools::IsNull(shape->get_ImageData()->get_ImageBytes()));
-        ASSERT_NEAR(32.0, Aspose::Words::ConvertUtil::PointToPixel(shape->get_Width()), 0.01);
-        ASSERT_NEAR(32.0, Aspose::Words::ConvertUtil::PointToPixel(shape->get_Height()), 0.01);
+        ASSERT_NEAR(32.0, ConvertUtil::PointToPixel(shape->get_Width()), 0.01);
+        ASSERT_NEAR(32.0, ConvertUtil::PointToPixel(shape->get_Height()), 0.01);
     }
     //ExEnd
 }
@@ -496,7 +486,7 @@ void ExDocument::LoadEncrypted()
     // Aspose.Words throw an exception if we try to open an encrypted document without its password.
     ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
     {
-        doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Encrypted.docx");
+        doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Encrypted.docx"));
     })(), Aspose::Words::IncorrectPasswordException);
     
     // When loading such a document, the password is passed to the document's constructor using a LoadOptions object.
@@ -539,7 +529,7 @@ void ExDocument::NotSupportedWarning()
     loadOptions->set_WarningCallback(warnings);
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"FB2 document.fb2", loadOptions);
     
-    ASSERT_EQ(u"The original file load format is FB2, which is not supported by Aspose.Words. The file is loaded as an XML document.", warnings->idx_get(0)->get_Description());
+    ASSERT_EQ((u"The original file load format is FB2, which is not supported by Aspose.Words. The file is loaded as an XML document."), warnings->idx_get(0)->get_Description());
     ASSERT_EQ(1, warnings->get_Count());
     //ExEnd
 }
@@ -586,7 +576,7 @@ void ExDocument::ConvertToHtml()
     //ExFor:Document.Save(String,SaveFormat)
     //ExFor:SaveFormat
     //ExSummary:Shows how to convert from DOCX to HTML format.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     doc->Save(get_ArtifactsDir() + u"Document.ConvertToHtml.html", Aspose::Words::SaveFormat::Html);
     //ExEnd
@@ -604,7 +594,7 @@ TEST_F(ExDocument, ConvertToHtml)
 
 void ExDocument::ConvertToMhtml()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     doc->Save(get_ArtifactsDir() + u"Document.ConvertToMhtml.mht");
 }
 
@@ -620,7 +610,7 @@ TEST_F(ExDocument, ConvertToMhtml)
 
 void ExDocument::ConvertToTxt()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     doc->Save(get_ArtifactsDir() + u"Document.ConvertToTxt.txt");
 }
 
@@ -636,7 +626,7 @@ TEST_F(ExDocument, ConvertToTxt)
 
 void ExDocument::ConvertToEpub()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     doc->Save(get_ArtifactsDir() + u"Document.ConvertToEpub.epub");
 }
 
@@ -655,7 +645,7 @@ void ExDocument::SaveToStream()
     //ExStart
     //ExFor:Document.Save(Stream,SaveFormat)
     //ExSummary:Shows how to save a document to a stream.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     {
         auto dstStream = System::MakeObject<System::IO::MemoryStream>();
@@ -690,11 +680,11 @@ void ExDocument::FontChangeViaCallback()
     builder->Writeln(u"Hello world!");
     builder->Writeln(u"Hello again!");
     builder->InsertField(u" HYPERLINK \"https://www.google.com/\" ");
-    builder->InsertShape(Aspose::Words::Drawing::ShapeType::Rectangle, 300, 300);
+    builder->InsertShape(Aspose::Words::Drawing::ShapeType::Rectangle, static_cast<double>(300), static_cast<double>(300));
     
     doc->get_Range()->get_Fields()->idx_get(0)->Remove();
     
-    std::cout << callback->GetLog() << std::endl;
+    System::Console::WriteLine(callback->GetLog());
     TestFontChangeViaCallback(callback->GetLog());
     //ExSkip
 }
@@ -729,7 +719,7 @@ void ExDocument::AppendDocument()
     dstDoc->Save(get_ArtifactsDir() + u"Document.AppendDocument.docx");
     //ExEnd
     
-    System::String outDocText = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.AppendDocument.docx")->GetText();
+    System::String outDocText = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.AppendDocument.docx"))->GetText();
     
     ASSERT_TRUE(outDocText.StartsWith(dstDoc->GetText()));
     ASSERT_TRUE(outDocText.EndsWith(srcDoc->GetText()));
@@ -752,7 +742,7 @@ void ExDocument::AppendDocumentFromAutomation()
     // We should call this method to clear this document of any existing content.
     doc->RemoveAllChildren();
     
-    const int32_t recordCount = 5;
+    constexpr int32_t recordCount = 5;
     for (int32_t i = 1; i <= recordCount; i++)
     {
         auto srcDoc = System::MakeObject<Aspose::Words::Document>();
@@ -772,7 +762,7 @@ void ExDocument::AppendDocumentFromAutomation()
         // if this is the second document or above being appended.
         if (i > 1)
         {
-            ASSERT_THROW(static_cast<std::function<void()>>([&doc, &i]() -> void
+            ASSERT_THROW(static_cast<std::function<void()>>([&i, &doc]() -> void
             {
                 doc->get_Sections()->idx_get(i)->get_HeadersFooters()->LinkToPrevious(false);
             })(), System::NullReferenceException);
@@ -795,8 +785,8 @@ void ExDocument::ImportList(bool isKeepSourceNumbering)
     //ExStart
     //ExFor:ImportFormatOptions.KeepSourceNumbering
     //ExSummary:Shows how to import a document with numbered lists.
-    auto srcDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"List source.docx");
-    auto dstDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"List destination.docx");
+    auto srcDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List source.docx"));
+    auto dstDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List destination.docx"));
     
     ASSERT_EQ(4, dstDoc->get_Lists()->get_Count());
     
@@ -848,8 +838,8 @@ void ExDocument::KeepSourceNumberingSameListIds()
     //ExFor:ImportFormatOptions.KeepSourceNumbering
     //ExFor:NodeImporter.#ctor(DocumentBase, DocumentBase, ImportFormatMode, ImportFormatOptions)
     //ExSummary:Shows how resolve a clash when importing documents that have lists with the same list definition identifier.
-    auto srcDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"List with the same definition identifier - source.docx");
-    auto dstDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"List with the same definition identifier - destination.docx");
+    auto srcDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List with the same definition identifier - source.docx"));
+    auto dstDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List with the same definition identifier - destination.docx"));
     
     // Set the "KeepSourceNumbering" property to "true" to apply a different list definition ID
     // to identical styles as Aspose.Words imports them into destination documents.
@@ -881,8 +871,8 @@ void ExDocument::MergePastedLists()
     //ExStart
     //ExFor:ImportFormatOptions.MergePastedLists
     //ExSummary:Shows how to merge lists from a documents.
-    auto srcDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"List item.docx");
-    auto dstDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"List destination.docx");
+    auto srcDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List item.docx"));
+    auto dstDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List destination.docx"));
     
     auto options = System::MakeObject<Aspose::Words::ImportFormatOptions>();
     options->set_MergePastedLists(true);
@@ -910,8 +900,8 @@ void ExDocument::ForceCopyStyles()
     //ExFor:ImportFormatOptions.ForceCopyStyles
     //ExSummary:Shows how to copy source styles with unique names forcibly.
     // Both documents contain MyStyle1 and MyStyle2, MyStyle3 exists only in a source document.
-    auto srcDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Styles source.docx");
-    auto dstDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Styles destination.docx");
+    auto srcDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Styles source.docx"));
+    auto dstDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Styles destination.docx"));
     
     auto options = System::MakeObject<Aspose::Words::ImportFormatOptions>();
     options->set_ForceCopyStyles(true);
@@ -979,17 +969,17 @@ void ExDocument::ValidateIndividualDocumentSignatures()
     //ExFor:DigitalSignature.SignTime
     //ExFor:DigitalSignature.SignatureType
     //ExSummary:Shows how to validate and display information about each signature in a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Digitally signed.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Digitally signed.docx"));
     
     for (auto&& signature : doc->get_DigitalSignatures())
     {
-        std::cout << System::String::Format(u"{0} signature: ", (signature->get_IsValid() ? System::String(u"Valid") : System::String(u"Invalid"))) << std::endl;
-        std::cout << System::String::Format(u"\tReason:\t{0}", signature->get_Comments()) << std::endl;
-        std::cout << System::String::Format(u"\tType:\t{0}", signature->get_SignatureType()) << std::endl;
-        std::cout << System::String::Format(u"\tSign time:\t{0}", signature->get_SignTime()) << std::endl;
-        std::cout << System::String::Format(u"\tSubject name:\t{0}", signature->get_CertificateHolder()->get_Certificate()->get_SubjectName()) << std::endl;
-        std::cout << System::String::Format(u"\tIssuer name:\t{0}", signature->get_CertificateHolder()->get_Certificate()->get_IssuerName()->get_Name()) << std::endl;
-        std::cout << std::endl;
+        System::Console::WriteLine(System::String::Format(u"{0} signature: ", signature->get_IsValid() ? System::String(u"Valid") : System::String(u"Invalid")));
+        System::Console::WriteLine(System::String::Format(u"\tReason:\t{0}", signature->get_Comments()));
+        System::Console::WriteLine(System::String::Format(u"\tType:\t{0}", signature->get_SignatureType()));
+        System::Console::WriteLine(System::String::Format(u"\tSign time:\t{0}", signature->get_SignTime()));
+        System::Console::WriteLine(System::String::Format(u"\tSubject name:\t{0}", signature->get_CertificateHolder()->get_Certificate()->get_SubjectName()));
+        System::Console::WriteLine(System::String::Format(u"\tIssuer name:\t{0}", signature->get_CertificateHolder()->get_Certificate()->get_IssuerName()->get_Name()));
+        System::Console::WriteLine();
     }
     //ExEnd
     
@@ -1030,32 +1020,32 @@ void ExDocument::DigitalSignature()
     //ExFor:Document.DigitalSignatures
     //ExSummary:Shows how to sign documents with X.509 certificates.
     // Verify that a document is not signed.
-    ASSERT_FALSE(Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.docx")->get_HasDigitalSignature());
+    ASSERT_FALSE(FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.docx")->get_HasDigitalSignature());
     
     // Create a CertificateHolder object from a PKCS12 file, which we will use to sign the document.
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw", nullptr);
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw", nullptr);
     
     // There are two ways of saving a signed copy of a document to the local file system:
     // 1 - Designate a document by a local system filename and save a signed copy at a location specified by another filename.
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     signOptions->set_SignTime(System::DateTime::get_Now());
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(get_MyDir() + u"Document.docx", get_ArtifactsDir() + u"Document.DigitalSignature.docx", certificateHolder, signOptions);
+    DigitalSignatureUtil::Sign(get_MyDir() + u"Document.docx", get_ArtifactsDir() + u"Document.DigitalSignature.docx", certificateHolder, signOptions);
     
-    ASSERT_TRUE(Aspose::Words::FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"Document.DigitalSignature.docx")->get_HasDigitalSignature());
+    ASSERT_TRUE(FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"Document.DigitalSignature.docx")->get_HasDigitalSignature());
     
     // 2 - Take a document from a stream and save a signed copy to another stream.
     {
         auto inDoc = System::MakeObject<System::IO::FileStream>(get_MyDir() + u"Document.docx", System::IO::FileMode::Open);
         {
             auto outDoc = System::MakeObject<System::IO::FileStream>(get_ArtifactsDir() + u"Document.DigitalSignature.docx", System::IO::FileMode::Create);
-            Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(inDoc, outDoc, certificateHolder);
+            DigitalSignatureUtil::Sign(inDoc, outDoc, certificateHolder);
         }
     }
     
-    ASSERT_TRUE(Aspose::Words::FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"Document.DigitalSignature.docx")->get_HasDigitalSignature());
+    ASSERT_TRUE(FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"Document.DigitalSignature.docx")->get_HasDigitalSignature());
     
     // Please verify that all of the document's digital signatures are valid and check their details.
-    auto signedDoc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.DigitalSignature.docx");
+    auto signedDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.DigitalSignature.docx"));
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatureCollection = signedDoc->get_DigitalSignatures();
     
     ASSERT_TRUE(digitalSignatureCollection->get_IsValid());
@@ -1081,7 +1071,7 @@ void ExDocument::SignatureValue()
     //ExStart
     //ExFor:DigitalSignature.SignatureValue
     //ExSummary:Shows how to get a digital signature value from a digitally signed document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Digitally signed.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Digitally signed.docx"));
     
     for (auto&& digitalSignature : doc->get_DigitalSignatures())
     {
@@ -1126,13 +1116,13 @@ void ExDocument::AppendAllDocumentsInFolder()
     })))->LINQ_ToList();
     for (auto&& fileName : docFiles)
     {
-        System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(fileName);
+        System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(fileName);
         if (info->get_IsEncrypted())
         {
             continue;
         }
         
-        auto srcDoc = System::MakeObject<Aspose::Words::Document>(fileName);
+        auto srcDoc = System::MakeObject<Aspose::Words::Document>(System::String(fileName));
         dstDoc->AppendDocument(srcDoc, Aspose::Words::ImportFormatMode::UseDestinationStyles);
     }
     
@@ -1160,7 +1150,7 @@ void ExDocument::JoinRunsWithSameFormatting()
     //ExSummary:Shows how to join runs in a document to reduce unneeded runs.
     // Open a document that contains adjacent runs of text with identical formatting,
     // which commonly occurs if we edit the same paragraph multiple times in Microsoft Word.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // If any number of these runs are adjacent with identical formatting,
     // then the document may be simplified.
@@ -1199,11 +1189,11 @@ void ExDocument::DefaultTabStop()
     builder->get_Document()->set_DefaultTabStop(72);
     
     // Each tab character snaps the text after it to the next closest tab stop position.
-    builder->Writeln(System::String(u"Hello") + Aspose::Words::ControlChar::Tab() + u"World!");
-    builder->Writeln(System::String(u"Hello") + Aspose::Words::ControlChar::TabChar + u"World!");
+    builder->Writeln(System::String(u"Hello") + ControlChar::Tab() + u"World!");
+    builder->Writeln(System::String(u"Hello") + ControlChar::TabChar + u"World!");
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     ASPOSE_ASSERT_EQ(72, doc->get_DefaultTabStop());
 }
 
@@ -1294,7 +1284,7 @@ void ExDocument::ProtectUnprotect()
     
     // Note that the protection only applies to Microsoft Word users opening our document.
     // We have not encrypted the document in any way, and we do not need the password to open and edit it programmatically.
-    auto protectedDoc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.Protect.docx");
+    auto protectedDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.Protect.docx"));
     
     ASSERT_EQ(Aspose::Words::ProtectionType::ReadOnly, protectedDoc->get_ProtectionType());
     
@@ -1387,7 +1377,7 @@ void ExDocument::RemoveMacrosFromDocument()
     //ExStart
     //ExFor:Document.RemoveMacros
     //ExSummary:Shows how to remove all macros from a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Macro.docm");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Macro.docm"));
     
     ASSERT_TRUE(doc->get_HasMacros());
     ASSERT_EQ(u"Project", doc->get_VbaProject()->get_Name());
@@ -1498,7 +1488,7 @@ void ExDocument::GetOriginalFileInfo()
     //ExFor:Document.OriginalFileName
     //ExFor:Document.OriginalLoadFormat
     //ExSummary:Shows how to retrieve details of a document's load operation.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     ASSERT_EQ(get_MyDir() + u"Document.docx", doc->get_OriginalFileName());
     ASSERT_EQ(Aspose::Words::LoadFormat::Docx, doc->get_OriginalLoadFormat());
@@ -1521,7 +1511,7 @@ void ExDocument::FootnoteColumns()
     //ExFor:FootnoteOptions
     //ExFor:FootnoteOptions.Columns
     //ExSummary:Shows how to split the footnote section into a given number of columns.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Footnotes and endnotes.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Footnotes and endnotes.docx"));
     ASSERT_EQ(0, doc->get_FootnoteOptions()->get_Columns());
     //ExSkip
     
@@ -1529,7 +1519,7 @@ void ExDocument::FootnoteColumns()
     doc->Save(get_ArtifactsDir() + u"Document.FootnoteColumns.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.FootnoteColumns.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.FootnoteColumns.docx"));
     
     ASSERT_EQ(2, doc->get_FirstSection()->get_PageSetup()->get_FootnoteOptions()->get_Columns());
 }
@@ -1549,7 +1539,7 @@ void ExDocument::RemoveExternalSchemaReferences()
     //ExStart
     //ExFor:Document.RemoveExternalSchemaReferences
     //ExSummary:Shows how to remove all external XML schema references from a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"External XML schema.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"External XML schema.docx"));
     
     doc->RemoveExternalSchemaReferences();
     //ExEnd
@@ -1638,7 +1628,7 @@ void ExDocument::HyphenationOptions()
     ASSERT_EQ(720, doc->get_HyphenationOptions()->get_HyphenationZone());
     ASPOSE_ASSERT_EQ(true, doc->get_HyphenationOptions()->get_HyphenateCaps());
     
-    ASSERT_TRUE(Aspose::Words::ApiExamples::DocumentHelper::CompareDocs(get_ArtifactsDir() + u"Document.HyphenationOptions.docx", get_GoldsDir() + u"Document.HyphenationOptions Gold.docx"));
+    ASSERT_TRUE(DocumentHelper::CompareDocs(get_ArtifactsDir() + u"Document.HyphenationOptions.docx", get_GoldsDir() + u"Document.HyphenationOptions Gold.docx"));
 }
 
 namespace gtest_test
@@ -1654,7 +1644,7 @@ TEST_F(ExDocument, HyphenationOptions)
 void ExDocument::HyphenationOptionsDefaultValues()
 {
     auto doc = System::MakeObject<Aspose::Words::Document>();
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     ASPOSE_ASSERT_EQ(false, doc->get_HyphenationOptions()->get_AutoHyphenation());
     ASSERT_EQ(0, doc->get_HyphenationOptions()->get_ConsecutiveHyphenLimit());
@@ -1699,10 +1689,10 @@ void ExDocument::OoxmlComplianceVersion()
     //ExFor:Document.Compliance
     //ExSummary:Shows how to read a loaded document's Open Office XML compliance version.
     // The compliance version varies between documents created by different versions of Microsoft Word.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.doc");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.doc"));
     ASSERT_EQ(doc->get_Compliance(), Aspose::Words::Saving::OoxmlCompliance::Ecma376_2006);
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     ASSERT_EQ(doc->get_Compliance(), Aspose::Words::Saving::OoxmlCompliance::Iso29500_2008_Transitional);
     //ExEnd
 }
@@ -1724,7 +1714,7 @@ void ExDocument::ImageSaveOptions()
     //ExFor:SaveOptions.UseAntiAliasing
     //ExFor:SaveOptions.UseHighQualityRendering
     //ExSummary:Shows how to improve the quality of a rendered document with SaveOptions.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     builder->get_Font()->set_Size(60);
@@ -1744,8 +1734,8 @@ void ExDocument::ImageSaveOptions()
     doc->Save(get_ArtifactsDir() + u"Document.ImageSaveOptions.HighQuality.jpg", options);
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(794, 1122, get_ArtifactsDir() + u"Document.ImageSaveOptions.Default.jpg");
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(794, 1122, get_ArtifactsDir() + u"Document.ImageSaveOptions.HighQuality.jpg");
+    TestUtil::VerifyImage(794, 1122, get_ArtifactsDir() + u"Document.ImageSaveOptions.Default.jpg");
+    TestUtil::VerifyImage(794, 1122, get_ArtifactsDir() + u"Document.ImageSaveOptions.HighQuality.jpg");
 }
 
 namespace gtest_test
@@ -1827,7 +1817,7 @@ void ExDocument::AutomaticallyUpdateStyles()
     doc->Save(get_ArtifactsDir() + u"Document.AutomaticallyUpdateStyles.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.AutomaticallyUpdateStyles.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.AutomaticallyUpdateStyles.docx"));
     
     ASSERT_TRUE(doc->get_AutomaticallyUpdateStyles());
     ASSERT_EQ(get_MyDir() + u"Business brochure.dotx", doc->get_AttachedTemplate());
@@ -1862,7 +1852,7 @@ void ExDocument::DefaultTemplate()
     // Since there is no template document, the document had nowhere to track style changes.
     // Use a SaveOptions object to automatically set a template
     // if a document that we are saving does not have one.
-    System::SharedPtr<Aspose::Words::Saving::SaveOptions> options = Aspose::Words::Saving::SaveOptions::CreateSaveOptions(u"Document.DefaultTemplate.docx");
+    System::SharedPtr<Aspose::Words::Saving::SaveOptions> options = SaveOptions::CreateSaveOptions(u"Document.DefaultTemplate.docx");
     options->set_DefaultTemplate(get_MyDir() + u"Business brochure.dotx");
     
     doc->Save(get_ArtifactsDir() + u"Document.DefaultTemplate.docx", options);
@@ -2074,7 +2064,7 @@ void ExDocument::UpdatePageLayout()
     //ExFor:Margins
     //ExFor:PageSetup.Margins
     //ExSummary:Shows when to recalculate the page layout of the document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Saving a document to PDF, to an image, or printing for the first time will automatically
     // cache the layout of the document within its pages.
@@ -2124,7 +2114,7 @@ void ExDocument::DocPackageCustomParts()
     //ExFor:CustomPartCollection.RemoveAt(Int32)
     //ExFor:Document.PackageCustomParts
     //ExSummary:Shows how to access a document's arbitrary custom parts collection.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Custom parts OOXML package.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Custom parts OOXML package.docx"));
     
     ASSERT_EQ(2, doc->get_PackageCustomParts()->get_Count());
     
@@ -2142,11 +2132,11 @@ void ExDocument::DocPackageCustomParts()
         int32_t index = 0;
         while (enumerator->MoveNext())
         {
-            std::cout << System::String::Format(u"Part index {0}:", index) << std::endl;
-            std::cout << System::String::Format(u"\tName:\t\t\t\t{0}", enumerator->get_Current()->get_Name()) << std::endl;
-            std::cout << System::String::Format(u"\tContent type:\t\t{0}", enumerator->get_Current()->get_ContentType()) << std::endl;
-            std::cout << System::String::Format(u"\tRelationship type:\t{0}", enumerator->get_Current()->get_RelationshipType()) << std::endl;
-            std::cout << (enumerator->get_Current()->get_IsExternal() ? u"\tSourced from outside the document" : System::String::Format(u"\tStored within the document, length: {0} bytes", enumerator->get_Current()->get_Data()->get_Length())) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"Part index {0}:", index));
+            System::Console::WriteLine(System::String::Format(u"\tName:\t\t\t\t{0}", enumerator->get_Current()->get_Name()));
+            System::Console::WriteLine(System::String::Format(u"\tContent type:\t\t{0}", enumerator->get_Current()->get_ContentType()));
+            System::Console::WriteLine(System::String::Format(u"\tRelationship type:\t{0}", enumerator->get_Current()->get_RelationshipType()));
+            System::Console::WriteLine(enumerator->get_Current()->get_IsExternal() ? System::String(u"\tSourced from outside the document") : System::String::Format(u"\tStored within the document, length: {0} bytes", enumerator->get_Current()->get_Data()->get_Length()));
             index++;
         }
     }
@@ -2223,13 +2213,13 @@ void ExDocument::VersionsCount()
     //ExStart
     //ExFor:Document.VersionsCount
     //ExSummary:Shows how to work with the versions count feature of older Microsoft Word documents.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Versions.doc");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Versions.doc"));
     
     // We can read this property of a document, but we cannot preserve it while saving.
     ASSERT_EQ(4, doc->get_VersionsCount());
     
     doc->Save(get_ArtifactsDir() + u"Document.VersionsCount.doc");
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.VersionsCount.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.VersionsCount.doc"));
     
     ASSERT_EQ(0, doc->get_VersionsCount());
     //ExEnd
@@ -2272,7 +2262,7 @@ void ExDocument::WriteProtection()
     
     // Protection does not prevent the document from being edited programmatically, nor does it encrypt the contents.
     doc->Save(get_ArtifactsDir() + u"Document.WriteProtection.docx");
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.WriteProtection.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.WriteProtection.docx"));
     
     ASSERT_TRUE(doc->get_WriteProtection()->get_IsWriteProtected());
     
@@ -2320,7 +2310,7 @@ void ExDocument::RemovePersonalInformation(bool saveWithoutPersonalInfo)
     // This option will not take effect during a save operation made using Aspose.Words.
     // Personal data will be removed from our document with the flag set when we save it manually using Microsoft Word.
     doc->Save(get_ArtifactsDir() + u"Document.RemovePersonalInformation.docx");
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.RemovePersonalInformation.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.RemovePersonalInformation.docx"));
     
     ASPOSE_ASSERT_EQ(saveWithoutPersonalInfo, doc->get_RemovePersonalInformation());
     ASSERT_EQ(u"John Doe", doc->get_BuiltInDocumentProperties()->get_Author());
@@ -2401,8 +2391,8 @@ void ExDocument::CopyTemplateStylesViaDocument()
     //ExStart
     //ExFor:Document.CopyStylesFromTemplate(Document)
     //ExSummary:Shows how to copies styles from the template to a document via Document.
-    auto template_ = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
-    auto target = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto template_ = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
+    auto target = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     ASSERT_EQ(18, template_->get_Styles()->get_Count());
     //ExSkip
@@ -2505,13 +2495,13 @@ void ExDocument::ReadMacrosFromExistingDocument()
     //ExFor:VbaProject.CodePage
     //ExFor:VbaProject.IsSigned
     //ExSummary:Shows how to access a document's VBA project information.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"VBA project.docm");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"VBA project.docm"));
     
     // A VBA project contains a collection of VBA modules.
     System::SharedPtr<Aspose::Words::Vba::VbaProject> vbaProject = doc->get_VbaProject();
     ASSERT_TRUE(vbaProject->get_IsSigned());
     //ExSkip
-    std::cout << (vbaProject->get_IsSigned() ? System::String::Format(u"Project name: {0} signed; Project code page: {1}; Modules count: {2}\n", vbaProject->get_Name(), vbaProject->get_CodePage(), vbaProject->get_Modules()->LINQ_Count()) : System::String::Format(u"Project name: {0} not signed; Project code page: {1}; Modules count: {2}\n", vbaProject->get_Name(), vbaProject->get_CodePage(), vbaProject->get_Modules()->LINQ_Count())) << std::endl;
+    System::Console::WriteLine(vbaProject->get_IsSigned() ? System::String::Format(u"Project name: {0} signed; Project code page: {1}; Modules count: {2}\n", vbaProject->get_Name(), vbaProject->get_CodePage(), vbaProject->get_Modules()->LINQ_Count()) : System::String::Format(u"Project name: {0} not signed; Project code page: {1}; Modules count: {2}\n", vbaProject->get_Name(), vbaProject->get_CodePage(), vbaProject->get_Modules()->LINQ_Count()));
     
     System::SharedPtr<Aspose::Words::Vba::VbaModuleCollection> vbaModules = doc->get_VbaProject()->get_Modules();
     
@@ -2519,7 +2509,7 @@ void ExDocument::ReadMacrosFromExistingDocument()
     
     for (auto&& module_ : vbaModules)
     {
-        std::cout << System::String::Format(u"Module name: {0};\nModule code:\n{1}\n", module_->get_Name(), module_->get_SourceCode()) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"Module name: {0};\nModule code:\n{1}\n", module_->get_Name(), module_->get_SourceCode()));
     }
     
     // Set new source code for VBA module. You can access VBA modules in the collection either by index or by name.
@@ -2590,7 +2580,7 @@ void ExDocument::SubDocument()
     //ExFor:SubDocument
     //ExFor:SubDocument.NodeType
     //ExSummary:Shows how to access a master document's subdocument.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Master document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Master document.docx"));
     
     System::SharedPtr<Aspose::Words::NodeCollection> subDocuments = doc->GetChildNodes(Aspose::Words::NodeType::SubDocument, true);
     ASSERT_EQ(1, subDocuments->get_Count());
@@ -2688,7 +2678,7 @@ void ExDocument::CreateWebExtension()
     
     ASSERT_EQ(0, doc->get_WebExtensionTaskPanes()->get_Count());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.WebExtension.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.WebExtension.docx"));
     
     myScriptTaskPane = doc->get_WebExtensionTaskPanes()->idx_get(0);
     ASSERT_EQ(Aspose::Words::WebExtensions::TaskPaneDockState::Right, myScriptTaskPane->get_DockState());
@@ -2736,7 +2726,7 @@ void ExDocument::GetWebExtensionInfo()
     //ExFor:BaseWebExtensionCollection`1.Count
     //ExFor:BaseWebExtensionCollection`1.Item(Int32)
     //ExSummary:Shows how to work with a document's collection of web extensions.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Web extension.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Web extension.docx"));
     
     ASSERT_EQ(1, doc->get_WebExtensionTaskPanes()->get_Count());
     
@@ -2747,7 +2737,7 @@ void ExDocument::GetWebExtensionInfo()
         while (enumerator->MoveNext())
         {
             System::SharedPtr<Aspose::Words::WebExtensions::WebExtensionProperty> webExtensionProperty = enumerator->get_Current();
-            std::cout << System::String::Format(u"Binding name: {0}; Binding value: {1}", webExtensionProperty->get_Name(), webExtensionProperty->get_Value()) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"Binding name: {0}; Binding value: {1}", webExtensionProperty->get_Name(), webExtensionProperty->get_Value()));
         }
     }
     
@@ -2822,7 +2812,7 @@ void ExDocument::TextWatermark()
     // we can do so by passing a TextWatermarkOptions object when creating the watermark.
     auto textWatermarkOptions = System::MakeObject<Aspose::Words::TextWatermarkOptions>();
     textWatermarkOptions->set_FontFamily(u"Arial");
-    textWatermarkOptions->set_FontSize(36.0f);
+    textWatermarkOptions->set_FontSize(36);
     textWatermarkOptions->set_Color(System::Drawing::Color::get_Black());
     textWatermarkOptions->set_Layout(Aspose::Words::WatermarkLayout::Diagonal);
     textWatermarkOptions->set_IsSemitrasparent(false);
@@ -2838,7 +2828,7 @@ void ExDocument::TextWatermark()
     }
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.TextWatermark.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.TextWatermark.docx"));
     
     ASSERT_EQ(Aspose::Words::WatermarkType::Text, doc->get_Watermark()->get_Type());
 }
@@ -2883,7 +2873,7 @@ void ExDocument::ImageWatermark()
     doc->Save(get_ArtifactsDir() + u"Document.ImageWatermark.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.ImageWatermark.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.ImageWatermark.docx"));
     ASSERT_EQ(Aspose::Words::WatermarkType::Image, doc->get_Watermark()->get_Type());
 }
 
@@ -2918,7 +2908,7 @@ void ExDocument::ImageWatermarkStream()
     doc->Save(get_ArtifactsDir() + u"Document.ImageWatermarkStream.docx");
     //ExEnd:ImageWatermarkStream
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.ImageWatermarkStream.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.ImageWatermarkStream.docx"));
     ASSERT_EQ(Aspose::Words::WatermarkType::Image, doc->get_Watermark()->get_Type());
 }
 
@@ -2954,7 +2944,7 @@ void ExDocument::SpellingAndGrammarErrors(bool showErrors)
     doc->Save(get_ArtifactsDir() + u"Document.SpellingAndGrammarErrors.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.SpellingAndGrammarErrors.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.SpellingAndGrammarErrors.docx"));
     
     ASPOSE_ASSERT_EQ(showErrors, doc->get_ShowGrammaticalErrors());
     ASPOSE_ASSERT_EQ(showErrors, doc->get_ShowSpellingErrors());
@@ -2992,7 +2982,7 @@ void ExDocument::IgnorePrinterMetrics()
     //ExStart
     //ExFor:LayoutOptions.IgnorePrinterMetrics
     //ExSummary:Shows how to ignore 'Use printer metrics to lay out document' option.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     doc->get_LayoutOptions()->set_IgnorePrinterMetrics(false);
     
@@ -3015,14 +3005,14 @@ void ExDocument::ExtractPages()
     //ExStart
     //ExFor:Document.ExtractPages(int, int)
     //ExSummary:Shows how to get specified range of pages from the document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Layout entities.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Layout entities.docx"));
     
     doc = doc->ExtractPages(0, 2);
     
     doc->Save(get_ArtifactsDir() + u"Document.ExtractPages.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Document.ExtractPages.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.ExtractPages.docx"));
     ASSERT_EQ(doc->get_PageCount(), 2);
 }
 
@@ -3105,7 +3095,7 @@ void ExDocument::AllowEmbeddingPostScriptFonts()
     
     // Allow embedding PostScript fonts while embedding TrueType fonts.
     // Microsoft Word does not embed PostScript fonts, but can open documents with embedded fonts of this type.
-    System::SharedPtr<Aspose::Words::Saving::SaveOptions> saveOptions = Aspose::Words::Saving::SaveOptions::CreateSaveOptions(Aspose::Words::SaveFormat::Docx);
+    System::SharedPtr<Aspose::Words::Saving::SaveOptions> saveOptions = SaveOptions::CreateSaveOptions(Aspose::Words::SaveFormat::Docx);
     saveOptions->set_AllowEmbeddingPostScriptFonts(true);
     
     doc->Save(get_ArtifactsDir() + u"Document.AllowEmbeddingPostScriptFonts.docx", saveOptions);
@@ -3135,7 +3125,7 @@ void ExDocument::Frameset()
     //ExFor:FramesetCollection.Item(Int32)
     //ExSummary:Shows how to access frames on-page.
     // Document contains several frames with links to other documents.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Frameset.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Frameset.docx"));
     
     ASSERT_EQ(3, doc->get_Frameset()->get_ChildFramesets()->get_Count());
     // We can check the default URL (a web page URL or local document) or if the frame is an external resource.
@@ -3150,7 +3140,7 @@ void ExDocument::Frameset()
     doc->get_Frameset()->get_ChildFramesets()->idx_get(0)->get_ChildFramesets()->idx_get(0)->set_IsFrameLinkToFile(false);
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     ASSERT_EQ(u"https://github.com/aspose-words/Aspose.Words-for-.NET/blob/master/Examples/Data/Absolute%20position%20tab.docx", doc->get_Frameset()->get_ChildFramesets()->idx_get(0)->get_ChildFramesets()->idx_get(0)->get_FrameDefaultUrl());
     ASSERT_FALSE(doc->get_Frameset()->get_ChildFramesets()->idx_get(0)->get_ChildFramesets()->idx_get(0)->get_IsFrameLinkToFile());
@@ -3168,10 +3158,10 @@ TEST_F(ExDocument, Frameset)
 
 void ExDocument::OpenAzw()
 {
-    System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"Azw3 document.azw3");
+    System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Azw3 document.azw3");
     ASSERT_EQ(info->get_LoadFormat(), Aspose::Words::LoadFormat::Azw3);
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Azw3 document.azw3");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Azw3 document.azw3"));
     ASSERT_TRUE(doc->GetText().Contains(u"Hachette Book Group USA"));
 }
 
@@ -3187,10 +3177,10 @@ TEST_F(ExDocument, OpenAzw)
 
 void ExDocument::OpenEpub()
 {
-    System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"Epub document.epub");
+    System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Epub document.epub");
     ASSERT_EQ(info->get_LoadFormat(), Aspose::Words::LoadFormat::Epub);
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Epub document.epub");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Epub document.epub"));
     ASSERT_TRUE(doc->GetText().Contains(u"Down the Rabbit-Hole"));
 }
 
@@ -3206,10 +3196,10 @@ TEST_F(ExDocument, OpenEpub)
 
 void ExDocument::OpenXml()
 {
-    System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"Mail merge data - Customers.xml");
+    System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Mail merge data - Customers.xml");
     ASSERT_EQ(info->get_LoadFormat(), Aspose::Words::LoadFormat::Xml);
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Mail merge data - Purchase order.xml");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Mail merge data - Purchase order.xml"));
     ASSERT_TRUE(doc->GetText().Contains(u"Ellen Adams\r123 Maple Street"));
 }
 
@@ -3231,7 +3221,7 @@ void ExDocument::MoveToStructuredDocumentTag()
     //ExFor:DocumentBuilder.IsAtEndOfStructuredDocumentTag
     //ExFor:DocumentBuilder.CurrentStructuredDocumentTag
     //ExSummary:Shows how to move cursor of DocumentBuilder inside a structured document tag.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags.docx"));
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // There is a several ways to move the cursor:
@@ -3304,7 +3294,7 @@ void ExDocument::SetJustificationMode()
     //ExFor:Document.JustificationMode
     //ExFor:JustificationMode
     //ExSummary:Shows how to manage character spacing control.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     Aspose::Words::Settings::JustificationMode justificationMode = doc->get_JustificationMode();
     if (justificationMode == Aspose::Words::Settings::JustificationMode::Expand)
@@ -3332,7 +3322,7 @@ void ExDocument::PageIsInColor()
     //ExFor:PageInfo.Colored
     //ExFor:Document.GetPageInfo(Int32)
     //ExSummary:Shows how to check whether the page is in color or not.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     // Check that the first page of the document is not colored.
     ASSERT_FALSE(doc->GetPageInfo(0)->get_Colored());
@@ -3487,7 +3477,7 @@ void ExDocument::HasMacros()
     //GistId:6e4482e7434754c31c6f2f6e4bf48bb1
     //ExFor:FileFormatInfo.HasMacros
     //ExSummary:Shows how to check VBA macro presence without loading document.
-    System::SharedPtr<Aspose::Words::FileFormatInfo> fileFormatInfo = Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"Macro.docm");
+    System::SharedPtr<Aspose::Words::FileFormatInfo> fileFormatInfo = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Macro.docm");
     ASSERT_TRUE(fileFormatInfo->get_HasMacros());
     //ExEnd:HasMacros
 }
@@ -3507,7 +3497,7 @@ void ExDocument::PunctuationKerning()
     //ExStart
     //ExFor:Document.PunctuationKerning
     //ExSummary:Shows how to work with kerning applies to both Latin text and punctuation.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     ASSERT_TRUE(doc->get_PunctuationKerning());
     //ExEnd
 }
@@ -3527,7 +3517,7 @@ void ExDocument::RemoveBlankPages()
     //ExStart
     //ExFor:Document.RemoveBlankPages
     //ExSummary:Shows how to remove blank pages from the document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Blank pages.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Blank pages.docx"));
     ASSERT_EQ(2, doc->get_PageCount());
     doc->RemoveBlankPages();
     doc->UpdatePageLayout();
@@ -3554,7 +3544,7 @@ void ExDocument::ExtractPagesWithOptions()
     //ExFor:PageExtractOptions.UpdatePageStartingNumber
     //ExFor:PageExtractOptions.UnlinkPagesNumberFields
     //ExSummary:Show how to reset the initial page numbering and save the NUMPAGE field.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Page fields.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Page fields.docx"));
     
     // Default behavior:
     // The extracted page numbering is the same as in the original document, as if we had selected "Print 2 pages" in MS Word.
@@ -3628,7 +3618,7 @@ void ExDocument::DoclingJson()
     //ExFor:DoclingSaveOptions.SaveFormat
     //ExFor:DoclingSaveOptions.RenderNonImageShapes
     //ExSummary:Shows how to save a document into a Docling JSON format.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::DoclingSaveOptions>();
     saveOptions->set_SaveFormat(Aspose::Words::SaveFormat::Docling);
@@ -3656,7 +3646,7 @@ void ExDocument::RemoveCustomizations()
     //GistId:4f0f7d328594293c40062359b8eb9a08
     //ExFor:Document.RemoveCustomizations
     //ExSummary:Shows how to remove toolbar and keyboard command customizations from the document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Customized menu.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Customized menu.docx"));
     
     // Remove all custom document UI customizations, including custom context menu entries.
     doc->RemoveCustomizations();
@@ -3692,7 +3682,7 @@ void ExDocument::ReadabilityStatisticsFleschScores()
     // Calculate readability statistics.
     System::SharedPtr<Aspose::Words::ReadabilityStatistics> stats = doc->get_ReadabilityStatistics();
     // Verify that the scores are within expected valid ranges.
-    // CSPORTCPP: Unsupported expression type Assert.That (stats.FleschReadingEasy, Is.GreaterThanOrEqualTo (0).And.LessThanOrEqualTo (190));
+    ASSERT_LE(stats->get_FleschReadingEasy(), 190);
     ASSERT_LE(stats->get_FleschKincaidGradeLevel(), 0);
     //ExEnd:ReadabilityStatisticsFleschScores
 }

@@ -1,15 +1,10 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExSignDocumentCustom.h"
+﻿#include "ExSignDocumentCustom.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/predicate.h>
-#include <gtest/gtest.h>
+#include <system/details/object_builder.h>
 #include <functional>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Drawing/SignatureLine.h>
@@ -91,9 +86,10 @@ System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::W
     return value;
 }
 
+
 void ExSignDocumentCustom::SignDocument(System::String srcDocumentPath, System::String dstDocumentPath, System::SharedPtr<Aspose::Words::ApiExamples::ExSignDocumentCustom::Signee> signeeInfo, System::String certificatePath, System::String certificatePassword)
 {
-    auto document = System::MakeObject<Aspose::Words::Document>(srcDocumentPath);
+    auto document = System::MakeObject<Aspose::Words::Document>(System::String(srcDocumentPath));
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(document);
     
     // Configure and insert a signature line, an object in the document that will display a signature that we sign it with.
@@ -107,23 +103,26 @@ void ExSignDocumentCustom::SignDocument(System::String srcDocumentPath, System::
     // First, we will save an unsigned version of our document.
     builder->get_Document()->Save(dstDocumentPath);
     
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(certificatePath, certificatePassword);
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(certificatePath, certificatePassword);
     
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     signOptions->set_SignatureLineId(signeeInfo->get_PersonId());
     signOptions->set_SignatureLineImage(signeeInfo->get_Image());
     
     // Overwrite the unsigned document we saved above with a version signed using the certificate.
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(dstDocumentPath, dstDocumentPath, certificateHolder, signOptions);
+    DigitalSignatureUtil::Sign(dstDocumentPath, dstDocumentPath, certificateHolder, signOptions);
 }
 
 void ExSignDocumentCustom::CreateSignees()
 {
     System::String signImagePath = get_ImageDir() + u"Logo.jpg";
     
-    mSignees() = [&]{ System::SharedPtr<Aspose::Words::ApiExamples::ExSignDocumentCustom::Signee> init_0[] = {System::MakeObject<Aspose::Words::ApiExamples::ExSignDocumentCustom::Signee>(System::Guid::NewGuid(), u"Ron Williams", u"Chief Executive Officer", Aspose::Words::ApiExamples::TestUtil::ImageToByteArray(signImagePath)), System::MakeObject<Aspose::Words::ApiExamples::ExSignDocumentCustom::Signee>(System::Guid::NewGuid(), u"Stephen Morse", u"Head of Compliance", Aspose::Words::ApiExamples::TestUtil::ImageToByteArray(signImagePath))}; auto list_0 = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::ExSignDocumentCustom::Signee>>>(); list_0->AddInitializer(2, init_0); return list_0; }();
+    mSignees() = System::BuildObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::ExSignDocumentCustom::Signee>>>()
+        .Add({
+        System::MakeObject<Aspose::Words::ApiExamples::ExSignDocumentCustom::Signee>(System::Guid::NewGuid(), u"Ron Williams", u"Chief Executive Officer", TestUtil::ImageToByteArray(signImagePath)), 
+        System::MakeObject<Aspose::Words::ApiExamples::ExSignDocumentCustom::Signee>(System::Guid::NewGuid(), u"Stephen Morse", u"Head of Compliance", TestUtil::ImageToByteArray(signImagePath))})
+        .Get();
 }
-
 
 namespace gtest_test
 {
@@ -186,7 +185,7 @@ namespace gtest_test
 
 TEST_F(ExSignDocumentCustom, Sign)
 {
-    s_instance->Sign();
+    ::Aspose::Words::ApiExamples::ExSignDocumentCustom::Sign();
 }
 
 } // namespace gtest_test

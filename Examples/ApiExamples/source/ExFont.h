@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/SpecialChar.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
@@ -154,6 +150,30 @@ public:
     void Style();
     void GetAvailableFonts();
     void SetFontAutoColor();
+    //ExStart
+    //ExFor:Font.Hidden
+    //ExFor:Paragraph.Accept(DocumentVisitor)
+    //ExFor:Paragraph.AcceptStart(DocumentVisitor)
+    //ExFor:Paragraph.AcceptEnd(DocumentVisitor)
+    //ExFor:DocumentVisitor.VisitParagraphStart(Paragraph)
+    //ExFor:DocumentVisitor.VisitFormField(FormField)
+    //ExFor:DocumentVisitor.VisitTableEnd(Table)
+    //ExFor:DocumentVisitor.VisitCellEnd(Cell)
+    //ExFor:DocumentVisitor.VisitRowEnd(Row)
+    //ExFor:DocumentVisitor.VisitSpecialChar(SpecialChar)
+    //ExFor:DocumentVisitor.VisitGroupShapeStart(GroupShape)
+    //ExFor:DocumentVisitor.VisitShapeStart(Shape)
+    //ExFor:DocumentVisitor.VisitCommentStart(Comment)
+    //ExFor:DocumentVisitor.VisitFootnoteStart(Footnote)
+    //ExFor:SpecialChar
+    //ExFor:SpecialChar.Accept(DocumentVisitor)
+    //ExFor:SpecialChar.GetText
+    //ExFor:Node.Accept(DocumentVisitor)
+    //ExFor:Paragraph.ParagraphBreakFont
+    //ExFor:Table.Accept(DocumentVisitor)
+    //ExFor:Table.AcceptStart(DocumentVisitor)
+    //ExFor:Table.AcceptEnd(DocumentVisitor)
+    //ExSummary:Shows how to use a DocumentVisitor implementation to remove all hidden content from a document.
     void RemoveHiddenContentFromDocument();
     void DefaultFonts();
     void ExtractEmbeddedFont();
@@ -169,6 +189,7 @@ public:
     
 protected:
 
+    //ExEnd
     void TestRemoveHiddenContent(System::SharedPtr<Aspose::Words::Document> doc);
     
 };

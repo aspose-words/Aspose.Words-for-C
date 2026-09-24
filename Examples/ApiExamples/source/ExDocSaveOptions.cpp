@@ -1,19 +1,14 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDocSaveOptions.h"
+﻿#include "ExDocSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/io/file_info.h>
+#include <system/io/directory_info.h>
 #include <system/io/directory.h>
 #include <system/date_time.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -24,7 +19,6 @@
 #include <Aspose.Words.Cpp/Model/Lists/ListLevel.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListCollection.h>
 #include <Aspose.Words.Cpp/Model/Lists/List.h>
-#include <Aspose.Words.Cpp/Model/Drawing/ImageData.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/IncorrectPasswordException.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
@@ -103,7 +97,7 @@ void ExDocSaveOptions::SaveAsDoc()
     // we will need to apply the password we specified in the DocSaveOptions object in a LoadOptions object.
     ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
     {
-        doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocSaveOptions.SaveAsDoc.doc");
+        doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocSaveOptions.SaveAsDoc.doc"));
     })(), Aspose::Words::IncorrectPasswordException);
     
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>(u"MyPassword");
@@ -128,7 +122,7 @@ void ExDocSaveOptions::TempFolder()
     //ExStart
     //ExFor:SaveOptions.TempFolder
     //ExSummary:Shows how to use the hard drive instead of memory when saving a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // When we save a document, various elements are temporarily stored in memory as the save operation is taking place.
     // We can use this option to use a temporary folder in the local file system instead,
@@ -161,7 +155,7 @@ void ExDocSaveOptions::PictureBullets()
     //ExStart
     //ExFor:DocSaveOptions.SavePictureBullet
     //ExSummary:Shows how to omit PictureBullet data from the document when saving.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Image bullet points.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Image bullet points.docx"));
     ASSERT_FALSE(System::TestTools::IsNull(doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0)->get_ImageData()));
     //ExSkip
     
@@ -174,7 +168,7 @@ void ExDocSaveOptions::PictureBullets()
     doc->Save(get_ArtifactsDir() + u"DocSaveOptions.PictureBullets.doc", saveOptions);
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocSaveOptions.PictureBullets.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocSaveOptions.PictureBullets.doc"));
     
     ASSERT_TRUE(System::TestTools::IsNull(doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0)->get_ImageData()));
 }
@@ -210,7 +204,7 @@ void ExDocSaveOptions::UpdateLastPrintedProperty(bool isUpdateLastPrintedPropert
     doc->Save(get_ArtifactsDir() + u"DocSaveOptions.UpdateLastPrintedProperty.doc", saveOptions);
     
     // Open the saved document, then verify the value of the property.
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocSaveOptions.UpdateLastPrintedProperty.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocSaveOptions.UpdateLastPrintedProperty.doc"));
     
     if (isUpdateLastPrintedProperty)
     {
@@ -269,7 +263,7 @@ void ExDocSaveOptions::UpdateCreatedTimeProperty(bool isUpdateCreatedTimePropert
     doc->Save(get_ArtifactsDir() + u"DocSaveOptions.UpdateCreatedTimeProperty.docx", saveOptions);
     
     // Open the saved document, then verify the value of the property.
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocSaveOptions.UpdateCreatedTimeProperty.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocSaveOptions.UpdateCreatedTimeProperty.docx"));
     
     if (isUpdateCreatedTimeProperty)
     {
@@ -316,7 +310,7 @@ void ExDocSaveOptions::AlwaysCompressMetafiles(bool compressAllMetafiles)
     //ExFor:DocSaveOptions.AlwaysCompressMetafiles
     //ExSummary:Shows how to change metafiles compression in a document while saving.
     // Open a document that contains a Microsoft Equation 3.0 formula.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Microsoft equation object.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Microsoft equation object.docx"));
     
     // When we save a document, smaller metafiles are not compressed for performance reasons.
     // We can set a flag in a SaveOptions object to compress every metafile when saving.
@@ -331,11 +325,11 @@ void ExDocSaveOptions::AlwaysCompressMetafiles(bool compressAllMetafiles)
     
     if (compressAllMetafiles)
     {
-        ASSERT_TRUE(testedFileLength < 14000);
+        ASSERT_TRUE(testedFileLength < static_cast<int64_t>(14000));
     }
     else
     {
-        ASSERT_TRUE(testedFileLength < 22000);
+        ASSERT_TRUE(testedFileLength < static_cast<int64_t>(22000));
     }
 }
 

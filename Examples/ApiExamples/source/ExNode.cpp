@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExNode.h"
+﻿#include "ExNode.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -11,10 +6,9 @@
 #include <system/object_ext.h>
 #include <system/linq/enumerable.h>
 #include <system/enumerator_adapter.h>
+#include <system/console.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
@@ -28,7 +22,6 @@
 #include <Aspose.Words.Cpp/Model/Tables/Row.h>
 #include <Aspose.Words.Cpp/Model/Tables/Cell.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
-#include <Aspose.Words.Cpp/Model/Styles/Style.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
 #include <Aspose.Words.Cpp/Model/Saving/HtmlSaveOptions.h>
@@ -67,16 +60,16 @@ void ExNode::NodeChangingPrinter::NodeInserted(System::SharedPtr<Aspose::Words::
     ASSERT_EQ(Aspose::Words::NodeChangingAction::Insert, args->get_Action());
     ASSERT_FALSE(System::TestTools::IsNull(args->get_NewParent()));
     
-    std::cout << "Inserted node:" << std::endl;
-    std::cout << System::String::Format(u"\tType:\t{0}", args->get_Node()->get_NodeType()) << std::endl;
+    System::Console::WriteLine(u"Inserted node:");
+    System::Console::WriteLine(System::String::Format(u"\tType:\t{0}", args->get_Node()->get_NodeType()));
     
     if (args->get_Node()->GetText().Trim() != u"")
     {
-        std::cout << System::String::Format(u"\tText:\t\"{0}\"", args->get_Node()->GetText().Trim()) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"\tText:\t\"{0}\"", args->get_Node()->GetText().Trim()));
     }
     
-    std::cout << System::String::Format(u"\tHash:\t{0}", System::ObjectExt::GetHashCode(args->get_Node())) << std::endl;
-    std::cout << System::String::Format(u"\tParent:\t{0} ({1})", args->get_NewParent()->get_NodeType(), System::ObjectExt::GetHashCode(args->get_NewParent())) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"\tHash:\t{0}", System::ObjectExt::GetHashCode(args->get_Node())));
+    System::Console::WriteLine(System::String::Format(u"\tParent:\t{0} ({1})", args->get_NewParent()->get_NodeType(), System::ObjectExt::GetHashCode(args->get_NewParent())));
 }
 
 void ExNode::NodeChangingPrinter::NodeRemoving(System::SharedPtr<Aspose::Words::NodeChangingArgs> args)
@@ -89,7 +82,7 @@ void ExNode::NodeChangingPrinter::NodeRemoved(System::SharedPtr<Aspose::Words::N
     ASSERT_EQ(Aspose::Words::NodeChangingAction::Remove, args->get_Action());
     ASSERT_TRUE(System::TestTools::IsNull(args->get_NewParent()));
     
-    std::cout << System::String::Format(u"Removed node: {0} ({1})", args->get_Node()->get_NodeType(), System::ObjectExt::GetHashCode(args->get_Node())) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"Removed node: {0} ({1})", args->get_Node()->get_NodeType(), System::ObjectExt::GetHashCode(args->get_Node())));
 }
 
 
@@ -99,21 +92,21 @@ void ExNode::TraverseAllNodes(System::SharedPtr<Aspose::Words::CompositeNode> pa
 {
     for (System::SharedPtr<Aspose::Words::Node> childNode = parentNode->get_FirstChild(); childNode != nullptr; childNode = childNode->get_NextSibling())
     {
-        std::cout << System::String::Format(u"{0}{1}", System::String(u'\t', depth), Aspose::Words::Node::NodeTypeToString(childNode->get_NodeType()));
+        System::Console::Write(System::String::Format(u"{0}{1}", System::String(u'\t', depth), Node::NodeTypeToString(childNode->get_NodeType())));
         
         // Recurse into the node if it is a composite node. Otherwise, print its contents if it is an inline node.
         if (childNode->get_IsComposite())
         {
-            std::cout << std::endl;
+            System::Console::WriteLine();
             TraverseAllNodes(System::ExplicitCast<Aspose::Words::CompositeNode>(childNode), depth + 1);
         }
         else if (System::ObjectExt::Is<Aspose::Words::Inline>(childNode))
         {
-            std::cout << System::String::Format(u" - \"{0}\"", childNode->GetText().Trim()) << std::endl;
+            System::Console::WriteLine(System::String::Format(u" - \"{0}\"", childNode->GetText().Trim()));
         }
         else
         {
-            std::cout << std::endl;
+            System::Console::WriteLine();
         }
     }
 }
@@ -143,12 +136,11 @@ void ExNode::MapDocument(System::SharedPtr<System::Xml::XPath::XPathNavigator> n
 
 void ExNode::TestNodeXPathNavigator(System::String navigatorResult, System::SharedPtr<Aspose::Words::Document> doc)
 {
-    for (auto&& run : System::IterateOver(doc->GetChildNodes(Aspose::Words::NodeType::Run, true)->ToArray()->LINQ_OfType<System::SharedPtr<Aspose::Words::Run> >()))
+    for (auto&& run : System::IterateOver(doc->GetChildNodes(Aspose::Words::NodeType::Run, true)->ToArray()->LINQ_OfType<System::SharedPtr<Aspose::Words::Run>>()))
     {
         ASSERT_TRUE(navigatorResult.Contains(run->GetText().Trim()));
     }
 }
-
 
 namespace gtest_test
 {
@@ -330,19 +322,17 @@ void ExNode::ChildNodesEnumerate()
         switch (child->get_NodeType())
         {
             case Aspose::Words::NodeType::Run:
-                std::cout << "Run contents:" << std::endl;
-                std::cout << System::String::Format(u"\t\"{0}\"", child->GetText().Trim()) << std::endl;
+                System::Console::WriteLine(u"Run contents:");
+                System::Console::WriteLine(System::String::Format(u"\t\"{0}\"", child->GetText().Trim()));
                 break;
-            
             case Aspose::Words::NodeType::Shape:
             {
                 auto childShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(child);
-                std::cout << "Shape:" << std::endl;
-                std::cout << System::String::Format(u"\t{0}, {1}x{2}", childShape->get_ShapeType(), childShape->get_Width(), childShape->get_Height()) << std::endl;
+                System::Console::WriteLine(u"Shape:");
+                System::Console::WriteLine(System::String::Format(u"\t{0}, {1}x{2}", childShape->get_ShapeType(), childShape->get_Width(), childShape->get_Height()));
                 ASSERT_EQ(100, shape->get_CustomNodeId());
                 break;
             }
-            
             default:
                 break;
         }
@@ -365,7 +355,7 @@ TEST_F(ExNode, ChildNodesEnumerate)
 
 void ExNode::RecurseChildren()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraphs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     
     // Any node that can contain child nodes, such as the document itself, is composite.
     ASSERT_TRUE(doc->get_IsComposite());
@@ -392,7 +382,7 @@ void ExNode::RemoveNodes()
     //ExFor:Node.NodeType
     //ExFor:Node.Remove
     //ExSummary:Shows how to remove all child nodes of a specific type from a composite node.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     ASSERT_EQ(2, doc->GetChildNodes(Aspose::Words::NodeType::Table, true)->get_Count());
     
@@ -435,15 +425,15 @@ void ExNode::EnumNextSibling()
     //ExFor:Node.NodeTypeToString
     //ExFor:Node.NodeType
     //ExSummary:Shows how to use a node's NextSibling property to enumerate through its immediate children.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraphs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     
     for (System::SharedPtr<Aspose::Words::Node> node = doc->get_FirstSection()->get_Body()->get_FirstChild(); node != nullptr; node = node->get_NextSibling())
     {
-        std::cout << std::endl;
-        std::cout << System::String::Format(u"Node type: {0}", Aspose::Words::Node::NodeTypeToString(node->get_NodeType())) << std::endl;
+        System::Console::WriteLine();
+        System::Console::WriteLine(System::String::Format(u"Node type: {0}", Node::NodeTypeToString(node->get_NodeType())));
         
         System::String contents = node->GetText().Trim();
-        std::cout << (contents == System::String::Empty ? u"This node contains no text" : System::String::Format(u"Contents: \"{0}\"", node->GetText().Trim())) << std::endl;
+        System::Console::WriteLine(contents == System::String::Empty ? System::String(u"This node contains no text") : System::String::Format(u"Contents: \"{0}\"", node->GetText().Trim()));
     }
     //ExEnd
 }
@@ -467,14 +457,14 @@ void ExNode::TypedAccess()
     //ExFor:Table.LastRow
     //ExFor:TableCollection
     //ExSummary:Shows how to remove the first and last rows of all tables in a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::TableCollection> tables = doc->get_FirstSection()->get_Body()->get_Tables();
     
     ASSERT_EQ(5, tables->idx_get(0)->get_Rows()->get_Count());
     ASSERT_EQ(4, tables->idx_get(1)->get_Rows()->get_Count());
     
-    for (auto&& table : System::IterateOver(tables->LINQ_OfType<System::SharedPtr<Aspose::Words::Tables::Table> >()))
+    for (auto&& table : System::IterateOver(tables->LINQ_OfType<System::SharedPtr<Aspose::Words::Tables::Table>>()))
     {
         System::SharedPtr<Aspose::Words::Tables::Row> condExpression = table->get_FirstRow();
         if (condExpression != nullptr)
@@ -567,7 +557,7 @@ void ExNode::RemoveSmartTagsFromCompositeNode()
     //ExStart
     //ExFor:CompositeNode.RemoveSmartTags
     //ExSummary:Removes all smart tags from descendant nodes of a composite node.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Smart tags.doc");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Smart tags.doc"));
     
     ASSERT_EQ(8, doc->GetChildNodes(Aspose::Words::NodeType::SmartTag, true)->get_Count());
     
@@ -592,7 +582,7 @@ void ExNode::GetIndexOfNode()
     //ExStart
     //ExFor:CompositeNode.IndexOf
     //ExSummary:Shows how to get the index of a given child node from its parent.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     System::SharedPtr<Aspose::Words::Body> body = doc->get_FirstSection()->get_Body();
     
@@ -617,7 +607,7 @@ void ExNode::ConvertNodeToHtmlWithDefaultOptions()
     //ExFor:Node.ToString(SaveFormat)
     //ExFor:Node.ToString(SaveOptions)
     //ExSummary:Exports the content of a node to String in HTML format.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     System::SharedPtr<Aspose::Words::Node> node = doc->get_LastSection()->get_Body()->get_LastParagraph();
     
@@ -648,7 +638,7 @@ void ExNode::TypedNodeCollectionToArray()
     //ExStart
     //ExFor:ParagraphCollection.ToArray
     //ExSummary:Shows how to create an array from a NodeCollection.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraphs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     
     System::ArrayPtr<System::SharedPtr<Aspose::Words::Paragraph>> paras = doc->get_FirstSection()->get_Body()->get_Paragraphs()->ToArray();
     
@@ -687,7 +677,6 @@ void ExNode::NodeEnumerationHotRemove()
             para->Remove();
         }
     }
-    
     
     ASSERT_FALSE(doc->GetText().Contains(u"The third paragraph"));
     //ExEnd

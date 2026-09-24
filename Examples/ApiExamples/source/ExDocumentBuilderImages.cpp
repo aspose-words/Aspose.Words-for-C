@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDocumentBuilderImages.h"
+﻿#include "ExDocumentBuilderImages.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -12,9 +7,7 @@
 #include <system/io/stream.h>
 #include <system/io/file_stream.h>
 #include <system/io/file.h>
-#include <system/details/dispose_guard.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
 #include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
@@ -96,18 +89,18 @@ void ExDocumentBuilderImages::InsertImageFromStream()
         builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
         
         // 2 -  Inline shape with custom dimensions:
-        builder->InsertImage(stream, Aspose::Words::ConvertUtil::PixelToPoint(250), Aspose::Words::ConvertUtil::PixelToPoint(144));
+        builder->InsertImage(stream, ConvertUtil::PixelToPoint(static_cast<double>(250)), ConvertUtil::PixelToPoint(static_cast<double>(144)));
         
         builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
         
         // 3 -  Floating shape with custom dimensions:
-        builder->InsertImage(stream, Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, 100.0, Aspose::Words::Drawing::RelativeVerticalPosition::Margin, 100.0, 200.0, 100.0, Aspose::Words::Drawing::WrapType::Square);
+        builder->InsertImage(stream, Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, static_cast<double>(100), Aspose::Words::Drawing::RelativeVerticalPosition::Margin, static_cast<double>(100), static_cast<double>(200), static_cast<double>(100), Aspose::Words::Drawing::WrapType::Square);
     }
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromStream.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromStream.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromStream.docx"));
     
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
@@ -120,7 +113,7 @@ void ExDocumentBuilderImages::InsertImageFromStream()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
     
@@ -135,7 +128,7 @@ void ExDocumentBuilderImages::InsertImageFromStream()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
     
@@ -150,7 +143,7 @@ void ExDocumentBuilderImages::InsertImageFromStream()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Margin, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
 }
@@ -182,17 +175,17 @@ void ExDocumentBuilderImages::InsertImageFromFilename()
     builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
     
     // 2 -  Inline shape with custom dimensions:
-    builder->InsertImage(get_ImageDir() + u"Transparent background logo.png", Aspose::Words::ConvertUtil::PixelToPoint(250), Aspose::Words::ConvertUtil::PixelToPoint(144));
+    builder->InsertImage(get_ImageDir() + u"Transparent background logo.png", ConvertUtil::PixelToPoint(static_cast<double>(250)), ConvertUtil::PixelToPoint(static_cast<double>(144)));
     
     builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
     
     // 3 -  Floating shape with custom dimensions:
-    builder->InsertImage(get_ImageDir() + u"Windows MetaFile.wmf", Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, 100.0, Aspose::Words::Drawing::RelativeVerticalPosition::Margin, 100.0, 200.0, 100.0, Aspose::Words::Drawing::WrapType::Square);
+    builder->InsertImage(get_ImageDir() + u"Windows MetaFile.wmf", Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, static_cast<double>(100), Aspose::Words::Drawing::RelativeVerticalPosition::Margin, static_cast<double>(100), static_cast<double>(200), static_cast<double>(100), Aspose::Words::Drawing::WrapType::Square);
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromFilename.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromFilename.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromFilename.docx"));
     
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
@@ -205,7 +198,7 @@ void ExDocumentBuilderImages::InsertImageFromFilename()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
     
@@ -220,7 +213,7 @@ void ExDocumentBuilderImages::InsertImageFromFilename()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Png, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Png, imageShape);
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
     
@@ -235,7 +228,7 @@ void ExDocumentBuilderImages::InsertImageFromFilename()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Margin, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(1600, 1600, Aspose::Words::Drawing::ImageType::Wmf, imageShape);
+    TestUtil::VerifyImageInShape(1600, 1600, Aspose::Words::Drawing::ImageType::Wmf, imageShape);
     ASPOSE_ASSERT_EQ(400.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
     ASPOSE_ASSERT_EQ(400.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
 }
@@ -303,17 +296,17 @@ void ExDocumentBuilderImages::InsertImageFromImageObject()
     builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
     
     // 2 -  Inline shape with custom dimensions:
-    builder->InsertImage(imageFile, Aspose::Words::ConvertUtil::PixelToPoint(250), Aspose::Words::ConvertUtil::PixelToPoint(144));
+    builder->InsertImage(imageFile, ConvertUtil::PixelToPoint(static_cast<double>(250)), ConvertUtil::PixelToPoint(static_cast<double>(144)));
     
     builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
     
     // 3 -  Floating shape with custom dimensions:
-    builder->InsertImage(imageFile, Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, 100.0, Aspose::Words::Drawing::RelativeVerticalPosition::Margin, 100.0, 200.0, 100.0, Aspose::Words::Drawing::WrapType::Square);
+    builder->InsertImage(imageFile, Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, static_cast<double>(100), Aspose::Words::Drawing::RelativeVerticalPosition::Margin, static_cast<double>(100), static_cast<double>(200), static_cast<double>(100), Aspose::Words::Drawing::WrapType::Square);
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromImageObject.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromImageObject.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromImageObject.docx"));
     
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
@@ -326,7 +319,7 @@ void ExDocumentBuilderImages::InsertImageFromImageObject()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
     
@@ -341,7 +334,7 @@ void ExDocumentBuilderImages::InsertImageFromImageObject()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
     
@@ -356,7 +349,7 @@ void ExDocumentBuilderImages::InsertImageFromImageObject()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Margin, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
     ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
 }
@@ -381,7 +374,7 @@ void ExDocumentBuilderImages::InsertImageFromByteArray()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::ArrayPtr<uint8_t> imageByteArray = Aspose::Words::ApiExamples::TestUtil::ImageToByteArray(get_ImageDir() + u"Logo.jpg");
+    System::ArrayPtr<uint8_t> imageByteArray = TestUtil::ImageToByteArray(get_ImageDir() + u"Logo.jpg");
     
     // Below are three ways of inserting an image from a byte array.
     // 1 -  Inline shape with a default size based on the image's original dimensions:
@@ -390,17 +383,17 @@ void ExDocumentBuilderImages::InsertImageFromByteArray()
     builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
     
     // 2 -  Inline shape with custom dimensions:
-    builder->InsertImage(imageByteArray, Aspose::Words::ConvertUtil::PixelToPoint(250), Aspose::Words::ConvertUtil::PixelToPoint(144));
+    builder->InsertImage(imageByteArray, ConvertUtil::PixelToPoint(static_cast<double>(250)), ConvertUtil::PixelToPoint(static_cast<double>(144)));
     
     builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
     
     // 3 -  Floating shape with custom dimensions:
-    builder->InsertImage(imageByteArray, Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, 100.0, Aspose::Words::Drawing::RelativeVerticalPosition::Margin, 100.0, 200.0, 100.0, Aspose::Words::Drawing::WrapType::Square);
+    builder->InsertImage(imageByteArray, Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, static_cast<double>(100), Aspose::Words::Drawing::RelativeVerticalPosition::Margin, static_cast<double>(100), static_cast<double>(200), static_cast<double>(100), Aspose::Words::Drawing::WrapType::Square);
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromByteArray.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromByteArray.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilderImages.InsertImageFromByteArray.docx"));
     
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
@@ -413,7 +406,7 @@ void ExDocumentBuilderImages::InsertImageFromByteArray()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 0.1);
     ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 0.1);
     
@@ -428,7 +421,7 @@ void ExDocumentBuilderImages::InsertImageFromByteArray()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 0.1);
     ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 0.1);
     
@@ -443,7 +436,7 @@ void ExDocumentBuilderImages::InsertImageFromByteArray()
     ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, imageShape->get_RelativeHorizontalPosition());
     ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Margin, imageShape->get_RelativeVerticalPosition());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
     ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 0.1);
     ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 0.1);
 }

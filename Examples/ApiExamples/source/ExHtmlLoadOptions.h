@@ -1,12 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
 #include <system/collections/list.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Loading/BlockImportMode.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
 #include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
@@ -60,7 +56,11 @@ private:
 public:
 
     void SupportVml(bool supportVml);
+    //ExStart
+    //ExFor:HtmlLoadOptions.WebRequestTimeout
+    //ExSummary:Shows how to set a time limit for web requests when loading a document with external resources linked by URLs.
     void WebRequestTimeout();
+    //ExEnd
     void LoadHtmlFixed();
     void EncryptedHtml();
     void BaseUri();

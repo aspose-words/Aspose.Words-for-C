@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDocumentProperties.h"
+﻿#include "ExDocumentProperties.h"
 
 #include <testing/test_predicates.h>
 #include <system/timespan.h>
@@ -13,16 +8,12 @@
 #include <system/object_ext.h>
 #include <system/io/file.h>
 #include <system/enumerator_adapter.h>
-#include <system/enum_helpers.h>
-#include <system/details/dispose_guard.h>
 #include <system/date_time.h>
 #include <system/convert.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <system/collections/icollection.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
-#include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/Settings/WriteProtection.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -115,7 +106,6 @@ void ExDocumentProperties::TestContent(System::SharedPtr<Aspose::Words::Document
     ASSERT_FALSE(properties->get_LinksUpToDate());
 }
 
-
 namespace gtest_test
 {
 
@@ -158,30 +148,30 @@ void ExDocumentProperties::BuiltIn()
     //ExFor:DocumentProperty.Value
     //ExFor:DocumentProperty.Type
     //ExSummary:Shows how to work with built-in document properties.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Properties.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Properties.docx"));
     
     // The "Document" object contains some of its metadata in its members.
-    std::cout << System::String::Format(u"Document filename:\n\t \"{0}\"", doc->get_OriginalFileName()) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"Document filename:\n\t \"{0}\"", doc->get_OriginalFileName()));
     
     // The document also stores metadata in its built-in properties.
     // Each built-in property is a member of the document's "BuiltInDocumentProperties" object.
-    std::cout << "Built-in Properties:" << std::endl;
+    System::Console::WriteLine(u"Built-in Properties:");
     for (auto&& docProperty : System::IterateOver(doc->get_BuiltInDocumentProperties()))
     {
-        std::cout << docProperty->get_Name() << std::endl;
-        std::cout << System::String::Format(u"\tType:\t{0}", docProperty->get_Type()) << std::endl;
+        System::Console::WriteLine(docProperty->get_Name());
+        System::Console::WriteLine(System::String::Format(u"\tType:\t{0}", docProperty->get_Type()));
         
         // Some properties may store multiple values.
         if (System::ObjectExt::Is<System::Collections::Generic::ICollection<System::SharedPtr<System::Object>>>(docProperty->get_Value()))
         {
             for (auto&& value : System::IterateOver(System::AsCast<System::Collections::Generic::ICollection<System::SharedPtr<System::Object>>>(docProperty->get_Value())))
             {
-                std::cout << System::String::Format(u"\tValue:\t\"{0}\"", value) << std::endl;
+                System::Console::WriteLine(System::String::Format(u"\tValue:\t\"{0}\"", value));
             }
         }
         else
         {
-            std::cout << System::String::Format(u"\tValue:\t\"{0}\"", docProperty->get_Value()) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"\tValue:\t\"{0}\"", docProperty->get_Value()));
         }
     }
     //ExEnd
@@ -208,20 +198,20 @@ void ExDocumentProperties::Custom()
     //ExFor:DocumentPropertyCollection.Count
     //ExFor:DocumentPropertyCollection.Item(int)
     //ExSummary:Shows how to work with custom document properties.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Properties.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Properties.docx"));
     
     // Every document contains a collection of custom properties, which, like the built-in properties, are key-value pairs.
-    // The document has a fixed list of built-in properties. The user creates all of the custom properties. 
+    // The document has a fixed list of built-in properties. The user creates all of the custom properties.
     ASSERT_EQ(u"Value of custom document property", System::ObjectExt::ToString(doc->get_CustomDocumentProperties()->idx_get(u"CustomProperty")));
     
     doc->get_CustomDocumentProperties()->Add(u"CustomProperty2", System::String(u"Value of custom document property #2"));
     
-    std::cout << "Custom Properties:" << std::endl;
+    System::Console::WriteLine(u"Custom Properties:");
     for (auto&& customDocumentProperty : System::IterateOver(doc->get_CustomDocumentProperties()))
     {
-        std::cout << customDocumentProperty->get_Name() << std::endl;
-        std::cout << System::String::Format(u"\tType:\t{0}", customDocumentProperty->get_Type()) << std::endl;
-        std::cout << System::String::Format(u"\tValue:\t\"{0}\"", customDocumentProperty->get_Value()) << std::endl;
+        System::Console::WriteLine(customDocumentProperty->get_Name());
+        System::Console::WriteLine(System::String::Format(u"\tType:\t{0}", customDocumentProperty->get_Type()));
+        System::Console::WriteLine(System::String::Format(u"\tValue:\t\"{0}\"", customDocumentProperty->get_Value()));
     }
     //ExEnd
     
@@ -285,7 +275,7 @@ void ExDocumentProperties::Description()
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.Description.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentProperties.Description.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Description.docx"));
     
     properties = doc->get_BuiltInDocumentProperties();
     
@@ -324,17 +314,17 @@ void ExDocumentProperties::Origin()
     //ExFor:BuiltInDocumentProperties.Version
     //ExSummary:Shows how to work with document properties in the "Origin" category.
     // Open a document that we have created and edited using Microsoft Word.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Properties.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Properties.docx"));
     System::SharedPtr<Aspose::Words::Properties::BuiltInDocumentProperties> properties = doc->get_BuiltInDocumentProperties();
     
     // The following built-in properties contain information regarding the creation and editing of this document.
     // We can right-click this document in Windows Explorer and find
     // these properties via "Properties" -> "Details" -> "Origin" category.
     // Fields such as PRINTDATE and EDITTIME can display these values in the document body.
-    std::cout << System::String::Format(u"Created using {0}, on {1}", properties->get_NameOfApplication(), properties->get_CreatedTime()) << std::endl;
-    std::cout << System::String::Format(u"Minutes spent editing: {0}", properties->get_TotalEditingTime()) << std::endl;
-    std::cout << System::String::Format(u"Date/time last printed: {0}", properties->get_LastPrinted()) << std::endl;
-    std::cout << System::String::Format(u"Template document: {0}", properties->get_Template()) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"Created using {0}, on {1}", properties->get_NameOfApplication(), properties->get_CreatedTime()));
+    System::Console::WriteLine(System::String::Format(u"Minutes spent editing: {0}", properties->get_TotalEditingTime()));
+    System::Console::WriteLine(System::String::Format(u"Date/time last printed: {0}", properties->get_LastPrinted()));
+    System::Console::WriteLine(System::String::Format(u"Template document: {0}", properties->get_Template()));
     
     // We can also change the values of built-in properties.
     properties->set_Company(u"Doe Ltd.");
@@ -351,13 +341,13 @@ void ExDocumentProperties::Origin()
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.Origin.docx");
     //ExEnd
     
-    properties = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentProperties.Origin.docx")->get_BuiltInDocumentProperties();
+    properties = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Origin.docx"))->get_BuiltInDocumentProperties();
     
     ASSERT_EQ(u"Doe Ltd.", properties->get_Company());
     ASSERT_EQ(System::DateTime(2006, 4, 25, 10, 10, 0), properties->get_CreatedTime());
     ASSERT_EQ(System::DateTime(2019, 4, 21, 10, 0, 0), properties->get_LastPrinted());
     ASSERT_EQ(u"John Doe", properties->get_LastSavedBy());
-    Aspose::Words::ApiExamples::TestUtil::VerifyDate(System::DateTime::get_Now(), properties->get_LastSavedTime(), System::TimeSpan::FromSeconds(5));
+    TestUtil::VerifyDate(System::DateTime::get_Now(), properties->get_LastSavedTime(), System::TimeSpan::FromSeconds(5));
     ASSERT_EQ(u"Jane Doe", properties->get_Manager());
     ASSERT_EQ(u"Microsoft Office Word", properties->get_NameOfApplication());
     ASSERT_EQ(12, properties->get_RevisionNumber());
@@ -378,7 +368,7 @@ TEST_F(ExDocumentProperties, Origin)
 
 void ExDocumentProperties::Content()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraphs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     System::SharedPtr<Aspose::Words::Properties::BuiltInDocumentProperties> properties = doc->get_BuiltInDocumentProperties();
     
     // By using built in properties,
@@ -388,7 +378,7 @@ void ExDocumentProperties::Content()
     // Also, these values can also be viewed in Microsoft Word by navigating File > Properties > Advanced Properties > Statistics
     // Page count: The PageCount property shows the page count in real time and its value can be assigned to the Pages property
     
-    // The "Pages" property stores the page count of the document. 
+    // The "Pages" property stores the page count of the document.
     ASSERT_EQ(6, properties->get_Pages());
     
     // The "Words", "Characters", and "CharactersWithSpaces" built-in properties also display various document statistics,
@@ -435,7 +425,7 @@ void ExDocumentProperties::Content()
     ASSERT_FALSE(properties->get_LinksUpToDate());
     
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.Content.docx");
-    TestContent(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentProperties.Content.docx"));
+    TestContent(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Content.docx")));
     //ExSkip
 }
 
@@ -473,7 +463,7 @@ void ExDocumentProperties::Thumbnail()
     System::IO::File::WriteAllBytes(get_ArtifactsDir() + u"DocumentProperties.Thumbnail.gif", thumbnail->ToByteArray());
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(400, 400, get_ArtifactsDir() + u"DocumentProperties.Thumbnail.gif");
+    TestUtil::VerifyImage(400, 400, get_ArtifactsDir() + u"DocumentProperties.Thumbnail.gif");
 }
 
 namespace gtest_test
@@ -504,9 +494,9 @@ void ExDocumentProperties::HyperlinkBase()
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.HyperlinkBase.BrokenLink.docx");
     
     // The document we are trying to link to is in a different directory to the one we are planning to save the document in.
-    // We could fix links like this by putting an absolute filename in each one. 
+    // We could fix links like this by putting an absolute filename in each one.
     // Alternatively, we could provide a base link that every hyperlink with a relative filename
-    // will prepend to its link when we click on it. 
+    // will prepend to its link when we click on it.
     System::SharedPtr<Aspose::Words::Properties::BuiltInDocumentProperties> properties = doc->get_BuiltInDocumentProperties();
     properties->set_HyperlinkBase(get_MyDir());
     
@@ -515,12 +505,12 @@ void ExDocumentProperties::HyperlinkBase()
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.HyperlinkBase.WorkingLink.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentProperties.HyperlinkBase.BrokenLink.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.HyperlinkBase.BrokenLink.docx"));
     properties = doc->get_BuiltInDocumentProperties();
     
     ASSERT_EQ(System::String::Empty, properties->get_HyperlinkBase());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentProperties.HyperlinkBase.WorkingLink.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.HyperlinkBase.WorkingLink.docx"));
     properties = doc->get_BuiltInDocumentProperties();
     
     ASSERT_EQ(get_MyDir(), properties->get_HyperlinkBase());
@@ -543,7 +533,7 @@ void ExDocumentProperties::HeadingPairs()
     //ExFor:BuiltInDocumentProperties.HeadingPairs
     //ExFor:BuiltInDocumentProperties.TitlesOfParts
     //ExSummary:Shows the relationship between "HeadingPairs" and "TitlesOfParts" properties.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Heading pairs and titles of parts.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Heading pairs and titles of parts.docx"));
     
     // We can find the combined values of these collections via
     // "File" -> "Properties" -> "Advanced Properties" -> "Contents" tab.
@@ -558,12 +548,12 @@ void ExDocumentProperties::HeadingPairs()
     int32_t titlesOfPartsIndex = 0;
     while (headingPairsIndex < headingPairs->get_Length())
     {
-        std::cout << System::String::Format(u"Parts for {0}:", headingPairs[headingPairsIndex++]) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"Parts for {0}:", headingPairs[headingPairsIndex++]));
         int32_t partsCount = System::Convert::ToInt32(headingPairs[headingPairsIndex++]);
         
         for (int32_t i = 0; i < partsCount; i++)
         {
-            std::cout << System::String::Format(u"\t\"{0}\"", titlesOfParts[titlesOfPartsIndex++]) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"\t\"{0}\"", titlesOfParts[titlesOfPartsIndex++]));
         }
     }
     //ExEnd
@@ -615,7 +605,7 @@ void ExDocumentProperties::Security()
     doc->get_WriteProtection()->set_ReadOnlyRecommended(true);
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyRecommended.docx");
     
-    ASSERT_EQ(Aspose::Words::Properties::DocumentSecurity::ReadOnlyRecommended, System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyRecommended.docx")->get_BuiltInDocumentProperties()->get_Security());
+    ASSERT_EQ(Aspose::Words::Properties::DocumentSecurity::ReadOnlyRecommended, System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyRecommended.docx"))->get_BuiltInDocumentProperties()->get_Security());
     
     // Write-protect a document, and then verify its security level.
     doc = System::MakeObject<Aspose::Words::Document>();
@@ -629,7 +619,7 @@ void ExDocumentProperties::Security()
     
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyEnforced.docx");
     
-    ASSERT_EQ(Aspose::Words::Properties::DocumentSecurity::ReadOnlyEnforced, System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyEnforced.docx")->get_BuiltInDocumentProperties()->get_Security());
+    ASSERT_EQ(Aspose::Words::Properties::DocumentSecurity::ReadOnlyEnforced, System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyEnforced.docx"))->get_BuiltInDocumentProperties()->get_Security());
     
     // "Security" is a descriptive property. We can edit its value manually.
     doc = System::MakeObject<Aspose::Words::Document>();
@@ -638,7 +628,7 @@ void ExDocumentProperties::Security()
     doc->get_BuiltInDocumentProperties()->set_Security(Aspose::Words::Properties::DocumentSecurity::ReadOnlyExceptAnnotations);
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyExceptAnnotations.docx");
     
-    ASSERT_EQ(Aspose::Words::Properties::DocumentSecurity::ReadOnlyExceptAnnotations, System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyExceptAnnotations.docx")->get_BuiltInDocumentProperties()->get_Security());
+    ASSERT_EQ(Aspose::Words::Properties::DocumentSecurity::ReadOnlyExceptAnnotations, System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyExceptAnnotations.docx"))->get_BuiltInDocumentProperties()->get_Security());
     //ExEnd
 }
 
@@ -663,10 +653,10 @@ void ExDocumentProperties::CustomNamedAccess()
     
     doc->get_CustomDocumentProperties()->Add(u"AuthorizationDate", System::DateTime::get_Now());
     System::DateTime authorizationDate = doc->get_CustomDocumentProperties()->idx_get(u"AuthorizationDate")->ToDateTime();
-    std::cout << System::String::Format(u"Document authorized on {0}", authorizationDate) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"Document authorized on {0}", authorizationDate));
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyDate(System::DateTime::get_Now(), Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc)->get_CustomDocumentProperties()->idx_get(u"AuthorizationDate")->ToDateTime(), System::TimeSpan::FromSeconds(1));
+    TestUtil::VerifyDate(System::DateTime::get_Now(), DocumentHelper::SaveOpen(doc)->get_CustomDocumentProperties()->idx_get(u"AuthorizationDate")->ToDateTime(), System::TimeSpan::FromSeconds(1));
 }
 
 namespace gtest_test
@@ -705,7 +695,7 @@ void ExDocumentProperties::LinkCustomDocumentPropertiesToBookmark()
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.LinkCustomDocumentPropertiesToBookmark.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentProperties.LinkCustomDocumentPropertiesToBookmark.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.LinkCustomDocumentPropertiesToBookmark.docx"));
     customProperty = doc->get_CustomDocumentProperties()->idx_get(u"Bookmark");
     
     ASPOSE_ASSERT_EQ(true, customProperty->get_IsLinkToContent());
@@ -762,7 +752,7 @@ void ExDocumentProperties::DocumentPropertyCollection()
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::SharedPtr<Aspose::Words::Properties::DocumentProperty>>> enumerator = properties->GetEnumerator();
         while (enumerator->MoveNext())
         {
-            std::cout << System::String::Format(u"Name: \"{0}\"\n\tType: \"{1}\"\n\tValue: \"{2}\"", enumerator->get_Current()->get_Name(), enumerator->get_Current()->get_Type(), enumerator->get_Current()->get_Value()) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"Name: \"{0}\"\n\tType: \"{1}\"\n\tValue: \"{2}\"", enumerator->get_Current()->get_Name(), enumerator->get_Current()->get_Type(), enumerator->get_Current()->get_Value()));
         }
     }
     
@@ -851,7 +841,7 @@ void ExDocumentProperties::ExtendedProperties()
     //ExFor:BuiltInDocumentProperties.SharedDocument
     //ExFor:BuiltInDocumentProperties.HyperlinksChanged
     //ExSummary:Shows how to get extended properties.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Extended properties.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Extended properties.docx"));
     ASSERT_TRUE(doc->get_BuiltInDocumentProperties()->get_ScaleCrop());
     ASSERT_TRUE(doc->get_BuiltInDocumentProperties()->get_SharedDocument());
     ASSERT_TRUE(doc->get_BuiltInDocumentProperties()->get_HyperlinksChanged());

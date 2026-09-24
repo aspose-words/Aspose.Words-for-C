@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExTxtSaveOptions.h"
+﻿#include "ExTxtSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -13,7 +8,6 @@
 #include <system/io/file.h>
 #include <system/environment.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
@@ -107,12 +101,12 @@ void ExTxtSaveOptions::PageBreaks(bool forcePageBreaks)
     
     // If we load a plaintext document with page breaks,
     // the "Document" object will use them to split the body into pages.
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt"));
     
     ASSERT_EQ(forcePageBreaks ? 3 : 1, doc->get_PageCount());
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::FileContainsString(forcePageBreaks ? System::String(u"Page 1\r\n\fPage 2\r\n\fPage 3\r\n\r\n") : System::String(u"Page 1\r\nPage 2\r\nPage 3\r\n\r\n"), get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt");
+    TestUtil::FileContainsString(forcePageBreaks ? System::String(u"Page 1\r\n\fPage 2\r\n\fPage 3\r\n\r\n") : System::String(u"Page 1\r\nPage 2\r\nPage 3\r\n\r\n"), get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt");
 }
 
 namespace gtest_test
@@ -259,15 +253,12 @@ void ExTxtSaveOptions::ExportHeadersFooters(Aspose::Words::Saving::TxtExportHead
         case Aspose::Words::Saving::TxtExportHeadersFootersMode::AllAtEnd:
             ASSERT_EQ(System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine) + System::String::Format(u"Even header{0}{1}", newLine, newLine) + System::String::Format(u"Primary header{0}{1}", newLine, newLine) + System::String::Format(u"Even footer{0}{1}", newLine, newLine) + System::String::Format(u"Primary footer{0}{1}", newLine, newLine), docText);
             break;
-        
         case Aspose::Words::Saving::TxtExportHeadersFootersMode::PrimaryOnly:
             ASSERT_EQ(System::String::Format(u"Primary header{0}", newLine) + System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine) + System::String::Format(u"Primary footer{0}", newLine), docText);
             break;
-        
         case Aspose::Words::Saving::TxtExportHeadersFootersMode::None:
             ASSERT_EQ(System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine), docText);
             break;
-        
     }
     //ExEnd
 }
@@ -543,11 +534,11 @@ void ExTxtSaveOptions::PreserveTableLayout(bool preserveTableLayout)
     
     if (preserveTableLayout)
     {
-        ASSERT_EQ(System::String(u"Row 1, cell 1                                            Row 1, cell 2\r\n") + u"Row 2, cell 1                                            Row 2, cell 2\r\n\r\n", docText);
+        ASSERT_EQ((System::String(u"Row 1, cell 1                                            Row 1, cell 2\r\n") + u"Row 2, cell 1                                            Row 2, cell 2\r\n\r\n"), docText);
     }
     else
     {
-        ASSERT_EQ(System::String(u"Row 1, cell 1\r") + u"Row 1, cell 2\r" + u"Row 2, cell 1\r" + u"Row 2, cell 2\r\r\n", docText);
+        ASSERT_EQ((System::String(u"Row 1, cell 1\r") + u"Row 1, cell 2\r" + u"Row 2, cell 1\r" + u"Row 2, cell 2\r\r\n"), docText);
     }
     //ExEnd
 }
@@ -614,7 +605,7 @@ void ExTxtSaveOptions::ExportOfficeMathAsLatex()
     //ExFor:TxtSaveOptions.OfficeMathExportMode
     //ExFor:TxtOfficeMathExportMode
     //ExSummary:Shows how to export OfficeMath object as Latex in TXT.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::TxtSaveOptions>();
     saveOptions->set_OfficeMathExportMode(Aspose::Words::Saving::TxtOfficeMathExportMode::Latex);
@@ -622,7 +613,7 @@ void ExTxtSaveOptions::ExportOfficeMathAsLatex()
     doc->Save(get_ArtifactsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.txt", saveOptions);
     //ExEnd:ExportOfficeMathAsLatexToText
     
-    ASSERT_TRUE(Aspose::Words::ApiExamples::DocumentHelper::CompareDocs(get_ArtifactsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.txt", get_GoldsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.Gold.txt"));
+    ASSERT_TRUE(DocumentHelper::CompareDocs(get_ArtifactsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.txt", get_GoldsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.Gold.txt"));
 }
 
 namespace gtest_test

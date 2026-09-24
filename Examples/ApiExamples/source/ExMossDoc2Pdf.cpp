@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExMossDoc2Pdf.h"
+﻿#include "ExMossDoc2Pdf.h"
 
 #include <system/globalization/culture_info.h>
 #include <system/exceptions.h>
@@ -41,13 +36,15 @@ System::SharedPtr<System::IO::StreamWriter>& ExMossDoc2Pdf::gLog()
     return value;
 }
 
+
 void ExMossDoc2Pdf::MossDoc2Pdf(System::ArrayPtr<System::String> args)
 {
     // Although SharePoint passes "-log <filename>" to us and we are
     // supposed to log there, we will use our hardcoded path to the log file for the sake of simplicity.
+    //
     // Make sure there are permissions to write into this folder.
-    // The document converter will be called under the document 
-    // conversion account (not sure what name), so for testing purposes, 
+    // The document converter will be called under the document
+    // conversion account (not sure what name), so for testing purposes,
     // I would give the Users group write permissions into this folder.
     gLog() = System::MakeObject<System::IO::StreamWriter>(u"C:\\Aspose2Pdf\\log.txt", true);
     
@@ -61,9 +58,11 @@ void ExMossDoc2Pdf::MossDoc2Pdf(System::ArrayPtr<System::String> args)
             ParseCommandLine(args);
             
             // Uncomment the code below when you have purchased a license for Aspose.Words.
-            // You need to deploy the license in the same folder as your 
-            // executable, alternatively you can add the license file as an 
+            //
+            // You need to deploy the license in the same folder as your
+            // executable, alternatively you can add the license file as an
             // embedded resource to your project.
+            //
             // Set license for Aspose.Words.
             // Aspose.Words.License wordsLicense = new Aspose.Words.License();
             // wordsLicense.SetLicense("Aspose.Total.lic");
@@ -81,7 +80,6 @@ void ExMossDoc2Pdf::MossDoc2Pdf(System::ArrayPtr<System::String> args)
     {
         gLog()->Close();
     });
-    
 }
 
 void ExMossDoc2Pdf::ParseCommandLine(System::ArrayPtr<System::String> args)
@@ -122,7 +120,7 @@ void ExMossDoc2Pdf::ConvertDoc2Pdf(System::String inFileName, System::String out
 {
     // You can load not only DOC here, but any format supported by
     // Aspose.Words: DOC, DOCX, RTF, WordML, HTML, MHTML, ODT etc.
-    auto doc = System::MakeObject<Aspose::Words::Document>(inFileName);
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(inFileName));
     
     doc->Save(outFileName, System::MakeObject<Aspose::Words::Saving::PdfSaveOptions>());
 }

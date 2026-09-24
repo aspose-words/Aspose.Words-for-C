@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExLayout.h"
+﻿#include "ExLayout.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -13,10 +8,7 @@
 #include <system/io/file_mode.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
-#include <system/enum_helpers.h>
-#include <system/details/dispose_guard.h>
-#include <iostream>
-#include <gtest/gtest.h>
+#include <system/console.h>
 #include <functional>
 #include <drawing/rectangle_f.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -54,11 +46,9 @@ void ExLayout::RenderPageLayoutCallback::Notify(System::SharedPtr<Aspose::Words:
         case Aspose::Words::Layout::PageLayoutEvent::PartReflowFinished:
             NotifyPartFinished(a);
             break;
-        
         case Aspose::Words::Layout::PageLayoutEvent::ConversionFinished:
             NotifyConversionFinished(a);
             break;
-        
         default:
             break;
     }
@@ -66,13 +56,13 @@ void ExLayout::RenderPageLayoutCallback::Notify(System::SharedPtr<Aspose::Words:
 
 void ExLayout::RenderPageLayoutCallback::NotifyPartFinished(System::SharedPtr<Aspose::Words::Layout::PageLayoutCallbackArgs> a)
 {
-    std::cout << System::String::Format(u"Part at page {0} reflow.", a->get_PageIndex() + 1) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"Part at page {0} reflow.", a->get_PageIndex() + 1));
     RenderPage(a, a->get_PageIndex());
 }
 
 void ExLayout::RenderPageLayoutCallback::NotifyConversionFinished(System::SharedPtr<Aspose::Words::Layout::PageLayoutCallbackArgs> a)
 {
-    std::cout << System::String::Format(u"Document \"{0}\" converted to page format.", a->get_Document()->get_BuiltInDocumentProperties()->get_Title()) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"Document \"{0}\" converted to page format.", a->get_Document()->get_BuiltInDocumentProperties()->get_Title()));
 }
 
 void ExLayout::RenderPageLayoutCallback::RenderPage(System::SharedPtr<Aspose::Words::Layout::PageLayoutCallbackArgs> a, int32_t pageIndex)
@@ -153,19 +143,18 @@ void ExLayout::PrintCurrentEntity(System::SharedPtr<Aspose::Words::Layout::Layou
 {
     System::String tabs(u'\t', indent);
     
-    std::cout << (layoutEnumerator->get_Kind() == System::String::Empty ? System::String::Format(u"{0}-> Entity type: {1}", tabs, layoutEnumerator->get_Type()) : System::String::Format(u"{0}-> Entity type & kind: {1}, {2}", tabs, layoutEnumerator->get_Type(), layoutEnumerator->get_Kind())) << std::endl;
+    System::Console::WriteLine(layoutEnumerator->get_Kind() == System::String::Empty ? System::String::Format(u"{0}-> Entity type: {1}", tabs, layoutEnumerator->get_Type()) : System::String::Format(u"{0}-> Entity type & kind: {1}, {2}", tabs, layoutEnumerator->get_Type(), layoutEnumerator->get_Kind()));
     
     // Only spans can contain text.
     if (layoutEnumerator->get_Type() == Aspose::Words::Layout::LayoutEntityType::Span)
     {
-        std::cout << System::String::Format(u"{0}   Span contents: \"{1}\"", tabs, layoutEnumerator->get_Text()) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"{0}   Span contents: \"{1}\"", tabs, layoutEnumerator->get_Text()));
     }
     
     System::Drawing::RectangleF leRect = layoutEnumerator->get_Rectangle();
-    std::cout << System::String::Format(u"{0}   Rectangle dimensions {1}x{2}, X={3} Y={4}", tabs, leRect.get_Width(), leRect.get_Height(), leRect.get_X(), leRect.get_Y()) << std::endl;
-    std::cout << System::String::Format(u"{0}   Page {1}", tabs, layoutEnumerator->get_PageIndex()) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"{0}   Rectangle dimensions {1}x{2}, X={3} Y={4}", tabs, leRect.get_Width(), leRect.get_Height(), leRect.get_X(), leRect.get_Y()));
+    System::Console::WriteLine(System::String::Format(u"{0}   Page {1}", tabs, layoutEnumerator->get_PageIndex()));
 }
-
 
 namespace gtest_test
 {
@@ -242,8 +231,8 @@ void ExLayout::LayoutCollector()
     System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(Aspose::Words::NodeType::Any, true);
     for (auto&& node : System::IterateOver(nodes))
     {
-        std::cout << System::String::Format(u"->  NodeType.{0}: ", node->get_NodeType()) << std::endl;
-        std::cout << (System::String::Format(u"\tStarts on page {0}, ends on page {1},", layoutCollector->GetStartPageIndex(node), layoutCollector->GetEndPageIndex(node)) + System::String::Format(u" spanning {0} pages.", layoutCollector->GetNumPagesSpanned(node))) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"->  NodeType.{0}: ", node->get_NodeType()));
+        System::Console::WriteLine(System::String::Format(u"\tStarts on page {0}, ends on page {1},", layoutCollector->GetStartPageIndex(node), layoutCollector->GetEndPageIndex(node)) + System::String::Format(u" spanning {0} pages.", layoutCollector->GetNumPagesSpanned(node)));
     }
     
     // We can iterate over the layout entities using a LayoutEnumerator.
@@ -275,7 +264,7 @@ void ExLayout::LayoutEnumerator()
     // Open a document that contains a variety of layout entities.
     // Layout entities are pages, cells, rows, lines, and other objects included in the LayoutEntityType enum.
     // Each layout entity has a rectangular space that it occupies in the document body.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Layout entities.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Layout entities.docx"));
     
     // Create an enumerator that can traverse these entities like a tree.
     auto layoutEnumerator = System::MakeObject<Aspose::Words::Layout::LayoutEnumerator>(doc);
@@ -287,7 +276,7 @@ void ExLayout::LayoutEnumerator()
     ASSERT_EQ(Aspose::Words::Layout::LayoutEntityType::Page, layoutEnumerator->get_Type());
     ASSERT_THROW(static_cast<std::function<void()>>([&layoutEnumerator]() -> void
     {
-        std::cout << layoutEnumerator->get_Text() << std::endl;
+        System::Console::WriteLine(layoutEnumerator->get_Text());
     })(), System::InvalidOperationException);
     
     // We can call this method to make sure that the enumerator will be at the first layout entity.
@@ -298,20 +287,20 @@ void ExLayout::LayoutEnumerator()
     // 1 -  In visual order:
     // When moving through an entity's children that span multiple pages,
     // page layout takes precedence, and we move to other child elements on this page and avoid the ones on the next.
-    std::cout << "Traversing from first to last, elements between pages separated:" << std::endl;
+    System::Console::WriteLine(u"Traversing from first to last, elements between pages separated:");
     TraverseLayoutForward(layoutEnumerator, 1);
     
     // Our enumerator is now at the end of the collection. We can traverse the layout entities backwards to go back to the beginning.
-    std::cout << "Traversing from last to first, elements between pages separated:" << std::endl;
+    System::Console::WriteLine(u"Traversing from last to first, elements between pages separated:");
     TraverseLayoutBackward(layoutEnumerator, 1);
     
     // 2 -  In logical order:
     // When moving through an entity's children that span multiple pages,
     // the enumerator will move between pages to traverse all the child entities.
-    std::cout << "Traversing from first to last, elements between pages mixed:" << std::endl;
+    System::Console::WriteLine(u"Traversing from first to last, elements between pages mixed:");
     TraverseLayoutForwardLogical(layoutEnumerator, 1);
     
-    std::cout << "Traversing from last to first, elements between pages mixed:" << std::endl;
+    System::Console::WriteLine(u"Traversing from last to first, elements between pages mixed:");
     TraverseLayoutBackwardLogical(layoutEnumerator, 1);
 }
 
@@ -355,7 +344,7 @@ void ExLayout::RestartPageNumberingInContinuousSection()
     //ExFor:LayoutOptions.ContinuousSectionPageNumberingRestart
     //ExFor:ContinuousSectionRestart
     //ExSummary:Shows how to control page numbering in a continuous section.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Continuous section page numbering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Continuous section page numbering.docx"));
     
     // By default Aspose.Words behavior matches the Microsoft Word 2019.
     // If you need old Aspose.Words behavior, repetitive Microsoft Word 2016, use 'ContinuousSectionRestart.FromNewPageOnly'.

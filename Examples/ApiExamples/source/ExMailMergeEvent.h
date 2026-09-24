@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/MailMerge/ImageFieldMergingArgs.h>
 #include <Aspose.Words.Cpp/Model/MailMerge/IFieldMergingCallback.h>
@@ -153,8 +149,25 @@ private:
     
 public:
 
+    //ExStart
+    //ExFor:DocumentBuilder.InsertHtml(String)
+    //ExFor:MailMerge.FieldMergingCallback
+    //ExFor:IFieldMergingCallback
+    //ExFor:FieldMergingArgs
+    //ExFor:FieldMergingArgsBase
+    //ExFor:FieldMergingArgsBase.Field
+    //ExFor:FieldMergingArgsBase.DocumentFieldName
+    //ExFor:FieldMergingArgsBase.Document
+    //ExFor:IFieldMergingCallback.FieldMerging
+    //ExFor:FieldMergingArgs.Text
+    //ExSummary:Shows how to execute a mail merge with a custom callback that handles merge data in the form of HTML documents.
     void MergeHtml();
+    //ExEnd
+    //ExStart
+    //ExFor:FieldMergingArgsBase.FieldValue
+    //ExSummary:Shows how to edit values that MERGEFIELDs receive as a mail merge takes place.
     void FieldFormats();
+    //ExEnd
     void ImageFromUrl();
     
 protected:

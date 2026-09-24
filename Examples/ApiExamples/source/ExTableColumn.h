@@ -1,12 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/collections/list.h>
 #include <system/array.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/Cell.h>
@@ -67,7 +63,7 @@ public:
         /// </summary>
         void Remove();
         /// <summary>
-        /// Returns the text of the column. 
+        /// Returns the text of the column.
         /// </summary>
         System::String ToTxt();
         
@@ -79,6 +75,7 @@ public:
         Column(System::SharedPtr<Aspose::Words::Tables::Table> table, int32_t columnIndex);
         
         MEMBER_FUNCTION_MAKE_OBJECT_DECLARATION(Column, CODEPORTING_ARGS(System::SharedPtr<Aspose::Words::Tables::Table> table, int32_t columnIndex));
+        
         /// <summary>
         /// Provides an up-to-date collection of cells which make up the column represented by this facade.
         /// </summary>

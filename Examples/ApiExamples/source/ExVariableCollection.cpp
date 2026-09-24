@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExVariableCollection.h"
+﻿#include "ExVariableCollection.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -11,11 +6,9 @@
 #include <system/object_ext.h>
 #include <system/linq/enumerable.h>
 #include <system/func.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/collections/keyvalue_pair.h>
 #include <system/collections/ienumerator.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
@@ -130,7 +123,7 @@ void ExVariableCollection::Primer()
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::Collections::Generic::KeyValuePair<System::String, System::String>>> enumerator = doc->get_Variables()->GetEnumerator();
         while (enumerator->MoveNext())
         {
-            std::cout << System::String::Format(u"Name: {0}, Value: {1}", enumerator->get_Current().get_Key(), enumerator->get_Current().get_Value()) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"Name: {0}, Value: {1}", enumerator->get_Current().get_Key(), enumerator->get_Current().get_Value()));
         }
     }
     

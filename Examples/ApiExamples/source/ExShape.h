@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
@@ -149,7 +146,23 @@ public:
     void Calendar();
     void IsLayoutInCell(bool isLayoutInCell);
     void ShapeInsertion();
+    //ExStart
+    //ExFor:Shape.Accept(DocumentVisitor)
+    //ExFor:Shape.AcceptStart(DocumentVisitor)
+    //ExFor:Shape.AcceptEnd(DocumentVisitor)
+    //ExFor:Shape.Chart
+    //ExFor:Shape.ExtrusionEnabled
+    //ExFor:Shape.Filled
+    //ExFor:Shape.HasChart
+    //ExFor:Shape.OleFormat
+    //ExFor:Shape.ShadowEnabled
+    //ExFor:Shape.StoryType
+    //ExFor:Shape.StrokeColor
+    //ExFor:Shape.Stroked
+    //ExFor:Shape.StrokeWeight
+    //ExSummary:Shows how to iterate over all the shapes in a document.
     void VisitShapes();
+    //ExEnd
     void SignatureLine();
     void TextBoxLayoutFlow(Aspose::Words::Drawing::LayoutFlow layoutFlow);
     void TextBoxFitShapeToText();
@@ -158,6 +171,32 @@ public:
     void TextBoxShapeType();
     void CreateLinkBetweenTextBoxes();
     void VerticalAnchor(Aspose::Words::Drawing::TextBoxAnchor verticalAnchor);
+    //ExStart
+    //ExFor:Shape.TextPath
+    //ExFor:ShapeBase.IsWordArt
+    //ExFor:TextPath
+    //ExFor:TextPath.Bold
+    //ExFor:TextPath.FitPath
+    //ExFor:TextPath.FitShape
+    //ExFor:TextPath.FontFamily
+    //ExFor:TextPath.Italic
+    //ExFor:TextPath.Kerning
+    //ExFor:TextPath.On
+    //ExFor:TextPath.ReverseRows
+    //ExFor:TextPath.RotateLetters
+    //ExFor:TextPath.SameLetterHeights
+    //ExFor:TextPath.Shadow
+    //ExFor:TextPath.SmallCaps
+    //ExFor:TextPath.Spacing
+    //ExFor:TextPath.StrikeThrough
+    //ExFor:TextPath.Text
+    //ExFor:TextPath.TextPathAlignment
+    //ExFor:TextPath.Trim
+    //ExFor:TextPath.Underline
+    //ExFor:TextPath.XScale
+    //ExFor:TextPath.Size
+    //ExFor:TextPathAlignment
+    //ExSummary:Shows how to work with WordArt.
     void InsertTextPaths();
     void ShapeRevision();
     void MoveRevisions();
@@ -197,6 +236,7 @@ protected:
     /// Insert a new paragraph with a WordArt shape inside it.
     /// </summary>
     static System::SharedPtr<Aspose::Words::Drawing::Shape> AppendWordArt(System::SharedPtr<Aspose::Words::Document> doc, System::String text, System::String textFontFamily, double shapeWidth, double shapeHeight, System::Drawing::Color wordArtFill, System::Drawing::Color line, Aspose::Words::Drawing::ShapeType wordArtShapeType);
+    //ExEnd
     void TestInsertTextPaths(System::String filename);
     
 };

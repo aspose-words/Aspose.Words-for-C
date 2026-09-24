@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExOoxmlSaveOptions.h"
+﻿#include "ExOoxmlSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/timespan.h>
@@ -20,11 +15,9 @@
 #include <system/io/file.h>
 #include <system/exceptions.h>
 #include <system/diagnostics/stopwatch.h>
-#include <system/details/dispose_guard.h>
 #include <system/default.h>
+#include <system/console.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/imaging/image_format.h>
 #include <drawing/graphics.h>
@@ -148,7 +141,7 @@ void ExOoxmlSaveOptions::Password()
     // Aspose.Words without providing the correct password.
     ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
     {
-        doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OoxmlSaveOptions.Password.docx");
+        doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.Password.docx"));
     })(), Aspose::Words::IncorrectPasswordException);
     
     // Open the encrypted document by passing the correct password in a LoadOptions object.
@@ -192,7 +185,7 @@ void ExOoxmlSaveOptions::Iso29500Strict()
     
     // The "ISO/IEC 29500:2008" OOXML standard does not support VML shapes.
     // If we set the "Compliance" property of the SaveOptions object to "OoxmlCompliance.Iso29500_2008_Strict",
-    // any document we save while passing this object will have to follow that standard. 
+    // any document we save while passing this object will have to follow that standard.
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::OoxmlSaveOptions>();
     saveOptions->set_Compliance(Aspose::Words::Saving::OoxmlCompliance::Iso29500_2008_Strict);
     saveOptions->set_SaveFormat(Aspose::Words::SaveFormat::Docx);
@@ -200,7 +193,7 @@ void ExOoxmlSaveOptions::Iso29500Strict()
     doc->Save(get_ArtifactsDir() + u"OoxmlSaveOptions.Iso29500Strict.docx", saveOptions);
     
     // Our saved document defines the shape using DML to adhere to the "ISO/IEC 29500:2008" OOXML standard.
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OoxmlSaveOptions.Iso29500Strict.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.Iso29500Strict.docx"));
     
     ASSERT_EQ(Aspose::Words::Drawing::ShapeMarkupLanguage::Dml, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_MarkupLanguage());
     //ExEnd
@@ -246,7 +239,7 @@ void ExOoxmlSaveOptions::RestartingDocumentList(bool restartListAtEachSection)
     
     doc->Save(get_ArtifactsDir() + u"OoxmlSaveOptions.RestartingDocumentList.docx", options);
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OoxmlSaveOptions.RestartingDocumentList.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.RestartingDocumentList.docx"));
     
     ASPOSE_ASSERT_EQ(restartListAtEachSection, doc->get_Lists()->idx_get(0)->get_IsRestartAtEachSection());
     //ExEnd
@@ -284,7 +277,7 @@ void ExOoxmlSaveOptions::LastSavedTime(bool updateLastSavedTimeProperty)
     //ExStart
     //ExFor:SaveOptions.UpdateLastSavedTimeProperty
     //ExSummary:Shows how to determine whether to preserve the document's "Last saved time" property when saving.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     ASSERT_EQ(System::DateTime(2021, 5, 11, 6, 32, 0), doc->get_BuiltInDocumentProperties()->get_LastSavedTime());
     
@@ -299,7 +292,7 @@ void ExOoxmlSaveOptions::LastSavedTime(bool updateLastSavedTimeProperty)
     
     doc->Save(get_ArtifactsDir() + u"OoxmlSaveOptions.LastSavedTime.docx", saveOptions);
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OoxmlSaveOptions.LastSavedTime.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.LastSavedTime.docx"));
     System::DateTime lastSavedTimeNew = doc->get_BuiltInDocumentProperties()->get_LastSavedTime();
     
     if (updateLastSavedTimeProperty)
@@ -346,7 +339,7 @@ void ExOoxmlSaveOptions::KeepLegacyControlChars(bool keepLegacyControlChars)
     //ExFor:OoxmlSaveOptions.KeepLegacyControlChars
     //ExFor:OoxmlSaveOptions.#ctor(SaveFormat)
     //ExSummary:Shows how to support legacy control characters when converting to .docx.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Legacy control character.doc");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Legacy control character.doc"));
     
     // When we save the document to an OOXML format, we can create an OoxmlSaveOptions object
     // and then pass it to the document's saving method to modify how we save the document.
@@ -359,7 +352,7 @@ void ExOoxmlSaveOptions::KeepLegacyControlChars(bool keepLegacyControlChars)
     
     doc->Save(get_ArtifactsDir() + u"OoxmlSaveOptions.KeepLegacyControlChars.docx", so);
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OoxmlSaveOptions.KeepLegacyControlChars.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.KeepLegacyControlChars.docx"));
     
     ASSERT_EQ(keepLegacyControlChars ? System::String(u"\u0013date \\@ \"MM/dd/yyyy\"\u0014\u0015\f") : System::String(u"\u001e\f"), doc->get_FirstSection()->get_Body()->GetText());
     //ExEnd
@@ -398,7 +391,7 @@ void ExOoxmlSaveOptions::DocumentCompression(Aspose::Words::Saving::CompressionL
     //ExFor:OoxmlSaveOptions.CompressionLevel
     //ExFor:CompressionLevel
     //ExSummary:Shows how to specify the compression level to use while saving an OOXML document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
     // When we save the document to an OOXML format, we can create an OoxmlSaveOptions object
     // and then pass it to the document's saving method to modify how we save the document.
@@ -417,9 +410,9 @@ void ExOoxmlSaveOptions::DocumentCompression(Aspose::Words::Saving::CompressionL
     
     auto fileInfo = System::MakeObject<System::IO::FileInfo>(get_ArtifactsDir() + u"OoxmlSaveOptions.DocumentCompression.docx");
     
-    std::cout << System::String::Format(u"Saving operation done using the \"{0}\" compression level:", compressionLevel) << std::endl;
-    std::cout << System::String::Format(u"\tDuration:\t{0} ms", st->get_ElapsedMilliseconds()) << std::endl;
-    std::cout << System::String::Format(u"\tFile Size:\t{0} bytes", fileInfo->get_Length()) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"Saving operation done using the \"{0}\" compression level:", compressionLevel));
+    System::Console::WriteLine(System::String::Format(u"\tDuration:\t{0} ms", st->get_ElapsedMilliseconds()));
+    System::Console::WriteLine(System::String::Format(u"\tFile Size:\t{0} bytes", fileInfo->get_Length()));
     //ExEnd
     
     int64_t testedFileLength = fileInfo->get_Length();
@@ -427,21 +420,17 @@ void ExOoxmlSaveOptions::DocumentCompression(Aspose::Words::Saving::CompressionL
     switch (compressionLevel)
     {
         case Aspose::Words::Saving::CompressionLevel::Maximum:
-            ASSERT_TRUE(testedFileLength < 1269000);
+            ASSERT_TRUE(testedFileLength < static_cast<int64_t>(1269000));
             break;
-        
         case Aspose::Words::Saving::CompressionLevel::Normal:
-            ASSERT_TRUE(testedFileLength < 1271000);
+            ASSERT_TRUE(testedFileLength < static_cast<int64_t>(1271000));
             break;
-        
         case Aspose::Words::Saving::CompressionLevel::Fast:
-            ASSERT_TRUE(testedFileLength < 1280000);
+            ASSERT_TRUE(testedFileLength < static_cast<int64_t>(1280000));
             break;
-        
         case Aspose::Words::Saving::CompressionLevel::SuperFast:
-            ASSERT_TRUE(testedFileLength < 1276000);
+            ASSERT_TRUE(testedFileLength < static_cast<int64_t>(1276000));
             break;
-        
     }
 }
 
@@ -496,8 +485,8 @@ void ExOoxmlSaveOptions::CheckFileSignatures()
                 int64_t fileSize = outputFileStream->get_Length();
                 ASSERT_TRUE(prevFileSize < fileSize);
                 
-                Aspose::Words::ApiExamples::TestUtil::CopyStream(outputFileStream, stream);
-                ASSERT_EQ(fileSignatures[i], Aspose::Words::ApiExamples::TestUtil::DumpArray(stream->ToArray(), 0, 10));
+                TestUtil::CopyStream(outputFileStream, stream);
+                ASSERT_EQ(fileSignatures[i], TestUtil::DumpArray(stream->ToArray(), 0, 10));
                 
                 prevFileSize = fileSize;
             }
@@ -542,16 +531,17 @@ TEST_F(ExOoxmlSaveOptions, ExportGeneratorName)
 
 void ExOoxmlSaveOptions::ProgressCallback(Aspose::Words::SaveFormat saveFormat, System::String ext)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
     // Following formats are supported: Docx, FlatOpc, Docm, Dotm, Dotx.
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::OoxmlSaveOptions>(saveFormat);
     saveOptions->set_ProgressCallback(System::MakeObject<Aspose::Words::ApiExamples::ExOoxmlSaveOptions::SavingProgressCallback>());
     
-    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(static_cast<std::function<void()>>([&doc, &ext, &saveOptions]() -> void
+    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(static_cast<std::function<void()>>([&saveOptions, &doc, &ext]() -> void
     {
         doc->Save(get_ArtifactsDir() + System::String::Format(u"OoxmlSaveOptions.ProgressCallback.{0}", ext), saveOptions);
-    })(), System::OperationCanceledException, &exception);
+    })(), System::OperationCanceledException, &exception)
+    
     System::Nullable<bool> actual = System::Default<System::Nullable<bool>>();
     System::OperationCanceledException condExpression = exception;
     if (condExpression != nullptr)
@@ -598,7 +588,7 @@ void ExOoxmlSaveOptions::Zip64ModeOption()
     //ExFor:OoxmlSaveOptions.Zip64Mode
     //ExFor:Zip64Mode
     //ExSummary:Shows how to use ZIP64 format extensions.
-    System::Random random;
+    auto random = System::MakeObject<System::Random>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>();
     
     for (int32_t i = 0; i < 10000; i++)
@@ -607,7 +597,7 @@ void ExOoxmlSaveOptions::Zip64ModeOption()
             auto bmp = System::MakeObject<System::Drawing::Bitmap>(5, 5);
             {
                 System::SharedPtr<System::Drawing::Graphics> g = System::Drawing::Graphics::FromImage(bmp);
-                g->Clear(System::Drawing::Color::FromArgb(random.Next(0, 254), random.Next(0, 254), random.Next(0, 254)));
+                g->Clear(System::Drawing::Color::FromArgb(random->Next(0, 254), random->Next(0, 254), random->Next(0, 254)));
                 {
                     auto ms = System::MakeObject<System::IO::MemoryStream>();
                     bmp->Save(ms, System::Drawing::Imaging::ImageFormat::get_Png());
@@ -643,9 +633,9 @@ void ExOoxmlSaveOptions::DigitalSignature()
     //ExFor:DigitalSignatureDetails.CertificateHolder
     //ExFor:DigitalSignatureDetails.SignOptions
     //ExSummary:Shows how to sign OOXML document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     signOptions->set_Comments(u"Some comments");
     signOptions->set_SignTime(System::DateTime::get_Now());
@@ -677,22 +667,22 @@ void ExOoxmlSaveOptions::UpdateAmbiguousTextFont()
     //GistId:1a265b92fa0019b26277ecfef3c20330
     //ExFor:SaveOptions.UpdateAmbiguousTextFont
     //ExSummary:Shows how to update the font to match the character code being used.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Special symbol.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Special symbol.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
-    std::cout << run->get_Text() << std::endl;
+    System::Console::WriteLine(run->get_Text());
     // ฿
-    std::cout << run->get_Font()->get_Name() << std::endl;
+    System::Console::WriteLine(run->get_Font()->get_Name());
     // Arial
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::OoxmlSaveOptions>();
     saveOptions->set_UpdateAmbiguousTextFont(true);
     doc->Save(get_ArtifactsDir() + u"OoxmlSaveOptions.UpdateAmbiguousTextFont.docx", saveOptions);
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OoxmlSaveOptions.UpdateAmbiguousTextFont.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.UpdateAmbiguousTextFont.docx"));
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
-    std::cout << run->get_Text() << std::endl;
+    System::Console::WriteLine(run->get_Text());
     // ฿
-    std::cout << run->get_Font()->get_Name() << std::endl;
+    System::Console::WriteLine(run->get_Font()->get_Name());
     // Angsana New
     //ExEnd:UpdateAmbiguousTextFont
 }

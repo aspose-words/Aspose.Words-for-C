@@ -1,4 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
+﻿// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
 #include "HelperClasses/TestClasses/ShareTestClass.h"
 
 #include <system/primitive_types.h>
@@ -37,7 +37,7 @@ System::String ShareTestClass::Title()
 System::String ShareTestClass::Color()
 {
     const double fullColorDelta = 0.016;
-    const uint8_t unusedColorChannelValue = 80;
+    constexpr uint8_t unusedColorChannelValue = 80;
     
     uint8_t r = unusedColorChannelValue;
     uint8_t g = unusedColorChannelValue;

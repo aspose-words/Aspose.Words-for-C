@@ -1,10 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Revisions/RevisionType.h>
 #include <Aspose.Words.Cpp/Model/Revisions/Revision.h>
 #include <Aspose.Words.Cpp/Model/Revisions/IRevisionCriteria.h>
@@ -64,7 +61,15 @@ public:
     void GetSpecificRevisionGroup();
     void ShowRevisionBalloons();
     void RevisionOptions();
+    //ExStart:RevisionSpecifiedCriteria
+    //GistId:470c0da51e4317baae82ad9495747fed
+    //ExFor:RevisionCollection.Accept(IRevisionCriteria)
+    //ExFor:RevisionCollection.Reject(IRevisionCriteria)
+    //ExFor:IRevisionCriteria
+    //ExFor:IRevisionCriteria.IsMatch(Revision)
+    //ExSummary:Shows how to accept or reject revision based on criteria.
     void RevisionSpecifiedCriteria();
+    //ExEnd:RevisionSpecifiedCriteria
     void TrackRevisions();
     void AcceptAllRevisions();
     void GetRevisedPropertiesOfList();

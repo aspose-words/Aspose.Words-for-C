@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/regularexpressions/regex.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldStart.h>
@@ -70,8 +67,8 @@ private:
     System::SharedPtr<Aspose::Words::Node> mFieldStart;
     System::SharedPtr<Aspose::Words::Node> mFieldSeparator;
     System::SharedPtr<Aspose::Words::Node> mFieldEnd;
-    
     static System::SharedPtr<System::Text::RegularExpressions::Regex>& gRegex();
+    
     void UpdateFieldCode(System::String fieldName);
     /// <summary>
     /// Goes through siblings starting from the start node until it finds a node of the specified type or null.

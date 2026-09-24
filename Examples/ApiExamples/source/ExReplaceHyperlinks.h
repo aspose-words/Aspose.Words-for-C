@@ -1,15 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-//ExStart
-//ExFor:NodeList
-//ExFor:FieldStart
-//ExSummary:Shows how to find all hyperlinks in a Word document, and then change their URLs and display names.
+﻿#pragma once
 
 #include <system/text/regularexpressions/regex.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Fields/Nodes/FieldStart.h>
@@ -39,24 +32,24 @@ public:
     
 protected:
 
-    static const System::String& NewUrl();
-    static const System::String& NewName();
+    static System::String& NewUrl();
+    static System::String& NewName();
     
 };
 
 /// <summary>
-/// HYPERLINK fields contain and display hyperlinks in the document body. A field in Aspose.Words 
-/// consists of several nodes, and it might be difficult to work with all those nodes directly. 
+/// HYPERLINK fields contain and display hyperlinks in the document body. A field in Aspose.Words
+/// consists of several nodes, and it might be difficult to work with all those nodes directly.
 /// This implementation will work only if the hyperlink code and name each consist of only one Run node.
-/// 
+///
 /// The node structure for fields is as follows:
-/// 
+///
 /// [FieldStart][Run - field code][FieldSeparator][Run - field result][FieldEnd]
-/// 
+///
 /// Below are two example field codes of HYPERLINK fields:
 /// HYPERLINK "url"
 /// HYPERLINK \l "bookmark name"
-/// 
+///
 /// A field's "Result" property contains text that the field displays in the document body to the user.
 /// </summary>
 class Hyperlink : public System::Object
@@ -103,8 +96,8 @@ private:
     System::SharedPtr<Aspose::Words::Node> mFieldEnd;
     bool mIsLocal;
     System::String mTarget;
-    
     static System::SharedPtr<System::Text::RegularExpressions::Regex>& gRegex();
+    
     void UpdateFieldCode();
     /// <summary>
     /// Goes through siblings starting from the start node until it finds a node of the specified type or null.
@@ -125,6 +118,5 @@ private:
 } // namespace ApiExamples
 } // namespace Words
 } // namespace Aspose
-//ExEnd
 
 

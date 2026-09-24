@@ -1,17 +1,11 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExBuildVersion.h"
+﻿#include "ExBuildVersion.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/regularexpressions/regex.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/string.h>
-#include <iostream>
-#include <gtest/gtest.h>
+#include <system/console.h>
 #include <Aspose.Words.Cpp/Model/Document/BuildVersionInfo.h>
 
 namespace Aspose {
@@ -60,11 +54,11 @@ void ExBuildVersion::PrintBuildVersionInfo()
     //ExFor:BuildVersionInfo.Product
     //ExFor:BuildVersionInfo.Version
     //ExSummary:Shows how to display information about your installed version of Aspose.Words.
-    std::cout << System::String::Format(u"I am currently using {0}, version number {1}!", Aspose::Words::BuildVersionInfo::get_Product(), Aspose::Words::BuildVersionInfo::get_Version()) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"I am currently using {0}, version number {1}!", BuildVersionInfo::get_Product(), BuildVersionInfo::get_Version()));
     //ExEnd
     
-    ASSERT_EQ(u"Aspose.Words for C++", Aspose::Words::BuildVersionInfo::get_Product());
-    ASSERT_TRUE(System::Text::RegularExpressions::Regex::IsMatch(Aspose::Words::BuildVersionInfo::get_Version(), u"[0-9]{2}.[0-9]{1,2}"));
+    ASSERT_EQ(u"Aspose.Words for C++", BuildVersionInfo::get_Product());
+    ASSERT_TRUE(System::Text::RegularExpressions::Regex::IsMatch(BuildVersionInfo::get_Version(), u"[0-9]{2}.[0-9]{1,2}"));
 }
 
 namespace gtest_test

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 // Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
 
 #include <system/string.h>

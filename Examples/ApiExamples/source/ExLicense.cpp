@@ -1,16 +1,10 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExLicense.h"
+﻿#include "ExLicense.h"
 
 #include <system/string.h>
 #include <system/io/stream.h>
 #include <system/io/path.h>
 #include <system/io/file_stream.h>
 #include <system/io/file.h>
-#include <system/details/dispose_guard.h>
 #include <Aspose.Words.Cpp/Licensing/License.h>
 
 namespace Aspose {

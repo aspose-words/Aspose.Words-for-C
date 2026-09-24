@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/ResourceSavingArgs.h>
 #include <Aspose.Words.Cpp/Model/Saving/IResourceSavingCallback.h>
@@ -58,7 +54,16 @@ private:
 public:
 
     void SaveLikeImage();
+    //ExStart
+    //ExFor:SvgSaveOptions
+    //ExFor:SvgSaveOptions.ExportEmbeddedImages
+    //ExFor:SvgSaveOptions.ResourceSavingCallback
+    //ExFor:SvgSaveOptions.ResourcesFolder
+    //ExFor:SvgSaveOptions.ResourcesFolderAlias
+    //ExFor:SvgSaveOptions.SaveFormat
+    //ExSummary:Shows how to manipulate and print the URIs of linked resources created while converting a document to .svg.
     void SvgResourceFolder();
+    //ExEnd
     void SaveOfficeMath();
     void MaxImageResolution();
     void IdPrefixSvg();

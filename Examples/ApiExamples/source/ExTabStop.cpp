@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExTabStop.h"
+﻿#include "ExTabStop.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -12,7 +7,6 @@
 #include <system/linq/enumerable.h>
 #include <system/enumerator_adapter.h>
 #include <system/collections/ienumerable.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/TabStopCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/TabStop.h>
@@ -83,16 +77,16 @@ void ExTabStop::AddTabStops()
     
     // Below are two ways of adding tab stops to a paragraph's collection of tab stops via the "ParagraphFormat" property.
     // 1 -  Create a "TabStop" object, and then add it to the collection:
-    auto tabStop = System::MakeObject<Aspose::Words::TabStop>(Aspose::Words::ConvertUtil::InchToPoint(3), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
+    auto tabStop = System::MakeObject<Aspose::Words::TabStop>(ConvertUtil::InchToPoint(3), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
     paragraph->get_ParagraphFormat()->get_TabStops()->Add(tabStop);
     
     // 2 -  Pass the values for properties of a new tab stop to the "Add" method:
-    paragraph->get_ParagraphFormat()->get_TabStops()->Add(Aspose::Words::ConvertUtil::MillimeterToPoint(100), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
+    paragraph->get_ParagraphFormat()->get_TabStops()->Add(ConvertUtil::MillimeterToPoint(100), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
     
     // Add tab stops at 5 cm to all paragraphs.
-    for (auto&& para : System::IterateOver(doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph> >()))
+    for (auto&& para : System::IterateOver(doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph>>()))
     {
-        para->get_ParagraphFormat()->get_TabStops()->Add(Aspose::Words::ConvertUtil::MillimeterToPoint(50), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
+        para->get_ParagraphFormat()->get_TabStops()->Add(ConvertUtil::MillimeterToPoint(50), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
     }
     
     // Every "tab" character takes the builder's cursor to the location of the next tab stop.
@@ -102,12 +96,12 @@ void ExTabStop::AddTabStops()
     doc->Save(get_ArtifactsDir() + u"TabStopCollection.AddTabStops.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"TabStopCollection.AddTabStops.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"TabStopCollection.AddTabStops.docx"));
     System::SharedPtr<Aspose::Words::TabStopCollection> tabStops = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_TabStops();
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyTabStop(141.75, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes, false, tabStops->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyTabStop(216.0, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes, false, tabStops->idx_get(1));
-    Aspose::Words::ApiExamples::TestUtil::VerifyTabStop(283.45, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes, false, tabStops->idx_get(2));
+    TestUtil::VerifyTabStop(141.75, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes, false, tabStops->idx_get(0));
+    TestUtil::VerifyTabStop(216.0, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes, false, tabStops->idx_get(1));
+    TestUtil::VerifyTabStop(283.45, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes, false, tabStops->idx_get(2));
 }
 
 namespace gtest_test
@@ -174,12 +168,12 @@ void ExTabStop::TabStopCollection()
     doc->Save(get_ArtifactsDir() + u"TabStopCollection.TabStopCollection.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"TabStopCollection.TabStopCollection.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"TabStopCollection.TabStopCollection.docx"));
     tabStops = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_TabStops();
     
     ASSERT_EQ(2, tabStops->get_Count());
-    Aspose::Words::ApiExamples::TestUtil::VerifyTabStop(72.0, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::None, false, tabStops->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyTabStop(432.0, Aspose::Words::TabAlignment::Right, Aspose::Words::TabLeader::Dashes, false, tabStops->idx_get(1));
+    TestUtil::VerifyTabStop(72.0, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::None, false, tabStops->idx_get(0));
+    TestUtil::VerifyTabStop(432.0, Aspose::Words::TabAlignment::Right, Aspose::Words::TabLeader::Dashes, false, tabStops->idx_get(1));
     
     tabStops = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat()->get_TabStops();
     
@@ -204,8 +198,8 @@ void ExTabStop::RemoveByIndex()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     System::SharedPtr<Aspose::Words::TabStopCollection> tabStops = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_TabStops();
     
-    tabStops->Add(Aspose::Words::ConvertUtil::MillimeterToPoint(30), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
-    tabStops->Add(Aspose::Words::ConvertUtil::MillimeterToPoint(60), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
+    tabStops->Add(ConvertUtil::MillimeterToPoint(30), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
+    tabStops->Add(ConvertUtil::MillimeterToPoint(60), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
     
     ASSERT_EQ(2, tabStops->get_Count());
     
@@ -217,9 +211,9 @@ void ExTabStop::RemoveByIndex()
     doc->Save(get_ArtifactsDir() + u"TabStopCollection.RemoveByIndex.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"TabStopCollection.RemoveByIndex.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"TabStopCollection.RemoveByIndex.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyTabStop(170.1, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes, false, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_TabStops()->idx_get(0));
+    TestUtil::VerifyTabStop(170.1, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes, false, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_TabStops()->idx_get(0));
 }
 
 namespace gtest_test
@@ -240,11 +234,11 @@ void ExTabStop::GetPositionByIndex()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     System::SharedPtr<Aspose::Words::TabStopCollection> tabStops = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_TabStops();
     
-    tabStops->Add(Aspose::Words::ConvertUtil::MillimeterToPoint(30), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
-    tabStops->Add(Aspose::Words::ConvertUtil::MillimeterToPoint(60), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
+    tabStops->Add(ConvertUtil::MillimeterToPoint(30), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
+    tabStops->Add(ConvertUtil::MillimeterToPoint(60), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
     
     // Verify the position of the second tab stop in the collection.
-    ASSERT_NEAR(Aspose::Words::ConvertUtil::MillimeterToPoint(60), tabStops->GetPositionByIndex(1), 0.1);
+    ASSERT_NEAR(ConvertUtil::MillimeterToPoint(60), tabStops->GetPositionByIndex(1), 0.1);
     //ExEnd
 }
 
@@ -267,15 +261,15 @@ void ExTabStop::GetIndexByPosition()
     System::SharedPtr<Aspose::Words::TabStopCollection> tabStops = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_TabStops();
     
     // Add a tab stop at a position of 30mm.
-    tabStops->Add(Aspose::Words::ConvertUtil::MillimeterToPoint(30), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
+    tabStops->Add(ConvertUtil::MillimeterToPoint(30), Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dashes);
     
     // A result of "0" returned by "GetIndexByPosition" confirms that a tab stop
     // at 30mm exists in this collection, and it is at index 0.
-    ASSERT_EQ(0, tabStops->GetIndexByPosition(Aspose::Words::ConvertUtil::MillimeterToPoint(30)));
+    ASSERT_EQ(0, tabStops->GetIndexByPosition(ConvertUtil::MillimeterToPoint(30)));
     
     // A "-1" returned by "GetIndexByPosition" confirms that
     // there is no tab stop in this collection with a position of 60mm.
-    ASSERT_EQ(-1, tabStops->GetIndexByPosition(Aspose::Words::ConvertUtil::MillimeterToPoint(60)));
+    ASSERT_EQ(-1, tabStops->GetIndexByPosition(ConvertUtil::MillimeterToPoint(60)));
     //ExEnd
 }
 

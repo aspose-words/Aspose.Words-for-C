@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExNodeImporter.h"
+﻿#include "ExNodeImporter.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -15,7 +10,6 @@
 #include <system/enumerator_adapter.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
@@ -32,7 +26,6 @@
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/ImportFormatOptions.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
-#include <Aspose.Words.Cpp/Model/Document/DocumentBase.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkStart.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkEnd.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkCollection.h>
@@ -55,7 +48,7 @@ void ExNodeImporter::InsertDocumentAtMailMergeHandler::FieldMerging(System::Shar
         auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(args->get_Document());
         builder->MoveToMergeField(args->get_DocumentFieldName());
         
-        auto subDoc = System::MakeObject<Aspose::Words::Document>(System::ExplicitCast<System::String>(args->get_FieldValue()));
+        auto subDoc = System::MakeObject<Aspose::Words::Document>(System::String(System::ExplicitCast<System::String>(args->get_FieldValue())));
         
         InsertDocument(builder->get_CurrentParagraph(), subDoc);
         
@@ -86,7 +79,7 @@ void ExNodeImporter::InsertDocument(System::SharedPtr<Aspose::Words::Node> inser
         
         // Loop through all block-level nodes in the section's body,
         // then clone and insert every node that is not the last empty paragraph of a section.
-        for (auto&& srcSection : System::IterateOver(docToInsert->get_Sections()->LINQ_OfType<System::SharedPtr<Aspose::Words::Section> >()))
+        for (auto&& srcSection : System::IterateOver(docToInsert->get_Sections()->LINQ_OfType<System::SharedPtr<Aspose::Words::Section>>()))
         {
             for (auto&& srcNode : System::IterateOver(srcSection->get_Body()))
             {
@@ -111,7 +104,6 @@ void ExNodeImporter::InsertDocument(System::SharedPtr<Aspose::Words::Node> inser
         throw System::ArgumentException(u"The destination node should be either a paragraph or table.");
     }
 }
-
 
 namespace gtest_test
 {
@@ -153,7 +145,7 @@ void ExNodeImporter::KeepSourceNumbering(bool keepSourceNumbering)
     //ExSummary:Shows how to resolve list numbering clashes in source and destination documents.
     // Open a document with a custom list numbering scheme, and then clone it.
     // Since both have the same numbering format, the formats will clash if we import one document into the other.
-    auto srcDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Custom list numbering.docx");
+    auto srcDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Custom list numbering.docx"));
     System::SharedPtr<Aspose::Words::Document> dstDoc = srcDoc->Clone();
     
     // When we import the document's clone into the original and then append it,
@@ -162,7 +154,7 @@ void ExNodeImporter::KeepSourceNumbering(bool keepSourceNumbering)
     // that we append to the original will carry on the numbering of the list we append it to.
     // This will effectively merge the two lists into one.
     // If we set the "KeepSourceNumbering" flag to "true", then the document clone
-    // list will preserve its original numbering, making the two lists appear as separate lists. 
+    // list will preserve its original numbering, making the two lists appear as separate lists.
     auto importFormatOptions = System::MakeObject<Aspose::Words::ImportFormatOptions>();
     importFormatOptions->set_KeepSourceNumbering(keepSourceNumbering);
     

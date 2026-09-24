@@ -1,15 +1,9 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExThemes.h"
+﻿#include "ExThemes.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/string.h>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Themes/ThemeFonts.h>
@@ -85,7 +79,7 @@ void ExThemes::CustomColorsAndFonts()
     //ExFor:ThemeFonts.EastAsian
     //ExFor:ThemeFonts.Latin
     //ExSummary:Shows how to set custom colors and fonts for themes.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Theme colors.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Theme colors.docx"));
     
     // The "Theme" object gives us access to the document theme, a source of default fonts and colors.
     System::SharedPtr<Aspose::Words::Themes::Theme> theme = doc->get_Theme();
@@ -125,7 +119,7 @@ void ExThemes::CustomColorsAndFonts()
     doc->Save(get_ArtifactsDir() + u"Themes.CustomColorsAndFonts.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Themes.CustomColorsAndFonts.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Themes.CustomColorsAndFonts.docx"));
     
     ASSERT_EQ(System::Drawing::Color::get_OrangeRed().ToArgb(), doc->get_Theme()->get_Colors()->get_Accent1().ToArgb());
     ASSERT_EQ(System::Drawing::Color::get_MidnightBlue().ToArgb(), doc->get_Theme()->get_Colors()->get_Dark1().ToArgb());

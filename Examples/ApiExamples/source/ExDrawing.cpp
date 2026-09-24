@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDrawing.h"
+﻿#include "ExDrawing.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -14,12 +9,8 @@
 #include <system/io/file_mode.h>
 #include <system/io/file_access.h>
 #include <system/io/file.h>
-#include <system/enum_helpers.h>
-#include <system/enum.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
@@ -46,8 +37,8 @@
 #include <Aspose.Words.Cpp/Model/Borders/BorderCollection.h>
 #include <Aspose.Words.Cpp/Model/Borders/Border.h>
 
-#include "TestUtil.h"
 #include "DocumentHelper.h"
+#include "TestUtil.h"
 
 
 using namespace Aspose::Words::Drawing;
@@ -102,7 +93,7 @@ RTTI_INFO_IMPL_HASH(1131775854u, ::Aspose::Words::ApiExamples::ExDrawing, ThisTy
 
 void ExDrawing::TestGroupShapes(System::SharedPtr<Aspose::Words::Document> doc)
 {
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     auto shapes = System::ExplicitCast<Aspose::Words::Drawing::GroupShape>(doc->GetChild(Aspose::Words::NodeType::GroupShape, 0, true));
     
     ASSERT_EQ(2, shapes->GetChildNodes(Aspose::Words::NodeType::Any, false)->get_Count());
@@ -121,7 +112,6 @@ void ExDrawing::TestGroupShapes(System::SharedPtr<Aspose::Words::Document> doc)
     ASPOSE_ASSERT_EQ(100.0, shape->get_Height());
     ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), shape->get_StrokeColor().ToArgb());
 }
-
 
 namespace gtest_test
 {
@@ -187,22 +177,22 @@ void ExDrawing::FillSolid()
     //ExFor:Fill.Transparency
     //ExFor:Font.Fill
     //ExSummary:Shows how to convert any of the fills back to solid fill.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Two color gradient.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Two color gradient.docx"));
     
     // Get Fill object for Font of the first Run.
     System::SharedPtr<Aspose::Words::Drawing::Fill> fill = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0)->get_Font()->get_Fill();
     
     // Check Fill properties of the Font.
-    std::cout << System::String::Format(u"The type of the fill is: {0}", fill->get_FillType()) << std::endl;
-    std::cout << "The foreground color of the fill is: " << fill->get_ForeColor() << std::endl;
-    std::cout << "The fill is transparent at " << (fill->get_Transparency() * 100) << "%" << std::endl;
+    System::Console::WriteLine(u"The type of the fill is: {0}", fill->get_FillType());
+    System::Console::WriteLine(u"The foreground color of the fill is: {0}", fill->get_ForeColor());
+    System::Console::WriteLine(u"The fill is transparent at {0}%", fill->get_Transparency() * 100);
     
     // Change type of the fill to Solid with uniform green color.
     fill->Solid();
-    std::cout << "\nThe fill is changed:" << std::endl;
-    std::cout << System::String::Format(u"The type of the fill is: {0}", fill->get_FillType()) << std::endl;
-    std::cout << "The foreground color of the fill is: " << fill->get_ForeColor() << std::endl;
-    std::cout << "The fill transparency is " << (fill->get_Transparency() * 100) << "%" << std::endl;
+    System::Console::WriteLine(u"\nThe fill is changed:");
+    System::Console::WriteLine(u"The type of the fill is: {0}", fill->get_FillType());
+    System::Console::WriteLine(u"The foreground color of the fill is: {0}", fill->get_ForeColor());
+    System::Console::WriteLine(u"The fill transparency is {0}%", fill->get_Transparency() * 100);
     
     doc->Save(get_ArtifactsDir() + u"Drawing.FillSolid.docx");
     //ExEnd
@@ -224,7 +214,7 @@ void ExDrawing::StrokePattern()
     //ExFor:Stroke.Color2
     //ExFor:Stroke.ImageBytes
     //ExSummary:Shows how to process shape stroke features.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Shape stroke pattern border.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Shape stroke pattern border.docx"));
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     System::SharedPtr<Aspose::Words::Drawing::Stroke> stroke = shape->get_Stroke();
     
@@ -237,7 +227,7 @@ void ExDrawing::StrokePattern()
     System::IO::File::WriteAllBytes(get_ArtifactsDir() + u"Drawing.StrokePattern.png", stroke->get_ImageBytes());
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(8, 8, get_ArtifactsDir() + u"Drawing.StrokePattern.png");
+    TestUtil::VerifyImage(8, 8, get_ArtifactsDir() + u"Drawing.StrokePattern.png");
 }
 
 namespace gtest_test
@@ -279,7 +269,7 @@ void ExDrawing::GroupOfShapes()
     auto printer = System::MakeObject<Aspose::Words::ApiExamples::ExDrawing::ShapeGroupPrinter>();
     group->Accept(printer);
     
-    std::cout << printer->GetText() << std::endl;
+    System::Console::WriteLine(printer->GetText());
     TestGroupShapes(doc);
     //ExSkip
 }
@@ -316,7 +306,7 @@ void ExDrawing::TextBox()
     doc->Save(get_ArtifactsDir() + u"Drawing.TextBox.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Drawing.TextBox.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Drawing.TextBox.docx"));
     textbox = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
     ASSERT_EQ(Aspose::Words::Drawing::ShapeType::TextBox, textbox->get_ShapeType());
@@ -343,7 +333,7 @@ void ExDrawing::GetDataFromImage()
     //ExFor:ImageData.ToByteArray
     //ExFor:ImageData.ToStream
     //ExSummary:Shows how to create an image file from a shape's raw image data.
-    auto imgSourceDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Images.docx");
+    auto imgSourceDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
     ASSERT_EQ(10, imgSourceDoc->GetChildNodes(Aspose::Words::NodeType::Shape, true)->get_Count());
     //ExSkip
     
@@ -364,7 +354,7 @@ void ExDrawing::GetDataFromImage()
     }
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImage(2467, 1500, get_ArtifactsDir() + u"Drawing.GetDataFromImage.png");
+    TestUtil::VerifyImage(2467, 1500, get_ArtifactsDir() + u"Drawing.GetDataFromImage.png");
 }
 
 namespace gtest_test
@@ -394,7 +384,7 @@ void ExDrawing::ImageData()
     //ExFor:ImageData.IsLinkOnly
     //ExFor:ImageData.Title
     //ExSummary:Shows how to edit a shape's image data.
-    auto imgSourceDoc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Images.docx");
+    auto imgSourceDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
     auto sourceShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(imgSourceDoc->GetChildNodes(Aspose::Words::NodeType::Shape, true)->idx_get(0));
     
     auto dstDoc = System::MakeObject<Aspose::Words::Document>();
@@ -449,10 +439,10 @@ void ExDrawing::ImageData()
     dstDoc->Save(get_ArtifactsDir() + u"Drawing.ImageData.docx");
     //ExEnd
     
-    imgSourceDoc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Drawing.ImageData.docx");
+    imgSourceDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Drawing.ImageData.docx"));
     sourceShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(imgSourceDoc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(2467, 1500, Aspose::Words::Drawing::ImageType::Jpeg, sourceShape);
+    TestUtil::VerifyImageInShape(2467, 1500, Aspose::Words::Drawing::ImageType::Jpeg, sourceShape);
     ASSERT_EQ(u"Imported Image", sourceShape->get_ImageData()->get_Title());
     ASSERT_NEAR(0.8, sourceShape->get_ImageData()->get_Brightness(), 0.1);
     ASSERT_NEAR(1.0, sourceShape->get_ImageData()->get_Contrast(), 0.1);
@@ -460,12 +450,12 @@ void ExDrawing::ImageData()
     
     sourceShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(imgSourceDoc->GetChild(Aspose::Words::NodeType::Shape, 1, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(2467, 1500, Aspose::Words::Drawing::ImageType::Jpeg, sourceShape);
+    TestUtil::VerifyImageInShape(2467, 1500, Aspose::Words::Drawing::ImageType::Jpeg, sourceShape);
     ASSERT_TRUE(sourceShape->get_ImageData()->get_GrayScale());
     
     sourceShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(imgSourceDoc->GetChild(Aspose::Words::NodeType::Shape, 2, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(2467, 1500, Aspose::Words::Drawing::ImageType::Jpeg, sourceShape);
+    TestUtil::VerifyImageInShape(2467, 1500, Aspose::Words::Drawing::ImageType::Jpeg, sourceShape);
     ASSERT_TRUE(sourceShape->get_ImageData()->get_BiLevel());
     ASSERT_NEAR(0.3, sourceShape->get_ImageData()->get_CropBottom(), 0.1);
     ASSERT_NEAR(0.3, sourceShape->get_ImageData()->get_CropLeft(), 0.1);
@@ -516,10 +506,10 @@ void ExDrawing::ImageSize()
     doc->Save(get_ArtifactsDir() + u"Drawing.ImageSize.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Drawing.ImageSize.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Drawing.ImageSize.docx"));
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, shape);
+    TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, shape);
     ASPOSE_ASSERT_EQ(600.0, shape->get_Width());
     ASPOSE_ASSERT_EQ(600.0, shape->get_Height());
     

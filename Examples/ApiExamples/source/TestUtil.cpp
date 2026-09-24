@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "TestUtil.h"
+﻿#include "TestUtil.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/string_builder.h>
@@ -21,8 +16,6 @@
 #include <system/io/binary_reader.h>
 #include <system/exceptions.h>
 #include <system/environment.h>
-#include <system/enum_helpers.h>
-#include <system/details/dispose_guard.h>
 #include <gtest/gtest.h>
 #include <drawing/rectangle.h>
 #include <drawing/imaging/metafile_header.h>
@@ -30,7 +23,6 @@
 #include <drawing/image.h>
 #include <drawing/color.h>
 #include <drawing/bitmap.h>
-#include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
@@ -44,8 +36,6 @@
 
 using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Fields;
-using namespace Aspose::Words::Lists;
-using namespace Aspose::Words::Notes;
 namespace Aspose {
 
 namespace Words {
@@ -106,7 +96,7 @@ System::SharedPtr<System::Collections::Generic::Dictionary<System::String, int32
             int32_t right = reader->ReadInt32();
             int32_t bottom = reader->ReadInt32();
             
-            System::SharedPtr<System::Collections::Generic::Dictionary<System::String, int32_t>> emfDimensions = System::MakeObject<System::Collections::Generic::Dictionary<System::String, int32_t>>();
+            auto emfDimensions = System::MakeObject<System::Collections::Generic::Dictionary<System::String, int32_t>>();
             emfDimensions->Add(u"width", right - left);
             emfDimensions->Add(u"height", bottom - top);
             
@@ -137,7 +127,7 @@ System::SharedPtr<System::Collections::Generic::Dictionary<System::String, int32
             int32_t width = (int32_t)((right - left) / unitsPerInch * 96);
             int32_t height = (int32_t)((bottom - top) / unitsPerInch * 96);
             
-            System::SharedPtr<System::Collections::Generic::Dictionary<System::String, int32_t>> wmfDimensions = System::MakeObject<System::Collections::Generic::Dictionary<System::String, int32_t>>();
+            auto wmfDimensions = System::MakeObject<System::Collections::Generic::Dictionary<System::String, int32_t>>();
             wmfDimensions->Add(u"width", width);
             wmfDimensions->Add(u"height", height);
             
@@ -160,7 +150,7 @@ void TestUtil::ImageContainsTransparency(System::String filename)
                     if (pixel.get_A() != 255)
                     {
                         return;
-                    }
+                    }// Transparency found.
                     // Transparency found.
                 }
             }
@@ -175,7 +165,8 @@ void TestUtil::MailMergeMatchesArray(System::ArrayPtr<System::ArrayPtr<System::S
     {
         if (onePagePerRow)
         {
-            System::ArrayPtr<System::String> docTextByPages = doc->GetText().Trim().Split(System::MakeArray<System::String>({Aspose::Words::ControlChar::PageBreak()}), System::StringSplitOptions::RemoveEmptyEntries);
+            System::ArrayPtr<System::String> docTextByPages = doc->GetText().Trim().Split(System::MakeArray<System::String>({
+                ControlChar::PageBreak()}), System::StringSplitOptions::RemoveEmptyEntries);
             
             for (int32_t i = 0; i < expectedResult->get_Length(); i++)
             {
@@ -202,14 +193,12 @@ void TestUtil::MailMergeMatchesArray(System::ArrayPtr<System::ArrayPtr<System::S
                     }
                 }
             }
-            
         }
     }
     catch (System::ArgumentException& e)
     {
-        FAIL() << (System::String::Format(u"String \"{0}\" not found in {1}.", e->get_Message(), (doc->get_OriginalFileName() == nullptr ? u"a virtual document" : doc->get_OriginalFileName().Split(u'\\')->LINQ_Last())));
+        FAIL() << (System::String::Format(u"String \"{0}\" not found in {1}.", e->get_Message(), doc->get_OriginalFileName() == nullptr ? System::String(u"a virtual document") : doc->get_OriginalFileName().Split(System::MakeArray<char16_t>({u'\\'}))->LINQ_Last()));
     }
-    
 }
 
 void TestUtil::FileContainsString(System::String expected, System::String filename)
@@ -236,13 +225,13 @@ void TestUtil::StreamContainsString(System::String expected, System::SharedPtr<S
             sequenceMatchLength = 0;
         }
         
-        if (sequenceMatchLength >= expectedSequence->get_Length())
+        if (sequenceMatchLength >= static_cast<int64_t>(expectedSequence->get_Length()))
         {
             return;
         }
     }
     
-    FAIL() << (System::String::Format(u"String \"{0}\" not found in the provided source.", (expected.get_Length() <= 100 ? expected : expected.Substring(0, 100) + u"...")));
+    FAIL() << (System::String::Format(u"String \"{0}\" not found in the provided source.", expected.get_Length() <= 100 ? expected : expected.Substring(0, 100) + u"..."));
 }
 
 void TestUtil::VerifyField(Aspose::Words::Fields::FieldType expectedType, System::String expectedFieldCode, System::String expectedResult, System::SharedPtr<Aspose::Words::Fields::Field> field)
@@ -265,7 +254,6 @@ void TestUtil::VerifyField(Aspose::Words::Fields::FieldType expectedType, System
     {
         FAIL();
     }
-    
     if (field->get_Type() == Aspose::Words::Fields::FieldType::FieldTime)
     {
         VerifyDate(expectedResult, actual, delta);

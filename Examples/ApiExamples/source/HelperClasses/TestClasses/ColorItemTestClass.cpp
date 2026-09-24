@@ -1,5 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-#include "HelperClasses/TestClasses/ColorItemTestClass.h"
+﻿#include "HelperClasses/TestClasses/ColorItemTestClass.h"
 
 namespace Aspose {
 

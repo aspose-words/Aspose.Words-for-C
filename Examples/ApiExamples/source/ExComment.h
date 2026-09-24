@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/CommentRangeStart.h>
@@ -94,7 +91,26 @@ public:
     void PrintAllComments();
     void RemoveCommentReplies();
     void Done();
+    //ExStart
+    //ExFor:Comment.Done
+    //ExFor:Comment.#ctor(DocumentBase)
+    //ExFor:Comment.Accept(DocumentVisitor)
+    //ExFor:Comment.AcceptStart(DocumentVisitor)
+    //ExFor:Comment.AcceptEnd(DocumentVisitor)
+    //ExFor:Comment.DateTime
+    //ExFor:Comment.Id
+    //ExFor:Comment.Initial
+    //ExFor:CommentRangeEnd
+    //ExFor:CommentRangeEnd.#ctor(DocumentBase,Int32)
+    //ExFor:CommentRangeEnd.Accept(DocumentVisitor)
+    //ExFor:CommentRangeEnd.Id
+    //ExFor:CommentRangeStart
+    //ExFor:CommentRangeStart.#ctor(DocumentBase,Int32)
+    //ExFor:CommentRangeStart.Accept(DocumentVisitor)
+    //ExFor:CommentRangeStart.Id
+    //ExSummary:Shows how print the contents of all comments and their comment ranges using a document visitor.
     void CreateCommentsAndPrintAllInfo();
+    //ExEnd
     void UtcDateTime();
     
 protected:

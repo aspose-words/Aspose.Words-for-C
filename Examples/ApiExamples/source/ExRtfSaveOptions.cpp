@@ -1,16 +1,11 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExRtfSaveOptions.h"
+﻿#include "ExRtfSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
-#include <gtest/gtest.h>
+#include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/RtfSaveOptions.h>
@@ -77,7 +72,7 @@ void ExRtfSaveOptions::ExportImages(bool exportImagesForOldReaders)
     //ExFor:RtfSaveOptions.ExportImagesForOldReaders
     //ExFor:RtfSaveOptions.SaveFormat
     //ExSummary:Shows how to save a document to .rtf with custom options.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Create an "RtfSaveOptions" object to pass to the document's "Save" method to modify how we save it to an RTF.
     auto options = System::MakeObject<Aspose::Words::Saving::RtfSaveOptions>();
@@ -99,8 +94,8 @@ void ExRtfSaveOptions::ExportImages(bool exportImagesForOldReaders)
     
     if (exportImagesForOldReaders)
     {
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"nonshppict", get_ArtifactsDir() + u"RtfSaveOptions.ExportImages.rtf");
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"shprslt", get_ArtifactsDir() + u"RtfSaveOptions.ExportImages.rtf");
+        TestUtil::FileContainsString(u"nonshppict", get_ArtifactsDir() + u"RtfSaveOptions.ExportImages.rtf");
+        TestUtil::FileContainsString(u"shprslt", get_ArtifactsDir() + u"RtfSaveOptions.ExportImages.rtf");
     }
     else
     {
@@ -164,7 +159,7 @@ void ExRtfSaveOptions::SaveImagesAsWmf(bool saveImagesAsWmf)
     
     doc->Save(get_ArtifactsDir() + u"RtfSaveOptions.SaveImagesAsWmf.rtf", rtfSaveOptions);
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"RtfSaveOptions.SaveImagesAsWmf.rtf");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"RtfSaveOptions.SaveImagesAsWmf.rtf"));
     
     System::SharedPtr<Aspose::Words::NodeCollection> shapes = doc->GetChildNodes(Aspose::Words::NodeType::Shape, true);
     

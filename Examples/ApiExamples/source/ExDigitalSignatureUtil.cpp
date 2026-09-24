@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDigitalSignatureUtil.h"
+﻿#include "ExDigitalSignatureUtil.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -14,10 +9,8 @@
 #include <system/io/file_mode.h>
 #include <system/io/file.h>
 #include <system/exceptions.h>
-#include <system/details/dispose_guard.h>
 #include <system/date_time.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Loading/LoadOptions.h>
@@ -82,7 +75,7 @@ void ExDigitalSignatureUtil::Load()
     //ExSummary:Shows how to load signatures from a digitally signed document.
     // There are two ways of loading a signed document's collection of digital signatures using the DigitalSignatureUtil class.
     // 1 -  Load from a document from a local file system filename:
-    System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatures = Aspose::Words::DigitalSignatures::DigitalSignatureUtil::LoadSignatures(get_MyDir() + u"Digitally signed.docx");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatures = DigitalSignatureUtil::LoadSignatures(get_MyDir() + u"Digitally signed.docx");
     
     // If this collection is nonempty, then we can verify that the document is digitally signed.
     ASSERT_EQ(1, digitalSignatures->get_Count());
@@ -90,7 +83,7 @@ void ExDigitalSignatureUtil::Load()
     // 2 -  Load from a document from a FileStream:
     {
         System::SharedPtr<System::IO::Stream> stream = System::MakeObject<System::IO::FileStream>(get_MyDir() + u"Digitally signed.docx", System::IO::FileMode::Open);
-        digitalSignatures = Aspose::Words::DigitalSignatures::DigitalSignatureUtil::LoadSignatures(stream);
+        digitalSignatures = DigitalSignatureUtil::LoadSignatures(stream);
         ASSERT_EQ(1, digitalSignatures->get_Count());
     }
     //ExEnd
@@ -117,20 +110,20 @@ void ExDigitalSignatureUtil::Remove()
     // There are two ways of using the DigitalSignatureUtil class to remove digital signatures
     // from a signed document by saving an unsigned copy of it somewhere else in the local file system.
     // 1 - Determine the locations of both the signed document and the unsigned copy by filename strings:
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::RemoveAllSignatures(get_MyDir() + u"Digitally signed.docx", get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromString.docx");
+    DigitalSignatureUtil::RemoveAllSignatures(get_MyDir() + u"Digitally signed.docx", get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromString.docx");
     
     // 2 - Determine the locations of both the signed document and the unsigned copy by file streams:
     {
         System::SharedPtr<System::IO::Stream> streamIn = System::MakeObject<System::IO::FileStream>(get_MyDir() + u"Digitally signed.docx", System::IO::FileMode::Open);
         {
             System::SharedPtr<System::IO::Stream> streamOut = System::MakeObject<System::IO::FileStream>(get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromStream.docx", System::IO::FileMode::Create);
-            Aspose::Words::DigitalSignatures::DigitalSignatureUtil::RemoveAllSignatures(streamIn, streamOut);
+            DigitalSignatureUtil::RemoveAllSignatures(streamIn, streamOut);
         }
     }
     
     // Verify that both our output documents have no digital signatures.
-    ASSERT_EQ(0, Aspose::Words::DigitalSignatures::DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromString.docx")->get_Count());
-    ASSERT_EQ(0, Aspose::Words::DigitalSignatures::DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromStream.docx")->get_Count());
+    ASSERT_EQ(0, DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromString.docx")->get_Count());
+    ASSERT_EQ(0, DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromStream.docx")->get_Count());
     //ExEnd
 }
 
@@ -146,9 +139,9 @@ TEST_F(ExDigitalSignatureUtil, Remove)
 
 void ExDigitalSignatureUtil::RemoveSignatures()
 {
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::RemoveAllSignatures(get_MyDir() + u"Digitally signed.odt", get_ArtifactsDir() + u"DigitalSignatureUtil.RemoveSignatures.odt");
+    DigitalSignatureUtil::RemoveAllSignatures(get_MyDir() + u"Digitally signed.odt", get_ArtifactsDir() + u"DigitalSignatureUtil.RemoveSignatures.odt");
     
-    ASSERT_EQ(0, Aspose::Words::DigitalSignatures::DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.RemoveSignatures.odt")->get_Count());
+    ASSERT_EQ(0, DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.RemoveSignatures.odt")->get_Count());
 }
 
 namespace gtest_test
@@ -172,7 +165,7 @@ void ExDigitalSignatureUtil::SignDocument()
     //ExFor:SignOptions.SignTime
     //ExSummary:Shows how to digitally sign documents.
     // Create an X.509 certificate from a PKCS#12 store, which should contain a private key.
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     
     // Create a comment and date which will be applied with our new digital signature.
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
@@ -185,14 +178,14 @@ void ExDigitalSignatureUtil::SignDocument()
         System::SharedPtr<System::IO::Stream> streamIn = System::MakeObject<System::IO::FileStream>(get_MyDir() + u"Document.docx", System::IO::FileMode::Open);
         {
             System::SharedPtr<System::IO::Stream> streamOut = System::MakeObject<System::IO::FileStream>(get_ArtifactsDir() + u"DigitalSignatureUtil.SignDocument.docx", System::IO::FileMode::OpenOrCreate);
-            Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(streamIn, streamOut, certificateHolder, signOptions);
+            DigitalSignatureUtil::Sign(streamIn, streamOut, certificateHolder, signOptions);
         }
     }
     //ExEnd
     
     {
         System::SharedPtr<System::IO::Stream> stream = System::MakeObject<System::IO::FileStream>(get_ArtifactsDir() + u"DigitalSignatureUtil.SignDocument.docx", System::IO::FileMode::Open);
-        System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatures = Aspose::Words::DigitalSignatures::DigitalSignatureUtil::LoadSignatures(stream);
+        System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatures = DigitalSignatureUtil::LoadSignatures(stream);
         ASSERT_EQ(1, digitalSignatures->get_Count());
         
         System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignature> signature = digitalSignatures->idx_get(0);
@@ -222,7 +215,7 @@ void ExDigitalSignatureUtil::DecryptionPassword()
     //ExFor:LoadOptions.Password
     //ExSummary:Shows how to sign encrypted document file.
     // Create an X.509 certificate from a PKCS#12 store, which should contain a private key.
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     
     // Create a comment, date, and decryption password which will be applied with our new digital signature.
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
@@ -234,7 +227,7 @@ void ExDigitalSignatureUtil::DecryptionPassword()
     System::String inputFileName = get_MyDir() + u"Encrypted.docx";
     System::String outputFileName = get_ArtifactsDir() + u"DigitalSignatureUtil.DecryptionPassword.docx";
     
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(inputFileName, outputFileName, certificateHolder, signOptions);
+    DigitalSignatureUtil::Sign(inputFileName, outputFileName, certificateHolder, signOptions);
     //ExEnd
     
     // Open encrypted document from a file.
@@ -261,16 +254,16 @@ TEST_F(ExDigitalSignatureUtil, DecryptionPassword)
 
 void ExDigitalSignatureUtil::SignDocumentObfuscationBug()
 {
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> ch = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> ch = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Structured document tags.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Structured document tags.docx"));
     System::String outputFileName = get_ArtifactsDir() + u"DigitalSignatureUtil.SignDocumentObfuscationBug.doc";
     
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     signOptions->set_Comments(u"Comment");
     signOptions->set_SignTime(System::DateTime::get_Now());
     
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(doc->get_OriginalFileName(), outputFileName, ch, signOptions);
+    DigitalSignatureUtil::Sign(doc->get_OriginalFileName(), outputFileName, ch, signOptions);
 }
 
 namespace gtest_test
@@ -285,7 +278,7 @@ TEST_F(ExDigitalSignatureUtil, SignDocumentObfuscationBug)
 
 void ExDigitalSignatureUtil::IncorrectDecryptionPassword()
 {
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Encrypted.docx", System::MakeObject<Aspose::Words::Loading::LoadOptions>(u"docPassword"));
     System::String outputFileName = get_ArtifactsDir() + u"DigitalSignatureUtil.IncorrectDecryptionPassword.docx";
@@ -295,9 +288,9 @@ void ExDigitalSignatureUtil::IncorrectDecryptionPassword()
     signOptions->set_SignTime(System::DateTime::get_Now());
     signOptions->set_DecryptionPassword(u"docPassword1");
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&doc, &outputFileName, &certificateHolder, &signOptions]() -> void
+    ASSERT_THROW(static_cast<std::function<void()>>([&signOptions, &outputFileName, &doc, &certificateHolder]() -> void
     {
-        Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(doc->get_OriginalFileName(), outputFileName, certificateHolder, signOptions);
+        DigitalSignatureUtil::Sign(doc->get_OriginalFileName(), outputFileName, certificateHolder, signOptions);
     })(), Aspose::Words::IncorrectPasswordException) << "The document password is incorrect.";
 }
 
@@ -320,7 +313,7 @@ void ExDigitalSignatureUtil::NoArgumentsForSing()
     
     ASSERT_THROW(static_cast<std::function<void()>>([&signOptions]() -> void
     {
-        Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(System::String::Empty, System::String::Empty, nullptr, signOptions);
+        DigitalSignatureUtil::Sign(System::String::Empty, System::String::Empty, nullptr, signOptions);
     })(), System::ArgumentException);
 }
 
@@ -336,7 +329,7 @@ TEST_F(ExDigitalSignatureUtil, NoArgumentsForSing)
 
 void ExDigitalSignatureUtil::NoCertificateForSign()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Digitally signed.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Digitally signed.docx"));
     System::String outputFileName = get_ArtifactsDir() + u"DigitalSignatureUtil.NoCertificateForSign.docx";
     
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
@@ -344,9 +337,9 @@ void ExDigitalSignatureUtil::NoCertificateForSign()
     signOptions->set_SignTime(System::DateTime::get_Now());
     signOptions->set_DecryptionPassword(u"docPassword");
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&doc, &outputFileName, &signOptions]() -> void
+    ASSERT_THROW(static_cast<std::function<void()>>([&signOptions, &outputFileName, &doc]() -> void
     {
-        Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(doc->get_OriginalFileName(), outputFileName, nullptr, signOptions);
+        DigitalSignatureUtil::Sign(doc->get_OriginalFileName(), outputFileName, nullptr, signOptions);
     })(), System::ArgumentNullException);
 }
 
@@ -367,13 +360,13 @@ void ExDigitalSignatureUtil::XmlDsig()
     //ExFor:SignOptions.XmlDsigLevel
     //ExFor:XmlDsigLevel
     //ExSummary:Shows how to sign document based on XML-DSig standard.
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     signOptions->set_XmlDsigLevel(Aspose::Words::DigitalSignatures::XmlDsigLevel::XAdEsEpes);
     
     System::String inputFileName = get_MyDir() + u"Document.docx";
     System::String outputFileName = get_ArtifactsDir() + u"DigitalSignatureUtil.XmlDsig.docx";
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(inputFileName, outputFileName, certificateHolder, signOptions);
+    DigitalSignatureUtil::Sign(inputFileName, outputFileName, certificateHolder, signOptions);
     //ExEnd:XmlDsig
 }
 
@@ -408,10 +401,10 @@ void ExDigitalSignatureUtil::SignDocumentWithOptions()
     signOptions->set_ColorDepth(24);
     
     System::ArrayPtr<uint8_t> certBytes = System::IO::File::ReadAllBytes(get_MyDir() + u"morzal.pfx");
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> cert = Aspose::Words::DigitalSignatures::CertificateHolder::Create(certBytes, u"aw");
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(get_MyDir() + u"Digitally signed.docx", get_ArtifactsDir() + u"DigitalSignatureUtil.docx", cert, signOptions);
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> cert = CertificateHolder::Create(certBytes, u"aw");
+    DigitalSignatureUtil::Sign(get_MyDir() + u"Digitally signed.docx", get_ArtifactsDir() + u"DigitalSignatureUtil.docx", cert, signOptions);
     
-    auto signedDoc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DigitalSignatureUtil.docx");
+    auto signedDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DigitalSignatureUtil.docx"));
     
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignature> signature = signedDoc->get_DigitalSignatures()->idx_get(0);
     ASSERT_EQ(1, signedDoc->get_DigitalSignatures()->get_Count());

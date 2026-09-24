@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExComment.h"
+﻿#include "ExComment.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -13,10 +8,9 @@
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
 #include <system/date_time.h>
+#include <system/console.h>
 #include <system/collections/list.h>
 #include <system/collections/ienumerable.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
@@ -138,10 +132,9 @@ void ExComment::PrintAllCommentInfo(System::SharedPtr<Aspose::Words::NodeCollect
         auto commentRangeEnd = System::ExplicitCast<Aspose::Words::CommentRangeEnd>(comment->get_PreviousSibling());
         commentRangeEnd->Accept(commentVisitor);
         
-        std::cout << commentVisitor->GetText() << std::endl;
+        System::Console::WriteLine(commentVisitor->GetText());
     }
 }
-
 
 namespace gtest_test
 {
@@ -207,7 +200,7 @@ void ExComment::AddCommentWithReply()
     doc->Save(get_ArtifactsDir() + u"Comment.AddCommentWithReply.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Comment.AddCommentWithReply.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Comment.AddCommentWithReply.docx"));
     auto docComment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(Aspose::Words::NodeType::Comment, 0, true));
     
     ASSERT_EQ(1, docComment->get_Count());
@@ -236,7 +229,7 @@ void ExComment::PrintAllComments()
     //ExFor:CompositeNode.GetEnumerator
     //ExFor:CompositeNode.GetChildNodes(NodeType, Boolean)
     //ExSummary:Shows how to print all of a document's comments and their replies.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Comments.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Comments.docx"));
     
     System::SharedPtr<Aspose::Words::NodeCollection> comments = doc->GetChildNodes(Aspose::Words::NodeType::Comment, true);
     ASSERT_EQ(12, comments->get_Count());
@@ -244,19 +237,19 @@ void ExComment::PrintAllComments()
     
     // If a comment has no ancestor, it is a "top-level" comment as opposed to a reply-type comment.
     // Print all top-level comments along with any replies they may have.
-    for (auto&& comment : comments->LINQ_OfType<System::SharedPtr<Aspose::Words::Comment> >()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Comment>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Comment> c)>>([](System::SharedPtr<Aspose::Words::Comment> c) -> bool
+    for (auto&& comment : comments->LINQ_OfType<System::SharedPtr<Aspose::Words::Comment>>()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Comment>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Comment> c)>>([](System::SharedPtr<Aspose::Words::Comment> c) -> bool
     {
         return c->get_Ancestor() == nullptr;
     })))->LINQ_ToList())
     {
-        std::cout << "Top-level comment:" << std::endl;
-        std::cout << System::String::Format(u"\t\"{0}\", by {1}", comment->GetText().Trim(), comment->get_Author()) << std::endl;
-        std::cout << System::String::Format(u"Has {0} replies", comment->get_Replies()->get_Count()) << std::endl;
+        System::Console::WriteLine(u"Top-level comment:");
+        System::Console::WriteLine(System::String::Format(u"\t\"{0}\", by {1}", comment->GetText().Trim(), comment->get_Author()));
+        System::Console::WriteLine(System::String::Format(u"Has {0} replies", comment->get_Replies()->get_Count()));
         for (auto&& commentReply : System::IterateOver<Aspose::Words::Comment>(comment->get_Replies()))
         {
-            std::cout << System::String::Format(u"\t\"{0}\", by {1}", commentReply->GetText().Trim(), commentReply->get_Author()) << std::endl;
+            System::Console::WriteLine(System::String::Format(u"\t\"{0}\", by {1}", commentReply->GetText().Trim(), commentReply->get_Author()));
         }
-        std::cout << std::endl;
+        System::Console::WriteLine();
     }
     //ExEnd
 }
@@ -345,7 +338,7 @@ void ExComment::Done()
     doc->Save(get_ArtifactsDir() + u"Comment.Done.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Comment.Done.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Comment.Done.docx"));
     comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChildNodes(Aspose::Words::NodeType::Comment, true)->idx_get(0));
     
     ASSERT_TRUE(comment->get_Done());
@@ -414,7 +407,7 @@ void ExComment::UtcDateTime()
     builder->get_CurrentParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Comment>>(comment);
     
     doc->Save(get_ArtifactsDir() + u"Comment.UtcDateTime.docx");
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Comment.UtcDateTime.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Comment.UtcDateTime.docx"));
     
     comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(Aspose::Words::NodeType::Comment, 0, true));
     // DateTimeUtc return data without milliseconds.

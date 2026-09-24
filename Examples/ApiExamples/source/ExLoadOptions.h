@@ -1,13 +1,9 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
 #include <system/date_time.h>
 #include <system/collections/list.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Progress/IDocumentLoadingCallback.h>
 #include <Aspose.Words.Cpp/Model/Progress/DocumentLoadingArgs.h>
 #include <Aspose.Words.Cpp/Model/Loading/ResourceLoadingArgs.h>
@@ -121,23 +117,39 @@ private:
     
 public:
 
+    //ExStart
+    //ExFor:LoadOptions.ResourceLoadingCallback
+    //ExSummary:Shows how to handle external resources when loading Html documents.
     void LoadOptionsCallback();
+    //ExEnd
     void ConvertShapeToOfficeMath(bool isConvertShapeToOfficeMath);
     void SetEncoding();
     void FontSettings();
     void LoadOptionsMswVersion();
+    //ExStart
+    //ExFor:LoadOptions.WarningCallback
+    //ExSummary:Shows how to print and store warnings that occur during document loading.
     void LoadOptionsWarningCallback();
     void TempFolder();
     void AddEditingLanguage();
     void SetEditingLanguageAsDefault();
     void ConvertMetafilesToPng();
     void OpenChmFile();
+    //ExStart
+    //ExFor:LoadOptions.ProgressCallback
+    //ExFor:IDocumentLoadingCallback
+    //ExFor:IDocumentLoadingCallback.Notify
+    //ExFor:DocumentLoadingArgs
+    //ExFor:DocumentLoadingArgs.EstimatedProgress
+    //ExSummary:Shows how to notify the user if document loading exceeded expected loading time.
     void ProgressCallback();
+    //ExEnd
     void IgnoreOleData();
     void RecoveryMode();
     
 protected:
 
+    //ExEnd
     static void TestLoadOptionsWarningCallback(System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::WarningInfo>>> warnings);
     
 };

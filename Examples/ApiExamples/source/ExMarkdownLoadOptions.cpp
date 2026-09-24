@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExMarkdownLoadOptions.h"
+﻿#include "ExMarkdownLoadOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -12,9 +7,7 @@
 #include <system/object_ext.h>
 #include <system/io/memory_stream.h>
 #include <system/environment.h>
-#include <system/details/dispose_guard.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Underline.h>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
@@ -142,7 +135,7 @@ void ExMarkdownLoadOptions::SoftLineBreakCharacter()
     {
         auto stream = System::MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(u"line1\nline2"));
         auto loadOptions = System::MakeObject<Aspose::Words::Loading::MarkdownLoadOptions>();
-        loadOptions->set_SoftLineBreakCharacter(Aspose::Words::ControlChar::LineBreakChar);
+        loadOptions->set_SoftLineBreakCharacter(ControlChar::LineBreakChar);
         auto doc = System::MakeObject<Aspose::Words::Document>(stream, loadOptions);
         
         ASSERT_EQ(u"line1\u000bline2", doc->GetText().Trim());

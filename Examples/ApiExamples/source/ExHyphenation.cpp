@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExHyphenation.h"
+﻿#include "ExHyphenation.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -14,10 +9,9 @@
 #include <system/io/file_mode.h>
 #include <system/globalization/culture_info.h>
 #include <system/func.h>
-#include <system/enum_helpers.h>
+#include <system/details/object_builder.h>
+#include <system/console.h>
 #include <system/collections/ienumerable.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
@@ -31,7 +25,6 @@
 #include <Aspose.Words.Cpp/Model/Document/WarningSource.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
-#include <Aspose.Words.Cpp/Model/Document/IWarningCallback.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Layout/Hyphenation/Hyphenation.h>
 
@@ -45,33 +38,28 @@ RTTI_INFO_IMPL_HASH(1808460568u, ::Aspose::Words::ApiExamples::ExHyphenation::Cu
 
 ExHyphenation::CustomHyphenationDictionaryRegister::CustomHyphenationDictionaryRegister()
 {
-    mHyphenationDictionaryFiles = [&]
-    {
-        auto dictionary_0 = System::MakeObject<System::Collections::Generic::Dictionary<System::String, System::String>>();
-        dictionary_0->data()[u"en-US"] = get_MyDir() + u"hyph_en_US.dic";
-        dictionary_0->data()[u"de-CH"] = get_MyDir() + u"hyph_de_CH.dic";
-        return dictionary_0;
-    }();
+    mHyphenationDictionaryFiles = System::BuildObject<System::Collections::Generic::Dictionary<System::String, System::String>>()
+        .Add({{u"en-US", get_MyDir() + u"hyph_en_US.dic"}, {u"de-CH", get_MyDir() + u"hyph_de_CH.dic"}}).Get();
 }
 
 void ExHyphenation::CustomHyphenationDictionaryRegister::RequestDictionary(System::String language)
 {
-    std::cout << (System::String(u"Hyphenation dictionary requested: ") + language);
+    System::Console::Write(System::String(u"Hyphenation dictionary requested: ") + language);
     
-    if (Aspose::Words::Hyphenation::IsDictionaryRegistered(language))
+    if (Hyphenation::IsDictionaryRegistered(language))
     {
-        std::cout << ", is already registered." << std::endl;
+        System::Console::WriteLine(u", is already registered.");
         return;
     }
     
     if (mHyphenationDictionaryFiles->ContainsKey(language))
     {
-        Aspose::Words::Hyphenation::RegisterDictionary(language, mHyphenationDictionaryFiles->idx_get(language));
-        std::cout << ", successfully registered." << std::endl;
+        Hyphenation::RegisterDictionary(language, mHyphenationDictionaryFiles->idx_get(language));
+        System::Console::WriteLine(u", successfully registered.");
         return;
     }
     
-    std::cout << ", no respective dictionary file known by this Callback." << std::endl;
+    System::Console::WriteLine(u", no respective dictionary file known by this Callback.");
 }
 
 
@@ -121,15 +109,15 @@ void ExHyphenation::Dictionary()
     // If the dictionary contains a substring, then hyphenation will split the word across two lines
     // by the substring and add a hyphen to the first half.
     // Register a dictionary file from the local file system to the "de-CH" locale.
-    Aspose::Words::Hyphenation::RegisterDictionary(u"de-CH", get_MyDir() + u"hyph_de_CH.dic");
+    Hyphenation::RegisterDictionary(u"de-CH", get_MyDir() + u"hyph_de_CH.dic");
     
-    ASSERT_TRUE(Aspose::Words::Hyphenation::IsDictionaryRegistered(u"de-CH"));
+    ASSERT_TRUE(Hyphenation::IsDictionaryRegistered(u"de-CH"));
     
     // Open a document containing text with a locale matching that of our dictionary,
     // and save it to a fixed-page save format. The text in that document will be hyphenated.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"German text.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"German text.docx"));
     
-    ASSERT_TRUE(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->LINQ_OfType<System::SharedPtr<Aspose::Words::Run> >()->LINQ_All(static_cast<System::Func<System::SharedPtr<Aspose::Words::Run>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Run> r)>>([](System::SharedPtr<Aspose::Words::Run> r) -> bool
+    ASSERT_TRUE(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->LINQ_OfType<System::SharedPtr<Aspose::Words::Run>>()->LINQ_All(static_cast<System::Func<System::SharedPtr<Aspose::Words::Run>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Run> r)>>([](System::SharedPtr<Aspose::Words::Run> r) -> bool
     {
         return r->get_Font()->get_LocaleId() == System::MakeObject<System::Globalization::CultureInfo>(u"de-CH")->get_LCID();
     }))));
@@ -138,11 +126,11 @@ void ExHyphenation::Dictionary()
     
     // Re-load the document after un-registering the dictionary,
     // and save it to another PDF, which will not have hyphenated text.
-    Aspose::Words::Hyphenation::UnregisterDictionary(u"de-CH");
+    Hyphenation::UnregisterDictionary(u"de-CH");
     
-    ASSERT_FALSE(Aspose::Words::Hyphenation::IsDictionaryRegistered(u"de-CH"));
+    ASSERT_FALSE(Hyphenation::IsDictionaryRegistered(u"de-CH"));
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"German text.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"German text.docx"));
     doc->Save(get_ArtifactsDir() + u"Hyphenation.Dictionary.Unregistered.pdf");
     //ExEnd
 }
@@ -161,20 +149,20 @@ void ExHyphenation::RegisterDictionary()
 {
     // Set up a callback that tracks warnings that occur during hyphenation dictionary registration.
     auto warningInfoCollection = System::MakeObject<Aspose::Words::WarningInfoCollection>();
-    Aspose::Words::Hyphenation::set_WarningCallback(warningInfoCollection);
+    Hyphenation::set_WarningCallback(warningInfoCollection);
     
     // Register an English (US) hyphenation dictionary by stream.
     System::SharedPtr<System::IO::Stream> dictionaryStream = System::MakeObject<System::IO::FileStream>(get_MyDir() + u"hyph_en_US.dic", System::IO::FileMode::Open);
-    Aspose::Words::Hyphenation::RegisterDictionary(u"en-US", dictionaryStream);
+    Hyphenation::RegisterDictionary(u"en-US", dictionaryStream);
     
     ASSERT_EQ(0, warningInfoCollection->get_Count());
     
     // Open a document with a locale that Microsoft Word may not hyphenate on an English machine, such as German.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"German text.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"German text.docx"));
     
     // To hyphenate that document upon saving, we need a hyphenation dictionary for the "de-CH" language code.
     // This callback will handle the automatic request for that dictionary.
-    Aspose::Words::Hyphenation::set_Callback(System::MakeObject<Aspose::Words::ApiExamples::ExHyphenation::CustomHyphenationDictionaryRegister>());
+    Hyphenation::set_Callback(System::MakeObject<Aspose::Words::ApiExamples::ExHyphenation::CustomHyphenationDictionaryRegister>());
     
     // When we save the document, German hyphenation will take effect.
     doc->Save(get_ArtifactsDir() + u"Hyphenation.RegisterDictionary.pdf");
@@ -185,11 +173,11 @@ void ExHyphenation::RegisterDictionary()
     ASSERT_EQ(Aspose::Words::WarningSource::Layout, warningInfoCollection->idx_get(0)->get_Source());
     ASSERT_EQ(System::String(u"Hyphenation dictionary contains duplicate patterns. The only first found pattern will be used. ") + u"Content can be wrapped differently.", warningInfoCollection->idx_get(0)->get_Description());
     
-    Aspose::Words::Hyphenation::set_WarningCallback(nullptr);
+    Hyphenation::set_WarningCallback(nullptr);
     //ExSkip
-    Aspose::Words::Hyphenation::UnregisterDictionary(u"en-US");
+    Hyphenation::UnregisterDictionary(u"en-US");
     //ExSkip
-    Aspose::Words::Hyphenation::set_Callback(nullptr);
+    Hyphenation::set_Callback(nullptr);
     //ExSkip
 }
 

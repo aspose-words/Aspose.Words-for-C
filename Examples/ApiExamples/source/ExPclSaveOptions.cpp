@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExPclSaveOptions.h"
+﻿#include "ExPclSaveOptions.h"
 
 #include <system/string.h>
 #include <system/enumerator_adapter.h>
@@ -14,7 +9,6 @@
 #include <Aspose.Words.Cpp/Model/Sections/PageSetup.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/PclSaveOptions.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
@@ -67,7 +61,7 @@ void ExPclSaveOptions::RasterizeElements()
     //ExFor:PclSaveOptions.SaveFormat
     //ExFor:PclSaveOptions.RasterizeTransformedElements
     //ExSummary:Shows how to rasterize complex elements while saving a document to PCL.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::PclSaveOptions>();
     saveOptions->set_SaveFormat(Aspose::Words::SaveFormat::Pcl);
@@ -121,7 +115,7 @@ void ExPclSaveOptions::AddPrinterFont()
 {
     //ExStart
     //ExFor:PclSaveOptions.AddPrinterFont(string, string)
-    //ExSummary:Shows how to get a printer to substitute all instances of a specific font with a different font. 
+    //ExSummary:Shows how to get a printer to substitute all instances of a specific font with a different font.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
@@ -149,7 +143,7 @@ TEST_F(ExPclSaveOptions, AddPrinterFont)
 
 void ExPclSaveOptions::GetPreservedPaperTrayInformation()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Paper tray information is now preserved when saving document to PCL format.
     // Following information is transferred from document's model to PCL file.

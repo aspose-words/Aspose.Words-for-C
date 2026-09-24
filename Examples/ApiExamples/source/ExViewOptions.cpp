@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExViewOptions.h"
+﻿#include "ExViewOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -13,7 +8,6 @@
 #include <system/io/memory_stream.h>
 #include <system/io/file.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Settings/ViewType.h>
 #include <Aspose.Words.Cpp/Model/Settings/ViewOptions.h>
@@ -89,7 +83,7 @@ void ExViewOptions::SetZoomPercentage()
     doc->Save(get_ArtifactsDir() + u"ViewOptions.SetZoomPercentage.doc");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ViewOptions.SetZoomPercentage.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.SetZoomPercentage.doc"));
     
     ASSERT_EQ(Aspose::Words::Settings::ViewType::PageLayout, doc->get_ViewOptions()->get_ViewType());
     ASPOSE_ASSERT_EQ(50.0, doc->get_ViewOptions()->get_ZoomPercent());
@@ -128,7 +122,7 @@ void ExViewOptions::SetZoomType(Aspose::Words::Settings::ZoomType zoomType)
     doc->Save(get_ArtifactsDir() + u"ViewOptions.SetZoomType.doc");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ViewOptions.SetZoomType.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.SetZoomType.doc"));
     
     ASSERT_EQ(zoomType, doc->get_ViewOptions()->get_ZoomType());
 }
@@ -183,7 +177,7 @@ void ExViewOptions::DisplayBackgroundShape(bool displayBackgroundShape)
     doc->Save(get_ArtifactsDir() + u"ViewOptions.DisplayBackgroundShape.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ViewOptions.DisplayBackgroundShape.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.DisplayBackgroundShape.docx"));
     
     ASPOSE_ASSERT_EQ(displayBackgroundShape, doc->get_ViewOptions()->get_DisplayBackgroundShape());
 }
@@ -246,7 +240,7 @@ void ExViewOptions::DisplayPageBoundaries(bool doNotDisplayPageBoundaries)
     doc->Save(get_ArtifactsDir() + u"ViewOptions.DisplayPageBoundaries.doc");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ViewOptions.DisplayPageBoundaries.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.DisplayPageBoundaries.doc"));
     
     ASPOSE_ASSERT_EQ(doNotDisplayPageBoundaries, doc->get_ViewOptions()->get_DoNotDisplayPageBoundaries());
 }

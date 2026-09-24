@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/EditableRanges/EditableRangeStart.h>
 #include <Aspose.Words.Cpp/Model/EditableRanges/EditableRangeEnd.h>
@@ -72,7 +69,18 @@ public:
 
     void CreateAndRemove();
     void Nested();
+    //ExStart
+    //ExFor:EditableRange
+    //ExFor:EditableRange.EditorGroup
+    //ExFor:EditableRange.SingleUser
+    //ExFor:EditableRangeEnd
+    //ExFor:EditableRangeEnd.Accept(DocumentVisitor)
+    //ExFor:EditableRangeStart
+    //ExFor:EditableRangeStart.Accept(DocumentVisitor)
+    //ExFor:EditorType
+    //ExSummary:Shows how to limit the editing rights of editable ranges to a specific group/user.
     void Visitor();
+    //ExEnd
     void IncorrectStructureException();
     void IncorrectStructureDoNotAdded();
     

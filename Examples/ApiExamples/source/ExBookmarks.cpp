@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExBookmarks.h"
+﻿#include "ExBookmarks.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -12,11 +7,8 @@
 #include <system/linq/enumerable.h>
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
-#include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
@@ -44,13 +36,13 @@ RTTI_INFO_IMPL_HASH(701186921u, ::Aspose::Words::ApiExamples::ExBookmarks::Bookm
 
 Aspose::Words::VisitorAction ExBookmarks::BookmarkInfoPrinter::VisitBookmarkStart(System::SharedPtr<Aspose::Words::BookmarkStart> bookmarkStart)
 {
-    std::cout << System::String::Format(u"BookmarkStart name: \"{0}\", Contents: \"{1}\"", bookmarkStart->get_Name(), bookmarkStart->get_Bookmark()->get_Text()) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"BookmarkStart name: \"{0}\", Contents: \"{1}\"", bookmarkStart->get_Name(), bookmarkStart->get_Bookmark()->get_Text()));
     return Aspose::Words::VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExBookmarks::BookmarkInfoPrinter::VisitBookmarkEnd(System::SharedPtr<Aspose::Words::BookmarkEnd> bookmarkEnd)
 {
-    std::cout << System::String::Format(u"BookmarkEnd name: \"{0}\"", bookmarkEnd->get_Name()) << std::endl;
+    System::Console::WriteLine(System::String::Format(u"BookmarkEnd name: \"{0}\"", bookmarkEnd->get_Name()));
     return Aspose::Words::VisitorAction::Continue;
 }
 
@@ -92,12 +84,11 @@ void ExBookmarks::PrintAllBookmarkInfo(System::SharedPtr<Aspose::Words::Bookmark
                 currentBookmark->get_BookmarkStart()->Accept(bookmarkVisitor);
                 currentBookmark->get_BookmarkEnd()->Accept(bookmarkVisitor);
                 
-                std::cout << currentBookmark->get_BookmarkStart()->GetText() << std::endl;
+                System::Console::WriteLine(currentBookmark->get_BookmarkStart()->GetText());
             }
         }
     }
 }
-
 
 namespace gtest_test
 {
@@ -139,7 +130,7 @@ void ExBookmarks::Insert()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // A valid bookmark has a name, a BookmarkStart, and a BookmarkEnd node.
-    // Any whitespace in the names of bookmarks will be converted to underscores if we open the saved document with Microsoft Word. 
+    // Any whitespace in the names of bookmarks will be converted to underscores if we open the saved document with Microsoft Word.
     // If we highlight the bookmark's name in Microsoft Word via Insert -> Links -> Bookmark, and press "Go To",
     // the cursor will jump to the text enclosed between the BookmarkStart and BookmarkEnd nodes.
     builder->StartBookmark(u"My Bookmark");
@@ -152,7 +143,7 @@ void ExBookmarks::Insert()
     doc->Save(get_ArtifactsDir() + u"Bookmarks.Insert.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Bookmarks.Insert.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Bookmarks.Insert.docx"));
     
     ASSERT_EQ(u"My Bookmark", doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Name());
 }
@@ -202,26 +193,26 @@ void ExBookmarks::TableColumnBookmarks()
     //ExFor:Bookmark.FirstColumn
     //ExFor:Bookmark.LastColumn
     //ExSummary:Shows how to get information about table column bookmarks.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table column bookmarks.doc");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table column bookmarks.doc"));
     
     for (auto&& bookmark : System::IterateOver(doc->get_Range()->get_Bookmarks()))
     {
         // If a bookmark encloses columns of a table, it is a table column bookmark, and its IsColumn flag set to true.
-        std::cout << System::String::Format(u"Bookmark: {0}{1}", bookmark->get_Name(), (bookmark->get_IsColumn() ? System::String(u" (Column)") : System::String(u""))) << std::endl;
+        System::Console::WriteLine(System::String::Format(u"Bookmark: {0}{1}", bookmark->get_Name(), bookmark->get_IsColumn() ? System::String(u" (Column)") : System::String(u"")));
         if (bookmark->get_IsColumn())
         {
             auto row = System::AsCast<Aspose::Words::Tables::Row>(bookmark->get_BookmarkStart()->GetAncestor(Aspose::Words::NodeType::Row));
             if (row != nullptr && bookmark->get_FirstColumn() < row->get_Cells()->get_Count())
             {
                 // Print the contents of the first and last columns enclosed by the bookmark.
-                std::cout << row->get_Cells()->idx_get(bookmark->get_FirstColumn())->GetText().TrimEnd(System::MakeArray<char16_t>({Aspose::Words::ControlChar::CellChar})) << std::endl;
-                std::cout << row->get_Cells()->idx_get(bookmark->get_LastColumn())->GetText().TrimEnd(System::MakeArray<char16_t>({Aspose::Words::ControlChar::CellChar})) << std::endl;
+                System::Console::WriteLine(row->get_Cells()->idx_get(bookmark->get_FirstColumn())->GetText().TrimEnd(ControlChar::CellChar));
+                System::Console::WriteLine(row->get_Cells()->idx_get(bookmark->get_LastColumn())->GetText().TrimEnd(ControlChar::CellChar));
             }
         }
     }
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     System::SharedPtr<Aspose::Words::Bookmark> firstTableColumnBookmark = doc->get_Range()->get_Bookmarks()->idx_get(u"FirstTableColumnBookmark");
     System::SharedPtr<Aspose::Words::Bookmark> secondTableColumnBookmark = doc->get_Range()->get_Bookmarks()->idx_get(u"SecondTableColumnBookmark");

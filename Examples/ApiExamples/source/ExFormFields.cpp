@@ -1,24 +1,19 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExFormFields.h"
+﻿#include "ExFormFields.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
 #include <system/linq/enumerable.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <system/array.h>
-#include <iostream>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
+#include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
@@ -36,8 +31,8 @@
 #include <Aspose.Words.Cpp/Model/Bookmarks/BookmarkCollection.h>
 #include <Aspose.Words.Cpp/Model/Bookmarks/Bookmark.h>
 
-#include "TestUtil.h"
 #include "DocumentHelper.h"
+#include "TestUtil.h"
 
 
 using namespace Aspose::Words::Fields;
@@ -68,17 +63,14 @@ Aspose::Words::VisitorAction ExFormFields::FormFieldVisitor::VisitFormField(Syst
             AppendLine(System::String(u"\tDrop-down items count: ") + formField->get_DropDownItems()->get_Count() + u", default selected item index: " + formField->get_DropDownSelectedIndex());
             AppendLine(System::String(u"\tDrop-down items: ") + System::String::Join(u", ", formField->get_DropDownItems()->LINQ_ToArray()));
             break;
-        
         case Aspose::Words::Fields::FieldType::FieldFormCheckBox:
             AppendLine(System::String(u"\tCheckbox size: ") + formField->get_CheckBoxSize());
             AppendLine(System::String(u"\t") + u"Checkbox is currently: " + (formField->get_Checked() ? System::String(u"checked, ") : System::String(u"unchecked, ")) + u"by default: " + (formField->get_Default() ? System::String(u"checked") : System::String(u"unchecked")));
             break;
-        
         case Aspose::Words::Fields::FieldType::FieldFormTextInput:
             AppendLine(System::String(u"\tInput format: ") + formField->get_TextInputFormat());
             AppendLine(System::String(u"\tCurrent contents: ") + formField->get_Result());
             break;
-        
         default:
             break;
     }
@@ -102,13 +94,13 @@ RTTI_INFO_IMPL_HASH(1459817869u, ::Aspose::Words::ApiExamples::ExFormFields, Thi
 
 void ExFormFields::TestFormField(System::SharedPtr<Aspose::Words::Document> doc)
 {
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     System::SharedPtr<Aspose::Words::Fields::FieldCollection> fields = doc->get_Range()->get_Fields();
     ASSERT_EQ(3, fields->get_Count());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldFormDropDown, u" FORMDROPDOWN \u0001", System::String::Empty, doc->get_Range()->get_Fields()->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldFormCheckBox, u" FORMCHECKBOX \u0001", System::String::Empty, doc->get_Range()->get_Fields()->idx_get(1));
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldFormTextInput, u" FORMTEXT \u0001", u"Regular", doc->get_Range()->get_Fields()->idx_get(2));
+    TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldFormDropDown, u" FORMDROPDOWN \u0001", System::String::Empty, doc->get_Range()->get_Fields()->idx_get(0));
+    TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldFormCheckBox, u" FORMCHECKBOX \u0001", System::String::Empty, doc->get_Range()->get_Fields()->idx_get(1));
+    TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldFormTextInput, u" FORMTEXT \u0001", u"Regular", doc->get_Range()->get_Fields()->idx_get(2));
     
     System::SharedPtr<Aspose::Words::Fields::FormFieldCollection> formFields = doc->get_Range()->get_FormFields();
     ASSERT_EQ(3, formFields->get_Count());
@@ -140,7 +132,6 @@ void ExFormFields::TestFormField(System::SharedPtr<Aspose::Words::Document> doc)
     ASSERT_EQ(50, formFields->idx_get(2)->get_MaxLength());
     ASSERT_EQ(u"Regular", formFields->idx_get(2)->get_Result());
 }
-
 
 namespace gtest_test
 {
@@ -187,7 +178,8 @@ void ExFormFields::Create()
     builder->Write(u"Please select a fruit: ");
     
     // Insert a combo box which will allow a user to choose an option from a collection of strings.
-    System::SharedPtr<Aspose::Words::Fields::FormField> comboBox = builder->InsertComboBox(u"MyComboBox", System::MakeArray<System::String>({u"Apple", u"Banana", u"Cherry"}), 0);
+    System::SharedPtr<Aspose::Words::Fields::FormField> comboBox = builder->InsertComboBox(u"MyComboBox", System::MakeArray<System::String>({
+        u"Apple", u"Banana", u"Cherry"}), 0);
     
     ASSERT_EQ(u"MyComboBox", comboBox->get_Name());
     ASSERT_EQ(Aspose::Words::Fields::FieldType::FieldFormDropDown, comboBox->get_Type());
@@ -197,7 +189,7 @@ void ExFormFields::Create()
     doc->Save(get_ArtifactsDir() + u"FormFields.Create.html");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"FormFields.Create.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"FormFields.Create.html"));
     comboBox = doc->get_Range()->get_FormFields()->idx_get(0);
     
     ASSERT_EQ(u"MyComboBox", comboBox->get_Name());
@@ -234,7 +226,7 @@ void ExFormFields::TextInput()
     doc->Save(get_ArtifactsDir() + u"FormFields.TextInput.html");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"FormFields.TextInput.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"FormFields.TextInput.html"));
     
     System::SharedPtr<Aspose::Words::Fields::FormField> textInput = doc->get_Range()->get_FormFields()->idx_get(0);
     
@@ -260,7 +252,7 @@ void ExFormFields::DeleteFormField()
     //ExStart
     //ExFor:FormField.RemoveField
     //ExSummary:Shows how to delete a form field.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Form fields.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Form fields.docx"));
     
     System::SharedPtr<Aspose::Words::Fields::FormField> formField = doc->get_Range()->get_FormFields()->idx_get(3);
     formField->RemoveField();
@@ -290,7 +282,7 @@ void ExFormFields::DeleteFormFieldAssociatedWithBookmark()
     builder->InsertTextInput(u"TextInput1", Aspose::Words::Fields::TextFormFieldType::Regular, u"TestFormField", u"SomeText", 0);
     builder->EndBookmark(u"MyBookmark");
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     System::SharedPtr<Aspose::Words::BookmarkCollection> bookmarkBeforeDeleteFormField = doc->get_Range()->get_Bookmarks();
     ASSERT_EQ(u"MyBookmark", bookmarkBeforeDeleteFormField->idx_get(0)->get_Name());
@@ -317,7 +309,7 @@ void ExFormFields::FormFieldFontFormatting()
     //ExStart
     //ExFor:FormField
     //ExSummary:Shows how to formatting the entire FormField, including the field value.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Form fields.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Form fields.docx"));
     
     System::SharedPtr<Aspose::Words::Fields::FormField> formField = doc->get_Range()->get_FormFields()->idx_get(0);
     formField->get_Font()->set_Bold(true);
@@ -326,7 +318,7 @@ void ExFormFields::FormFieldFontFormatting()
     
     formField->set_Result(u"Aspose.FormField");
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     System::SharedPtr<Aspose::Words::Run> formFieldRun = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(1);
     
@@ -354,7 +346,8 @@ void ExFormFields::Visitor()
     
     // Use a document builder to insert a combo box.
     builder->Write(u"Choose a value from this combo box: ");
-    System::SharedPtr<Aspose::Words::Fields::FormField> comboBox = builder->InsertComboBox(u"MyComboBox", System::MakeArray<System::String>({u"One", u"Two", u"Three"}), 0);
+    System::SharedPtr<Aspose::Words::Fields::FormField> comboBox = builder->InsertComboBox(u"MyComboBox", System::MakeArray<System::String>({
+        u"One", u"Two", u"Three"}), 0);
     comboBox->set_CalculateOnExit(true);
     ASSERT_EQ(3, comboBox->get_DropDownItems()->get_Count());
     ASSERT_EQ(0, comboBox->get_DropDownSelectedIndex());
@@ -410,7 +403,7 @@ void ExFormFields::Visitor()
         }
     }
     
-    std::cout << formFieldVisitor->GetText() << std::endl;
+    System::Console::WriteLine(formFieldVisitor->GetText());
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"FormFields.Visitor.html");
@@ -472,7 +465,7 @@ void ExFormFields::DropDownItemCollection()
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::String>> dropDownCollectionEnumerator = dropDownItems->GetEnumerator();
         while (dropDownCollectionEnumerator->MoveNext())
         {
-            std::cout << dropDownCollectionEnumerator->get_Current() << std::endl;
+            System::Console::WriteLine(dropDownCollectionEnumerator->get_Current());
         }
     }
     
@@ -493,12 +486,12 @@ void ExFormFields::DropDownItemCollection()
     dropDownItems->Clear();
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     dropDownItems = doc->get_Range()->get_FormFields()->idx_get(0)->get_DropDownItems();
     
     ASSERT_EQ(0, dropDownItems->get_Count());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"FormFields.DropDownItemCollection.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"FormFields.DropDownItemCollection.html"));
     dropDownItems = doc->get_Range()->get_FormFields()->idx_get(0)->get_DropDownItems();
     
     ASSERT_EQ(3, dropDownItems->get_Count());
