@@ -25,7 +25,7 @@ public:
     void CreateALink()
     {
         //ExStart:CreateLink
-        //GistId:68b6041746b3d6bf5137cff8e6385b5f
+        //GistId:e601abed5d181508ec5fed59ac29a14d
         auto doc = MakeObject<Document>();
 
         auto shape1 = MakeObject<Shape>(doc, ShapeType::TextBox);
@@ -44,7 +44,7 @@ public:
     void CheckSequence()
     {
         //ExStart:CheckSequence
-        //GistId:68b6041746b3d6bf5137cff8e6385b5f
+        //GistId:e601abed5d181508ec5fed59ac29a14d
         auto doc = MakeObject<Document>();
 
         auto shape = MakeObject<Shape>(doc, ShapeType::TextBox);
@@ -70,7 +70,7 @@ public:
     void BreakALink()
     {
         //ExStart:BreakLink
-        //GistId:68b6041746b3d6bf5137cff8e6385b5f
+        //GistId:e601abed5d181508ec5fed59ac29a14d
         auto doc = MakeObject<Document>();
 
         auto shape = MakeObject<Shape>(doc, ShapeType::TextBox);

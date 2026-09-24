@@ -37,7 +37,7 @@ public:
     void RestartListAtEachSection()
     {
         //ExStart:RestartListAtEachSection
-        //GistId:a1dfeba1e0480d5b277a61742c8921af
+        //GistId:3cea17411b8dd8066ca5ceddd7829bde
         auto doc = MakeObject<Document>();
 
         doc->get_Lists()->Add(ListTemplate::NumberDefault);

@@ -31,7 +31,7 @@ public:
     void SetFootNoteColumns()
     {
         //ExStart:SetFootnoteColumns
-        //GistId:3b39c2019380ee905e7d9596494916a4
+        //GistId:45dd4d7ee24fc402f3ab895d5c6a695a
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         // Specify the number of columns with which the footnotes area is formatted.
@@ -44,7 +44,7 @@ public:
     void SetFootnoteAndEndNotePosition()
     {
         //ExStart:SetFootnoteAndEndnotePosition
-        //GistId:3b39c2019380ee905e7d9596494916a4
+        //GistId:45dd4d7ee24fc402f3ab895d5c6a695a
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         doc->get_FootnoteOptions()->set_Position(FootnotePosition::BeneathText);
@@ -57,7 +57,7 @@ public:
     void SetEndnoteOptions()
     {
         //ExStart:SetEndnoteOptions
-        //GistId:3b39c2019380ee905e7d9596494916a4
+        //GistId:45dd4d7ee24fc402f3ab895d5c6a695a
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
         auto builder = MakeObject<DocumentBuilder>(doc);
 

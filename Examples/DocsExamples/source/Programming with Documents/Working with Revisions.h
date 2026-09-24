@@ -64,7 +64,7 @@ public:
     void AcceptRevisions()
     {
         //ExStart:AcceptAllRevisions
-        //GistId:e8d71fde166d275d0fc9471c56c3ad39
+        //GistId:1cf6ffe8e9b563a577fc8a2337c7f7ee
         auto doc = MakeObject<Document>();
         SharedPtr<Body> body = doc->get_FirstSection()->get_Body();
         SharedPtr<Paragraph> para = body->get_FirstParagraph();
@@ -156,7 +156,7 @@ public:
     void ShowRevisionsInBalloons()
     {
         //ExStart:ShowRevisionsInBalloons
-        //GistId:ce015d9bade4e0294485ffb47462ded4
+        //GistId:3c74bb3e27a4d8aa21114f5e8a3b0c7a
         //ExStart:SetMeasurementUnit
         //ExStart:SetRevisionBarsPosition
         auto doc = MakeObject<Document>(MyDir + u"Revisions.docx");
@@ -219,7 +219,7 @@ public:
     void MoveNodeInTrackedDocument()
     {
         //ExStart:MoveNodeInTrackedDocument
-        //GistId:e8d71fde166d275d0fc9471c56c3ad39
+        //GistId:1cf6ffe8e9b563a577fc8a2337c7f7ee
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
         builder->Writeln(u"Paragraph 1");
@@ -257,7 +257,7 @@ public:
     void ShapeRevision()
     {
         //ExStart:ShapeRevision
-        //GistId:e8d71fde166d275d0fc9471c56c3ad39
+        //GistId:1cf6ffe8e9b563a577fc8a2337c7f7ee
         auto doc = MakeObject<Document>();
 
         // Insert an inline shape without tracking revisions.

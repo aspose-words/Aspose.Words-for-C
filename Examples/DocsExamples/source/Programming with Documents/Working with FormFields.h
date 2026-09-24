@@ -30,7 +30,7 @@ public:
     void InsertFormFields()
     {
         //ExStart:InsertFormFields
-        //GistId:b09907fef4643433271e4e0e912921b0
+        //GistId:b0f2e2ef2b8f321b68cd22b92f8f549b
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -42,7 +42,7 @@ public:
     void FormFieldsWorkWithProperties()
     {
         //ExStart:FormFieldsWorkWithProperties
-        //GistId:b09907fef4643433271e4e0e912921b0
+        //GistId:b0f2e2ef2b8f321b68cd22b92f8f549b
         auto doc = MakeObject<Document>(MyDir + u"Form fields.docx");
         SharedPtr<FormField> formField = doc->get_Range()->get_FormFields()->idx_get(3);
 
@@ -56,7 +56,7 @@ public:
     void FormFieldsGetFormFieldsCollection()
     {
         //ExStart:FormFieldsGetFormFieldsCollection
-        //GistId:b09907fef4643433271e4e0e912921b0
+        //GistId:b0f2e2ef2b8f321b68cd22b92f8f549b
         auto doc = MakeObject<Document>(MyDir + u"Form fields.docx");
 
         SharedPtr<FormFieldCollection> formFields = doc->get_Range()->get_FormFields();
@@ -66,9 +66,9 @@ public:
     void FormFieldsGetByName()
     {
         //ExStart:FormFieldsFontFormatting
-        //GistId:b09907fef4643433271e4e0e912921b0
+        //GistId:b0f2e2ef2b8f321b68cd22b92f8f549b
         //ExStart:FormFieldsGetByName
-        //GistId:b09907fef4643433271e4e0e912921b0
+        //GistId:b0f2e2ef2b8f321b68cd22b92f8f549b
         auto doc = MakeObject<Document>(MyDir + u"Form fields.docx");
 
         SharedPtr<FormFieldCollection> documentFormFields = doc->get_Range()->get_FormFields();

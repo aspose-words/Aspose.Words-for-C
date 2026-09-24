@@ -44,7 +44,7 @@ public:
     void AddComments()
     {
         //ExStart:AddComments
-        //GistId:70902b20df8b1f6b0459f676e21623bb
+        //GistId:2362574d04470ca298ba600ebb720012
         //ExStart:CreateSimpleDocumentUsingDocumentBuilder
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
@@ -66,7 +66,7 @@ public:
     void AnchorComment()
     {
         //ExStart:AnchorComment
-        //GistId:70902b20df8b1f6b0459f676e21623bb
+        //GistId:2362574d04470ca298ba600ebb720012
         auto doc = MakeObject<Document>();
 
         auto para1 = MakeObject<Paragraph>(doc);
@@ -101,7 +101,7 @@ public:
     void AddRemoveCommentReply()
     {
         //ExStart:AddRemoveCommentReply
-        //GistId:70902b20df8b1f6b0459f676e21623bb
+        //GistId:2362574d04470ca298ba600ebb720012
         auto doc = MakeObject<Document>(MyDir + u"Comments.docx");
 
         auto comment = System::ExplicitCast<Comment>(doc->GetChild(NodeType::Comment, 0, true));
@@ -116,7 +116,7 @@ public:
     void ProcessComments()
     {
         //ExStart:ProcessComments
-        //GistId:70902b20df8b1f6b0459f676e21623bb
+        //GistId:2362574d04470ca298ba600ebb720012
         auto doc = MakeObject<Document>(MyDir + u"Comments.docx");
 
         // Extract the information about the comments of all the authors.
@@ -147,7 +147,7 @@ public:
     }
 
     //ExStart:ExtractComments
-    //GistId:70902b20df8b1f6b0459f676e21623bb
+    //GistId:2362574d04470ca298ba600ebb720012
     SharedPtr<System::Collections::Generic::List<String>> ExtractComments(SharedPtr<Document> doc)
     {
         SharedPtr<System::Collections::Generic::List<String>> collectedComments = MakeObject<System::Collections::Generic::List<String>>();
@@ -163,7 +163,7 @@ public:
     //ExEnd:ExtractComments
 
     //ExStart:ExtractCommentsByAuthor
-    //GistId:70902b20df8b1f6b0459f676e21623bb
+    //GistId:2362574d04470ca298ba600ebb720012
     SharedPtr<System::Collections::Generic::List<String>> ExtractComments(SharedPtr<Document> doc, String authorName)
     {
         SharedPtr<System::Collections::Generic::List<String>> collectedComments = MakeObject<System::Collections::Generic::List<String>>();
@@ -182,11 +182,11 @@ public:
     //ExEnd:ExtractCommentsByAuthor
 
     //ExStart:RemoveComments
-    //GistId:70902b20df8b1f6b0459f676e21623bb
+    //GistId:2362574d04470ca298ba600ebb720012
     void RemoveRangeText()
     {
         //ExStart:RemoveRangeText
-        //GistId:70902b20df8b1f6b0459f676e21623bb
+        //GistId:2362574d04470ca298ba600ebb720012
         auto doc = MakeObject<Document>(MyDir + u"Comments.docx");
 
         auto commentStart = System::ExplicitCast<CommentRangeStart>(doc->GetChild(NodeType::CommentRangeStart, 0, true));
@@ -218,7 +218,7 @@ public:
     //ExEnd:RemoveComments
 
     //ExStart:RemoveCommentsByAuthor
-    //GistId:70902b20df8b1f6b0459f676e21623bb
+    //GistId:2362574d04470ca298ba600ebb720012
     void RemoveComments(SharedPtr<Document> doc, String authorName)
     {
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
@@ -236,7 +236,7 @@ public:
     //ExEnd:RemoveCommentsByAuthor
 
     //ExStart:CommentResolvedAndReplies
-    //GistId:70902b20df8b1f6b0459f676e21623bb
+    //GistId:2362574d04470ca298ba600ebb720012
     void CommentResolvedAndReplies(SharedPtr<Document> doc)
     {
         SharedPtr<NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);

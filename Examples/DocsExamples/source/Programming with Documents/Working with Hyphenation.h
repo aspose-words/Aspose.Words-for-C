@@ -33,7 +33,7 @@ public:
     void HyphenateWordsOfLanguages()
     {
         //ExStart:HyphenateWords
-        //GistId:a52aacf87a36f7881ba29d25de92fb83
+        //GistId:372767fcfcac122ad46d1aa80da29416
         auto doc = MakeObject<Document>(MyDir + u"German text.docx");
 
         Hyphenation::RegisterDictionary(u"en-US", MyDir + u"hyph_en_US.dic");
@@ -46,7 +46,7 @@ public:
     void LoadHyphenationDictionaryForLanguage()
     {
         //ExStart:LoadHyphenationDictionary
-        //GistId:a52aacf87a36f7881ba29d25de92fb83
+        //GistId:372767fcfcac122ad46d1aa80da29416
         auto doc = MakeObject<Document>(MyDir + u"German text.docx");
 
         SharedPtr<System::IO::Stream> stream = System::IO::File::OpenRead(MyDir + u"hyph_de_CH.dic");
@@ -57,7 +57,7 @@ public:
     }
 
     //ExStart:CustomHyphenation
-    //GistId:a52aacf87a36f7881ba29d25de92fb83
+    //GistId:372767fcfcac122ad46d1aa80da29416
     void HyphenationCallback()
     {
 

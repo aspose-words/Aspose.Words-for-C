@@ -44,7 +44,7 @@ public:
     void InsertOleObject()
     {
         //ExStart:InsertOleObject
-        //GistId:4996b573cf231d9f66ab0d1f3f981222
+        //GistId:550cbdf1d4ae63f83571b6e1c5ff0ce6
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -57,7 +57,7 @@ public:
     void InsertOleObjectWithOlePackage()
     {
         //ExStart:InsertOleObjectwithOlePackage
-        //GistId:4996b573cf231d9f66ab0d1f3f981222
+        //GistId:550cbdf1d4ae63f83571b6e1c5ff0ce6
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -74,7 +74,7 @@ public:
         //ExEnd:InsertOleObjectwithOlePackage
 
         //ExStart:GetAccessToOleObjectRawData
-        //GistId:4996b573cf231d9f66ab0d1f3f981222
+        //GistId:550cbdf1d4ae63f83571b6e1c5ff0ce6
         auto oleShape = System::ExplicitCast<Shape>(doc->GetChild(NodeType::Shape, 0, true));
         ArrayPtr<uint8_t> oleRawData = oleShape->get_OleFormat()->GetRawData();
         //ExEnd:GetAccessToOleObjectRawData
@@ -83,7 +83,7 @@ public:
     void InsertOleObjectAsIcon()
     {
         //ExStart:InsertOleObjectAsIcon
-        //GistId:4996b573cf231d9f66ab0d1f3f981222
+        //GistId:550cbdf1d4ae63f83571b6e1c5ff0ce6
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -96,7 +96,7 @@ public:
     void InsertOleObjectAsIconUsingStream()
     {
         //ExStart:InsertOleObjectAsIconUsingStream
-        //GistId:4996b573cf231d9f66ab0d1f3f981222
+        //GistId:550cbdf1d4ae63f83571b6e1c5ff0ce6
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -112,7 +112,7 @@ public:
     void InsertOnlineVideo()
     {
         //ExStart:InsertOnlineVideo
-        //GistId:4996b573cf231d9f66ab0d1f3f981222
+        //GistId:550cbdf1d4ae63f83571b6e1c5ff0ce6
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -129,7 +129,7 @@ public:
     void InsertOnlineVideoWithEmbedHtml()
     {
         //ExStart:InsertOnlineVideoWithEmbedHtml
-        //GistId:4996b573cf231d9f66ab0d1f3f981222
+        //GistId:550cbdf1d4ae63f83571b6e1c5ff0ce6
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 

@@ -35,7 +35,7 @@ public:
     void CreateVbaProject()
     {
         //ExStart:CreateVbaProject
-        //GistId:d9bac4ed890f81ea3de392ecfeedbc55
+        //GistId:bd2f223d3ccca79547c221b0556dc355
         auto doc = MakeObject<Document>();
 
         auto project = MakeObject<VbaProject>();
@@ -58,7 +58,7 @@ public:
     void ReadVbaMacros()
     {
         //ExStart:ReadVbaMacros
-        //GistId:d9bac4ed890f81ea3de392ecfeedbc55
+        //GistId:bd2f223d3ccca79547c221b0556dc355
         auto doc = MakeObject<Document>(MyDir + u"VBA project.docm");
 
         if (doc->get_VbaProject() != nullptr)
@@ -74,7 +74,7 @@ public:
     void ModifyVbaMacros()
     {
         //ExStart:ModifyVbaMacros
-        //GistId:d9bac4ed890f81ea3de392ecfeedbc55
+        //GistId:bd2f223d3ccca79547c221b0556dc355
         auto doc = MakeObject<Document>(MyDir + u"VBA project.docm");
 
         SharedPtr<VbaProject> project = doc->get_VbaProject();
@@ -89,7 +89,7 @@ public:
     void CloneVbaProject()
     {
         //ExStart:CloneVbaProject
-        //GistId:d9bac4ed890f81ea3de392ecfeedbc55
+        //GistId:bd2f223d3ccca79547c221b0556dc355
         auto doc = MakeObject<Document>(MyDir + u"VBA project.docm");
         auto destDoc = MakeObject<Document>();
         destDoc->set_VbaProject(doc->get_VbaProject()->Clone());
@@ -101,7 +101,7 @@ public:
     void CloneVbaModule()
     {
         //ExStart:CloneVbaModule
-        //GistId:d9bac4ed890f81ea3de392ecfeedbc55
+        //GistId:bd2f223d3ccca79547c221b0556dc355
         auto doc = MakeObject<Document>(MyDir + u"VBA project.docm");
         auto destDoc = MakeObject<Document>();
         destDoc->set_VbaProject(MakeObject<VbaProject>());
@@ -116,7 +116,7 @@ public:
     void RemoveBrokenRef()
     {
         //ExStart:RemoveVbaReferences
-        //GistId:d9bac4ed890f81ea3de392ecfeedbc55
+        //GistId:bd2f223d3ccca79547c221b0556dc355
         auto doc = MakeObject<Document>(MyDir + u"VBA project.docm");
 
         // Find and remove the reference with some LibId path.
@@ -137,7 +137,7 @@ public:
         //ExEnd:RemoveVbaReferences
     }
     //ExStart:GetLibIdAndReferencePath
-    //GistId:d9bac4ed890f81ea3de392ecfeedbc55
+    //GistId:bd2f223d3ccca79547c221b0556dc355
     /// <summary>
     /// Returns string representing LibId path of a specified reference.
     /// </summary>
