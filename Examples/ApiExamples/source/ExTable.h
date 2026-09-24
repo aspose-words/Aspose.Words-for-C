@@ -1,10 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/Cell.h>
@@ -35,6 +32,7 @@ public:
     void Padding();
     void RowCellFormat();
     void DisplayContentOfTables();
+    //ExEnd
     void EnsureTableMinimum();
     void EnsureRowMinimum();
     void EnsureCellMinimum();
@@ -54,9 +52,26 @@ public:
     void GetIndexOfTableElements();
     void GetPreferredWidthTypeAndValue();
     void AllowCellSpacing(bool allowCellSpacing);
+    //ExStart
+    //ExFor:Table
+    //ExFor:Row
+    //ExFor:Cell
+    //ExFor:Table.#ctor(DocumentBase)
+    //ExFor:Table.Title
+    //ExFor:Table.Description
+    //ExFor:Row.#ctor(DocumentBase)
+    //ExFor:Cell.#ctor(DocumentBase)
+    //ExFor:Cell.FirstParagraph
+    //ExSummary:Shows how to build a nested table without using a document builder.
     void CreateNestedTable();
+    //ExStart
+    //ExFor:CellFormat.HorizontalMerge
+    //ExFor:CellFormat.VerticalMerge
+    //ExFor:CellMerge
+    //ExSummary:Prints the horizontal and vertical merge type of a cell.
     void CheckCellsMerged();
     System::String PrintCellMergeType(System::SharedPtr<Aspose::Words::Tables::Cell> cell);
+    //ExEnd
     void MergeCellRange();
     /// <summary>
     /// Merges the range of cells found between the two specified cells both horizontally and vertically.
@@ -97,6 +112,7 @@ protected:
     /// Creates a new table in the document with the given dimensions and text in each cell.
     /// </summary>
     static System::SharedPtr<Aspose::Words::Tables::Table> CreateTable(System::SharedPtr<Aspose::Words::Document> doc, int32_t rowCount, int32_t cellCount, System::String cellText);
+    //ExEnd
     void TestCreateNestedTable(System::SharedPtr<Aspose::Words::Document> doc);
     /// <summary>
     /// Recursively converts nested tables within a given table.

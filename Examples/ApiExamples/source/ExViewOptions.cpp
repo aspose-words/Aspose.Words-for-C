@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExViewOptions.h"
+﻿#include "ExViewOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -13,7 +8,6 @@
 #include <system/io/memory_stream.h>
 #include <system/io/file.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Settings/ViewType.h>
 #include <Aspose.Words.Cpp/Model/Settings/ViewOptions.h>
@@ -80,20 +74,20 @@ void ExViewOptions::SetZoomPercentage()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->Writeln(u"Hello world!");
     
-    doc->get_ViewOptions()->set_ViewType(Aspose::Words::Settings::ViewType::PageLayout);
+    doc->get_ViewOptions()->set_ViewType(ViewType::PageLayout);
     doc->get_ViewOptions()->set_ZoomPercent(50);
     
-    ASSERT_EQ(Aspose::Words::Settings::ZoomType::Custom, doc->get_ViewOptions()->get_ZoomType());
-    ASSERT_EQ(Aspose::Words::Settings::ZoomType::None, doc->get_ViewOptions()->get_ZoomType());
+    ASSERT_EQ(ZoomType::Custom, doc->get_ViewOptions()->get_ZoomType());
+    ASSERT_EQ(ZoomType::None, doc->get_ViewOptions()->get_ZoomType());
     
     doc->Save(get_ArtifactsDir() + u"ViewOptions.SetZoomPercentage.doc");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ViewOptions.SetZoomPercentage.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.SetZoomPercentage.doc"));
     
-    ASSERT_EQ(Aspose::Words::Settings::ViewType::PageLayout, doc->get_ViewOptions()->get_ViewType());
+    ASSERT_EQ(ViewType::PageLayout, doc->get_ViewOptions()->get_ViewType());
     ASPOSE_ASSERT_EQ(50.0, doc->get_ViewOptions()->get_ZoomPercent());
-    ASSERT_EQ(Aspose::Words::Settings::ZoomType::None, doc->get_ViewOptions()->get_ZoomType());
+    ASSERT_EQ(ZoomType::None, doc->get_ViewOptions()->get_ZoomType());
 }
 
 namespace gtest_test
@@ -128,7 +122,7 @@ void ExViewOptions::SetZoomType(Aspose::Words::Settings::ZoomType zoomType)
     doc->Save(get_ArtifactsDir() + u"ViewOptions.SetZoomType.doc");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ViewOptions.SetZoomType.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.SetZoomType.doc"));
     
     ASSERT_EQ(zoomType, doc->get_ViewOptions()->get_ZoomType());
 }
@@ -144,9 +138,9 @@ struct ExViewOptions_SetZoomType : public ExViewOptions, public Aspose::Words::A
     {
         return
         {
-            std::make_tuple(Aspose::Words::Settings::ZoomType::PageWidth),
-            std::make_tuple(Aspose::Words::Settings::ZoomType::FullPage),
-            std::make_tuple(Aspose::Words::Settings::ZoomType::TextFit),
+            std::make_tuple(ZoomType::PageWidth),
+            std::make_tuple(ZoomType::FullPage),
+            std::make_tuple(ZoomType::TextFit),
         };
     }
 };
@@ -183,7 +177,7 @@ void ExViewOptions::DisplayBackgroundShape(bool displayBackgroundShape)
     doc->Save(get_ArtifactsDir() + u"ViewOptions.DisplayBackgroundShape.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ViewOptions.DisplayBackgroundShape.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.DisplayBackgroundShape.docx"));
     
     ASPOSE_ASSERT_EQ(displayBackgroundShape, doc->get_ViewOptions()->get_DisplayBackgroundShape());
 }
@@ -225,15 +219,15 @@ void ExViewOptions::DisplayPageBoundaries(bool doNotDisplayPageBoundaries)
     
     // Insert content that spans across 3 pages.
     builder->Writeln(u"Paragraph 1, Page 1.");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Writeln(u"Paragraph 2, Page 2.");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Writeln(u"Paragraph 3, Page 3.");
     
     // Insert a header and a footer.
-    builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::HeaderPrimary);
+    builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
     builder->Writeln(u"This is the header.");
-    builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::FooterPrimary);
+    builder->MoveToHeaderFooter(HeaderFooterType::FooterPrimary);
     builder->Writeln(u"This is the footer.");
     
     // This document contains a small amount of content that takes up a few full pages worth of space.
@@ -246,7 +240,7 @@ void ExViewOptions::DisplayPageBoundaries(bool doNotDisplayPageBoundaries)
     doc->Save(get_ArtifactsDir() + u"ViewOptions.DisplayPageBoundaries.doc");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"ViewOptions.DisplayPageBoundaries.doc");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.DisplayPageBoundaries.doc"));
     
     ASPOSE_ASSERT_EQ(doNotDisplayPageBoundaries, doc->get_ViewOptions()->get_DoNotDisplayPageBoundaries());
 }

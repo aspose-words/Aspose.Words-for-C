@@ -1,17 +1,12 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExEditableRange.h"
+﻿#include "ExEditableRange.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
 #include <system/exceptions.h>
+#include <system/console.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -67,7 +62,7 @@ Aspose::Words::VisitorAction ExEditableRange::EditableRangePrinter::VisitEditabl
     
     mInsideEditableRange = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExEditableRange::EditableRangePrinter::VisitEditableRangeEnd(System::SharedPtr<Aspose::Words::EditableRangeEnd> editableRangeEnd)
@@ -76,7 +71,7 @@ Aspose::Words::VisitorAction ExEditableRange::EditableRangePrinter::VisitEditabl
     
     mInsideEditableRange = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExEditableRange::EditableRangePrinter::VisitRun(System::SharedPtr<Aspose::Words::Run> run)
@@ -86,7 +81,7 @@ Aspose::Words::VisitorAction ExEditableRange::EditableRangePrinter::VisitRun(Sys
         mBuilder->AppendLine(System::String(u"\t\"") + run->get_Text() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 
@@ -141,7 +136,7 @@ void ExEditableRange::CreateAndRemove()
     //ExFor:EditableRangeStart.NodeType
     //ExSummary:Shows how to work with an editable range.
     auto doc = System::MakeObject<Aspose::Words::Document>();
-    doc->Protect(Aspose::Words::ProtectionType::ReadOnly, u"MyPassword");
+    doc->Protect(ProtectionType::ReadOnly, u"MyPassword");
     
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->Writeln(System::String(u"Hello world! Since we have set the document's protection level to read-only,") + u" we cannot edit this paragraph without the password.");
@@ -166,8 +161,8 @@ void ExEditableRange::CreateAndRemove()
     
     // We can access the node types of each part like this. The editable range itself is not a node,
     // but an entity which consists of a start, an end, and their enclosed contents.
-    ASSERT_EQ(Aspose::Words::NodeType::EditableRangeStart, editableRangeStart->get_NodeType());
-    ASSERT_EQ(Aspose::Words::NodeType::EditableRangeEnd, editableRangeEnd->get_NodeType());
+    ASSERT_EQ(NodeType::EditableRangeStart, editableRangeStart->get_NodeType());
+    ASSERT_EQ(NodeType::EditableRangeEnd, editableRangeEnd->get_NodeType());
     
     builder->Writeln(u"This paragraph is outside the editable range, and cannot be edited.");
     
@@ -177,17 +172,17 @@ void ExEditableRange::CreateAndRemove()
     editableRange->Remove();
     //ExEnd
     
-    ASSERT_EQ(System::String(u"Hello world! Since we have set the document's protection level to read-only, we cannot edit this paragraph without the password.\r") + u"This paragraph is inside an editable range, and can be edited.\r" + u"This paragraph is outside the editable range, and cannot be edited.", doc->GetText().Trim());
-    ASSERT_EQ(0, doc->GetChildNodes(Aspose::Words::NodeType::EditableRangeStart, true)->get_Count());
+    ASSERT_EQ((System::String(u"Hello world! Since we have set the document's protection level to read-only, we cannot edit this paragraph without the password.\r") + u"This paragraph is inside an editable range, and can be edited.\r" + u"This paragraph is outside the editable range, and cannot be edited."), doc->GetText().Trim());
+    ASSERT_EQ(0, doc->GetChildNodes(NodeType::EditableRangeStart, true)->get_Count());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"EditableRange.CreateAndRemove.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"EditableRange.CreateAndRemove.docx"));
     
-    ASSERT_EQ(Aspose::Words::ProtectionType::ReadOnly, doc->get_ProtectionType());
-    ASSERT_EQ(System::String(u"Hello world! Since we have set the document's protection level to read-only, we cannot edit this paragraph without the password.\r") + u"This paragraph is inside an editable range, and can be edited.\r" + u"This paragraph is outside the editable range, and cannot be edited.", doc->GetText().Trim());
+    ASSERT_EQ(ProtectionType::ReadOnly, doc->get_ProtectionType());
+    ASSERT_EQ((System::String(u"Hello world! Since we have set the document's protection level to read-only, we cannot edit this paragraph without the password.\r") + u"This paragraph is inside an editable range, and can be edited.\r" + u"This paragraph is outside the editable range, and cannot be edited."), doc->GetText().Trim());
     
-    editableRange = (System::ExplicitCast<Aspose::Words::EditableRangeStart>(doc->GetChild(Aspose::Words::NodeType::EditableRangeStart, 0, true)))->get_EditableRange();
+    editableRange = (System::ExplicitCast<Aspose::Words::EditableRangeStart>(doc->GetChild(NodeType::EditableRangeStart, 0, true)))->get_EditableRange();
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyEditableRange(0, System::String::Empty, Aspose::Words::EditorType::Unspecified, editableRange);
+    TestUtil::VerifyEditableRange(0, System::String::Empty, EditorType::Unspecified, editableRange);
 }
 
 namespace gtest_test
@@ -208,7 +203,7 @@ void ExEditableRange::Nested()
     //ExFor:EditableRange.EditorGroup
     //ExSummary:Shows how to create nested editable ranges.
     auto doc = System::MakeObject<Aspose::Words::Document>();
-    doc->Protect(Aspose::Words::ProtectionType::ReadOnly, u"MyPassword");
+    doc->Protect(ProtectionType::ReadOnly, u"MyPassword");
     
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->Writeln(System::String(u"Hello world! Since we have set the document's protection level to read-only, ") + u"we cannot edit this paragraph without the password.");
@@ -233,23 +228,23 @@ void ExEditableRange::Nested()
     
     // If a region of text has two overlapping editable ranges with specified groups,
     // the combined group of users excluded by both groups are prevented from editing it.
-    outerEditableRangeStart->get_EditableRange()->set_EditorGroup(Aspose::Words::EditorType::Everyone);
-    innerEditableRangeStart->get_EditableRange()->set_EditorGroup(Aspose::Words::EditorType::Contributors);
+    outerEditableRangeStart->get_EditableRange()->set_EditorGroup(EditorType::Everyone);
+    innerEditableRangeStart->get_EditableRange()->set_EditorGroup(EditorType::Contributors);
     
     doc->Save(get_ArtifactsDir() + u"EditableRange.Nested.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"EditableRange.Nested.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"EditableRange.Nested.docx"));
     
-    ASSERT_EQ(System::String(u"Hello world! Since we have set the document's protection level to read-only, we cannot edit this paragraph without the password.\r") + u"This paragraph inside the outer editable range and can be edited.\r" + u"This paragraph inside both the outer and inner editable ranges and can be edited.\r" + u"This paragraph inside the outer editable range and can be edited.\r" + u"This paragraph is outside any editable ranges, and cannot be edited.", doc->GetText().Trim());
+    ASSERT_EQ((System::String(u"Hello world! Since we have set the document's protection level to read-only, we cannot edit this paragraph without the password.\r") + u"This paragraph inside the outer editable range and can be edited.\r" + u"This paragraph inside both the outer and inner editable ranges and can be edited.\r" + u"This paragraph inside the outer editable range and can be edited.\r" + u"This paragraph is outside any editable ranges, and cannot be edited."), doc->GetText().Trim());
     
-    System::SharedPtr<Aspose::Words::EditableRange> editableRange = (System::ExplicitCast<Aspose::Words::EditableRangeStart>(doc->GetChild(Aspose::Words::NodeType::EditableRangeStart, 0, true)))->get_EditableRange();
+    System::SharedPtr<Aspose::Words::EditableRange> editableRange = (System::ExplicitCast<Aspose::Words::EditableRangeStart>(doc->GetChild(NodeType::EditableRangeStart, 0, true)))->get_EditableRange();
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyEditableRange(0, System::String::Empty, Aspose::Words::EditorType::Everyone, editableRange);
+    TestUtil::VerifyEditableRange(0, System::String::Empty, EditorType::Everyone, editableRange);
     
-    editableRange = (System::ExplicitCast<Aspose::Words::EditableRangeStart>(doc->GetChild(Aspose::Words::NodeType::EditableRangeStart, 1, true)))->get_EditableRange();
+    editableRange = (System::ExplicitCast<Aspose::Words::EditableRangeStart>(doc->GetChild(NodeType::EditableRangeStart, 1, true)))->get_EditableRange();
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyEditableRange(1, System::String::Empty, Aspose::Words::EditorType::Contributors, editableRange);
+    TestUtil::VerifyEditableRange(1, System::String::Empty, EditorType::Contributors, editableRange);
 }
 
 namespace gtest_test
@@ -265,7 +260,7 @@ TEST_F(ExEditableRange, Nested)
 void ExEditableRange::Visitor()
 {
     auto doc = System::MakeObject<Aspose::Words::Document>();
-    doc->Protect(Aspose::Words::ProtectionType::ReadOnly, u"MyPassword");
+    doc->Protect(ProtectionType::ReadOnly, u"MyPassword");
     
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->Writeln(System::String(u"Hello world! Since we have set the document's protection level to read-only,") + u" we cannot edit this paragraph without the password.");
@@ -278,11 +273,11 @@ void ExEditableRange::Visitor()
     builder->Writeln(System::String::Format(u"This paragraph is inside the first editable range, can only be edited by {0}.", editableRange->get_SingleUser()));
     builder->EndEditableRange();
     
-    ASSERT_EQ(Aspose::Words::EditorType::Unspecified, editableRange->get_EditorGroup());
+    ASSERT_EQ(EditorType::Unspecified, editableRange->get_EditorGroup());
     
     // 2 -  Specify a group that allowed users are associated with:
     editableRange = builder->StartEditableRange()->get_EditableRange();
-    editableRange->set_EditorGroup(Aspose::Words::EditorType::Administrators);
+    editableRange->set_EditorGroup(EditorType::Administrators);
     builder->Writeln(System::String::Format(u"This paragraph is inside the first editable range, can only be edited by {0}.", editableRange->get_EditorGroup()));
     builder->EndEditableRange();
     
@@ -335,7 +330,7 @@ TEST_F(ExEditableRange, IncorrectStructureException)
 
 void ExEditableRange::IncorrectStructureDoNotAdded()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     System::SharedPtr<Aspose::Words::EditableRangeStart> startRange1 = builder->StartEditableRange();
@@ -343,14 +338,14 @@ void ExEditableRange::IncorrectStructureDoNotAdded()
     builder->Writeln(u"EditableRange_1_1");
     builder->Writeln(u"EditableRange_1_2");
     
-    startRange1->get_EditableRange()->set_EditorGroup(Aspose::Words::EditorType::Everyone);
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    startRange1->get_EditableRange()->set_EditorGroup(EditorType::Everyone);
+    doc = DocumentHelper::SaveOpen(doc);
     
     // Assert that it's not valid structure and editable ranges aren't added to the current document.
-    System::SharedPtr<Aspose::Words::NodeCollection> startNodes = doc->GetChildNodes(Aspose::Words::NodeType::EditableRangeStart, true);
+    System::SharedPtr<Aspose::Words::NodeCollection> startNodes = doc->GetChildNodes(NodeType::EditableRangeStart, true);
     ASSERT_EQ(0, startNodes->get_Count());
     
-    System::SharedPtr<Aspose::Words::NodeCollection> endNodes = doc->GetChildNodes(Aspose::Words::NodeType::EditableRangeEnd, true);
+    System::SharedPtr<Aspose::Words::NodeCollection> endNodes = doc->GetChildNodes(NodeType::EditableRangeEnd, true);
     ASSERT_EQ(0, endNodes->get_Count());
 }
 

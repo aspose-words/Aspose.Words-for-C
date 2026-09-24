@@ -1,13 +1,9 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/guid.h>
 #include <system/collections/list.h>
 #include <system/array.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 
 #include "ApiExampleBase.h"
@@ -61,11 +57,21 @@ public:
     
 public:
 
+    //ExStart
+    //ExFor:CertificateHolder
+    //ExFor:SignatureLineOptions.Signer
+    //ExFor:SignatureLineOptions.SignerTitle
+    //ExFor:SignatureLine.Id
+    //ExFor:SignOptions.SignatureLineId
+    //ExFor:SignOptions.SignatureLineImage
+    //ExFor:DigitalSignatureUtil.Sign(String, String, CertificateHolder, SignOptions)
+    //ExSummary:Shows how to add a signature line to a document, and then sign it using a digital certificate.
     static void Sign();
     
 protected:
 
     static System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::ExSignDocumentCustom::Signee>>>& mSignees();
+    
     /// <summary>
     /// Creates a copy of a source document signed using provided signee information and X509 certificate.
     /// </summary>

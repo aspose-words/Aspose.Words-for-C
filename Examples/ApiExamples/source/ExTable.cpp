@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExTable.h"
+﻿#include "ExTable.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/regularexpressions/regex.h>
@@ -15,13 +10,11 @@
 #include <system/linq/enumerable.h>
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
-#include <system/enum_helpers.h>
 #include <system/enum.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/rectangle.h>
 #include <drawing/point.h>
@@ -152,20 +145,20 @@ System::SharedPtr<Aspose::Words::Tables::Table> ExTable::CreateTable(System::Sha
 void ExTable::TestCreateNestedTable(System::SharedPtr<Aspose::Words::Document> doc)
 {
     System::SharedPtr<Aspose::Words::Tables::Table> outerTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-    auto innerTable = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 1, true));
+    auto innerTable = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true));
     
-    ASSERT_EQ(2, doc->GetChildNodes(Aspose::Words::NodeType::Table, true)->get_Count());
+    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Table, true)->get_Count());
     ASSERT_EQ(1, outerTable->get_FirstRow()->get_FirstCell()->get_Tables()->get_Count());
-    ASSERT_EQ(16, outerTable->GetChildNodes(Aspose::Words::NodeType::Cell, true)->get_Count());
-    ASSERT_EQ(4, innerTable->GetChildNodes(Aspose::Words::NodeType::Cell, true)->get_Count());
+    ASSERT_EQ(16, outerTable->GetChildNodes(NodeType::Cell, true)->get_Count());
+    ASSERT_EQ(4, innerTable->GetChildNodes(NodeType::Cell, true)->get_Count());
     ASSERT_EQ(u"Aspose table title", innerTable->get_Title());
     ASSERT_EQ(u"Aspose table description", innerTable->get_Description());
 }
 
 System::String ExTable::PrintCellMergeType(System::SharedPtr<Aspose::Words::Tables::Cell> cell)
 {
-    bool isHorizontallyMerged = cell->get_CellFormat()->get_HorizontalMerge() != Aspose::Words::Tables::CellMerge::None;
-    bool isVerticallyMerged = cell->get_CellFormat()->get_VerticalMerge() != Aspose::Words::Tables::CellMerge::None;
+    bool isHorizontallyMerged = cell->get_CellFormat()->get_HorizontalMerge() != CellMerge::None;
+    bool isVerticallyMerged = cell->get_CellFormat()->get_VerticalMerge() != CellMerge::None;
     System::String cellLocation = System::String::Format(u"R{0}, C{1}", cell->get_ParentRow()->get_ParentTable()->IndexOf(cell->get_ParentRow()) + 1, cell->get_ParentRow()->IndexOf(cell) + 1);
     
     if (isHorizontallyMerged && isVerticallyMerged)
@@ -185,12 +178,16 @@ void ExTable::MergeCells(System::SharedPtr<Aspose::Words::Tables::Cell> startCel
     System::SharedPtr<Aspose::Words::Tables::Table> parentTable = startCell->get_ParentRow()->get_ParentTable();
     
     // Find the row and cell indices for the start and end cells.
-    System::Drawing::Point startCellPos(startCell->get_ParentRow()->IndexOf(startCell), parentTable->IndexOf(startCell->get_ParentRow()));
+    System::Drawing::Point startCellPos(startCell->get_ParentRow()->IndexOf(startCell),
+    parentTable->IndexOf(startCell->get_ParentRow()));
     System::Drawing::Point endCellPos(endCell->get_ParentRow()->IndexOf(endCell), parentTable->IndexOf(endCell->get_ParentRow()));
     
     // Create a range of cells to be merged based on these indices.
     // Inverse each index if the end cell is before the start cell.
-    System::Drawing::Rectangle mergeRange(System::Math::Min(startCellPos.get_X(), endCellPos.get_X()), System::Math::Min(startCellPos.get_Y(), endCellPos.get_Y()), System::Math::Abs(endCellPos.get_X() - startCellPos.get_X()) + 1, System::Math::Abs(endCellPos.get_Y() - startCellPos.get_Y()) + 1);
+    System::Drawing::Rectangle mergeRange(System::Math::Min(startCellPos.get_X(), endCellPos.get_X()),
+    System::Math::Min(startCellPos.get_Y(), endCellPos.get_Y()),
+    System::Math::Abs(endCellPos.get_X() - startCellPos.get_X()) + 1,
+    System::Math::Abs(endCellPos.get_Y() - startCellPos.get_Y()) + 1);
     
     for (auto&& row : System::IterateOver<Aspose::Words::Tables::Row>(parentTable->get_Rows()))
     {
@@ -201,8 +198,8 @@ void ExTable::MergeCells(System::SharedPtr<Aspose::Words::Tables::Cell> startCel
             // Check if the current cell is inside our merge range, then merge it.
             if (mergeRange.Contains(currentPos))
             {
-                cell->get_CellFormat()->set_HorizontalMerge(currentPos.get_X() == mergeRange.get_X() ? Aspose::Words::Tables::CellMerge::First : Aspose::Words::Tables::CellMerge::Previous);
-                cell->get_CellFormat()->set_VerticalMerge(currentPos.get_Y() == mergeRange.get_Y() ? Aspose::Words::Tables::CellMerge::First : Aspose::Words::Tables::CellMerge::Previous);
+                cell->get_CellFormat()->set_HorizontalMerge(currentPos.get_X() == mergeRange.get_X() ? CellMerge::First : CellMerge::Previous);
+                cell->get_CellFormat()->set_VerticalMerge(currentPos.get_Y() == mergeRange.get_Y() ? CellMerge::First : CellMerge::Previous);
             }
         }
     }
@@ -216,7 +213,7 @@ void ExTable::ConvertTable(System::SharedPtr<Aspose::Words::Tables::Table> table
         for (auto&& cell : System::IterateOver<Aspose::Words::Tables::Cell>(row->get_Cells()))
         {
             // Get all nested tables within the current cell.
-            System::SharedPtr<Aspose::Words::NodeCollection> nestedTables = cell->GetChildNodes(Aspose::Words::NodeType::Table, true);
+            System::SharedPtr<Aspose::Words::NodeCollection> nestedTables = cell->GetChildNodes(NodeType::Table, true);
             if (nestedTables->get_Count() != 0)
             {
                 for (auto&& nestedTable : System::IterateOver<Aspose::Words::Tables::Table>(nestedTables))
@@ -251,7 +248,7 @@ void ExTable::ConvertWith(System::String separator, System::SharedPtr<Aspose::Wo
         (System::ExplicitCast<Aspose::Words::Paragraph>(currentPara))->get_ParagraphFormat()->set_LineSpacing(18);
         for (auto&& cell : System::IterateOver<Aspose::Words::Tables::Cell>(row->get_Cells()))
         {
-            System::SharedPtr<Aspose::Words::NodeCollection> nestedTables = cell->GetChildNodes(Aspose::Words::NodeType::Table, true);
+            System::SharedPtr<Aspose::Words::NodeCollection> nestedTables = cell->GetChildNodes(NodeType::Table, true);
             // If there are nested tables, process each one.
             if (nestedTables->get_Count() != 0)
             {
@@ -270,14 +267,14 @@ void ExTable::ConvertWith(System::String separator, System::SharedPtr<Aspose::Wo
                     System::SharedPtr<Aspose::Words::Node> node = currentPara->get_ParentNode()->InsertAfter<System::SharedPtr<Aspose::Words::Node>>(System::ExplicitCast<Aspose::Words::Node>(paragraph)->Clone(true), currentPara);
                     currentPara = node;
                 }
-                else if (currentPara->get_NodeType() == Aspose::Words::NodeType::Paragraph)
+                else if (currentPara->get_NodeType() == NodeType::Paragraph)
                 {
                     // If the current cell is not the first cell, append a separator.
                     if (!cell->get_IsFirstCell())
                     {
                         (System::ExplicitCast<Aspose::Words::Paragraph>(currentPara))->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, separator));
                         // If the separator is a tab, calculate the tab stop position based on the width of the previous cell.
-                        if (separator == Aspose::Words::ControlChar::Tab())
+                        if (separator == ControlChar::Tab())
                         {
                             System::SharedPtr<Aspose::Words::Tables::Cell> previousCell = cell->get_PreviousCell();
                             if (previousCell != nullptr)
@@ -286,13 +283,13 @@ void ExTable::ConvertWith(System::String separator, System::SharedPtr<Aspose::Wo
                             }
                             
                             // Add a tab stop at the calculated position.
-                            auto tabStop = System::MakeObject<Aspose::Words::TabStop>(tabStopWidth, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::None);
+                            auto tabStop = System::MakeObject<Aspose::Words::TabStop>(tabStopWidth, TabAlignment::Left, TabLeader::None);
                             (System::ExplicitCast<Aspose::Words::Paragraph>(currentPara))->get_ParagraphFormat()->get_TabStops()->Add(tabStop);
                         }
                     }
                     
                     // Clone and append all child nodes of the paragraph to the current paragraph.
-                    System::SharedPtr<Aspose::Words::NodeCollection> childNodes = paragraph->GetChildNodes(Aspose::Words::NodeType::Any, true);
+                    System::SharedPtr<Aspose::Words::NodeCollection> childNodes = paragraph->GetChildNodes(NodeType::Any, true);
                     if (childNodes->get_Count() > 0)
                     {
                         for (auto&& node : System::IterateOver(childNodes))
@@ -320,7 +317,7 @@ int32_t ExTable::CalculateRowSpan(System::SharedPtr<Aspose::Words::Tables::Table
         }
         
         auto currentCell = currentRow->get_Cells()->idx_get(cellIndex);
-        if (currentCell->get_CellFormat()->get_VerticalMerge() != Aspose::Words::Tables::CellMerge::Previous)
+        if (currentCell->get_CellFormat()->get_VerticalMerge() != CellMerge::Previous)
         {
             break;
         }
@@ -335,14 +332,13 @@ System::SharedPtr<Aspose::Words::Tables::Cell> ExTable::CalculateColSpan(System:
     colSpan = 1;
     
     cell = cell->get_NextCell();
-    while (cell != nullptr && cell->get_CellFormat()->get_HorizontalMerge() == Aspose::Words::Tables::CellMerge::Previous)
+    while (cell != nullptr && cell->get_CellFormat()->get_HorizontalMerge() == CellMerge::Previous)
     {
         colSpan++;
         cell = cell->get_NextCell();
     }
     return cell;
 }
-
 
 namespace gtest_test
 {
@@ -408,7 +404,7 @@ void ExTable::CreateTable()
     doc->Save(get_ArtifactsDir() + u"Table.CreateTable.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.CreateTable.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CreateTable.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(1, table->get_Rows()->get_Count());
@@ -450,12 +446,12 @@ void ExTable::Padding()
     table->set_RightPadding(60);
     table->set_TopPadding(10);
     table->set_BottomPadding(90);
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(250));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(250));
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.SetRowFormatting.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBuilder.SetRowFormatting.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.SetRowFormatting.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASPOSE_ASSERT_EQ(30.0, table->get_LeftPadding());
@@ -502,7 +498,7 @@ void ExTable::RowCellFormat()
     // of the contents of all cells in this row.
     System::SharedPtr<Aspose::Words::Tables::RowFormat> rowFormat = table->get_FirstRow()->get_RowFormat();
     rowFormat->set_Height(25);
-    rowFormat->get_Borders()->idx_get(Aspose::Words::BorderType::Bottom)->set_Color(System::Drawing::Color::get_Red());
+    rowFormat->get_Borders()->idx_get(BorderType::Bottom)->set_Color(System::Drawing::Color::get_Red());
     
     // Use the "CellFormat" property of the first cell in the last row to modify the formatting of that cell's contents.
     System::SharedPtr<Aspose::Words::Tables::CellFormat> cellFormat = table->get_LastRow()->get_FirstCell()->get_CellFormat();
@@ -512,7 +508,7 @@ void ExTable::RowCellFormat()
     doc->Save(get_ArtifactsDir() + u"Table.RowCellFormat.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.RowCellFormat.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.RowCellFormat.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(u"City\aCountry\a\aLondon\aU.K.\a\a", table->GetText().Trim());
@@ -520,7 +516,7 @@ void ExTable::RowCellFormat()
     rowFormat = table->get_FirstRow()->get_RowFormat();
     
     ASPOSE_ASSERT_EQ(25.0, rowFormat->get_Height());
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), rowFormat->get_Borders()->idx_get(Aspose::Words::BorderType::Bottom)->get_Color().ToArgb());
+    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), rowFormat->get_Borders()->idx_get(BorderType::Bottom)->get_Color().ToArgb());
     
     cellFormat = table->get_LastRow()->get_FirstCell()->get_CellFormat();
     
@@ -555,7 +551,7 @@ void ExTable::DisplayContentOfTables()
     //ExFor:TableCollection.Item(Int32)
     //ExFor:TableCollection.ToArray
     //ExSummary:Shows how to iterate through all tables in the document and print the contents of each cell.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::TableCollection> tables = doc->get_FirstSection()->get_Body()->get_Tables();
     
     ASSERT_EQ(2, tables->ToArray()->get_Length());
@@ -582,7 +578,7 @@ void ExTable::DisplayContentOfTables()
             
             for (int32_t k = 0; k < cells->get_Count(); k++)
             {
-                System::String cellText = cells->idx_get(k)->ToString(Aspose::Words::SaveFormat::Text).Trim();
+                System::String cellText = cells->idx_get(k)->ToString(SaveFormat::Text).Trim();
                 std::cout << System::String::Format(u"\t\tContents of Cell:{0} = \"{1}\"", k, cellText) << std::endl;
             }
             
@@ -616,7 +612,7 @@ void ExTable::EnsureTableMinimum()
     // Tables contain rows, which contain cells, which may contain paragraphs
     // with typical elements such as runs, shapes, and even other tables.
     // Our new table has none of these nodes, and we cannot add contents to it until it does.
-    ASSERT_EQ(0, table->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count());
+    ASSERT_EQ(0, table->GetChildNodes(NodeType::Any, true)->get_Count());
     
     // Calling the "EnsureMinimum" method on a table will ensure that
     // the table has at least one row and one cell with an empty paragraph.
@@ -624,7 +620,7 @@ void ExTable::EnsureTableMinimum()
     table->get_FirstRow()->get_FirstCell()->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     //ExEnd
     
-    ASSERT_EQ(4, table->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count());
+    ASSERT_EQ(4, table->GetChildNodes(NodeType::Any, true)->get_Count());
 }
 
 namespace gtest_test
@@ -650,7 +646,7 @@ void ExTable::EnsureRowMinimum()
     
     // Rows contain cells, containing paragraphs with typical elements such as runs, shapes, and even other tables.
     // Our new row has none of these nodes, and we cannot add contents to it until it does.
-    ASSERT_EQ(0, row->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count());
+    ASSERT_EQ(0, row->GetChildNodes(NodeType::Any, true)->get_Count());
     
     // Calling the "EnsureMinimum" method on a table will ensure that
     // the table has at least one cell with an empty paragraph.
@@ -658,7 +654,7 @@ void ExTable::EnsureRowMinimum()
     row->get_FirstCell()->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     //ExEnd
     
-    ASSERT_EQ(3, row->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count());
+    ASSERT_EQ(3, row->GetChildNodes(NodeType::Any, true)->get_Count());
 }
 
 namespace gtest_test
@@ -686,7 +682,7 @@ void ExTable::EnsureCellMinimum()
     
     // Cells may contain paragraphs with typical elements such as runs, shapes, and even other tables.
     // Our new cell does not have any paragraphs, and we cannot add contents such as run and shape nodes to it until it does.
-    ASSERT_EQ(0, cell->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count());
+    ASSERT_EQ(0, cell->GetChildNodes(NodeType::Any, true)->get_Count());
     
     // Calling the "EnsureMinimum" method on a cell will ensure that
     // the cell has at least one empty paragraph, which we can then add contents to.
@@ -694,7 +690,7 @@ void ExTable::EnsureCellMinimum()
     cell->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     //ExEnd
     
-    ASSERT_EQ(2, cell->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count());
+    ASSERT_EQ(2, cell->GetChildNodes(NodeType::Any, true)->get_Count());
 }
 
 namespace gtest_test
@@ -718,32 +714,32 @@ void ExTable::SetOutlineBorders()
     //ExFor:TextureIndex
     //ExFor:Table.SetShading
     //ExSummary:Shows how to apply an outline border to a table.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Align the table to the center of the page.
-    table->set_Alignment(Aspose::Words::Tables::TableAlignment::Center);
+    table->set_Alignment(TableAlignment::Center);
     
     // Clear any existing borders and shading from the table.
     table->ClearBorders();
     table->ClearShading();
     
     // Add green borders to the outline of the table.
-    table->SetBorder(Aspose::Words::BorderType::Left, Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
-    table->SetBorder(Aspose::Words::BorderType::Right, Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
-    table->SetBorder(Aspose::Words::BorderType::Top, Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
-    table->SetBorder(Aspose::Words::BorderType::Bottom, Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
+    table->SetBorder(BorderType::Left, LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
+    table->SetBorder(BorderType::Right, LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
+    table->SetBorder(BorderType::Top, LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
+    table->SetBorder(BorderType::Bottom, LineStyle::Single, 1.5, System::Drawing::Color::get_Green(), true);
     
     // Fill the cells with a light green solid color.
-    table->SetShading(Aspose::Words::TextureIndex::TextureSolid, System::Drawing::Color::get_LightGreen(), System::Drawing::Color::Empty);
+    table->SetShading(TextureIndex::TextureSolid, System::Drawing::Color::get_LightGreen(), System::Drawing::Color::Empty);
     
     doc->Save(get_ArtifactsDir() + u"Table.SetOutlineBorders.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.SetOutlineBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.SetOutlineBorders.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(Aspose::Words::Tables::TableAlignment::Center, table->get_Alignment());
+    ASSERT_EQ(TableAlignment::Center, table->get_Alignment());
     
     System::SharedPtr<Aspose::Words::BorderCollection> borders = table->get_FirstRow()->get_RowFormat()->get_Borders();
     
@@ -771,19 +767,19 @@ void ExTable::SetBorders()
     //ExStart
     //ExFor:Table.SetBorders
     //ExSummary:Shows how to format of all of a table's borders at once.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Clear all existing borders from the table.
     table->ClearBorders();
     
     // Set a single green line to serve as every outer and inner border of this table.
-    table->SetBorders(Aspose::Words::LineStyle::Single, 1.5, System::Drawing::Color::get_Green());
+    table->SetBorders(LineStyle::Single, 1.5, System::Drawing::Color::get_Green());
     
     doc->Save(get_ArtifactsDir() + u"Table.SetBorders.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.SetBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.SetBorders.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Top()->get_Color().ToArgb());
@@ -810,23 +806,23 @@ void ExTable::RowFormat()
     //ExFor:RowFormat
     //ExFor:Row.RowFormat
     //ExSummary:Shows how to modify formatting of a table row.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Use the first row's "RowFormat" property to set formatting that modifies that entire row's appearance.
     System::SharedPtr<Aspose::Words::Tables::Row> firstRow = table->get_FirstRow();
-    firstRow->get_RowFormat()->get_Borders()->set_LineStyle(Aspose::Words::LineStyle::None);
-    firstRow->get_RowFormat()->set_HeightRule(Aspose::Words::HeightRule::Auto);
+    firstRow->get_RowFormat()->get_Borders()->set_LineStyle(LineStyle::None);
+    firstRow->get_RowFormat()->set_HeightRule(HeightRule::Auto);
     firstRow->get_RowFormat()->set_AllowBreakAcrossPages(true);
     
     doc->Save(get_ArtifactsDir() + u"Table.RowFormat.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.RowFormat.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.RowFormat.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(Aspose::Words::LineStyle::None, table->get_FirstRow()->get_RowFormat()->get_Borders()->get_LineStyle());
-    ASSERT_EQ(Aspose::Words::HeightRule::Auto, table->get_FirstRow()->get_RowFormat()->get_HeightRule());
+    ASSERT_EQ(LineStyle::None, table->get_FirstRow()->get_RowFormat()->get_Borders()->get_LineStyle());
+    ASSERT_EQ(HeightRule::Auto, table->get_FirstRow()->get_RowFormat()->get_HeightRule());
     ASSERT_TRUE(table->get_FirstRow()->get_RowFormat()->get_AllowBreakAcrossPages());
 }
 
@@ -846,23 +842,23 @@ void ExTable::CellFormat()
     //ExFor:CellFormat
     //ExFor:Cell.CellFormat
     //ExSummary:Shows how to modify formatting of a table cell.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::Tables::Cell> firstCell = table->get_FirstRow()->get_FirstCell();
     
     // Use a cell's "CellFormat" property to set formatting that modifies the appearance of that cell.
     firstCell->get_CellFormat()->set_Width(30);
-    firstCell->get_CellFormat()->set_Orientation(Aspose::Words::TextOrientation::Downward);
+    firstCell->get_CellFormat()->set_Orientation(TextOrientation::Downward);
     firstCell->get_CellFormat()->get_Shading()->set_ForegroundPatternColor(System::Drawing::Color::get_LightGreen());
     
     doc->Save(get_ArtifactsDir() + u"Table.CellFormat.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.CellFormat.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CellFormat.docx"));
     
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     ASPOSE_ASSERT_EQ(30, table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Width());
-    ASSERT_EQ(Aspose::Words::TextOrientation::Downward, table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Orientation());
+    ASSERT_EQ(TextOrientation::Downward, table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Orientation());
     ASSERT_EQ(System::Drawing::Color::get_LightGreen().ToArgb(), table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_ForegroundPatternColor().ToArgb());
 }
 
@@ -884,7 +880,7 @@ void ExTable::DistanceBetweenTableAndText()
     //ExFor:Table.DistanceRight
     //ExFor:Table.DistanceTop
     //ExSummary:Shows how to set distance between table boundaries and text.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table wrapped by text.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table wrapped by text.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     ASPOSE_ASSERT_EQ(25.9, table->get_DistanceTop());
@@ -926,25 +922,25 @@ void ExTable::Borders()
     builder->EndTable();
     
     // Modify the color and thickness of the top border.
-    System::SharedPtr<Aspose::Words::Border> topBorder = table->get_FirstRow()->get_RowFormat()->get_Borders()->idx_get(Aspose::Words::BorderType::Top);
-    table->SetBorder(Aspose::Words::BorderType::Top, Aspose::Words::LineStyle::Double, 1.5, System::Drawing::Color::get_Red(), true);
+    System::SharedPtr<Aspose::Words::Border> topBorder = table->get_FirstRow()->get_RowFormat()->get_Borders()->idx_get(BorderType::Top);
+    table->SetBorder(BorderType::Top, LineStyle::Double, 1.5, System::Drawing::Color::get_Red(), true);
     
     ASPOSE_ASSERT_EQ(1.5, topBorder->get_LineWidth());
     ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), topBorder->get_Color().ToArgb());
-    ASSERT_EQ(Aspose::Words::LineStyle::Double, topBorder->get_LineStyle());
+    ASSERT_EQ(LineStyle::Double, topBorder->get_LineStyle());
     
     // Clear the borders of all cells in the table, and then save the document.
     table->ClearBorders();
     doc->Save(get_ArtifactsDir() + u"Table.ClearBorders.docx");
     
     // Verify the values of the table's properties after re-opening the document.
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.ClearBorders.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.ClearBorders.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-    topBorder = table->get_FirstRow()->get_RowFormat()->get_Borders()->idx_get(Aspose::Words::BorderType::Top);
+    topBorder = table->get_FirstRow()->get_RowFormat()->get_Borders()->idx_get(BorderType::Top);
     
     ASPOSE_ASSERT_EQ(0.0, topBorder->get_LineWidth());
     ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), topBorder->get_Color().ToArgb());
-    ASSERT_EQ(Aspose::Words::LineStyle::None, topBorder->get_LineStyle());
+    ASSERT_EQ(LineStyle::None, topBorder->get_LineStyle());
     //ExEnd
 }
 
@@ -1030,7 +1026,7 @@ void ExTable::RemoveParagraphTextAndMark(bool isSmartParagraphBreakReplacement)
     doc->Save(get_ArtifactsDir() + u"Table.RemoveParagraphTextAndMark.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.RemoveParagraphTextAndMark.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.RemoveParagraphTextAndMark.docx"));
     
     ASSERT_EQ(isSmartParagraphBreakReplacement ? 1 : 2, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_Paragraphs()->get_Count());
 }
@@ -1064,7 +1060,7 @@ INSTANTIATE_TEST_SUITE_P(, ExTable_RemoveParagraphTextAndMark, ::testing::Values
 
 void ExTable::PrintTableRange()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
@@ -1099,7 +1095,7 @@ TEST_F(ExTable, PrintTableRange)
 
 void ExTable::CloneTable()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
@@ -1113,15 +1109,15 @@ void ExTable::CloneTable()
     
     doc->Save(get_ArtifactsDir() + u"Table.CloneTable.doc");
     
-    ASSERT_EQ(3, doc->GetChildNodes(Aspose::Words::NodeType::Table, true)->get_Count());
+    ASSERT_EQ(3, doc->GetChildNodes(NodeType::Table, true)->get_Count());
     ASSERT_EQ(table->get_Range()->get_Text(), tableClone->get_Range()->get_Text());
     
-    for (auto&& cell : System::IterateOver<Aspose::Words::Tables::Cell>(tableClone->GetChildNodes(Aspose::Words::NodeType::Cell, true)))
+    for (auto&& cell : System::IterateOver<Aspose::Words::Tables::Cell>(tableClone->GetChildNodes(NodeType::Cell, true)))
     {
         cell->RemoveAllChildren();
     }
     
-    ASSERT_EQ(System::String::Empty, tableClone->ToString(Aspose::Words::SaveFormat::Text).Trim());
+    ASSERT_EQ(System::String::Empty, tableClone->ToString(SaveFormat::Text).Trim());
 }
 
 namespace gtest_test
@@ -1139,7 +1135,7 @@ void ExTable::AllowBreakAcrossPages(bool allowBreakAcrossPages)
     //ExStart
     //ExFor:RowFormat.AllowBreakAcrossPages
     //ExSummary:Shows how to disable rows breaking across pages for every row in a table.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table spanning two pages.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table spanning two pages.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Set the "AllowBreakAcrossPages" property to "false" to keep the row
@@ -1154,7 +1150,7 @@ void ExTable::AllowBreakAcrossPages(bool allowBreakAcrossPages)
     doc->Save(get_ArtifactsDir() + u"Table.AllowBreakAcrossPages.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.AllowBreakAcrossPages.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.AllowBreakAcrossPages.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_EQ(3, table->get_Rows()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> r)>>([&allowBreakAcrossPages](System::SharedPtr<Aspose::Words::Node> r) -> bool
@@ -1200,11 +1196,11 @@ void ExTable::AllowAutoFitOnTable(bool allowAutoFit)
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = builder->StartTable();
     builder->InsertCell();
-    builder->get_CellFormat()->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(100));
+    builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPoints(100));
     builder->Write(System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit, ") + u"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
     
     builder->InsertCell();
-    builder->get_CellFormat()->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::Auto());
+    builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::Auto());
     builder->Write(System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit, ") + u"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
     builder->EndRow();
     builder->EndTable();
@@ -1220,13 +1216,13 @@ void ExTable::AllowAutoFitOnTable(bool allowAutoFit)
     
     if (allowAutoFit)
     {
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        TestUtil::FileContainsString(u"<td style=\"border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
     }
     else
     {
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"<td style=\"width:7.2pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        TestUtil::FileContainsString(u"<td style=\"width:89.2pt; border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
+        TestUtil::FileContainsString(u"<td style=\"width:7.2pt; border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-left:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowAutoFitOnTable.html");
     }
 }
 
@@ -1267,12 +1263,12 @@ void ExTable::KeepTableTogether()
     //ExFor:Cell.ParentRow
     //ExFor:Cell.Paragraphs
     //ExSummary:Shows how to set a table to stay together on the same page.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table spanning two pages.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table spanning two pages.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Enabling KeepWithNext for every paragraph in the table except for the
     // last ones in the last row will prevent the table from splitting across multiple pages.
-    for (auto&& cell : System::IterateOver<Aspose::Words::Tables::Cell>(table->GetChildNodes(Aspose::Words::NodeType::Cell, true)))
+    for (auto&& cell : System::IterateOver<Aspose::Words::Tables::Cell>(table->GetChildNodes(NodeType::Cell, true)))
     {
         for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(cell->get_Paragraphs()))
         {
@@ -1288,10 +1284,10 @@ void ExTable::KeepTableTogether()
     doc->Save(get_ArtifactsDir() + u"Table.KeepTableTogether.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.KeepTableTogether.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.KeepTableTogether.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(table->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)))
+    for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(table->GetChildNodes(NodeType::Paragraph, true)))
     {
         if (para->get_IsEndOfCell() && (System::ExplicitCast<Aspose::Words::Tables::Cell>(para->get_ParentNode()))->get_ParentRow()->get_IsLastRow())
         {
@@ -1319,10 +1315,10 @@ void ExTable::GetIndexOfTableElements()
     //ExStart
     //ExFor:NodeCollection.IndexOf(Node)
     //ExSummary:Shows how to get the index of a node in a collection.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-    System::SharedPtr<Aspose::Words::NodeCollection> allTables = doc->GetChildNodes(Aspose::Words::NodeType::Table, true);
+    System::SharedPtr<Aspose::Words::NodeCollection> allTables = doc->GetChildNodes(NodeType::Table, true);
     
     ASSERT_EQ(0, allTables->IndexOf(table));
     
@@ -1353,12 +1349,12 @@ void ExTable::GetPreferredWidthTypeAndValue()
     //ExFor:PreferredWidth.Type
     //ExFor:PreferredWidth.Value
     //ExSummary:Shows how to verify the preferred width type and value of a table cell.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::Tables::Cell> firstCell = table->get_FirstRow()->get_FirstCell();
     
-    ASSERT_EQ(Aspose::Words::Tables::PreferredWidthType::Percent, firstCell->get_CellFormat()->get_PreferredWidth()->get_Type());
+    ASSERT_EQ(PreferredWidthType::Percent, firstCell->get_CellFormat()->get_PreferredWidth()->get_Type());
     ASPOSE_ASSERT_EQ(11.16, firstCell->get_CellFormat()->get_PreferredWidth()->get_Value());
     //ExEnd
 }
@@ -1410,8 +1406,8 @@ void ExTable::AllowCellSpacing(bool allowCellSpacing)
     ASSERT_TRUE(table->get_AllowCellSpacing());
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.AllowCellSpacing.html");
-    table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.AllowCellSpacing.html"));
+    table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 0, true));
     
     ASPOSE_ASSERT_EQ(allowCellSpacing, table->get_AllowCellSpacing());
     
@@ -1424,7 +1420,7 @@ void ExTable::AllowCellSpacing(bool allowCellSpacing)
         ASPOSE_ASSERT_EQ(0.0, table->get_CellSpacing());
     }
     
-    Aspose::Words::ApiExamples::TestUtil::FileContainsString(allowCellSpacing ? u"<td style=\"border-style:solid; border-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; -aw-border:0.5pt single #000000\">" : System::String(u"<td style=\"border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; ") + u"padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single #000000; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowCellSpacing.html");
+    TestUtil::FileContainsString(allowCellSpacing ? System::String(u"<td style=\"border-style:solid; border-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; -aw-border:0.5pt single #000000\">") : System::String(u"<td style=\"border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; ") + u"padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single #000000; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowCellSpacing.html");
 }
 
 namespace gtest_test
@@ -1467,7 +1463,7 @@ void ExTable::CreateNestedTable()
     outerTable->get_FirstRow()->get_FirstCell()->AppendChild<System::SharedPtr<Aspose::Words::Tables::Table>>(innerTable);
     
     doc->Save(get_ArtifactsDir() + u"Table.CreateNestedTable.docx");
-    TestCreateNestedTable(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.CreateNestedTable.docx"));
+    TestCreateNestedTable(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CreateNestedTable.docx")));
     //ExSkip
 }
 
@@ -1483,7 +1479,7 @@ TEST_F(ExTable, CreateNestedTable)
 
 void ExTable::CheckCellsMerged()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table with merged cells.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table with merged cells.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     for (auto&& row : System::IterateOver<Aspose::Words::Tables::Row>(table->get_Rows()))
@@ -1493,7 +1489,7 @@ void ExTable::CheckCellsMerged()
             std::cout << PrintCellMergeType(cell) << std::endl;
         }
     }
-    ASSERT_EQ(u"The cell at R1, C1 is vertically merged", PrintCellMergeType(table->get_FirstRow()->get_FirstCell()));
+    ASSERT_EQ((u"The cell at R1, C1 is vertically merged"), PrintCellMergeType(table->get_FirstRow()->get_FirstCell()));
     //ExSkip
 }
 
@@ -1509,7 +1505,7 @@ TEST_F(ExTable, CheckCellsMerged)
 
 void ExTable::MergeCellRange()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
@@ -1523,20 +1519,20 @@ void ExTable::MergeCellRange()
     doc->Save(get_ArtifactsDir() + u"Table.MergeCellRange.doc");
     
     int32_t mergedCellsCount = 0;
-    for (auto&& node : System::IterateOver(table->GetChildNodes(Aspose::Words::NodeType::Cell, true)))
+    for (auto&& node : System::IterateOver(table->GetChildNodes(NodeType::Cell, true)))
     {
         auto cell = System::ExplicitCast<Aspose::Words::Tables::Cell>(node);
-        if (cell->get_CellFormat()->get_HorizontalMerge() != Aspose::Words::Tables::CellMerge::None || cell->get_CellFormat()->get_VerticalMerge() != Aspose::Words::Tables::CellMerge::None)
+        if (cell->get_CellFormat()->get_HorizontalMerge() != CellMerge::None || cell->get_CellFormat()->get_VerticalMerge() != CellMerge::None)
         {
             mergedCellsCount++;
         }
     }
     
     ASSERT_EQ(4, mergedCellsCount);
-    ASSERT_TRUE(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->get_CellFormat()->get_HorizontalMerge() == Aspose::Words::Tables::CellMerge::First);
-    ASSERT_TRUE(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->get_CellFormat()->get_VerticalMerge() == Aspose::Words::Tables::CellMerge::First);
-    ASSERT_TRUE(table->get_Rows()->idx_get(3)->get_Cells()->idx_get(3)->get_CellFormat()->get_HorizontalMerge() == Aspose::Words::Tables::CellMerge::Previous);
-    ASSERT_TRUE(table->get_Rows()->idx_get(3)->get_Cells()->idx_get(3)->get_CellFormat()->get_VerticalMerge() == Aspose::Words::Tables::CellMerge::Previous);
+    ASSERT_TRUE(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->get_CellFormat()->get_HorizontalMerge() == CellMerge::First);
+    ASSERT_TRUE(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->get_CellFormat()->get_VerticalMerge() == CellMerge::First);
+    ASSERT_TRUE(table->get_Rows()->idx_get(3)->get_Cells()->idx_get(3)->get_CellFormat()->get_HorizontalMerge() == CellMerge::Previous);
+    ASSERT_TRUE(table->get_Rows()->idx_get(3)->get_Cells()->idx_get(3)->get_CellFormat()->get_VerticalMerge() == CellMerge::Previous);
 }
 
 namespace gtest_test
@@ -1559,14 +1555,14 @@ void ExTable::CombineTables()
     //ExFor:CellFormat.ClearFormatting
     //ExFor:CompositeNode.HasChildNodes
     //ExSummary:Shows how to combine the rows from two tables into one.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     // Below are two ways of getting a table from a document.
     // 1 -  From the "Tables" collection of a Body node:
     System::SharedPtr<Aspose::Words::Tables::Table> firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // 2 -  Using the "GetChild" method:
-    auto secondTable = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 1, true));
+    auto secondTable = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true));
     
     // Append all rows from the current table to the next.
     while (secondTable->get_HasChildNodes())
@@ -1580,11 +1576,11 @@ void ExTable::CombineTables()
     doc->Save(get_ArtifactsDir() + u"Table.CombineTables.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.CombineTables.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CombineTables.docx"));
     
-    ASSERT_EQ(1, doc->GetChildNodes(Aspose::Words::NodeType::Table, true)->get_Count());
+    ASSERT_EQ(1, doc->GetChildNodes(NodeType::Table, true)->get_Count());
     ASSERT_EQ(9, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Rows()->get_Count());
-    ASSERT_EQ(42, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->GetChildNodes(Aspose::Words::NodeType::Cell, true)->get_Count());
+    ASSERT_EQ(42, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->GetChildNodes(NodeType::Cell, true)->get_Count());
 }
 
 namespace gtest_test
@@ -1599,7 +1595,7 @@ TEST_F(ExTable, CombineTables)
 
 void ExTable::SplitTable()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> firstTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
@@ -1623,12 +1619,12 @@ void ExTable::SplitTable()
         table->PrependChild<System::SharedPtr<Aspose::Words::Tables::Row>>(currentRow);
     } while (currentRow != row);
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     ASPOSE_ASSERT_EQ(row, table->get_FirstRow());
     ASSERT_EQ(2, firstTable->get_Rows()->get_Count());
     ASSERT_EQ(3, table->get_Rows()->get_Count());
-    ASSERT_EQ(3, doc->GetChildNodes(Aspose::Words::NodeType::Table, true)->get_Count());
+    ASSERT_EQ(3, doc->GetChildNodes(NodeType::Table, true)->get_Count());
 }
 
 namespace gtest_test
@@ -1656,24 +1652,24 @@ void ExTable::WrapText()
     builder->InsertCell();
     builder->Write(u"Cell 2");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     builder->get_Font()->set_Size(16);
     builder->Writeln(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
     
     // Set the "TextWrapping" property to "TextWrapping.Around" to get the table to wrap text around it,
     // and push it down into the paragraph below by setting the position.
-    table->set_TextWrapping(Aspose::Words::Tables::TextWrapping::Around);
+    table->set_TextWrapping(TextWrapping::Around);
     table->set_AbsoluteHorizontalDistance(100);
     table->set_AbsoluteVerticalDistance(20);
     
     doc->Save(get_ArtifactsDir() + u"Table.WrapText.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.WrapText.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.WrapText.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(Aspose::Words::Tables::TextWrapping::Around, table->get_TextWrapping());
+    ASSERT_EQ(TextWrapping::Around, table->get_TextWrapping());
     ASPOSE_ASSERT_EQ(100.0, table->get_AbsoluteHorizontalDistance());
     ASPOSE_ASSERT_EQ(20.0, table->get_AbsoluteVerticalDistance());
 }
@@ -1696,23 +1692,23 @@ void ExTable::GetFloatingTableProperties()
     //ExFor:Table.AllowOverlap
     //ExFor:ShapeBase.AllowOverlap
     //ExSummary:Shows how to work with floating tables properties.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table wrapped by text.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table wrapped by text.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    if (table->get_TextWrapping() == Aspose::Words::Tables::TextWrapping::Around)
+    if (table->get_TextWrapping() == TextWrapping::Around)
     {
-        ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Margin, table->get_HorizontalAnchor());
-        ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, table->get_VerticalAnchor());
+        ASSERT_EQ(RelativeHorizontalPosition::Margin, table->get_HorizontalAnchor());
+        ASSERT_EQ(RelativeVerticalPosition::Paragraph, table->get_VerticalAnchor());
         ASPOSE_ASSERT_EQ(false, table->get_AllowOverlap());
         
         // Only Margin, Page, Column available in RelativeHorizontalPosition for HorizontalAnchor setter.
         // The ArgumentException will be thrown for any other values.
-        table->set_HorizontalAnchor(Aspose::Words::Drawing::RelativeHorizontalPosition::Column);
+        table->set_HorizontalAnchor(RelativeHorizontalPosition::Column);
         
         // Only Margin, Page, Paragraph available in RelativeVerticalPosition for VerticalAnchor setter.
         // The ArgumentException will be thrown for any other values.
-        table->set_VerticalAnchor(Aspose::Words::Drawing::RelativeVerticalPosition::Page);
+        table->set_VerticalAnchor(RelativeVerticalPosition::Page);
     }
     //ExEnd
 }
@@ -1742,17 +1738,17 @@ void ExTable::ChangeFloatingTableProperties()
     builder->InsertCell();
     builder->Write(u"Table 1, cell 1");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     // Set the table's location to a place on the page, such as, in this case, the bottom right corner.
-    table->set_RelativeVerticalAlignment(Aspose::Words::Drawing::VerticalAlignment::Bottom);
-    table->set_RelativeHorizontalAlignment(Aspose::Words::Drawing::HorizontalAlignment::Right);
+    table->set_RelativeVerticalAlignment(VerticalAlignment::Bottom);
+    table->set_RelativeHorizontalAlignment(HorizontalAlignment::Right);
     
     table = builder->StartTable();
     builder->InsertCell();
     builder->Write(u"Table 2, cell 1");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     // We can also set a horizontal and vertical offset in points from the paragraph's location where we inserted the table.
     table->set_AbsoluteVerticalDistance(50);
@@ -1761,13 +1757,13 @@ void ExTable::ChangeFloatingTableProperties()
     doc->Save(get_ArtifactsDir() + u"Table.ChangeFloatingTableProperties.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.ChangeFloatingTableProperties.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.ChangeFloatingTableProperties.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(Aspose::Words::Drawing::VerticalAlignment::Bottom, table->get_RelativeVerticalAlignment());
-    ASSERT_EQ(Aspose::Words::Drawing::HorizontalAlignment::Right, table->get_RelativeHorizontalAlignment());
+    ASSERT_EQ(VerticalAlignment::Bottom, table->get_RelativeVerticalAlignment());
+    ASSERT_EQ(HorizontalAlignment::Right, table->get_RelativeHorizontalAlignment());
     
-    table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 1, true));
+    table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true));
     
     ASPOSE_ASSERT_EQ(50.0, table->get_AbsoluteVerticalDistance());
     ASPOSE_ASSERT_EQ(100.0, table->get_AbsoluteHorizontalDistance());
@@ -1814,7 +1810,7 @@ void ExTable::TableStyleCreation()
     builder->InsertCell();
     builder->EndTable();
     
-    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(Aspose::Words::StyleType::Table, u"MyTableStyle1"));
+    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
     tableStyle->set_AllowBreakAcrossPages(true);
     tableStyle->set_CellSpacing(5);
     tableStyle->set_BottomPadding(20);
@@ -1823,8 +1819,8 @@ void ExTable::TableStyleCreation()
     tableStyle->set_TopPadding(20);
     tableStyle->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_AntiqueWhite());
     tableStyle->get_Borders()->set_Color(System::Drawing::Color::get_Blue());
-    tableStyle->get_Borders()->set_LineStyle(Aspose::Words::LineStyle::DotDash);
-    tableStyle->set_VerticalAlignment(Aspose::Words::Tables::CellVerticalAlignment::Center);
+    tableStyle->get_Borders()->set_LineStyle(LineStyle::DotDash);
+    tableStyle->set_VerticalAlignment(CellVerticalAlignment::Center);
     
     table->set_Style(tableStyle);
     
@@ -1836,7 +1832,7 @@ void ExTable::TableStyleCreation()
     doc->Save(get_ArtifactsDir() + u"Table.TableStyleCreation.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.TableStyleCreation.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.TableStyleCreation.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_FALSE(table->get_Bidi());
@@ -1850,7 +1846,7 @@ void ExTable::TableStyleCreation()
     {
         return b->get_Color().ToArgb() == System::Drawing::Color::get_Blue().ToArgb();
     }))));
-    ASSERT_EQ(Aspose::Words::Tables::CellVerticalAlignment::Center, tableStyle->get_VerticalAlignment());
+    ASSERT_EQ(CellVerticalAlignment::Center, tableStyle->get_VerticalAlignment());
     
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
     
@@ -1862,8 +1858,8 @@ void ExTable::TableStyleCreation()
     ASPOSE_ASSERT_EQ(20.0, tableStyle->get_TopPadding());
     ASSERT_EQ(System::Drawing::Color::get_AntiqueWhite().ToArgb(), tableStyle->get_Shading()->get_BackgroundPatternColor().ToArgb());
     ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), tableStyle->get_Borders()->get_Color().ToArgb());
-    ASSERT_EQ(Aspose::Words::LineStyle::DotDash, tableStyle->get_Borders()->get_LineStyle());
-    ASSERT_EQ(Aspose::Words::Tables::CellVerticalAlignment::Center, tableStyle->get_VerticalAlignment());
+    ASSERT_EQ(LineStyle::DotDash, tableStyle->get_Borders()->get_LineStyle());
+    ASSERT_EQ(CellVerticalAlignment::Center, tableStyle->get_VerticalAlignment());
 }
 
 namespace gtest_test
@@ -1887,48 +1883,48 @@ void ExTable::SetTableAlignment()
     
     // Below are two ways of aligning a table horizontally.
     // 1 -  Use the "Alignment" property to align it to a location on the page, such as the center:
-    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(Aspose::Words::StyleType::Table, u"MyTableStyle1"));
-    tableStyle->set_Alignment(Aspose::Words::Tables::TableAlignment::Center);
+    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
+    tableStyle->set_Alignment(TableAlignment::Center);
     tableStyle->get_Borders()->set_Color(System::Drawing::Color::get_Blue());
-    tableStyle->get_Borders()->set_LineStyle(Aspose::Words::LineStyle::Single);
+    tableStyle->get_Borders()->set_LineStyle(LineStyle::Single);
     
     // Insert a table and apply the style we created to it.
     System::SharedPtr<Aspose::Words::Tables::Table> table = builder->StartTable();
     builder->InsertCell();
     builder->Write(u"Aligned to the center of the page");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     table->set_Style(tableStyle);
     
     // 2 -  Use the "LeftIndent" to specify an indent from the left margin of the page:
-    tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(Aspose::Words::StyleType::Table, u"MyTableStyle2"));
+    tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle2"));
     tableStyle->set_LeftIndent(55);
     tableStyle->get_Borders()->set_Color(System::Drawing::Color::get_Green());
-    tableStyle->get_Borders()->set_LineStyle(Aspose::Words::LineStyle::Single);
+    tableStyle->get_Borders()->set_LineStyle(LineStyle::Single);
     
     table = builder->StartTable();
     builder->InsertCell();
     builder->Write(u"Aligned according to left indent");
     builder->EndTable();
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(300));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(300));
     
     table->set_Style(tableStyle);
     
     doc->Save(get_ArtifactsDir() + u"Table.SetTableAlignment.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.SetTableAlignment.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.SetTableAlignment.docx"));
     
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
     
-    ASSERT_EQ(Aspose::Words::Tables::TableAlignment::Center, tableStyle->get_Alignment());
+    ASSERT_EQ(TableAlignment::Center, tableStyle->get_Alignment());
     ASPOSE_ASSERT_EQ(tableStyle, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Style());
     
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle2"));
     
     ASPOSE_ASSERT_EQ(55.0, tableStyle->get_LeftIndent());
-    ASPOSE_ASSERT_EQ(tableStyle, (System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 1, true)))->get_Style());
+    ASPOSE_ASSERT_EQ(tableStyle, (System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true)))->get_Style());
 }
 
 namespace gtest_test
@@ -1990,21 +1986,21 @@ void ExTable::ConditionalStyles()
     builder->EndTable();
     
     // Create a custom table style.
-    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(Aspose::Words::StyleType::Table, u"MyTableStyle1"));
+    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
     
     // Conditional styles are formatting changes that affect only some of the table's cells
     // based on a predicate, such as the cells being in the last row.
     // Below are three ways of accessing a table style's conditional styles from the "ConditionalStyles" collection.
     // 1 -  By style type:
-    tableStyle->get_ConditionalStyles()->idx_get(Aspose::Words::ConditionalStyleType::FirstRow)->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_AliceBlue());
+    tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::FirstRow)->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_AliceBlue());
     
     // 2 -  By index:
     tableStyle->get_ConditionalStyles()->idx_get(0)->get_Borders()->set_Color(System::Drawing::Color::get_Black());
-    tableStyle->get_ConditionalStyles()->idx_get(0)->get_Borders()->set_LineStyle(Aspose::Words::LineStyle::DotDash);
-    ASSERT_EQ(Aspose::Words::ConditionalStyleType::FirstRow, tableStyle->get_ConditionalStyles()->idx_get(0)->get_Type());
+    tableStyle->get_ConditionalStyles()->idx_get(0)->get_Borders()->set_LineStyle(LineStyle::DotDash);
+    ASSERT_EQ(ConditionalStyleType::FirstRow, tableStyle->get_ConditionalStyles()->idx_get(0)->get_Type());
     
     // 3 -  As a property:
-    tableStyle->get_ConditionalStyles()->get_FirstRow()->get_ParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Center);
+    tableStyle->get_ConditionalStyles()->get_FirstRow()->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
     
     // Apply padding and text formatting to conditional styles.
     tableStyle->get_ConditionalStyles()->get_LastRow()->set_BottomPadding(10);
@@ -2030,33 +2026,33 @@ void ExTable::ConditionalStyles()
     table->set_Style(tableStyle);
     
     // Our style applies some conditional styles by default.
-    ASSERT_EQ(Aspose::Words::Tables::TableStyleOptions::FirstRow | Aspose::Words::Tables::TableStyleOptions::FirstColumn | Aspose::Words::Tables::TableStyleOptions::RowBands, table->get_StyleOptions());
+    ASSERT_EQ(TableStyleOptions::FirstRow | TableStyleOptions::FirstColumn | TableStyleOptions::RowBands, table->get_StyleOptions());
     
     // We will need to enable all other styles ourselves via the "StyleOptions" property.
-    table->set_StyleOptions(table->get_StyleOptions() | Aspose::Words::Tables::TableStyleOptions::LastRow | Aspose::Words::Tables::TableStyleOptions::LastColumn);
+    table->set_StyleOptions(table->get_StyleOptions() | TableStyleOptions::LastRow | TableStyleOptions::LastColumn);
     
     doc->Save(get_ArtifactsDir() + u"Table.ConditionalStyles.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.ConditionalStyles.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.ConditionalStyles.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(Aspose::Words::Tables::TableStyleOptions::Default | Aspose::Words::Tables::TableStyleOptions::LastRow | Aspose::Words::Tables::TableStyleOptions::LastColumn, table->get_StyleOptions());
+    ASSERT_EQ(TableStyleOptions::Default | TableStyleOptions::LastRow | TableStyleOptions::LastColumn, table->get_StyleOptions());
     System::SharedPtr<Aspose::Words::ConditionalStyleCollection> conditionalStyles = (System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1")))->get_ConditionalStyles();
     
-    ASSERT_EQ(Aspose::Words::ConditionalStyleType::FirstRow, conditionalStyles->idx_get(0)->get_Type());
+    ASSERT_EQ(ConditionalStyleType::FirstRow, conditionalStyles->idx_get(0)->get_Type());
     ASSERT_EQ(System::Drawing::Color::get_AliceBlue().ToArgb(), conditionalStyles->idx_get(0)->get_Shading()->get_BackgroundPatternColor().ToArgb());
     ASSERT_EQ(System::Drawing::Color::get_Black().ToArgb(), conditionalStyles->idx_get(0)->get_Borders()->get_Color().ToArgb());
-    ASSERT_EQ(Aspose::Words::LineStyle::DotDash, conditionalStyles->idx_get(0)->get_Borders()->get_LineStyle());
-    ASSERT_EQ(Aspose::Words::ParagraphAlignment::Center, conditionalStyles->idx_get(0)->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(LineStyle::DotDash, conditionalStyles->idx_get(0)->get_Borders()->get_LineStyle());
+    ASSERT_EQ(ParagraphAlignment::Center, conditionalStyles->idx_get(0)->get_ParagraphFormat()->get_Alignment());
     
-    ASSERT_EQ(Aspose::Words::ConditionalStyleType::LastRow, conditionalStyles->idx_get(2)->get_Type());
+    ASSERT_EQ(ConditionalStyleType::LastRow, conditionalStyles->idx_get(2)->get_Type());
     ASPOSE_ASSERT_EQ(10.0, conditionalStyles->idx_get(2)->get_BottomPadding());
     ASPOSE_ASSERT_EQ(10.0, conditionalStyles->idx_get(2)->get_LeftPadding());
     ASPOSE_ASSERT_EQ(10.0, conditionalStyles->idx_get(2)->get_RightPadding());
     ASPOSE_ASSERT_EQ(10.0, conditionalStyles->idx_get(2)->get_TopPadding());
     
-    ASSERT_EQ(Aspose::Words::ConditionalStyleType::LastColumn, conditionalStyles->idx_get(3)->get_Type());
+    ASSERT_EQ(ConditionalStyleType::LastColumn, conditionalStyles->idx_get(3)->get_Type());
     ASSERT_TRUE(conditionalStyles->idx_get(3)->get_Font()->get_Bold());
 }
 
@@ -2087,7 +2083,7 @@ void ExTable::ClearTableStyleFormatting()
     builder->Write(u"Last row");
     builder->EndTable();
     
-    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(Aspose::Words::StyleType::Table, u"MyTableStyle1"));
+    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
     table->set_Style(tableStyle);
     
     // Set the table style to color the borders of the first row of the table in red.
@@ -2142,52 +2138,52 @@ void ExTable::AlternatingRowStyles()
         for (int32_t j = 0; j < 4; j++)
         {
             builder->InsertCell();
-            builder->Writeln(System::String::Format(u"{0} column.", (j % 2 == 0 ? System::String(u"Even") : System::String(u"Odd"))));
-            builder->Write(System::String::Format(u"Row banding {0}.", (i % 3 == 0 ? System::String(u"start") : System::String(u"continuation"))));
+            builder->Writeln(System::String::Format(u"{0} column.", j % 2 == 0 ? System::String(u"Even") : System::String(u"Odd")));
+            builder->Write(System::String::Format(u"Row banding {0}.", i % 3 == 0 ? System::String(u"start") : System::String(u"continuation")));
         }
         builder->EndRow();
     }
     builder->EndTable();
     
     // Apply a line style to all the borders of the table.
-    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(Aspose::Words::StyleType::Table, u"MyTableStyle1"));
+    auto tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->Add(StyleType::Table, u"MyTableStyle1"));
     tableStyle->get_Borders()->set_Color(System::Drawing::Color::get_Black());
-    tableStyle->get_Borders()->set_LineStyle(Aspose::Words::LineStyle::Double);
+    tableStyle->get_Borders()->set_LineStyle(LineStyle::Double);
     
     // Set the two colors, which will alternate over every 3 rows.
     tableStyle->set_RowStripe(3);
-    tableStyle->get_ConditionalStyles()->idx_get(Aspose::Words::ConditionalStyleType::OddRowBanding)->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightBlue());
-    tableStyle->get_ConditionalStyles()->idx_get(Aspose::Words::ConditionalStyleType::EvenRowBanding)->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightCyan());
+    tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::OddRowBanding)->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightBlue());
+    tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::EvenRowBanding)->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightCyan());
     
     // Set a color to apply to every even column, which will override any custom row coloring.
     tableStyle->set_ColumnStripe(1);
-    tableStyle->get_ConditionalStyles()->idx_get(Aspose::Words::ConditionalStyleType::EvenColumnBanding)->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightSalmon());
+    tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::EvenColumnBanding)->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightSalmon());
     
     table->set_Style(tableStyle);
     
     // The "StyleOptions" property enables row banding by default.
-    ASSERT_EQ(Aspose::Words::Tables::TableStyleOptions::FirstRow | Aspose::Words::Tables::TableStyleOptions::FirstColumn | Aspose::Words::Tables::TableStyleOptions::RowBands, table->get_StyleOptions());
+    ASSERT_EQ(TableStyleOptions::FirstRow | TableStyleOptions::FirstColumn | TableStyleOptions::RowBands, table->get_StyleOptions());
     
     // Use the "StyleOptions" property also to enable column banding.
-    table->set_StyleOptions(table->get_StyleOptions() | Aspose::Words::Tables::TableStyleOptions::ColumnBands);
+    table->set_StyleOptions(table->get_StyleOptions() | TableStyleOptions::ColumnBands);
     
     doc->Save(get_ArtifactsDir() + u"Table.AlternatingRowStyles.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.AlternatingRowStyles.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.AlternatingRowStyles.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
     
     ASPOSE_ASSERT_EQ(tableStyle, table->get_Style());
-    ASSERT_EQ(table->get_StyleOptions() | Aspose::Words::Tables::TableStyleOptions::ColumnBands, table->get_StyleOptions());
+    ASSERT_EQ(table->get_StyleOptions() | TableStyleOptions::ColumnBands, table->get_StyleOptions());
     
     ASSERT_EQ(System::Drawing::Color::get_Black().ToArgb(), tableStyle->get_Borders()->get_Color().ToArgb());
-    ASSERT_EQ(Aspose::Words::LineStyle::Double, tableStyle->get_Borders()->get_LineStyle());
+    ASSERT_EQ(LineStyle::Double, tableStyle->get_Borders()->get_LineStyle());
     ASSERT_EQ(3, tableStyle->get_RowStripe());
-    ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), tableStyle->get_ConditionalStyles()->idx_get(Aspose::Words::ConditionalStyleType::OddRowBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_LightCyan().ToArgb(), tableStyle->get_ConditionalStyles()->idx_get(Aspose::Words::ConditionalStyleType::EvenRowBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb());
+    ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::OddRowBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb());
+    ASSERT_EQ(System::Drawing::Color::get_LightCyan().ToArgb(), tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::EvenRowBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb());
     ASSERT_EQ(1, tableStyle->get_ColumnStripe());
-    ASSERT_EQ(System::Drawing::Color::get_LightSalmon().ToArgb(), tableStyle->get_ConditionalStyles()->idx_get(Aspose::Words::ConditionalStyleType::EvenColumnBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb());
+    ASSERT_EQ(System::Drawing::Color::get_LightSalmon().ToArgb(), tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::EvenColumnBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb());
 }
 
 namespace gtest_test
@@ -2205,7 +2201,7 @@ void ExTable::ConvertToHorizontallyMergedCells()
     //ExStart
     //ExFor:Table.ConvertToHorizontallyMergedCells
     //ExSummary:Shows how to convert cells horizontally merged by width to cells merged by CellFormat.HorizontalMerge.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table with merged cells.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table with merged cells.docx"));
     
     // Microsoft Word does not write merge flags anymore, defining merged cells by width instead.
     // Aspose.Words by default define only 5 cells in a row, and none of them have the horizontal merge flag,
@@ -2216,7 +2212,7 @@ void ExTable::ConvertToHorizontallyMergedCells()
     ASSERT_EQ(5, row->get_Cells()->get_Count());
     ASSERT_TRUE(row->get_Cells()->LINQ_All(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> c)>>([](System::SharedPtr<Aspose::Words::Node> c) -> bool
     {
-        return (System::ExplicitCast<Aspose::Words::Tables::Cell>(c))->get_CellFormat()->get_HorizontalMerge() == Aspose::Words::Tables::CellMerge::None;
+        return (System::ExplicitCast<Aspose::Words::Tables::Cell>(c))->get_CellFormat()->get_HorizontalMerge() == CellMerge::None;
     }))));
     
     // Use the "ConvertToHorizontallyMergedCells" method to convert cells horizontally merged
@@ -2227,13 +2223,13 @@ void ExTable::ConvertToHorizontallyMergedCells()
     
     ASSERT_EQ(7, row->get_Cells()->get_Count());
     
-    ASSERT_EQ(Aspose::Words::Tables::CellMerge::None, row->get_Cells()->idx_get(0)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(Aspose::Words::Tables::CellMerge::First, row->get_Cells()->idx_get(1)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(Aspose::Words::Tables::CellMerge::Previous, row->get_Cells()->idx_get(2)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(Aspose::Words::Tables::CellMerge::None, row->get_Cells()->idx_get(3)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(Aspose::Words::Tables::CellMerge::First, row->get_Cells()->idx_get(4)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(Aspose::Words::Tables::CellMerge::Previous, row->get_Cells()->idx_get(5)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(Aspose::Words::Tables::CellMerge::None, row->get_Cells()->idx_get(6)->get_CellFormat()->get_HorizontalMerge());
+    ASSERT_EQ(CellMerge::None, row->get_Cells()->idx_get(0)->get_CellFormat()->get_HorizontalMerge());
+    ASSERT_EQ(CellMerge::First, row->get_Cells()->idx_get(1)->get_CellFormat()->get_HorizontalMerge());
+    ASSERT_EQ(CellMerge::Previous, row->get_Cells()->idx_get(2)->get_CellFormat()->get_HorizontalMerge());
+    ASSERT_EQ(CellMerge::None, row->get_Cells()->idx_get(3)->get_CellFormat()->get_HorizontalMerge());
+    ASSERT_EQ(CellMerge::First, row->get_Cells()->idx_get(4)->get_CellFormat()->get_HorizontalMerge());
+    ASSERT_EQ(CellMerge::Previous, row->get_Cells()->idx_get(5)->get_CellFormat()->get_HorizontalMerge());
+    ASSERT_EQ(CellMerge::None, row->get_Cells()->idx_get(6)->get_CellFormat()->get_HorizontalMerge());
     //ExEnd
 }
 
@@ -2255,7 +2251,7 @@ void ExTable::GetTextFromCells()
     //ExFor:Cell.NextCell
     //ExFor:Cell.PreviousCell
     //ExSummary:Shows how to enumerate through all table cells.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     // Enumerate through all cells of the table.
@@ -2281,8 +2277,8 @@ TEST_F(ExTable, GetTextFromCells)
 
 void ExTable::ConvertWithParagraphMark()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Nested tables.docx");
-    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Nested tables.docx"));
+    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 0, true));
     
     // Replace the table with the new paragraph
     ConvertTable(table);
@@ -2304,11 +2300,11 @@ TEST_F(ExTable, ConvertWithParagraphMark)
 
 void ExTable::ConvertWith()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Nested tables.docx");
-    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Nested tables.docx"));
+    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 0, true));
     
     // Convert table to text with specified separator.
-    ConvertWith(Aspose::Words::ControlChar::Tab(), table);
+    ConvertWith(ControlChar::Tab(), table);
     // Remove table after convertion.
     table->Remove();
     
@@ -2327,9 +2323,9 @@ TEST_F(ExTable, ConvertWith)
 
 void ExTable::GetColSpanRowSpan()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Merged table.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Merged table.docx"));
     
-    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 0, true));
+    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 0, true));
     // Convert cells with merged columns into a format that can be easily manipulated.
     table->ConvertToHorizontallyMergedCells();
     
@@ -2346,13 +2342,13 @@ void ExTable::GetColSpanRowSpan()
             int32_t colSpan = 1;
             
             // Check if the current cell is the start of a vertically merged set of cells.
-            if (cell->get_CellFormat()->get_VerticalMerge() == Aspose::Words::Tables::CellMerge::First)
+            if (cell->get_CellFormat()->get_VerticalMerge() == CellMerge::First)
             {
                 rowSpan = CalculateRowSpan(table, rowIndex, cellIndex);
             }
             
             // Check if the current cell is the start of a horizontally merged set of cells.
-            if (cell->get_CellFormat()->get_HorizontalMerge() == Aspose::Words::Tables::CellMerge::First)
+            if (cell->get_CellFormat()->get_HorizontalMerge() == CellMerge::First)
             {
                 cell = CalculateColSpan(cell, colSpan);
             }
@@ -2425,10 +2421,10 @@ void ExTable::AutofitToWindow()
 {
     auto expectedPercents = System::MakeArray<double>({51, 49});
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table wrapped by text.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table wrapped by text.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-    table->AutoFit(Aspose::Words::Tables::AutoFitBehavior::AutoFitToWindow);
+    table->AutoFit(AutoFitBehavior::AutoFitToWindow);
     
     ASSERT_EQ(expectedPercents->get_Length(), table->get_FirstRow()->get_Cells()->get_Count());
     
@@ -2463,14 +2459,14 @@ void ExTable::HiddenRow()
     //GistId:67c1d01ce69d189983b497fd497a7768
     //ExFor:Row.Hidden
     //ExSummary:Shows how to hide a table row.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Row> row = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_FirstRow();
     row->set_Hidden(true);
     
     doc->Save(get_ArtifactsDir() + u"Table.HiddenRow.docx");
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Table.HiddenRow.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.HiddenRow.docx"));
     
     row = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_FirstRow();
     ASSERT_TRUE(row->get_Hidden());

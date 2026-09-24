@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExTableColumn.h"
+﻿#include "ExTableColumn.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/string_builder.h>
@@ -13,9 +8,9 @@
 #include <system/linq/enumerable.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
+#include <system/console.h>
 #include <system/collections/ienumerable.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Tables/RowCollection.h>
@@ -82,7 +77,6 @@ System::SharedPtr<Aspose::Words::ApiExamples::ExTableColumn::Column> ExTableColu
         cell->get_ParentRow()->InsertBefore<System::SharedPtr<Aspose::Words::Node>>(System::ExplicitCast<Aspose::Words::Node>(cell)->Clone(false), cell);
     }
     
-    
     auto newColumn = Aspose::Words::ApiExamples::ExTableColumn::Column::MakeObject(columnCells[0]->get_ParentRow()->get_ParentTable(), mColumnIndex);
     
     // We want to make sure that the cells are all valid to work with (have at least one paragraph).
@@ -90,7 +84,6 @@ System::SharedPtr<Aspose::Words::ApiExamples::ExTableColumn::Column> ExTableColu
     {
         cell->EnsureMinimum();
     }
-    
     
     // Increment the index of this column represents since there is a new column before it.
     mColumnIndex++;
@@ -104,7 +97,6 @@ void ExTableColumn::Column::Remove()
     {
         cell->Remove();
     }
-    
 }
 
 System::String ExTableColumn::Column::ToTxt()
@@ -113,18 +105,17 @@ System::String ExTableColumn::Column::ToTxt()
     
     for (System::SharedPtr<Aspose::Words::Tables::Cell> cell : get_Cells())
     {
-        builder->Append(cell->ToString(Aspose::Words::SaveFormat::Text));
+        builder->Append(cell->ToString(SaveFormat::Text));
     }
-    
     
     return builder->ToString();
 }
 
 System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Tables::Cell>>> ExTableColumn::Column::GetColumnCells()
 {
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Tables::Cell>>> columnCells = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Tables::Cell>>>();
+    auto columnCells = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Tables::Cell>>>();
     
-    for (auto&& row : System::IterateOver(mTable->get_Rows()->LINQ_OfType<System::SharedPtr<Aspose::Words::Tables::Row> >()))
+    for (auto&& row : System::IterateOver(mTable->get_Rows()->LINQ_OfType<System::SharedPtr<Aspose::Words::Tables::Row>>()))
     {
         System::SharedPtr<Aspose::Words::Tables::Cell> cell = row->get_Cells()->idx_get(mColumnIndex);
         if (cell != nullptr)
@@ -172,17 +163,17 @@ System::SharedPtr<::Aspose::Words::ApiExamples::ExTableColumn> ExTableColumn::s_
 
 void ExTableColumn::RemoveColumnFromTable()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
-    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 1, true));
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
+    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true));
     
-    System::SharedPtr<Aspose::Words::ApiExamples::ExTableColumn::Column> column = Aspose::Words::ApiExamples::ExTableColumn::Column::FromIndex(table, 2);
+    System::SharedPtr<Aspose::Words::ApiExamples::ExTableColumn::Column> column = ExTableColumn::Column::FromIndex(table, 2);
     column->Remove();
     
     doc->Save(get_ArtifactsDir() + u"TableColumn.RemoveColumn.doc");
     
-    ASSERT_EQ(16, table->GetChildNodes(Aspose::Words::NodeType::Cell, true)->get_Count());
-    ASSERT_EQ(u"Cell 7 contents", table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->ToString(Aspose::Words::SaveFormat::Text).Trim());
-    ASSERT_EQ(u"Cell 11 contents", table->get_LastRow()->get_Cells()->idx_get(2)->ToString(Aspose::Words::SaveFormat::Text).Trim());
+    ASSERT_EQ(16, table->GetChildNodes(NodeType::Cell, true)->get_Count());
+    ASSERT_EQ(u"Cell 7 contents", table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->ToString(SaveFormat::Text).Trim());
+    ASSERT_EQ(u"Cell 11 contents", table->get_LastRow()->get_Cells()->idx_get(2)->ToString(SaveFormat::Text).Trim());
 }
 
 namespace gtest_test
@@ -197,10 +188,10 @@ TEST_F(ExTableColumn, RemoveColumnFromTable)
 
 void ExTableColumn::Insert()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
-    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 1, true));
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
+    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true));
     
-    System::SharedPtr<Aspose::Words::ApiExamples::ExTableColumn::Column> column = Aspose::Words::ApiExamples::ExTableColumn::Column::FromIndex(table, 1);
+    System::SharedPtr<Aspose::Words::ApiExamples::ExTableColumn::Column> column = ExTableColumn::Column::FromIndex(table, 1);
     
     // Create a new column to the left of this column.
     // This is the same as using the "Insert Column Before" command in Microsoft Word.
@@ -212,12 +203,11 @@ void ExTableColumn::Insert()
         cell->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, System::String(u"Column Text ") + newColumn->IndexOf(cell)));
     }
     
-    
     doc->Save(get_ArtifactsDir() + u"TableColumn.Insert.doc");
     
-    ASSERT_EQ(24, table->GetChildNodes(Aspose::Words::NodeType::Cell, true)->get_Count());
-    ASSERT_EQ(u"Column Text 0", table->get_FirstRow()->get_Cells()->idx_get(1)->ToString(Aspose::Words::SaveFormat::Text).Trim());
-    ASSERT_EQ(u"Column Text 3", table->get_LastRow()->get_Cells()->idx_get(1)->ToString(Aspose::Words::SaveFormat::Text).Trim());
+    ASSERT_EQ(24, table->GetChildNodes(NodeType::Cell, true)->get_Count());
+    ASSERT_EQ(u"Column Text 0", table->get_FirstRow()->get_Cells()->idx_get(1)->ToString(SaveFormat::Text).Trim());
+    ASSERT_EQ(u"Column Text 3", table->get_LastRow()->get_Cells()->idx_get(1)->ToString(SaveFormat::Text).Trim());
 }
 
 namespace gtest_test
@@ -232,10 +222,10 @@ TEST_F(ExTableColumn, Insert)
 
 void ExTableColumn::TableColumnToTxt()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Tables.docx");
-    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(Aspose::Words::NodeType::Table, 1, true));
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
+    auto table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true));
     
-    System::SharedPtr<Aspose::Words::ApiExamples::ExTableColumn::Column> column = Aspose::Words::ApiExamples::ExTableColumn::Column::FromIndex(table, 0);
+    System::SharedPtr<Aspose::Words::ApiExamples::ExTableColumn::Column> column = ExTableColumn::Column::FromIndex(table, 0);
     std::cout << column->ToTxt() << std::endl;
     
     ASSERT_EQ(u"\rRow 1\rRow 2\rRow 3\r", column->ToTxt());

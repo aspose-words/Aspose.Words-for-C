@@ -1,17 +1,12 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExCompatibilityOptions.h"
+﻿#include "ExCompatibilityOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/enumerator_adapter.h>
+#include <system/console.h>
 #include <system/collections/list.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Settings/MsWordVersion.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
@@ -125,7 +120,6 @@ void ExCompatibilityOptions::AddOptionName(bool option, System::String optionNam
     }
 }
 
-
 namespace gtest_test
 {
 
@@ -173,11 +167,11 @@ void ExCompatibilityOptions::OptimizeFor()
     doc->Save(get_ArtifactsDir() + u"CompatibilityOptions.OptimizeFor.DefaultSettings.docx");
     
     // We can use the OptimizeFor method to ensure optimal compatibility with a specific Microsoft Word version.
-    doc->get_CompatibilityOptions()->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2010);
+    doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2010);
     std::cout << "\nOptimized for Word 2010:" << std::endl;
     PrintCompatibilityOptions(options);
     
-    doc->get_CompatibilityOptions()->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2000);
+    doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2000);
     std::cout << "\nOptimized for Word 2000:" << std::endl;
     PrintCompatibilityOptions(options);
 }
@@ -197,7 +191,7 @@ void ExCompatibilityOptions::Tables()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
-    compatibilityOptions->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2002);
+    compatibilityOptions->OptimizeFor(MsWordVersion::Word2002);
     
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_AdjustLineHeightInTable());
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_AlignTablesRowByRow());
@@ -238,7 +232,7 @@ void ExCompatibilityOptions::Breaks()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
-    compatibilityOptions->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2000);
+    compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_ApplyBreakingRules());
     ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DoNotUseEastAsianBreakRules());
@@ -267,7 +261,7 @@ void ExCompatibilityOptions::Spacing()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
-    compatibilityOptions->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2000);
+    compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_AutoSpaceLikeWord95());
     ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DisplayHangulFixedWidth());
@@ -302,7 +296,7 @@ void ExCompatibilityOptions::WordPerfect()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
-    compatibilityOptions->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2000);
+    compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SuppressTopSpacingWP());
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_TruncateFontHeightsLikeWP6());
@@ -330,7 +324,7 @@ void ExCompatibilityOptions::Alignment()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
-    compatibilityOptions->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2000);
+    compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
     ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_CachedColBalance());
     ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DoNotVertAlignInTxbx());
@@ -357,7 +351,7 @@ void ExCompatibilityOptions::Legacy()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
-    compatibilityOptions->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2000);
+    compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_FootnoteLayoutLikeWW8());
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_LineWrapLikeWord6());
@@ -385,7 +379,7 @@ void ExCompatibilityOptions::List()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
-    compatibilityOptions->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2000);
+    compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
     ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_UnderlineTabInNumList());
     ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_UseNormalStyleForList());
@@ -410,7 +404,7 @@ void ExCompatibilityOptions::Misc()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
-    compatibilityOptions->OptimizeFor(Aspose::Words::Settings::MsWordVersion::Word2000);
+    compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_BalanceSingleByteDoubleByteWidth());
     ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_ConvMailMergeEsc());

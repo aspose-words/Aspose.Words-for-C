@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/AbsolutePositionTab.h>
 #include <Aspose.Words.Cpp/Model/Document/VisitorAction.h>
@@ -71,6 +68,15 @@ public:
     
 public:
 
+    //ExStart
+    //ExFor:AbsolutePositionTab
+    //ExFor:AbsolutePositionTab.Accept(DocumentVisitor)
+    //ExFor:DocumentVisitor.VisitAbsolutePositionTab
+    //ExFor:Body.Accept(DocumentVisitor)
+    //ExFor:Body.AcceptStart(DocumentVisitor)
+    //ExFor:Body.AcceptEnd(DocumentVisitor)
+    //ExFor:VisitorAction
+    //ExSummary:Shows how to process absolute position tab characters with a document visitor.
     void DocumentToTxt();
     
 };

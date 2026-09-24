@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExHtmlSaveOptions.h"
+﻿#include "ExHtmlSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/timespan.h>
@@ -14,11 +9,11 @@
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/primitive_types.h>
+#include <system/predicate.h>
 #include <system/object_ext.h>
 #include <system/nullable.h>
 #include <system/math.h>
 #include <system/linq/enumerable.h>
-#include <system/io/stream.h>
 #include <system/io/search_option.h>
 #include <system/io/path.h>
 #include <system/io/memory_stream.h>
@@ -26,17 +21,17 @@
 #include <system/io/file_mode.h>
 #include <system/io/file_info.h>
 #include <system/io/file.h>
+#include <system/io/directory_info.h>
 #include <system/io/directory.h>
 #include <system/globalization/culture_info.h>
 #include <system/func.h>
 #include <system/exceptions.h>
 #include <system/environment.h>
-#include <system/enum_helpers.h>
 #include <system/default.h>
+#include <system/console.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/rectangle_f.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
@@ -44,10 +39,10 @@
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/PreferredWidth.h>
 #include <Aspose.Words.Cpp/Model/Tables/Cell.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleCollection.h>
-#include <Aspose.Words.Cpp/Model/Styles/Style.h>
 #include <Aspose.Words.Cpp/Model/Sections/SectionCollection.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Sections/PaperSize.h>
@@ -64,7 +59,6 @@
 #include <Aspose.Words.Cpp/Model/Fonts/FontSubstitutionSettings.h>
 #include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
 #include <Aspose.Words.Cpp/Model/Fonts/FontInfoCollection.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontInfo.h>
 #include <Aspose.Words.Cpp/Model/Fonts/DefaultFontSubstitutionRule.h>
 #include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
 #include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
@@ -85,8 +79,8 @@
 #include <Aspose.Words.Cpp/Model/Document/BreakType.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutCollector.h>
 
-#include "TestUtil.h"
 #include "DocumentHelper.h"
+#include "TestUtil.h"
 
 
 using namespace Aspose::Words::Drawing;
@@ -126,10 +120,10 @@ void ExHtmlSaveOptions::HandleFontSaving::FontSaving(System::SharedPtr<Aspose::W
     
     // There are two ways of saving an exported font.
     // 1 -  Save it to a local file system location:
-    args->set_FontFileName(args->get_OriginalFileName().Split(System::IO::Path::DirectorySeparatorChar)->LINQ_Last());
+    args->set_FontFileName(args->get_OriginalFileName().Split(System::MakeArray<char16_t>({System::IO::Path::DirectorySeparatorChar}))->LINQ_Last());
     
     // 2 -  Save it to a stream:
-    args->set_FontStream(System::MakeObject<System::IO::FileStream>(get_ArtifactsDir() + args->get_OriginalFileName().Split(System::IO::Path::DirectorySeparatorChar)->LINQ_Last(), System::IO::FileMode::Create));
+    args->set_FontStream(System::MakeObject<System::IO::FileStream>(get_ArtifactsDir() + args->get_OriginalFileName().Split(System::MakeArray<char16_t>({System::IO::Path::DirectorySeparatorChar}))->LINQ_Last(), System::IO::FileMode::Create));
     ASSERT_FALSE(args->get_KeepFontStreamOpen());
 }
 
@@ -140,7 +134,7 @@ void ExHtmlSaveOptions::ImageShapePrinter::ImageSaving(System::SharedPtr<Aspose:
     args->set_KeepImageStreamOpen(false);
     ASSERT_TRUE(args->get_IsImageAvailable());
     
-    std::cout << System::String::Format(u"{0} Image #{1}", args->get_Document()->get_OriginalFileName().Split(u'\\')->LINQ_Last(), ++mImageCount) << std::endl;
+    std::cout << System::String::Format(u"{0} Image #{1}", args->get_Document()->get_OriginalFileName().Split(System::MakeArray<char16_t>({u'\\'}))->LINQ_Last(), ++mImageCount) << std::endl;
     
     auto layoutCollector = System::MakeObject<Aspose::Words::Layout::LayoutCollector>(args->get_Document());
     
@@ -211,13 +205,13 @@ System::SharedPtr<::Aspose::Words::ApiExamples::ExHtmlSaveOptions> ExHtmlSaveOpt
 
 void ExHtmlSaveOptions::ExportPageMarginsEpub(Aspose::Words::SaveFormat saveFormat)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"TextBoxes.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"TextBoxes.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     saveOptions->set_SaveFormat(saveFormat);
     saveOptions->set_ExportPageMargins(true);
     
-    doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExportPageMarginsEpub" + Aspose::Words::FileFormatUtil::SaveFormatToExtension(saveFormat), saveOptions);
+    doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExportPageMarginsEpub" + FileFormatUtil::SaveFormatToExtension(saveFormat), saveOptions);
 }
 
 namespace gtest_test
@@ -231,11 +225,11 @@ struct ExHtmlSaveOptions_ExportPageMarginsEpub : public ExHtmlSaveOptions, publi
     {
         return
         {
-            std::make_tuple(Aspose::Words::SaveFormat::Html),
-            std::make_tuple(Aspose::Words::SaveFormat::Mhtml),
-            std::make_tuple(Aspose::Words::SaveFormat::Epub),
-            std::make_tuple(Aspose::Words::SaveFormat::Azw3),
-            std::make_tuple(Aspose::Words::SaveFormat::Mobi),
+            std::make_tuple(SaveFormat::Html),
+            std::make_tuple(SaveFormat::Mhtml),
+            std::make_tuple(SaveFormat::Epub),
+            std::make_tuple(SaveFormat::Azw3),
+            std::make_tuple(SaveFormat::Mobi),
         };
     }
 };
@@ -252,12 +246,12 @@ INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ExportPageMarginsEpub, ::testing::V
 
 void ExHtmlSaveOptions::ExportOfficeMathEpub(Aspose::Words::SaveFormat saveFormat, Aspose::Words::Saving::HtmlOfficeMathOutputMode outputMode)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     saveOptions->set_OfficeMathOutputMode(outputMode);
     
-    doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExportOfficeMathEpub" + Aspose::Words::FileFormatUtil::SaveFormatToExtension(saveFormat), saveOptions);
+    doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExportOfficeMathEpub" + FileFormatUtil::SaveFormatToExtension(saveFormat), saveOptions);
 }
 
 namespace gtest_test
@@ -271,11 +265,11 @@ struct ExHtmlSaveOptions_ExportOfficeMathEpub : public ExHtmlSaveOptions, public
     {
         return
         {
-            std::make_tuple(Aspose::Words::SaveFormat::Html, Aspose::Words::Saving::HtmlOfficeMathOutputMode::Image),
-            std::make_tuple(Aspose::Words::SaveFormat::Mhtml, Aspose::Words::Saving::HtmlOfficeMathOutputMode::MathML),
-            std::make_tuple(Aspose::Words::SaveFormat::Epub, Aspose::Words::Saving::HtmlOfficeMathOutputMode::Text),
-            std::make_tuple(Aspose::Words::SaveFormat::Azw3, Aspose::Words::Saving::HtmlOfficeMathOutputMode::Text),
-            std::make_tuple(Aspose::Words::SaveFormat::Mobi, Aspose::Words::Saving::HtmlOfficeMathOutputMode::Text),
+            std::make_tuple(SaveFormat::Html, HtmlOfficeMathOutputMode::Image),
+            std::make_tuple(SaveFormat::Mhtml, HtmlOfficeMathOutputMode::MathML),
+            std::make_tuple(SaveFormat::Epub, HtmlOfficeMathOutputMode::Text),
+            std::make_tuple(SaveFormat::Azw3, HtmlOfficeMathOutputMode::Text),
+            std::make_tuple(SaveFormat::Mobi, HtmlOfficeMathOutputMode::Text),
         };
     }
 };
@@ -297,42 +291,37 @@ void ExHtmlSaveOptions::ExportTextBoxAsSvgEpub(Aspose::Words::SaveFormat saveFor
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> textbox = builder->InsertShape(Aspose::Words::Drawing::ShapeType::TextBox, 300, 100);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> textbox = builder->InsertShape(ShapeType::TextBox, static_cast<double>(300), static_cast<double>(100));
     builder->MoveTo(textbox->get_FirstParagraph());
     builder->Write(u"Hello world!");
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(saveFormat);
     saveOptions->set_ExportShapesAsSvg(isTextBoxAsSvg);
     
-    doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExportTextBoxAsSvgEpub" + Aspose::Words::FileFormatUtil::SaveFormatToExtension(saveFormat), saveOptions);
+    doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExportTextBoxAsSvgEpub" + FileFormatUtil::SaveFormatToExtension(saveFormat), saveOptions);
     
     switch (saveFormat)
     {
-        case Aspose::Words::SaveFormat::Html:
+        case SaveFormat::Html:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
             ASSERT_EQ(0, dirFiles->get_Length());
             return;
-        
-        case Aspose::Words::SaveFormat::Epub:
+        case SaveFormat::Epub:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
             ASSERT_EQ(0, dirFiles->get_Length());
             return;
-        
-        case Aspose::Words::SaveFormat::Mhtml:
+        case SaveFormat::Mhtml:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
             ASSERT_EQ(0, dirFiles->get_Length());
             return;
-        
-        case Aspose::Words::SaveFormat::Azw3:
+        case SaveFormat::Azw3:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
             ASSERT_EQ(0, dirFiles->get_Length());
             return;
-        
-        case Aspose::Words::SaveFormat::Mobi:
+        case SaveFormat::Mobi:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
             ASSERT_EQ(0, dirFiles->get_Length());
             return;
-        
         default:
             break;
     }
@@ -349,11 +338,11 @@ struct ExHtmlSaveOptions_ExportTextBoxAsSvgEpub : public ExHtmlSaveOptions, publ
     {
         return
         {
-            std::make_tuple(Aspose::Words::SaveFormat::Html, true),
-            std::make_tuple(Aspose::Words::SaveFormat::Epub, true),
-            std::make_tuple(Aspose::Words::SaveFormat::Mhtml, false),
-            std::make_tuple(Aspose::Words::SaveFormat::Azw3, false),
-            std::make_tuple(Aspose::Words::SaveFormat::Mobi, false),
+            std::make_tuple(SaveFormat::Html, true),
+            std::make_tuple(SaveFormat::Epub, true),
+            std::make_tuple(SaveFormat::Mhtml, false),
+            std::make_tuple(SaveFormat::Azw3, false),
+            std::make_tuple(SaveFormat::Mobi, false),
         };
     }
 };
@@ -373,9 +362,9 @@ void ExHtmlSaveOptions::CreateAZW3Toc()
     //ExStart
     //ExFor:HtmlSaveOptions.NavigationMapLevel
     //ExSummary:Shows how to generate table of contents for Azw3 documents.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
-    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Azw3);
+    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Azw3);
     options->set_NavigationMapLevel(2);
     
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.CreateAZW3Toc.azw3", options);
@@ -397,9 +386,9 @@ void ExHtmlSaveOptions::CreateMobiToc()
     //ExStart
     //ExFor:HtmlSaveOptions.NavigationMapLevel
     //ExSummary:Shows how to generate table of contents for Mobi documents.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
-    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Mobi);
+    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Mobi);
     options->set_NavigationMapLevel(5);
     
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.CreateMobiToc.mobi", options);
@@ -421,15 +410,15 @@ void ExHtmlSaveOptions::ControlListLabelsExport(Aspose::Words::Saving::ExportLis
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Lists::List> bulletedList = doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::BulletDefault);
+    System::SharedPtr<Aspose::Words::Lists::List> bulletedList = doc->get_Lists()->Add(ListTemplate::BulletDefault);
     builder->get_ListFormat()->set_List(bulletedList);
     builder->get_ParagraphFormat()->set_LeftIndent(72);
     builder->Writeln(u"Bulleted list item 1.");
     builder->Writeln(u"Bulleted list item 2.");
     builder->get_ParagraphFormat()->ClearFormatting();
     
-    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Html);
-    // 'ExportListLabels.Auto' - this option uses <ul> and <ol> tags are used for list label representation if it does not cause formatting loss, 
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
+    // 'ExportListLabels.Auto' - this option uses <ul> and <ol> tags are used for list label representation if it does not cause formatting loss,
     // otherwise HTML <p> tag is used. This is also the default value.
     // 'ExportListLabels.AsInlineText' - using this option the <p> tag is used for any list label representation.
     // 'ExportListLabels.ByHtmlTags' - The <ul> and <ol> tags are used for list label representation. Some formatting loss is possible.
@@ -449,9 +438,9 @@ struct ExHtmlSaveOptions_ControlListLabelsExport : public ExHtmlSaveOptions, pub
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::ExportListLabels::Auto),
-            std::make_tuple(Aspose::Words::Saving::ExportListLabels::AsInlineText),
-            std::make_tuple(Aspose::Words::Saving::ExportListLabels::ByHtmlTags),
+            std::make_tuple(ExportListLabels::Auto),
+            std::make_tuple(ExportListLabels::AsInlineText),
+            std::make_tuple(ExportListLabels::ByHtmlTags),
         };
     }
 };
@@ -468,7 +457,7 @@ INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ControlListLabelsExport, ::testing:
 
 void ExHtmlSaveOptions::ExportUrlForLinkedImage(bool export_)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Linked image.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Linked image.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     saveOptions->set_ExportOriginalUrlForLinkedImages(export_);
@@ -477,7 +466,7 @@ void ExHtmlSaveOptions::ExportUrlForLinkedImage(bool export_)
     
     System::ArrayPtr<System::String> dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportUrlForLinkedImage.001.png", System::IO::SearchOption::AllDirectories);
     
-    Aspose::Words::ApiExamples::DocumentHelper::FindTextInFile(get_ArtifactsDir() + u"HtmlSaveOptions.ExportUrlForLinkedImage.html", dirFiles->get_Length() == 0 ? System::String(u"<img src=\"http://www.aspose.com/images/aspose-logo.gif\"") : System::String(u"<img src=\"HtmlSaveOptions.ExportUrlForLinkedImage.001.png\""));
+    DocumentHelper::FindTextInFile(get_ArtifactsDir() + u"HtmlSaveOptions.ExportUrlForLinkedImage.html", dirFiles->get_Length() == 0 ? System::String(u"<img src=\"http://www.aspose.com/images/aspose-logo.gif\"") : System::String(u"<img src=\"HtmlSaveOptions.ExportUrlForLinkedImage.001.png\""));
 }
 
 namespace gtest_test
@@ -509,7 +498,7 @@ INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ExportUrlForLinkedImage, ::testing:
 
 void ExHtmlSaveOptions::ExportRoundtripInformation()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"TextBoxes.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"TextBoxes.docx"));
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     saveOptions->set_ExportRoundtripInformation(true);
     
@@ -528,13 +517,13 @@ TEST_F(ExHtmlSaveOptions, ExportRoundtripInformation)
 
 void ExHtmlSaveOptions::RoundtripInformationDefaulValue()
 {
-    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Html);
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
     ASPOSE_ASSERT_EQ(true, saveOptions->get_ExportRoundtripInformation());
     
-    saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Mhtml);
+    saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Mhtml);
     ASPOSE_ASSERT_EQ(false, saveOptions->get_ExportRoundtripInformation());
     
-    saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Epub);
+    saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Epub);
     ASPOSE_ASSERT_EQ(false, saveOptions->get_ExportRoundtripInformation());
 }
 
@@ -550,10 +539,10 @@ TEST_F(ExHtmlSaveOptions, RoundtripInformationDefaulValue)
 
 void ExHtmlSaveOptions::ExternalResourceSavingConfig()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::External);
+    saveOptions->set_CssStyleSheetType(CssStyleSheetType::External);
     saveOptions->set_ExportFontResources(true);
     saveOptions->set_ResourceFolder(u"Resources");
     saveOptions->set_ResourceFolderAlias(u"https://www.aspose.com/");
@@ -569,7 +558,7 @@ void ExHtmlSaveOptions::ExternalResourceSavingConfig()
     System::ArrayPtr<System::String> cssFiles = System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources/", u"HtmlSaveOptions.ExternalResourceSavingConfig*.css", System::IO::SearchOption::AllDirectories);
     ASSERT_EQ(1, cssFiles->get_Length());
     
-    Aspose::Words::ApiExamples::DocumentHelper::FindTextInFile(get_ArtifactsDir() + u"HtmlSaveOptions.ExternalResourceSavingConfig.html", u"<link href=\"https://www.aspose.com/HtmlSaveOptions.ExternalResourceSavingConfig.css\"");
+    DocumentHelper::FindTextInFile(get_ArtifactsDir() + u"HtmlSaveOptions.ExternalResourceSavingConfig.html", u"<link href=\"https://www.aspose.com/HtmlSaveOptions.ExternalResourceSavingConfig.css\"");
 }
 
 namespace gtest_test
@@ -584,10 +573,10 @@ TEST_F(ExHtmlSaveOptions, ExternalResourceSavingConfig)
 
 void ExHtmlSaveOptions::ConvertFontsAsBase64()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"TextBoxes.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"TextBoxes.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::External);
+    saveOptions->set_CssStyleSheetType(CssStyleSheetType::External);
     saveOptions->set_ResourceFolder(u"Resources");
     saveOptions->set_ExportFontResources(true);
     saveOptions->set_ExportFontsAsBase64(true);
@@ -607,7 +596,7 @@ TEST_F(ExHtmlSaveOptions, ConvertFontsAsBase64)
 
 void ExHtmlSaveOptions::Html5Support(Aspose::Words::Saving::HtmlVersion htmlVersion)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     saveOptions->set_HtmlVersion(htmlVersion);
@@ -626,8 +615,8 @@ struct ExHtmlSaveOptions_Html5Support : public ExHtmlSaveOptions, public Aspose:
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::HtmlVersion::Html5),
-            std::make_tuple(Aspose::Words::Saving::HtmlVersion::Xhtml),
+            std::make_tuple(HtmlVersion::Html5),
+            std::make_tuple(HtmlVersion::Xhtml),
         };
     }
 };
@@ -646,7 +635,7 @@ void ExHtmlSaveOptions::ExportFonts(bool exportAsBase64)
 {
     System::String fontsFolder = get_ArtifactsDir() + u"HtmlSaveOptions.ExportFonts.Resources";
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     saveOptions->set_ExportFontResources(true);
@@ -660,12 +649,10 @@ void ExHtmlSaveOptions::ExportFonts(bool exportAsBase64)
             ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(fontsFolder, u"HtmlSaveOptions.ExportFonts.False.times.ttf", System::IO::SearchOption::AllDirectories)));
             System::IO::Directory::Delete(fontsFolder, true);
             break;
-        
         case true:
             doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExportFonts.True.html", saveOptions);
             ASSERT_FALSE(System::IO::Directory::Exists(fontsFolder));
             break;
-        
     }
 }
 
@@ -698,10 +685,10 @@ INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ExportFonts, ::testing::ValuesIn(Ex
 
 void ExHtmlSaveOptions::ResourceFolderPriority()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::External);
+    saveOptions->set_CssStyleSheetType(CssStyleSheetType::External);
     saveOptions->set_ExportFontResources(true);
     saveOptions->set_ResourceFolder(get_ArtifactsDir() + u"Resources");
     saveOptions->set_ResourceFolderAlias(u"http://example.com/resources");
@@ -726,10 +713,10 @@ TEST_F(ExHtmlSaveOptions, ResourceFolderPriority)
 
 void ExHtmlSaveOptions::ResourceFolderLowPriority()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::External);
+    saveOptions->set_CssStyleSheetType(CssStyleSheetType::External);
     saveOptions->set_ExportFontResources(true);
     saveOptions->set_FontsFolder(get_ArtifactsDir() + u"Fonts");
     saveOptions->set_ImagesFolder(get_ArtifactsDir() + u"Images");
@@ -762,7 +749,7 @@ void ExHtmlSaveOptions::SvgMetafileFormat()
     builder->InsertHtml(u"<svg height='210' width='500'>\r\n                    <polygon points='100,10 40,198 190,78 10,78 160,198' \r\n                        style='fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;' />\r\n                  </svg> ");
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_MetafileFormat(Aspose::Words::Saving::HtmlMetafileFormat::Png);
+    saveOptions->set_MetafileFormat(HtmlMetafileFormat::Png);
     builder->get_Document()->Save(get_ArtifactsDir() + u"HtmlSaveOptions.SvgMetafileFormat.html", saveOptions);
 }
 
@@ -784,7 +771,7 @@ void ExHtmlSaveOptions::PngMetafileFormat()
     builder->InsertHtml(u"<svg height='210' width='500'>\r\n                    <polygon points='100,10 40,198 190,78 10,78 160,198' \r\n                        style='fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;' />\r\n                  </svg> ");
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_MetafileFormat(Aspose::Words::Saving::HtmlMetafileFormat::Png);
+    saveOptions->set_MetafileFormat(HtmlMetafileFormat::Png);
     builder->get_Document()->Save(get_ArtifactsDir() + u"HtmlSaveOptions.PngMetafileFormat.html", saveOptions);
 }
 
@@ -806,7 +793,7 @@ void ExHtmlSaveOptions::EmfOrWmfMetafileFormat()
     builder->InsertHtml(u"<img src=\"data:image/png;base64,\r\n                    iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGP\r\n                    C/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9YGARc5KB0XV+IA\r\n                    AAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAF1J\r\n                    REFUGNO9zL0NglAAxPEfdLTs4BZM4DIO4C7OwQg2JoQ9LE1exdlYvBBeZ7jq\r\n                    ch9//q1uH4TLzw4d6+ErXMMcXuHWxId3KOETnnXXV6MJpcq2MLaI97CER3N0\r\n                    vr4MkhoXe0rZigAAAABJRU5ErkJggg==\" alt=\"Red dot\" />");
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_MetafileFormat(Aspose::Words::Saving::HtmlMetafileFormat::EmfOrWmf);
+    saveOptions->set_MetafileFormat(HtmlMetafileFormat::EmfOrWmf);
     builder->get_Document()->Save(get_ArtifactsDir() + u"HtmlSaveOptions.EmfOrWmfMetafileFormat.html", saveOptions);
 }
 
@@ -825,10 +812,10 @@ void ExHtmlSaveOptions::CssClassNamesPrefix()
     //ExStart
     //ExFor:HtmlSaveOptions.CssClassNamePrefix
     //ExSummary:Shows how to save a document to HTML, and add a prefix to all of its CSS class names.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraphs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::External);
+    saveOptions->set_CssStyleSheetType(CssStyleSheetType::External);
     saveOptions->set_CssClassNamePrefix(u"myprefix-");
     
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.CssClassNamePrefix.html", saveOptions);
@@ -876,10 +863,10 @@ TEST_F(ExHtmlSaveOptions, CssClassNamesNotValidPrefix)
 
 void ExHtmlSaveOptions::CssClassNamesNullPrefix()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraphs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::Embedded);
+    saveOptions->set_CssStyleSheetType(CssStyleSheetType::Embedded);
     saveOptions->set_CssClassNamePrefix(nullptr);
     
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.CssClassNamePrefix.html", saveOptions);
@@ -897,9 +884,9 @@ TEST_F(ExHtmlSaveOptions, CssClassNamesNullPrefix)
 
 void ExHtmlSaveOptions::ContentIdScheme()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
-    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Mhtml);
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Mhtml);
     saveOptions->set_PrettyFormat(true);
     saveOptions->set_ExportCidUrlsForMhtmlResources(true);
     
@@ -921,7 +908,7 @@ void ExHtmlSaveOptions::ResolveFontNames(bool resolveFontNames)
     //ExStart
     //ExFor:HtmlSaveOptions.ResolveFontNames
     //ExSummary:Shows how to resolve all font names before writing them to HTML.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Missing font.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Missing font.docx"));
     
     // This document contains text that names a font that we do not have.
     ASSERT_FALSE(System::TestTools::IsNull(doc->get_FontInfos()->idx_get(u"28 Days Later")));
@@ -934,7 +921,7 @@ void ExHtmlSaveOptions::ResolveFontNames(bool resolveFontNames)
     
     doc->set_FontSettings(fontSettings);
     
-    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Html);
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
     // By default, this option is set to 'False' and Aspose.Words writes font names as specified in the source document
     saveOptions->set_ResolveFontNames(resolveFontNames);
     
@@ -955,11 +942,11 @@ struct ExHtmlSaveOptions_ResolveFontNames : public ExHtmlSaveOptions, public Asp
 {
     static std::vector<ParamType> TestCases()
     {
-        return
-        {
-            std::make_tuple(false),
-            std::make_tuple(true),
-        };
+        static std::vector<ExHtmlSaveOptions_ResolveFontNames_Args> ret;
+        auto args_0 = System::MakeArray<bool>({ false, true });
+        for (auto& arg_0 : args_0)
+            ret.emplace_back(std::make_tuple(arg_0));
+        return ret;
     }
 };
 
@@ -970,7 +957,6 @@ TEST_P(ExHtmlSaveOptions_ResolveFontNames, Test)
 }
 
 INSTANTIATE_TEST_SUITE_P(DISABLED_, ExHtmlSaveOptions_ResolveFontNames, ::testing::ValuesIn(ExHtmlSaveOptions_ResolveFontNames::TestCases()));
-
 } // namespace gtest_test
 
 void ExHtmlSaveOptions::HeadingLevels()
@@ -1003,7 +989,7 @@ void ExHtmlSaveOptions::HeadingLevels()
     // We will also set the maximum heading level, which splits the document to 2.
     // Saving the document will split it at headings of levels 1 and 2, but not at 3 to 9.
     auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    options->set_DocumentSplitCriteria(Aspose::Words::Saving::DocumentSplitCriteria::HeadingParagraph);
+    options->set_DocumentSplitCriteria(DocumentSplitCriteria::HeadingParagraph);
     options->set_DocumentSplitHeadingLevel(2);
     
     // Our document has four headings of levels 1 - 2. One of those headings will not be
@@ -1011,19 +997,19 @@ void ExHtmlSaveOptions::HeadingLevels()
     // The saving operation will split our document at three places, into four smaller documents.
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels.html", options);
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels.html"));
     
     ASSERT_EQ(u"Heading #1", doc->GetText().Trim());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels-01.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels-01.html"));
     
     ASSERT_EQ(System::String(u"Heading #2\r") + u"Heading #3", doc->GetText().Trim());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels-02.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels-02.html"));
     
     ASSERT_EQ(u"Heading #4", doc->GetText().Trim());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels-03.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels-03.html"));
     
     ASSERT_EQ(System::String(u"Heading #5\r") + u"Heading #6", doc->GetText().Trim());
     //ExEnd
@@ -1057,9 +1043,9 @@ void ExHtmlSaveOptions::NegativeIndent(bool allowNegativeIndent)
     builder->Write(u"Row 1, Cell 2");
     builder->EndTable();
     table->set_LeftIndent(-36);
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(144));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(144));
     
-    builder->InsertBreak(Aspose::Words::BreakType::ParagraphBreak);
+    builder->InsertBreak(BreakType::ParagraphBreak);
     
     // Insert a table with a positive indent, which will push the table to the right.
     table = builder->StartTable();
@@ -1069,14 +1055,14 @@ void ExHtmlSaveOptions::NegativeIndent(bool allowNegativeIndent)
     builder->Write(u"Row 1, Cell 2");
     builder->EndTable();
     table->set_LeftIndent(36);
-    table->set_PreferredWidth(Aspose::Words::Tables::PreferredWidth::FromPoints(144));
+    table->set_PreferredWidth(PreferredWidth::FromPoints(144));
     
     // When we save a document to HTML, Aspose.Words will only preserve negative indents
     // such as the one we have applied to the first table if we set the "AllowNegativeIndent" flag
     // in a SaveOptions object that we will pass to "true".
-    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Html);
+    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
     options->set_AllowNegativeIndent(allowNegativeIndent);
-    options->set_TableWidthOutputMode(Aspose::Words::Saving::HtmlElementSizeOutputMode::RelativeOnly);
+    options->set_TableWidthOutputMode(HtmlElementSizeOutputMode::RelativeOnly);
     
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.NegativeIndent.html", options);
     
@@ -1133,10 +1119,10 @@ void ExHtmlSaveOptions::FolderAlias()
     //ExFor:HtmlSaveOptions.ResourceFolder
     //ExFor:HtmlSaveOptions.ResourceFolderAlias
     //ExSummary:Shows how to set folders and folder aliases for externally saved resources that Aspose.Words will create when saving a document to HTML.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    options->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::External);
+    options->set_CssStyleSheetType(CssStyleSheetType::External);
     options->set_ExportFontResources(true);
     options->set_ImageResolution(72);
     options->set_FontResourcesSubsettingSizeThreshold(0);
@@ -1164,7 +1150,7 @@ TEST_F(ExHtmlSaveOptions, FolderAlias)
 
 void ExHtmlSaveOptions::SaveExportedFonts()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Configure a SaveOptions object to export fonts to separate files.
     // Set a callback that will handle font saving in a custom manner.
@@ -1175,19 +1161,18 @@ void ExHtmlSaveOptions::SaveExportedFonts()
     // The callback will export .ttf files and save them alongside the output document.
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.SaveExportedFonts.html", options);
     
-    for (System::String fontFilename : System::Array<System::String>::FindAll(System::IO::Directory::GetFiles(get_ArtifactsDir()), static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
+    for (System::String fontFilename : System::Array<System::String>::FindAll(System::IO::Directory::GetFiles(get_ArtifactsDir()), static_cast<System::Predicate<System::String>>(static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
     {
         return s.EndsWith(u".ttf");
-    })))
+    }))))
     {
         std::cout << fontFilename << std::endl;
     }
     
-    
-    ASSERT_EQ(10, System::Array<System::String>::FindAll(System::IO::Directory::GetFiles(get_ArtifactsDir()), static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
+    ASSERT_EQ(10, System::Array<System::String>::FindAll(System::IO::Directory::GetFiles(get_ArtifactsDir()), static_cast<System::Predicate<System::String>>(static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
     {
         return s.EndsWith(u".ttf");
-    }))->get_Length());
+    })))->get_Length());
     //ExSkip
 }
 
@@ -1208,9 +1193,9 @@ void ExHtmlSaveOptions::HtmlVersions(Aspose::Words::Saving::HtmlVersion htmlVers
     //ExFor:HtmlSaveOptions.HtmlVersion
     //ExFor:HtmlVersion
     //ExSummary:Shows how to save a document to a specific version of HTML.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
-    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Html);
+    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
     options->set_HtmlVersion(htmlVersion);
     options->set_PrettyFormat(true);
     
@@ -1221,18 +1206,16 @@ void ExHtmlSaveOptions::HtmlVersions(Aspose::Words::Saving::HtmlVersion htmlVers
     
     switch (htmlVersion)
     {
-        case Aspose::Words::Saving::HtmlVersion::Html5:
+        case HtmlVersion::Html5:
             ASSERT_TRUE(outDocContents.Contains(u"<a id=\"_Toc76372689\"></a>"));
             ASSERT_TRUE(outDocContents.Contains(u"<a id=\"_Toc76372689\"></a>"));
             ASSERT_TRUE(outDocContents.Contains(u"<table style=\"padding:0pt; -aw-border:0.5pt single #000000; -aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse\">"));
             break;
-        
-        case Aspose::Words::Saving::HtmlVersion::Xhtml:
+        case HtmlVersion::Xhtml:
             ASSERT_TRUE(outDocContents.Contains(u"<a name=\"_Toc76372689\"></a>"));
             ASSERT_TRUE(outDocContents.Contains(u"<ul type=\"disc\" style=\"margin:0pt; padding-left:0pt\">"));
             ASSERT_TRUE(outDocContents.Contains(u"<table cellspacing=\"0\" cellpadding=\"0\" style=\"-aw-border:0.5pt single #000000; -aw-border-insideh:0.5pt single #000000; -aw-border-insidev:0.5pt single #000000; border-collapse:collapse\""));
             break;
-        
     }
     //ExEnd
 }
@@ -1248,8 +1231,8 @@ struct ExHtmlSaveOptions_HtmlVersions : public ExHtmlSaveOptions, public Aspose:
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::HtmlVersion::Html5),
-            std::make_tuple(Aspose::Words::Saving::HtmlVersion::Xhtml),
+            std::make_tuple(HtmlVersion::Html5),
+            std::make_tuple(HtmlVersion::Xhtml),
         };
     }
 };
@@ -1276,8 +1259,8 @@ void ExHtmlSaveOptions::ExportXhtmlTransitional(bool showDoctypeDeclaration)
     
     builder->Writeln(u"Hello world!");
     
-    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Html);
-    options->set_HtmlVersion(Aspose::Words::Saving::HtmlVersion::Xhtml);
+    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
+    options->set_HtmlVersion(HtmlVersion::Xhtml);
     options->set_ExportXhtmlTransitional(showDoctypeDeclaration);
     options->set_PrettyFormat(true);
     
@@ -1338,18 +1321,18 @@ void ExHtmlSaveOptions::Doc2EpubSaveOptions()
     //ExFor:SaveOptions
     //ExFor:SaveOptions.SaveFormat
     //ExSummary:Shows how to use a specific encoding when saving a document to .epub.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Use a SaveOptions object to specify the encoding for a document that we will save.
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    saveOptions->set_SaveFormat(Aspose::Words::SaveFormat::Epub);
+    saveOptions->set_SaveFormat(SaveFormat::Epub);
     saveOptions->set_Encoding(System::Text::Encoding::get_UTF8());
     
     // By default, an output .epub document will have all its contents in one HTML part.
     // A split criterion allows us to segment the document into several HTML parts.
     // We will set the criteria to split the document into heading paragraphs.
     // This is useful for readers who cannot read HTML files more significant than a specific size.
-    saveOptions->set_DocumentSplitCriteria(Aspose::Words::Saving::DocumentSplitCriteria::HeadingParagraph);
+    saveOptions->set_DocumentSplitCriteria(DocumentSplitCriteria::HeadingParagraph);
     
     // Specify that we want to export document properties.
     saveOptions->set_ExportDocumentProperties(true);
@@ -1373,13 +1356,13 @@ void ExHtmlSaveOptions::ContentIdUrls(bool exportCidUrlsForMhtmlResources)
     //ExStart
     //ExFor:HtmlSaveOptions.ExportCidUrlsForMhtmlResources
     //ExSummary:Shows how to enable content IDs for output MHTML documents.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Setting this flag will replace "Content-Location" tags
     // with "Content-ID" tags for each resource from the input document.
-    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Mhtml);
+    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Mhtml);
     options->set_ExportCidUrlsForMhtmlResources(exportCidUrlsForMhtmlResources);
-    options->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::External);
+    options->set_CssStyleSheetType(CssStyleSheetType::External);
     options->set_ExportFontResources(true);
     options->set_PrettyFormat(true);
     
@@ -1498,7 +1481,7 @@ void ExHtmlSaveOptions::ExportImagesAsBase64(bool exportImagesAsBase64)
     //ExFor:HtmlSaveOptions.ExportFontsAsBase64
     //ExFor:HtmlSaveOptions.ExportImagesAsBase64
     //ExSummary:Shows how to save a .html document with images embedded inside it.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     options->set_ExportImagesAsBase64(exportImagesAsBase64);
@@ -1545,11 +1528,11 @@ void ExHtmlSaveOptions::ExportFontsAsBase64()
     //ExFor:HtmlSaveOptions.ExportFontsAsBase64
     //ExFor:HtmlSaveOptions.ExportImagesAsBase64
     //ExSummary:Shows how to embed fonts inside a saved HTML document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     options->set_ExportFontsAsBase64(true);
-    options->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::Embedded);
+    options->set_CssStyleSheetType(CssStyleSheetType::Embedded);
     options->set_PrettyFormat(true);
     
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExportFontsAsBase64.html", options);
@@ -1649,7 +1632,7 @@ void ExHtmlSaveOptions::List(Aspose::Words::Saving::ExportListLabels exportListL
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::NumberDefault);
+    System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->Add(ListTemplate::NumberDefault);
     builder->get_ListFormat()->set_List(list);
     
     builder->Writeln(u"Default numbered list item 1.");
@@ -1658,7 +1641,7 @@ void ExHtmlSaveOptions::List(Aspose::Words::Saving::ExportListLabels exportListL
     builder->Writeln(u"Default numbered list item 3.");
     builder->get_ListFormat()->RemoveNumbers();
     
-    list = doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::OutlineHeadingsLegal);
+    list = doc->get_Lists()->Add(ListTemplate::OutlineHeadingsLegal);
     builder->get_ListFormat()->set_List(list);
     
     builder->Writeln(u"Outline legal heading list item 1.");
@@ -1687,19 +1670,16 @@ void ExHtmlSaveOptions::List(Aspose::Words::Saving::ExportListLabels exportListL
     
     switch (exportListLabels)
     {
-        case Aspose::Words::Saving::ExportListLabels::AsInlineText:
+        case ExportListLabels::AsInlineText:
             ASSERT_TRUE(outDocContents.Contains(System::String(u"<p style=\"margin-top:0pt; margin-left:72pt; margin-bottom:0pt; text-indent:-18pt; -aw-import:list-item; -aw-list-level-number:1; -aw-list-number-format:'%1.'; -aw-list-number-styles:'lowerLetter'; -aw-list-number-values:'1'; -aw-list-padding-sml:9.67pt\">") + u"<span style=\"-aw-import:ignore\">" + u"<span>a.</span>" + u"<span style=\"width:9.67pt; font:7pt 'Times New Roman'; display:inline-block; -aw-import:spaces\">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; </span>" + u"</span>" + u"<span>Default numbered list item 3.</span>" + u"</p>"));
             ASSERT_TRUE(outDocContents.Contains(System::String(u"<p style=\"margin-top:0pt; margin-left:43.2pt; margin-bottom:0pt; text-indent:-43.2pt; -aw-import:list-item; -aw-list-level-number:3; -aw-list-number-format:'%0.%1.%2.%3'; -aw-list-number-styles:'decimal decimal decimal decimal'; -aw-list-number-values:'2 1 1 1'; -aw-list-padding-sml:10.2pt\">") + u"<span style=\"-aw-import:ignore\">" + u"<span>2.1.1.1</span>" + u"<span style=\"width:10.2pt; font:7pt 'Times New Roman'; display:inline-block; -aw-import:spaces\">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0; </span>" + u"</span>" + u"<span>Outline legal heading list item 5.</span>" + u"</p>"));
             break;
-        
-        case Aspose::Words::Saving::ExportListLabels::Auto:
+        case ExportListLabels::Auto:
             ASSERT_TRUE(outDocContents.Contains(System::String(u"<ol type=\"a\" style=\"margin-right:0pt; margin-left:0pt; padding-left:0pt\">") + u"<li style=\"margin-left:31.33pt; padding-left:4.67pt\">" + u"<span>Default numbered list item 3.</span>" + u"</li>" + u"</ol>"));
             break;
-        
-        case Aspose::Words::Saving::ExportListLabels::ByHtmlTags:
+        case ExportListLabels::ByHtmlTags:
             ASSERT_TRUE(outDocContents.Contains(System::String(u"<ol type=\"a\" style=\"margin-right:0pt; margin-left:0pt; padding-left:0pt\">") + u"<li style=\"margin-left:31.33pt; padding-left:4.67pt\">" + u"<span>Default numbered list item 3.</span>" + u"</li>" + u"</ol>"));
             break;
-        
     }
     //ExEnd
 }
@@ -1715,9 +1695,9 @@ struct ExHtmlSaveOptions_List : public ExHtmlSaveOptions, public Aspose::Words::
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::ExportListLabels::AsInlineText),
-            std::make_tuple(Aspose::Words::Saving::ExportListLabels::Auto),
-            std::make_tuple(Aspose::Words::Saving::ExportListLabels::ByHtmlTags),
+            std::make_tuple(ExportListLabels::AsInlineText),
+            std::make_tuple(ExportListLabels::Auto),
+            std::make_tuple(ExportListLabels::ByHtmlTags),
         };
     }
 };
@@ -1741,11 +1721,11 @@ void ExHtmlSaveOptions::ExportPageMargins(bool exportPageMargins)
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Use a builder to insert a shape with no wrapping.
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertShape(Aspose::Words::Drawing::ShapeType::Cube, 200, 200);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertShape(ShapeType::Cube, static_cast<double>(200), static_cast<double>(200));
     
-    shape->set_RelativeHorizontalPosition(Aspose::Words::Drawing::RelativeHorizontalPosition::Page);
-    shape->set_RelativeVerticalPosition(Aspose::Words::Drawing::RelativeVerticalPosition::Page);
-    shape->set_WrapType(Aspose::Words::Drawing::WrapType::None);
+    shape->set_RelativeHorizontalPosition(RelativeHorizontalPosition::Page);
+    shape->set_RelativeVerticalPosition(RelativeVerticalPosition::Page);
+    shape->set_WrapType(WrapType::None);
     
     // Negative shape position values may place the shape outside of page boundaries.
     // If we export this to HTML, the shape will appear truncated.
@@ -1812,13 +1792,13 @@ void ExHtmlSaveOptions::ExportPageSetup(bool exportPageSetup)
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     builder->Write(u"Section 1");
-    builder->InsertBreak(Aspose::Words::BreakType::SectionBreakNewPage);
+    builder->InsertBreak(BreakType::SectionBreakNewPage);
     builder->Write(u"Section 2");
     
     System::SharedPtr<Aspose::Words::PageSetup> pageSetup = doc->get_Sections()->idx_get(0)->get_PageSetup();
     pageSetup->set_TopMargin(36.0);
     pageSetup->set_BottomMargin(36.0);
-    pageSetup->set_PaperSize(Aspose::Words::PaperSize::A5);
+    pageSetup->set_PaperSize(PaperSize::A5);
     
     // When saving the document to HTML, we can pass a SaveOptions object
     // to decide whether to preserve or discard page setup settings.
@@ -1891,7 +1871,7 @@ void ExHtmlSaveOptions::RelativeFontSize(bool exportRelativeFontSize)
     // When we save the document to HTML, we can pass a SaveOptions object
     // to determine whether to use relative or absolute font sizes.
     // Set the "ExportRelativeFontSize" flag to "true" to declare font sizes
-    // using the "em" measurement unit, which is a factor that multiplies the current font size. 
+    // using the "em" measurement unit, which is a factor that multiplies the current font size.
     // Set the "ExportRelativeFontSize" flag to "false" to declare font sizes
     // using the "pt" measurement unit, which is the font's absolute size in points.
     auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
@@ -1947,7 +1927,7 @@ void ExHtmlSaveOptions::ExportShape(bool exportShapesAsSvg)
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    System::SharedPtr<Aspose::Words::Drawing::Shape> textBox = builder->InsertShape(Aspose::Words::Drawing::ShapeType::TextBox, 100.0, 60.0);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> textBox = builder->InsertShape(ShapeType::TextBox, 100.0, 60.0);
     builder->MoveTo(textBox->get_FirstParagraph());
     builder->Write(u"My text box");
     
@@ -2007,7 +1987,7 @@ void ExHtmlSaveOptions::RoundTripInformation(bool exportRoundtripInformation)
     //ExStart
     //ExFor:HtmlSaveOptions.ExportRoundtripInformation
     //ExSummary:Shows how to preserve hidden elements when converting to .html.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // When converting a document to .html, some elements such as hidden bookmarks, original shape positions,
     // or footnotes will be either removed or converted to plain text and effectively be lost.
@@ -2026,7 +2006,7 @@ void ExHtmlSaveOptions::RoundTripInformation(bool exportRoundtripInformation)
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.RoundTripInformation.html", options);
     
     System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlSaveOptions.RoundTripInformation.html");
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HtmlSaveOptions.RoundTripInformation.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlSaveOptions.RoundTripInformation.html"));
     
     if (exportRoundtripInformation)
     {
@@ -2044,7 +2024,7 @@ void ExHtmlSaveOptions::RoundTripInformation(bool exportRoundtripInformation)
         
         ASSERT_EQ(1, doc->get_Range()->get_Fields()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fields::Field>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fields::Field> f)>>([](System::SharedPtr<Aspose::Words::Fields::Field> f) -> bool
         {
-            return f->get_Type() == Aspose::Words::Fields::FieldType::FieldPage;
+            return f->get_Type() == FieldType::FieldPage;
         }))));
     }
     else
@@ -2062,7 +2042,7 @@ void ExHtmlSaveOptions::RoundTripInformation(bool exportRoundtripInformation)
         
         ASSERT_EQ(0, doc->get_Range()->get_Fields()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fields::Field>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fields::Field> f)>>([](System::SharedPtr<Aspose::Words::Fields::Field> f) -> bool
         {
-            return f->get_Type() == Aspose::Words::Fields::FieldType::FieldPage;
+            return f->get_Type() == FieldType::FieldPage;
         }))));
     }
     //ExEnd
@@ -2106,15 +2086,15 @@ void ExHtmlSaveOptions::ExportTocPageNumbers(bool exportTocPageNumbers)
     // Insert a table of contents, and then populate the document with paragraphs formatted using a "Heading"
     // style that the table of contents will pick up as entries. Each entry will display the heading paragraph on the left,
     // and the page number that contains the heading on the right.
-    auto fieldToc = System::ExplicitCast<Aspose::Words::Fields::FieldToc>(builder->InsertField(Aspose::Words::Fields::FieldType::FieldTOC, true));
+    auto fieldToc = System::ExplicitCast<Aspose::Words::Fields::FieldToc>(builder->InsertField(FieldType::FieldTOC, true));
     
     builder->get_ParagraphFormat()->set_Style(builder->get_Document()->get_Styles()->idx_get(u"Heading 1"));
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Writeln(u"Entry 1");
     builder->Writeln(u"Entry 2");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Writeln(u"Entry 3");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Writeln(u"Entry 4");
     fieldToc->UpdatePageNumbers();
     doc->UpdateFields();
@@ -2196,7 +2176,7 @@ void ExHtmlSaveOptions::FontSubsetting(int32_t fontResourcesSubsettingSizeThresh
     // using instead of the entire glyph set. If the text in our document only uses a small fraction of a font's
     // glyph set, then subsetting will significantly reduce our output documents' size.
     // We can use the "FontResourcesSubsettingSizeThreshold" property to define a .ttf file size, in bytes.
-    // If an exported font creates a size bigger file than that, then the save operation will apply subsetting to that font. 
+    // If an exported font creates a size bigger file than that, then the save operation will apply subsetting to that font.
     // Setting a threshold of 0 applies subsetting to all fonts,
     // and setting it to "int.MaxValue" effectively disables subsetting.
     System::String fontsFolder = get_ArtifactsDir() + u"HtmlSaveOptions.FontSubsetting.Fonts";
@@ -2221,10 +2201,9 @@ void ExHtmlSaveOptions::FontSubsetting(int32_t fontResourcesSubsettingSizeThresh
         // Subsetting will reduce them all to under 30MB.
         auto fontFileInfo = System::MakeObject<System::IO::FileInfo>(filename);
         
-        ASSERT_TRUE(fontFileInfo->get_Length() > 700000 || fontFileInfo->get_Length() < 30000);
-        ASSERT_TRUE(System::Math::Max(fontResourcesSubsettingSizeThreshold, 30000) > System::MakeObject<System::IO::FileInfo>(filename)->get_Length());
+        ASSERT_TRUE(fontFileInfo->get_Length() > static_cast<int64_t>(700000) || fontFileInfo->get_Length() < static_cast<int64_t>(30000));
+        ASSERT_TRUE(static_cast<int64_t>(System::Math::Max(fontResourcesSubsettingSizeThreshold, 30000)) > System::MakeObject<System::IO::FileInfo>(filename)->get_Length());
     }
-    
     //ExEnd
 }
 
@@ -2289,18 +2268,15 @@ void ExHtmlSaveOptions::MetafileFormat(Aspose::Words::Saving::HtmlMetafileFormat
     
     switch (htmlMetafileFormat)
     {
-        case Aspose::Words::Saving::HtmlMetafileFormat::Png:
+        case HtmlMetafileFormat::Png:
             ASSERT_TRUE(outDocContents.Contains(System::String(u"<p style=\"margin-top:0pt; margin-bottom:0pt\">") + u"<img src=\"HtmlSaveOptions.MetafileFormat.001.png\" width=\"500\" height=\"40\" alt=\"\" " + u"style=\"-aw-left-pos:0pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:0pt; -aw-wrap-type:inline\" />" + u"</p>"));
             break;
-        
-        case Aspose::Words::Saving::HtmlMetafileFormat::Svg:
+        case HtmlMetafileFormat::Svg:
             ASSERT_TRUE(outDocContents.Contains(System::String(u"<span style=\"-aw-left-pos:0pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:0pt; -aw-wrap-type:inline\">") + u"<svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" width=\"499\" height=\"40\">"));
             break;
-        
-        case Aspose::Words::Saving::HtmlMetafileFormat::EmfOrWmf:
+        case HtmlMetafileFormat::EmfOrWmf:
             ASSERT_TRUE(outDocContents.Contains(System::String(u"<p style=\"margin-top:0pt; margin-bottom:0pt\">") + u"<img src=\"HtmlSaveOptions.MetafileFormat.001.emf\" width=\"500\" height=\"40\" alt=\"\" " + u"style=\"-aw-left-pos:0pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:0pt; -aw-wrap-type:inline\" />" + u"</p>"));
             break;
-        
     }
     //ExEnd
 }
@@ -2316,9 +2292,9 @@ struct ExHtmlSaveOptions_MetafileFormat : public ExHtmlSaveOptions, public Aspos
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::HtmlMetafileFormat::Png),
-            std::make_tuple(Aspose::Words::Saving::HtmlMetafileFormat::Svg),
-            std::make_tuple(Aspose::Words::Saving::HtmlMetafileFormat::EmfOrWmf),
+            std::make_tuple(HtmlMetafileFormat::Png),
+            std::make_tuple(HtmlMetafileFormat::Svg),
+            std::make_tuple(HtmlMetafileFormat::EmfOrWmf),
         };
     }
 };
@@ -2339,7 +2315,7 @@ void ExHtmlSaveOptions::OfficeMathOutputMode(Aspose::Words::Saving::HtmlOfficeMa
     //ExFor:HtmlOfficeMathOutputMode
     //ExFor:HtmlSaveOptions.OfficeMathOutputMode
     //ExSummary:Shows how to specify how to export Microsoft OfficeMath objects to HTML.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
     // When we save the document to HTML, we can pass a SaveOptions object
     // to determine how the saving operation handles OfficeMath objects.
@@ -2357,18 +2333,15 @@ void ExHtmlSaveOptions::OfficeMathOutputMode(Aspose::Words::Saving::HtmlOfficeMa
     
     switch (htmlOfficeMathOutputMode)
     {
-        case Aspose::Words::Saving::HtmlOfficeMathOutputMode::Image:
+        case HtmlOfficeMathOutputMode::Image:
             ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, System::String(u"<p style=\"margin-top:0pt; margin-bottom:10pt\">") + u"<img src=\"HtmlSaveOptions.OfficeMathOutputMode.001.png\" width=\"163\" height=\"19\" alt=\"\" style=\"vertical-align:middle; " + u"-aw-left-pos:0pt; -aw-rel-hpos:column; -aw-rel-vpos:paragraph; -aw-top-pos:0pt; -aw-wrap-type:inline\" />" + u"</p>")->get_Success());
             break;
-        
-        case Aspose::Words::Saving::HtmlOfficeMathOutputMode::MathML:
+        case HtmlOfficeMathOutputMode::MathML:
             ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, System::String(u"<p style=\"margin-top:0pt; margin-bottom:10pt; text-align:center\">") + u"<math xmlns=\"http://www.w3.org/1998/Math/MathML\">" + u"<mi>i</mi>" + u"<mo>[+]</mo>" + u"<mi>b</mi>" + u"<mo>-</mo>" + u"<mi>c</mi>" + u"<mo>≥</mo>" + u".*" + u"</math>" + u"</p>")->get_Success());
             break;
-        
-        case Aspose::Words::Saving::HtmlOfficeMathOutputMode::Text:
+        case HtmlOfficeMathOutputMode::Text:
             ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, System::String(u"<p style=\\\"margin-top:0pt; margin-bottom:10pt; text-align:center\\\">") + u"<span style=\\\"font-family:'Cambria Math'\\\">i[+]b-c≥iM[+]bM-cM </span>" + u"</p>")->get_Success());
             break;
-        
     }
     //ExEnd
 }
@@ -2384,9 +2357,9 @@ struct ExHtmlSaveOptions_OfficeMathOutputMode : public ExHtmlSaveOptions, public
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::HtmlOfficeMathOutputMode::Image),
-            std::make_tuple(Aspose::Words::Saving::HtmlOfficeMathOutputMode::MathML),
-            std::make_tuple(Aspose::Words::Saving::HtmlOfficeMathOutputMode::Text),
+            std::make_tuple(HtmlOfficeMathOutputMode::Image),
+            std::make_tuple(HtmlOfficeMathOutputMode::MathML),
+            std::make_tuple(HtmlOfficeMathOutputMode::Text),
         };
     }
 };
@@ -2408,7 +2381,7 @@ void ExHtmlSaveOptions::ImageFolder()
     //ExFor:HtmlSaveOptions.ExportTextInputFormFieldAsText
     //ExFor:HtmlSaveOptions.ImagesFolder
     //ExSummary:Shows how to specify the folder for storing linked images after saving to .html.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     System::String imagesDir = System::IO::Path::Combine(get_ArtifactsDir(), u"SaveHtmlWithOptions");
     
@@ -2420,7 +2393,7 @@ void ExHtmlSaveOptions::ImageFolder()
     System::IO::Directory::CreateDirectory_(imagesDir);
     
     // Set an option to export form fields as plain text instead of HTML input elements.
-    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Html);
+    auto options = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
     options->set_ExportTextInputFormFieldAsText(true);
     options->set_ImagesFolder(imagesDir);
     
@@ -2445,7 +2418,7 @@ TEST_F(ExHtmlSaveOptions, ImageFolder)
 
 void ExHtmlSaveOptions::ImageSavingCallback()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // When we save the document to HTML, we can pass a SaveOptions object to designate a callback
     // to customize the image saving process.
@@ -2474,7 +2447,7 @@ void ExHtmlSaveOptions::PrettyFormat(bool usePrettyFormat)
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->Writeln(u"Hello world!");
     
-    auto htmlOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Html);
+    auto htmlOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
     htmlOptions->set_PrettyFormat(usePrettyFormat);
     
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.PrettyFormat.html", htmlOptions);
@@ -2485,11 +2458,11 @@ void ExHtmlSaveOptions::PrettyFormat(bool usePrettyFormat)
     System::String newLine = System::Environment::get_NewLine();
     if (usePrettyFormat)
     {
-        ASSERT_EQ(System::String::Format(u"<html>{0}", newLine) + System::String::Format(u"\t<head>{0}", newLine) + System::String::Format(u"\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />{0}", newLine) + System::String::Format(u"\t\t<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />{0}", newLine) + System::String::Format(u"\t\t<meta name=\"generator\" content=\"{0} {1}\" />{2}", Aspose::Words::BuildVersionInfo::get_Product(), Aspose::Words::BuildVersionInfo::get_Version(), newLine) + System::String::Format(u"\t\t<title>{0}", newLine) + System::String::Format(u"\t\t</title>{0}", newLine) + System::String::Format(u"\t</head>{0}", newLine) + System::String::Format(u"\t<body style=\"font-family:'Times New Roman'; font-size:12pt\">{0}", newLine) + System::String::Format(u"\t\t<div>{0}", newLine) + System::String::Format(u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">{0}", newLine) + System::String::Format(u"\t\t\t\t<span>Hello world!</span>{0}", newLine) + System::String::Format(u"\t\t\t</p>{0}", newLine) + System::String::Format(u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">{0}", newLine) + System::String::Format(u"\t\t\t\t<span style=\"-aw-import:ignore\">&#xa0;</span>{0}", newLine) + System::String::Format(u"\t\t\t</p>{0}", newLine) + System::String::Format(u"\t\t</div>{0}", newLine) + System::String::Format(u"\t</body>{0}</html>", newLine), html);
+        ASSERT_EQ(System::String::Format(u"<html>{0}", newLine) + System::String::Format(u"\t<head>{0}", newLine) + System::String::Format(u"\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />{0}", newLine) + System::String::Format(u"\t\t<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />{0}", newLine) + System::String::Format(u"\t\t<meta name=\"generator\" content=\"{0} {1}\" />{2}", BuildVersionInfo::get_Product(), BuildVersionInfo::get_Version(), newLine) + System::String::Format(u"\t\t<title>{0}", newLine) + System::String::Format(u"\t\t</title>{0}", newLine) + System::String::Format(u"\t</head>{0}", newLine) + System::String::Format(u"\t<body style=\"font-family:'Times New Roman'; font-size:12pt\">{0}", newLine) + System::String::Format(u"\t\t<div>{0}", newLine) + System::String::Format(u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">{0}", newLine) + System::String::Format(u"\t\t\t\t<span>Hello world!</span>{0}", newLine) + System::String::Format(u"\t\t\t</p>{0}", newLine) + System::String::Format(u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">{0}", newLine) + System::String::Format(u"\t\t\t\t<span style=\"-aw-import:ignore\">&#xa0;</span>{0}", newLine) + System::String::Format(u"\t\t\t</p>{0}", newLine) + System::String::Format(u"\t\t</div>{0}", newLine) + System::String::Format(u"\t</body>{0}</html>", newLine), html);
     }
     else
     {
-        ASSERT_EQ(System::String(u"<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />") + u"<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />" + System::String::Format(u"<meta name=\"generator\" content=\"{0} {1}\" /><title></title></head>", Aspose::Words::BuildVersionInfo::get_Product(), Aspose::Words::BuildVersionInfo::get_Version()) + u"<body style=\"font-family:'Times New Roman'; font-size:12pt\">" + u"<div><p style=\"margin-top:0pt; margin-bottom:0pt\"><span>Hello world!</span></p>" + u"<p style=\"margin-top:0pt; margin-bottom:0pt\"><span style=\"-aw-import:ignore\">&#xa0;</span></p></div></body></html>", html);
+        ASSERT_EQ(System::String(u"<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />") + u"<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />" + System::String::Format(u"<meta name=\"generator\" content=\"{0} {1}\" /><title></title></head>", BuildVersionInfo::get_Product(), BuildVersionInfo::get_Version()) + u"<body style=\"font-family:'Times New Roman'; font-size:12pt\">" + u"<div><p style=\"margin-top:0pt; margin-bottom:0pt\"><span>Hello world!</span></p>" + u"<p style=\"margin-top:0pt; margin-bottom:0pt\"><span style=\"-aw-import:ignore\">&#xa0;</span></p></div></body></html>", html);
     }
     //ExEnd
 }
@@ -2523,16 +2496,17 @@ INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_PrettyFormat, ::testing::ValuesIn(E
 
 void ExHtmlSaveOptions::ProgressCallback(Aspose::Words::SaveFormat saveFormat, System::String ext)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
     // Following formats are supported: Html, Mhtml, Epub.
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(saveFormat);
     saveOptions->set_ProgressCallback(System::MakeObject<Aspose::Words::ApiExamples::ExHtmlSaveOptions::SavingProgressCallback>());
     
-    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(static_cast<std::function<void()>>([&doc, &ext, &saveOptions]() -> void
+    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(static_cast<std::function<void()>>([&saveOptions, &doc, &ext]() -> void
     {
         doc->Save(get_ArtifactsDir() + System::String::Format(u"HtmlSaveOptions.ProgressCallback.{0}", ext), saveOptions);
-    })(), System::OperationCanceledException, &exception);
+    })(), System::OperationCanceledException, &exception)
+    
     System::Nullable<bool> actual = System::Default<System::Nullable<bool>>();
     System::OperationCanceledException condExpression = exception;
     if (condExpression != nullptr)
@@ -2553,9 +2527,9 @@ struct ExHtmlSaveOptions_ProgressCallback : public ExHtmlSaveOptions, public Asp
     {
         return
         {
-            std::make_tuple(Aspose::Words::SaveFormat::Html, u"html"),
-            std::make_tuple(Aspose::Words::SaveFormat::Mhtml, u"mhtml"),
-            std::make_tuple(Aspose::Words::SaveFormat::Epub, u"epub"),
+            std::make_tuple(SaveFormat::Html, u"html"),
+            std::make_tuple(SaveFormat::Mhtml, u"mhtml"),
+            std::make_tuple(SaveFormat::Epub, u"epub"),
         };
     }
 };
@@ -2572,16 +2546,16 @@ INSTANTIATE_TEST_SUITE_P(, ExHtmlSaveOptions_ProgressCallback, ::testing::Values
 
 void ExHtmlSaveOptions::MobiAzw3DefaultEncoding(Aspose::Words::SaveFormat saveFormat)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     saveOptions->set_SaveFormat(saveFormat);
     saveOptions->set_Encoding(System::Text::Encoding::get_ASCII());
     
-    System::String outputFileName = System::String::Format(u"{0}HtmlSaveOptions.MobiDefaultEncoding{1}", get_ArtifactsDir(), Aspose::Words::FileFormatUtil::SaveFormatToExtension(saveFormat));
+    System::String outputFileName = System::String::Format(u"{0}HtmlSaveOptions.MobiDefaultEncoding{1}", get_ArtifactsDir(), FileFormatUtil::SaveFormatToExtension(saveFormat));
     doc->Save(outputFileName);
     
-    System::SharedPtr<System::Text::Encoding> encoding = Aspose::Words::ApiExamples::TestUtil::GetEncoding(outputFileName);
+    System::SharedPtr<System::Text::Encoding> encoding = TestUtil::GetEncoding(outputFileName);
     ASPOSE_ASSERT_NE(System::Text::Encoding::get_ASCII(), encoding);
     ASPOSE_ASSERT_EQ(System::Text::Encoding::get_UTF8(), encoding);
 }
@@ -2597,8 +2571,8 @@ struct ExHtmlSaveOptions_MobiAzw3DefaultEncoding : public ExHtmlSaveOptions, pub
     {
         return
         {
-            std::make_tuple(Aspose::Words::SaveFormat::Mobi),
-            std::make_tuple(Aspose::Words::SaveFormat::Azw3),
+            std::make_tuple(SaveFormat::Mobi),
+            std::make_tuple(SaveFormat::Azw3),
         };
     }
 };
@@ -2619,7 +2593,7 @@ void ExHtmlSaveOptions::HtmlReplaceBackslashWithYenSign()
     //GistId:708ce40a68fac5003d46f6b4acfd5ff1
     //ExFor:HtmlSaveOptions.ReplaceBackslashWithYenSign
     //ExSummary:Shows how to replace backslash characters with yen signs (Html).
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Korean backslash symbol.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Korean backslash symbol.docx"));
     
     // By default, Aspose.Words mimics MS Word's behavior and doesn't replace backslash characters with yen signs in
     // generated HTML documents. However, previous versions of Aspose.Words performed such replacements in certain
@@ -2647,7 +2621,7 @@ void ExHtmlSaveOptions::RemoveJavaScriptFromLinks()
     //GistId:12a3a3cfe30f3145220db88428a9f814
     //ExFor:HtmlFixedSaveOptions.RemoveJavaScriptFromLinks
     //ExSummary:Shows how to remove JavaScript from the links.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"JavaScript in HREF.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"JavaScript in HREF.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     saveOptions->set_RemoveJavaScriptFromLinks(true);

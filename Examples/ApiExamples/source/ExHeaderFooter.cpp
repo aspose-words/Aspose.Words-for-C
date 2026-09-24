@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExHeaderFooter.h"
+﻿#include "ExHeaderFooter.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/regularexpressions/regex.h>
@@ -16,7 +11,6 @@
 #include <system/enumerator_adapter.h>
 #include <system/date_time.h>
 #include <system/collections/ienumerable.h>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
@@ -57,7 +51,7 @@ System::String ExHeaderFooter::ReplaceLog::get_Text()
 Aspose::Words::Replacing::ReplaceAction ExHeaderFooter::ReplaceLog::Replacing(System::SharedPtr<Aspose::Words::Replacing::ReplacingArgs> args)
 {
     mTextBuilder->AppendLine(args->get_MatchNode()->GetText());
-    return Aspose::Words::Replacing::ReplaceAction::Skip;
+    return ReplaceAction::Skip;
 }
 
 ExHeaderFooter::ReplaceLog::ReplaceLog() : mTextBuilder(System::MakeObject<System::Text::StringBuilder>())
@@ -116,7 +110,7 @@ void ExHeaderFooter::Create()
     
     // Create a header and append a paragraph to it. The text in that paragraph
     // will appear at the top of every page of this section, above the main body text.
-    auto header = System::MakeObject<Aspose::Words::HeaderFooter>(doc, Aspose::Words::HeaderFooterType::HeaderPrimary);
+    auto header = System::MakeObject<Aspose::Words::HeaderFooter>(doc, HeaderFooterType::HeaderPrimary);
     doc->get_FirstSection()->get_HeadersFooters()->Add(header);
     
     System::SharedPtr<Aspose::Words::Paragraph> para = header->AppendParagraph(u"My header.");
@@ -126,7 +120,7 @@ void ExHeaderFooter::Create()
     
     // Create a footer and append a paragraph to it. The text in that paragraph
     // will appear at the bottom of every page of this section, below the main body text.
-    auto footer = System::MakeObject<Aspose::Words::HeaderFooter>(doc, Aspose::Words::HeaderFooterType::FooterPrimary);
+    auto footer = System::MakeObject<Aspose::Words::HeaderFooter>(doc, HeaderFooterType::FooterPrimary);
     doc->get_FirstSection()->get_HeadersFooters()->Add(footer);
     
     para = footer->AppendParagraph(u"My footer.");
@@ -141,10 +135,10 @@ void ExHeaderFooter::Create()
     doc->Save(get_ArtifactsDir() + u"HeaderFooter.Create.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HeaderFooter.Create.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HeaderFooter.Create.docx"));
     
-    ASSERT_TRUE(doc->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::HeaderPrimary)->get_Range()->get_Text().Contains(u"My header."));
-    ASSERT_TRUE(doc->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterPrimary)->get_Range()->get_Text().Contains(u"My footer."));
+    ASSERT_TRUE(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->get_Range()->get_Text().Contains(u"My header."));
+    ASSERT_TRUE(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->get_Range()->get_Text().Contains(u"My footer."));
 }
 
 namespace gtest_test
@@ -170,19 +164,19 @@ void ExHeaderFooter::Link()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     builder->Write(u"Section 1");
-    builder->InsertBreak(Aspose::Words::BreakType::SectionBreakNewPage);
+    builder->InsertBreak(BreakType::SectionBreakNewPage);
     builder->Write(u"Section 2");
-    builder->InsertBreak(Aspose::Words::BreakType::SectionBreakNewPage);
+    builder->InsertBreak(BreakType::SectionBreakNewPage);
     builder->Write(u"Section 3");
     
     // Move to the first section and create a header and a footer. By default,
     // the header and the footer will only appear on pages in the section that contains them.
     builder->MoveToSection(0);
     
-    builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::HeaderPrimary);
+    builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
     builder->Write(u"This is the header, which will be displayed in sections 1 and 2.");
     
-    builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::FooterPrimary);
+    builder->MoveToHeaderFooter(HeaderFooterType::FooterPrimary);
     builder->Write(u"This is the footer, which will be displayed in sections 1, 2 and 3.");
     
     // We can link a section's headers/footers to the previous section's headers/footers
@@ -205,7 +199,7 @@ void ExHeaderFooter::Link()
     
     // We can also select only a specific type of header/footer to link using this method.
     // The third section now will have the same footer as the second and first sections, but not the header.
-    doc->get_Sections()->idx_get(2)->get_HeadersFooters()->LinkToPrevious(Aspose::Words::HeaderFooterType::FooterPrimary, true);
+    doc->get_Sections()->idx_get(2)->get_HeadersFooters()->LinkToPrevious(HeaderFooterType::FooterPrimary, true);
     
     // The first section's header/footers cannot link themselves to anything because there is no previous section.
     ASSERT_EQ(2, doc->get_Sections()->idx_get(0)->get_HeadersFooters()->get_Count());
@@ -232,7 +226,7 @@ void ExHeaderFooter::Link()
     doc->Save(get_ArtifactsDir() + u"HeaderFooter.Link.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HeaderFooter.Link.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HeaderFooter.Link.docx"));
     
     ASSERT_EQ(2, doc->get_Sections()->idx_get(0)->get_HeadersFooters()->get_Count());
     ASSERT_EQ(2, doc->get_Sections()->idx_get(0)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
@@ -271,14 +265,14 @@ void ExHeaderFooter::RemoveFooters()
     //ExFor:HeaderFooterCollection.Item(HeaderFooterType)
     //ExFor:HeaderFooter
     //ExSummary:Shows how to delete all footers from a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Header and footer types.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Header and footer types.docx"));
     
     // Iterate through each section and remove footers of every kind.
-    for (auto&& section : System::IterateOver(doc->LINQ_OfType<System::SharedPtr<Aspose::Words::Section> >()))
+    for (auto&& section : System::IterateOver(doc->LINQ_OfType<System::SharedPtr<Aspose::Words::Section>>()))
     {
         // There are three kinds of footer and header types.
         // 1 -  The "First" header/footer, which only appears on the first page of a section.
-        System::SharedPtr<Aspose::Words::HeaderFooter> footer = section->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterFirst);
+        System::SharedPtr<Aspose::Words::HeaderFooter> footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterFirst);
         System::SharedPtr<Aspose::Words::HeaderFooter> condExpression = footer;
         if (condExpression != nullptr)
         {
@@ -286,15 +280,15 @@ void ExHeaderFooter::RemoveFooters()
         }
         
         // 2 -  The "Primary" header/footer, which appears on odd pages.
-        footer = section->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterPrimary);
+        footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary);
         System::SharedPtr<Aspose::Words::HeaderFooter> condExpression2 = footer;
         if (condExpression2 != nullptr)
         {
             condExpression2->Remove();
         }
         
-        // 3 -  The "Even" header/footer, which appears on even pages. 
-        footer = section->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterEven);
+        // 3 -  The "Even" header/footer, which appears on even pages.
+        footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterEven);
         System::SharedPtr<Aspose::Words::HeaderFooter> condExpression3 = footer;
         if (condExpression3 != nullptr)
         {
@@ -310,7 +304,7 @@ void ExHeaderFooter::RemoveFooters()
     doc->Save(get_ArtifactsDir() + u"HeaderFooter.RemoveFooters.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HeaderFooter.RemoveFooters.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HeaderFooter.RemoveFooters.docx"));
     
     ASSERT_EQ(1, doc->get_Sections()->get_Count());
     ASSERT_EQ(0, doc->get_FirstSection()->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
@@ -339,22 +333,22 @@ void ExHeaderFooter::ExportMode()
     //ExFor:HtmlSaveOptions.ExportHeadersFootersMode
     //ExFor:ExportHeadersFootersMode
     //ExSummary:Shows how to omit headers/footers when saving a document to HTML.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Header and footer types.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Header and footer types.docx"));
     
     // This document contains headers and footers. We can access them via the "HeadersFooters" collection.
-    ASSERT_EQ(u"First header", doc->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::HeaderFirst)->GetText().Trim());
+    ASSERT_EQ(u"First header", doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderFirst)->GetText().Trim());
     
     // Formats such as .html do not split the document into pages, so headers/footers will not function the same way
     // they would when we open the document as a .docx using Microsoft Word.
     // If we convert a document with headers/footers to html, the conversion will assimilate the headers/footers into body text.
     // We can use a SaveOptions object to omit headers/footers while converting to html.
-    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(Aspose::Words::SaveFormat::Html);
-    saveOptions->set_ExportHeadersFootersMode(Aspose::Words::Saving::ExportHeadersFootersMode::None);
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
+    saveOptions->set_ExportHeadersFootersMode(ExportHeadersFootersMode::None);
     
     doc->Save(get_ArtifactsDir() + u"HeaderFooter.ExportMode.html", saveOptions);
     
     // Open our saved document and verify that it does not contain the header's text
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HeaderFooter.ExportMode.html");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HeaderFooter.ExportMode.html"));
     
     ASSERT_FALSE(doc->get_Range()->get_Text().Contains(u"First header"));
     //ExEnd
@@ -379,10 +373,10 @@ void ExHeaderFooter::ReplaceText()
     //ExFor:HeaderFooter
     //ExFor:Range.Replace(String, String, FindReplaceOptions)
     //ExSummary:Shows how to replace text in a document's footer.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Footer.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Footer.docx"));
     
     System::SharedPtr<Aspose::Words::HeaderFooterCollection> headersFooters = doc->get_FirstSection()->get_HeadersFooters();
-    System::SharedPtr<Aspose::Words::HeaderFooter> footer = headersFooters->idx_get(Aspose::Words::HeaderFooterType::FooterPrimary);
+    System::SharedPtr<Aspose::Words::HeaderFooter> footer = headersFooters->idx_get(HeaderFooterType::FooterPrimary);
     
     auto options = System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>();
     options->set_MatchCase(false);
@@ -394,7 +388,7 @@ void ExHeaderFooter::ReplaceText()
     doc->Save(get_ArtifactsDir() + u"HeaderFooter.ReplaceText.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HeaderFooter.ReplaceText.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HeaderFooter.ReplaceText.docx"));
     
     ASSERT_TRUE(doc->get_Range()->get_Text().Contains(System::String::Format(u"Copyright (C) {0} by Aspose Pty Ltd.", currentYear)));
 }
@@ -411,7 +405,7 @@ TEST_F(ExHeaderFooter, ReplaceText)
 
 void ExHeaderFooter::Order(bool differentFirstPageHeaderFooter)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Header and footer types.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Header and footer types.docx"));
     
     System::SharedPtr<Aspose::Words::Section> firstPageSection = doc->get_FirstSection();
     

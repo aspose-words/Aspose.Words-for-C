@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExHtmlFixedSaveOptions.h"
+﻿#include "ExHtmlFixedSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/regularexpressions/regex.h>
@@ -14,16 +9,17 @@
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/linq/enumerable.h>
-#include <system/io/stream.h>
 #include <system/io/path.h>
 #include <system/io/file_stream.h>
 #include <system/io/file_mode.h>
 #include <system/io/file.h>
+#include <system/io/directory_info.h>
 #include <system/io/directory.h>
 #include <system/func.h>
 #include <system/exceptions.h>
+#include <system/console.h>
+#include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/HtmlFixedSaveOptions.h>
@@ -107,7 +103,6 @@ void ExHtmlFixedSaveOptions::TestHtmlFixedResourceFolder(System::SharedPtr<Aspos
     ASSERT_EQ(16, System::Text::RegularExpressions::Regex::Matches(callback->GetText(), u"Resource #")->get_Count());
 }
 
-
 namespace gtest_test
 {
 
@@ -175,7 +170,7 @@ TEST_F(ExHtmlFixedSaveOptions, UseEncoding)
 
 void ExHtmlFixedSaveOptions::GetEncoding()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     
     auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
     htmlFixedSaveOptions->set_Encoding(System::Text::Encoding::get_UTF8());
@@ -198,7 +193,7 @@ void ExHtmlFixedSaveOptions::ExportEmbeddedCss(bool exportEmbeddedCss)
     //ExStart
     //ExFor:HtmlFixedSaveOptions.ExportEmbeddedCss
     //ExSummary:Shows how to determine where to store CSS stylesheets when exporting a document to Html.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // When we export a document to html, Aspose.Words will also create a CSS stylesheet to format the document with.
     // Setting the "ExportEmbeddedCss" flag to "true" save the CSS stylesheet to a .css file,
@@ -257,7 +252,7 @@ void ExHtmlFixedSaveOptions::ExportEmbeddedFonts(bool exportEmbeddedFonts)
     //ExStart
     //ExFor:HtmlFixedSaveOptions.ExportEmbeddedFonts
     //ExSummary:Shows how to determine where to store embedded fonts when exporting a document to Html.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Embedded font.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Embedded font.docx"));
     
     // When we export a document with embedded fonts to .html,
     // Aspose.Words can place the fonts in two possible locations.
@@ -324,7 +319,7 @@ void ExHtmlFixedSaveOptions::ExportEmbeddedImages(bool exportImages)
     //ExStart
     //ExFor:HtmlFixedSaveOptions.ExportEmbeddedImages
     //ExSummary:Shows how to determine where to store images when exporting a document to Html.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Images.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
     
     // When we export a document with embedded images to .html,
     // Aspose.Words can place the images in two possible locations.
@@ -384,7 +379,7 @@ void ExHtmlFixedSaveOptions::ExportEmbeddedSvgs(bool exportSvgs)
     //ExStart
     //ExFor:HtmlFixedSaveOptions.ExportEmbeddedSvg
     //ExSummary:Shows how to determine where to store SVG objects when exporting a document to Html.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Images.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
     
     // When we export a document with SVG objects to .html,
     // Aspose.Words can place these objects in two possible locations.
@@ -506,7 +501,7 @@ void ExHtmlFixedSaveOptions::HorizontalAlignment(Aspose::Words::Saving::HtmlFixe
     //ExFor:HtmlFixedSaveOptions.PageHorizontalAlignment
     //ExFor:HtmlFixedPageHorizontalAlignment
     //ExSummary:Shows how to set the horizontal alignment of pages when saving a document to HTML.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
     htmlFixedSaveOptions->set_PageHorizontalAlignment(pageHorizontalAlignment);
@@ -517,18 +512,15 @@ void ExHtmlFixedSaveOptions::HorizontalAlignment(Aspose::Words::Saving::HtmlFixe
     
     switch (pageHorizontalAlignment)
     {
-        case Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Center:
+        case HtmlFixedPageHorizontalAlignment::Center:
             ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"[.]awpage { position:relative; border:solid 1pt black; margin:10pt auto 10pt auto; overflow:hidden; }")->get_Success());
             break;
-        
-        case Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Left:
+        case HtmlFixedPageHorizontalAlignment::Left:
             ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"[.]awpage { position:relative; border:solid 1pt black; margin:10pt auto 10pt 10pt; overflow:hidden; }")->get_Success());
             break;
-        
-        case Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Right:
+        case HtmlFixedPageHorizontalAlignment::Right:
             ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"[.]awpage { position:relative; border:solid 1pt black; margin:10pt 10pt 10pt auto; overflow:hidden; }")->get_Success());
             break;
-        
     }
     //ExEnd
 }
@@ -544,9 +536,9 @@ struct ExHtmlFixedSaveOptions_HorizontalAlignment : public ExHtmlFixedSaveOption
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Center),
-            std::make_tuple(Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Left),
-            std::make_tuple(Aspose::Words::Saving::HtmlFixedPageHorizontalAlignment::Right),
+            std::make_tuple(HtmlFixedPageHorizontalAlignment::Center),
+            std::make_tuple(HtmlFixedPageHorizontalAlignment::Left),
+            std::make_tuple(HtmlFixedPageHorizontalAlignment::Right),
         };
     }
 };
@@ -566,7 +558,7 @@ void ExHtmlFixedSaveOptions::PageMargins()
     //ExStart
     //ExFor:HtmlFixedSaveOptions.PageMargins
     //ExSummary:Shows how to adjust page margins when saving a document to HTML.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
     saveOptions->set_PageMargins(15);
@@ -615,12 +607,12 @@ void ExHtmlFixedSaveOptions::UsingMachineFonts(bool useTargetMachineFonts)
     //ExFor:HtmlFixedSaveOptions.FontFormat
     //ExFor:HtmlFixedSaveOptions.UseTargetMachineFonts
     //ExSummary:Shows how use fonts only from the target machine when saving a document to HTML.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Bullet points with alternative font.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Bullet points with alternative font.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
     saveOptions->set_ExportEmbeddedCss(true);
     saveOptions->set_UseTargetMachineFonts(useTargetMachineFonts);
-    saveOptions->set_FontFormat(Aspose::Words::Saving::ExportFontFormat::Ttf);
+    saveOptions->set_FontFormat(ExportFontFormat::Ttf);
     saveOptions->set_ExportEmbeddedFonts(false);
     
     doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.UsingMachineFonts.html", saveOptions);
@@ -667,7 +659,7 @@ INSTANTIATE_TEST_SUITE_P(, ExHtmlFixedSaveOptions_UsingMachineFonts, ::testing::
 
 void ExHtmlFixedSaveOptions::ResourceSavingCallback()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Bullet points with alternative font.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Bullet points with alternative font.docx"));
     
     auto callback = System::MakeObject<Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::FontSavingCallback>();
     
@@ -693,12 +685,12 @@ TEST_F(ExHtmlFixedSaveOptions, ResourceSavingCallback)
 
 void ExHtmlFixedSaveOptions::HtmlFixedResourceFolder()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto callback = System::MakeObject<Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ResourceUriPrinter>();
     
     auto options = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
-    options->set_SaveFormat(Aspose::Words::SaveFormat::HtmlFixed);
+    options->set_SaveFormat(SaveFormat::HtmlFixed);
     options->set_ExportEmbeddedImages(false);
     options->set_ResourcesFolder(get_ArtifactsDir() + u"HtmlFixedResourceFolder");
     options->set_ResourcesFolderAlias(get_ArtifactsDir() + u"HtmlFixedResourceFolderAlias");
@@ -740,7 +732,7 @@ void ExHtmlFixedSaveOptions::IdPrefix()
     //GistId:f86d49dc0e6781b93e576539a01e6ca2
     //ExFor:HtmlFixedSaveOptions.IdPrefix
     //ExSummary:Shows how to add a prefix that is prepended to all generated element IDs.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Id prefix.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Id prefix.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
     saveOptions->set_IdPrefix(u"pfx1_");
@@ -765,7 +757,7 @@ void ExHtmlFixedSaveOptions::RemoveJavaScriptFromLinks()
     //GistId:f86d49dc0e6781b93e576539a01e6ca2
     //ExFor:HtmlFixedSaveOptions.RemoveJavaScriptFromLinks
     //ExSummary:Shows how to remove JavaScript from the links for html fixed documents.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"JavaScript in HREF.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"JavaScript in HREF.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
     saveOptions->set_RemoveJavaScriptFromLinks(true);

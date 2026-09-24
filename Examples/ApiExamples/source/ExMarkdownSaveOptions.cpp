@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExMarkdownSaveOptions.h"
+﻿#include "ExMarkdownSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -18,10 +13,8 @@
 #include <system/io/directory.h>
 #include <system/func.h>
 #include <system/environment.h>
-#include <system/enum_helpers.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <functional>
 #include <Aspose.Words.Cpp/Model/Text/Underline.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
@@ -128,10 +121,10 @@ void ExMarkdownSaveOptions::MarkdownDocumentTableContentAlignment(Aspose::Words:
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>();
     
     builder->InsertCell();
-    builder->get_ParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Right);
+    builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
     builder->Write(u"Cell1");
     builder->InsertCell();
-    builder->get_ParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Center);
+    builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
     builder->Write(u"Cell2");
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
@@ -139,31 +132,27 @@ void ExMarkdownSaveOptions::MarkdownDocumentTableContentAlignment(Aspose::Words:
     
     builder->get_Document()->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.MarkdownDocumentTableContentAlignment.md", saveOptions);
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"MarkdownSaveOptions.MarkdownDocumentTableContentAlignment.md");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"MarkdownSaveOptions.MarkdownDocumentTableContentAlignment.md"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     switch (tableContentAlignment)
     {
-        case Aspose::Words::Saving::TableContentAlignment::Auto:
-            ASSERT_EQ(Aspose::Words::ParagraphAlignment::Right, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
-            ASSERT_EQ(Aspose::Words::ParagraphAlignment::Center, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+        case TableContentAlignment::Auto:
+            ASSERT_EQ(ParagraphAlignment::Right, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+            ASSERT_EQ(ParagraphAlignment::Center, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
             break;
-        
-        case Aspose::Words::Saving::TableContentAlignment::Left:
-            ASSERT_EQ(Aspose::Words::ParagraphAlignment::Left, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
-            ASSERT_EQ(Aspose::Words::ParagraphAlignment::Left, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+        case TableContentAlignment::Left:
+            ASSERT_EQ(ParagraphAlignment::Left, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+            ASSERT_EQ(ParagraphAlignment::Left, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
             break;
-        
-        case Aspose::Words::Saving::TableContentAlignment::Center:
-            ASSERT_EQ(Aspose::Words::ParagraphAlignment::Center, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
-            ASSERT_EQ(Aspose::Words::ParagraphAlignment::Center, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+        case TableContentAlignment::Center:
+            ASSERT_EQ(ParagraphAlignment::Center, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+            ASSERT_EQ(ParagraphAlignment::Center, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
             break;
-        
-        case Aspose::Words::Saving::TableContentAlignment::Right:
-            ASSERT_EQ(Aspose::Words::ParagraphAlignment::Right, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
-            ASSERT_EQ(Aspose::Words::ParagraphAlignment::Right, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+        case TableContentAlignment::Right:
+            ASSERT_EQ(ParagraphAlignment::Right, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+            ASSERT_EQ(ParagraphAlignment::Right, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
             break;
-        
     }
     //ExEnd
 }
@@ -179,10 +168,10 @@ struct ExMarkdownSaveOptions_MarkdownDocumentTableContentAlignment : public ExMa
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::TableContentAlignment::Left),
-            std::make_tuple(Aspose::Words::Saving::TableContentAlignment::Right),
-            std::make_tuple(Aspose::Words::Saving::TableContentAlignment::Center),
-            std::make_tuple(Aspose::Words::Saving::TableContentAlignment::Auto),
+            std::make_tuple(TableContentAlignment::Left),
+            std::make_tuple(TableContentAlignment::Right),
+            std::make_tuple(TableContentAlignment::Center),
+            std::make_tuple(TableContentAlignment::Auto),
         };
     }
 };
@@ -199,14 +188,14 @@ INSTANTIATE_TEST_SUITE_P(, ExMarkdownSaveOptions_MarkdownDocumentTableContentAli
 
 void ExMarkdownSaveOptions::RenameImages()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
     // If we convert a document that contains images into Markdown, we will end up with one Markdown file which links to several images.
     // Each image will be in the form of a file in the local file system.
     // There is also a callback that can customize the name and file system location of each image.
     saveOptions->set_ImageSavingCallback(System::MakeObject<Aspose::Words::ApiExamples::ExMarkdownSaveOptions::SavedImageRename>(u"MarkdownSaveOptions.HandleDocument.md"));
-    saveOptions->set_SaveFormat(Aspose::Words::SaveFormat::Markdown);
+    saveOptions->set_SaveFormat(SaveFormat::Markdown);
     
     // The ImageSaving() method of our callback will be run at this time.
     doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.HandleDocument.md", saveOptions);
@@ -242,7 +231,7 @@ void ExMarkdownSaveOptions::ExportImagesAsBase64(bool exportImagesAsBase64)
     //ExStart
     //ExFor:MarkdownSaveOptions.ExportImagesAsBase64
     //ExSummary:Shows how to save a .md document with images embedded inside it.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Images.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
     saveOptions->set_ExportImagesAsBase64(exportImagesAsBase64);
@@ -288,7 +277,7 @@ void ExMarkdownSaveOptions::ListExportMode(Aspose::Words::Saving::MarkdownListEx
     //ExFor:MarkdownSaveOptions.ListExportMode
     //ExFor:MarkdownListExportMode
     //ExSummary:Shows how to list items will be written to the markdown document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"List item.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List item.docx"));
     
     // Use MarkdownListExportMode.PlainText or MarkdownListExportMode.MarkdownSyntax to export list.
     auto options = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
@@ -308,8 +297,8 @@ struct ExMarkdownSaveOptions_ListExportMode : public ExMarkdownSaveOptions, publ
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::MarkdownListExportMode::PlainText),
-            std::make_tuple(Aspose::Words::Saving::MarkdownListExportMode::MarkdownSyntax),
+            std::make_tuple(MarkdownListExportMode::PlainText),
+            std::make_tuple(MarkdownListExportMode::MarkdownSyntax),
         };
     }
 };
@@ -349,7 +338,7 @@ void ExMarkdownSaveOptions::ImagesFolder()
     
     System::ArrayPtr<System::String> dirFiles = System::IO::Directory::GetFiles(imagesFolder, u"MarkdownSaveOptions.ImagesFolder.001.jpeg");
     ASSERT_EQ(1, dirFiles->get_Length());
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"MarkdownSaveOptions.ImagesFolder.md");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"MarkdownSaveOptions.ImagesFolder.md"));
     doc->GetText().Contains(u"http://example.com/images/MarkdownSaveOptions.ImagesFolder.001.jpeg");
 }
 
@@ -372,7 +361,7 @@ void ExMarkdownSaveOptions::ExportUnderlineFormatting()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    builder->set_Underline(Aspose::Words::Underline::Single);
+    builder->set_Underline(Underline::Single);
     builder->Write(u"Lorem ipsum. Dolor sit amet.");
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
@@ -400,18 +389,19 @@ void ExMarkdownSaveOptions::LinkExportMode()
     //ExSummary:Shows how to links will be written to the .md file.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
-    builder->InsertShape(Aspose::Words::Drawing::ShapeType::Balloon, 100, 100);
+    builder->InsertShape(ShapeType::Balloon, static_cast<double>(100), static_cast<double>(100));
     
     // Image will be written as reference:
     // ![ref1]
+    //
     // [ref1]: aw_ref.001.png
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
-    saveOptions->set_LinkExportMode(Aspose::Words::Saving::MarkdownLinkExportMode::Reference);
+    saveOptions->set_LinkExportMode(MarkdownLinkExportMode::Reference);
     doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.LinkExportMode.Reference.md", saveOptions);
     
     // Image will be written as inline:
     // ![](aw_inline.001.png)
-    saveOptions->set_LinkExportMode(Aspose::Words::Saving::MarkdownLinkExportMode::Inline);
+    saveOptions->set_LinkExportMode(MarkdownLinkExportMode::Inline);
     doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.LinkExportMode.Inline.md", saveOptions);
     //ExEnd:LinkExportMode
     
@@ -443,14 +433,14 @@ void ExMarkdownSaveOptions::ExportTableAsHtml()
     
     // Create table.
     builder->InsertCell();
-    builder->get_ParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Right);
+    builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
     builder->Write(u"Cell1");
     builder->InsertCell();
-    builder->get_ParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Center);
+    builder->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
     builder->Write(u"Cell2");
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
-    saveOptions->set_ExportAsHtml(Aspose::Words::Saving::MarkdownExportAsHtml::Tables);
+    saveOptions->set_ExportAsHtml(MarkdownExportAsHtml::Tables);
     
     doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportTableAsHtml.md", saveOptions);
     //ExEnd:ExportTableAsHtml
@@ -476,7 +466,7 @@ void ExMarkdownSaveOptions::ImageResolution()
     //GistId:f86d49dc0e6781b93e576539a01e6ca2
     //ExFor:MarkdownSaveOptions.ImageResolution
     //ExSummary:Shows how to set the output resolution for images.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
     saveOptions->set_ImageResolution(300);
@@ -502,10 +492,10 @@ void ExMarkdownSaveOptions::OfficeMathExportMode()
     //ExFor:MarkdownSaveOptions.OfficeMathExportMode
     //ExFor:MarkdownOfficeMathExportMode
     //ExSummary:Shows how OfficeMath will be written to the document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
-    saveOptions->set_OfficeMathExportMode(Aspose::Words::Saving::MarkdownOfficeMathExportMode::Image);
+    saveOptions->set_OfficeMathExportMode(MarkdownOfficeMathExportMode::Image);
     
     doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.OfficeMathExportMode.md", saveOptions);
     //ExEnd:OfficeMathExportMode
@@ -543,18 +533,15 @@ void ExMarkdownSaveOptions::EmptyParagraphExportMode(Aspose::Words::Saving::Mark
     
     switch (exportMode)
     {
-        case Aspose::Words::Saving::MarkdownEmptyParagraphExportMode::None:
+        case MarkdownEmptyParagraphExportMode::None:
             ASSERT_EQ(u"First\r\n\r\nLast\r\n", result);
             break;
-        
-        case Aspose::Words::Saving::MarkdownEmptyParagraphExportMode::EmptyLine:
+        case MarkdownEmptyParagraphExportMode::EmptyLine:
             ASSERT_EQ(u"First\r\n\r\n\r\n\r\n\r\nLast\r\n\r\n", result);
             break;
-        
-        case Aspose::Words::Saving::MarkdownEmptyParagraphExportMode::MarkdownHardLineBreak:
+        case MarkdownEmptyParagraphExportMode::MarkdownHardLineBreak:
             ASSERT_EQ(u"First\r\n\\\r\n\\\r\n\\\r\n\\\r\n\\\r\nLast\r\n<br>\r\n", result);
             break;
-        
     }
     //ExEnd:EmptyParagraphExportMode
 }
@@ -570,9 +557,9 @@ struct ExMarkdownSaveOptions_EmptyParagraphExportMode : public ExMarkdownSaveOpt
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::MarkdownEmptyParagraphExportMode::None),
-            std::make_tuple(Aspose::Words::Saving::MarkdownEmptyParagraphExportMode::EmptyLine),
-            std::make_tuple(Aspose::Words::Saving::MarkdownEmptyParagraphExportMode::MarkdownHardLineBreak),
+            std::make_tuple(MarkdownEmptyParagraphExportMode::None),
+            std::make_tuple(MarkdownEmptyParagraphExportMode::EmptyLine),
+            std::make_tuple(MarkdownEmptyParagraphExportMode::MarkdownHardLineBreak),
         };
     }
 };
@@ -594,15 +581,15 @@ void ExMarkdownSaveOptions::ExportOfficeMathAsLatex()
     //ExFor:MarkdownSaveOptions.OfficeMathExportMode
     //ExFor:MarkdownOfficeMathExportMode
     //ExSummary:Shows how to export OfficeMath object as Latex.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
-    saveOptions->set_OfficeMathExportMode(Aspose::Words::Saving::MarkdownOfficeMathExportMode::Latex);
+    saveOptions->set_OfficeMathExportMode(MarkdownOfficeMathExportMode::Latex);
     
     doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsLatex.md", saveOptions);
     //ExEnd:ExportOfficeMathAsLatex
     
-    ASSERT_TRUE(Aspose::Words::ApiExamples::DocumentHelper::CompareDocs(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsLatex.md", get_GoldsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsLatex.Gold.md"));
+    ASSERT_TRUE(DocumentHelper::CompareDocs(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsLatex.md", get_GoldsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsLatex.Gold.md"));
 }
 
 namespace gtest_test
@@ -619,14 +606,14 @@ void ExMarkdownSaveOptions::ResourceSavingCallback()
 {
     System::String outputPath = get_ArtifactsDir() + u"MarkdownSaveOptions.ResourceSavingCallback.md";
     
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
     saveOptions->set_ResourceSavingCallback(System::MakeObject<Aspose::Words::ApiExamples::ExMarkdownSaveOptions::ChangeUriPath>());
     
     doc->Save(outputPath, saveOptions);
     
-    Aspose::Words::ApiExamples::DocumentHelper::FindTextInFile(outputPath, u"/uri/for/");
+    DocumentHelper::FindTextInFile(outputPath, u"/uri/for/");
 }
 
 namespace gtest_test
@@ -646,15 +633,15 @@ void ExMarkdownSaveOptions::ExportOfficeMathAsMarkItDown()
     //ExFor:MarkdownSaveOptions.OfficeMathExportMode
     //ExFor:MarkdownOfficeMathExportMode
     //ExSummary:Shows how to export OfficeMath object as MarkItDown.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::MarkdownSaveOptions>();
-    saveOptions->set_OfficeMathExportMode(Aspose::Words::Saving::MarkdownOfficeMathExportMode::MarkItDown);
+    saveOptions->set_OfficeMathExportMode(MarkdownOfficeMathExportMode::MarkItDown);
     
     doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsMarkItDown.md", saveOptions);
     //ExEnd:ExportOfficeMathAsMarkItDown
     
-    ASSERT_TRUE(Aspose::Words::ApiExamples::DocumentHelper::CompareDocs(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsMarkItDown.md", get_GoldsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsMarkItDown.Gold.md"));
+    ASSERT_TRUE(DocumentHelper::CompareDocs(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsMarkItDown.md", get_GoldsDir() + u"MarkdownSaveOptions.ExportOfficeMathAsMarkItDown.Gold.md"));
 }
 
 namespace gtest_test

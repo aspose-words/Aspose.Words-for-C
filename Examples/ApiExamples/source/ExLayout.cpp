@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExLayout.h"
+﻿#include "ExLayout.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -13,10 +8,8 @@
 #include <system/io/file_mode.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
-#include <system/enum_helpers.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/rectangle_f.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -51,14 +44,12 @@ void ExLayout::RenderPageLayoutCallback::Notify(System::SharedPtr<Aspose::Words:
 {
     switch (a->get_Event())
     {
-        case Aspose::Words::Layout::PageLayoutEvent::PartReflowFinished:
+        case PageLayoutEvent::PartReflowFinished:
             NotifyPartFinished(a);
             break;
-        
-        case Aspose::Words::Layout::PageLayoutEvent::ConversionFinished:
+        case PageLayoutEvent::ConversionFinished:
             NotifyConversionFinished(a);
             break;
-        
         default:
             break;
     }
@@ -77,7 +68,7 @@ void ExLayout::RenderPageLayoutCallback::NotifyConversionFinished(System::Shared
 
 void ExLayout::RenderPageLayoutCallback::RenderPage(System::SharedPtr<Aspose::Words::Layout::PageLayoutCallbackArgs> a, int32_t pageIndex)
 {
-    auto saveOptions = System::MakeObject<Aspose::Words::Saving::ImageSaveOptions>(Aspose::Words::SaveFormat::Png);
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::ImageSaveOptions>(SaveFormat::Png);
     saveOptions->set_PageSet(System::MakeObject<Aspose::Words::Saving::PageSet>(pageIndex));
     
     {
@@ -156,7 +147,7 @@ void ExLayout::PrintCurrentEntity(System::SharedPtr<Aspose::Words::Layout::Layou
     std::cout << (layoutEnumerator->get_Kind() == System::String::Empty ? System::String::Format(u"{0}-> Entity type: {1}", tabs, layoutEnumerator->get_Type()) : System::String::Format(u"{0}-> Entity type & kind: {1}, {2}", tabs, layoutEnumerator->get_Type(), layoutEnumerator->get_Kind())) << std::endl;
     
     // Only spans can contain text.
-    if (layoutEnumerator->get_Type() == Aspose::Words::Layout::LayoutEntityType::Span)
+    if (layoutEnumerator->get_Type() == LayoutEntityType::Span)
     {
         std::cout << System::String::Format(u"{0}   Span contents: \"{1}\"", tabs, layoutEnumerator->get_Text()) << std::endl;
     }
@@ -165,7 +156,6 @@ void ExLayout::PrintCurrentEntity(System::SharedPtr<Aspose::Words::Layout::Layou
     std::cout << System::String::Format(u"{0}   Rectangle dimensions {1}x{2}, X={3} Y={4}", tabs, leRect.get_Width(), leRect.get_Height(), leRect.get_X(), leRect.get_Y()) << std::endl;
     std::cout << System::String::Format(u"{0}   Page {1}", tabs, layoutEnumerator->get_PageIndex()) << std::endl;
 }
-
 
 namespace gtest_test
 {
@@ -222,12 +212,12 @@ void ExLayout::LayoutCollector()
     // Populate the document with 5 pages of content.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->Write(u"Section 1");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
-    builder->InsertBreak(Aspose::Words::BreakType::SectionBreakEvenPage);
+    builder->InsertBreak(BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
+    builder->InsertBreak(BreakType::SectionBreakEvenPage);
     builder->Write(u"Section 2");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     
     // Before the layout collector, we need to call the "UpdatePageLayout" method to give us
     // an accurate figure for any layout-related metric, such as the page count.
@@ -239,7 +229,7 @@ void ExLayout::LayoutCollector()
     ASSERT_EQ(5, layoutCollector->GetNumPagesSpanned(doc));
     
     // We can see the numbers of the start and end pages of any node and their overall page spans.
-    System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(Aspose::Words::NodeType::Any, true);
+    System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(NodeType::Any, true);
     for (auto&& node : System::IterateOver(nodes))
     {
         std::cout << System::String::Format(u"->  NodeType.{0}: ", node->get_NodeType()) << std::endl;
@@ -249,13 +239,13 @@ void ExLayout::LayoutCollector()
     // We can iterate over the layout entities using a LayoutEnumerator.
     auto layoutEnumerator = System::MakeObject<Aspose::Words::Layout::LayoutEnumerator>(doc);
     
-    ASSERT_EQ(Aspose::Words::Layout::LayoutEntityType::Page, layoutEnumerator->get_Type());
+    ASSERT_EQ(LayoutEntityType::Page, layoutEnumerator->get_Type());
     
     // The LayoutEnumerator can traverse the collection of layout entities like a tree.
     // We can also apply it to any node's corresponding layout entity.
-    layoutEnumerator->set_Current(layoutCollector->GetEntity(doc->GetChild(Aspose::Words::NodeType::Paragraph, 1, true)));
+    layoutEnumerator->set_Current(layoutCollector->GetEntity(doc->GetChild(NodeType::Paragraph, 1, true)));
     
-    ASSERT_EQ(Aspose::Words::Layout::LayoutEntityType::Span, layoutEnumerator->get_Type());
+    ASSERT_EQ(LayoutEntityType::Span, layoutEnumerator->get_Type());
     ASSERT_EQ(u"¶", layoutEnumerator->get_Text());
     //ExEnd
 }
@@ -275,16 +265,16 @@ void ExLayout::LayoutEnumerator()
     // Open a document that contains a variety of layout entities.
     // Layout entities are pages, cells, rows, lines, and other objects included in the LayoutEntityType enum.
     // Each layout entity has a rectangular space that it occupies in the document body.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Layout entities.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Layout entities.docx"));
     
     // Create an enumerator that can traverse these entities like a tree.
     auto layoutEnumerator = System::MakeObject<Aspose::Words::Layout::LayoutEnumerator>(doc);
     
     ASPOSE_ASSERT_EQ(doc, layoutEnumerator->get_Document());
     
-    layoutEnumerator->MoveParent(Aspose::Words::Layout::LayoutEntityType::Page);
+    layoutEnumerator->MoveParent(LayoutEntityType::Page);
     
-    ASSERT_EQ(Aspose::Words::Layout::LayoutEntityType::Page, layoutEnumerator->get_Type());
+    ASSERT_EQ(LayoutEntityType::Page, layoutEnumerator->get_Type());
     ASSERT_THROW(static_cast<std::function<void()>>([&layoutEnumerator]() -> void
     {
         std::cout << layoutEnumerator->get_Text() << std::endl;
@@ -355,13 +345,13 @@ void ExLayout::RestartPageNumberingInContinuousSection()
     //ExFor:LayoutOptions.ContinuousSectionPageNumberingRestart
     //ExFor:ContinuousSectionRestart
     //ExSummary:Shows how to control page numbering in a continuous section.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Continuous section page numbering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Continuous section page numbering.docx"));
     
     // By default Aspose.Words behavior matches the Microsoft Word 2019.
     // If you need old Aspose.Words behavior, repetitive Microsoft Word 2016, use 'ContinuousSectionRestart.FromNewPageOnly'.
     // Page numbering restarts only if there is no other content before the section on the page where the section starts,
     // because of that the numbering will reset to 2 from the second page.
-    doc->get_LayoutOptions()->set_ContinuousSectionPageNumberingRestart(Aspose::Words::Layout::ContinuousSectionRestart::FromNewPageOnly);
+    doc->get_LayoutOptions()->set_ContinuousSectionPageNumberingRestart(ContinuousSectionRestart::FromNewPageOnly);
     doc->UpdatePageLayout();
     
     doc->Save(get_ArtifactsDir() + u"Layout.RestartPageNumberingInContinuousSection.pdf");

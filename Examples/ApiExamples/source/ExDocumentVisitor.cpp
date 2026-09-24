@@ -1,18 +1,13 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDocumentVisitor.h"
+﻿#include "ExDocumentVisitor.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
 #include <system/date_time.h>
+#include <system/console.h>
 #include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Tables/RowCollection.h>
 #include <Aspose.Words.Cpp/Model/Sections/HeaderFooterType.h>
@@ -27,7 +22,6 @@
 
 
 using namespace Aspose::Words::Fields;
-using namespace Aspose::Words::Markup;
 using namespace Aspose::Words::Math;
 using namespace Aspose::Words::Notes;
 using namespace Aspose::Words::Tables;
@@ -51,13 +45,13 @@ System::String ExDocumentVisitor::DocStructurePrinter::GetText()
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitDocumentStart(System::SharedPtr<Aspose::Words::Document> doc)
 {
-    int32_t childNodeCount = doc->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count();
+    int32_t childNodeCount = doc->GetChildNodes(NodeType::Any, true)->get_Count();
     
     IndentAndAppendLine(System::String(u"[Document start] Child nodes: ") + childNodeCount);
     mDocTraversalDepth++;
     
     // Allow the visitor to continue visiting other nodes.
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitDocumentEnd(System::SharedPtr<Aspose::Words::Document> doc)
@@ -65,19 +59,19 @@ Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitDocume
     mDocTraversalDepth--;
     IndentAndAppendLine(u"[Document end]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitSectionStart(System::SharedPtr<Aspose::Words::Section> section)
 {
     // Get the index of our section within the document.
-    System::SharedPtr<Aspose::Words::NodeCollection> docSections = section->get_Document()->GetChildNodes(Aspose::Words::NodeType::Section, false);
+    System::SharedPtr<Aspose::Words::NodeCollection> docSections = section->get_Document()->GetChildNodes(NodeType::Section, false);
     int32_t sectionIndex = docSections->IndexOf(section);
     
     IndentAndAppendLine(System::String(u"[Section start] Section index: ") + sectionIndex);
     mDocTraversalDepth++;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitSectionEnd(System::SharedPtr<Aspose::Words::Section> section)
@@ -85,7 +79,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitSectio
     mDocTraversalDepth--;
     IndentAndAppendLine(u"[Section end]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitBodyStart(System::SharedPtr<Aspose::Words::Body> body)
@@ -94,7 +88,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitBodySt
     IndentAndAppendLine(System::String(u"[Body start] Paragraphs: ") + paragraphCount);
     mDocTraversalDepth++;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitBodyEnd(System::SharedPtr<Aspose::Words::Body> body)
@@ -102,7 +96,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitBodyEn
     mDocTraversalDepth--;
     IndentAndAppendLine(u"[Body end]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitParagraphStart(System::SharedPtr<Aspose::Words::Paragraph> paragraph)
@@ -110,7 +104,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitParagr
     IndentAndAppendLine(u"[Paragraph start]");
     mDocTraversalDepth++;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitParagraphEnd(System::SharedPtr<Aspose::Words::Paragraph> paragraph)
@@ -118,35 +112,35 @@ Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitParagr
     mDocTraversalDepth--;
     IndentAndAppendLine(u"[Paragraph end]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitRun(System::SharedPtr<Aspose::Words::Run> run)
 {
     IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitSubDocument(System::SharedPtr<Aspose::Words::SubDocument> subDocument)
 {
     IndentAndAppendLine(u"[SubDocument]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitStructuredDocumentTagRangeStart(System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTagRangeStart> sdtRangeStart)
 {
     IndentAndAppendLine(u"[SdtRangeStart]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::DocStructurePrinter::VisitStructuredDocumentTagRangeEnd(System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTagRangeEnd> sdtRangeEnd)
 {
     IndentAndAppendLine(u"[SdtRangeEnd]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::DocStructurePrinter::IndentAndAppendLine(System::String text)
@@ -161,8 +155,7 @@ void ExDocumentVisitor::DocStructurePrinter::IndentAndAppendLine(System::String 
 
 RTTI_INFO_IMPL_HASH(2491243378u, ::Aspose::Words::ApiExamples::ExDocumentVisitor::TableStructurePrinter, ThisTypeBaseTypesInfo);
 
-ExDocumentVisitor::TableStructurePrinter::TableStructurePrinter() : mVisitorIsInsideTable(false)
-    , mDocTraversalDepth(0)
+ExDocumentVisitor::TableStructurePrinter::TableStructurePrinter() : mVisitorIsInsideTable(false), mDocTraversalDepth(0)
 {
     mVisitedTables = System::MakeObject<System::Text::StringBuilder>();
     mVisitorIsInsideTable = false;
@@ -180,7 +173,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitRun(
         IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitTableStart(System::SharedPtr<Aspose::Words::Tables::Table> table)
@@ -198,7 +191,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitTabl
     mDocTraversalDepth++;
     mVisitorIsInsideTable = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitTableEnd(System::SharedPtr<Aspose::Words::Tables::Table> table)
@@ -207,7 +200,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitTabl
     IndentAndAppendLine(u"[Table end]");
     mVisitorIsInsideTable = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitRowStart(System::SharedPtr<Aspose::Words::Tables::Row> row)
@@ -215,7 +208,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitRowS
     System::String rowContents = row->GetText().TrimEnd(System::MakeArray<char16_t>({u'\x0007', u' '})).Replace(u"\u0007", u", ");
     int32_t rowWidth = row->IndexOf(row->get_LastCell()) + 1;
     int32_t rowIndex = row->get_ParentTable()->IndexOf(row);
-    System::String rowStatusInTable = row->get_IsFirstRow() && row->get_IsLastRow() ? u"only" : row->get_IsFirstRow() ? u"first" : row->get_IsLastRow() ? System::String(u"last") : System::String(u"");
+    System::String rowStatusInTable = row->get_IsFirstRow() && row->get_IsLastRow() ? System::String(u"only") : row->get_IsFirstRow() ? System::String(u"first") : row->get_IsLastRow() ? System::String(u"last") : System::String(u"");
     if (rowStatusInTable != u"")
     {
         rowStatusInTable = System::String::Format(u", the {0} row in this table,", rowStatusInTable);
@@ -224,7 +217,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitRowS
     IndentAndAppendLine(System::String::Format(u"[Row start] Row #{0}{1} width {2}, \"{3}\"", ++rowIndex, rowStatusInTable, rowWidth, rowContents));
     mDocTraversalDepth++;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitRowEnd(System::SharedPtr<Aspose::Words::Tables::Row> row)
@@ -232,14 +225,14 @@ Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitRowE
     mDocTraversalDepth--;
     IndentAndAppendLine(u"[Row end]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitCellStart(System::SharedPtr<Aspose::Words::Tables::Cell> cell)
 {
     System::SharedPtr<Aspose::Words::Tables::Row> row = cell->get_ParentRow();
     System::SharedPtr<Aspose::Words::Tables::Table> table = row->get_ParentTable();
-    System::String cellStatusInRow = cell->get_IsFirstCell() && cell->get_IsLastCell() ? u"only" : cell->get_IsFirstCell() ? u"first" : cell->get_IsLastCell() ? System::String(u"last") : System::String(u"");
+    System::String cellStatusInRow = cell->get_IsFirstCell() && cell->get_IsLastCell() ? System::String(u"only") : cell->get_IsFirstCell() ? System::String(u"first") : cell->get_IsLastCell() ? System::String(u"last") : System::String(u"");
     if (cellStatusInRow != u"")
     {
         cellStatusInRow = System::String::Format(u", the {0} cell in this row", cellStatusInRow);
@@ -248,14 +241,14 @@ Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitCell
     IndentAndAppendLine(System::String::Format(u"[Cell start] Row {0}, Col {1}{2}", table->IndexOf(row) + 1, row->IndexOf(cell) + 1, cellStatusInRow));
     mDocTraversalDepth++;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::TableStructurePrinter::VisitCellEnd(System::SharedPtr<Aspose::Words::Tables::Cell> cell)
 {
     mDocTraversalDepth--;
     IndentAndAppendLine(u"[Cell end]");
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::TableStructurePrinter::IndentAndAppendLine(System::String text)
@@ -289,7 +282,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::CommentStructurePrinter::VisitRu
         IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::CommentStructurePrinter::VisitCommentRangeStart(System::SharedPtr<Aspose::Words::CommentRangeStart> commentRangeStart)
@@ -298,7 +291,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::CommentStructurePrinter::VisitCo
     mDocTraversalDepth++;
     mVisitorIsInsideComment = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::CommentStructurePrinter::VisitCommentRangeEnd(System::SharedPtr<Aspose::Words::CommentRangeEnd> commentRangeEnd)
@@ -307,7 +300,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::CommentStructurePrinter::VisitCo
     IndentAndAppendLine(u"[Comment range end]");
     mVisitorIsInsideComment = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::CommentStructurePrinter::VisitCommentStart(System::SharedPtr<Aspose::Words::Comment> comment)
@@ -316,7 +309,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::CommentStructurePrinter::VisitCo
     mDocTraversalDepth++;
     mVisitorIsInsideComment = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::CommentStructurePrinter::VisitCommentEnd(System::SharedPtr<Aspose::Words::Comment> comment)
@@ -325,7 +318,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::CommentStructurePrinter::VisitCo
     IndentAndAppendLine(u"[Comment end]");
     mVisitorIsInsideComment = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::CommentStructurePrinter::IndentAndAppendLine(System::String text)
@@ -340,8 +333,7 @@ void ExDocumentVisitor::CommentStructurePrinter::IndentAndAppendLine(System::Str
 
 RTTI_INFO_IMPL_HASH(1604398558u, ::Aspose::Words::ApiExamples::ExDocumentVisitor::FieldStructurePrinter, ThisTypeBaseTypesInfo);
 
-ExDocumentVisitor::FieldStructurePrinter::FieldStructurePrinter() : mVisitorIsInsideField(false)
-    , mDocTraversalDepth(0)
+ExDocumentVisitor::FieldStructurePrinter::FieldStructurePrinter() : mVisitorIsInsideField(false), mDocTraversalDepth(0)
 {
     mBuilder = System::MakeObject<System::Text::StringBuilder>();
     mVisitorIsInsideField = false;
@@ -359,7 +351,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::FieldStructurePrinter::VisitRun(
         IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::FieldStructurePrinter::VisitFieldStart(System::SharedPtr<Aspose::Words::Fields::FieldStart> fieldStart)
@@ -368,7 +360,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::FieldStructurePrinter::VisitFiel
     mDocTraversalDepth++;
     mVisitorIsInsideField = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::FieldStructurePrinter::VisitFieldEnd(System::SharedPtr<Aspose::Words::Fields::FieldEnd> fieldEnd)
@@ -377,14 +369,14 @@ Aspose::Words::VisitorAction ExDocumentVisitor::FieldStructurePrinter::VisitFiel
     IndentAndAppendLine(u"[Field end]");
     mVisitorIsInsideField = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::FieldStructurePrinter::VisitFieldSeparator(System::SharedPtr<Aspose::Words::Fields::FieldSeparator> fieldSeparator)
 {
     IndentAndAppendLine(u"[FieldSeparator]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::FieldStructurePrinter::IndentAndAppendLine(System::String text)
@@ -418,7 +410,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::HeaderFooterStructurePrinter::Vi
         IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::HeaderFooterStructurePrinter::VisitHeaderFooterStart(System::SharedPtr<Aspose::Words::HeaderFooter> headerFooter)
@@ -427,7 +419,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::HeaderFooterStructurePrinter::Vi
     mDocTraversalDepth++;
     mVisitorIsInsideHeaderFooter = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::HeaderFooterStructurePrinter::VisitHeaderFooterEnd(System::SharedPtr<Aspose::Words::HeaderFooter> headerFooter)
@@ -436,7 +428,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::HeaderFooterStructurePrinter::Vi
     IndentAndAppendLine(u"[HeaderFooter end]");
     mVisitorIsInsideHeaderFooter = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::HeaderFooterStructurePrinter::IndentAndAppendLine(System::String text)
@@ -451,8 +443,8 @@ void ExDocumentVisitor::HeaderFooterStructurePrinter::IndentAndAppendLine(System
 
 RTTI_INFO_IMPL_HASH(1581082717u, ::Aspose::Words::ApiExamples::ExDocumentVisitor::EditableRangeStructurePrinter, ThisTypeBaseTypesInfo);
 
-ExDocumentVisitor::EditableRangeStructurePrinter::EditableRangeStructurePrinter()
-    : mVisitorIsInsideEditableRange(false), mDocTraversalDepth(0)
+ExDocumentVisitor::EditableRangeStructurePrinter::EditableRangeStructurePrinter() : mVisitorIsInsideEditableRange(false)
+    , mDocTraversalDepth(0)
 {
     mBuilder = System::MakeObject<System::Text::StringBuilder>();
     mVisitorIsInsideEditableRange = false;
@@ -471,7 +463,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::EditableRangeStructurePrinter::V
         IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::EditableRangeStructurePrinter::VisitEditableRangeStart(System::SharedPtr<Aspose::Words::EditableRangeStart> editableRangeStart)
@@ -480,7 +472,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::EditableRangeStructurePrinter::V
     mDocTraversalDepth++;
     mVisitorIsInsideEditableRange = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::EditableRangeStructurePrinter::VisitEditableRangeEnd(System::SharedPtr<Aspose::Words::EditableRangeEnd> editableRangeEnd)
@@ -489,7 +481,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::EditableRangeStructurePrinter::V
     IndentAndAppendLine(u"[EditableRange end]");
     mVisitorIsInsideEditableRange = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::EditableRangeStructurePrinter::IndentAndAppendLine(System::String text)
@@ -522,7 +514,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::FootnoteStructurePrinter::VisitF
     mDocTraversalDepth++;
     mVisitorIsInsideFootnote = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::FootnoteStructurePrinter::VisitFootnoteEnd(System::SharedPtr<Aspose::Words::Notes::Footnote> footnote)
@@ -531,7 +523,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::FootnoteStructurePrinter::VisitF
     IndentAndAppendLine(u"[Footnote end]");
     mVisitorIsInsideFootnote = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::FootnoteStructurePrinter::VisitRun(System::SharedPtr<Aspose::Words::Run> run)
@@ -541,7 +533,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::FootnoteStructurePrinter::VisitR
         IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::FootnoteStructurePrinter::IndentAndAppendLine(System::String text)
@@ -575,7 +567,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::OfficeMathStructurePrinter::Visi
         IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::OfficeMathStructurePrinter::VisitOfficeMathStart(System::SharedPtr<Aspose::Words::Math::OfficeMath> officeMath)
@@ -584,7 +576,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::OfficeMathStructurePrinter::Visi
     mDocTraversalDepth++;
     mVisitorIsInsideOfficeMath = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::OfficeMathStructurePrinter::VisitOfficeMathEnd(System::SharedPtr<Aspose::Words::Math::OfficeMath> officeMath)
@@ -593,7 +585,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::OfficeMathStructurePrinter::Visi
     IndentAndAppendLine(u"[OfficeMath end]");
     mVisitorIsInsideOfficeMath = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::OfficeMathStructurePrinter::IndentAndAppendLine(System::String text)
@@ -627,7 +619,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::SmartTagStructurePrinter::VisitR
         IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::SmartTagStructurePrinter::VisitSmartTagStart(System::SharedPtr<Aspose::Words::Markup::SmartTag> smartTag)
@@ -636,7 +628,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::SmartTagStructurePrinter::VisitS
     mDocTraversalDepth++;
     mVisitorIsInsideSmartTag = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::SmartTagStructurePrinter::VisitSmartTagEnd(System::SharedPtr<Aspose::Words::Markup::SmartTag> smartTag)
@@ -645,7 +637,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::SmartTagStructurePrinter::VisitS
     IndentAndAppendLine(u"[SmartTag end]");
     mVisitorIsInsideSmartTag = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::SmartTagStructurePrinter::IndentAndAppendLine(System::String text)
@@ -679,7 +671,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::StructuredDocumentTagNodePrinter
         IndentAndAppendLine(System::String(u"[Run] \"") + run->GetText() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::StructuredDocumentTagNodePrinter::VisitStructuredDocumentTagStart(System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag> sdt)
@@ -687,7 +679,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::StructuredDocumentTagNodePrinter
     IndentAndAppendLine(System::String(u"[StructuredDocumentTag start] Title: ") + sdt->get_Title());
     mDocTraversalDepth++;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExDocumentVisitor::StructuredDocumentTagNodePrinter::VisitStructuredDocumentTagEnd(System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag> sdt)
@@ -695,7 +687,7 @@ Aspose::Words::VisitorAction ExDocumentVisitor::StructuredDocumentTagNodePrinter
     mDocTraversalDepth--;
     IndentAndAppendLine(u"[StructuredDocumentTag end]");
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExDocumentVisitor::StructuredDocumentTagNodePrinter::IndentAndAppendLine(System::String text)
@@ -833,7 +825,6 @@ void ExDocumentVisitor::TestStructuredDocumentTagToText(System::SharedPtr<Aspose
     ASSERT_TRUE(visitorText.Contains(u"[StructuredDocumentTag end]"));
 }
 
-
 namespace gtest_test
 {
 
@@ -867,7 +858,7 @@ System::SharedPtr<::Aspose::Words::ApiExamples::ExDocumentVisitor> ExDocumentVis
 
 void ExDocumentVisitor::DocStructureToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::DocStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -892,7 +883,7 @@ TEST_F(ExDocumentVisitor, DocStructureToText)
 
 void ExDocumentVisitor::TableToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::TableStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -917,7 +908,7 @@ TEST_F(ExDocumentVisitor, TableToText)
 
 void ExDocumentVisitor::CommentsToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::CommentStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -942,7 +933,7 @@ TEST_F(ExDocumentVisitor, CommentsToText)
 
 void ExDocumentVisitor::FieldToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::FieldStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -967,7 +958,7 @@ TEST_F(ExDocumentVisitor, FieldToText)
 
 void ExDocumentVisitor::HeaderFooterToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::HeaderFooterStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -996,7 +987,7 @@ TEST_F(ExDocumentVisitor, HeaderFooterToText)
 
 void ExDocumentVisitor::EditableRangeToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::EditableRangeStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -1021,7 +1012,7 @@ TEST_F(ExDocumentVisitor, EditableRangeToText)
 
 void ExDocumentVisitor::FootnoteToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::FootnoteStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -1046,7 +1037,7 @@ TEST_F(ExDocumentVisitor, FootnoteToText)
 
 void ExDocumentVisitor::OfficeMathToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::OfficeMathStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -1071,7 +1062,7 @@ TEST_F(ExDocumentVisitor, OfficeMathToText)
 
 void ExDocumentVisitor::SmartTagToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Smart tags.doc");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Smart tags.doc"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::SmartTagStructurePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,
@@ -1096,7 +1087,7 @@ TEST_F(ExDocumentVisitor, SmartTagToText)
 
 void ExDocumentVisitor::StructuredDocumentTagToText()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DocumentVisitor-compatible features.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DocumentVisitor-compatible features.docx"));
     auto visitor = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentVisitor::StructuredDocumentTagNodePrinter>();
     
     // When we get a composite node to accept a document visitor, the visitor visits the accepting node,

@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDocumentBase.h"
+﻿#include "ExDocumentBase.h"
 
 #include <testing/test_predicates.h>
 #include <system/type_info.h>
@@ -14,7 +9,6 @@
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/color.h>
 #include <cstdint>
@@ -66,22 +60,24 @@ Aspose::Words::Loading::ResourceLoadingAction ExDocumentBase::ImageNameHandler::
 {
     // If this callback encounters one of the image shorthands while loading an image,
     // it will apply unique logic for each defined shorthand instead of treating it as a URI.
-    if (args->get_ResourceType() == Aspose::Words::Loading::ResourceType::Image)
+    if (args->get_ResourceType() == ResourceType::Image)
     {
         const System::String& switch_value_0 = args->get_OriginalUri();
         if (switch_value_0 == u"Aspose logo")
         {
             args->SetData(System::IO::File::ReadAllBytes(get_ImageDir() + u"Logo.jpg"));
-            return Aspose::Words::Loading::ResourceLoadingAction::UserProvided;
+            
+            return ResourceLoadingAction::UserProvided;
         }
         else if (switch_value_0 == u"Watermark")
         {
             args->SetData(System::IO::File::ReadAllBytes(get_ImageDir() + u"Transparent background logo.png"));
-            return Aspose::Words::Loading::ResourceLoadingAction::UserProvided;
+            
+            return ResourceLoadingAction::UserProvided;
         }
     }
     
-    return Aspose::Words::Loading::ResourceLoadingAction::Default;
+    return ResourceLoadingAction::Default;
 }
 
 
@@ -89,13 +85,12 @@ RTTI_INFO_IMPL_HASH(4225993084u, ::Aspose::Words::ApiExamples::ExDocumentBase, T
 
 void ExDocumentBase::TestResourceLoadingCallback(System::SharedPtr<Aspose::Words::Document> doc)
 {
-    for (auto&& shape : System::IterateOver<Aspose::Words::Drawing::Shape>(doc->GetChildNodes(Aspose::Words::NodeType::Shape, true)))
+    for (auto&& shape : System::IterateOver<Aspose::Words::Drawing::Shape>(doc->GetChildNodes(NodeType::Shape, true)))
     {
         ASSERT_TRUE(shape->get_HasImage());
         ASSERT_FALSE(System::TestTools::IsEmpty(shape->get_ImageData()->get_ImageBytes()));
     }
 }
-
 
 namespace gtest_test
 {
@@ -168,7 +163,7 @@ void ExDocumentBase::SetPageColor()
     doc->Save(get_ArtifactsDir() + u"DocumentBase.SetPageColor.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBase.SetPageColor.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBase.SetPageColor.docx"));
     
     ASSERT_EQ(System::Drawing::Color::get_LightGray().ToArgb(), doc->get_PageColor().ToArgb());
 }
@@ -211,7 +206,7 @@ void ExDocumentBase::ImportNode()
     // We can now insert the node into the document.
     dstDoc->AppendChild<System::SharedPtr<Aspose::Words::Section>>(importedSection);
     
-    ASSERT_EQ(u"Destination document first paragraph text.\r\nSource document first paragraph text.\r\n", dstDoc->ToString(Aspose::Words::SaveFormat::Text));
+    ASSERT_EQ(u"Destination document first paragraph text.\r\nSource document first paragraph text.\r\n", dstDoc->ToString(SaveFormat::Text));
     //ExEnd
     
     ASPOSE_ASSERT_NE(importedSection, srcDoc->get_FirstSection());
@@ -237,14 +232,14 @@ void ExDocumentBase::ImportNodeCustom()
     // Create two documents and add a character style to each document.
     // Configure the styles to have the same name, but different text formatting.
     auto srcDoc = System::MakeObject<Aspose::Words::Document>();
-    System::SharedPtr<Aspose::Words::Style> srcStyle = srcDoc->get_Styles()->Add(Aspose::Words::StyleType::Character, u"My style");
+    System::SharedPtr<Aspose::Words::Style> srcStyle = srcDoc->get_Styles()->Add(StyleType::Character, u"My style");
     srcStyle->get_Font()->set_Name(u"Courier New");
     auto srcBuilder = System::MakeObject<Aspose::Words::DocumentBuilder>(srcDoc);
     srcBuilder->get_Font()->set_Style(srcStyle);
     srcBuilder->Writeln(u"Source document text.");
     
     auto dstDoc = System::MakeObject<Aspose::Words::Document>();
-    System::SharedPtr<Aspose::Words::Style> dstStyle = dstDoc->get_Styles()->Add(Aspose::Words::StyleType::Character, u"My style");
+    System::SharedPtr<Aspose::Words::Style> dstStyle = dstDoc->get_Styles()->Add(StyleType::Character, u"My style");
     dstStyle->get_Font()->set_Name(u"Calibri");
     auto dstBuilder = System::MakeObject<Aspose::Words::DocumentBuilder>(dstDoc);
     dstBuilder->get_Font()->set_Style(dstStyle);
@@ -253,7 +248,7 @@ void ExDocumentBase::ImportNodeCustom()
     // Import the Section from the destination document into the source document, causing a style name collision.
     // If we use destination styles, then the imported source text with the same style name
     // as destination text will adopt the destination style.
-    auto importedSection = System::ExplicitCast<Aspose::Words::Section>(dstDoc->ImportNode(srcDoc->get_FirstSection(), true, Aspose::Words::ImportFormatMode::UseDestinationStyles));
+    auto importedSection = System::ExplicitCast<Aspose::Words::Section>(dstDoc->ImportNode(srcDoc->get_FirstSection(), true, ImportFormatMode::UseDestinationStyles));
     ASSERT_EQ(u"Source document text.", importedSection->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0)->GetText().Trim());
     //ExSkip
     ASSERT_TRUE(System::TestTools::IsNull(dstDoc->get_Styles()->idx_get(u"My style_0")));
@@ -263,7 +258,7 @@ void ExDocumentBase::ImportNodeCustom()
     
     // If we use ImportFormatMode.KeepDifferentStyles, the source style is preserved,
     // and the naming clash resolves by adding a suffix.
-    dstDoc->ImportNode(srcDoc->get_FirstSection(), true, Aspose::Words::ImportFormatMode::KeepDifferentStyles);
+    dstDoc->ImportNode(srcDoc->get_FirstSection(), true, ImportFormatMode::KeepDifferentStyles);
     ASSERT_EQ(dstStyle->get_Font()->get_Name(), dstDoc->get_Styles()->idx_get(u"My style")->get_Font()->get_Name());
     ASSERT_EQ(srcStyle->get_Font()->get_Name(), dstDoc->get_Styles()->idx_get(u"My style_0")->get_Font()->get_Name());
     //ExEnd
@@ -289,7 +284,7 @@ void ExDocumentBase::BackgroundShape()
     ASSERT_TRUE(System::TestTools::IsNull(doc->get_BackgroundShape()));
     
     // The only shape type that we can use as a background is a rectangle.
-    auto shapeRectangle = System::MakeObject<Aspose::Words::Drawing::Shape>(doc, Aspose::Words::Drawing::ShapeType::Rectangle);
+    auto shapeRectangle = System::MakeObject<Aspose::Words::Drawing::Shape>(doc, ShapeType::Rectangle);
     
     // There are two ways of using this shape as a page background.
     // 1 -  A flat color:
@@ -299,7 +294,7 @@ void ExDocumentBase::BackgroundShape()
     doc->Save(get_ArtifactsDir() + u"DocumentBase.BackgroundShape.FlatColor.docx");
     
     // 2 -  An image:
-    shapeRectangle = System::MakeObject<Aspose::Words::Drawing::Shape>(doc, Aspose::Words::Drawing::ShapeType::Rectangle);
+    shapeRectangle = System::MakeObject<Aspose::Words::Drawing::Shape>(doc, ShapeType::Rectangle);
     shapeRectangle->get_ImageData()->SetImage(get_ImageDir() + u"Transparent background logo.png");
     
     // Adjust the image's appearance to make it more suitable as a watermark.
@@ -318,12 +313,12 @@ void ExDocumentBase::BackgroundShape()
     doc->Save(get_ArtifactsDir() + u"DocumentBase.BackgroundShape.Image.pdf", saveOptions);
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBase.BackgroundShape.FlatColor.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBase.BackgroundShape.FlatColor.docx"));
     
     ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), doc->get_BackgroundShape()->get_FillColor().ToArgb());
     ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
     {
-        doc->set_BackgroundShape(System::MakeObject<Aspose::Words::Drawing::Shape>(doc, Aspose::Words::Drawing::ShapeType::Triangle));
+        doc->set_BackgroundShape(System::MakeObject<Aspose::Words::Drawing::Shape>(doc, ShapeType::Triangle));
     })(), System::ArgumentException);
 }
 
@@ -350,7 +345,7 @@ void ExDocumentBase::ResourceLoadingCallback()
     builder->InsertImage(u"Watermark");
     
     doc->Save(get_ArtifactsDir() + u"DocumentBase.ResourceLoadingCallback.docx");
-    TestResourceLoadingCallback(System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocumentBase.ResourceLoadingCallback.docx"));
+    TestResourceLoadingCallback(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBase.ResourceLoadingCallback.docx")));
     //ExSkip
 }
 
@@ -375,18 +370,18 @@ void ExDocumentBase::ImportNodeWithResolveThemeColors()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(srcDoc);
     
     // Move to the primary footer and insert a shape that uses theme colors.
-    builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::FooterPrimary);
-    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertShape(Aspose::Words::Drawing::ShapeType::Rectangle, 100, 50);
-    shape->get_Stroke()->set_ForeThemeColor(Aspose::Words::Themes::ThemeColor::Dark1);
+    builder->MoveToHeaderFooter(HeaderFooterType::FooterPrimary);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertShape(ShapeType::Rectangle, static_cast<double>(100), static_cast<double>(50));
+    shape->get_Stroke()->set_ForeThemeColor(ThemeColor::Dark1);
     
     auto dstDoc = System::MakeObject<Aspose::Words::Document>();
     // Import the source footer into the destination document with theme colors resolved,
     // so the shape preserves its actual color from the source document.
-    System::SharedPtr<Aspose::Words::HeaderFooter> footer = srcDoc->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterPrimary);
+    System::SharedPtr<Aspose::Words::HeaderFooter> footer = srcDoc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary);
     
     auto options = System::MakeObject<Aspose::Words::ImportFormatOptions>();
     options->set_ResolveThemeColors(true);
-    auto importedFooter = System::ExplicitCast<Aspose::Words::HeaderFooter>(dstDoc->ImportNode(footer, true, Aspose::Words::ImportFormatMode::KeepSourceFormatting, options));
+    auto importedFooter = System::ExplicitCast<Aspose::Words::HeaderFooter>(dstDoc->ImportNode(footer, true, ImportFormatMode::KeepSourceFormatting, options));
     
     dstDoc->get_FirstSection()->get_HeadersFooters()->Add(importedFooter);
     

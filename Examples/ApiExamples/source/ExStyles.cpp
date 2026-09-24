@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExStyles.h"
+﻿#include "ExStyles.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -11,10 +6,10 @@
 #include <system/linq/enumerable.h>
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
+#include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <drawing/color.h>
 #include <cstdint>
@@ -37,7 +32,6 @@
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeType.h>
 #include <Aspose.Words.Cpp/Model/Nodes/NodeCollection.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListTemplate.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListCollection.h>
 #include <Aspose.Words.Cpp/Model/Lists/List.h>
@@ -145,7 +139,7 @@ void ExStyles::CreateStyle()
     //ExSummary:Shows how to create and apply a custom style.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    System::SharedPtr<Aspose::Words::Style> style = doc->get_Styles()->Add(Aspose::Words::StyleType::Paragraph, u"MyStyle");
+    System::SharedPtr<Aspose::Words::Style> style = doc->get_Styles()->Add(StyleType::Paragraph, u"MyStyle");
     style->get_Font()->set_Name(u"Times New Roman");
     style->get_Font()->set_Size(16);
     style->get_Font()->set_Color(System::Drawing::Color::get_Navy());
@@ -207,7 +201,7 @@ void ExStyles::StyleCollection()
     // its "DefaultParagraphFormat" property to the style's "ParagraphFormat" property.
     styles->get_DefaultParagraphFormat()->set_FirstLineIndent(15.0);
     // Add a style, and then verify that it has the default settings.
-    styles->Add(Aspose::Words::StyleType::Paragraph, u"MyStyle");
+    styles->Add(StyleType::Paragraph, u"MyStyle");
     
     ASSERT_EQ(u"Courier New", styles->idx_get(4)->get_Font()->get_Name());
     ASPOSE_ASSERT_EQ(15.0, styles->idx_get(u"MyStyle")->get_ParagraphFormat()->get_FirstLineIndent());
@@ -258,12 +252,12 @@ void ExStyles::ChangeTocsTabStops()
     //ExFor:TabStop.Position
     //ExFor:TabStop.Leader
     //ExSummary:Shows how to modify the position of the right tab stop in TOC related paragraphs.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Table of contents.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table of contents.docx"));
     
     // Iterate through all paragraphs with TOC result-based styles; this is any style between TOC and TOC9.
-    for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)))
+    for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
     {
-        if (para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() >= Aspose::Words::StyleIdentifier::Toc1 && para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() <= Aspose::Words::StyleIdentifier::Toc9)
+        if (para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() >= StyleIdentifier::Toc1 && para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() <= StyleIdentifier::Toc9)
         {
             // Get the first tab used in this paragraph, this should be the tab used to align the page numbers.
             System::SharedPtr<Aspose::Words::TabStop> tab = para->get_ParagraphFormat()->get_TabStops()->idx_get(0);
@@ -277,16 +271,16 @@ void ExStyles::ChangeTocsTabStops()
     doc->Save(get_ArtifactsDir() + u"Styles.ChangeTocsTabStops.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Styles.ChangeTocsTabStops.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Styles.ChangeTocsTabStops.docx"));
     
-    for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)))
+    for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
     {
-        if (para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() >= Aspose::Words::StyleIdentifier::Toc1 && para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() <= Aspose::Words::StyleIdentifier::Toc9)
+        if (para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() >= StyleIdentifier::Toc1 && para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() <= StyleIdentifier::Toc9)
         {
-            System::SharedPtr<Aspose::Words::TabStop> tabStop = para->GetEffectiveTabStops()->idx_get(0);
+            System::SharedPtr<Aspose::Words::TabStop> tabStop = para->GetEffectiveTabStops()[0];
             ASPOSE_ASSERT_EQ(400.8, tabStop->get_Position());
-            ASSERT_EQ(Aspose::Words::TabAlignment::Right, tabStop->get_Alignment());
-            ASSERT_EQ(Aspose::Words::TabLeader::Dots, tabStop->get_Leader());
+            ASSERT_EQ(TabAlignment::Right, tabStop->get_Alignment());
+            ASSERT_EQ(TabLeader::Dots, tabStop->get_Leader());
         }
     }
 }
@@ -348,7 +342,7 @@ void ExStyles::CopyStyleDifferentDocument()
     auto srcDoc = System::MakeObject<Aspose::Words::Document>();
     
     // Create a custom style for the source document.
-    System::SharedPtr<Aspose::Words::Style> srcStyle = srcDoc->get_Styles()->Add(Aspose::Words::StyleType::Paragraph, u"MyStyle");
+    System::SharedPtr<Aspose::Words::Style> srcStyle = srcDoc->get_Styles()->Add(StyleType::Paragraph, u"MyStyle");
     srcStyle->get_Font()->set_Color(System::Drawing::Color::get_Red());
     
     // Import the source document's custom style into the destination document.
@@ -379,14 +373,14 @@ void ExStyles::DefaultStyles()
     doc->get_Styles()->get_DefaultFont()->set_Bold(true);
     
     doc->get_Styles()->get_DefaultParagraphFormat()->set_SpaceAfter(20);
-    doc->get_Styles()->get_DefaultParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Right);
+    doc->get_Styles()->get_DefaultParagraphFormat()->set_Alignment(ParagraphAlignment::Right);
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     
     ASSERT_TRUE(doc->get_Styles()->get_DefaultFont()->get_Bold());
     ASSERT_EQ(u"PMingLiU", doc->get_Styles()->get_DefaultFont()->get_Name());
     ASPOSE_ASSERT_EQ(20, doc->get_Styles()->get_DefaultParagraphFormat()->get_SpaceAfter());
-    ASSERT_EQ(Aspose::Words::ParagraphAlignment::Right, doc->get_Styles()->get_DefaultParagraphFormat()->get_Alignment());
+    ASSERT_EQ(ParagraphAlignment::Right, doc->get_Styles()->get_DefaultParagraphFormat()->get_Alignment());
 }
 
 namespace gtest_test
@@ -415,13 +409,13 @@ void ExStyles::ParagraphStyleBulletedList()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Create a custom paragraph style.
-    System::SharedPtr<Aspose::Words::Style> style = doc->get_Styles()->Add(Aspose::Words::StyleType::Paragraph, u"MyStyle1");
+    System::SharedPtr<Aspose::Words::Style> style = doc->get_Styles()->Add(StyleType::Paragraph, u"MyStyle1");
     style->get_Font()->set_Size(24);
     style->get_Font()->set_Name(u"Verdana");
     style->get_ParagraphFormat()->set_SpaceAfter(12);
     
     // Create a list and make sure the paragraphs that use this style will use this list.
-    style->get_ListFormat()->set_List(doc->get_Lists()->Add(Aspose::Words::Lists::ListTemplate::BulletDefault));
+    style->get_ListFormat()->set_List(doc->get_Lists()->Add(ListTemplate::BulletDefault));
     style->get_ListFormat()->set_ListLevelNumber(0);
     
     // Apply the paragraph style to the document builder's current paragraph, and then add some text.
@@ -435,7 +429,7 @@ void ExStyles::ParagraphStyleBulletedList()
     builder->get_Document()->Save(get_ArtifactsDir() + u"Styles.ParagraphStyleBulletedList.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Styles.ParagraphStyleBulletedList.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Styles.ParagraphStyleBulletedList.docx"));
     
     style = doc->get_Styles()->idx_get(u"MyStyle1");
     
@@ -463,7 +457,7 @@ void ExStyles::StyleAliases()
     //ExFor:Style.Equals(Style)
     //ExFor:Style.LinkedStyleName
     //ExSummary:Shows how to use style aliases.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Style with alias.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Style with alias.docx"));
     
     // This document contains a style named "MyStyle,MyStyle Alias 1,MyStyle Alias 2".
     // If a style's name has multiple values separated by commas, each clause is a separate alias.
@@ -504,7 +498,7 @@ void ExStyles::LockStyle()
     //ExSummary:Shows how to lock style.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    System::SharedPtr<Aspose::Words::Style> styleHeading1 = doc->get_Styles()->idx_get(Aspose::Words::StyleIdentifier::Heading1);
+    System::SharedPtr<Aspose::Words::Style> styleHeading1 = doc->get_Styles()->idx_get(StyleIdentifier::Heading1);
     if (!styleHeading1->get_Locked())
     {
         styleHeading1->set_Locked(true);
@@ -513,8 +507,8 @@ void ExStyles::LockStyle()
     doc->Save(get_ArtifactsDir() + u"Styles.LockStyle.docx");
     //ExEnd:LockStyle
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Styles.LockStyle.docx");
-    ASSERT_TRUE(doc->get_Styles()->idx_get(Aspose::Words::StyleIdentifier::Heading1)->get_Locked());
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Styles.LockStyle.docx"));
+    ASSERT_TRUE(doc->get_Styles()->idx_get(StyleIdentifier::Heading1)->get_Locked());
 }
 
 namespace gtest_test
@@ -536,7 +530,7 @@ void ExStyles::StylePriority()
     //ExFor:Style.SemiHidden
     //ExSummary:Shows how to prioritize and hide a style.
     auto doc = System::MakeObject<Aspose::Words::Document>();
-    System::SharedPtr<Aspose::Words::Style> styleTitle = doc->get_Styles()->idx_get(Aspose::Words::StyleIdentifier::Subtitle);
+    System::SharedPtr<Aspose::Words::Style> styleTitle = doc->get_Styles()->idx_get(StyleIdentifier::Subtitle);
     
     if (styleTitle->get_Priority() == 9)
     {
@@ -575,12 +569,12 @@ void ExStyles::LinkedStyleName()
     //ExSummary:Shows how to link styles among themselves.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    System::SharedPtr<Aspose::Words::Style> styleHeading1 = doc->get_Styles()->idx_get(Aspose::Words::StyleIdentifier::Heading1);
+    System::SharedPtr<Aspose::Words::Style> styleHeading1 = doc->get_Styles()->idx_get(StyleIdentifier::Heading1);
     
-    System::SharedPtr<Aspose::Words::Style> styleHeading1Char = doc->get_Styles()->Add(Aspose::Words::StyleType::Character, u"Heading 1 Char");
+    System::SharedPtr<Aspose::Words::Style> styleHeading1Char = doc->get_Styles()->Add(StyleType::Character, u"Heading 1 Char");
     styleHeading1Char->get_Font()->set_Name(u"Verdana");
     styleHeading1Char->get_Font()->set_Bold(true);
-    styleHeading1Char->get_Font()->get_Border()->set_LineStyle(Aspose::Words::LineStyle::Dot);
+    styleHeading1Char->get_Font()->get_Border()->set_LineStyle(LineStyle::Dot);
     styleHeading1Char->get_Font()->get_Border()->set_LineWidth(15);
     
     styleHeading1->set_LinkedStyleName(u"Heading 1 Char");

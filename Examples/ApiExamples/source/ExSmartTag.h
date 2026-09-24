@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Markup/SmartTag.h>
 #include <Aspose.Words.Cpp/Model/Document/VisitorAction.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>
@@ -59,7 +55,23 @@ private:
     
 public:
 
+    //ExStart
+    //ExFor:CompositeNode.RemoveSmartTags
+    //ExFor:CustomXmlProperty
+    //ExFor:CustomXmlProperty.#ctor(String,String,String)
+    //ExFor:CustomXmlProperty.Name
+    //ExFor:CustomXmlProperty.Value
+    //ExFor:SmartTag
+    //ExFor:SmartTag.#ctor(DocumentBase)
+    //ExFor:SmartTag.Accept(DocumentVisitor)
+    //ExFor:SmartTag.AcceptStart(DocumentVisitor)
+    //ExFor:SmartTag.AcceptEnd(DocumentVisitor)
+    //ExFor:SmartTag.Element
+    //ExFor:SmartTag.Properties
+    //ExFor:SmartTag.Uri
+    //ExSummary:Shows how to create smart tags.
     void Create();
+    //ExEnd
     void TestCreate(System::SharedPtr<Aspose::Words::Document> doc);
     void Properties();
     

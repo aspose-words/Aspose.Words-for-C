@@ -1,5 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-#include "HelperClasses/TestClasses/ImageTestClass.h"
+﻿#include "HelperClasses/TestClasses/ImageTestClass.h"
 
 namespace Aspose {
 

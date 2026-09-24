@@ -1,14 +1,10 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExSvgSaveOptions.h"
+﻿#include "ExSvgSaveOptions.h"
 
 #include <system/object_ext.h>
 #include <system/io/memory_stream.h>
+#include <system/io/directory_info.h>
 #include <system/io/directory.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <iostream>
 #include <Aspose.Words.Cpp/Rendering/OfficeMathRenderer.h>
 #include <Aspose.Words.Cpp/Model/Saving/SvgTextOutputMode.h>
@@ -83,13 +79,13 @@ void ExSvgSaveOptions::SaveLikeImage()
     //ExFor:SvgSaveOptions.TextOutputMode
     //ExFor:SvgTextOutputMode
     //ExSummary:Shows how to mimic the properties of images when converting a .docx document to .svg.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     // Configure the SvgSaveOptions object to save with no page borders or selectable text.
     auto options = System::MakeObject<Aspose::Words::Saving::SvgSaveOptions>();
     options->set_FitToViewPort(true);
     options->set_ShowPageBorder(false);
-    options->set_TextOutputMode(Aspose::Words::Saving::SvgTextOutputMode::UsePlacedGlyphs);
+    options->set_TextOutputMode(SvgTextOutputMode::UsePlacedGlyphs);
     
     doc->Save(get_ArtifactsDir() + u"SvgSaveOptions.SaveLikeImage.svg", options);
     //ExEnd
@@ -107,10 +103,10 @@ TEST_F(ExSvgSaveOptions, SaveLikeImage)
 
 void ExSvgSaveOptions::SvgResourceFolder()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto options = System::MakeObject<Aspose::Words::Saving::SvgSaveOptions>();
-    options->set_SaveFormat(Aspose::Words::SaveFormat::Svg);
+    options->set_SaveFormat(SaveFormat::Svg);
     options->set_ExportEmbeddedImages(false);
     options->set_ResourcesFolder(get_ArtifactsDir() + u"SvgResourceFolder");
     options->set_ResourcesFolderAlias(get_ArtifactsDir() + u"SvgResourceFolderAlias");
@@ -139,12 +135,12 @@ void ExSvgSaveOptions::SaveOfficeMath()
     //ExFor:NodeRendererBase.Save(String, SvgSaveOptions)
     //ExFor:NodeRendererBase.Save(Stream, SvgSaveOptions)
     //ExSummary:Shows how to pass save options when rendering office math.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
-    auto math = System::ExplicitCast<Aspose::Words::Math::OfficeMath>(doc->GetChild(Aspose::Words::NodeType::OfficeMath, 0, true));
+    auto math = System::ExplicitCast<Aspose::Words::Math::OfficeMath>(doc->GetChild(NodeType::OfficeMath, 0, true));
     
     auto options = System::MakeObject<Aspose::Words::Saving::SvgSaveOptions>();
-    options->set_TextOutputMode(Aspose::Words::Saving::SvgTextOutputMode::UsePlacedGlyphs);
+    options->set_TextOutputMode(SvgTextOutputMode::UsePlacedGlyphs);
     
     math->GetMathRenderer()->Save(get_ArtifactsDir() + u"SvgSaveOptions.Output.svg", options);
     
@@ -174,7 +170,7 @@ void ExSvgSaveOptions::MaxImageResolution()
     //ExFor:SoftEdgeFormat.Remove
     //ExFor:SvgSaveOptions.MaxImageResolution
     //ExSummary:Shows how to set limit for image resolution.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::SvgSaveOptions>();
     saveOptions->set_MaxImageResolution(72);
@@ -199,7 +195,7 @@ void ExSvgSaveOptions::IdPrefixSvg()
     //GistId:f86d49dc0e6781b93e576539a01e6ca2
     //ExFor:SvgSaveOptions.IdPrefix
     //ExSummary:Shows how to add a prefix that is prepended to all generated element IDs (svg).
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Id prefix.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Id prefix.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::SvgSaveOptions>();
     saveOptions->set_IdPrefix(u"pfx1_");
@@ -224,7 +220,7 @@ void ExSvgSaveOptions::RemoveJavaScriptFromLinksSvg()
     //GistId:f86d49dc0e6781b93e576539a01e6ca2
     //ExFor:SvgSaveOptions.RemoveJavaScriptFromLinks
     //ExSummary:Shows how to remove JavaScript from the links (svg).
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"JavaScript in HREF.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"JavaScript in HREF.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::SvgSaveOptions>();
     saveOptions->set_RemoveJavaScriptFromLinks(true);

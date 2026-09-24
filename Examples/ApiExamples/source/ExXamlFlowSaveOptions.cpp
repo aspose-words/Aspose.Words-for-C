@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExXamlFlowSaveOptions.h"
+﻿#include "ExXamlFlowSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/timespan.h>
@@ -11,16 +6,15 @@
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/nullable.h>
-#include <system/io/stream.h>
 #include <system/io/file_stream.h>
 #include <system/io/file_mode.h>
 #include <system/io/file.h>
+#include <system/io/directory_info.h>
 #include <system/io/directory.h>
 #include <system/exceptions.h>
-#include <system/enumerator_adapter.h>
 #include <system/default.h>
+#include <system/console.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/XamlFlowSaveOptions.h>
@@ -94,7 +88,6 @@ void ExXamlFlowSaveOptions::TestImageFolder(System::SharedPtr<Aspose::Words::Api
     }
 }
 
-
 namespace gtest_test
 {
 
@@ -129,7 +122,7 @@ System::SharedPtr<::Aspose::Words::ApiExamples::ExXamlFlowSaveOptions> ExXamlFlo
 
 void ExXamlFlowSaveOptions::ImageFolder()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto callback = System::MakeObject<Aspose::Words::ApiExamples::ExXamlFlowSaveOptions::ImageUriPrinter>(get_ArtifactsDir() + u"XamlFlowImageFolderAlias");
     
@@ -137,7 +130,7 @@ void ExXamlFlowSaveOptions::ImageFolder()
     // to modify how we save the document to the XAML save format.
     auto options = System::MakeObject<Aspose::Words::Saving::XamlFlowSaveOptions>();
     
-    ASSERT_EQ(Aspose::Words::SaveFormat::XamlFlow, options->get_SaveFormat());
+    ASSERT_EQ(SaveFormat::XamlFlow, options->get_SaveFormat());
     
     // Use the "ImagesFolder" property to assign a folder in the local file system into which
     // Aspose.Words will save all the document's linked images.
@@ -175,16 +168,17 @@ TEST_F(ExXamlFlowSaveOptions, ImageFolder)
 
 void ExXamlFlowSaveOptions::ProgressCallback(Aspose::Words::SaveFormat saveFormat, System::String ext)
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
     // Following formats are supported: XamlFlow, XamlFlowPack.
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::XamlFlowSaveOptions>(saveFormat);
     saveOptions->set_ProgressCallback(System::MakeObject<Aspose::Words::ApiExamples::ExXamlFlowSaveOptions::SavingProgressCallback>());
     
-    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(static_cast<std::function<void()>>([&doc, &ext, &saveOptions]() -> void
+    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(static_cast<std::function<void()>>([&saveOptions, &doc, &ext]() -> void
     {
         doc->Save(get_ArtifactsDir() + System::String::Format(u"XamlFlowSaveOptions.ProgressCallback.{0}", ext), saveOptions);
-    })(), System::OperationCanceledException, &exception);
+    })(), System::OperationCanceledException, &exception)
+    
     System::Nullable<bool> actual = System::Default<System::Nullable<bool>>();
     System::OperationCanceledException condExpression = exception;
     if (condExpression != nullptr)
@@ -205,8 +199,8 @@ struct ExXamlFlowSaveOptions_ProgressCallback : public ExXamlFlowSaveOptions, pu
     {
         return
         {
-            std::make_tuple(Aspose::Words::SaveFormat::XamlFlow, u"xamlflow"),
-            std::make_tuple(Aspose::Words::SaveFormat::XamlFlowPack, u"xamlflowpack"),
+            std::make_tuple(SaveFormat::XamlFlow, u"xamlflow"),
+            std::make_tuple(SaveFormat::XamlFlowPack, u"xamlflowpack"),
         };
     }
 };
@@ -227,7 +221,7 @@ void ExXamlFlowSaveOptions::XamlReplaceBackslashWithYenSign()
     //GistId:708ce40a68fac5003d46f6b4acfd5ff1
     //ExFor:XamlFlowSaveOptions.ReplaceBackslashWithYenSign
     //ExSummary:Shows how to replace backslash characters with yen signs (Xaml).
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Korean backslash symbol.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Korean backslash symbol.docx"));
     
     // By default, Aspose.Words mimics MS Word's behavior and doesn't replace backslash characters with yen signs in
     // generated HTML documents. However, previous versions of Aspose.Words performed such replacements in certain

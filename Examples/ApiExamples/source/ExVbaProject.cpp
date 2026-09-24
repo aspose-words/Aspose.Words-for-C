@@ -1,16 +1,10 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExVbaProject.h"
+﻿#include "ExVbaProject.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/exceptions.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/RW/Ole/Vba/VbaReferenceType.h>
 #include <Aspose.Words.Cpp/RW/Ole/Vba/VbaReferenceCollection.h>
@@ -35,17 +29,14 @@ System::String ExVbaProject::GetLibIdPath(System::SharedPtr<Aspose::Words::Vba::
 {
     switch (reference->get_Type())
     {
-        case Aspose::Words::Vba::VbaReferenceType::Registered:
-        case Aspose::Words::Vba::VbaReferenceType::Original:
-        case Aspose::Words::Vba::VbaReferenceType::Control:
+        case VbaReferenceType::Registered:
+        case VbaReferenceType::Original:
+        case VbaReferenceType::Control:
             return GetLibIdReferencePath(reference->get_LibId());
-        
-        case Aspose::Words::Vba::VbaReferenceType::Project:
+        case VbaReferenceType::Project:
             return GetLibIdProjectPath(reference->get_LibId());
-        
-        default: 
+        default:
             throw System::ArgumentOutOfRangeException();
-        
     }
 }
 
@@ -53,7 +44,7 @@ System::String ExVbaProject::GetLibIdReferencePath(System::String libIdReference
 {
     if (libIdReference != nullptr)
     {
-        System::ArrayPtr<System::String> refParts = libIdReference.Split(u'#');
+        System::ArrayPtr<System::String> refParts = libIdReference.Split(System::MakeArray<char16_t>({u'#'}));
         if (refParts->get_Length() > 3)
         {
             return refParts[3];
@@ -65,9 +56,8 @@ System::String ExVbaProject::GetLibIdReferencePath(System::String libIdReference
 
 System::String ExVbaProject::GetLibIdProjectPath(System::String libIdProject)
 {
-    return libIdProject != nullptr ? libIdProject.Substring(3) : u"";
+    return libIdProject != nullptr ? libIdProject.Substring(3) : System::String(u"");
 }
-
 
 namespace gtest_test
 {
@@ -122,7 +112,7 @@ void ExVbaProject::CreateNewVbaProject()
     // Create a new module and specify a macro source code.
     auto module_ = System::MakeObject<Aspose::Words::Vba::VbaModule>();
     module_->set_Name(u"Aspose.Module");
-    module_->set_Type(Aspose::Words::Vba::VbaModuleType::ProceduralModule);
+    module_->set_Type(VbaModuleType::ProceduralModule);
     module_->set_SourceCode(u"New source code");
     
     // Add the module to the VBA project.
@@ -131,7 +121,7 @@ void ExVbaProject::CreateNewVbaProject()
     doc->Save(get_ArtifactsDir() + u"VbaProject.CreateVBAMacros.docm");
     //ExEnd
     
-    project = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"VbaProject.CreateVBAMacros.docm")->get_VbaProject();
+    project = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"VbaProject.CreateVBAMacros.docm"))->get_VbaProject();
     
     ASSERT_EQ(u"Aspose.Project", project->get_Name());
     
@@ -140,11 +130,11 @@ void ExVbaProject::CreateNewVbaProject()
     ASSERT_EQ(2, modules->get_Count());
     
     ASSERT_EQ(u"ThisDocument", modules->idx_get(0)->get_Name());
-    ASSERT_EQ(Aspose::Words::Vba::VbaModuleType::DocumentModule, modules->idx_get(0)->get_Type());
+    ASSERT_EQ(VbaModuleType::DocumentModule, modules->idx_get(0)->get_Type());
     ASSERT_TRUE(System::TestTools::IsNull(modules->idx_get(0)->get_SourceCode()));
     
     ASSERT_EQ(u"Aspose.Module", modules->idx_get(1)->get_Name());
-    ASSERT_EQ(Aspose::Words::Vba::VbaModuleType::ProceduralModule, modules->idx_get(1)->get_Type());
+    ASSERT_EQ(VbaModuleType::ProceduralModule, modules->idx_get(1)->get_Type());
     ASSERT_EQ(u"New source code", modules->idx_get(1)->get_SourceCode());
 }
 
@@ -164,7 +154,7 @@ void ExVbaProject::CloneVbaProject()
     //ExFor:VbaProject.Clone
     //ExFor:VbaModule.Clone
     //ExSummary:Shows how to deep clone a VBA project and module.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"VBA project.docm");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"VBA project.docm"));
     auto destDoc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Vba::VbaProject> copyVbaProject = doc->get_VbaProject()->Clone();
@@ -180,7 +170,7 @@ void ExVbaProject::CloneVbaProject()
     destDoc->Save(get_ArtifactsDir() + u"VbaProject.CloneVbaProject.docm");
     //ExEnd
     
-    System::SharedPtr<Aspose::Words::Vba::VbaProject> originalVbaProject = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"VbaProject.CloneVbaProject.docm")->get_VbaProject();
+    System::SharedPtr<Aspose::Words::Vba::VbaProject> originalVbaProject = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"VbaProject.CloneVbaProject.docm"))->get_VbaProject();
     
     ASSERT_EQ(copyVbaProject->get_Name(), originalVbaProject->get_Name());
     ASSERT_EQ(copyVbaProject->get_CodePage(), originalVbaProject->get_CodePage());
@@ -208,7 +198,7 @@ TEST_F(ExVbaProject, CloneVbaProject)
 void ExVbaProject::RemoveVbaReference()
 {
     const System::String brokenPath = u"X:\\broken.dll";
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"VBA project.docm");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"VBA project.docm"));
     
     System::SharedPtr<Aspose::Words::Vba::VbaReferenceCollection> references = doc->get_VbaProject()->get_References();
     ASSERT_EQ(5, references->get_Count());
@@ -247,7 +237,7 @@ void ExVbaProject::IsProtected()
     //GistId:ac8ba4eb35f3fbb8066b48c999da63b0
     //ExFor:VbaProject.IsProtected
     //ExSummary:Shows whether the VbaProject is password protected.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Vba protected.docm");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Vba protected.docm"));
     ASSERT_TRUE(doc->get_VbaProject()->get_IsProtected());
     //ExEnd:IsProtected
 }

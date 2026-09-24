@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/MailMerge/ImageFieldMergingArgs.h>
 #include <Aspose.Words.Cpp/Model/MailMerge/IFieldMergingCallback.h>
@@ -57,10 +53,17 @@ private:
 public:
 
     void KeepSourceNumbering(bool keepSourceNumbering);
+    //ExStart
+    //ExFor:Paragraph.IsEndOfSection
+    //ExFor:NodeImporter
+    //ExFor:NodeImporter.#ctor(DocumentBase, DocumentBase, ImportFormatMode)
+    //ExFor:NodeImporter.ImportNode(Node, Boolean)
+    //ExSummary:Shows how to insert the contents of one document to a bookmark in another document.
     void InsertAtBookmark();
+    //ExEnd
     void InsertAtMergeField();
     
-private:
+protected:
 
     /// <summary>
     /// Inserts the contents of a document after the specified node.

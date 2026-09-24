@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExParagraph.h"
+﻿#include "ExParagraph.h"
 
 #include <testing/test_predicates.h>
 #include <system/timespan.h>
@@ -15,7 +10,7 @@
 #include <system/enumerator_adapter.h>
 #include <system/date_time.h>
 #include <system/collections/ienumerable.h>
-#include <gtest/gtest.h>
+#include <system/array.h>
 #include <functional>
 #include <drawing/color.h>
 #include <Aspose.Words.Cpp/Model/Text/Underline.h>
@@ -24,6 +19,7 @@
 #include <Aspose.Words.Cpp/Model/Text/TabLeader.h>
 #include <Aspose.Words.Cpp/Model/Text/TabAlignment.h>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
+#include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
@@ -54,8 +50,8 @@
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/BreakType.h>
 
-#include "TestUtil.h"
 #include "DocumentHelper.h"
+#include "TestUtil.h"
 
 
 using namespace Aspose::Words::Drawing;
@@ -70,22 +66,21 @@ RTTI_INFO_IMPL_HASH(454855134u, ::Aspose::Words::ApiExamples::ExParagraph, ThisT
 
 void ExParagraph::InsertFieldUsingFieldType(System::SharedPtr<Aspose::Words::Document> doc, Aspose::Words::Fields::FieldType fieldType, bool updateField, System::SharedPtr<Aspose::Words::Node> refNode, bool isAfter, int32_t paraIndex)
 {
-    System::SharedPtr<Aspose::Words::Paragraph> para = Aspose::Words::ApiExamples::DocumentHelper::GetParagraph(doc, paraIndex);
+    System::SharedPtr<Aspose::Words::Paragraph> para = DocumentHelper::GetParagraph(doc, paraIndex);
     para->InsertField(fieldType, updateField, refNode, isAfter);
 }
 
 void ExParagraph::InsertFieldUsingFieldCode(System::SharedPtr<Aspose::Words::Document> doc, System::String fieldCode, System::SharedPtr<Aspose::Words::Node> refNode, bool isAfter, int32_t paraIndex)
 {
-    System::SharedPtr<Aspose::Words::Paragraph> para = Aspose::Words::ApiExamples::DocumentHelper::GetParagraph(doc, paraIndex);
+    System::SharedPtr<Aspose::Words::Paragraph> para = DocumentHelper::GetParagraph(doc, paraIndex);
     para->InsertField(fieldCode, refNode, isAfter);
 }
 
 void ExParagraph::InsertFieldUsingFieldCodeFieldString(System::SharedPtr<Aspose::Words::Document> doc, System::String fieldCode, System::String fieldValue, System::SharedPtr<Aspose::Words::Node> refNode, bool isAfter, int32_t paraIndex)
 {
-    System::SharedPtr<Aspose::Words::Paragraph> para = Aspose::Words::ApiExamples::DocumentHelper::GetParagraph(doc, paraIndex);
+    System::SharedPtr<Aspose::Words::Paragraph> para = DocumentHelper::GetParagraph(doc, paraIndex);
     para->InsertField(fieldCode, fieldValue, refNode, isAfter);
 }
-
 
 namespace gtest_test
 {
@@ -137,11 +132,11 @@ void ExParagraph::DocumentBuilderInsertParagraph()
     font->set_Bold(true);
     font->set_Color(System::Drawing::Color::get_Blue());
     font->set_Name(u"Arial");
-    font->set_Underline(Aspose::Words::Underline::Dash);
+    font->set_Underline(Underline::Dash);
     
     System::SharedPtr<Aspose::Words::ParagraphFormat> paragraphFormat = builder->get_ParagraphFormat();
     paragraphFormat->set_FirstLineIndent(8);
-    paragraphFormat->set_Alignment(Aspose::Words::ParagraphAlignment::Justify);
+    paragraphFormat->set_Alignment(ParagraphAlignment::Justify);
     paragraphFormat->set_AddSpaceBetweenFarEastAndAlpha(true);
     paragraphFormat->set_AddSpaceBetweenFarEastAndDigit(true);
     paragraphFormat->set_KeepTogether(true);
@@ -153,11 +148,11 @@ void ExParagraph::DocumentBuilderInsertParagraph()
     ASSERT_TRUE(builder->get_CurrentParagraph()->get_IsEndOfDocument());
     //ExEnd
     
-    doc = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(doc);
+    doc = DocumentHelper::SaveOpen(doc);
     System::SharedPtr<Aspose::Words::Paragraph> paragraph = doc->get_FirstSection()->get_Body()->get_FirstParagraph();
     
     ASPOSE_ASSERT_EQ(8, paragraph->get_ParagraphFormat()->get_FirstLineIndent());
-    ASSERT_EQ(Aspose::Words::ParagraphAlignment::Justify, paragraph->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(ParagraphAlignment::Justify, paragraph->get_ParagraphFormat()->get_Alignment());
     ASSERT_TRUE(paragraph->get_ParagraphFormat()->get_AddSpaceBetweenFarEastAndAlpha());
     ASSERT_TRUE(paragraph->get_ParagraphFormat()->get_AddSpaceBetweenFarEastAndDigit());
     ASSERT_TRUE(paragraph->get_ParagraphFormat()->get_KeepTogether());
@@ -169,7 +164,7 @@ void ExParagraph::DocumentBuilderInsertParagraph()
     ASSERT_TRUE(runFont->get_Bold());
     ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), runFont->get_Color().ToArgb());
     ASSERT_EQ(u"Arial", runFont->get_Name());
-    ASSERT_EQ(Aspose::Words::Underline::Dash, runFont->get_Underline());
+    ASSERT_EQ(Underline::Dash, runFont->get_Underline());
 }
 
 namespace gtest_test
@@ -194,9 +189,9 @@ void ExParagraph::AppendField()
     
     // Below are three ways of appending a field to the end of a paragraph.
     // 1 -  Append a DATE field using a field type, and then update it:
-    paragraph->AppendField(Aspose::Words::Fields::FieldType::FieldDate, true);
+    paragraph->AppendField(FieldType::FieldDate, true);
     
-    // 2 -  Append a TIME field using a field code: 
+    // 2 -  Append a TIME field using a field code:
     paragraph->AppendField(u" TIME  \\@ \"HH:mm:ss\" ");
     
     // 3 -  Append a QUOTE field using a field code, and get it to display a placeholder value:
@@ -212,11 +207,11 @@ void ExParagraph::AppendField()
     doc->Save(get_ArtifactsDir() + u"Paragraph.AppendField.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Paragraph.AppendField.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Paragraph.AppendField.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldDate, u" DATE ", System::DateTime::get_Now(), doc->get_Range()->get_Fields()->idx_get(0), System::TimeSpan(0, 0, 0, 0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldTime, u" TIME  \\@ \"HH:mm:ss\" ", System::DateTime::get_Now(), doc->get_Range()->get_Fields()->idx_get(1), System::TimeSpan(0, 0, 0, 5));
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldQuote, u" QUOTE \"Real value\"", u"Real value", doc->get_Range()->get_Fields()->idx_get(2));
+    TestUtil::VerifyField(FieldType::FieldDate, u" DATE ", System::DateTime::get_Now(), doc->get_Range()->get_Fields()->idx_get(0), System::TimeSpan(0, 0, 0, 0));
+    TestUtil::VerifyField(FieldType::FieldTime, u" TIME  \\@ \"HH:mm:ss\" ", System::DateTime::get_Now(), doc->get_Range()->get_Fields()->idx_get(1), System::TimeSpan(0, 0, 0, 5));
+    TestUtil::VerifyField(FieldType::FieldQuote, u" QUOTE \"Real value\"", u"Real value", doc->get_Range()->get_Fields()->idx_get(2));
 }
 
 namespace gtest_test
@@ -246,7 +241,7 @@ void ExParagraph::InsertField()
     para->AppendChild<System::SharedPtr<Aspose::Words::Run>>(run);
     
     doc->get_BuiltInDocumentProperties()->idx_get(u"Author")->set_Value(System::ExplicitCast<System::Object>(u"John Doe"));
-    para->InsertField(Aspose::Words::Fields::FieldType::FieldAuthor, true, run, true);
+    para->InsertField(FieldType::FieldAuthor, true, run, true);
     
     // 2 -  Insert a QUOTE field after one of the paragraph's child nodes:
     run = System::MakeObject<Aspose::Words::Run>(doc);
@@ -269,11 +264,11 @@ void ExParagraph::InsertField()
     doc->Save(get_ArtifactsDir() + u"Paragraph.InsertField.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Paragraph.InsertField.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Paragraph.InsertField.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldAuthor, u" AUTHOR ", u"John Doe", doc->get_Range()->get_Fields()->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldQuote, u" QUOTE \" Real value.\"", u" Real value.", doc->get_Range()->get_Fields()->idx_get(1));
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldQuote, u" QUOTE \" Real value\" ", u" Real value", doc->get_Range()->get_Fields()->idx_get(2));
+    TestUtil::VerifyField(FieldType::FieldAuthor, u" AUTHOR ", u"John Doe", doc->get_Range()->get_Fields()->idx_get(0));
+    TestUtil::VerifyField(FieldType::FieldQuote, u" QUOTE \" Real value.\"", u" Real value.", doc->get_Range()->get_Fields()->idx_get(1));
+    TestUtil::VerifyField(FieldType::FieldQuote, u" QUOTE \" Real value\" ", u" Real value", doc->get_Range()->get_Fields()->idx_get(2));
 }
 
 namespace gtest_test
@@ -288,11 +283,11 @@ TEST_F(ExParagraph, InsertField)
 
 void ExParagraph::InsertFieldBeforeTextInParagraph()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     
     InsertFieldUsingFieldCode(doc, u" AUTHOR ", nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014Test Author\u0015Hello World!\r", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(u"\u0013 AUTHOR \u0014Test Author\u0015Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -309,11 +304,11 @@ void ExParagraph::InsertFieldAfterTextInParagraph()
 {
     System::String date = System::DateTime::get_Today().ToString(u"d");
     
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     
     InsertFieldUsingFieldCode(doc, u" DATE ", nullptr, true, 1);
     
-    ASSERT_EQ(System::String::Format(u"Hello World!\u0013 DATE \u0014{0}\u0015\r", date), Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(System::String::Format(u"Hello World!\u0013 DATE \u0014{0}\u0015\r", date), DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -328,11 +323,11 @@ TEST_F(ExParagraph, InsertFieldAfterTextInParagraph)
 
 void ExParagraph::InsertFieldBeforeTextInParagraphWithoutUpdateField()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     
-    InsertFieldUsingFieldType(doc, Aspose::Words::Fields::FieldType::FieldAuthor, false, nullptr, false, 1);
+    InsertFieldUsingFieldType(doc, FieldType::FieldAuthor, false, nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014\u0015Hello World!\r", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(u"\u0013 AUTHOR \u0014\u0015Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -347,11 +342,11 @@ TEST_F(ExParagraph, InsertFieldBeforeTextInParagraphWithoutUpdateField)
 
 void ExParagraph::InsertFieldAfterTextInParagraphWithoutUpdateField()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     
-    InsertFieldUsingFieldType(doc, Aspose::Words::Fields::FieldType::FieldAuthor, false, nullptr, true, 1);
+    InsertFieldUsingFieldType(doc, FieldType::FieldAuthor, false, nullptr, true, 1);
     
-    ASSERT_EQ(u"Hello World!\u0013 AUTHOR \u0014\u0015\r", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(u"Hello World!\u0013 AUTHOR \u0014\u0015\r", DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -366,11 +361,11 @@ TEST_F(ExParagraph, InsertFieldAfterTextInParagraphWithoutUpdateField)
 
 void ExParagraph::InsertFieldWithoutSeparator()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     
-    InsertFieldUsingFieldType(doc, Aspose::Words::Fields::FieldType::FieldListNum, true, nullptr, false, 1);
+    InsertFieldUsingFieldType(doc, FieldType::FieldListNum, true, nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 LISTNUM \u0015Hello World!\r", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(u"\u0013 LISTNUM \u0015Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -385,12 +380,12 @@ TEST_F(ExParagraph, InsertFieldWithoutSeparator)
 
 void ExParagraph::InsertFieldBeforeParagraphWithoutDocumentAuthor()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     doc->get_BuiltInDocumentProperties()->set_Author(u"");
     
     InsertFieldUsingFieldCodeFieldString(doc, u" AUTHOR ", nullptr, nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014\u0015Hello World!\r", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(u"\u0013 AUTHOR \u0014\u0015Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -405,11 +400,11 @@ TEST_F(ExParagraph, InsertFieldBeforeParagraphWithoutDocumentAuthor)
 
 void ExParagraph::InsertFieldAfterParagraphWithoutChangingDocumentAuthor()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     
     InsertFieldUsingFieldCodeFieldString(doc, u" AUTHOR ", nullptr, nullptr, true, 1);
     
-    ASSERT_EQ(u"Hello World!\u0013 AUTHOR \u0014\u0015\r", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(u"Hello World!\u0013 AUTHOR \u0014\u0015\r", DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -424,14 +419,14 @@ TEST_F(ExParagraph, InsertFieldAfterParagraphWithoutChangingDocumentAuthor)
 
 void ExParagraph::InsertFieldBeforeRunText()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     
     //Add some text into the paragraph
-    System::SharedPtr<Aspose::Words::Run> run = Aspose::Words::ApiExamples::DocumentHelper::InsertNewRun(doc, u" Hello World!", 1);
+    System::SharedPtr<Aspose::Words::Run> run = DocumentHelper::InsertNewRun(doc, u" Hello World!", 1);
     
     InsertFieldUsingFieldCodeFieldString(doc, u" AUTHOR ", u"Test Field Value", run, false, 1);
     
-    ASSERT_EQ(u"Hello World!\u0013 AUTHOR \u0014Test Field Value\u0015 Hello World!\r", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(u"Hello World!\u0013 AUTHOR \u0014Test Field Value\u0015 Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -446,14 +441,14 @@ TEST_F(ExParagraph, InsertFieldBeforeRunText)
 
 void ExParagraph::InsertFieldAfterRunText()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentFillWithDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentFillWithDummyText();
     
     // Add some text into the paragraph
-    System::SharedPtr<Aspose::Words::Run> run = Aspose::Words::ApiExamples::DocumentHelper::InsertNewRun(doc, u" Hello World!", 1);
+    System::SharedPtr<Aspose::Words::Run> run = DocumentHelper::InsertNewRun(doc, u" Hello World!", 1);
     
     InsertFieldUsingFieldCodeFieldString(doc, u" AUTHOR ", u"", run, true, 1);
     
-    ASSERT_EQ(u"Hello World! Hello World!\u0013 AUTHOR \u0014\u0015\r", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(u"Hello World! Hello World!\u0013 AUTHOR \u0014\u0015\r", DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -468,11 +463,11 @@ TEST_F(ExParagraph, InsertFieldAfterRunText)
 
 void ExParagraph::InsertFieldEmptyParagraphWithoutUpdateField()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentWithoutDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentWithoutDummyText();
     
-    InsertFieldUsingFieldType(doc, Aspose::Words::Fields::FieldType::FieldAuthor, false, nullptr, false, 1);
+    InsertFieldUsingFieldType(doc, FieldType::FieldAuthor, false, nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014\u0015\f", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(u"\u0013 AUTHOR \u0014\u0015\f", DocumentHelper::GetParagraphText(doc, 1));
 }
 
 namespace gtest_test
@@ -487,11 +482,11 @@ TEST_F(ExParagraph, InsertFieldEmptyParagraphWithoutUpdateField)
 
 void ExParagraph::InsertFieldEmptyParagraphWithUpdateField()
 {
-    System::SharedPtr<Aspose::Words::Document> doc = Aspose::Words::ApiExamples::DocumentHelper::CreateDocumentWithoutDummyText();
+    System::SharedPtr<Aspose::Words::Document> doc = DocumentHelper::CreateDocumentWithoutDummyText();
     
-    InsertFieldUsingFieldType(doc, Aspose::Words::Fields::FieldType::FieldAuthor, true, nullptr, false, 0);
+    InsertFieldUsingFieldType(doc, FieldType::FieldAuthor, true, nullptr, false, 0);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014Test Author\u0015\r", Aspose::Words::ApiExamples::DocumentHelper::GetParagraphText(doc, 0));
+    ASSERT_EQ(u"\u0013 AUTHOR \u0014Test Author\u0015\r", DocumentHelper::GetParagraphText(doc, 0));
 }
 
 namespace gtest_test
@@ -550,14 +545,14 @@ void ExParagraph::CompositeNodeChildren()
     paragraph->PrependChild<System::SharedPtr<Aspose::Words::Run>>(run1);
     
     ASSERT_EQ(u"Run 1. Run 2. Initial text. Run 3.", paragraph->GetText().Trim());
-    ASSERT_EQ(4, paragraph->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count());
+    ASSERT_EQ(4, paragraph->GetChildNodes(NodeType::Any, true)->get_Count());
     
     // We can modify the contents of the run by editing and deleting existing child nodes.
-    (System::ExplicitCast<Aspose::Words::Run>(paragraph->GetChildNodes(Aspose::Words::NodeType::Run, true)->idx_get(1)))->set_Text(u"Updated run 2. ");
-    paragraph->GetChildNodes(Aspose::Words::NodeType::Run, true)->Remove(paragraphText);
+    (System::ExplicitCast<Aspose::Words::Run>(paragraph->GetChildNodes(NodeType::Run, true)->idx_get(1)))->set_Text(u"Updated run 2. ");
+    paragraph->GetChildNodes(NodeType::Run, true)->Remove(paragraphText);
     
     ASSERT_EQ(u"Run 1. Updated run 2. Run 3.", paragraph->GetText().Trim());
-    ASSERT_EQ(3, paragraph->GetChildNodes(Aspose::Words::NodeType::Any, true)->get_Count());
+    ASSERT_EQ(3, paragraph->GetChildNodes(NodeType::Any, true)->get_Count());
     //ExEnd
 }
 
@@ -580,19 +575,19 @@ void ExParagraph::MoveRevisions()
     //ExFor:ParagraphCollection.Item(Int32)
     //ExFor:Story.Paragraphs
     //ExSummary:Shows how to check whether a paragraph is a move revision.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revisions.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revisions.docx"));
     
     // This document contains "Move" revisions, which appear when we highlight text with the cursor,
     // and then drag it to move it to another location
     // while tracking revisions in Microsoft Word via "Review" -> "Track changes".
     ASSERT_EQ(6, doc->get_Revisions()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Revision>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Revision> r)>>([](System::SharedPtr<Aspose::Words::Revision> r) -> bool
     {
-        return r->get_RevisionType() == Aspose::Words::RevisionType::Moving;
+        return r->get_RevisionType() == RevisionType::Moving;
     }))));
     
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    // Move revisions consist of pairs of "Move from", and "Move to" revisions. 
+    // Move revisions consist of pairs of "Move from", and "Move to" revisions.
     // These revisions are potential changes to the document that we can either accept or reject.
     // Before we accept/reject a move revision, the document
     // must keep track of both the departure and arrival destinations of the text.
@@ -625,12 +620,12 @@ void ExParagraph::RangeRevisions()
     //ExStart
     //ExFor:Range.Revisions
     //ExSummary:Shows how to work with revisions in range.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revisions.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revisions.docx"));
     
     System::SharedPtr<Aspose::Words::Paragraph> paragraph = doc->get_FirstSection()->get_Body()->get_FirstParagraph();
     for (auto&& revision : System::IterateOver(paragraph->get_Range()->get_Revisions()))
     {
-        if (revision->get_RevisionType() == Aspose::Words::RevisionType::Deletion)
+        if (revision->get_RevisionType() == RevisionType::Deletion)
         {
             revision->Accept();
         }
@@ -656,7 +651,7 @@ void ExParagraph::GetFormatRevision()
     //ExStart
     //ExFor:Paragraph.IsFormatRevision
     //ExSummary:Shows how to check whether a paragraph is a format revision.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Format revision.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Format revision.docx"));
     
     // This paragraph is a "Format" revision, which occurs when we change the formatting of existing text
     // while tracking revisions in Microsoft Word via "Review" -> "Track changes".
@@ -692,23 +687,23 @@ void ExParagraph::GetFrameProperties()
     //ExFor:FrameFormat.RelativeVerticalPosition
     //ExFor:FrameFormat.VerticalDistanceFromText
     //ExSummary:Shows how to get information about formatting properties of paragraphs that are frames.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraph frame.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraph frame.docx"));
     
-    System::SharedPtr<Aspose::Words::Paragraph> paragraphFrame = doc->get_FirstSection()->get_Body()->get_Paragraphs()->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph> >()->LINQ_First(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
+    System::SharedPtr<Aspose::Words::Paragraph> paragraphFrame = doc->get_FirstSection()->get_Body()->get_Paragraphs()->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph>>()->LINQ_First(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
     {
         return p->get_FrameFormat()->get_IsFrame();
     })));
     
     ASPOSE_ASSERT_EQ(233.3, paragraphFrame->get_FrameFormat()->get_Width());
     ASPOSE_ASSERT_EQ(138.8, paragraphFrame->get_FrameFormat()->get_Height());
-    ASSERT_EQ(Aspose::Words::HeightRule::AtLeast, paragraphFrame->get_FrameFormat()->get_HeightRule());
-    ASSERT_EQ(Aspose::Words::Drawing::HorizontalAlignment::Default, paragraphFrame->get_FrameFormat()->get_HorizontalAlignment());
-    ASSERT_EQ(Aspose::Words::Drawing::VerticalAlignment::Default, paragraphFrame->get_FrameFormat()->get_VerticalAlignment());
+    ASSERT_EQ(HeightRule::AtLeast, paragraphFrame->get_FrameFormat()->get_HeightRule());
+    ASSERT_EQ(HorizontalAlignment::Default, paragraphFrame->get_FrameFormat()->get_HorizontalAlignment());
+    ASSERT_EQ(VerticalAlignment::Default, paragraphFrame->get_FrameFormat()->get_VerticalAlignment());
     ASPOSE_ASSERT_EQ(34.05, paragraphFrame->get_FrameFormat()->get_HorizontalPosition());
-    ASSERT_EQ(Aspose::Words::Drawing::RelativeHorizontalPosition::Page, paragraphFrame->get_FrameFormat()->get_RelativeHorizontalPosition());
+    ASSERT_EQ(RelativeHorizontalPosition::Page, paragraphFrame->get_FrameFormat()->get_RelativeHorizontalPosition());
     ASPOSE_ASSERT_EQ(9.0, paragraphFrame->get_FrameFormat()->get_HorizontalDistanceFromText());
     ASPOSE_ASSERT_EQ(20.5, paragraphFrame->get_FrameFormat()->get_VerticalPosition());
-    ASSERT_EQ(Aspose::Words::Drawing::RelativeVerticalPosition::Paragraph, paragraphFrame->get_FrameFormat()->get_RelativeVerticalPosition());
+    ASSERT_EQ(RelativeVerticalPosition::Paragraph, paragraphFrame->get_FrameFormat()->get_RelativeVerticalPosition());
     ASPOSE_ASSERT_EQ(0.0, paragraphFrame->get_FrameFormat()->get_VerticalDistanceFromText());
     //ExEnd
 }
@@ -787,10 +782,10 @@ void ExParagraph::BreakIsStyleSeparator()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     builder->InsertTableOfContents(u"\\o \\h \\z \\u");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     
     // Insert a paragraph with a style that the TOC will pick up as an entry.
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading1);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading1);
     
     // Both these strings are in the same paragraph and will therefore show up on the same TOC entry.
     builder->Write(u"Heading 1. ");
@@ -800,7 +795,7 @@ void ExParagraph::BreakIsStyleSeparator()
     // and use a different style without showing up in the TOC.
     // If we use a heading type style after the separator, we can draw multiple TOC entries from one document text line.
     builder->InsertStyleSeparator();
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Quote);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Quote);
     builder->Write(u"Won't appear in the TOC. ");
     
     ASSERT_TRUE(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_BreakIsStyleSeparator());
@@ -809,9 +804,9 @@ void ExParagraph::BreakIsStyleSeparator()
     doc->Save(get_ArtifactsDir() + u"Paragraph.BreakIsStyleSeparator.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Paragraph.BreakIsStyleSeparator.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Paragraph.BreakIsStyleSeparator.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyField(Aspose::Words::Fields::FieldType::FieldTOC, u"TOC \\o \\h \\z \\u", u"\u0013 HYPERLINK \\l \"_Toc256000000\" \u0014Heading 1. Will appear in the TOC.\t\u0013 PAGEREF _Toc256000000 \\h \u00142\u0015\u0015\r", doc->get_Range()->get_Fields()->idx_get(0));
+    TestUtil::VerifyField(FieldType::FieldTOC, u"TOC \\o \\h \\z \\u", u"\u0013 HYPERLINK \\l \"_Toc256000000\" \u0014Heading 1. Will appear in the TOC.\t\u0013 PAGEREF _Toc256000000 \\h \u00142\u0015\u0015\r", doc->get_Range()->get_Fields()->idx_get(0));
     ASSERT_FALSE(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_BreakIsStyleSeparator());
 }
 
@@ -843,9 +838,9 @@ void ExParagraph::TabStops()
     // Each unit on this ruler is two default tab stops, which is 72 points.
     // We can add custom tab stops programmatically like this.
     System::SharedPtr<Aspose::Words::TabStopCollection> tabStops = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_TabStops();
-    tabStops->Add(72, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dots);
-    tabStops->Add(216, Aspose::Words::TabAlignment::Center, Aspose::Words::TabLeader::Dashes);
-    tabStops->Add(360, Aspose::Words::TabAlignment::Right, Aspose::Words::TabLeader::Line);
+    tabStops->Add(static_cast<double>(72), TabAlignment::Left, TabLeader::Dots);
+    tabStops->Add(static_cast<double>(216), TabAlignment::Center, TabLeader::Dashes);
+    tabStops->Add(static_cast<double>(360), TabAlignment::Right, TabLeader::Line);
     
     // We can see these tab stops in Microsoft Word by enabling the ruler via "View" -> "Show" -> "Ruler".
     ASSERT_EQ(3, para->GetEffectiveTabStops()->get_Length());
@@ -857,12 +852,12 @@ void ExParagraph::TabStops()
     doc->Save(get_ArtifactsDir() + u"Paragraph.TabStops.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Paragraph.TabStops.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Paragraph.TabStops.docx"));
     tabStops = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_TabStops();
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyTabStop(72.0, Aspose::Words::TabAlignment::Left, Aspose::Words::TabLeader::Dots, false, tabStops->idx_get(0));
-    Aspose::Words::ApiExamples::TestUtil::VerifyTabStop(216.0, Aspose::Words::TabAlignment::Center, Aspose::Words::TabLeader::Dashes, false, tabStops->idx_get(1));
-    Aspose::Words::ApiExamples::TestUtil::VerifyTabStop(360.0, Aspose::Words::TabAlignment::Right, Aspose::Words::TabLeader::Line, false, tabStops->idx_get(2));
+    TestUtil::VerifyTabStop(72.0, TabAlignment::Left, TabLeader::Dots, false, tabStops->idx_get(0));
+    TestUtil::VerifyTabStop(216.0, TabAlignment::Center, TabLeader::Dashes, false, tabStops->idx_get(1));
+    TestUtil::VerifyTabStop(360.0, TabAlignment::Right, TabLeader::Line, false, tabStops->idx_get(2));
 }
 
 namespace gtest_test
@@ -897,7 +892,7 @@ void ExParagraph::JoinRuns()
     ASSERT_EQ(4, para->get_Runs()->get_Count());
     
     // Change the style of the last run to set it apart from the first three.
-    para->get_Runs()->idx_get(3)->get_Font()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Emphasis);
+    para->get_Runs()->idx_get(3)->get_Font()->set_StyleIdentifier(StyleIdentifier::Emphasis);
     
     // We can run the "JoinRunsWithSameFormatting" method to optimize the document's contents
     // by merging similar runs into one, reducing their overall count.

@@ -1,10 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/TableContentAlignment.h>
 #include <Aspose.Words.Cpp/Model/Saving/ResourceSavingArgs.h>
@@ -83,7 +80,15 @@ private:
 public:
 
     void MarkdownDocumentTableContentAlignment(Aspose::Words::Saving::TableContentAlignment tableContentAlignment);
+    //ExStart
+    //ExFor:MarkdownSaveOptions
+    //ExFor:MarkdownSaveOptions.#ctor
+    //ExFor:MarkdownSaveOptions.ImageSavingCallback
+    //ExFor:MarkdownSaveOptions.SaveFormat
+    //ExFor:IImageSavingCallback
+    //ExSummary:Shows how to rename the image name during saving into Markdown document.
     void RenameImages();
+    //ExEnd
     void ExportImagesAsBase64(bool exportImagesAsBase64);
     void ListExportMode(Aspose::Words::Saving::MarkdownListExportMode markdownListExportMode);
     void ImagesFolder();
@@ -95,6 +100,7 @@ public:
     void EmptyParagraphExportMode(Aspose::Words::Saving::MarkdownEmptyParagraphExportMode exportMode);
     void ExportOfficeMathAsLatex();
     void ResourceSavingCallback();
+    //ExEnd:MarkdownResourceSavingCallback
     void ExportOfficeMathAsMarkItDown();
     
 };
