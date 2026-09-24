@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -1031,7 +1031,7 @@ public:
     void AutoFitToPageWidth()
     {
         //ExStart:AutoFitPageWidth
-        //GistId:4f1d7039f19f9f49472a50cc0d0fc475
+        //GistId:533914df569fd0a1003bec94eff1d505
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
