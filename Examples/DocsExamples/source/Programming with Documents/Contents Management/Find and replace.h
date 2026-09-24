@@ -206,7 +206,7 @@ public:
     void ReplaceTextContainingMetaCharacters()
     {
         //ExStart:ReplaceTextContainingMetaCharacters
-        //GistId:27c3408b2c7fbee8d6dc6a1c8b61c105
+        //GistId:7551aae6e15d492a0885e386102a7c9c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -258,7 +258,7 @@ public:
     void IgnoreTextInsideDeleteRevisions()
     {
         //ExStart:IgnoreTextInsideDeleteRevisions
-        //GistId:27c3408b2c7fbee8d6dc6a1c8b61c105
+        //GistId:7551aae6e15d492a0885e386102a7c9c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -354,7 +354,7 @@ public:
     void ReplaceTextInFooter()
     {
         //ExStart:ReplaceTextInFooter
-        //GistId:27c3408b2c7fbee8d6dc6a1c8b61c105
+        //GistId:7551aae6e15d492a0885e386102a7c9c
         auto doc = MakeObject<Document>(MyDir + u"Footer.docx");
 
         SharedPtr<HeaderFooterCollection> headersFooters = doc->get_FirstSection()->get_HeadersFooters();
@@ -562,7 +562,7 @@ public:
     //ExEnd:MyReplaceEvaluator
 
     //ExStart:ReplaceWithHtml
-    //GistId:27c3408b2c7fbee8d6dc6a1c8b61c105
+    //GistId:7551aae6e15d492a0885e386102a7c9c
     void ReplaceWithHtml()
     {
         auto doc = MakeObject<Document>();
@@ -610,7 +610,7 @@ public:
     void ReplaceWithRegex()
     {
         //ExStart:ReplaceWithRegex
-        //GistId:27c3408b2c7fbee8d6dc6a1c8b61c105
+        //GistId:7551aae6e15d492a0885e386102a7c9c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -644,7 +644,7 @@ public:
     void ReplaceWithString()
     {
         //ExStart:ReplaceWithString
-        //GistId:27c3408b2c7fbee8d6dc6a1c8b61c105
+        //GistId:7551aae6e15d492a0885e386102a7c9c
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -692,7 +692,7 @@ public:
     void HighlightColor()
     {
         //ExStart:HighlightColor
-        //GistId:27c3408b2c7fbee8d6dc6a1c8b61c105
+        //GistId:7551aae6e15d492a0885e386102a7c9c
         auto doc = MakeObject<Document>(MyDir + u"Footer.docx");
 
         auto options = MakeObject<FindReplaceOptions>();
@@ -702,7 +702,7 @@ public:
     }
 
     //ExStart:LineCounter
-    //GistId:27c3408b2c7fbee8d6dc6a1c8b61c105
+    //GistId:7551aae6e15d492a0885e386102a7c9c
     void LineCounter()
     {
         auto doc = MakeObject<Document>();

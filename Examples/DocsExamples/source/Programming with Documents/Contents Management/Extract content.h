@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -453,7 +453,7 @@ public:
     void ExtractContentBasedOnStyles()
     {
         //ExStart:ExtractContentBasedOnStyles
-        //GistId:a73b495f610523670f0847331ef4d6fc
+        //GistId:d64d2f6e7b36ea2d2822166aa14d8f66
         auto doc = MakeObject<Document>(MyDir + u"Styles.docx");
 
         const String paraStyle = u"Heading 1";
@@ -478,7 +478,7 @@ public:
     }
 
     //ExStart:RunsByStyleName
-    //GistId:a73b495f610523670f0847331ef4d6fc
+    //GistId:d64d2f6e7b36ea2d2822166aa14d8f66
     SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> RunsByStyleName(SharedPtr<Document> doc, String styleName)
     {
         SharedPtr<System::Collections::Generic::List<SharedPtr<Run>>> runsWithStyle = MakeObject<System::Collections::Generic::List<SharedPtr<Run>>>();

@@ -60,7 +60,7 @@ public:
     void CheckBoxTypeContentControl()
     {
         //ExStart:SdtCheckBox
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -74,7 +74,7 @@ public:
     void CurrentStateOfCheckBox()
     {
         //ExStart:CurrentStateOfCheckBox
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         // Get the first content control from the document.
@@ -92,7 +92,7 @@ public:
     void ModifyContentControls()
     {
         //ExStart:ModifySdt
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         for (const auto& sdt : System::IterateOver<StructuredDocumentTag>(doc->GetChildNodes(NodeType::StructuredDocumentTag, true)))
@@ -135,7 +135,7 @@ public:
     void ComboBoxContentControl()
     {
         //ExStart:SdtComboBox
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>();
 
         auto sdt = MakeObject<StructuredDocumentTag>(doc, SdtType::ComboBox, MarkupLevel::Block);
@@ -151,7 +151,7 @@ public:
     void RichTextBoxContentControl()
     {
         //ExStart:SdtRichTextBox
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>();
 
         auto sdtRichText = MakeObject<StructuredDocumentTag>(doc, SdtType::RichText, MarkupLevel::Block);
@@ -171,7 +171,7 @@ public:
     void SetContentControlColor()
     {
         //ExStart:SdtColor
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
@@ -184,7 +184,7 @@ public:
     void ClearContentsControl()
     {
         //ExStart:ClearSdt
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
@@ -197,7 +197,7 @@ public:
     void BindSdTtoCustomXmlPart()
     {
         //ExStart:BindSdtToCustomXmlPart
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>();
         SharedPtr<CustomXmlPart> xmlPart = doc->get_CustomXmlParts()->Add(System::Guid::NewGuid().ToString(u"B"), u"<root><text>Hello, World!</text></root>");
 
@@ -213,7 +213,7 @@ public:
     void SetContentControlStyle()
     {
         //ExStart:SdtStyle
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>(MyDir + u"Structured document tags.docx");
 
         auto sdt = System::ExplicitCast<StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
@@ -227,7 +227,7 @@ public:
     void CreatingTableRepeatingSectionMappedToCustomXmlPart()
     {
         //ExStart:RepeatingSectionMappedToCustomXmlPart
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -286,7 +286,7 @@ public:
     void StructuredDocumentTagRangeStartXmlMapping()
     {
         //ExStart:SdtRangeStartXmlMapping
-        //GistId:089defec1b191de967e6099effeabda7
+        //GistId:d8f40737d533e878a8432bc4bb850942
         auto doc = MakeObject<Document>(MyDir + u"Multi-section structured document tags.docx");
 
         // Construct an XML part that contains data and add it to the document's CustomXmlPart collection.

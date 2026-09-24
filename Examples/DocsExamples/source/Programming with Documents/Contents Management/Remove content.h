@@ -128,7 +128,7 @@ public:
     }
 
     //ExStart:RemoveToc
-    //GistId:db118a3e1559b9c88355356df9d7ea10
+    //GistId:7bfb92c376e34bf2875775415835a006
     void RemoveToc()
     {
         auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");

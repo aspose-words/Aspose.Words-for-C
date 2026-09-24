@@ -47,7 +47,7 @@ public:
     void ExtractToc()
     {
         //ExStart:ExtractToc
-        //GistId:db118a3e1559b9c88355356df9d7ea10
+        //GistId:7bfb92c376e34bf2875775415835a006
         auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
 
         for (const auto& field : System::IterateOver(doc->get_Range()->get_Fields()))
@@ -75,7 +75,7 @@ public:
     void ChangeStyleOfTocLevel()
     {
         //ExStart:ChangeStyleOfTocLevel
-        //GistId:db118a3e1559b9c88355356df9d7ea10
+        //GistId:7bfb92c376e34bf2875775415835a006
         auto doc = MakeObject<Document>();
         // Retrieve the style used for the first level of the TOC and change the formatting of the style.
         doc->get_Styles()->idx_get(StyleIdentifier::Toc1)->get_Font()->set_Bold(true);
@@ -85,7 +85,7 @@ public:
     void ChangeTocTabStops()
     {
         //ExStart:ChangeTocTabStops
-        //GistId:db118a3e1559b9c88355356df9d7ea10
+        //GistId:7bfb92c376e34bf2875775415835a006
         auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
 
         for (const auto& para : System::IterateOver<Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
