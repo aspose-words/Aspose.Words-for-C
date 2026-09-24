@@ -36,7 +36,7 @@ public:
     void DetectNumberingWithWhitespaces()
     {
         //ExStart:DetectNumberingWithWhitespaces
-        //GistId:ddafc3430967fb4f4f70085fa577d01a
+        //GistId:840133e40a800674a1eb51ef4639baec
         // Create a plaintext document in the form of a string with parts that may be interpreted as lists.
         // Upon loading, the first three lists will always be detected by Aspose.Words,
         // and List objects will be created for them after loading.
@@ -61,7 +61,7 @@ public:
     void HandleSpacesOptions()
     {
         //ExStart:HandleSpacesOptions
-        //GistId:ddafc3430967fb4f4f70085fa577d01a
+        //GistId:840133e40a800674a1eb51ef4639baec
         const String textDoc = String(u"      Line 1 \n") + u"    Line 2   \n" + u" Line 3       ";
 
         auto loadOptions = MakeObject<TxtLoadOptions>();
@@ -77,7 +77,7 @@ public:
     void DocumentTextDirection()
     {
         //ExStart:DocumentTextDirection
-        //GistId:ddafc3430967fb4f4f70085fa577d01a
+        //GistId:840133e40a800674a1eb51ef4639baec
         auto loadOptions = MakeObject<TxtLoadOptions>();
         loadOptions->set_DocumentDirection(DocumentDirection::Auto);
 

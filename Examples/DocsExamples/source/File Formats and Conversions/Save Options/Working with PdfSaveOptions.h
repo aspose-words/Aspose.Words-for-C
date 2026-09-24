@@ -63,7 +63,7 @@ public:
     }
 
     //ExStart:PdfRenderWarnings
-    //GistId:f9c5250f94e595ea3590b3be679475ba
+    //GistId:85c118b47731e38f4c824607d11f0304
     void PdfRenderWarnings()
     {
         auto doc = MakeObject<Document>(MyDir + u"WMF with image.docx");
@@ -138,7 +138,7 @@ public:
     void EmbeddedAllFonts()
     {
         //ExStart:EmbeddedAllFonts
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // The output PDF will be embedded with all fonts found in the document.
@@ -152,7 +152,7 @@ public:
     void EmbeddedSubsetFonts()
     {
         //ExStart:EmbeddedSubsetFonts
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // The output PDF will contain subsets of the fonts in the document.
@@ -167,7 +167,7 @@ public:
     void DisableEmbedWindowsFonts()
     {
         //ExStart:DisableEmbedWindowsFonts
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // The output PDF will be saved without embedding standard windows fonts.
@@ -193,7 +193,7 @@ public:
     void AvoidEmbeddingCoreFonts()
     {
         //ExStart:AvoidEmbeddingCoreFonts
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // The output PDF will not be embedded with core fonts such as Arial, Times New Roman etc.
@@ -207,7 +207,7 @@ public:
     void ExportHeaderFooterBookmarks()
     {
         //ExStart:ExportHeaderFooterBookmarks
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>(MyDir + u"Bookmarks in headers and footers.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
@@ -263,7 +263,7 @@ public:
     void DownsamplingImages()
     {
         //ExStart:DownsamplingImages
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         // We can set a minimum threshold for downsampling.
@@ -279,7 +279,7 @@ public:
     void SetOutlineOptions()
     {
         //ExStart:OutlineOptions
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
@@ -293,7 +293,7 @@ public:
     void CustomPropertiesExport()
     {
         //ExStart:CustomPropertiesExport
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>();
         doc->get_CustomDocumentProperties()->Add(u"Company", String(u"Aspose"));
 
@@ -307,7 +307,7 @@ public:
     void ExportDocumentStructure()
     {
         //ExStart:ExportDocumentStructure
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>(MyDir + u"Paragraphs.docx");
 
         // The file size will be increased and the structure will be visible in the "Content" navigation pane
@@ -322,7 +322,7 @@ public:
     void ImageCompression()
     {
         //ExStart:ImageCompression
-        //GistId:6debb84fc15c7e5b8e35384d9c116215
+        //GistId:e08f19178b708760b39c8e1b4bd9aab7
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
@@ -343,7 +343,7 @@ public:
     void UpdateLastPrintedProperty()
     {
         //ExStart:UpdateLastPrinted
-        //GistId:83e5c469d0e72b5114fb8a05a1d01977
+        //GistId:d143f183bd5dfe07f1f289704e64133c
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PdfSaveOptions>();
@@ -380,7 +380,7 @@ public:
     void UpdateScreenTip()
     {
         //ExStart:UpdateScreenTip
-        //GistId:8b0ab362f95040ada1255a0473acefe2
+        //GistId:2eba16c4be2387db396fa53e0d8e3127
         auto doc = MakeObject<Document>(MyDir + u"Table of contents.docx");
 
         for (const auto& field : System::IterateOver(doc->get_Range()->get_Fields()))

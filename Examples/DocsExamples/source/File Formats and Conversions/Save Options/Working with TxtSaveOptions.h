@@ -35,7 +35,7 @@ public:
     void AddBidiMarks()
     {
         //ExStart:AddBidiMarks
-        //GistId:ddafc3430967fb4f4f70085fa577d01a
+        //GistId:840133e40a800674a1eb51ef4639baec
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -54,7 +54,7 @@ public:
     void UseTabCharacterPerLevelForListIndentation()
     {
         //ExStart:UseTabForListIndentation
-        //GistId:ddafc3430967fb4f4f70085fa577d01a
+        //GistId:840133e40a800674a1eb51ef4639baec
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -77,7 +77,7 @@ public:
     void UseSpaceCharacterPerLevelForListIndentation()
     {
         //ExStart:UseSpaceForListIndentation
-        //GistId:ddafc3430967fb4f4f70085fa577d01a
+        //GistId:840133e40a800674a1eb51ef4639baec
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -100,7 +100,7 @@ public:
     void ExportHeadersFootersMode()
     {
         //ExStart:ExportHeadersFootersMode
-        //GistId:ddafc3430967fb4f4f70085fa577d01a
+        //GistId:840133e40a800674a1eb51ef4639baec
         auto doc = MakeObject<Document>();
 
         // Insert even and primary headers/footers into the document.

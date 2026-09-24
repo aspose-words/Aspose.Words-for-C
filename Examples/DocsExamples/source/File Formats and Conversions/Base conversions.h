@@ -55,7 +55,7 @@ public:
     void DocToDocx()
     {
         //ExStart:LoadAndSave
-        //GistId:7ee438947078cf070c5bc36a4e45a18c
+        //GistId:5938495d10e6b402f1e42ce5a45926ca
         //ExStart:OpenDocument
         auto doc = MakeObject<Document>(MyDir + u"Document.doc");
         //ExEnd:OpenDocument
@@ -67,9 +67,9 @@ public:
     void DocxToRtf()
     {
         //ExStart:LoadAndSaveToStream
-        //GistId:7ee438947078cf070c5bc36a4e45a18c
+        //GistId:5938495d10e6b402f1e42ce5a45926ca
         //ExStart:OpenFromStream
-        //GistId:1d626c7186a318d22d022dc96dd91d55
+        //GistId:9ed4780658a7b003eda4e472d9270e3b
         // Read only access is enough for Aspose.Words to load a document.
         SharedPtr<System::IO::Stream> stream = System::IO::File::OpenRead(MyDir + u"Document.docx");
 
@@ -103,7 +103,7 @@ public:
     void DocxToByte()
     {
         //ExStart:DocxToByte
-        //GistId:f8a622f8bc1cf3c2fa8a7a9be359faa2
+        //GistId:38c10fec10086101e61bed049e52363c
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto outStream = MakeObject<System::IO::MemoryStream>();
@@ -128,7 +128,7 @@ public:
     void DocxToMarkdown()
     {
         //ExStart:DocxToMarkdown
-        //GistId:51b4cb9c451832f23527892e19c7bca6
+        //GistId:1739a7dc53ee2cce1ac97f4ef9fa7310
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -150,7 +150,7 @@ public:
     void DocxToHtml()
     {
         //ExStart:DocxToHtml
-        //GistId:c0df00d37081f41a7683339fd7ef66c1
+        //GistId:058a709735430153ce719761043ded8f
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         doc->Save(ArtifactsDir + u"BaseConversions.DocxToHtml.html");
@@ -161,7 +161,7 @@ public:
     void DocxToMhtml()
     {
         //ExStart:DocxToMhtml
-        //GistId:537e7d4e2ddd23fa701dc4bf315064b9
+        //GistId:ce77d307265430a38e77b141bb06f775
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         SharedPtr<System::IO::Stream> stream = MakeObject<System::IO::MemoryStream>();
@@ -188,7 +188,7 @@ public:
     void DocxToXlsx()
     {
         //ExStart:DocxToXlsx
-        //GistId:f5a08835e924510d3809e41c3b8b81a2
+        //GistId:0833496410d6beb2913f35494196888e
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
         doc->Save(ArtifactsDir + u"BaseConversions.DocxToXlsx.xlsx");
         //ExEnd:DocxToXlsx
@@ -197,7 +197,7 @@ public:
     void FindReplaceXlsx()
     {
         //ExStart:FindReplaceXlsx
-        //GistId:a50652f28531278511605e0fd778bbdf
+        //GistId:b08318e6eb24ad14897dfce529b9b9fc
         auto doc = MakeObject<Document>();
         auto builder = MakeObject<DocumentBuilder>(doc);
 
@@ -219,7 +219,7 @@ public:
     void CompressXlsx()
     {
         //ExStart:CompressXlsx
-        //GistId:a50652f28531278511605e0fd778bbdf
+        //GistId:b08318e6eb24ad14897dfce529b9b9fc
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto saveOptions = MakeObject<Saving::XlsxSaveOptions>();

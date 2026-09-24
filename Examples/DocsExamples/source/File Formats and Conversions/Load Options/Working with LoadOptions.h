@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <cstdint>
 #include <iostream>
@@ -48,7 +48,7 @@ public:
     void UpdateDirtyFields()
     {
         //ExStart:UpdateDirtyFields
-        //GistId:08db64c4d86842c4afd1ecb925ed07c4
+        //GistId:e5783d55cbae460927e547f5f67e42b8
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_UpdateDirtyFields(true);
 
@@ -63,7 +63,7 @@ public:
         //ExStart:LoadSaveEncryptedDocument
         //GistId:b4e8a7baa7d3c08127f9a043487de21b
         //ExStart:OpenEncryptedDocument
-        //GistId:40be8275fc43f78f5e5877212e4e1bf3
+        //GistId:f648a63c3023a789293f3406e54348d3
         auto doc = MakeObject<Document>(MyDir + u"Encrypted.docx", MakeObject<LoadOptions>(u"docPassword"));
         //ExEnd:OpenEncryptedDocument
 
@@ -84,7 +84,7 @@ public:
     void ConvertShapeToOfficeMath()
     {
         //ExStart:ConvertShapeToOfficeMath
-        //GistId:ad463bf5f128fe6e6c1485df3c046a4c
+        //GistId:954ada9988be69b7c0cc29f3280a0bb1
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_ConvertShapeToOfficeMath(true);
 
@@ -97,7 +97,7 @@ public:
     void SetMsWordVersion()
     {
         //ExStart:SetMsWordVersion
-        //GistId:40be8275fc43f78f5e5877212e4e1bf3
+        //GistId:f648a63c3023a789293f3406e54348d3
         // Create a new LoadOptions object, which will load documents according to MS Word 2019 specification by default
         // and change the loading version to Microsoft Word 2010.
         auto loadOptions = MakeObject<LoadOptions>();
@@ -112,7 +112,7 @@ public:
     void UseTempFolder()
     {
         //ExStart:TempFolder
-        //GistId:40be8275fc43f78f5e5877212e4e1bf3
+        //GistId:f648a63c3023a789293f3406e54348d3
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_TempFolder(ArtifactsDir);
 
@@ -123,7 +123,7 @@ public:
     void WarningCallback()
     {
         //ExStart:WarningCallback
-        //GistId:40be8275fc43f78f5e5877212e4e1bf3
+        //GistId:f648a63c3023a789293f3406e54348d3
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_WarningCallback(MakeObject<WorkingWithLoadOptions::DocumentLoadingWarningCallback>());
 
@@ -132,7 +132,7 @@ public:
     }
 
     //ExStart:IWarningCallback
-    //GistId:40be8275fc43f78f5e5877212e4e1bf3
+    //GistId:f648a63c3023a789293f3406e54348d3
     class DocumentLoadingWarningCallback : public IWarningCallback
     {
     public:
@@ -148,7 +148,7 @@ public:
     void ResourceLoadingCallback()
     {
         //ExStart:ResourceLoadingCallback
-        //GistId:40be8275fc43f78f5e5877212e4e1bf3
+        //GistId:f648a63c3023a789293f3406e54348d3
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_ResourceLoadingCallback(MakeObject<WorkingWithLoadOptions::HtmlLinkedResourceLoadingCallback>());
 
@@ -161,7 +161,7 @@ public:
     }
 
     //ExStart:IResourceLoadingCallback
-    //GistId:40be8275fc43f78f5e5877212e4e1bf3
+    //GistId:f648a63c3023a789293f3406e54348d3
     class HtmlLinkedResourceLoadingCallback : public IResourceLoadingCallback
     {
     public:
@@ -207,7 +207,7 @@ public:
     void LoadWithEncoding()
     {
         //ExStart:LoadWithEncoding
-        //GistId:40be8275fc43f78f5e5877212e4e1bf3
+        //GistId:f648a63c3023a789293f3406e54348d3
         auto loadOptions = MakeObject<LoadOptions>();
         loadOptions->set_Encoding(System::Text::Encoding::get_UTF7());
 

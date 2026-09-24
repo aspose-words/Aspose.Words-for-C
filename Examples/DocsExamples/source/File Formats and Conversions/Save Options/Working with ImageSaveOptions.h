@@ -37,7 +37,7 @@ public:
     void ExposeThresholdControlForTiffBinarization()
     {
         //ExStart:ExposeThresholdControl
-        //GistId:b20a0ec0e1ff0556aa20d12f486e1963
+        //GistId:9f8dd7d3c3d34f36e69c8fa9382f453d
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<ImageSaveOptions>(SaveFormat::Tiff);
@@ -53,10 +53,10 @@ public:
     void GetTiffPageRange()
     {
         //ExStart:GetTiffPageRange
-        //GistId:b20a0ec0e1ff0556aa20d12f486e1963
+        //GistId:9f8dd7d3c3d34f36e69c8fa9382f453d
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
         //ExStart:SaveAsTiff
-        //GistId:b20a0ec0e1ff0556aa20d12f486e1963
+        //GistId:9f8dd7d3c3d34f36e69c8fa9382f453d
         doc->Save(ArtifactsDir + u"WorkingWithImageSaveOptions.MultipageTiff.tiff");
         //ExEnd:SaveAsTiff
 
@@ -74,7 +74,7 @@ public:
     void GetJpegPageRange()
     {
         //ExStart:GetJpegPageRange
-        //GistId:ebbb90d74ef57db456685052a18f8e86
+        //GistId:78660568d22b261d148a22cb891ae4d6
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto options = MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);
@@ -98,7 +98,7 @@ public:
     void Format1BppIndexed()
     {
         //ExStart:Format1BppIndexed
-        //GistId:83e5c469d0e72b5114fb8a05a1d01977
+        //GistId:d143f183bd5dfe07f1f289704e64133c
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<ImageSaveOptions>(SaveFormat::Png);
@@ -112,7 +112,7 @@ public:
     void HorizontalLayout()
     {
         //ExStart:HorizontalLayout
-        //GistId:8eeaafcfcc55d78505f0f378ad8c6907
+        //GistId:506e77996cb7d2e368a64d4ae66af312
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto options = MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);
@@ -125,7 +125,7 @@ public:
     void GridLayout()
     {
         //ExStart:GridLayout
-        //GistId:8eeaafcfcc55d78505f0f378ad8c6907
+        //GistId:506e77996cb7d2e368a64d4ae66af312
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto options = MakeObject<ImageSaveOptions>(SaveFormat::Jpeg);

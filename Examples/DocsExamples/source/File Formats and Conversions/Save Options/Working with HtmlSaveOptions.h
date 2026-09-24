@@ -29,7 +29,7 @@ public:
     void ExportRoundtripInformation()
     {
         //ExStart:ExportRoundtripInformation
-        //GistId:c0df00d37081f41a7683339fd7ef66c1
+        //GistId:058a709735430153ce719761043ded8f
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<HtmlSaveOptions>();
@@ -42,7 +42,7 @@ public:
     void ExportFontsAsBase64()
     {
         //ExStart:ExportFontsAsBase64
-        //GistId:c0df00d37081f41a7683339fd7ef66c1
+        //GistId:058a709735430153ce719761043ded8f
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<HtmlSaveOptions>();
@@ -55,7 +55,7 @@ public:
     void ExportResources()
     {
         //ExStart:ExportResources
-        //GistId:c0df00d37081f41a7683339fd7ef66c1
+        //GistId:058a709735430153ce719761043ded8f
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<HtmlSaveOptions>();
@@ -148,7 +148,7 @@ public:
     void ExportTextInputFormFieldAsText()
     {
         //ExStart:ExportTextInputFormFieldAsText
-        //GistId:83e5c469d0e72b5114fb8a05a1d01977
+        //GistId:d143f183bd5dfe07f1f289704e64133c
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         String imagesDir = System::IO::Path::Combine(ArtifactsDir, u"Images");

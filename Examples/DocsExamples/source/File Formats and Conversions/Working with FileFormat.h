@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <functional>
 #include <iostream>
@@ -33,7 +33,7 @@ public:
     void DetectFileFormat()
     {
         //ExStart:CheckFormatCompatibility
-        //GistId:7fe3fc4004f081628a63608db70332b3
+        //GistId:da3c7722c2a5c7aa0b286360bce9b509
         String supportedDir = ArtifactsDir + u"Supported";
         String unknownDir = ArtifactsDir + u"Unknown";
         String encryptedDir = ArtifactsDir + u"Encrypted";
@@ -58,7 +58,7 @@ public:
         }
 
         //ExStart:GetFiles
-        //GistId:7fe3fc4004f081628a63608db70332b3
+        //GistId:da3c7722c2a5c7aa0b286360bce9b509
         SharedPtr<System::Collections::Generic::IEnumerable<String>> fileList =
             System::IO::Directory::GetFiles(MyDir)->LINQ_Where([](String name) { return !name.EndsWith(u"Corrupted document.docx"); });
         //ExEnd:GetFiles

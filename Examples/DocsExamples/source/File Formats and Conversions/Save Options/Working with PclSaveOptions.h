@@ -24,7 +24,7 @@ public:
     void RasterizeTransformedElements()
     {
         //ExStart:RasterizeTransformedElements
-        //GistId:7ee438947078cf070c5bc36a4e45a18c
+        //GistId:5938495d10e6b402f1e42ce5a45926ca
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto saveOptions = MakeObject<PclSaveOptions>();

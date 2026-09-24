@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <Aspose.Words.Cpp/AI/AiModel.h>
 #include <Aspose.Words.Cpp/AI/AiModelType.h>
@@ -31,7 +31,7 @@ public:
     void AiSummarize()
     {
         //ExStart:AiSummarize
-        //GistId:1e379bedb2b759c1be24c64aad54d13d
+        //GistId:d441d872ff1dc2e28b93ec4708496ecd
         auto firstDoc = MakeObject<Document>(MyDir + u"Big document.docx");
         auto secondDoc = MakeObject<Document>(MyDir + u"Document.docx");
 
@@ -56,7 +56,7 @@ public:
     void AiTranslate()
     {
         //ExStart:AiTranslate
-        //GistId:ea14b3e44c0233eecd663f783a21c4f6
+        //GistId:f60d2a4c009bd7fab7d684372d7b4dbe
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");
@@ -71,7 +71,7 @@ public:
     void AiGrammar()
     {
         //ExStart:AiGrammar
-        //GistId:98a646d19cd7708ed0cd3d97b993a053
+        //GistId:f5da65e84c16c0d04b2476744e08c8aa
         auto doc = MakeObject<Document>(MyDir + u"Big document.docx");
 
         String apiKey = System::Environment::GetEnvironmentVariable(u"API_KEY");

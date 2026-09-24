@@ -55,7 +55,7 @@ public:
     void UpdateLastSavedTimeProperty()
     {
         //ExStart:UpdateLastSavedTime
-        //GistId:83e5c469d0e72b5114fb8a05a1d01977
+        //GistId:d143f183bd5dfe07f1f289704e64133c
         auto doc = MakeObject<Document>(MyDir + u"Document.docx");
 
         auto saveOptions = MakeObject<OoxmlSaveOptions>();
