@@ -41,7 +41,7 @@ public:
     void ByHeadingsHtml()
     {
         //ExStart:SplitDocumentByHeadings
-        //GistId:c0df00d37081f41a7683339fd7ef66c1
+        //GistId:058a709735430153ce719761043ded8f
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         auto options = MakeObject<HtmlSaveOptions>();
@@ -56,7 +56,7 @@ public:
         auto doc = MakeObject<Document>(MyDir + u"Rendering.docx");
 
         //ExStart:SplitDocumentBySectionsHtml
-        //GistId:6759a1a6b7f448798751d54922a8efcb
+        //GistId:3d90ddfd148c3488cbff6fa9b8bea124
         auto options = MakeObject<HtmlSaveOptions>();
         options->set_DocumentSplitCriteria(DocumentSplitCriteria::SectionBreak);
         //ExEnd:SplitDocumentBySectionsHtml
@@ -67,7 +67,7 @@ public:
     void BySections()
     {
         //ExStart:SplitDocumentBySections
-        //GistId:6759a1a6b7f448798751d54922a8efcb
+        //GistId:3d90ddfd148c3488cbff6fa9b8bea124
         auto doc = MakeObject<Document>(MyDir + u"Big document.docx");
 
         for (int i = 0; i < doc->get_Sections()->get_Count(); i++)
@@ -90,7 +90,7 @@ public:
     void PageByPage()
     {
         //ExStart:SplitDocumentPageByPage
-        //GistId:6759a1a6b7f448798751d54922a8efcb
+        //GistId:3d90ddfd148c3488cbff6fa9b8bea124
         auto doc = MakeObject<Document>(MyDir + u"Big document.docx");
 
         int pageCount = doc->get_PageCount();
@@ -107,7 +107,7 @@ public:
     }
 
     //ExStart:MergeSplitDocuments
-    //GistId:6759a1a6b7f448798751d54922a8efcb
+    //GistId:3d90ddfd148c3488cbff6fa9b8bea124
     void MergeDocuments()
     {
         // Find documents using for merge.
@@ -147,7 +147,7 @@ public:
     void ByPageRange()
     {
         //ExStart:SplitDocumentByPageRange
-        //GistId:6759a1a6b7f448798751d54922a8efcb
+        //GistId:3d90ddfd148c3488cbff6fa9b8bea124
         auto doc = MakeObject<Document>(MyDir + u"Big document.docx");
 
         // Get part of the document.
