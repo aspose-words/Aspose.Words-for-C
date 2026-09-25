@@ -238,6 +238,15 @@ public:
         //ExEnd:TxtToDocx
     }
 
+    void DocxToJpeg()
+    {
+        //ExStart:DocxToJpeg
+        //GistId:78660568d22b261d148a22cb891ae4d6
+        auto doc = MakeObject<Document>(MyDir + u"Document.docx");
+        doc->Save(ArtifactsDir + u"BaseConversions.DocxToJpeg.jpeg");
+        //ExEnd:DocxToJpeg
+    }
+
     void ImagesToPdf()
     {
         //ExStart:ImageToPdf
