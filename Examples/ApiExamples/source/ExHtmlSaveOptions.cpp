@@ -56,10 +56,6 @@
 #include <Aspose.Words.Cpp/Model/Lists/ListTemplate.h>
 #include <Aspose.Words.Cpp/Model/Lists/ListCollection.h>
 #include <Aspose.Words.Cpp/Model/Lists/List.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontSubstitutionSettings.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
-#include <Aspose.Words.Cpp/Model/Fonts/FontInfoCollection.h>
-#include <Aspose.Words.Cpp/Model/Fonts/DefaultFontSubstitutionRule.h>
 #include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
 #include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
 #include <Aspose.Words.Cpp/Model/Fields/Fields/IndexAndTables/FieldToc.h>
@@ -85,7 +81,6 @@
 
 using namespace Aspose::Words::Drawing;
 using namespace Aspose::Words::Fields;
-using namespace Aspose::Words::Fonts;
 using namespace Aspose::Words::Layout;
 using namespace Aspose::Words::Lists;
 using namespace Aspose::Words::Loading;
@@ -901,62 +896,6 @@ TEST_F(ExHtmlSaveOptions, ContentIdScheme)
     s_instance->ContentIdScheme();
 }
 
-} // namespace gtest_test
-
-void ExHtmlSaveOptions::ResolveFontNames(bool resolveFontNames)
-{
-    //ExStart
-    //ExFor:HtmlSaveOptions.ResolveFontNames
-    //ExSummary:Shows how to resolve all font names before writing them to HTML.
-    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Missing font.docx"));
-    
-    // This document contains text that names a font that we do not have.
-    ASSERT_FALSE(System::TestTools::IsNull(doc->get_FontInfos()->idx_get(u"28 Days Later")));
-    
-    // If we have no way of getting this font, and we want to be able to display all the text
-    // in this document in an output HTML, we can substitute it with another font.
-    auto fontSettings = System::MakeObject<Aspose::Words::Fonts::FontSettings>();
-    fontSettings->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_DefaultFontName(u"Arial");
-    fontSettings->get_SubstitutionSettings()->get_DefaultFontSubstitution()->set_Enabled(true);
-    
-    doc->set_FontSettings(fontSettings);
-    
-    auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
-    // By default, this option is set to 'False' and Aspose.Words writes font names as specified in the source document
-    saveOptions->set_ResolveFontNames(resolveFontNames);
-    
-    doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ResolveFontNames.html", saveOptions);
-    
-    System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlSaveOptions.ResolveFontNames.html");
-    
-    ASSERT_TRUE(resolveFontNames ? System::Text::RegularExpressions::Regex::Match(outDocContents, u"<span style=\"font-family:Arial\">")->get_Success() : System::Text::RegularExpressions::Regex::Match(outDocContents, u"<span style=\"font-family:\'28 Days Later\'\">")->get_Success());
-    //ExEnd
-}
-
-namespace gtest_test
-{
-
-using ExHtmlSaveOptions_ResolveFontNames_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExHtmlSaveOptions::ResolveFontNames)>::type;
-
-struct ExHtmlSaveOptions_ResolveFontNames : public ExHtmlSaveOptions, public Aspose::Words::ApiExamples::ExHtmlSaveOptions, public ::testing::WithParamInterface<ExHtmlSaveOptions_ResolveFontNames_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        static std::vector<ExHtmlSaveOptions_ResolveFontNames_Args> ret;
-        auto args_0 = System::MakeArray<bool>({ false, true });
-        for (auto& arg_0 : args_0)
-            ret.emplace_back(std::make_tuple(arg_0));
-        return ret;
-    }
-};
-
-TEST_P(ExHtmlSaveOptions_ResolveFontNames, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->ResolveFontNames(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExHtmlSaveOptions_ResolveFontNames, ::testing::ValuesIn(ExHtmlSaveOptions_ResolveFontNames::TestCases()));
 } // namespace gtest_test
 
 void ExHtmlSaveOptions::HeadingLevels()

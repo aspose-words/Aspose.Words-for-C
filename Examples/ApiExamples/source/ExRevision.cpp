@@ -20,6 +20,7 @@
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Comment.h>
 #include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/Row.h>
@@ -1041,6 +1042,71 @@ TEST_F(ExRevision, RevisionCellColor)
 {
     s_instance->RevisionCellColor();
 }
+
+} // namespace gtest_test
+
+void ExRevision::CompareListDefinitions(bool isCompareListDefinitions)
+{
+    //ExStart:CompareListDefinitions
+    //GistId:a6f77f12161f1577c687e4456007f964
+    //ExFor:AdvancedCompareOptions.CompareListDefinitions
+    //ExSummary:Shows how to control whether list definition content will be compared during document comparison.
+    auto docA = System::MakeObject<Aspose::Words::Document>();
+    auto builderA = System::MakeObject<Aspose::Words::DocumentBuilder>(docA);
+    builderA->get_ListFormat()->ApplyNumberDefault();
+    builderA->Writeln(u"Item 1");
+    builderA->Writeln(u"Item 2");
+    builderA->get_ListFormat()->RemoveNumbers();
+    
+    auto docB = System::MakeObject<Aspose::Words::Document>();
+    auto builderB = System::MakeObject<Aspose::Words::DocumentBuilder>(docB);
+    builderB->get_ListFormat()->ApplyBulletDefault();
+    builderB->Writeln(u"Item 1");
+    builderB->Writeln(u"Item 2");
+    builderB->get_ListFormat()->RemoveNumbers();
+    
+    // Compare documents with CompareListDefinitions enabled.
+    auto options = System::MakeObject<Aspose::Words::Comparing::CompareOptions>();
+    options->get_AdvancedOptions()->set_CompareListDefinitions(isCompareListDefinitions);
+    docA->Compare(docB, u"test", System::DateTime::get_Now(), options);
+    //ExEnd:CompareListDefinitions
+    
+    // Verify that comparison completed without exceptions.
+    // Since the lists are identical, no revisions should be produced.
+    if (isCompareListDefinitions)
+    {
+        ASSERT_EQ(2, docA->get_Revisions()->get_Count());
+    }
+    else
+    {
+        ASSERT_EQ(0, docA->get_Revisions()->get_Count());
+    }
+}
+
+namespace gtest_test
+{
+
+using ExRevision_CompareListDefinitions_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExRevision::CompareListDefinitions)>::type;
+
+struct ExRevision_CompareListDefinitions : public ExRevision, public Aspose::Words::ApiExamples::ExRevision, public ::testing::WithParamInterface<ExRevision_CompareListDefinitions_Args>
+{
+    static std::vector<ParamType> TestCases()
+    {
+        return
+        {
+            std::make_tuple(true),
+            std::make_tuple(false),
+        };
+    }
+};
+
+TEST_P(ExRevision_CompareListDefinitions, Test)
+{
+    const auto& params = GetParam();
+    ASSERT_NO_FATAL_FAILURE(s_instance->CompareListDefinitions(std::get<0>(params)));
+}
+
+INSTANTIATE_TEST_SUITE_P(, ExRevision_CompareListDefinitions, ::testing::ValuesIn(ExRevision_CompareListDefinitions::TestCases()));
 
 } // namespace gtest_test
 

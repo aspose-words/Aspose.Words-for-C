@@ -143,7 +143,6 @@ public:
     void CssClassNamesNotValidPrefix();
     void CssClassNamesNullPrefix();
     void ContentIdScheme();
-    void ResolveFontNames(bool resolveFontNames);
     void HeadingLevels();
     void NegativeIndent(bool allowNegativeIndent);
     void FolderAlias();

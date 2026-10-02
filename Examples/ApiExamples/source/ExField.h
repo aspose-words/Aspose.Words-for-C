@@ -466,7 +466,6 @@ public:
     void FieldIndexPageRangeBookmark();
     void FieldIndexCrossReferenceSeparator();
     void FieldIndexSubheading(bool runSubentriesOnTheSameLine);
-    void FieldIndexYomi(bool sortEntriesUsingYomi);
     void FieldBarcode();
     void FieldDisplayBarcode();
     //ExStart

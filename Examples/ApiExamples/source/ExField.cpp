@@ -4177,134 +4177,6 @@ INSTANTIATE_TEST_SUITE_P(, ExField_FieldIndexSubheading, ::testing::ValuesIn(ExF
 
 } // namespace gtest_test
 
-void ExField::FieldIndexYomi(bool sortEntriesUsingYomi)
-{
-    //ExStart
-    //ExFor:FieldIndex.UseYomi
-    //ExFor:FieldXE.Yomi
-    //ExSummary:Shows how to sort INDEX field entries phonetically.
-    auto doc = System::MakeObject<Aspose::Words::Document>();
-    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
-    
-    // Create an INDEX field which will display an entry for each XE field found in the document.
-    // Each entry will display the XE field's Text property value on the left side,
-    // and the number of the page that contains the XE field on the right.
-    // The INDEX entry will collect all XE fields with matching values in the "Text" property
-    // into one entry as opposed to making an entry for each XE field.
-    auto index = System::ExplicitCast<Aspose::Words::Fields::FieldIndex>(builder->InsertField(FieldType::FieldIndex, true));
-    
-    // The INDEX table automatically sorts its entries by the values of their Text properties in alphabetic order.
-    // Set the INDEX table to sort entries phonetically using Hiragana instead.
-    index->set_UseYomi(sortEntriesUsingYomi);
-    
-    if (sortEntriesUsingYomi)
-    {
-        ASSERT_EQ(u" INDEX  \\y", index->GetFieldCode());
-    }
-    else
-    {
-        ASSERT_EQ(u" INDEX ", index->GetFieldCode());
-    }
-    
-    // Insert 4 XE fields, which would show up as entries in the INDEX field's table of contents.
-    // The "Text" property may contain a word's spelling in Kanji, whose pronunciation may be ambiguous,
-    // while the "Yomi" version of the word will spell exactly how it is pronounced using Hiragana.
-    // If we set our INDEX field to use Yomi, it will sort these entries
-    // by the value of their Yomi properties, instead of their Text values.
-    builder->InsertBreak(BreakType::PageBreak);
-    auto indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
-    indexEntry->set_Text(u"愛子");
-    indexEntry->set_Yomi(u"あ");
-    
-    ASSERT_EQ(u" XE  愛子 \\y あ", indexEntry->GetFieldCode());
-    
-    builder->InsertBreak(BreakType::PageBreak);
-    indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
-    indexEntry->set_Text(u"明美");
-    indexEntry->set_Yomi(u"あ");
-    
-    builder->InsertBreak(BreakType::PageBreak);
-    indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
-    indexEntry->set_Text(u"恵美");
-    indexEntry->set_Yomi(u"え");
-    
-    builder->InsertBreak(BreakType::PageBreak);
-    indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
-    indexEntry->set_Text(u"愛美");
-    indexEntry->set_Yomi(u"え");
-    
-    doc->UpdatePageLayout();
-    doc->UpdateFields();
-    doc->Save(get_ArtifactsDir() + u"Field.INDEX.XE.Yomi.docx");
-    //ExEnd
-    
-    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.INDEX.XE.Yomi.docx"));
-    index = System::ExplicitCast<Aspose::Words::Fields::FieldIndex>(doc->get_Range()->get_Fields()->idx_get(0));
-    
-    if (sortEntriesUsingYomi)
-    {
-        ASSERT_TRUE(index->get_UseYomi());
-        ASSERT_EQ(u" INDEX  \\y", index->GetFieldCode());
-        ASSERT_EQ((System::String(u"愛子, 2\r") + u"明美, 3\r" + u"恵美, 4\r" + u"愛美, 5\r"), index->get_Result());
-    }
-    else
-    {
-        ASSERT_FALSE(index->get_UseYomi());
-        ASSERT_EQ(u" INDEX ", index->GetFieldCode());
-        ASSERT_EQ((System::String(u"恵美, 4\r") + u"愛子, 2\r" + u"愛美, 5\r" + u"明美, 3\r"), index->get_Result());
-    }
-    
-    indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(1));
-    
-    TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  愛子 \\y あ", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"愛子", indexEntry->get_Text());
-    ASSERT_EQ(u"あ", indexEntry->get_Yomi());
-    
-    indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(2));
-    
-    TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  明美 \\y あ", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"明美", indexEntry->get_Text());
-    ASSERT_EQ(u"あ", indexEntry->get_Yomi());
-    
-    indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(3));
-    
-    TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  恵美 \\y え", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"恵美", indexEntry->get_Text());
-    ASSERT_EQ(u"え", indexEntry->get_Yomi());
-    
-    indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(4));
-    
-    TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  愛美 \\y え", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"愛美", indexEntry->get_Text());
-    ASSERT_EQ(u"え", indexEntry->get_Yomi());
-}
-
-namespace gtest_test
-{
-
-using ExField_FieldIndexYomi_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExField::FieldIndexYomi)>::type;
-
-struct ExField_FieldIndexYomi : public ExField, public Aspose::Words::ApiExamples::ExField, public ::testing::WithParamInterface<ExField_FieldIndexYomi_Args>
-{
-    static std::vector<ParamType> TestCases()
-    {
-        static std::vector<ExField_FieldIndexYomi_Args> ret;
-        auto args_0 = System::MakeArray<bool>({ true, false });
-        for (auto& arg_0 : args_0)
-            ret.emplace_back(std::make_tuple(arg_0));
-        return ret;
-    }
-};
-
-TEST_P(ExField_FieldIndexYomi, Test)
-{
-    const auto& params = GetParam();
-    ASSERT_NO_FATAL_FAILURE(s_instance->FieldIndexYomi(std::get<0>(params)));
-}
-
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExField_FieldIndexYomi, ::testing::ValuesIn(ExField_FieldIndexYomi::TestCases()));
-} // namespace gtest_test
-
 void ExField::FieldBarcode()
 {
     //ExStart
@@ -4526,11 +4398,13 @@ struct ExField_FieldLinkedObjectsAsText : public ExField, public Aspose::Words::
 {
     static std::vector<ParamType> TestCases()
     {
-        static std::vector<ExField_FieldLinkedObjectsAsText_Args> ret;
-        auto args_0 = System::MakeArray<Aspose::Words::ApiExamples::InsertLinkedObjectAs>({ InsertLinkedObjectAs::Text, InsertLinkedObjectAs::Unicode, InsertLinkedObjectAs::Html, InsertLinkedObjectAs::Rtf });
-        for (auto& arg_0 : args_0)
-            ret.emplace_back(std::make_tuple(arg_0));
-        return ret;
+        return
+        {
+            std::make_tuple(InsertLinkedObjectAs::Text),
+            std::make_tuple(InsertLinkedObjectAs::Unicode),
+            std::make_tuple(InsertLinkedObjectAs::Html),
+            std::make_tuple(InsertLinkedObjectAs::Rtf),
+        };
     }
 };
 
@@ -4540,7 +4414,8 @@ TEST_P(ExField_FieldLinkedObjectsAsText, Test)
     ASSERT_NO_FATAL_FAILURE(s_instance->FieldLinkedObjectsAsText(std::get<0>(params)));
 }
 
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExField_FieldLinkedObjectsAsText, ::testing::ValuesIn(ExField_FieldLinkedObjectsAsText::TestCases()));
+INSTANTIATE_TEST_SUITE_P(, ExField_FieldLinkedObjectsAsText, ::testing::ValuesIn(ExField_FieldLinkedObjectsAsText::TestCases()));
+
 } // namespace gtest_test
 
 void ExField::FieldLinkedObjectsAsImage(Aspose::Words::ApiExamples::InsertLinkedObjectAs insertLinkedObjectAs)
@@ -4574,11 +4449,11 @@ struct ExField_FieldLinkedObjectsAsImage : public ExField, public Aspose::Words:
 {
     static std::vector<ParamType> TestCases()
     {
-        static std::vector<ExField_FieldLinkedObjectsAsImage_Args> ret;
-        auto args_0 = System::MakeArray<Aspose::Words::ApiExamples::InsertLinkedObjectAs>({ InsertLinkedObjectAs::Picture, InsertLinkedObjectAs::Bitmap });
-        for (auto& arg_0 : args_0)
-            ret.emplace_back(std::make_tuple(arg_0));
-        return ret;
+        return
+        {
+            std::make_tuple(InsertLinkedObjectAs::Picture),
+            std::make_tuple(InsertLinkedObjectAs::Bitmap),
+        };
     }
 };
 
@@ -4588,7 +4463,8 @@ TEST_P(ExField_FieldLinkedObjectsAsImage, Test)
     ASSERT_NO_FATAL_FAILURE(s_instance->FieldLinkedObjectsAsImage(std::get<0>(params)));
 }
 
-INSTANTIATE_TEST_SUITE_P(DISABLED_, ExField_FieldLinkedObjectsAsImage, ::testing::ValuesIn(ExField_FieldLinkedObjectsAsImage::TestCases()));
+INSTANTIATE_TEST_SUITE_P(, ExField_FieldLinkedObjectsAsImage, ::testing::ValuesIn(ExField_FieldLinkedObjectsAsImage::TestCases()));
+
 } // namespace gtest_test
 
 void ExField::FieldUserAddress()

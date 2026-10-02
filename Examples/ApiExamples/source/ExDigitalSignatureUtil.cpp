@@ -1,6 +1,7 @@
 ﻿#include "ExDigitalSignatureUtil.h"
 
 #include <testing/test_predicates.h>
+#include <system/timespan.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
@@ -20,6 +21,7 @@
 #include <Aspose.Words.Cpp/Model/DigitalSignatures/SignOptions.h>
 #include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureUtil.h>
 #include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureType.h>
+#include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureTimestampSettings.h>
 #include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureCollection.h>
 #include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignature.h>
 #include <Aspose.Words.Cpp/Model/DigitalSignatures/CertificateHolder.h>
@@ -424,6 +426,57 @@ namespace gtest_test
 TEST_F(ExDigitalSignatureUtil, SignDocumentWithOptions)
 {
     s_instance->SignDocumentWithOptions();
+}
+
+} // namespace gtest_test
+
+void ExDigitalSignatureUtil::SignDocumentWithTimestamping()
+{
+    //ExStart:SignDocumentWithTimestamping
+    //GistId:a6f77f12161f1577c687e4456007f964
+    //ExFor:DigitalSignatureUtil.Sign(String,String,CertificateHolder,SignOptions)
+    //ExFor:SignOptions.TimestampSettings
+    //ExFor:DigitalSignatureTimestampSettings
+    //ExFor:DigitalSignatureTimestampSettings.#ctor(String,String,String)
+    //ExFor:DigitalSignatureTimestampSettings.#ctor(String,String,String,TimeSpan)
+    //ExFor:DigitalSignatureTimestampSettings.Password
+    //ExFor:DigitalSignatureTimestampSettings.ServerUrl
+    //ExFor:DigitalSignatureTimestampSettings.Timeout
+    //ExFor:DigitalSignatureTimestampSettings.UserName
+    //ExFor:XmlDsigLevel
+    //ExSummary:Shows how to sign a document with timestamping using DigitalSignatureUtil.
+    auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
+    signOptions->set_XmlDsigLevel(XmlDsigLevel::XAdEsT);
+    signOptions->set_TimestampSettings(System::MakeObject<Aspose::Words::DigitalSignatures::DigitalSignatureTimestampSettings>(u"https://freetsa.org/tsr", u"JohnDoe", u"MyPassword"));
+    
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> cert = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    
+    DigitalSignatureUtil::Sign(get_MyDir() + u"Digitally signed.docx", get_ArtifactsDir() + u"DigitalSignatureUtil.Timestamped.docx", cert, signOptions);
+    
+    auto signedDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DigitalSignatureUtil.Timestamped.docx"));
+    
+    ASSERT_EQ(1, signedDoc->get_DigitalSignatures()->get_Count());
+    ASSERT_TRUE(signedDoc->get_DigitalSignatures()->idx_get(0)->get_IsValid());
+    
+    // Verify timestamp settings are applied.
+    ASSERT_EQ(u"https://freetsa.org/tsr", signOptions->get_TimestampSettings()->get_ServerUrl());
+    ASSERT_EQ(u"JohnDoe", signOptions->get_TimestampSettings()->get_UserName());
+    ASSERT_EQ(u"MyPassword", signOptions->get_TimestampSettings()->get_Password());
+    ASPOSE_ASSERT_EQ(100.0, signOptions->get_TimestampSettings()->get_Timeout().get_TotalSeconds());
+    
+    // Test with custom timeout.
+    signOptions->set_TimestampSettings(System::MakeObject<Aspose::Words::DigitalSignatures::DigitalSignatureTimestampSettings>(u"https://freetsa.org/tsr", u"JohnDoe", u"MyPassword", System::TimeSpan::FromMinutes(30)));
+    
+    ASPOSE_ASSERT_EQ(1800.0, signOptions->get_TimestampSettings()->get_Timeout().get_TotalSeconds());
+    //ExEnd:SignDocumentWithTimestamping
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExDigitalSignatureUtil, SignDocumentWithTimestamping)
+{
+    s_instance->SignDocumentWithTimestamping();
 }
 
 } // namespace gtest_test

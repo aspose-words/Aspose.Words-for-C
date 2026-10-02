@@ -31,6 +31,7 @@ public:
     void NoCertificateForSign();
     void XmlDsig();
     void SignDocumentWithOptions();
+    void SignDocumentWithTimestamping();
     
 };
 

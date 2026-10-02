@@ -81,6 +81,7 @@ public:
     void GranularityCompareOption(Aspose::Words::Comparing::Granularity granularity);
     void IgnoreStoreItemId();
     void RevisionCellColor();
+    void CompareListDefinitions(bool isCompareListDefinitions);
     
 };
 
