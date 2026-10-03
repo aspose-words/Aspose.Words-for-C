@@ -1,9 +1,4 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/timespan.h>
 #include <system/text/encoding.h>
@@ -103,7 +98,7 @@ public:
     /// Checks whether values of properties of a field with a type related to date/time are equal to expected values.
     /// </summary>
     /// <remarks>
-    /// Used when comparing DateTime instances to Field.Result values parsed to DateTime, which may differ slightly. 
+    /// Used when comparing DateTime instances to Field.Result values parsed to DateTime, which may differ slightly.
     /// Give a delta value that's generous enough for any lower end system to pass, also a delta of zero is allowed.
     /// </remarks>
     /// <param name="expectedType">The FieldType that we expect the field to have.</param>
@@ -126,7 +121,7 @@ public:
     /// If two fields have the same immediate parent node and therefore their nodes are siblings,
     /// the FieldStart of the outer field appears before the FieldStart of the inner node,
     /// and the FieldEnd of the outer node appears after the FieldEnd of the inner node,
-    /// then the inner field is considered to be nested within the outer field. 
+    /// then the inner field is considered to be nested within the outer field.
     /// </remarks>
     /// <param name="innerField">The field that we expect to be fully within outerField.</param>
     /// <param name="outerField">The field that we to contain innerField.</param>

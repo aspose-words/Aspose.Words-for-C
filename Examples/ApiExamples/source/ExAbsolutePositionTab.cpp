@@ -1,15 +1,9 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExAbsolutePositionTab.h"
+﻿#include "ExAbsolutePositionTab.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
@@ -34,13 +28,13 @@ ExAbsolutePositionTab::DocTextExtractor::DocTextExtractor()
 Aspose::Words::VisitorAction ExAbsolutePositionTab::DocTextExtractor::VisitRun(System::SharedPtr<Aspose::Words::Run> run)
 {
     AppendText(run->get_Text());
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExAbsolutePositionTab::DocTextExtractor::VisitAbsolutePositionTab(System::SharedPtr<Aspose::Words::AbsolutePositionTab> tab)
 {
     mBuilder->Append(u"\t");
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExAbsolutePositionTab::DocTextExtractor::AppendText(System::String text)
@@ -89,7 +83,7 @@ System::SharedPtr<::Aspose::Words::ApiExamples::ExAbsolutePositionTab> ExAbsolut
 
 void ExAbsolutePositionTab::DocumentToTxt()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Absolute position tab.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Absolute position tab.docx"));
     
     // Extract the text contents of our document by accepting this custom document visitor.
     auto myDocTextExtractor = System::MakeObject<Aspose::Words::ApiExamples::ExAbsolutePositionTab::DocTextExtractor>();
@@ -104,7 +98,7 @@ void ExAbsolutePositionTab::DocumentToTxt()
     ASSERT_EQ(u"Before AbsolutePositionTab\tAfter AbsolutePositionTab", myDocTextExtractor->GetText());
     
     // An AbsolutePositionTab can accept a DocumentVisitor by itself too.
-    auto absPositionTab = System::ExplicitCast<Aspose::Words::AbsolutePositionTab>(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetChild(Aspose::Words::NodeType::SpecialChar, 0, true));
+    auto absPositionTab = System::ExplicitCast<Aspose::Words::AbsolutePositionTab>(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetChild(NodeType::SpecialChar, 0, true));
     
     myDocTextExtractor = System::MakeObject<Aspose::Words::ApiExamples::ExAbsolutePositionTab::DocTextExtractor>();
     absPositionTab->Accept(myDocTextExtractor);

@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
 #include <system/date_time.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Saving/CompressionLevel.h>
 #include <Aspose.Words.Cpp/Model/Progress/IDocumentSavingCallback.h>
 #include <Aspose.Words.Cpp/Model/Progress/DocumentSavingArgs.h>
@@ -81,6 +78,7 @@ public:
     void CheckFileSignatures();
     void ExportGeneratorName();
     void ProgressCallback(Aspose::Words::SaveFormat saveFormat, System::String ext);
+    //ExEnd
     void Zip64ModeOption();
     void DigitalSignature();
     void UpdateAmbiguousTextFont();

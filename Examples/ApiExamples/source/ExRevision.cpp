@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExRevision.h"
+﻿#include "ExRevision.h"
 
 #include <testing/test_predicates.h>
 #include <system/timespan.h>
@@ -13,11 +8,10 @@
 #include <system/object_ext.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
 #include <system/date_time.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
@@ -26,7 +20,9 @@
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Comment.h>
+#include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/Row.h>
 #include <Aspose.Words.Cpp/Model/Tables/CellCollection.h>
 #include <Aspose.Words.Cpp/Model/Tables/Cell.h>
@@ -50,6 +46,7 @@
 #include <Aspose.Words.Cpp/Model/Fields/Fields/DateAndTime/FieldDate.h>
 #include <Aspose.Words.Cpp/Model/Fields/FieldCollection.h>
 #include <Aspose.Words.Cpp/Model/Fields/Field.h>
+#include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
 #include <Aspose.Words.Cpp/Model/Drawing/HorizontalAlignment.h>
 #include <Aspose.Words.Cpp/Model/Document/RevisionsView.h>
@@ -64,8 +61,8 @@
 #include <Aspose.Words.Cpp/Layout/Public/RevisionColor.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutOptions.h>
 
-#include "TestUtil.h"
 #include "DocumentHelper.h"
+#include "TestUtil.h"
 
 
 using namespace Aspose::Words::Comparing;
@@ -83,7 +80,7 @@ namespace ApiExamples {
 RTTI_INFO_IMPL_HASH(4004401701u, ::Aspose::Words::ApiExamples::ExRevision::RevisionCriteria, ThisTypeBaseTypesInfo);
 
 ExRevision::RevisionCriteria::RevisionCriteria(System::String authorName, Aspose::Words::RevisionType revisionType)
-    : RevisionType(((Aspose::Words::RevisionType)0))
+    : RevisionType((Aspose::Words::RevisionType)0)
 {
     AuthorName = authorName;
     RevisionType = revisionType;
@@ -173,7 +170,7 @@ void ExRevision::Revisions()
     System::SharedPtr<Aspose::Words::Revision> revision = doc->get_Revisions()->idx_get(0);
     ASSERT_EQ(u"John Doe", revision->get_Author());
     ASSERT_EQ(u"This is revision #1. ", revision->get_ParentNode()->GetText());
-    ASSERT_EQ(Aspose::Words::RevisionType::Insertion, revision->get_RevisionType());
+    ASSERT_EQ(RevisionType::Insertion, revision->get_RevisionType());
     ASSERT_EQ(revision->get_DateTime().get_Date(), System::DateTime::get_Now().get_Date());
     ASPOSE_ASSERT_EQ(doc->get_Revisions()->get_Groups()->idx_get(0), revision->get_Group());
     
@@ -181,7 +178,7 @@ void ExRevision::Revisions()
     doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->Remove();
     
     // Adding a new revision places it at the beginning of the revision collection.
-    ASSERT_EQ(Aspose::Words::RevisionType::Deletion, doc->get_Revisions()->idx_get(0)->get_RevisionType());
+    ASSERT_EQ(RevisionType::Deletion, doc->get_Revisions()->idx_get(0)->get_RevisionType());
     ASSERT_EQ(2, doc->get_Revisions()->get_Count());
     
     // Insert revisions show up in the document body even before we accept/reject the revision.
@@ -211,7 +208,7 @@ void ExRevision::Revisions()
         node = nextNode;
     }
     
-    ASSERT_EQ(Aspose::Words::RevisionType::Moving, doc->get_Revisions()->idx_get(0)->get_RevisionType());
+    ASSERT_EQ(RevisionType::Moving, doc->get_Revisions()->idx_get(0)->get_RevisionType());
     ASSERT_EQ(8, doc->get_Revisions()->get_Count());
     ASSERT_EQ(u"This is revision #2.\rThis is revision #1. \rThis is revision #2.", doc->GetText().Trim());
     
@@ -242,7 +239,7 @@ void ExRevision::RevisionCollection()
     //ExFor:RevisionCollection.RejectAll
     //ExFor:RevisionGroupCollection.GetEnumerator
     //ExSummary:Shows how to work with a document's collection of revisions.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revisions.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revisions.docx"));
     System::SharedPtr<Aspose::Words::RevisionCollection> revisions = doc->get_Revisions();
     
     // This collection itself has a collection of revision groups.
@@ -274,7 +271,7 @@ void ExRevision::RevisionCollection()
             // A StyleDefinitionChange strictly affects styles and not document nodes. This means the "ParentStyle"
             // property will always be in use, while the ParentNode will always be null.
             // Since all other changes affect nodes, ParentNode will conversely be in use, and ParentStyle will be null.
-            if (e->get_Current()->get_RevisionType() == Aspose::Words::RevisionType::StyleDefinitionChange)
+            if (e->get_Current()->get_RevisionType() == RevisionType::StyleDefinitionChange)
             {
                 std::cout << (System::String::Format(u"\tRevision type \"{0}\", ", e->get_Current()->get_RevisionType()) + System::String::Format(u"author: {0}, style: [{1}]", e->get_Current()->get_Author(), e->get_Current()->get_ParentStyle()->get_Name())) << std::endl;
             }
@@ -312,7 +309,7 @@ void ExRevision::GetInfoAboutRevisionsInRevisionGroups()
     //ExFor:RevisionGroupCollection
     //ExFor:RevisionGroupCollection.Count
     //ExSummary:Shows how to print info about a group of revisions in a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revisions.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revisions.docx"));
     
     ASSERT_EQ(7, doc->get_Revisions()->get_Groups()->get_Count());
     
@@ -339,12 +336,12 @@ void ExRevision::GetSpecificRevisionGroup()
     //ExFor:RevisionGroupCollection
     //ExFor:RevisionGroupCollection.Item(Int32)
     //ExSummary:Shows how to get a group of revisions in a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revisions.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revisions.docx"));
     
     System::SharedPtr<Aspose::Words::RevisionGroup> revisionGroup = doc->get_Revisions()->get_Groups()->idx_get(0);
     //ExEnd
     
-    ASSERT_EQ(Aspose::Words::RevisionType::Deletion, revisionGroup->get_RevisionType());
+    ASSERT_EQ(RevisionType::Deletion, revisionGroup->get_RevisionType());
     ASSERT_EQ(u"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ", revisionGroup->get_Text());
 }
 
@@ -363,11 +360,11 @@ void ExRevision::ShowRevisionBalloons()
     //ExStart
     //ExFor:RevisionOptions.ShowInBalloons
     //ExSummary:Shows how to display revisions in balloons.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revisions.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revisions.docx"));
     
     // By default, text that is a revision has a different color to differentiate it from the other non-revision text.
     // Set a revision option to show more details about each revision in a balloon on the page's right margin.
-    doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(Aspose::Words::Layout::ShowInBalloons::FormatAndDelete);
+    doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowInBalloons(ShowInBalloons::FormatAndDelete);
     doc->Save(get_ArtifactsDir() + u"Revision.ShowRevisionBalloons.pdf");
     //ExEnd
 }
@@ -403,34 +400,34 @@ void ExRevision::RevisionOptions()
     //ExFor:RevisionOptions.ShowRevisionMarks
     //ExFor:RevisionTextEffect
     //ExSummary:Shows how to modify the appearance of revisions.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revisions.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revisions.docx"));
     
     // Get the RevisionOptions object that controls the appearance of revisions.
     System::SharedPtr<Aspose::Words::Layout::RevisionOptions> revisionOptions = doc->get_LayoutOptions()->get_RevisionOptions();
     
     // Render insertion revisions in green and italic.
-    revisionOptions->set_InsertedTextColor(Aspose::Words::Layout::RevisionColor::Green);
-    revisionOptions->set_InsertedTextEffect(Aspose::Words::Layout::RevisionTextEffect::Italic);
+    revisionOptions->set_InsertedTextColor(RevisionColor::Green);
+    revisionOptions->set_InsertedTextEffect(RevisionTextEffect::Italic);
     
     // Render deletion revisions in red and bold.
-    revisionOptions->set_DeletedTextColor(Aspose::Words::Layout::RevisionColor::Red);
-    revisionOptions->set_DeletedTextEffect(Aspose::Words::Layout::RevisionTextEffect::Bold);
+    revisionOptions->set_DeletedTextColor(RevisionColor::Red);
+    revisionOptions->set_DeletedTextEffect(RevisionTextEffect::Bold);
     
     // The same text will appear twice in a movement revision:
     // once at the departure point and once at the arrival destination.
     // Render the text at the moved-from revision yellow with a double strike through
     // and double-underlined blue at the moved-to revision.
-    revisionOptions->set_MovedFromTextColor(Aspose::Words::Layout::RevisionColor::Yellow);
-    revisionOptions->set_MovedFromTextEffect(Aspose::Words::Layout::RevisionTextEffect::DoubleStrikeThrough);
-    revisionOptions->set_MovedToTextColor(Aspose::Words::Layout::RevisionColor::ClassicBlue);
-    revisionOptions->set_MovedToTextEffect(Aspose::Words::Layout::RevisionTextEffect::DoubleUnderline);
+    revisionOptions->set_MovedFromTextColor(RevisionColor::Yellow);
+    revisionOptions->set_MovedFromTextEffect(RevisionTextEffect::DoubleStrikeThrough);
+    revisionOptions->set_MovedToTextColor(RevisionColor::ClassicBlue);
+    revisionOptions->set_MovedToTextEffect(RevisionTextEffect::DoubleUnderline);
     
     // Render format revisions in dark red and bold.
-    revisionOptions->set_RevisedPropertiesColor(Aspose::Words::Layout::RevisionColor::DarkRed);
-    revisionOptions->set_RevisedPropertiesEffect(Aspose::Words::Layout::RevisionTextEffect::Bold);
+    revisionOptions->set_RevisedPropertiesColor(RevisionColor::DarkRed);
+    revisionOptions->set_RevisedPropertiesEffect(RevisionTextEffect::Bold);
     
     // Place a thick dark blue bar on the left side of the page next to lines affected by revisions.
-    revisionOptions->set_RevisionBarsColor(Aspose::Words::Layout::RevisionColor::DarkBlue);
+    revisionOptions->set_RevisionBarsColor(RevisionColor::DarkBlue);
     revisionOptions->set_RevisionBarsWidth(15.0f);
     
     // Show revision marks and original text.
@@ -439,8 +436,8 @@ void ExRevision::RevisionOptions()
     
     // Get movement, deletion, formatting revisions, and comments to show up in green balloons
     // on the right side of the page.
-    revisionOptions->set_ShowInBalloons(Aspose::Words::Layout::ShowInBalloons::Format);
-    revisionOptions->set_CommentColor(Aspose::Words::Layout::RevisionColor::BrightGreen);
+    revisionOptions->set_ShowInBalloons(ShowInBalloons::Format);
+    revisionOptions->set_CommentColor(RevisionColor::BrightGreen);
     
     // These features are only applicable to formats such as .pdf or .jpg.
     doc->Save(get_ArtifactsDir() + u"Revision.RevisionOptions.pdf");
@@ -476,10 +473,10 @@ void ExRevision::RevisionSpecifiedCriteria()
     
     ASSERT_EQ(3, doc->get_Revisions()->get_Count());
     // We have two revisions from different authors, so we need to accept only one.
-    doc->get_Revisions()->Accept(System::MakeObject<Aspose::Words::ApiExamples::ExRevision::RevisionCriteria>(u"John Doe", Aspose::Words::RevisionType::Insertion));
+    doc->get_Revisions()->Accept(System::MakeObject<Aspose::Words::ApiExamples::ExRevision::RevisionCriteria>(u"John Doe", RevisionType::Insertion));
     ASSERT_EQ(2, doc->get_Revisions()->get_Count());
     // Reject revision with different author name and revision type.
-    doc->get_Revisions()->Reject(System::MakeObject<Aspose::Words::ApiExamples::ExRevision::RevisionCriteria>(u"Jane Doe", Aspose::Words::RevisionType::Deletion));
+    doc->get_Revisions()->Reject(System::MakeObject<Aspose::Words::ApiExamples::ExRevision::RevisionCriteria>(u"Jane Doe", RevisionType::Deletion));
     ASSERT_EQ(1, doc->get_Revisions()->get_Count());
     
     doc->Save(get_ArtifactsDir() + u"Revision.RevisionSpecifiedCriteria.docx");
@@ -595,7 +592,7 @@ void ExRevision::GetRevisedPropertiesOfList()
     //ExFor:RevisionsView
     //ExFor:Document.RevisionsView
     //ExSummary:Shows how to switch between the revised and the original view of a document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revisions at list levels.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revisions at list levels.docx"));
     doc->UpdateListLabels();
     
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
@@ -604,14 +601,14 @@ void ExRevision::GetRevisedPropertiesOfList()
     ASSERT_EQ(System::String::Empty, paragraphs->idx_get(2)->get_ListLabel()->get_LabelString());
     
     // View the document object as if all the revisions are accepted. Currently supports list labels.
-    doc->set_RevisionsView(Aspose::Words::RevisionsView::Final);
+    doc->set_RevisionsView(RevisionsView::Final);
     
     ASSERT_EQ(System::String::Empty, paragraphs->idx_get(0)->get_ListLabel()->get_LabelString());
     ASSERT_EQ(u"1.", paragraphs->idx_get(1)->get_ListLabel()->get_LabelString());
     ASSERT_EQ(u"a.", paragraphs->idx_get(2)->get_ListLabel()->get_LabelString());
     //ExEnd
     
-    doc->set_RevisionsView(Aspose::Words::RevisionsView::Original);
+    doc->set_RevisionsView(RevisionsView::Original);
     doc->AcceptAllRevisions();
     
     ASSERT_EQ(u"a.", paragraphs->idx_get(0)->get_ListLabel()->get_LabelString());
@@ -665,7 +662,7 @@ void ExRevision::Compare()
     ASSERT_EQ(docOriginal->GetText(), docEdited->GetText());
     //ExEnd
     
-    docOriginal = Aspose::Words::ApiExamples::DocumentHelper::SaveOpen(docOriginal);
+    docOriginal = DocumentHelper::SaveOpen(docOriginal);
     ASSERT_EQ(0, docOriginal->get_Revisions()->get_Count());
 }
 
@@ -730,7 +727,7 @@ void ExRevision::CompareOptions()
     
     // Paragraph text referenced with an endnote:
     builder->Writeln(u"Hello world! This is the first paragraph.");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Original endnote text.");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Original endnote text.");
     
     // Table:
     builder->StartTable();
@@ -741,7 +738,7 @@ void ExRevision::CompareOptions()
     builder->EndTable();
     
     // Textbox:
-    System::SharedPtr<Aspose::Words::Drawing::Shape> textBox = builder->InsertShape(Aspose::Words::Drawing::ShapeType::TextBox, 150, 20);
+    System::SharedPtr<Aspose::Words::Drawing::Shape> textBox = builder->InsertShape(ShapeType::TextBox, static_cast<double>(150), static_cast<double>(20));
     builder->MoveTo(textBox->get_FirstParagraph());
     builder->Write(u"Original textbox contents");
     
@@ -755,7 +752,7 @@ void ExRevision::CompareOptions()
     builder->get_CurrentParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Comment>>(newComment);
     
     // Header:
-    builder->MoveToHeaderFooter(Aspose::Words::HeaderFooterType::HeaderPrimary);
+    builder->MoveToHeaderFooter(HeaderFooterType::HeaderPrimary);
     builder->Writeln(u"Original header contents.");
     
     // Create a clone of our document and perform a quick edit on each of the cloned document's elements.
@@ -763,13 +760,13 @@ void ExRevision::CompareOptions()
     System::SharedPtr<Aspose::Words::Paragraph> firstParagraph = docEdited->get_FirstSection()->get_Body()->get_FirstParagraph();
     
     firstParagraph->get_Runs()->idx_get(0)->set_Text(u"hello world! this is the first paragraph, after editing.");
-    firstParagraph->get_ParagraphFormat()->set_Style(docEdited->get_Styles()->idx_get(Aspose::Words::StyleIdentifier::Heading1));
-    (System::ExplicitCast<Aspose::Words::Notes::Footnote>(docEdited->GetChild(Aspose::Words::NodeType::Footnote, 0, true)))->get_FirstParagraph()->get_Runs()->idx_get(1)->set_Text(u"Edited endnote text.");
-    (System::ExplicitCast<Aspose::Words::Tables::Table>(docEdited->GetChild(Aspose::Words::NodeType::Table, 0, true)))->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited Cell 2 contents");
-    (System::ExplicitCast<Aspose::Words::Drawing::Shape>(docEdited->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited textbox contents");
+    firstParagraph->get_ParagraphFormat()->set_Style(docEdited->get_Styles()->idx_get(StyleIdentifier::Heading1));
+    (System::ExplicitCast<Aspose::Words::Notes::Footnote>(docEdited->GetChild(NodeType::Footnote, 0, true)))->get_FirstParagraph()->get_Runs()->idx_get(1)->set_Text(u"Edited endnote text.");
+    (System::ExplicitCast<Aspose::Words::Tables::Table>(docEdited->GetChild(NodeType::Table, 0, true)))->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited Cell 2 contents");
+    (System::ExplicitCast<Aspose::Words::Drawing::Shape>(docEdited->GetChild(NodeType::Shape, 0, true)))->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited textbox contents");
     (System::ExplicitCast<Aspose::Words::Fields::FieldDate>(docEdited->get_Range()->get_Fields()->idx_get(0)))->set_UseLunarCalendar(true);
-    (System::ExplicitCast<Aspose::Words::Comment>(docEdited->GetChild(Aspose::Words::NodeType::Comment, 0, true)))->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited comment.");
-    docEdited->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::HeaderPrimary)->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited header contents.");
+    (System::ExplicitCast<Aspose::Words::Comment>(docEdited->GetChild(NodeType::Comment, 0, true)))->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited comment.");
+    docEdited->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->get_FirstParagraph()->get_Runs()->idx_get(0)->set_Text(u"Edited header contents.");
     
     // Comparing documents creates a revision for every edit in the edited document.
     // A CompareOptions object has a series of flags that can suppress revisions
@@ -784,15 +781,15 @@ void ExRevision::CompareOptions()
     compareOptions->set_IgnoreFootnotes(false);
     compareOptions->set_IgnoreTextboxes(false);
     compareOptions->set_IgnoreHeadersAndFooters(false);
-    compareOptions->set_Target(Aspose::Words::Comparing::ComparisonTargetType::New);
+    compareOptions->set_Target(ComparisonTargetType::New);
     
     docOriginal->Compare(docEdited, u"John Doe", System::DateTime::get_Now(), compareOptions);
     docOriginal->Save(get_ArtifactsDir() + u"Revision.CompareOptions.docx");
     //ExEnd
     
-    docOriginal = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Revision.CompareOptions.docx");
+    docOriginal = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Revision.CompareOptions.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"OriginalEdited endnote text.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(docOriginal->GetChild(Aspose::Words::NodeType::Footnote, 0, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"OriginalEdited endnote text.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(docOriginal->GetChild(NodeType::Footnote, 0, true)));
 }
 
 namespace gtest_test
@@ -812,8 +809,8 @@ void ExRevision::IgnoreDmlUniqueId(bool isIgnoreDmlUniqueId)
     //ExFor:AdvancedCompareOptions.IgnoreDmlUniqueId
     //ExFor:CompareOptions.IgnoreDmlUniqueId
     //ExSummary:Shows how to compare documents ignoring DML unique ID.
-    auto docA = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DML unique ID original.docx");
-    auto docB = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"DML unique ID compare.docx");
+    auto docA = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DML unique ID original.docx"));
+    auto docB = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"DML unique ID compare.docx"));
     
     // By default, Aspose.Words do not ignore DML's unique ID, and the revisions count was 2.
     // If we are ignoring DML's unique ID, and revisions count were 0.
@@ -871,7 +868,7 @@ void ExRevision::LayoutOptionsRevisions()
     // Insert a revision, then change the color of all revisions to green.
     builder->Writeln(u"This is not a revision.");
     doc->StartTrackRevisions(u"John Doe", System::DateTime::get_Now());
-    ASSERT_EQ(Aspose::Words::Layout::RevisionColor::ByAuthor, doc->get_LayoutOptions()->get_RevisionOptions()->get_InsertedTextColor());
+    ASSERT_EQ(RevisionColor::ByAuthor, doc->get_LayoutOptions()->get_RevisionOptions()->get_InsertedTextColor());
     //ExSkip
     ASSERT_TRUE(doc->get_LayoutOptions()->get_RevisionOptions()->get_ShowRevisionBars());
     //ExSkip
@@ -880,9 +877,9 @@ void ExRevision::LayoutOptionsRevisions()
     builder->Writeln(u"This is not a revision.");
     
     // Remove the bar that appears to the left of every revised line.
-    doc->get_LayoutOptions()->get_RevisionOptions()->set_InsertedTextColor(Aspose::Words::Layout::RevisionColor::BrightGreen);
+    doc->get_LayoutOptions()->get_RevisionOptions()->set_InsertedTextColor(RevisionColor::BrightGreen);
     doc->get_LayoutOptions()->get_RevisionOptions()->set_ShowRevisionBars(false);
-    doc->get_LayoutOptions()->get_RevisionOptions()->set_RevisionBarsPosition(Aspose::Words::Drawing::HorizontalAlignment::Right);
+    doc->get_LayoutOptions()->get_RevisionOptions()->set_RevisionBarsPosition(HorizontalAlignment::Right);
     
     doc->Save(get_ArtifactsDir() + u"Revision.LayoutOptionsRevisions.pdf");
     //ExEnd
@@ -924,38 +921,38 @@ void ExRevision::GranularityCompareOption(Aspose::Words::Comparing::Granularity 
     ASSERT_EQ(5, groups->get_Count());
     //ExEnd
     
-    if (granularity == Aspose::Words::Comparing::Granularity::CharLevel)
+    if (granularity == Granularity::CharLevel)
     {
-        ASSERT_EQ(Aspose::Words::RevisionType::Deletion, groups->idx_get(0)->get_RevisionType());
+        ASSERT_EQ(RevisionType::Deletion, groups->idx_get(0)->get_RevisionType());
         ASSERT_EQ(u"Alpha ", groups->idx_get(0)->get_Text());
         
-        ASSERT_EQ(Aspose::Words::RevisionType::Deletion, groups->idx_get(1)->get_RevisionType());
-        ASSERT_EQ(u",", groups->idx_get(1)->get_Text());
+        ASSERT_EQ(RevisionType::Deletion, groups->idx_get(1)->get_RevisionType());
+        ASSERT_EQ((u","), groups->idx_get(1)->get_Text());
         
-        ASSERT_EQ(Aspose::Words::RevisionType::Insertion, groups->idx_get(2)->get_RevisionType());
+        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(2)->get_RevisionType());
         ASSERT_EQ(u"s", groups->idx_get(2)->get_Text());
         
-        ASSERT_EQ(Aspose::Words::RevisionType::Insertion, groups->idx_get(3)->get_RevisionType());
+        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(3)->get_RevisionType());
         ASSERT_EQ(u"- \"", groups->idx_get(3)->get_Text());
         
-        ASSERT_EQ(Aspose::Words::RevisionType::Insertion, groups->idx_get(4)->get_RevisionType());
+        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(4)->get_RevisionType());
         ASSERT_EQ(u"\"", groups->idx_get(4)->get_Text());
     }
     else
     {
-        ASSERT_EQ(Aspose::Words::RevisionType::Deletion, groups->idx_get(0)->get_RevisionType());
+        ASSERT_EQ(RevisionType::Deletion, groups->idx_get(0)->get_RevisionType());
         ASSERT_EQ(u"Alpha Lorem", groups->idx_get(0)->get_Text());
         
-        ASSERT_EQ(Aspose::Words::RevisionType::Deletion, groups->idx_get(1)->get_RevisionType());
-        ASSERT_EQ(u",", groups->idx_get(1)->get_Text());
+        ASSERT_EQ(RevisionType::Deletion, groups->idx_get(1)->get_RevisionType());
+        ASSERT_EQ((u","), groups->idx_get(1)->get_Text());
         
-        ASSERT_EQ(Aspose::Words::RevisionType::Insertion, groups->idx_get(2)->get_RevisionType());
+        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(2)->get_RevisionType());
         ASSERT_EQ(u"Lorems", groups->idx_get(2)->get_Text());
         
-        ASSERT_EQ(Aspose::Words::RevisionType::Insertion, groups->idx_get(3)->get_RevisionType());
+        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(3)->get_RevisionType());
         ASSERT_EQ(u"- \"", groups->idx_get(3)->get_Text());
         
-        ASSERT_EQ(Aspose::Words::RevisionType::Insertion, groups->idx_get(4)->get_RevisionType());
+        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(4)->get_RevisionType());
         ASSERT_EQ(u"\"", groups->idx_get(4)->get_Text());
     }
 }
@@ -971,8 +968,8 @@ struct ExRevision_GranularityCompareOption : public ExRevision, public Aspose::W
     {
         return
         {
-            std::make_tuple(Aspose::Words::Comparing::Granularity::CharLevel),
-            std::make_tuple(Aspose::Words::Comparing::Granularity::WordLevel),
+            std::make_tuple(Granularity::CharLevel),
+            std::make_tuple(Granularity::WordLevel),
         };
     }
 };
@@ -994,8 +991,8 @@ void ExRevision::IgnoreStoreItemId()
     //ExFor:AdvancedCompareOptions
     //ExFor:AdvancedCompareOptions.IgnoreStoreItemId
     //ExSummary:Shows how to compare SDT with same content but different store item id.
-    auto docA = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document with SDT 1.docx");
-    auto docB = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document with SDT 2.docx");
+    auto docA = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document with SDT 1.docx"));
+    auto docB = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document with SDT 2.docx"));
     
     // Configure options to compare SDT with same content but different store item id.
     auto compareOptions = System::MakeObject<Aspose::Words::Comparing::CompareOptions>();
@@ -1029,10 +1026,10 @@ void ExRevision::RevisionCellColor()
     //ExFor:RevisionOptions.InsertCellColor
     //ExFor:RevisionOptions.DeleteCellColor
     //ExSummary:Shows how to work with insert/delete cell revision color.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Cell revisions.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Cell revisions.docx"));
     
-    doc->get_LayoutOptions()->get_RevisionOptions()->set_InsertCellColor(Aspose::Words::Layout::RevisionColor::LightBlue);
-    doc->get_LayoutOptions()->get_RevisionOptions()->set_DeleteCellColor(Aspose::Words::Layout::RevisionColor::DarkRed);
+    doc->get_LayoutOptions()->get_RevisionOptions()->set_InsertCellColor(RevisionColor::LightBlue);
+    doc->get_LayoutOptions()->get_RevisionOptions()->set_DeleteCellColor(RevisionColor::DarkRed);
     
     doc->Save(get_ArtifactsDir() + u"Revision.RevisionCellColor.pdf");
     //ExEnd:RevisionCellColor
@@ -1045,6 +1042,71 @@ TEST_F(ExRevision, RevisionCellColor)
 {
     s_instance->RevisionCellColor();
 }
+
+} // namespace gtest_test
+
+void ExRevision::CompareListDefinitions(bool isCompareListDefinitions)
+{
+    //ExStart:CompareListDefinitions
+    //GistId:a6f77f12161f1577c687e4456007f964
+    //ExFor:AdvancedCompareOptions.CompareListDefinitions
+    //ExSummary:Shows how to control whether list definition content will be compared during document comparison.
+    auto docA = System::MakeObject<Aspose::Words::Document>();
+    auto builderA = System::MakeObject<Aspose::Words::DocumentBuilder>(docA);
+    builderA->get_ListFormat()->ApplyNumberDefault();
+    builderA->Writeln(u"Item 1");
+    builderA->Writeln(u"Item 2");
+    builderA->get_ListFormat()->RemoveNumbers();
+    
+    auto docB = System::MakeObject<Aspose::Words::Document>();
+    auto builderB = System::MakeObject<Aspose::Words::DocumentBuilder>(docB);
+    builderB->get_ListFormat()->ApplyBulletDefault();
+    builderB->Writeln(u"Item 1");
+    builderB->Writeln(u"Item 2");
+    builderB->get_ListFormat()->RemoveNumbers();
+    
+    // Compare documents with CompareListDefinitions enabled.
+    auto options = System::MakeObject<Aspose::Words::Comparing::CompareOptions>();
+    options->get_AdvancedOptions()->set_CompareListDefinitions(isCompareListDefinitions);
+    docA->Compare(docB, u"test", System::DateTime::get_Now(), options);
+    //ExEnd:CompareListDefinitions
+    
+    // Verify that comparison completed without exceptions.
+    // Since the lists are identical, no revisions should be produced.
+    if (isCompareListDefinitions)
+    {
+        ASSERT_EQ(2, docA->get_Revisions()->get_Count());
+    }
+    else
+    {
+        ASSERT_EQ(0, docA->get_Revisions()->get_Count());
+    }
+}
+
+namespace gtest_test
+{
+
+using ExRevision_CompareListDefinitions_Args = System::MethodArgumentTuple<decltype(&Aspose::Words::ApiExamples::ExRevision::CompareListDefinitions)>::type;
+
+struct ExRevision_CompareListDefinitions : public ExRevision, public Aspose::Words::ApiExamples::ExRevision, public ::testing::WithParamInterface<ExRevision_CompareListDefinitions_Args>
+{
+    static std::vector<ParamType> TestCases()
+    {
+        return
+        {
+            std::make_tuple(true),
+            std::make_tuple(false),
+        };
+    }
+};
+
+TEST_P(ExRevision_CompareListDefinitions, Test)
+{
+    const auto& params = GetParam();
+    ASSERT_NO_FATAL_FAILURE(s_instance->CompareListDefinitions(std::get<0>(params)));
+}
+
+INSTANTIATE_TEST_SUITE_P(, ExRevision_CompareListDefinitions, ::testing::ValuesIn(ExRevision_CompareListDefinitions::TestCases()));
 
 } // namespace gtest_test
 

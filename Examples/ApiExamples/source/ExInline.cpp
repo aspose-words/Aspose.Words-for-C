@@ -1,16 +1,10 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExInline.h"
+﻿#include "ExInline.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
@@ -75,7 +69,7 @@ void ExInline::InlineRevisions()
     //ExFor:RunCollection.Item(Int32)
     //ExFor:RunCollection.ToArray
     //ExSummary:Shows how to determine the revision type of an inline node.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revision runs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revision runs.docx"));
     
     // When we edit the document while the "Track Changes" option, found in via Review -> Tracking,
     // is turned on in Microsoft Word, the changes we apply count as revisions.

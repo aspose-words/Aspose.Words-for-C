@@ -1,12 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
 #include <system/io/stream.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Fonts/StreamFontSource.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfoCollection.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningInfo.h>
@@ -129,8 +125,18 @@ public:
     void DefaultFontInstance();
     void DefaultFontName();
     void UpdatePageLayoutWarnings();
+    //ExStart
+    //ExFor:IWarningCallback
+    //ExFor:DocumentBase.WarningCallback
+    //ExFor:FontSettings.DefaultInstance
+    //ExSummary:Shows how to use the IWarningCallback interface to monitor font substitution warnings.
     void SubstitutionWarning();
+    //ExEnd
+    //ExStart
+    //ExFor:FontSourceBase.WarningCallback
+    //ExSummary:Shows how to call warning callback when the font sources working with.
     void FontSourceWarning();
+    //ExEnd
     void EnableFontSubstitution();
     void SubstitutionWarningsClosestMatch();
     void DisableFontSubstitution();
@@ -157,6 +163,10 @@ public:
     void TableSubstitutionRule();
     void TableSubstitutionRuleCustom();
     void ResolveFontsBeforeLoadingDocument();
+    //ExStart
+    //ExFor:StreamFontSource
+    //ExFor:StreamFontSource.OpenFontDataStream
+    //ExSummary:Shows how to load fonts from stream.
     void StreamFontSourceFileRendering();
     
 };

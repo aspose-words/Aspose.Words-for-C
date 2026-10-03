@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExXlsxSaveOptions.h"
+﻿#include "ExXlsxSaveOptions.h"
 
 #include <system/string.h>
 #include <Aspose.Words.Cpp/Model/Saving/XlsxSectionMode.h>
@@ -62,11 +57,11 @@ void ExXlsxSaveOptions::CompressXlsx()
     //ExFor:XlsxSaveOptions.CompressionLevel
     //ExFor:XlsxSaveOptions.SaveFormat
     //ExSummary:Shows how to compress XLSX document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Shape with linked chart.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Shape with linked chart.docx"));
     
     auto xlsxSaveOptions = System::MakeObject<Aspose::Words::Saving::XlsxSaveOptions>();
-    xlsxSaveOptions->set_CompressionLevel(Aspose::Words::Saving::CompressionLevel::Maximum);
-    xlsxSaveOptions->set_SaveFormat(Aspose::Words::SaveFormat::Xlsx);
+    xlsxSaveOptions->set_CompressionLevel(CompressionLevel::Maximum);
+    xlsxSaveOptions->set_SaveFormat(SaveFormat::Xlsx);
     
     doc->Save(get_ArtifactsDir() + u"XlsxSaveOptions.CompressXlsx.xlsx", xlsxSaveOptions);
     //ExEnd
@@ -89,12 +84,12 @@ void ExXlsxSaveOptions::SelectionMode()
     //ExFor:XlsxSaveOptions.SectionMode
     //ExFor:XlsxSectionMode
     //ExSummary:Shows how to save document as a separate worksheets.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Big document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Big document.docx"));
     
     // Each section of a document will be created as a separate worksheet.
     // Use 'SingleWorksheet' to display all document on one worksheet.
     auto xlsxSaveOptions = System::MakeObject<Aspose::Words::Saving::XlsxSaveOptions>();
-    xlsxSaveOptions->set_SectionMode(Aspose::Words::Saving::XlsxSectionMode::MultipleWorksheets);
+    xlsxSaveOptions->set_SectionMode(XlsxSectionMode::MultipleWorksheets);
     
     doc->Save(get_ArtifactsDir() + u"XlsxSaveOptions.SelectionMode.xlsx", xlsxSaveOptions);
     //ExEnd:SelectionMode
@@ -117,11 +112,11 @@ void ExXlsxSaveOptions::DateTimeParsingMode()
     //ExFor:XlsxSaveOptions.DateTimeParsingMode
     //ExFor:XlsxDateTimeParsingMode
     //ExSummary:Shows how to specify autodetection of the date time format.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Xlsx DateTime.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Xlsx DateTime.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::XlsxSaveOptions>();
     // Specify using datetime format autodetection.
-    saveOptions->set_DateTimeParsingMode(Aspose::Words::Saving::XlsxDateTimeParsingMode::Auto);
+    saveOptions->set_DateTimeParsingMode(XlsxDateTimeParsingMode::Auto);
     
     doc->Save(get_ArtifactsDir() + u"XlsxSaveOptions.DateTimeParsingMode.xlsx", saveOptions);
     //ExEnd:DateTimeParsingMode

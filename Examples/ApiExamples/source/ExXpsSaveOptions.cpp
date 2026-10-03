@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExXpsSaveOptions.h"
+﻿#include "ExXpsSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -13,7 +8,6 @@
 #include <system/enumerator_adapter.h>
 #include <system/date_time.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Styles/StyleIdentifier.h>
@@ -27,7 +21,6 @@
 #include <Aspose.Words.Cpp/Model/Saving/OutlineOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/DigitalSignatureDetails.h>
 #include <Aspose.Words.Cpp/Model/Saving/CompressionLevel.h>
-#include <Aspose.Words.Cpp/Model/Nodes/Node.h>
 #include <Aspose.Words.Cpp/Model/Document/SaveFormat.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentBuilder.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
@@ -91,18 +84,18 @@ void ExXpsSaveOptions::OutlineLevels()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Insert headings that can serve as TOC entries of levels 1, 2, and then 3.
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading1);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading1);
     
     ASSERT_TRUE(builder->get_ParagraphFormat()->get_IsHeading());
     
     builder->Writeln(u"Heading 1");
     
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading2);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading2);
     
     builder->Writeln(u"Heading 1.1");
     builder->Writeln(u"Heading 1.2");
     
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading3);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading3);
     
     builder->Writeln(u"Heading 1.2.1");
     builder->Writeln(u"Heading 1.2.2");
@@ -111,7 +104,7 @@ void ExXpsSaveOptions::OutlineLevels()
     // to modify how that method converts the document to .XPS.
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::XpsSaveOptions>();
     
-    ASSERT_EQ(Aspose::Words::SaveFormat::Xps, saveOptions->get_SaveFormat());
+    ASSERT_EQ(SaveFormat::Xps, saveOptions->get_SaveFormat());
     
     // The output XPS document will contain an outline, a table of contents that lists headings in the document body.
     // Clicking on an entry in this outline will take us to the location of its respective heading.
@@ -139,11 +132,11 @@ void ExXpsSaveOptions::BookFold(bool renderTextAsBookFold)
     //ExFor:XpsSaveOptions.#ctor(SaveFormat)
     //ExFor:XpsSaveOptions.UseBookFoldPrintingSettings
     //ExSummary:Shows how to save a document to the XPS format in the form of a book fold.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Paragraphs.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     
     // Create an "XpsSaveOptions" object that we can pass to the document's "Save" method
     // to modify how that method converts the document to .XPS.
-    auto xpsOptions = System::MakeObject<Aspose::Words::Saving::XpsSaveOptions>(Aspose::Words::SaveFormat::Xps);
+    auto xpsOptions = System::MakeObject<Aspose::Words::Saving::XpsSaveOptions>(SaveFormat::Xps);
     
     // Set the "UseBookFoldPrintingSettings" property to "true" to arrange the contents
     // in the output XPS in a way that helps us use it to make a booklet.
@@ -156,7 +149,7 @@ void ExXpsSaveOptions::BookFold(bool renderTextAsBookFold)
     {
         for (auto&& s : System::IterateOver<Aspose::Words::Section>(doc->get_Sections()))
         {
-            s->get_PageSetup()->set_MultiplePages(Aspose::Words::Settings::MultiplePagesType::BookFoldPrinting);
+            s->get_PageSetup()->set_MultiplePages(MultiplePagesType::BookFoldPrinting);
         }
     }
     
@@ -206,7 +199,7 @@ void ExXpsSaveOptions::ExportExactPages()
     for (int32_t i = 1; i < 6; i++)
     {
         builder->Write(System::String(u"Page ") + i);
-        builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+        builder->InsertBreak(BreakType::PageBreak);
     }
     
     // Create an "XpsSaveOptions" object, which we can pass to the document's "Save" method
@@ -237,9 +230,9 @@ void ExXpsSaveOptions::XpsDigitalSignature()
     //GistId:708ce40a68fac5003d46f6b4acfd5ff1
     //ExFor:XpsSaveOptions.DigitalSignatureDetails
     //ExSummary:Shows how to sign XPS document.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     auto options = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     options->set_SignTime(System::DateTime::get_Now());
     options->set_Comments(u"Some comments");
@@ -280,7 +273,7 @@ void ExXpsSaveOptions::CompressionLevelXps()
     
     // Create an XpsSaveOptions object and set the compression level.
     auto options = System::MakeObject<Aspose::Words::Saving::XpsSaveOptions>();
-    options->set_CompressionLevel(Aspose::Words::Saving::CompressionLevel::Maximum);
+    options->set_CompressionLevel(CompressionLevel::Maximum);
     
     doc->Save(get_ArtifactsDir() + u"XpsSaveOptions.CompressionLevelXps.xps", options);
     //ExEnd:CompressionLevelXps

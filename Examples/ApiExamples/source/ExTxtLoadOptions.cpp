@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExTxtLoadOptions.h"
+﻿#include "ExTxtLoadOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -16,10 +11,9 @@
 #include <system/io/memory_stream.h>
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
@@ -175,8 +169,8 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
     loadOptions->set_LeadingSpacesOptions(txtLeadingSpacesOptions);
     
     // Set the "TrailingSpacesOptions" property to "TxtTrailingSpacesOptions.Preserve"
-    // to preserve all whitespace characters at the end of every line. 
-    // Set the "TrailingSpacesOptions" property to "TxtTrailingSpacesOptions.Trim" to 
+    // to preserve all whitespace characters at the end of every line.
+    // Set the "TrailingSpacesOptions" property to "TxtTrailingSpacesOptions.Trim" to
     // remove all whitespace characters from the end of every line.
     loadOptions->set_TrailingSpacesOptions(txtTrailingSpacesOptions);
     
@@ -185,7 +179,7 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
     
     switch (txtLeadingSpacesOptions)
     {
-        case Aspose::Words::Loading::TxtLeadingSpacesOptions::ConvertToIndent:
+        case TxtLeadingSpacesOptions::ConvertToIndent:
             ASPOSE_ASSERT_EQ(37.8, paragraphs->idx_get(0)->get_ParagraphFormat()->get_FirstLineIndent());
             ASPOSE_ASSERT_EQ(25.2, paragraphs->idx_get(1)->get_ParagraphFormat()->get_FirstLineIndent());
             ASPOSE_ASSERT_EQ(6.3, paragraphs->idx_get(2)->get_ParagraphFormat()->get_FirstLineIndent());
@@ -193,8 +187,7 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().StartsWith(u"Line 2"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().StartsWith(u"Line 3"));
             break;
-        
-        case Aspose::Words::Loading::TxtLeadingSpacesOptions::Preserve:
+        case TxtLeadingSpacesOptions::Preserve:
             ASSERT_TRUE(paragraphs->LINQ_All(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> p)>>([](System::SharedPtr<Aspose::Words::Node> p) -> bool
             {
                 return (System::ExplicitCast<Aspose::Words::Paragraph>(p))->get_ParagraphFormat()->get_FirstLineIndent() == 0.0;
@@ -203,8 +196,7 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().StartsWith(u"    Line 2"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().StartsWith(u" Line 3"));
             break;
-        
-        case Aspose::Words::Loading::TxtLeadingSpacesOptions::Trim:
+        case TxtLeadingSpacesOptions::Trim:
             ASSERT_TRUE(paragraphs->LINQ_All(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> p)>>([](System::SharedPtr<Aspose::Words::Node> p) -> bool
             {
                 return (System::ExplicitCast<Aspose::Words::Paragraph>(p))->get_ParagraphFormat()->get_FirstLineIndent() == 0.0;
@@ -213,23 +205,20 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().StartsWith(u"Line 2"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().StartsWith(u"Line 3"));
             break;
-        
     }
     
     switch (txtTrailingSpacesOptions)
     {
-        case Aspose::Words::Loading::TxtTrailingSpacesOptions::Preserve:
+        case TxtTrailingSpacesOptions::Preserve:
             ASSERT_TRUE(paragraphs->idx_get(0)->GetText().EndsWith(u"Line 1 \r"));
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().EndsWith(u"Line 2   \r"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().EndsWith(u"Line 3       \f"));
             break;
-        
-        case Aspose::Words::Loading::TxtTrailingSpacesOptions::Trim:
+        case TxtTrailingSpacesOptions::Trim:
             ASSERT_TRUE(paragraphs->idx_get(0)->GetText().EndsWith(u"Line 1\r"));
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().EndsWith(u"Line 2\r"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().EndsWith(u"Line 3\f"));
             break;
-        
     }
     //ExEnd
 }
@@ -245,9 +234,9 @@ struct ExTxtLoadOptions_TrailSpaces : public ExTxtLoadOptions, public Aspose::Wo
     {
         return
         {
-            std::make_tuple(Aspose::Words::Loading::TxtLeadingSpacesOptions::Preserve, Aspose::Words::Loading::TxtTrailingSpacesOptions::Preserve),
-            std::make_tuple(Aspose::Words::Loading::TxtLeadingSpacesOptions::ConvertToIndent, Aspose::Words::Loading::TxtTrailingSpacesOptions::Preserve),
-            std::make_tuple(Aspose::Words::Loading::TxtLeadingSpacesOptions::Trim, Aspose::Words::Loading::TxtTrailingSpacesOptions::Trim),
+            std::make_tuple(TxtLeadingSpacesOptions::Preserve, TxtTrailingSpacesOptions::Preserve),
+            std::make_tuple(TxtLeadingSpacesOptions::ConvertToIndent, TxtTrailingSpacesOptions::Preserve),
+            std::make_tuple(TxtLeadingSpacesOptions::Trim, TxtTrailingSpacesOptions::Trim),
         };
     }
 };
@@ -276,7 +265,7 @@ void ExTxtLoadOptions::DetectDocumentDirection()
     // Set the "DocumentDirection" property to "DocumentDirection.Auto" automatically detects
     // the direction of every paragraph of text that Aspose.Words loads from plaintext.
     // Each paragraph's "Bidi" property will store its direction.
-    loadOptions->set_DocumentDirection(Aspose::Words::Loading::DocumentDirection::Auto);
+    loadOptions->set_DocumentDirection(DocumentDirection::Auto);
     
     // Detect Hebrew text as right-to-left.
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Hebrew text.txt", loadOptions);
@@ -311,7 +300,7 @@ void ExTxtLoadOptions::AutoNumberingDetection()
     //ExEnd
     
     int32_t listItemsCount = 0;
-    for (auto&& paragraph : System::IterateOver<Aspose::Words::Paragraph>(doc->GetChildNodes(Aspose::Words::NodeType::Paragraph, true)))
+    for (auto&& paragraph : System::IterateOver<Aspose::Words::Paragraph>(doc->GetChildNodes(NodeType::Paragraph, true)))
     {
         if (paragraph->get_IsListItem())
         {

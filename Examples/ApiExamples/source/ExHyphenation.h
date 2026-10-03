@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
 #include <system/collections/dictionary.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Layout/Hyphenation/IHyphenationCallback.h>
 
 #include "ApiExampleBase.h"
@@ -53,6 +50,15 @@ private:
 public:
 
     void Dictionary();
+    //ExStart
+    //ExFor:Hyphenation
+    //ExFor:Hyphenation.Callback
+    //ExFor:Hyphenation.RegisterDictionary(String, Stream)
+    //ExFor:Hyphenation.RegisterDictionary(String, String)
+    //ExFor:Hyphenation.WarningCallback
+    //ExFor:IHyphenationCallback
+    //ExFor:IHyphenationCallback.RequestDictionary(String)
+    //ExSummary:Shows how to open and register a dictionary from a file.
     void RegisterDictionary();
     
 };

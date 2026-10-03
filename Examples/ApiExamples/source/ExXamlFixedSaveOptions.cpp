@@ -1,22 +1,16 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExXamlFixedSaveOptions.h"
+﻿#include "ExXamlFixedSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
-#include <system/io/stream.h>
 #include <system/io/file_stream.h>
 #include <system/io/file_mode.h>
 #include <system/io/file.h>
+#include <system/io/directory_info.h>
 #include <system/io/directory.h>
-#include <system/enumerator_adapter.h>
+#include <system/console.h>
 #include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/XamlFixedSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -61,10 +55,9 @@ void ExXamlFixedSaveOptions::TestResourceFolder(System::SharedPtr<Aspose::Words:
     ASSERT_EQ(15, callback->get_Resources()->get_Count());
     for (auto&& resource : callback->get_Resources())
     {
-        ASSERT_TRUE(System::IO::File::Exists(resource.Split(u'\t')->idx_get(1)));
+        ASSERT_TRUE(System::IO::File::Exists(resource.Split(System::MakeArray<char16_t>({u'\t'}))[1]));
     }
 }
-
 
 namespace gtest_test
 {
@@ -99,14 +92,14 @@ System::SharedPtr<::Aspose::Words::ApiExamples::ExXamlFixedSaveOptions> ExXamlFi
 
 void ExXamlFixedSaveOptions::ResourceFolder()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     auto callback = System::MakeObject<Aspose::Words::ApiExamples::ExXamlFixedSaveOptions::ResourceUriPrinter>();
     
     // Create a "XamlFixedSaveOptions" object, which we can pass to the document's "Save" method
     // to modify how we save the document to the XAML save format.
     auto options = System::MakeObject<Aspose::Words::Saving::XamlFixedSaveOptions>();
     
-    ASSERT_EQ(Aspose::Words::SaveFormat::XamlFixed, options->get_SaveFormat());
+    ASSERT_EQ(SaveFormat::XamlFixed, options->get_SaveFormat());
     
     // Use the "ResourcesFolder" property to assign a folder in the local file system into which
     // Aspose.Words will save all the document's linked resources, such as images and fonts.

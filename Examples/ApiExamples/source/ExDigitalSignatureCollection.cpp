@@ -1,21 +1,15 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExDigitalSignatureCollection.h"
+﻿#include "ExDigitalSignatureCollection.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
-#include <system/details/dispose_guard.h>
 #include <system/date_time.h>
+#include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <security/cryptography/x509_certificates/x509_certificate_2.h>
 #include <security/cryptography/x509_certificates/x500_distinguished_name.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureUtil.h>
 #include <Aspose.Words.Cpp/Model/DigitalSignatures/DigitalSignatureType.h>
@@ -69,7 +63,7 @@ void ExDigitalSignatureCollection::GetEnumerator()
     //ExStart
     //ExFor:DigitalSignatureCollection.GetEnumerator
     //ExSummary:Shows how to print all the digital signatures of a signed document.
-    System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatures = Aspose::Words::DigitalSignatures::DigitalSignatureUtil::LoadSignatures(get_MyDir() + u"Digitally signed.docx");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatures = DigitalSignatureUtil::LoadSignatures(get_MyDir() + u"Digitally signed.docx");
     
     {
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignature>>> enumerator = digitalSignatures->GetEnumerator();
@@ -90,16 +84,16 @@ void ExDigitalSignatureCollection::GetEnumerator()
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignature> signature = digitalSignatures->idx_get(0);
     
     ASSERT_TRUE(signature->get_IsValid());
-    ASSERT_EQ(Aspose::Words::DigitalSignatures::DigitalSignatureType::XmlDsig, signature->get_SignatureType());
+    ASSERT_EQ(DigitalSignatureType::XmlDsig, signature->get_SignatureType());
     ASSERT_EQ(u"12/23/2010 02:14:40 AM", signature->get_SignTime().ToString(u"MM/dd/yyyy hh:mm:ss tt"));
     ASSERT_EQ(u"Test Sign", signature->get_Comments());
     
     ASSERT_EQ(signature->get_IssuerName(), signature->get_CertificateHolder()->get_Certificate()->get_IssuerName()->get_Name());
     ASSERT_EQ(signature->get_SubjectName(), signature->get_CertificateHolder()->get_Certificate()->get_SubjectName()->get_Name());
     
-    ASSERT_EQ(System::String(u"CN=VeriSign Class 3 Code Signing 2009-2 CA, ") + u"OU=Terms of use at https://www.verisign.com/rpa (c)09, " + u"OU=VeriSign Trust Network, " + u"O=\"VeriSign, Inc.\", " + u"C=US", signature->get_IssuerName());
+    ASSERT_EQ((System::String(u"CN=VeriSign Class 3 Code Signing 2009-2 CA, ") + u"OU=Terms of use at https://www.verisign.com/rpa (c)09, " + u"OU=VeriSign Trust Network, " + u"O=\"VeriSign, Inc.\", " + u"C=US"), signature->get_IssuerName());
     
-    ASSERT_EQ(System::String(u"CN=Aspose Pty Ltd, ") + u"OU=Digital ID Class 3 - Microsoft Software Validation v2, " + u"O=Aspose Pty Ltd, " + u"L=Lane Cove, " + u"S=New South Wales, " + u"C=AU", signature->get_SubjectName());
+    ASSERT_EQ((System::String(u"CN=Aspose Pty Ltd, ") + u"OU=Digital ID Class 3 - Microsoft Software Validation v2, " + u"O=Aspose Pty Ltd, " + u"L=Lane Cove, " + u"S=New South Wales, " + u"C=AU"), signature->get_SubjectName());
 }
 
 namespace gtest_test

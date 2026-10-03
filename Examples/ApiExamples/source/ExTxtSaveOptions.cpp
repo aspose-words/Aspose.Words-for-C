@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExTxtSaveOptions.h"
+﻿#include "ExTxtSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -13,7 +8,6 @@
 #include <system/io/file.h>
 #include <system/environment.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
@@ -88,9 +82,9 @@ void ExTxtSaveOptions::PageBreaks(bool forcePageBreaks)
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     builder->Writeln(u"Page 1");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Writeln(u"Page 2");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Writeln(u"Page 3");
     
     // Create a "TxtSaveOptions" object, which we can pass to the document's "Save"
@@ -107,12 +101,12 @@ void ExTxtSaveOptions::PageBreaks(bool forcePageBreaks)
     
     // If we load a plaintext document with page breaks,
     // the "Document" object will use them to split the body into pages.
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt"));
     
     ASSERT_EQ(forcePageBreaks ? 3 : 1, doc->get_PageCount());
     //ExEnd
     
-    Aspose::Words::ApiExamples::TestUtil::FileContainsString(forcePageBreaks ? System::String(u"Page 1\r\n\fPage 2\r\n\fPage 3\r\n\r\n") : System::String(u"Page 1\r\nPage 2\r\nPage 3\r\n\r\n"), get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt");
+    TestUtil::FileContainsString(forcePageBreaks ? System::String(u"Page 1\r\n\fPage 2\r\n\fPage 3\r\n\r\n") : System::String(u"Page 1\r\nPage 2\r\nPage 3\r\n\r\n"), get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt");
 }
 
 namespace gtest_test
@@ -220,21 +214,21 @@ void ExTxtSaveOptions::ExportHeadersFooters(Aspose::Words::Saving::TxtExportHead
     
     // Insert even and primary headers/footers into the document.
     // The primary header/footers will override the even headers/footers.
-    doc->get_FirstSection()->get_HeadersFooters()->Add(System::MakeObject<Aspose::Words::HeaderFooter>(doc, Aspose::Words::HeaderFooterType::HeaderEven));
-    doc->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::HeaderEven)->AppendParagraph(u"Even header");
-    doc->get_FirstSection()->get_HeadersFooters()->Add(System::MakeObject<Aspose::Words::HeaderFooter>(doc, Aspose::Words::HeaderFooterType::FooterEven));
-    doc->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterEven)->AppendParagraph(u"Even footer");
-    doc->get_FirstSection()->get_HeadersFooters()->Add(System::MakeObject<Aspose::Words::HeaderFooter>(doc, Aspose::Words::HeaderFooterType::HeaderPrimary));
-    doc->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::HeaderPrimary)->AppendParagraph(u"Primary header");
-    doc->get_FirstSection()->get_HeadersFooters()->Add(System::MakeObject<Aspose::Words::HeaderFooter>(doc, Aspose::Words::HeaderFooterType::FooterPrimary));
-    doc->get_FirstSection()->get_HeadersFooters()->idx_get(Aspose::Words::HeaderFooterType::FooterPrimary)->AppendParagraph(u"Primary footer");
+    doc->get_FirstSection()->get_HeadersFooters()->Add(System::MakeObject<Aspose::Words::HeaderFooter>(doc, HeaderFooterType::HeaderEven));
+    doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderEven)->AppendParagraph(u"Even header");
+    doc->get_FirstSection()->get_HeadersFooters()->Add(System::MakeObject<Aspose::Words::HeaderFooter>(doc, HeaderFooterType::FooterEven));
+    doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterEven)->AppendParagraph(u"Even footer");
+    doc->get_FirstSection()->get_HeadersFooters()->Add(System::MakeObject<Aspose::Words::HeaderFooter>(doc, HeaderFooterType::HeaderPrimary));
+    doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->AppendParagraph(u"Primary header");
+    doc->get_FirstSection()->get_HeadersFooters()->Add(System::MakeObject<Aspose::Words::HeaderFooter>(doc, HeaderFooterType::FooterPrimary));
+    doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->AppendParagraph(u"Primary footer");
     
     // Insert pages to display these headers and footers.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->Writeln(u"Page 1");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Writeln(u"Page 2");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Write(u"Page 3");
     
     // Create a "TxtSaveOptions" object, which we can pass to the document's "Save" method
@@ -256,18 +250,15 @@ void ExTxtSaveOptions::ExportHeadersFooters(Aspose::Words::Saving::TxtExportHead
     System::String newLine = System::Environment::get_NewLine();
     switch (txtExportHeadersFootersMode)
     {
-        case Aspose::Words::Saving::TxtExportHeadersFootersMode::AllAtEnd:
+        case TxtExportHeadersFootersMode::AllAtEnd:
             ASSERT_EQ(System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine) + System::String::Format(u"Even header{0}{1}", newLine, newLine) + System::String::Format(u"Primary header{0}{1}", newLine, newLine) + System::String::Format(u"Even footer{0}{1}", newLine, newLine) + System::String::Format(u"Primary footer{0}{1}", newLine, newLine), docText);
             break;
-        
-        case Aspose::Words::Saving::TxtExportHeadersFootersMode::PrimaryOnly:
+        case TxtExportHeadersFootersMode::PrimaryOnly:
             ASSERT_EQ(System::String::Format(u"Primary header{0}", newLine) + System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine) + System::String::Format(u"Primary footer{0}", newLine), docText);
             break;
-        
-        case Aspose::Words::Saving::TxtExportHeadersFootersMode::None:
+        case TxtExportHeadersFootersMode::None:
             ASSERT_EQ(System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine), docText);
             break;
-        
     }
     //ExEnd
 }
@@ -283,9 +274,9 @@ struct ExTxtSaveOptions_ExportHeadersFooters : public ExTxtSaveOptions, public A
     {
         return
         {
-            std::make_tuple(Aspose::Words::Saving::TxtExportHeadersFootersMode::AllAtEnd),
-            std::make_tuple(Aspose::Words::Saving::TxtExportHeadersFootersMode::PrimaryOnly),
-            std::make_tuple(Aspose::Words::Saving::TxtExportHeadersFootersMode::None),
+            std::make_tuple(TxtExportHeadersFootersMode::AllAtEnd),
+            std::make_tuple(TxtExportHeadersFootersMode::PrimaryOnly),
+            std::make_tuple(TxtExportHeadersFootersMode::None),
         };
     }
 };
@@ -441,7 +432,7 @@ void ExTxtSaveOptions::ParagraphBreak()
     // to modify how we save the document to plaintext.
     auto txtSaveOptions = System::MakeObject<Aspose::Words::Saving::TxtSaveOptions>();
     
-    ASSERT_EQ(Aspose::Words::SaveFormat::Text, txtSaveOptions->get_SaveFormat());
+    ASSERT_EQ(SaveFormat::Text, txtSaveOptions->get_SaveFormat());
     
     // Set the "ParagraphBreak" to a custom value that we wish to put at the end of every paragraph.
     txtSaveOptions->set_ParagraphBreak(u" End of paragraph.\n\n\t");
@@ -543,11 +534,11 @@ void ExTxtSaveOptions::PreserveTableLayout(bool preserveTableLayout)
     
     if (preserveTableLayout)
     {
-        ASSERT_EQ(System::String(u"Row 1, cell 1                                            Row 1, cell 2\r\n") + u"Row 2, cell 1                                            Row 2, cell 2\r\n\r\n", docText);
+        ASSERT_EQ((System::String(u"Row 1, cell 1                                            Row 1, cell 2\r\n") + u"Row 2, cell 1                                            Row 2, cell 2\r\n\r\n"), docText);
     }
     else
     {
-        ASSERT_EQ(System::String(u"Row 1, cell 1\r") + u"Row 1, cell 2\r" + u"Row 2, cell 1\r" + u"Row 2, cell 2\r\r\n", docText);
+        ASSERT_EQ((System::String(u"Row 1, cell 1\r") + u"Row 1, cell 2\r" + u"Row 2, cell 1\r" + u"Row 2, cell 2\r\r\n"), docText);
     }
     //ExEnd
 }
@@ -614,15 +605,15 @@ void ExTxtSaveOptions::ExportOfficeMathAsLatex()
     //ExFor:TxtSaveOptions.OfficeMathExportMode
     //ExFor:TxtOfficeMathExportMode
     //ExSummary:Shows how to export OfficeMath object as Latex in TXT.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Office math.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::TxtSaveOptions>();
-    saveOptions->set_OfficeMathExportMode(Aspose::Words::Saving::TxtOfficeMathExportMode::Latex);
+    saveOptions->set_OfficeMathExportMode(TxtOfficeMathExportMode::Latex);
     
     doc->Save(get_ArtifactsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.txt", saveOptions);
     //ExEnd:ExportOfficeMathAsLatexToText
     
-    ASSERT_TRUE(Aspose::Words::ApiExamples::DocumentHelper::CompareDocs(get_ArtifactsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.txt", get_GoldsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.Gold.txt"));
+    ASSERT_TRUE(DocumentHelper::CompareDocs(get_ArtifactsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.txt", get_GoldsDir() + u"TxtSaveOptions.ExportOfficeMathAsLatexToText.Gold.txt"));
 }
 
 namespace gtest_test

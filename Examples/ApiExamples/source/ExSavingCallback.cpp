@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExSavingCallback.h"
+﻿#include "ExSavingCallback.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -12,7 +7,6 @@
 #include <system/io/path.h>
 #include <system/io/file_stream.h>
 #include <system/io/file_mode.h>
-#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Saving/XpsSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/XamlFixedSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/SvgSaveOptions.h>
@@ -55,7 +49,7 @@ void ExSavingCallback::CustomFileNamePageSavingCallback::PageSaving(System::Shar
 RTTI_INFO_IMPL_HASH(160390628u, ::Aspose::Words::ApiExamples::ExSavingCallback::SavedDocumentPartRename, ThisTypeBaseTypesInfo);
 
 ExSavingCallback::SavedDocumentPartRename::SavedDocumentPartRename(System::String outFileName, Aspose::Words::Saving::DocumentSplitCriteria documentSplitCriteria)
-    : mCount(0), mDocumentSplitCriteria(((Aspose::Words::Saving::DocumentSplitCriteria)0))
+    : mCount(0), mDocumentSplitCriteria((Aspose::Words::Saving::DocumentSplitCriteria)0)
 {
     mOutFileName = outFileName;
     mDocumentSplitCriteria = documentSplitCriteria;
@@ -70,22 +64,18 @@ void ExSavingCallback::SavedDocumentPartRename::DocumentPartSaving(System::Share
     
     switch (mDocumentSplitCriteria)
     {
-        case Aspose::Words::Saving::DocumentSplitCriteria::PageBreak:
+        case DocumentSplitCriteria::PageBreak:
             partType = u"Page";
             break;
-        
-        case Aspose::Words::Saving::DocumentSplitCriteria::ColumnBreak:
+        case DocumentSplitCriteria::ColumnBreak:
             partType = u"Column";
             break;
-        
-        case Aspose::Words::Saving::DocumentSplitCriteria::SectionBreak:
+        case DocumentSplitCriteria::SectionBreak:
             partType = u"Section";
             break;
-        
-        case Aspose::Words::Saving::DocumentSplitCriteria::HeadingParagraph:
+        case DocumentSplitCriteria::HeadingParagraph:
             partType = u"Paragraph from heading";
             break;
-        
         default:
             break;
     }
@@ -187,7 +177,7 @@ void ExSavingCallback::CheckThatAllMethodsArePresent()
     auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
     htmlFixedSaveOptions->set_PageSavingCallback(System::MakeObject<Aspose::Words::ApiExamples::ExSavingCallback::CustomFileNamePageSavingCallback>());
     
-    auto imageSaveOptions = System::MakeObject<Aspose::Words::Saving::ImageSaveOptions>(Aspose::Words::SaveFormat::Png);
+    auto imageSaveOptions = System::MakeObject<Aspose::Words::Saving::ImageSaveOptions>(SaveFormat::Png);
     imageSaveOptions->set_PageSavingCallback(System::MakeObject<Aspose::Words::ApiExamples::ExSavingCallback::CustomFileNamePageSavingCallback>());
     
     auto pdfSaveOptions = System::MakeObject<Aspose::Words::Saving::PdfSaveOptions>();
@@ -218,7 +208,7 @@ TEST_F(ExSavingCallback, CheckThatAllMethodsArePresent)
 
 void ExSavingCallback::DocumentPartsFileNames()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     System::String outFileName = u"SavingCallback.DocumentPartsFileNames.html";
     
     // Create an "HtmlFixedSaveOptions" object, which we can pass to the document's "Save" method
@@ -229,7 +219,7 @@ void ExSavingCallback::DocumentPartsFileNames()
     // document with all the source document's contents.
     // Set the "DocumentSplitCriteria" property to "DocumentSplitCriteria.SectionBreak" to
     // save our document to multiple HTML files: one for each section.
-    options->set_DocumentSplitCriteria(Aspose::Words::Saving::DocumentSplitCriteria::SectionBreak);
+    options->set_DocumentSplitCriteria(DocumentSplitCriteria::SectionBreak);
     
     // Assign a custom callback to the "DocumentPartSavingCallback" property to alter the document part saving logic.
     options->set_DocumentPartSavingCallback(System::MakeObject<Aspose::Words::ApiExamples::ExSavingCallback::SavedDocumentPartRename>(outFileName, options->get_DocumentSplitCriteria()));
@@ -254,7 +244,7 @@ TEST_F(ExSavingCallback, DocumentPartsFileNames)
 
 void ExSavingCallback::ExternalCssFilenames()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Create an "HtmlFixedSaveOptions" object, which we can pass to the document's "Save" method
     // to modify how we convert the document to HTML.
@@ -262,7 +252,7 @@ void ExSavingCallback::ExternalCssFilenames()
     
     // Set the "CssStylesheetType" property to "CssStyleSheetType.External" to
     // accompany a saved HTML document with an external CSS stylesheet file.
-    options->set_CssStyleSheetType(Aspose::Words::Saving::CssStyleSheetType::External);
+    options->set_CssStyleSheetType(CssStyleSheetType::External);
     
     // Below are two ways of specifying directories and filenames for output CSS stylesheets.
     // 1 -  Use the "CssStyleSheetFileName" property to assign a filename to our stylesheet:

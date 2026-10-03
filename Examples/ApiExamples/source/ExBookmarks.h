@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Document/VisitorAction.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>
@@ -54,7 +50,32 @@ public:
 public:
 
     void Insert();
+    //ExStart
+    //ExFor:Bookmark
+    //ExFor:Bookmark.Name
+    //ExFor:Bookmark.Text
+    //ExFor:Bookmark.BookmarkStart
+    //ExFor:Bookmark.BookmarkEnd
+    //ExFor:BookmarkStart
+    //ExFor:BookmarkStart.#ctor
+    //ExFor:BookmarkEnd
+    //ExFor:BookmarkEnd.#ctor
+    //ExFor:BookmarkStart.Accept(DocumentVisitor)
+    //ExFor:BookmarkEnd.Accept(DocumentVisitor)
+    //ExFor:BookmarkStart.Bookmark
+    //ExFor:BookmarkStart.GetText
+    //ExFor:BookmarkStart.Name
+    //ExFor:BookmarkEnd.Name
+    //ExFor:BookmarkCollection
+    //ExFor:BookmarkCollection.Item(Int32)
+    //ExFor:BookmarkCollection.Item(String)
+    //ExFor:BookmarkCollection.GetEnumerator
+    //ExFor:Range.Bookmarks
+    //ExFor:DocumentVisitor.VisitBookmarkStart
+    //ExFor:DocumentVisitor.VisitBookmarkEnd
+    //ExSummary:Shows how to add bookmarks and update their contents.
     void CreateUpdateAndPrintBookmarks();
+    //ExEnd
     void TableColumnBookmarks();
     void Remove();
     

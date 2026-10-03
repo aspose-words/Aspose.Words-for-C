@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Fields/FormFields/FormField.h>
 #include <Aspose.Words.Cpp/Model/Document/VisitorAction.h>
 #include <Aspose.Words.Cpp/Model/Document/DocumentVisitor.h>
@@ -33,7 +30,7 @@ class ExFormFields : public ApiExampleBase
 public:
 
     /// <summary>
-    /// Visitor implementation that prints details of form fields that it visits. 
+    /// Visitor implementation that prints details of form fields that it visits.
     /// </summary>
     class FormFieldVisitor : public DocumentVisitor
     {
@@ -75,11 +72,43 @@ public:
     void DeleteFormField();
     void DeleteFormFieldAssociatedWithBookmark();
     void FormFieldFontFormatting();
+    //ExStart
+    //ExFor:FormField.Accept(DocumentVisitor)
+    //ExFor:FormField.CalculateOnExit
+    //ExFor:FormField.CheckBoxSize
+    //ExFor:FormField.Checked
+    //ExFor:FormField.Default
+    //ExFor:FormField.DropDownItems
+    //ExFor:FormField.DropDownSelectedIndex
+    //ExFor:FormField.Enabled
+    //ExFor:FormField.EntryMacro
+    //ExFor:FormField.ExitMacro
+    //ExFor:FormField.HelpText
+    //ExFor:FormField.IsCheckBoxExactSize
+    //ExFor:FormField.MaxLength
+    //ExFor:FormField.OwnHelp
+    //ExFor:FormField.OwnStatus
+    //ExFor:FormField.SetTextInputValue(Object)
+    //ExFor:FormField.StatusText
+    //ExFor:FormField.TextInputDefault
+    //ExFor:FormField.TextInputFormat
+    //ExFor:FormField.TextInputType
+    //ExFor:FormFieldCollection
+    //ExFor:FormFieldCollection.Clear
+    //ExFor:FormFieldCollection.Count
+    //ExFor:FormFieldCollection.GetEnumerator
+    //ExFor:FormFieldCollection.Item(Int32)
+    //ExFor:FormFieldCollection.Item(String)
+    //ExFor:FormFieldCollection.Remove(String)
+    //ExFor:FormFieldCollection.RemoveAt(Int32)
+    //ExFor:Range.FormFields
+    //ExSummary:Shows how insert different kinds of form fields into a document, and process them with using a document visitor implementation.
     void Visitor();
     void DropDownItemCollection();
     
 protected:
 
+    //ExEnd
     void TestFormField(System::SharedPtr<Aspose::Words::Document> doc);
     
 };

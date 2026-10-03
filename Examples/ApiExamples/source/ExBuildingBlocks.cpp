@@ -1,17 +1,12 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExBuildingBlocks.h"
+﻿#include "ExBuildingBlocks.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
+#include <system/console.h>
 #include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
@@ -45,10 +40,10 @@ ExBuildingBlocks::BuildingBlockVisitor::BuildingBlockVisitor(System::SharedPtr<A
 Aspose::Words::VisitorAction ExBuildingBlocks::BuildingBlockVisitor::VisitBuildingBlockStart(System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock> block)
 {
     // Configure the building block as a quick part, and add properties used by Building Blocks Organizer.
-    block->set_Behavior(Aspose::Words::BuildingBlocks::BuildingBlockBehavior::Paragraph);
+    block->set_Behavior(BuildingBlockBehavior::Paragraph);
     block->set_Category(u"My custom building blocks");
     block->set_Description(u"Using this block in the Quick Parts section of word will place its contents at the cursor.");
-    block->set_Gallery(Aspose::Words::BuildingBlocks::BuildingBlockGallery::QuickParts);
+    block->set_Gallery(BuildingBlockGallery::QuickParts);
     
     // Add a section with text.
     // Inserting the block into the document will append this section with its child nodes at the location.
@@ -59,13 +54,13 @@ Aspose::Words::VisitorAction ExBuildingBlocks::BuildingBlockVisitor::VisitBuildi
     auto run = System::MakeObject<Aspose::Words::Run>(mGlossaryDoc, System::String(u"Text inside ") + block->get_Name());
     block->get_FirstSection()->get_Body()->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(run);
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExBuildingBlocks::BuildingBlockVisitor::VisitBuildingBlockEnd(System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock> block)
 {
     mBuilder->Append(System::String(u"Visited ") + block->get_Name() + u"\r\n");
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 RTTI_INFO_IMPL_HASH(2360311070u, ::Aspose::Words::ApiExamples::ExBuildingBlocks::GlossaryDocVisitor, ThisTypeBaseTypesInfo);
@@ -89,14 +84,14 @@ System::SharedPtr<System::Collections::Generic::Dictionary<System::Guid, System:
 Aspose::Words::VisitorAction ExBuildingBlocks::GlossaryDocVisitor::VisitGlossaryDocumentStart(System::SharedPtr<Aspose::Words::BuildingBlocks::GlossaryDocument> glossary)
 {
     mBuilder->AppendLine(u"Glossary document found!");
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExBuildingBlocks::GlossaryDocVisitor::VisitGlossaryDocumentEnd(System::SharedPtr<Aspose::Words::BuildingBlocks::GlossaryDocument> glossary)
 {
     mBuilder->AppendLine(u"Reached end of glossary!");
     mBuilder->AppendLine(System::String(u"BuildingBlocks found: ") + mBlocksByGuid->get_Count());
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExBuildingBlocks::GlossaryDocVisitor::VisitBuildingBlockStart(System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock> block)
@@ -105,7 +100,7 @@ Aspose::Words::VisitorAction ExBuildingBlocks::GlossaryDocVisitor::VisitBuilding
     //ExSkip
     block->set_Guid(System::Guid::NewGuid());
     mBlocksByGuid->Add(block->get_Guid(), block);
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExBuildingBlocks::GlossaryDocVisitor::VisitBuildingBlockEnd(System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock> block)
@@ -116,7 +111,7 @@ Aspose::Words::VisitorAction ExBuildingBlocks::GlossaryDocVisitor::VisitBuilding
     mBuilder->AppendLine(System::String(u"\t Behavior: ") + System::ObjectExt::ToString(block->get_Behavior()));
     mBuilder->AppendLine(System::String(u"\t Description: ") + block->get_Description());
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 
@@ -174,9 +169,9 @@ void ExBuildingBlocks::CreateAndInsert()
     // The following properties categorize building blocks
     // in the menu we can access in Microsoft Word via "Insert" -> "Quick Parts" -> "Building Blocks Organizer".
     ASSERT_EQ(u"(Empty Category)", block->get_Category());
-    ASSERT_EQ(Aspose::Words::BuildingBlocks::BuildingBlockType::None, block->get_Type());
-    ASSERT_EQ(Aspose::Words::BuildingBlocks::BuildingBlockGallery::All, block->get_Gallery());
-    ASSERT_EQ(Aspose::Words::BuildingBlocks::BuildingBlockBehavior::Content, block->get_Behavior());
+    ASSERT_EQ(BuildingBlockType::None, block->get_Type());
+    ASSERT_EQ(BuildingBlockGallery::All, block->get_Gallery());
+    ASSERT_EQ(BuildingBlockBehavior::Content, block->get_Behavior());
     
     // Before we can add this building block to our document, we will need to give it some contents,
     // which we will do using a document visitor. This visitor will also set a category, gallery, and behavior.
@@ -185,7 +180,7 @@ void ExBuildingBlocks::CreateAndInsert()
     block->Accept(visitor);
     
     // We can access the block that we just made from the glossary document.
-    System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock> customBlock = glossaryDoc->GetBuildingBlock(Aspose::Words::BuildingBlocks::BuildingBlockGallery::QuickParts, u"My custom building blocks", u"Custom Block");
+    System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock> customBlock = glossaryDoc->GetBuildingBlock(BuildingBlockGallery::QuickParts, u"My custom building blocks", u"Custom Block");
     
     // The block itself is a section that contains the text.
     ASSERT_EQ(System::String::Format(u"Text inside {0}\f", customBlock->get_Name()), customBlock->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText());
@@ -197,11 +192,11 @@ void ExBuildingBlocks::CreateAndInsert()
     //ExSkip
     ASSERT_EQ(u"My custom building blocks", customBlock->get_Category());
     //ExSkip
-    ASSERT_EQ(Aspose::Words::BuildingBlocks::BuildingBlockType::None, customBlock->get_Type());
+    ASSERT_EQ(BuildingBlockType::None, customBlock->get_Type());
     //ExSkip
-    ASSERT_EQ(Aspose::Words::BuildingBlocks::BuildingBlockGallery::QuickParts, customBlock->get_Gallery());
+    ASSERT_EQ(BuildingBlockGallery::QuickParts, customBlock->get_Gallery());
     //ExSkip
-    ASSERT_EQ(Aspose::Words::BuildingBlocks::BuildingBlockBehavior::Paragraph, customBlock->get_Behavior());
+    ASSERT_EQ(BuildingBlockBehavior::Paragraph, customBlock->get_Behavior());
     //ExSkip
     
     // Now, we can insert it into the document as a new section.
@@ -253,10 +248,10 @@ void ExBuildingBlocks::GlossaryDocument()
     
     // 2 -  Get a building block by index:
     ASSERT_EQ(u"Block 2", glossaryDoc->get_BuildingBlocks()->idx_get(1)->get_Name());
-    ASSERT_EQ(u"Block 3", glossaryDoc->get_BuildingBlocks()->ToArray()->idx_get(2)->get_Name());
+    ASSERT_EQ(u"Block 3", glossaryDoc->get_BuildingBlocks()->ToArray()[2]->get_Name());
     
     // 3 -  Get the first building block that matches a gallery, name and category:
-    ASSERT_EQ(u"Block 4", glossaryDoc->GetBuildingBlock(Aspose::Words::BuildingBlocks::BuildingBlockGallery::All, u"(Empty Category)", u"Block 4")->get_Name());
+    ASSERT_EQ(u"Block 4", glossaryDoc->GetBuildingBlock(BuildingBlockGallery::All, u"(Empty Category)", u"Block 4")->get_Name());
     
     // We will do that using a custom visitor,
     // which will give every BuildingBlock in the GlossaryDocument a unique GUID

@@ -1,16 +1,11 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "DocumentHelper.h"
+﻿#include "DocumentHelper.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/io/stream_reader.h>
 #include <system/io/memory_stream.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <iostream>
 #include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
@@ -82,7 +77,7 @@ System::SharedPtr<Aspose::Words::Document> DocumentHelper::CreateDocumentFillWit
     builder->Writeln(u"Hello World!");
     
     // Continued on page 2 of the document content
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     
     //Insert TOC entries
     InsertToc(builder);
@@ -148,8 +143,8 @@ System::SharedPtr<Aspose::Words::Document> DocumentHelper::CreateTemplateDocumen
 
 bool DocumentHelper::CompareDocs(System::String filePathDoc1, System::String filePathDoc2)
 {
-    auto doc1 = System::MakeObject<Aspose::Words::Document>(filePathDoc1);
-    auto doc2 = System::MakeObject<Aspose::Words::Document>(filePathDoc2);
+    auto doc1 = System::MakeObject<Aspose::Words::Document>(System::String(filePathDoc1));
+    auto doc2 = System::MakeObject<Aspose::Words::Document>(System::String(filePathDoc2));
     
     if (doc1->GetText() == doc2->GetText())
     {
@@ -177,7 +172,6 @@ void DocumentHelper::InsertBuilderText(System::SharedPtr<Aspose::Words::Document
     {
         builder->Writeln(textString);
     }
-    
 }
 
 System::String DocumentHelper::GetParagraphText(System::SharedPtr<Aspose::Words::Document> doc, int32_t paraIndex)
@@ -195,7 +189,7 @@ System::SharedPtr<Aspose::Words::Tables::Table> DocumentHelper::InsertTable(Syst
     builder->Write(u"Date");
     
     //Set width to fit the table contents
-    table->AutoFit(Aspose::Words::Tables::AutoFitBehavior::AutoFitToContents);
+    table->AutoFit(AutoFitBehavior::AutoFitToContents);
     
     //Insert Row 1 Cell 2
     builder->InsertCell();
@@ -221,23 +215,23 @@ System::SharedPtr<Aspose::Words::Tables::Table> DocumentHelper::InsertTable(Syst
 void DocumentHelper::InsertToc(System::SharedPtr<Aspose::Words::DocumentBuilder> builder)
 {
     // Creating TOC entries
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading1);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading1);
     
     builder->Writeln(u"Heading 1");
     
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading2);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading2);
     
     builder->Writeln(u"Heading 1.1");
     
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading4);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading4);
     
     builder->Writeln(u"Heading 1.1.1.1");
     
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading5);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading5);
     
     builder->Writeln(u"Heading 1.1.1.1.1");
     
-    builder->get_ParagraphFormat()->set_StyleIdentifier(Aspose::Words::StyleIdentifier::Heading9);
+    builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Heading9);
     
     builder->Writeln(u"Heading 1.1.1.1.1.1.1.1.1");
 }
@@ -256,7 +250,7 @@ System::SharedPtr<Aspose::Words::Document> DocumentHelper::SaveOpen(System::Shar
 {
     {
         auto docStream = System::MakeObject<System::IO::MemoryStream>();
-        doc->Save(docStream, System::MakeObject<Aspose::Words::Saving::OoxmlSaveOptions>(Aspose::Words::SaveFormat::Docx));
+        doc->Save(docStream, System::MakeObject<Aspose::Words::Saving::OoxmlSaveOptions>(SaveFormat::Docx));
         return System::MakeObject<Aspose::Words::Document>(docStream);
     }
 }
