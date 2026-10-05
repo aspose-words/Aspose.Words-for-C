@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExComment.h"
+﻿#include "ExComment.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -13,10 +8,10 @@
 #include <system/func.h>
 #include <system/enumerator_adapter.h>
 #include <system/date_time.h>
+#include <system/console.h>
 #include <system/collections/list.h>
 #include <system/collections/ienumerable.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
@@ -55,7 +50,7 @@ Aspose::Words::VisitorAction ExComment::CommentInfoPrinter::VisitRun(System::Sha
         IndentAndAppendLine(System::String(u"[Run] \"") + run->get_Text() + u"\"");
     }
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExComment::CommentInfoPrinter::VisitCommentRangeStart(System::SharedPtr<Aspose::Words::CommentRangeStart> commentRangeStart)
@@ -64,7 +59,7 @@ Aspose::Words::VisitorAction ExComment::CommentInfoPrinter::VisitCommentRangeSta
     mDocTraversalDepth++;
     mVisitorIsInsideComment = true;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExComment::CommentInfoPrinter::VisitCommentRangeEnd(System::SharedPtr<Aspose::Words::CommentRangeEnd> commentRangeEnd)
@@ -73,7 +68,7 @@ Aspose::Words::VisitorAction ExComment::CommentInfoPrinter::VisitCommentRangeEnd
     IndentAndAppendLine(System::String(u"[Comment range end] ID: ") + commentRangeEnd->get_Id() + u"\n");
     mVisitorIsInsideComment = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExComment::CommentInfoPrinter::VisitCommentStart(System::SharedPtr<Aspose::Words::Comment> comment)
@@ -83,7 +78,7 @@ Aspose::Words::VisitorAction ExComment::CommentInfoPrinter::VisitCommentStart(Sy
     mVisitorIsInsideComment = true;
     
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 Aspose::Words::VisitorAction ExComment::CommentInfoPrinter::VisitCommentEnd(System::SharedPtr<Aspose::Words::Comment> comment)
@@ -92,7 +87,7 @@ Aspose::Words::VisitorAction ExComment::CommentInfoPrinter::VisitCommentEnd(Syst
     IndentAndAppendLine(u"[Comment end]");
     mVisitorIsInsideComment = false;
     
-    return Aspose::Words::VisitorAction::Continue;
+    return VisitorAction::Continue;
 }
 
 void ExComment::CommentInfoPrinter::IndentAndAppendLine(System::String text)
@@ -141,7 +136,6 @@ void ExComment::PrintAllCommentInfo(System::SharedPtr<Aspose::Words::NodeCollect
         std::cout << commentVisitor->GetText() << std::endl;
     }
 }
-
 
 namespace gtest_test
 {
@@ -196,7 +190,7 @@ void ExComment::AddCommentWithReply()
     comment->AddReply(u"Joe Bloggs", u"J.B.", System::DateTime::get_Now(), u"New reply");
     
     // Comments and replies are both Comment nodes.
-    ASSERT_EQ(2, doc->GetChildNodes(Aspose::Words::NodeType::Comment, true)->get_Count());
+    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Comment, true)->get_Count());
     
     // Comments that do not reply to other comments are "top-level". They have no ancestor comments.
     ASSERT_TRUE(System::TestTools::IsNull(comment->get_Ancestor()));
@@ -207,8 +201,8 @@ void ExComment::AddCommentWithReply()
     doc->Save(get_ArtifactsDir() + u"Comment.AddCommentWithReply.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Comment.AddCommentWithReply.docx");
-    auto docComment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(Aspose::Words::NodeType::Comment, 0, true));
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Comment.AddCommentWithReply.docx"));
+    auto docComment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(NodeType::Comment, 0, true));
     
     ASSERT_EQ(1, docComment->get_Count());
     ASSERT_EQ(1, comment->get_Replies()->get_Count());
@@ -236,15 +230,15 @@ void ExComment::PrintAllComments()
     //ExFor:CompositeNode.GetEnumerator
     //ExFor:CompositeNode.GetChildNodes(NodeType, Boolean)
     //ExSummary:Shows how to print all of a document's comments and their replies.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Comments.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Comments.docx"));
     
-    System::SharedPtr<Aspose::Words::NodeCollection> comments = doc->GetChildNodes(Aspose::Words::NodeType::Comment, true);
+    System::SharedPtr<Aspose::Words::NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
     ASSERT_EQ(12, comments->get_Count());
     //ExSkip
     
     // If a comment has no ancestor, it is a "top-level" comment as opposed to a reply-type comment.
     // Print all top-level comments along with any replies they may have.
-    for (auto&& comment : comments->LINQ_OfType<System::SharedPtr<Aspose::Words::Comment> >()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Comment>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Comment> c)>>([](System::SharedPtr<Aspose::Words::Comment> c) -> bool
+    for (auto&& comment : comments->LINQ_OfType<System::SharedPtr<Aspose::Words::Comment>>()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Comment>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Comment> c)>>([](System::SharedPtr<Aspose::Words::Comment> c) -> bool
     {
         return c->get_Ancestor() == nullptr;
     })))->LINQ_ToList())
@@ -345,8 +339,8 @@ void ExComment::Done()
     doc->Save(get_ArtifactsDir() + u"Comment.Done.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Comment.Done.docx");
-    comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChildNodes(Aspose::Words::NodeType::Comment, true)->idx_get(0));
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Comment.Done.docx"));
+    comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChildNodes(NodeType::Comment, true)->idx_get(0));
     
     ASSERT_TRUE(comment->get_Done());
     ASSERT_EQ(u"\u0005Fix the spelling error!", comment->GetText().Trim());
@@ -385,7 +379,7 @@ void ExComment::CreateCommentsAndPrintAllInfo()
     newComment->AddReply(u"John Doe", u"JD", System::DateTime::get_Now(), u"New reply.");
     newComment->AddReply(u"John Doe", u"JD", System::DateTime::get_Now(), u"Another reply.");
     
-    PrintAllCommentInfo(doc->GetChildNodes(Aspose::Words::NodeType::Comment, true));
+    PrintAllCommentInfo(doc->GetChildNodes(NodeType::Comment, true));
 }
 
 namespace gtest_test
@@ -414,9 +408,9 @@ void ExComment::UtcDateTime()
     builder->get_CurrentParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Comment>>(comment);
     
     doc->Save(get_ArtifactsDir() + u"Comment.UtcDateTime.docx");
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Comment.UtcDateTime.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Comment.UtcDateTime.docx"));
     
-    comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(Aspose::Words::NodeType::Comment, 0, true));
+    comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(NodeType::Comment, 0, true));
     // DateTimeUtc return data without milliseconds.
     ASSERT_EQ(dateTime.ToUniversalTime().ToString(u"yyyy-MM-dd hh:mm:ss"), comment->get_DateTimeUtc().ToString(u"yyyy-MM-dd hh:mm:ss"));
     //ExEnd:UtcDateTime

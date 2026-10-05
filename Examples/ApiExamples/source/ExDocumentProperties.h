@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/object.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutEnumerator.h>
@@ -67,6 +63,18 @@ public:
     void Custom();
     void Description();
     void Origin();
+    //ExStart
+    //ExFor:BuiltInDocumentProperties.Bytes
+    //ExFor:BuiltInDocumentProperties.Characters
+    //ExFor:BuiltInDocumentProperties.CharactersWithSpaces
+    //ExFor:BuiltInDocumentProperties.ContentStatus
+    //ExFor:BuiltInDocumentProperties.ContentType
+    //ExFor:BuiltInDocumentProperties.Lines
+    //ExFor:BuiltInDocumentProperties.LinksUpToDate
+    //ExFor:BuiltInDocumentProperties.Pages
+    //ExFor:BuiltInDocumentProperties.Paragraphs
+    //ExFor:BuiltInDocumentProperties.Words
+    //ExSummary:Shows how to work with document properties in the "Content" category.
     void Content();
     void Thumbnail();
     void HyperlinkBase();
@@ -80,6 +88,7 @@ public:
     
 protected:
 
+    //ExEnd
     void TestContent(System::SharedPtr<Aspose::Words::Document> doc);
     
 };

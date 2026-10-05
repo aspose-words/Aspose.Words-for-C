@@ -1,5 +1,6 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-#include "HelperClasses/TestBuilders/ImageTestBuilder.h"
+﻿#include "HelperClasses/TestBuilders/ImageTestBuilder.h"
+
+#include "HelperClasses/TestClasses/ImageTestClass.h"
 
 
 using namespace Aspose::Words::ApiExamples::TestData::TestClasses;

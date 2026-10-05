@@ -1,5 +1,8 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-#include "HelperClasses/TestBuilders/DocumentTestBuilder.h"
+﻿#include "HelperClasses/TestBuilders/DocumentTestBuilder.h"
+
+#include <system/string.h>
+
+#include "HelperClasses/TestClasses/DocumentTestClass.h"
 
 
 using namespace Aspose::Words::ApiExamples::TestData::TestClasses;

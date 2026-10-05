@@ -1,16 +1,10 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExOdtSaveOptions.h"
+﻿#include "ExOdtSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/string.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Range.h>
 #include <Aspose.Words.Cpp/Model/Settings/MeasurementUnits.h>
@@ -81,30 +75,30 @@ void ExOdtSaveOptions::Odt11Schema(bool exportToOdt11Specs)
     //ExFor:OdtSaveOptions.MeasureUnit
     //ExFor:MeasurementUnits
     //ExSummary:Shows how to make a saved document conform to an older ODT schema.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::OdtSaveOptions>();
-    saveOptions->set_MeasureUnit(Aspose::Words::Saving::OdtSaveMeasureUnit::Centimeters);
+    saveOptions->set_MeasureUnit(OdtSaveMeasureUnit::Centimeters);
     saveOptions->set_IsStrictSchema11(exportToOdt11Specs);
     
     doc->Save(get_ArtifactsDir() + u"OdtSaveOptions.Odt11Schema.odt", saveOptions);
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OdtSaveOptions.Odt11Schema.odt");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OdtSaveOptions.Odt11Schema.odt"));
     ASSERT_EQ(Aspose::Words::MeasurementUnits::Centimeters, doc->get_LayoutOptions()->get_RevisionOptions()->get_MeasurementUnit());
     //ExEnd
     
     if (exportToOdt11Specs)
     {
         ASSERT_EQ(2, doc->get_Range()->get_FormFields()->get_Count());
-        ASSERT_EQ(Aspose::Words::Fields::FieldType::FieldFormTextInput, doc->get_Range()->get_FormFields()->idx_get(0)->get_Type());
-        ASSERT_EQ(Aspose::Words::Fields::FieldType::FieldFormCheckBox, doc->get_Range()->get_FormFields()->idx_get(1)->get_Type());
+        ASSERT_EQ(FieldType::FieldFormTextInput, doc->get_Range()->get_FormFields()->idx_get(0)->get_Type());
+        ASSERT_EQ(FieldType::FieldFormCheckBox, doc->get_Range()->get_FormFields()->idx_get(1)->get_Type());
     }
     else
     {
         ASSERT_EQ(3, doc->get_Range()->get_FormFields()->get_Count());
-        ASSERT_EQ(Aspose::Words::Fields::FieldType::FieldFormTextInput, doc->get_Range()->get_FormFields()->idx_get(0)->get_Type());
-        ASSERT_EQ(Aspose::Words::Fields::FieldType::FieldFormCheckBox, doc->get_Range()->get_FormFields()->idx_get(1)->get_Type());
-        ASSERT_EQ(Aspose::Words::Fields::FieldType::FieldFormDropDown, doc->get_Range()->get_FormFields()->idx_get(2)->get_Type());
+        ASSERT_EQ(FieldType::FieldFormTextInput, doc->get_Range()->get_FormFields()->idx_get(0)->get_Type());
+        ASSERT_EQ(FieldType::FieldFormCheckBox, doc->get_Range()->get_FormFields()->idx_get(1)->get_Type());
+        ASSERT_EQ(FieldType::FieldFormDropDown, doc->get_Range()->get_FormFields()->idx_get(2)->get_Type());
     }
 }
 
@@ -147,17 +141,17 @@ void ExOdtSaveOptions::Encrypt(Aspose::Words::SaveFormat saveFormat)
     builder->Writeln(u"Hello world!");
     
     // Create a new OdtSaveOptions, and pass either "SaveFormat.Odt",
-    // or "SaveFormat.Ott" as the format to save the document in. 
+    // or "SaveFormat.Ott" as the format to save the document in.
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::OdtSaveOptions>(saveFormat);
     saveOptions->set_Password(u"@sposeEncrypted_1145");
     
-    System::String extensionString = Aspose::Words::FileFormatUtil::SaveFormatToExtension(saveFormat);
+    System::String extensionString = FileFormatUtil::SaveFormatToExtension(saveFormat);
     
     // If we open this document with an appropriate editor,
     // it will prompt us for the password we specified in the SaveOptions object.
     doc->Save(get_ArtifactsDir() + u"OdtSaveOptions.Encrypt" + extensionString, saveOptions);
     
-    System::SharedPtr<Aspose::Words::FileFormatInfo> docInfo = Aspose::Words::FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"OdtSaveOptions.Encrypt" + extensionString);
+    System::SharedPtr<Aspose::Words::FileFormatInfo> docInfo = FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"OdtSaveOptions.Encrypt" + extensionString);
     
     ASSERT_TRUE(docInfo->get_IsEncrypted());
     
@@ -180,8 +174,8 @@ struct ExOdtSaveOptions_Encrypt : public ExOdtSaveOptions, public Aspose::Words:
     {
         return
         {
-            std::make_tuple(Aspose::Words::SaveFormat::Odt),
-            std::make_tuple(Aspose::Words::SaveFormat::Ott),
+            std::make_tuple(SaveFormat::Odt),
+            std::make_tuple(SaveFormat::Ott),
         };
     }
 };

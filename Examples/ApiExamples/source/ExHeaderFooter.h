@@ -1,11 +1,8 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/text/string_builder.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/FindReplace/ReplacingArgs.h>
 #include <Aspose.Words.Cpp/Model/FindReplace/ReplaceAction.h>
 #include <Aspose.Words.Cpp/Model/FindReplace/IReplacingCallback.h>
@@ -66,6 +63,11 @@ public:
     void RemoveFooters();
     void ExportMode();
     void ReplaceText();
+    //ExStart
+    //ExFor:IReplacingCallback
+    //ExFor:PageSetup.DifferentFirstPageHeaderFooter
+    //ExFor:FindReplaceOptions.#ctor(IReplacingCallback)
+    //ExSummary:Shows how to track the order in which a text replacement operation traverses nodes.
     void Order(bool differentFirstPageHeaderFooter);
     
 };

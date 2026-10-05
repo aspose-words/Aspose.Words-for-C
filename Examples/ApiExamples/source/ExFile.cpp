@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExFile.h"
+﻿#include "ExFile.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/regularexpressions/regex.h>
@@ -18,12 +13,11 @@
 #include <system/func.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
-#include <system/details/dispose_guard.h>
 #include <system/date_time.h>
+#include <system/console.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -97,13 +91,12 @@ void ExFile::CatchFileCorruptedException()
     {
         // If we get an "Unreadable content" error message when trying to open a document using Microsoft Word,
         // chances are that we will get an exception thrown when trying to load that document using Aspose.Words.
-        auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Corrupted document.docx");
+        auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Corrupted document.docx"));
     }
     catch (Aspose::Words::FileCorruptedException& e)
     {
         std::cout << e->get_Message() << std::endl;
     }
-    
     //ExEnd
 }
 
@@ -123,18 +116,18 @@ void ExFile::DetectEncoding()
     //ExFor:FileFormatInfo.Encoding
     //ExFor:FileFormatUtil
     //ExSummary:Shows how to detect encoding in an html file.
-    System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.html");
+    System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.html");
     
-    ASSERT_EQ(Aspose::Words::LoadFormat::Html, info->get_LoadFormat());
+    ASSERT_EQ(LoadFormat::Html, info->get_LoadFormat());
     
     // The Encoding property is used only when we create a FileFormatInfo object for an html document.
     ASSERT_EQ(u"Western European (Windows)", info->get_Encoding()->get_EncodingName());
     ASSERT_EQ(1252, info->get_Encoding()->get_CodePage());
     //ExEnd
     
-    info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.docx");
+    info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.docx");
     
-    ASSERT_EQ(Aspose::Words::LoadFormat::Docx, info->get_LoadFormat());
+    ASSERT_EQ(LoadFormat::Docx, info->get_LoadFormat());
     ASSERT_TRUE(System::TestTools::IsNull(info->get_Encoding()));
 }
 
@@ -154,55 +147,55 @@ void ExFile::FileFormatToString()
     //ExFor:FileFormatUtil.ContentTypeToLoadFormat(String)
     //ExFor:FileFormatUtil.ContentTypeToSaveFormat(String)
     //ExSummary:Shows how to find the corresponding Aspose load/save format from each media type string.
-    // The ContentTypeToSaveFormat/ContentTypeToLoadFormat methods only accept official IANA media type names, also known as MIME types. 
+    // The ContentTypeToSaveFormat/ContentTypeToLoadFormat methods only accept official IANA media type names, also known as MIME types.
     // All valid media types are listed here: https://www.iana.org/assignments/media-types/media-types.xhtml.
     
     // Trying to associate a SaveFormat with a partial media type string will not work.
     ASSERT_THROW(static_cast<std::function<void()>>([]() -> void
     {
-        Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"jpeg");
+        FileFormatUtil::ContentTypeToSaveFormat(u"jpeg");
     })(), System::ArgumentException);
     
     // If Aspose.Words does not have a corresponding save/load format for a content type, an exception will also be thrown.
     ASSERT_THROW(static_cast<std::function<void()>>([]() -> void
     {
-        Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"application/zip");
+        FileFormatUtil::ContentTypeToSaveFormat(u"application/zip");
     })(), System::ArgumentException);
     
     // Files of the types listed below can be saved, but not loaded using Aspose.Words.
     ASSERT_THROW(static_cast<std::function<void()>>([]() -> void
     {
-        Aspose::Words::FileFormatUtil::ContentTypeToLoadFormat(u"image/jpeg");
+        FileFormatUtil::ContentTypeToLoadFormat(u"image/jpeg");
     })(), System::ArgumentException);
     
-    ASSERT_EQ(Aspose::Words::SaveFormat::Jpeg, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"image/jpeg"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Png, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"image/png"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Tiff, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"image/tiff"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Gif, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"image/gif"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Emf, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"image/x-emf"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Xps, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"application/vnd.ms-xpsdocument"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Pdf, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"application/pdf"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Svg, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"image/svg+xml"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Epub, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"application/epub+zip"));
+    ASSERT_EQ(SaveFormat::Jpeg, FileFormatUtil::ContentTypeToSaveFormat(u"image/jpeg"));
+    ASSERT_EQ(SaveFormat::Png, FileFormatUtil::ContentTypeToSaveFormat(u"image/png"));
+    ASSERT_EQ(SaveFormat::Tiff, FileFormatUtil::ContentTypeToSaveFormat(u"image/tiff"));
+    ASSERT_EQ(SaveFormat::Gif, FileFormatUtil::ContentTypeToSaveFormat(u"image/gif"));
+    ASSERT_EQ(SaveFormat::Emf, FileFormatUtil::ContentTypeToSaveFormat(u"image/x-emf"));
+    ASSERT_EQ(SaveFormat::Xps, FileFormatUtil::ContentTypeToSaveFormat(u"application/vnd.ms-xpsdocument"));
+    ASSERT_EQ(SaveFormat::Pdf, FileFormatUtil::ContentTypeToSaveFormat(u"application/pdf"));
+    ASSERT_EQ(SaveFormat::Svg, FileFormatUtil::ContentTypeToSaveFormat(u"image/svg+xml"));
+    ASSERT_EQ(SaveFormat::Epub, FileFormatUtil::ContentTypeToSaveFormat(u"application/epub+zip"));
     
     // For file types that can be saved and loaded, we can match a media type to both a load format and a save format.
-    ASSERT_EQ(Aspose::Words::LoadFormat::Doc, Aspose::Words::FileFormatUtil::ContentTypeToLoadFormat(u"application/msword"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Doc, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"application/msword"));
+    ASSERT_EQ(LoadFormat::Doc, FileFormatUtil::ContentTypeToLoadFormat(u"application/msword"));
+    ASSERT_EQ(SaveFormat::Doc, FileFormatUtil::ContentTypeToSaveFormat(u"application/msword"));
     
-    ASSERT_EQ(Aspose::Words::LoadFormat::Docx, Aspose::Words::FileFormatUtil::ContentTypeToLoadFormat(u"application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Docx, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
+    ASSERT_EQ(LoadFormat::Docx, FileFormatUtil::ContentTypeToLoadFormat(u"application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
+    ASSERT_EQ(SaveFormat::Docx, FileFormatUtil::ContentTypeToSaveFormat(u"application/vnd.openxmlformats-officedocument.wordprocessingml.document"));
     
-    ASSERT_EQ(Aspose::Words::LoadFormat::Text, Aspose::Words::FileFormatUtil::ContentTypeToLoadFormat(u"text/plain"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Text, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"text/plain"));
+    ASSERT_EQ(LoadFormat::Text, FileFormatUtil::ContentTypeToLoadFormat(u"text/plain"));
+    ASSERT_EQ(SaveFormat::Text, FileFormatUtil::ContentTypeToSaveFormat(u"text/plain"));
     
-    ASSERT_EQ(Aspose::Words::LoadFormat::Rtf, Aspose::Words::FileFormatUtil::ContentTypeToLoadFormat(u"application/rtf"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Rtf, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"application/rtf"));
+    ASSERT_EQ(LoadFormat::Rtf, FileFormatUtil::ContentTypeToLoadFormat(u"application/rtf"));
+    ASSERT_EQ(SaveFormat::Rtf, FileFormatUtil::ContentTypeToSaveFormat(u"application/rtf"));
     
-    ASSERT_EQ(Aspose::Words::LoadFormat::Html, Aspose::Words::FileFormatUtil::ContentTypeToLoadFormat(u"text/html"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Html, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"text/html"));
+    ASSERT_EQ(LoadFormat::Html, FileFormatUtil::ContentTypeToLoadFormat(u"text/html"));
+    ASSERT_EQ(SaveFormat::Html, FileFormatUtil::ContentTypeToSaveFormat(u"text/html"));
     
-    ASSERT_EQ(Aspose::Words::LoadFormat::Mhtml, Aspose::Words::FileFormatUtil::ContentTypeToLoadFormat(u"multipart/related"));
-    ASSERT_EQ(Aspose::Words::SaveFormat::Mhtml, Aspose::Words::FileFormatUtil::ContentTypeToSaveFormat(u"multipart/related"));
+    ASSERT_EQ(LoadFormat::Mhtml, FileFormatUtil::ContentTypeToLoadFormat(u"multipart/related"));
+    ASSERT_EQ(SaveFormat::Mhtml, FileFormatUtil::ContentTypeToSaveFormat(u"multipart/related"));
     //ExEnd
 }
 
@@ -228,15 +221,15 @@ void ExFile::DetectDocumentEncryption()
     
     // Configure a SaveOptions object to encrypt the document
     // with a password when we save it, and then save the document.
-    auto saveOptions = System::MakeObject<Aspose::Words::Saving::OdtSaveOptions>(Aspose::Words::SaveFormat::Odt);
+    auto saveOptions = System::MakeObject<Aspose::Words::Saving::OdtSaveOptions>(SaveFormat::Odt);
     saveOptions->set_Password(u"MyPassword");
     
     doc->Save(get_ArtifactsDir() + u"File.DetectDocumentEncryption.odt", saveOptions);
     
     // Verify the file type of our document, and its encryption status.
-    System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"File.DetectDocumentEncryption.odt");
+    System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"File.DetectDocumentEncryption.odt");
     
-    ASSERT_EQ(u".odt", Aspose::Words::FileFormatUtil::LoadFormatToExtension(info->get_LoadFormat()));
+    ASSERT_EQ(u".odt", FileFormatUtil::LoadFormatToExtension(info->get_LoadFormat()));
     ASSERT_TRUE(info->get_IsEncrypted());
     //ExEnd
 }
@@ -260,23 +253,23 @@ void ExFile::DetectDigitalSignatures()
     //ExFor:FileFormatInfo.HasDigitalSignature
     //ExSummary:Shows how to use the FileFormatUtil class to detect the document format and presence of digital signatures.
     // Use a FileFormatInfo instance to verify that a document is not digitally signed.
-    System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.docx");
+    System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.docx");
     
-    ASSERT_EQ(u".docx", Aspose::Words::FileFormatUtil::LoadFormatToExtension(info->get_LoadFormat()));
+    ASSERT_EQ(u".docx", FileFormatUtil::LoadFormatToExtension(info->get_LoadFormat()));
     ASSERT_FALSE(info->get_HasDigitalSignature());
     
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw", nullptr);
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw", nullptr);
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     signOptions->set_SignTime(System::DateTime::get_Now());
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(get_MyDir() + u"Document.docx", get_ArtifactsDir() + u"File.DetectDigitalSignatures.docx", certificateHolder, signOptions);
+    DigitalSignatureUtil::Sign(get_MyDir() + u"Document.docx", get_ArtifactsDir() + u"File.DetectDigitalSignatures.docx", certificateHolder, signOptions);
     
     // Use a new FileFormatInstance to confirm that it is signed.
-    info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"File.DetectDigitalSignatures.docx");
+    info = FileFormatUtil::DetectFileFormat(get_ArtifactsDir() + u"File.DetectDigitalSignatures.docx");
     
     ASSERT_TRUE(info->get_HasDigitalSignature());
     
     // We can load and access the signatures of a signed document in a collection like this.
-    ASSERT_EQ(1, Aspose::Words::DigitalSignatures::DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"File.DetectDigitalSignatures.docx")->get_Count());
+    ASSERT_EQ(1, DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"File.DetectDigitalSignatures.docx")->get_Count());
     //ExEnd
 }
 
@@ -305,25 +298,25 @@ void ExFile::SaveToDetectedFileFormat()
     // Load a document from a file that is missing a file extension, and then detect its file format.
     {
         System::SharedPtr<System::IO::FileStream> docStream = System::IO::File::OpenRead(get_MyDir() + u"Word document with missing file extension");
-        System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(docStream);
+        System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(docStream);
         Aspose::Words::LoadFormat loadFormat = info->get_LoadFormat();
         
-        ASSERT_EQ(Aspose::Words::LoadFormat::Doc, loadFormat);
+        ASSERT_EQ(LoadFormat::Doc, loadFormat);
         
         // Below are two methods of converting a LoadFormat to its corresponding SaveFormat.
         // 1 -  Get the file extension string for the LoadFormat, then get the corresponding SaveFormat from that string:
-        System::String fileExtension = Aspose::Words::FileFormatUtil::LoadFormatToExtension(loadFormat);
-        Aspose::Words::SaveFormat saveFormat = Aspose::Words::FileFormatUtil::ExtensionToSaveFormat(fileExtension);
+        System::String fileExtension = FileFormatUtil::LoadFormatToExtension(loadFormat);
+        Aspose::Words::SaveFormat saveFormat = FileFormatUtil::ExtensionToSaveFormat(fileExtension);
         
         // 2 -  Convert the LoadFormat directly to its SaveFormat:
-        saveFormat = Aspose::Words::FileFormatUtil::LoadFormatToSaveFormat(loadFormat);
+        saveFormat = FileFormatUtil::LoadFormatToSaveFormat(loadFormat);
         
         // Load a document from the stream, and then save it to the automatically detected file extension.
         auto doc = System::MakeObject<Aspose::Words::Document>(docStream);
         
-        ASSERT_EQ(u".doc", Aspose::Words::FileFormatUtil::SaveFormatToExtension(saveFormat));
+        ASSERT_EQ(u".doc", FileFormatUtil::SaveFormatToExtension(saveFormat));
         
-        doc->Save(get_ArtifactsDir() + u"File.SaveToDetectedFileFormat" + Aspose::Words::FileFormatUtil::SaveFormatToExtension(saveFormat));
+        doc->Save(get_ArtifactsDir() + u"File.SaveToDetectedFileFormat" + FileFormatUtil::SaveFormatToExtension(saveFormat));
     }
     //ExEnd
 }
@@ -343,13 +336,13 @@ void ExFile::DetectFileFormat_SaveFormatToLoadFormat()
     //ExStart
     //ExFor:FileFormatUtil.SaveFormatToLoadFormat(SaveFormat)
     //ExSummary:Shows how to convert a save format to its corresponding load format.
-    ASSERT_EQ(Aspose::Words::LoadFormat::Html, Aspose::Words::FileFormatUtil::SaveFormatToLoadFormat(Aspose::Words::SaveFormat::Html));
+    ASSERT_EQ(LoadFormat::Html, FileFormatUtil::SaveFormatToLoadFormat(SaveFormat::Html));
     
     // Some file types can have documents saved to, but not loaded from using Aspose.Words.
     // If we attempt to convert a save format of such a type to a load format, an exception will be thrown.
     ASSERT_THROW(static_cast<std::function<void()>>([]() -> void
     {
-        Aspose::Words::FileFormatUtil::SaveFormatToLoadFormat(Aspose::Words::SaveFormat::Jpeg);
+        FileFormatUtil::SaveFormatToLoadFormat(SaveFormat::Jpeg);
     })(), System::ArgumentException);
     //ExEnd
 }
@@ -376,11 +369,11 @@ void ExFile::ExtractImages()
     //ExFor:ImageData.Save(String)
     //ExFor:CompositeNode.GetChildNodes(NodeType, bool)
     //ExSummary:Shows how to extract images from a document, and save them to the local file system as individual files.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Images.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
     
     // Get the collection of shapes from the document,
     // and save the image data of every shape with an image as a file to the local file system.
-    System::SharedPtr<Aspose::Words::NodeCollection> shapes = doc->GetChildNodes(Aspose::Words::NodeType::Shape, true);
+    System::SharedPtr<Aspose::Words::NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
     
     ASSERT_EQ(9, shapes->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> s)>>([](System::SharedPtr<Aspose::Words::Node> s) -> bool
     {
@@ -388,13 +381,13 @@ void ExFile::ExtractImages()
     }))));
     
     int32_t imageIndex = 0;
-    for (auto&& shape : System::IterateOver(shapes->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape> >()))
+    for (auto&& shape : System::IterateOver(shapes->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()))
     {
         if (shape->get_HasImage())
         {
-            // The image data of shapes may contain images of many possible image formats. 
+            // The image data of shapes may contain images of many possible image formats.
             // We can determine a file extension for each image automatically, based on its format.
-            System::String imageFileName = System::String::Format(u"File.ExtractImages.{0}{1}", imageIndex, Aspose::Words::FileFormatUtil::ImageTypeToExtension(shape->get_ImageData()->get_ImageType()));
+            System::String imageFileName = System::String::Format(u"File.ExtractImages.{0}{1}", imageIndex, FileFormatUtil::ImageTypeToExtension(shape->get_ImageData()->get_ImageType()));
             shape->get_ImageData()->Save(get_ArtifactsDir() + imageFileName);
             imageIndex++;
         }

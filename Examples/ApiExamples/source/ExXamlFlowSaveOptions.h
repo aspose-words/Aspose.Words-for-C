@@ -1,12 +1,9 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
 #include <system/date_time.h>
 #include <system/collections/list.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Saving/ImageSavingArgs.h>
 #include <Aspose.Words.Cpp/Model/Saving/IImageSavingCallback.h>
 #include <Aspose.Words.Cpp/Model/Progress/IDocumentSavingCallback.h>
@@ -104,12 +101,23 @@ private:
     
 public:
 
+    //ExStart
+    //ExFor:XamlFlowSaveOptions
+    //ExFor:XamlFlowSaveOptions.#ctor
+    //ExFor:XamlFlowSaveOptions.#ctor(SaveFormat)
+    //ExFor:XamlFlowSaveOptions.ImageSavingCallback
+    //ExFor:XamlFlowSaveOptions.ImagesFolder
+    //ExFor:XamlFlowSaveOptions.ImagesFolderAlias
+    //ExFor:XamlFlowSaveOptions.SaveFormat
+    //ExSummary:Shows how to print the filenames of linked images created while converting a document to flow-form .xaml.
     void ImageFolder();
     void ProgressCallback(Aspose::Words::SaveFormat saveFormat, System::String ext);
+    //ExEnd
     void XamlReplaceBackslashWithYenSign();
     
 protected:
 
+    //ExEnd
     void TestImageFolder(System::SharedPtr<Aspose::Words::ApiExamples::ExXamlFlowSaveOptions::ImageUriPrinter> callback);
     
 };

@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
-#include <system/enum_helpers.h>
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/PageSavingArgs.h>
 #include <Aspose.Words.Cpp/Model/Saving/IPageSavingCallback.h>
@@ -136,7 +132,38 @@ private:
 public:
 
     void CheckThatAllMethodsArePresent();
+    //ExEnd
+    //ExStart
+    //ExFor:DocumentPartSavingArgs
+    //ExFor:DocumentPartSavingArgs.Document
+    //ExFor:DocumentPartSavingArgs.DocumentPartFileName
+    //ExFor:DocumentPartSavingArgs.DocumentPartStream
+    //ExFor:DocumentPartSavingArgs.KeepDocumentPartStreamOpen
+    //ExFor:IDocumentPartSavingCallback
+    //ExFor:IDocumentPartSavingCallback.DocumentPartSaving(DocumentPartSavingArgs)
+    //ExFor:IImageSavingCallback
+    //ExFor:IImageSavingCallback.ImageSaving
+    //ExFor:ImageSavingArgs
+    //ExFor:ImageSavingArgs.ImageFileName
+    //ExFor:HtmlSaveOptions
+    //ExFor:HtmlSaveOptions.DocumentPartSavingCallback
+    //ExFor:HtmlSaveOptions.ImageSavingCallback
+    //ExSummary:Shows how to split a document into parts and save them.
     void DocumentPartsFileNames();
+    //ExEnd
+    //ExStart
+    //ExFor:CssSavingArgs
+    //ExFor:CssSavingArgs.CssStream
+    //ExFor:CssSavingArgs.Document
+    //ExFor:CssSavingArgs.IsExportNeeded
+    //ExFor:CssSavingArgs.KeepCssStreamOpen
+    //ExFor:CssStyleSheetType
+    //ExFor:HtmlSaveOptions.CssSavingCallback
+    //ExFor:HtmlSaveOptions.CssStyleSheetFileName
+    //ExFor:HtmlSaveOptions.CssStyleSheetType
+    //ExFor:ICssSavingCallback
+    //ExFor:ICssSavingCallback.CssSaving(CssSavingArgs)
+    //ExSummary:Shows how to work with CSS stylesheets that an HTML conversion creates.
     void ExternalCssFilenames();
     
 };

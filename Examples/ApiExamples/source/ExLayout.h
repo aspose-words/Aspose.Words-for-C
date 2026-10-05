@@ -1,11 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
 #include <system/shared_ptr.h>
+#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Layout/Public/LayoutEnumerator.h>
 #include <Aspose.Words.Cpp/Layout/Model/Callback/PageLayoutCallbackArgs.h>
@@ -64,8 +60,40 @@ private:
 public:
 
     void LayoutCollector();
+    //ExStart
+    //ExFor:LayoutEntityType
+    //ExFor:LayoutEnumerator
+    //ExFor:LayoutEnumerator.#ctor(Document)
+    //ExFor:LayoutEnumerator.Document
+    //ExFor:LayoutEnumerator.Kind
+    //ExFor:LayoutEnumerator.MoveFirstChild
+    //ExFor:LayoutEnumerator.MoveLastChild
+    //ExFor:LayoutEnumerator.MoveNext
+    //ExFor:LayoutEnumerator.MoveNextLogical
+    //ExFor:LayoutEnumerator.MoveParent
+    //ExFor:LayoutEnumerator.MoveParent(LayoutEntityType)
+    //ExFor:LayoutEnumerator.MovePrevious
+    //ExFor:LayoutEnumerator.MovePreviousLogical
+    //ExFor:LayoutEnumerator.PageIndex
+    //ExFor:LayoutEnumerator.Rectangle
+    //ExFor:LayoutEnumerator.Reset
+    //ExFor:LayoutEnumerator.Text
+    //ExFor:LayoutEnumerator.Type
+    //ExSummary:Shows ways of traversing a document's layout entities.
     void LayoutEnumerator();
+    //ExEnd
+    //ExStart
+    //ExFor:IPageLayoutCallback
+    //ExFor:IPageLayoutCallback.Notify(PageLayoutCallbackArgs)
+    //ExFor:PageLayoutCallbackArgs
+    //ExFor:PageLayoutCallbackArgs.Event
+    //ExFor:PageLayoutCallbackArgs.Document
+    //ExFor:PageLayoutCallbackArgs.PageIndex
+    //ExFor:PageLayoutEvent
+    //ExFor:LayoutOptions.Callback
+    //ExSummary:Shows how to track layout changes with a layout callback.
     void PageLayoutCallback();
+    //ExEnd
     void RestartPageNumberingInContinuousSection();
     
 protected:

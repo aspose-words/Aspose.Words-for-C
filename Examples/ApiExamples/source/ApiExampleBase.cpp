@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ApiExampleBase.h"
+﻿#include "ApiExampleBase.h"
 
 #include <system/uri.h>
 #include <system/threading/thread.h>
@@ -14,6 +9,8 @@
 #include <system/io/directory.h>
 #include <system/globalization/culture_info.h>
 #include <system/array.h>
+#include <mutex>
+#include <memory>
 #include <Aspose.Words.Cpp/Licensing/License.h>
 
 namespace Aspose {
@@ -34,6 +31,31 @@ System::String ApiExampleBase::pr_ImageDir;
 System::String ApiExampleBase::pr_DatabaseDir;
 System::String ApiExampleBase::pr_FontsDir;
 System::String ApiExampleBase::pr_ImageUrl;
+
+void ApiExampleBase::__StaticConstructor__()
+{
+    thread_local static bool inProgress = false;
+    if (inProgress) return;
+    static const auto markFinished = [](bool *inProgress) { *inProgress = false; };
+    inProgress = true;
+    const std::unique_ptr<bool, decltype(markFinished)> finish(&inProgress, markFinished);
+    
+    static std::once_flag once;
+    std::call_once(once, []
+    {
+        ApiExampleBase::pr_AssemblyDir = ApiExampleBase::GetAssemblyDir(System::Reflection::Assembly::GetExecutingAssembly());
+        ApiExampleBase::pr_CodeBaseDir = ApiExampleBase::GetCodeBaseDir(System::Reflection::Assembly::GetExecutingAssembly());
+        ApiExampleBase::pr_ArtifactsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::get_CodeBaseDir()), u"Data/Artifacts/")->get_LocalPath();
+        System::String licenseDirShift = u"License/";
+        ApiExampleBase::pr_LicenseDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::get_CodeBaseDir()), licenseDirShift)->get_LocalPath();
+        ApiExampleBase::pr_GoldsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::get_CodeBaseDir()), u"Data/Golds/")->get_LocalPath();
+        ApiExampleBase::pr_MyDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::get_CodeBaseDir()), u"Data/")->get_LocalPath();
+        ApiExampleBase::pr_ImageDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::get_CodeBaseDir()), u"Data/Images/")->get_LocalPath();
+        ApiExampleBase::pr_DatabaseDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::get_CodeBaseDir()), u"Data/Database/")->get_LocalPath();
+        ApiExampleBase::pr_FontsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(ApiExampleBase::get_CodeBaseDir()), u"Data/MyFonts/")->get_LocalPath();
+        ApiExampleBase::pr_ImageUrl = System::MakeObject<System::Uri>(u"https://samplelib.com/png/sample-alpha-semi-400x300.png")->get_AbsoluteUri();
+    });
+}
 
 System::String ApiExampleBase::get_AssemblyDir()
 {
@@ -120,12 +142,10 @@ void ApiExampleBase::OneTimeTearDown()
             System::IO::File::Delete(file);
         }
         
-        
         for (System::String subDir : System::IO::Directory::GetDirectories(get_ArtifactsDir(), u"*", System::IO::SearchOption::AllDirectories))
         {
             System::IO::Directory::Delete(subDir, true);
         }
-        
     }
 }
 
@@ -172,37 +192,10 @@ System::String ApiExampleBase::GetAssemblyDir(System::SharedPtr<System::Reflecti
     return System::IO::Path::GetDirectoryName(uri->get_LocalPath()) + System::IO::Path::DirectorySeparatorChar;
 }
 
-void ApiExampleBase::__StaticConstructor__()
-{
-    thread_local static bool inProgress = false;
-    if (inProgress) return;
-    static const auto markFinished = [](bool *inProgress) { *inProgress = false; };
-    inProgress = true;
-    const std::unique_ptr<bool, decltype(markFinished)> finish(&inProgress, markFinished);
-    
-    static std::once_flag once;
-    std::call_once(once, []
-    {
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_AssemblyDir = Aspose::Words::ApiExamples::ApiExampleBase::GetAssemblyDir(System::Reflection::Assembly::GetExecutingAssembly());
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_CodeBaseDir = Aspose::Words::ApiExamples::ApiExampleBase::GetCodeBaseDir(System::Reflection::Assembly::GetExecutingAssembly());
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_ArtifactsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), u"Data/Artifacts/")->get_LocalPath();
-        System::String licenseDirShift = u"License/";
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_LicenseDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), licenseDirShift)->get_LocalPath();
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_GoldsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), u"Data/Golds/")->get_LocalPath();
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_MyDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), u"Data/")->get_LocalPath();
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_ImageDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), u"Data/Images/")->get_LocalPath();
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_DatabaseDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), u"Data/Database/")->get_LocalPath();
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_FontsDir = System::MakeObject<System::Uri>(System::MakeObject<System::Uri>(Aspose::Words::ApiExamples::ApiExampleBase::get_CodeBaseDir()), u"Data/MyFonts/")->get_LocalPath();
-        Aspose::Words::ApiExamples::ApiExampleBase::pr_ImageUrl = System::MakeObject<System::Uri>(u"https://samplelib.com/png/sample-alpha-semi-400x300.png")->get_AbsoluteUri();
-    });
-}
-
 ApiExampleBase::ApiExampleBase()
 {
     __StaticConstructor__();
-    
 }
-
 
 namespace gtest_test
 {

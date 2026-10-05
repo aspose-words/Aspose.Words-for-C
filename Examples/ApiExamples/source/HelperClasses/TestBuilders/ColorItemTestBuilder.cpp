@@ -1,5 +1,6 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-#include "HelperClasses/TestBuilders/ColorItemTestBuilder.h"
+﻿#include "HelperClasses/TestBuilders/ColorItemTestBuilder.h"
+
+#include "HelperClasses/TestClasses/ColorItemTestClass.h"
 
 
 using namespace Aspose::Words::ApiExamples::TestData::TestClasses;

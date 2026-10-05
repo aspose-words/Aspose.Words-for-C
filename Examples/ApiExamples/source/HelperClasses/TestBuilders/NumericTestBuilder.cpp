@@ -1,5 +1,6 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-#include "HelperClasses/TestBuilders/NumericTestBuilder.h"
+﻿#include "HelperClasses/TestBuilders/NumericTestBuilder.h"
+
+#include "HelperClasses/TestClasses/NumericTestClass.h"
 
 
 using namespace Aspose::Words::ApiExamples::TestData::TestClasses;

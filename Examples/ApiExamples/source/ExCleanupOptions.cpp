@@ -1,15 +1,9 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExCleanupOptions.h"
+﻿#include "ExCleanupOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/compare.h>
 #include <system/string.h>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
@@ -75,13 +69,13 @@ void ExCleanupOptions::RemoveUnusedResources()
     //ExFor:CleanupOptions.UnusedLists
     //ExFor:CleanupOptions.UnusedStyles
     //ExFor:CleanupOptions.UnusedBuiltinStyles
-    //ExSummary:Shows how to remove all unused custom styles from a document. 
+    //ExSummary:Shows how to remove all unused custom styles from a document.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    doc->get_Styles()->Add(Aspose::Words::StyleType::List, u"MyListStyle1");
-    doc->get_Styles()->Add(Aspose::Words::StyleType::List, u"MyListStyle2");
-    doc->get_Styles()->Add(Aspose::Words::StyleType::Character, u"MyParagraphStyle1");
-    doc->get_Styles()->Add(Aspose::Words::StyleType::Character, u"MyParagraphStyle2");
+    doc->get_Styles()->Add(StyleType::List, u"MyListStyle1");
+    doc->get_Styles()->Add(StyleType::List, u"MyListStyle2");
+    doc->get_Styles()->Add(StyleType::Character, u"MyParagraphStyle1");
+    doc->get_Styles()->Add(StyleType::Character, u"MyParagraphStyle2");
     
     // Combined with the built-in styles, the document now has eight styles.
     // A custom style is marked as "used" while there is any text within the document
@@ -109,7 +103,7 @@ void ExCleanupOptions::RemoveUnusedResources()
     
     ASSERT_EQ(4, doc->get_Styles()->get_Count());
     
-    // Removing every node that a custom style is applied to marks it as "unused" again. 
+    // Removing every node that a custom style is applied to marks it as "unused" again.
     // Rerun the Cleanup method to remove them.
     doc->get_FirstSection()->get_Body()->RemoveAllChildren();
     doc->Cleanup(cleanupOptions);
@@ -137,12 +131,12 @@ void ExCleanupOptions::RemoveDuplicateStyles()
     
     // Add two styles to the document with identical properties,
     // but different names. The second style is considered a duplicate of the first.
-    System::SharedPtr<Aspose::Words::Style> myStyle = doc->get_Styles()->Add(Aspose::Words::StyleType::Paragraph, u"MyStyle1");
+    System::SharedPtr<Aspose::Words::Style> myStyle = doc->get_Styles()->Add(StyleType::Paragraph, u"MyStyle1");
     myStyle->get_Font()->set_Size(14);
     myStyle->get_Font()->set_Name(u"Courier New");
     myStyle->get_Font()->set_Color(System::Drawing::Color::get_Blue());
     
-    System::SharedPtr<Aspose::Words::Style> duplicateStyle = doc->get_Styles()->Add(Aspose::Words::StyleType::Paragraph, u"MyStyle2");
+    System::SharedPtr<Aspose::Words::Style> duplicateStyle = doc->get_Styles()->Add(StyleType::Paragraph, u"MyStyle2");
     duplicateStyle->get_Font()->set_Size(14);
     duplicateStyle->get_Font()->set_Name(u"Courier New");
     duplicateStyle->get_Font()->set_Color(System::Drawing::Color::get_Blue());

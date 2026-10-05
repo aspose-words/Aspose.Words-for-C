@@ -1,16 +1,11 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExRtfSaveOptions.h"
+﻿#include "ExRtfSaveOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
-#include <gtest/gtest.h>
+#include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/RtfSaveOptions.h>
@@ -77,12 +72,12 @@ void ExRtfSaveOptions::ExportImages(bool exportImagesForOldReaders)
     //ExFor:RtfSaveOptions.ExportImagesForOldReaders
     //ExFor:RtfSaveOptions.SaveFormat
     //ExSummary:Shows how to save a document to .rtf with custom options.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     // Create an "RtfSaveOptions" object to pass to the document's "Save" method to modify how we save it to an RTF.
     auto options = System::MakeObject<Aspose::Words::Saving::RtfSaveOptions>();
     
-    ASSERT_EQ(Aspose::Words::SaveFormat::Rtf, options->get_SaveFormat());
+    ASSERT_EQ(SaveFormat::Rtf, options->get_SaveFormat());
     
     // Set the "ExportCompactSize" property to "true" to
     // reduce the saved document's size at the cost of right-to-left text compatibility.
@@ -99,8 +94,8 @@ void ExRtfSaveOptions::ExportImages(bool exportImagesForOldReaders)
     
     if (exportImagesForOldReaders)
     {
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"nonshppict", get_ArtifactsDir() + u"RtfSaveOptions.ExportImages.rtf");
-        Aspose::Words::ApiExamples::TestUtil::FileContainsString(u"shprslt", get_ArtifactsDir() + u"RtfSaveOptions.ExportImages.rtf");
+        TestUtil::FileContainsString(u"nonshppict", get_ArtifactsDir() + u"RtfSaveOptions.ExportImages.rtf");
+        TestUtil::FileContainsString(u"shprslt", get_ArtifactsDir() + u"RtfSaveOptions.ExportImages.rtf");
     }
     else
     {
@@ -145,13 +140,13 @@ void ExRtfSaveOptions::SaveImagesAsWmf(bool saveImagesAsWmf)
     builder->Writeln(u"Jpeg image:");
     System::SharedPtr<Aspose::Words::Drawing::Shape> imageShape = builder->InsertImage(get_ImageDir() + u"Logo.jpg");
     
-    ASSERT_EQ(Aspose::Words::Drawing::ImageType::Jpeg, imageShape->get_ImageData()->get_ImageType());
+    ASSERT_EQ(ImageType::Jpeg, imageShape->get_ImageData()->get_ImageType());
     
     builder->InsertParagraph();
     builder->Writeln(u"Png image:");
     imageShape = builder->InsertImage(get_ImageDir() + u"Transparent background logo.png");
     
-    ASSERT_EQ(Aspose::Words::Drawing::ImageType::Png, imageShape->get_ImageData()->get_ImageType());
+    ASSERT_EQ(ImageType::Png, imageShape->get_ImageData()->get_ImageType());
     
     // Create an "RtfSaveOptions" object to pass to the document's "Save" method to modify how we save it to an RTF.
     auto rtfSaveOptions = System::MakeObject<Aspose::Words::Saving::RtfSaveOptions>();
@@ -164,19 +159,19 @@ void ExRtfSaveOptions::SaveImagesAsWmf(bool saveImagesAsWmf)
     
     doc->Save(get_ArtifactsDir() + u"RtfSaveOptions.SaveImagesAsWmf.rtf", rtfSaveOptions);
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"RtfSaveOptions.SaveImagesAsWmf.rtf");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"RtfSaveOptions.SaveImagesAsWmf.rtf"));
     
-    System::SharedPtr<Aspose::Words::NodeCollection> shapes = doc->GetChildNodes(Aspose::Words::NodeType::Shape, true);
+    System::SharedPtr<Aspose::Words::NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
     
     if (saveImagesAsWmf)
     {
-        ASSERT_EQ(Aspose::Words::Drawing::ImageType::Wmf, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(0)))->get_ImageData()->get_ImageType());
-        ASSERT_EQ(Aspose::Words::Drawing::ImageType::Wmf, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(1)))->get_ImageData()->get_ImageType());
+        ASSERT_EQ(ImageType::Wmf, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(0)))->get_ImageData()->get_ImageType());
+        ASSERT_EQ(ImageType::Wmf, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(1)))->get_ImageData()->get_ImageType());
     }
     else
     {
-        ASSERT_EQ(Aspose::Words::Drawing::ImageType::Jpeg, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(0)))->get_ImageData()->get_ImageType());
-        ASSERT_EQ(Aspose::Words::Drawing::ImageType::Png, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(1)))->get_ImageData()->get_ImageType());
+        ASSERT_EQ(ImageType::Jpeg, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(0)))->get_ImageData()->get_ImageType());
+        ASSERT_EQ(ImageType::Png, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(1)))->get_ImageData()->get_ImageType());
     }
     //ExEnd
 }

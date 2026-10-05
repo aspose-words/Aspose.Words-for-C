@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExInlineStory.h"
+﻿#include "ExInlineStory.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -14,7 +9,6 @@
 #include <system/date_time.h>
 #include <system/collections/list.h>
 #include <system/collections/ienumerable.h>
-#include <gtest/gtest.h>
 #include <drawing/color.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
@@ -105,14 +99,14 @@ void ExInlineStory::PositionFootnote(Aspose::Words::Notes::FootnotePosition foot
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // A footnote is a way to attach a reference or a side comment to text
-    // that does not interfere with the main body text's flow.  
+    // that does not interfere with the main body text's flow.
     // Inserting a footnote adds a small superscript reference symbol
     // at the main body text where we insert the footnote.
     // Each footnote also creates an entry at the bottom of the page, consisting of a symbol
     // that matches the reference symbol in the main body text.
     // The reference text that we pass to the document builder's "InsertFootnote" method.
     builder->Write(u"Hello world!");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote contents.");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote contents.");
     
     // We can use the "Position" property to determine where the document will place all its footnotes.
     // If we set the value of the "Position" property to "FootnotePosition.BottomOfPage",
@@ -124,11 +118,11 @@ void ExInlineStory::PositionFootnote(Aspose::Words::Notes::FootnotePosition foot
     doc->Save(get_ArtifactsDir() + u"InlineStory.PositionFootnote.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InlineStory.PositionFootnote.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.PositionFootnote.docx"));
     
     ASSERT_EQ(footnotePosition, doc->get_FootnoteOptions()->get_Position());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote contents.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 0, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote contents.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
 }
 
 namespace gtest_test
@@ -142,8 +136,8 @@ struct ExInlineStory_PositionFootnote : public ExInlineStory, public Aspose::Wor
     {
         return
         {
-            std::make_tuple(Aspose::Words::Notes::FootnotePosition::BeneathText),
-            std::make_tuple(Aspose::Words::Notes::FootnotePosition::BottomOfPage),
+            std::make_tuple(FootnotePosition::BeneathText),
+            std::make_tuple(FootnotePosition::BottomOfPage),
         };
     }
 };
@@ -170,15 +164,15 @@ void ExInlineStory::PositionEndnote(Aspose::Words::Notes::EndnotePosition endnot
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // An endnote is a way to attach a reference or a side comment to text
-    // that does not interfere with the main body text's flow. 
+    // that does not interfere with the main body text's flow.
     // Inserting an endnote adds a small superscript reference symbol
     // at the main body text where we insert the endnote.
     // Each endnote also creates an entry at the end of the document, consisting of a symbol
     // that matches the reference symbol in the main body text.
     // The reference text that we pass to the document builder's "InsertEndnote" method.
     builder->Write(u"Hello world!");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote contents.");
-    builder->InsertBreak(Aspose::Words::BreakType::SectionBreakNewPage);
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote contents.");
+    builder->InsertBreak(BreakType::SectionBreakNewPage);
     builder->Write(u"This is the second section.");
     
     // We can use the "Position" property to determine where the document will place all its endnotes.
@@ -191,11 +185,11 @@ void ExInlineStory::PositionEndnote(Aspose::Words::Notes::EndnotePosition endnot
     doc->Save(get_ArtifactsDir() + u"InlineStory.PositionEndnote.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InlineStory.PositionEndnote.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.PositionEndnote.docx"));
     
     ASSERT_EQ(endnotePosition, doc->get_EndnoteOptions()->get_Position());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote contents.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 0, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote contents.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
 }
 
 namespace gtest_test
@@ -209,8 +203,8 @@ struct ExInlineStory_PositionEndnote : public ExInlineStory, public Aspose::Word
     {
         return
         {
-            std::make_tuple(Aspose::Words::Notes::EndnotePosition::EndOfDocument),
-            std::make_tuple(Aspose::Words::Notes::EndnotePosition::EndOfSection),
+            std::make_tuple(EndnotePosition::EndOfDocument),
+            std::make_tuple(EndnotePosition::EndOfSection),
         };
     }
 };
@@ -239,7 +233,7 @@ void ExInlineStory::RefMarkNumberStyle()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Footnotes and endnotes are a way to attach a reference or a side comment to text
-    // that does not interfere with the main body text's flow. 
+    // that does not interfere with the main body text's flow.
     // Inserting a footnote/endnote adds a small superscript reference symbol
     // at the main body text where we insert the footnote/endnote.
     // Each footnote/endnote also creates an entry, which consists of a symbol that matches the reference
@@ -247,47 +241,47 @@ void ExInlineStory::RefMarkNumberStyle()
     // Footnote entries, by default, show up at the bottom of each page that contains
     // their reference symbols, and endnotes show up at the end of the document.
     builder->Write(u"Text 1. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 1.");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 1.");
     builder->Write(u"Text 2. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 2.");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 2.");
     builder->Write(u"Text 3. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 3.", u"Custom footnote reference mark");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 3.", u"Custom footnote reference mark");
     
     builder->InsertParagraph();
     
     builder->Write(u"Text 1. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 1.");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 1.");
     builder->Write(u"Text 2. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 2.");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 2.");
     builder->Write(u"Text 3. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 3.", u"Custom endnote reference mark");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 3.", u"Custom endnote reference mark");
     
     // By default, the reference symbol for each footnote and endnote is its index
     // among all the document's footnotes/endnotes. Each document maintains separate counts
     // for footnotes and for endnotes. By default, footnotes display their numbers using Arabic numerals,
     // and endnotes display their numbers in lowercase Roman numerals.
-    ASSERT_EQ(Aspose::Words::NumberStyle::Arabic, doc->get_FootnoteOptions()->get_NumberStyle());
-    ASSERT_EQ(Aspose::Words::NumberStyle::LowercaseRoman, doc->get_EndnoteOptions()->get_NumberStyle());
+    ASSERT_EQ(NumberStyle::Arabic, doc->get_FootnoteOptions()->get_NumberStyle());
+    ASSERT_EQ(NumberStyle::LowercaseRoman, doc->get_EndnoteOptions()->get_NumberStyle());
     
     // We can use the "NumberStyle" property to apply custom numbering styles to footnotes and endnotes.
     // This will not affect footnotes/endnotes with custom reference marks.
-    doc->get_FootnoteOptions()->set_NumberStyle(Aspose::Words::NumberStyle::UppercaseRoman);
-    doc->get_EndnoteOptions()->set_NumberStyle(Aspose::Words::NumberStyle::UppercaseLetter);
+    doc->get_FootnoteOptions()->set_NumberStyle(NumberStyle::UppercaseRoman);
+    doc->get_EndnoteOptions()->set_NumberStyle(NumberStyle::UppercaseLetter);
     
     doc->Save(get_ArtifactsDir() + u"InlineStory.RefMarkNumberStyle.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InlineStory.RefMarkNumberStyle.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.RefMarkNumberStyle.docx"));
     
-    ASSERT_EQ(Aspose::Words::NumberStyle::UppercaseRoman, doc->get_FootnoteOptions()->get_NumberStyle());
-    ASSERT_EQ(Aspose::Words::NumberStyle::UppercaseLetter, doc->get_EndnoteOptions()->get_NumberStyle());
+    ASSERT_EQ(NumberStyle::UppercaseRoman, doc->get_FootnoteOptions()->get_NumberStyle());
+    ASSERT_EQ(NumberStyle::UppercaseLetter, doc->get_EndnoteOptions()->get_NumberStyle());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 0, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 1, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, false, u"Custom footnote reference mark", u"Custom footnote reference mark Footnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 2, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 3, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 4, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, false, u"Custom endnote reference mark", u"Custom endnote reference mark Endnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 5, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, false, u"Custom footnote reference mark", u"Custom footnote reference mark Footnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 3, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 4, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, false, u"Custom endnote reference mark", u"Custom endnote reference mark Endnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 5, true)));
 }
 
 namespace gtest_test
@@ -315,7 +309,7 @@ void ExInlineStory::NumberingRule()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Footnotes and endnotes are a way to attach a reference or a side comment to text
-    // that does not interfere with the main body text's flow. 
+    // that does not interfere with the main body text's flow.
     // Inserting a footnote/endnote adds a small superscript reference symbol
     // at the main body text where we insert the footnote/endnote.
     // Each footnote/endnote also creates an entry, which consists of a symbol that matches the reference
@@ -323,54 +317,54 @@ void ExInlineStory::NumberingRule()
     // Footnote entries, by default, show up at the bottom of each page that contains
     // their reference symbols, and endnotes show up at the end of the document.
     builder->Write(u"Text 1. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 1.");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 1.");
     builder->Write(u"Text 2. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 2.");
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 2.");
+    builder->InsertBreak(BreakType::PageBreak);
     builder->Write(u"Text 3. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 3.");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 3.");
     builder->Write(u"Text 4. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 4.");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 4.");
     
-    builder->InsertBreak(Aspose::Words::BreakType::PageBreak);
+    builder->InsertBreak(BreakType::PageBreak);
     
     builder->Write(u"Text 1. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 1.");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 1.");
     builder->Write(u"Text 2. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 2.");
-    builder->InsertBreak(Aspose::Words::BreakType::SectionBreakNewPage);
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 2.");
+    builder->InsertBreak(BreakType::SectionBreakNewPage);
     builder->Write(u"Text 3. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 3.");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 3.");
     builder->Write(u"Text 4. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 4.");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 4.");
     
     // By default, the reference symbol for each footnote and endnote is its index
     // among all the document's footnotes/endnotes. Each document maintains separate counts
     // for footnotes and endnotes and does not restart these counts at any point.
-    ASSERT_EQ(doc->get_FootnoteOptions()->get_RestartRule(), Aspose::Words::Notes::FootnoteNumberingRule::Default);
-    ASSERT_EQ(Aspose::Words::Notes::FootnoteNumberingRule::Default, Aspose::Words::Notes::FootnoteNumberingRule::Continuous);
+    ASSERT_EQ(doc->get_FootnoteOptions()->get_RestartRule(), FootnoteNumberingRule::Default);
+    ASSERT_EQ(FootnoteNumberingRule::Default, FootnoteNumberingRule::Continuous);
     
     // We can use the "RestartRule" property to get the document to restart
     // the footnote/endnote counts at a new page or section.
-    doc->get_FootnoteOptions()->set_RestartRule(Aspose::Words::Notes::FootnoteNumberingRule::RestartPage);
-    doc->get_EndnoteOptions()->set_RestartRule(Aspose::Words::Notes::FootnoteNumberingRule::RestartSection);
+    doc->get_FootnoteOptions()->set_RestartRule(FootnoteNumberingRule::RestartPage);
+    doc->get_EndnoteOptions()->set_RestartRule(FootnoteNumberingRule::RestartSection);
     
     doc->Save(get_ArtifactsDir() + u"InlineStory.NumberingRule.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InlineStory.NumberingRule.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.NumberingRule.docx"));
     
-    ASSERT_EQ(Aspose::Words::Notes::FootnoteNumberingRule::RestartPage, doc->get_FootnoteOptions()->get_RestartRule());
-    ASSERT_EQ(Aspose::Words::Notes::FootnoteNumberingRule::RestartSection, doc->get_EndnoteOptions()->get_RestartRule());
+    ASSERT_EQ(FootnoteNumberingRule::RestartPage, doc->get_FootnoteOptions()->get_RestartRule());
+    ASSERT_EQ(FootnoteNumberingRule::RestartSection, doc->get_EndnoteOptions()->get_RestartRule());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 0, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 1, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 2, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote 4.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 3, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 4, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 5, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 6, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote 4.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 7, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 4.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 3, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 4, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 5, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 6, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote 4.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 7, true)));
 }
 
 namespace gtest_test
@@ -397,7 +391,7 @@ void ExInlineStory::StartNumber()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // Footnotes and endnotes are a way to attach a reference or a side comment to text
-    // that does not interfere with the main body text's flow. 
+    // that does not interfere with the main body text's flow.
     // Inserting a footnote/endnote adds a small superscript reference symbol
     // at the main body text where we insert the footnote/endnote.
     // Each footnote/endnote also creates an entry, which consists of a symbol
@@ -406,20 +400,20 @@ void ExInlineStory::StartNumber()
     // Footnote entries, by default, show up at the bottom of each page that contains
     // their reference symbols, and endnotes show up at the end of the document.
     builder->Write(u"Text 1. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 1.");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 1.");
     builder->Write(u"Text 2. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 2.");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 2.");
     builder->Write(u"Text 3. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote 3.");
+    builder->InsertFootnote(FootnoteType::Footnote, u"Footnote 3.");
     
     builder->InsertParagraph();
     
     builder->Write(u"Text 1. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 1.");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 1.");
     builder->Write(u"Text 2. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 2.");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 2.");
     builder->Write(u"Text 3. ");
-    builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote 3.");
+    builder->InsertFootnote(FootnoteType::Endnote, u"Endnote 3.");
     
     // By default, the reference symbol for each footnote and endnote is its index
     // among all the document's footnotes/endnotes. Each document maintains separate counts
@@ -429,25 +423,25 @@ void ExInlineStory::StartNumber()
     
     // We can use the "StartNumber" property to get the document to
     // begin a footnote or endnote count at a different number.
-    doc->get_EndnoteOptions()->set_NumberStyle(Aspose::Words::NumberStyle::Arabic);
+    doc->get_EndnoteOptions()->set_NumberStyle(NumberStyle::Arabic);
     doc->get_EndnoteOptions()->set_StartNumber(50);
     
     doc->Save(get_ArtifactsDir() + u"InlineStory.StartNumber.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InlineStory.StartNumber.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.StartNumber.docx"));
     
     ASSERT_EQ(1, doc->get_FootnoteOptions()->get_StartNumber());
     ASSERT_EQ(50, doc->get_EndnoteOptions()->get_StartNumber());
-    ASSERT_EQ(Aspose::Words::NumberStyle::Arabic, doc->get_FootnoteOptions()->get_NumberStyle());
-    ASSERT_EQ(Aspose::Words::NumberStyle::Arabic, doc->get_EndnoteOptions()->get_NumberStyle());
+    ASSERT_EQ(NumberStyle::Arabic, doc->get_FootnoteOptions()->get_NumberStyle());
+    ASSERT_EQ(NumberStyle::Arabic, doc->get_EndnoteOptions()->get_NumberStyle());
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 0, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 1, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 2, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 3, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 4, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 5, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 3, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 4, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote 3.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 5, true)));
 }
 
 namespace gtest_test
@@ -480,14 +474,14 @@ void ExInlineStory::AddFootnote()
     // This entry will contain the footnote's reference mark and the reference text,
     // which we will pass to the document builder's "InsertFootnote" method.
     builder->Write(u"Main body text.");
-    System::SharedPtr<Aspose::Words::Notes::Footnote> footnote = builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote text.");
+    System::SharedPtr<Aspose::Words::Notes::Footnote> footnote = builder->InsertFootnote(FootnoteType::Footnote, u"Footnote text.");
     
     // If this property is set to "true", then our footnote's reference mark
     // will be its index among all the section's footnotes.
     // This is the first footnote, so the reference mark will be "1".
     ASSERT_TRUE(footnote->get_IsAuto());
     
-    // We can move the document builder inside the footnote to edit its reference text. 
+    // We can move the document builder inside the footnote to edit its reference text.
     builder->MoveTo(footnote->get_FirstParagraph());
     builder->Write(u" More text added by a DocumentBuilder.");
     builder->MoveToDocumentEnd();
@@ -495,7 +489,7 @@ void ExInlineStory::AddFootnote()
     ASSERT_EQ(u"\u0002 Footnote text. More text added by a DocumentBuilder.", footnote->GetText().Trim());
     
     builder->Write(u" More main body text.");
-    footnote = builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote text.");
+    footnote = builder->InsertFootnote(FootnoteType::Footnote, u"Footnote text.");
     
     // We can set a custom reference mark which the footnote will use instead of its index number.
     footnote->set_ReferenceMark(u"RefMark");
@@ -505,18 +499,18 @@ void ExInlineStory::AddFootnote()
     // A bookmark with the "IsAuto" flag set to true will still show its real index
     // even if previous bookmarks display custom reference marks, so this bookmark's reference mark will be a "3".
     builder->Write(u" More main body text.");
-    footnote = builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote text.");
+    footnote = builder->InsertFootnote(FootnoteType::Footnote, u"Footnote text.");
     
     ASSERT_TRUE(footnote->get_IsAuto());
     
     doc->Save(get_ArtifactsDir() + u"InlineStory.AddFootnote.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InlineStory.AddFootnote.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.AddFootnote.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote text. More text added by a DocumentBuilder.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 0, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, false, u"RefMark", u"Footnote text.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 1, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote text.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 2, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote text. More text added by a DocumentBuilder.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, false, u"RefMark", u"Footnote text.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote text.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 2, true)));
 }
 
 namespace gtest_test
@@ -544,25 +538,25 @@ void ExInlineStory::FootnoteEndnote()
     // and reference text, which we will pass to the document builder's "InsertFootnote" method.
     // 1 -  A footnote, whose entry will appear on the same page as the text that it references:
     builder->Write(u"Footnote referenced main body text.");
-    System::SharedPtr<Aspose::Words::Notes::Footnote> footnote = builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, u"Footnote text, will appear at the bottom of the page that contains the referenced text.");
+    System::SharedPtr<Aspose::Words::Notes::Footnote> footnote = builder->InsertFootnote(FootnoteType::Footnote, u"Footnote text, will appear at the bottom of the page that contains the referenced text.");
     
     // 2 -  An endnote, whose entry will appear at the end of the document:
     builder->Write(u"Endnote referenced main body text.");
-    System::SharedPtr<Aspose::Words::Notes::Footnote> endnote = builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Endnote, u"Endnote text, will appear at the very end of the document.");
+    System::SharedPtr<Aspose::Words::Notes::Footnote> endnote = builder->InsertFootnote(FootnoteType::Endnote, u"Endnote text, will appear at the very end of the document.");
     
-    builder->InsertBreak(Aspose::Words::BreakType::SectionBreakNewPage);
-    builder->InsertBreak(Aspose::Words::BreakType::SectionBreakNewPage);
+    builder->InsertBreak(BreakType::SectionBreakNewPage);
+    builder->InsertBreak(BreakType::SectionBreakNewPage);
     
-    ASSERT_EQ(Aspose::Words::Notes::FootnoteType::Footnote, footnote->get_FootnoteType());
-    ASSERT_EQ(Aspose::Words::Notes::FootnoteType::Endnote, endnote->get_FootnoteType());
+    ASSERT_EQ(FootnoteType::Footnote, footnote->get_FootnoteType());
+    ASSERT_EQ(FootnoteType::Endnote, endnote->get_FootnoteType());
     
     doc->Save(get_ArtifactsDir() + u"InlineStory.FootnoteEndnote.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InlineStory.FootnoteEndnote.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.FootnoteEndnote.docx"));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, u"Footnote text, will appear at the bottom of the page that contains the referenced text.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 0, true)));
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Endnote, true, System::String::Empty, u"Endnote text, will appear at the very end of the document.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 1, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote text, will appear at the bottom of the page that contains the referenced text.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote text, will appear at the very end of the document.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
 }
 
 namespace gtest_test
@@ -595,12 +589,12 @@ void ExInlineStory::AddComment()
     
     ASSERT_EQ(System::DateTime::get_Today(), comment->get_DateTime());
     
-    // In Microsoft Word, we can right-click this comment in the document body to edit it, or reply to it. 
+    // In Microsoft Word, we can right-click this comment in the document body to edit it, or reply to it.
     doc->Save(get_ArtifactsDir() + u"InlineStory.AddComment.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InlineStory.AddComment.docx");
-    comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(Aspose::Words::NodeType::Comment, 0, true));
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.AddComment.docx"));
+    comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(NodeType::Comment, 0, true));
     
     ASSERT_EQ(u"Comment text.\r", comment->GetText());
     ASSERT_EQ(u"John Doe", comment->get_Author());
@@ -626,7 +620,7 @@ void ExInlineStory::InlineStoryRevisions()
     //ExFor:InlineStory.IsMoveFromRevision
     //ExFor:InlineStory.IsMoveToRevision
     //ExSummary:Shows how to view revision-related properties of InlineStory nodes.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Revision footnotes.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revision footnotes.docx"));
     
     // When we edit the document while the "Track Changes" option, found in via Review -> Tracking,
     // is turned on in Microsoft Word, the changes we apply count as revisions.
@@ -636,7 +630,7 @@ void ExInlineStory::InlineStoryRevisions()
     // or reject them to undo and discard the proposed change.
     ASSERT_TRUE(doc->get_HasRevisions());
     
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Notes::Footnote>>> footnotes = doc->GetChildNodes(Aspose::Words::NodeType::Footnote, true)->LINQ_Cast<System::SharedPtr<Aspose::Words::Notes::Footnote> >()->LINQ_ToList();
+    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Notes::Footnote>>> footnotes = doc->GetChildNodes(NodeType::Footnote, true)->LINQ_Cast<System::SharedPtr<Aspose::Words::Notes::Footnote>>()->LINQ_ToList();
     
     ASSERT_EQ(5, footnotes->get_Count());
     
@@ -691,7 +685,7 @@ void ExInlineStory::InsertInlineStoryNodes()
     //ExSummary:Shows how to insert InlineStory nodes.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
-    System::SharedPtr<Aspose::Words::Notes::Footnote> footnote = builder->InsertFootnote(Aspose::Words::Notes::FootnoteType::Footnote, nullptr);
+    System::SharedPtr<Aspose::Words::Notes::Footnote> footnote = builder->InsertFootnote(FootnoteType::Footnote, nullptr);
     
     // Table nodes have an "EnsureMinimum()" method that makes sure the table has at least one cell.
     auto table = System::MakeObject<Aspose::Words::Tables::Table>(doc);
@@ -701,13 +695,13 @@ void ExInlineStory::InsertInlineStoryNodes()
     ASSERT_EQ(0, footnote->get_Tables()->get_Count());
     footnote->AppendChild<System::SharedPtr<Aspose::Words::Tables::Table>>(table);
     ASSERT_EQ(1, footnote->get_Tables()->get_Count());
-    ASSERT_EQ(Aspose::Words::NodeType::Table, footnote->get_LastChild()->get_NodeType());
+    ASSERT_EQ(NodeType::Table, footnote->get_LastChild()->get_NodeType());
     
     // An InlineStory has an "EnsureMinimum()" method as well, but in this case,
     // it makes sure the last child of the node is a paragraph,
     // for us to be able to click and write text easily in Microsoft Word.
     footnote->EnsureMinimum();
-    ASSERT_EQ(Aspose::Words::NodeType::Paragraph, footnote->get_LastChild()->get_NodeType());
+    ASSERT_EQ(NodeType::Paragraph, footnote->get_LastChild()->get_NodeType());
     
     // Edit the appearance of the anchor, which is the small superscript number
     // in the main text that points to the footnote.
@@ -715,7 +709,7 @@ void ExInlineStory::InsertInlineStoryNodes()
     footnote->get_Font()->set_Color(System::Drawing::Color::get_Green());
     
     // All inline story nodes have their respective story types.
-    ASSERT_EQ(Aspose::Words::StoryType::Footnotes, footnote->get_StoryType());
+    ASSERT_EQ(StoryType::Footnotes, footnote->get_StoryType());
     
     // A comment is another type of inline story.
     auto comment = System::ExplicitCast<Aspose::Words::Comment>(builder->get_CurrentParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Comment>>(System::MakeObject<Aspose::Words::Comment>(doc, u"John Doe", u"J. D.", System::DateTime::get_Now())));
@@ -729,28 +723,28 @@ void ExInlineStory::InsertInlineStoryNodes()
     // so we can apply the EnsureMinimum() method to place a paragraph here as well.
     ASSERT_TRUE(System::TestTools::IsNull(comment->get_LastParagraph()));
     comment->EnsureMinimum();
-    ASSERT_EQ(Aspose::Words::NodeType::Paragraph, comment->get_LastChild()->get_NodeType());
+    ASSERT_EQ(NodeType::Paragraph, comment->get_LastChild()->get_NodeType());
     
     // Once we have a paragraph, we can move the builder to do it and write our comment.
     builder->MoveTo(comment->get_LastParagraph());
     builder->Write(u"My comment.");
     
-    ASSERT_EQ(Aspose::Words::StoryType::Comments, comment->get_StoryType());
+    ASSERT_EQ(StoryType::Comments, comment->get_StoryType());
     
     doc->Save(get_ArtifactsDir() + u"InlineStory.InsertInlineStoryNodes.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"InlineStory.InsertInlineStoryNodes.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.InsertInlineStoryNodes.docx"));
     
-    footnote = System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 0, true));
+    footnote = System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType::Footnote, true, System::String::Empty, System::String::Empty, System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 0, true)));
+    TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, System::String::Empty, System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
     ASSERT_EQ(u"Arial", footnote->get_Font()->get_Name());
     ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), footnote->get_Font()->get_Color().ToArgb());
     
-    comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(Aspose::Words::NodeType::Comment, 0, true));
+    comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(NodeType::Comment, 0, true));
     
-    ASSERT_EQ(u"My comment.", comment->ToString(Aspose::Words::SaveFormat::Text).Trim());
+    ASSERT_EQ(u"My comment.", comment->ToString(SaveFormat::Text).Trim());
 }
 
 namespace gtest_test
@@ -776,15 +770,15 @@ void ExInlineStory::DeleteShapes()
     
     // Use a DocumentBuilder to insert a shape. This is an inline shape,
     // which has a parent Paragraph, which is a child node of the first section's Body.
-    builder->InsertShape(Aspose::Words::Drawing::ShapeType::Cube, 100.0, 100.0);
+    builder->InsertShape(ShapeType::Cube, 100.0, 100.0);
     
-    ASSERT_EQ(1, doc->GetChildNodes(Aspose::Words::NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(1, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
     
     // We can delete all shapes from the child paragraphs of this Body.
-    ASSERT_EQ(Aspose::Words::StoryType::MainText, doc->get_FirstSection()->get_Body()->get_StoryType());
+    ASSERT_EQ(StoryType::MainText, doc->get_FirstSection()->get_Body()->get_StoryType());
     doc->get_FirstSection()->get_Body()->DeleteShapes();
     
-    ASSERT_EQ(0, doc->GetChildNodes(Aspose::Words::NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(0, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
     //ExEnd
 }
 
@@ -805,9 +799,9 @@ void ExInlineStory::UpdateActualReferenceMarks()
     //ExFor:Document.UpdateActualReferenceMarks
     //ExFor:Footnote.ActualReferenceMark
     //ExSummary:Shows how to get actual footnote reference mark.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Footnotes and endnotes.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Footnotes and endnotes.docx"));
     
-    auto footnote = System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(Aspose::Words::NodeType::Footnote, 1, true));
+    auto footnote = System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 1, true));
     doc->UpdateFields();
     doc->UpdateActualReferenceMarks();
     
@@ -832,9 +826,9 @@ void ExInlineStory::EndnoteSeparator()
     //ExFor:DocumentBase.FootnoteSeparators
     //ExFor:FootnoteSeparatorType
     //ExSummary:Shows how to remove endnote separator.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Footnotes and endnotes.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Footnotes and endnotes.docx"));
     
-    System::SharedPtr<Aspose::Words::Notes::FootnoteSeparator> endnoteSeparator = doc->get_FootnoteSeparators()->idx_get(Aspose::Words::Notes::FootnoteSeparatorType::EndnoteSeparator);
+    System::SharedPtr<Aspose::Words::Notes::FootnoteSeparator> endnoteSeparator = doc->get_FootnoteSeparators()->idx_get(FootnoteSeparatorType::EndnoteSeparator);
     // Remove endnote separator.
     endnoteSeparator->get_FirstParagraph()->get_FirstChild()->Remove();
     //ExEnd:EndnoteSeparator
@@ -862,11 +856,11 @@ void ExInlineStory::FootnoteSeparator()
     //ExFor:FootnoteSeparatorCollection
     //ExFor:FootnoteSeparatorCollection.Item(FootnoteSeparatorType)
     //ExSummary:Shows how to manage footnote separator format.
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Footnotes and endnotes.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Footnotes and endnotes.docx"));
     
-    System::SharedPtr<Aspose::Words::Notes::FootnoteSeparator> footnoteSeparator = doc->get_FootnoteSeparators()->idx_get(Aspose::Words::Notes::FootnoteSeparatorType::FootnoteSeparator);
+    System::SharedPtr<Aspose::Words::Notes::FootnoteSeparator> footnoteSeparator = doc->get_FootnoteSeparators()->idx_get(FootnoteSeparatorType::FootnoteSeparator);
     // Align footnote separator.
-    footnoteSeparator->get_FirstParagraph()->get_ParagraphFormat()->set_Alignment(Aspose::Words::ParagraphAlignment::Center);
+    footnoteSeparator->get_FirstParagraph()->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
     //ExEnd:FootnoteSeparator
     
     doc->Save(get_ArtifactsDir() + u"InlineStory.FootnoteSeparator.docx");

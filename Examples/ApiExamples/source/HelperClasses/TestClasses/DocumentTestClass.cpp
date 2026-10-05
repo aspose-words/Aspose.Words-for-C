@@ -1,5 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-#include "HelperClasses/TestClasses/DocumentTestClass.h"
+﻿#include "HelperClasses/TestClasses/DocumentTestClass.h"
 
 namespace Aspose {
 

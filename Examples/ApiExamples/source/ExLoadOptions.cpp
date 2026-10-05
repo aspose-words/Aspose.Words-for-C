@@ -1,23 +1,19 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExLoadOptions.h"
+﻿#include "ExLoadOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/type_info.h>
+#include <system/timespan.h>
 #include <system/text/encoding.h>
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
+#include <system/io/directory_info.h>
 #include <system/io/directory.h>
 #include <system/exceptions.h>
-#include <system/enum_helpers.h>
+#include <system/console.h>
 #include <system/array.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <drawing/image_converter.h>
 #include <drawing/image.h>
 #include <cstdint>
@@ -42,6 +38,7 @@
 #include <Aspose.Words.Cpp/Model/Fonts/FontSettings.h>
 #include <Aspose.Words.Cpp/Model/Drawing/ShapeType.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
+#include <Aspose.Words.Cpp/Model/Drawing/ImageType.h>
 #include <Aspose.Words.Cpp/Model/Drawing/ImageData.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningType.h>
 #include <Aspose.Words.Cpp/Model/Document/WarningSource.h>
@@ -70,27 +67,25 @@ Aspose::Words::Loading::ResourceLoadingAction ExLoadOptions::HtmlLinkedResourceL
 {
     switch (args->get_ResourceType())
     {
-        case Aspose::Words::Loading::ResourceType::CssStyleSheet:
+        case ResourceType::CssStyleSheet:
             std::cout << System::String::Format(u"External CSS Stylesheet found upon loading: {0}", args->get_OriginalUri()) << std::endl;
-            return Aspose::Words::Loading::ResourceLoadingAction::Default;
-        
-        case Aspose::Words::Loading::ResourceType::Image:
+            return ResourceLoadingAction::Default;
+        case ResourceType::Image:
         {
             std::cout << System::String::Format(u"External Image found upon loading: {0}", args->get_OriginalUri()) << std::endl;
             const System::String newImageFilename = u"Logo.jpg";
             std::cout << System::String::Format(u"\tImage will be substituted with: {0}", newImageFilename) << std::endl;
             System::SharedPtr<System::Drawing::Image> newImage = System::Drawing::Image::FromFile(get_ImageDir() + newImageFilename);
             auto converter = System::MakeObject<System::Drawing::ImageConverter>();
-            System::ArrayPtr<uint8_t> imageBytes = System::ExplicitCast<System::Array<uint8_t>>(converter->ConvertTo(newImage, System::ObjectExt::GetType<System::Array<uint8_t>>()));
+            auto imageBytes = System::ExplicitCast<System::Array<uint8_t>>(System::ExplicitCast<System::ComponentModel::TypeConverter>(converter)->ConvertTo(newImage, System::ObjectExt::GetType<System::Array<uint8_t>>()));
             args->SetData(imageBytes);
-            return Aspose::Words::Loading::ResourceLoadingAction::UserProvided;
+            return ResourceLoadingAction::UserProvided;
         }
-        
         default:
             break;
     }
     
-    return Aspose::Words::Loading::ResourceLoadingAction::Default;
+    return ResourceLoadingAction::Default;
 }
 
 RTTI_INFO_IMPL_HASH(1149712200u, ::Aspose::Words::ApiExamples::ExLoadOptions::DocumentLoadingWarningCallback, ThisTypeBaseTypesInfo);
@@ -138,15 +133,14 @@ RTTI_INFO_IMPL_HASH(3052477640u, ::Aspose::Words::ApiExamples::ExLoadOptions, Th
 
 void ExLoadOptions::TestLoadOptionsWarningCallback(System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::WarningInfo>>> warnings)
 {
-    ASSERT_EQ(Aspose::Words::WarningType::MinorFormattingLoss, warnings->idx_get(0)->get_WarningType());
-    ASSERT_EQ(Aspose::Words::WarningSource::Docx, warnings->idx_get(0)->get_Source());
+    ASSERT_EQ(WarningType::MinorFormattingLoss, warnings->idx_get(0)->get_WarningType());
+    ASSERT_EQ(WarningSource::Docx, warnings->idx_get(0)->get_Source());
     ASSERT_EQ(u"Import of element 'shapedefaults' is not supported in Docx format by Aspose.Words.", warnings->idx_get(0)->get_Description());
     
-    ASSERT_EQ(Aspose::Words::WarningType::MinorFormattingLoss, warnings->idx_get(1)->get_WarningType());
-    ASSERT_EQ(Aspose::Words::WarningSource::Docx, warnings->idx_get(1)->get_Source());
+    ASSERT_EQ(WarningType::MinorFormattingLoss, warnings->idx_get(1)->get_WarningType());
+    ASSERT_EQ(WarningSource::Docx, warnings->idx_get(1)->get_Source());
     ASSERT_EQ(u"Import of element 'extraClrSchemeLst' is not supported in Docx format by Aspose.Words.", warnings->idx_get(1)->get_Description());
 }
-
 
 namespace gtest_test
 {
@@ -215,13 +209,13 @@ void ExLoadOptions::ConvertShapeToOfficeMath(bool isConvertShapeToOfficeMath)
     
     if (isConvertShapeToOfficeMath)
     {
-        ASSERT_EQ(16, doc->GetChildNodes(Aspose::Words::NodeType::Shape, true)->get_Count());
-        ASSERT_EQ(34, doc->GetChildNodes(Aspose::Words::NodeType::OfficeMath, true)->get_Count());
+        ASSERT_EQ(16, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+        ASSERT_EQ(34, doc->GetChildNodes(NodeType::OfficeMath, true)->get_Count());
     }
     else
     {
-        ASSERT_EQ(24, doc->GetChildNodes(Aspose::Words::NodeType::Shape, true)->get_Count());
-        ASSERT_EQ(0, doc->GetChildNodes(Aspose::Words::NodeType::OfficeMath, true)->get_Count());
+        ASSERT_EQ(24, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+        ASSERT_EQ(0, doc->GetChildNodes(NodeType::OfficeMath, true)->get_Count());
     }
     //ExEnd
 }
@@ -264,7 +258,7 @@ void ExLoadOptions::SetEncoding()
     // Load the document while passing the LoadOptions object, then verify the document's contents.
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"English text.txt", loadOptions);
     
-    ASSERT_TRUE(doc->ToString(Aspose::Words::SaveFormat::Text).Contains(u"This is a sample text in English."));
+    ASSERT_TRUE(doc->ToString(SaveFormat::Text).Contains(u"This is a sample text in English."));
     //ExEnd
 }
 
@@ -318,11 +312,11 @@ void ExLoadOptions::LoadOptionsMswVersion()
     // By default, Aspose.Words load documents according to Microsoft Word 2019 specification.
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>();
     
-    ASSERT_EQ(Aspose::Words::Settings::MsWordVersion::Word2019, loadOptions->get_MswVersion());
+    ASSERT_EQ(MsWordVersion::Word2019, loadOptions->get_MswVersion());
     
     // This document is missing the default paragraph formatting style.
     // This default style will be regenerated when we load the document either with Microsoft Word or Aspose.Words.
-    loadOptions->set_MswVersion(Aspose::Words::Settings::MsWordVersion::Word2007);
+    loadOptions->set_MswVersion(MsWordVersion::Word2007);
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Document.docx", loadOptions);
     
     // The style's line spacing will have this value when loaded by Microsoft Word 2007 specification.
@@ -406,19 +400,19 @@ void ExLoadOptions::AddEditingLanguage()
     //ExFor:EditingLanguage
     //ExSummary:Shows how to apply language preferences when loading a document.
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>();
-    loadOptions->get_LanguagePreferences()->AddEditingLanguage(Aspose::Words::Loading::EditingLanguage::Japanese);
+    loadOptions->get_LanguagePreferences()->AddEditingLanguage(EditingLanguage::Japanese);
     
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"No default editing language.docx", loadOptions);
     
     int32_t localeIdFarEast = doc->get_Styles()->get_DefaultFont()->get_LocaleIdFarEast();
-    std::cout << (localeIdFarEast == (int32_t)Aspose::Words::Loading::EditingLanguage::Japanese ? System::String(u"The document either has no any FarEast language set in defaults or it was set to Japanese originally.") : System::String(u"The document default FarEast language was set to another than Japanese language originally, so it is not overridden.")) << std::endl;
+    std::cout << (localeIdFarEast == (int32_t)EditingLanguage::Japanese ? System::String(u"The document either has no any FarEast language set in defaults or it was set to Japanese originally.") : System::String(u"The document default FarEast language was set to another than Japanese language originally, so it is not overridden.")) << std::endl;
     //ExEnd
     
-    ASSERT_EQ((int32_t)Aspose::Words::Loading::EditingLanguage::Japanese, doc->get_Styles()->get_DefaultFont()->get_LocaleIdFarEast());
+    ASSERT_EQ((int32_t)EditingLanguage::Japanese, doc->get_Styles()->get_DefaultFont()->get_LocaleIdFarEast());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"No default editing language.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"No default editing language.docx"));
     
-    ASSERT_EQ((int32_t)Aspose::Words::Loading::EditingLanguage::EnglishUS, doc->get_Styles()->get_DefaultFont()->get_LocaleIdFarEast());
+    ASSERT_EQ((int32_t)EditingLanguage::EnglishUS, doc->get_Styles()->get_DefaultFont()->get_LocaleIdFarEast());
 }
 
 namespace gtest_test
@@ -437,19 +431,19 @@ void ExLoadOptions::SetEditingLanguageAsDefault()
     //ExFor:LanguagePreferences.DefaultEditingLanguage
     //ExSummary:Shows how set a default language when loading a document.
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>();
-    loadOptions->get_LanguagePreferences()->set_DefaultEditingLanguage(Aspose::Words::Loading::EditingLanguage::Russian);
+    loadOptions->get_LanguagePreferences()->set_DefaultEditingLanguage(EditingLanguage::Russian);
     
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"No default editing language.docx", loadOptions);
     
     int32_t localeId = doc->get_Styles()->get_DefaultFont()->get_LocaleId();
-    std::cout << (localeId == (int32_t)Aspose::Words::Loading::EditingLanguage::Russian ? System::String(u"The document either has no any language set in defaults or it was set to Russian originally.") : System::String(u"The document default language was set to another than Russian language originally, so it is not overridden.")) << std::endl;
+    std::cout << (localeId == (int32_t)EditingLanguage::Russian ? System::String(u"The document either has no any language set in defaults or it was set to Russian originally.") : System::String(u"The document default language was set to another than Russian language originally, so it is not overridden.")) << std::endl;
     //ExEnd
     
-    ASSERT_EQ((int32_t)Aspose::Words::Loading::EditingLanguage::Russian, doc->get_Styles()->get_DefaultFont()->get_LocaleId());
+    ASSERT_EQ((int32_t)EditingLanguage::Russian, doc->get_Styles()->get_DefaultFont()->get_LocaleId());
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"No default editing language.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"No default editing language.docx"));
     
-    ASSERT_EQ((int32_t)Aspose::Words::Loading::EditingLanguage::EnglishUS, doc->get_Styles()->get_DefaultFont()->get_LocaleId());
+    ASSERT_EQ((int32_t)EditingLanguage::EnglishUS, doc->get_Styles()->get_DefaultFont()->get_LocaleId());
 }
 
 namespace gtest_test
@@ -469,7 +463,7 @@ void ExLoadOptions::ConvertMetafilesToPng()
     //ExSummary:Shows how to convert WMF/EMF to PNG during loading document.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    auto shape = System::MakeObject<Aspose::Words::Drawing::Shape>(doc, Aspose::Words::Drawing::ShapeType::Image);
+    auto shape = System::MakeObject<Aspose::Words::Drawing::Shape>(doc, ShapeType::Image);
     shape->get_ImageData()->SetImage(get_ImageDir() + u"Windows MetaFile.wmf");
     shape->set_Width(100);
     shape->set_Height(100);
@@ -478,17 +472,17 @@ void ExLoadOptions::ConvertMetafilesToPng()
     
     doc->Save(get_ArtifactsDir() + u"Image.CreateImageDirectly.docx");
     
-    shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
+    shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(1600, 1600, Aspose::Words::Drawing::ImageType::Wmf, shape);
+    TestUtil::VerifyImageInShape(1600, 1600, ImageType::Wmf, shape);
     
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>();
     loadOptions->set_ConvertMetafilesToPng(true);
     
     doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"Image.CreateImageDirectly.docx", loadOptions);
-    shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
+    shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(1666, 1666, Aspose::Words::Drawing::ImageType::Png, shape);
+    TestUtil::VerifyImageInShape(1666, 1666, ImageType::Png, shape);
     //ExEnd
 }
 
@@ -504,8 +498,8 @@ TEST_F(ExLoadOptions, ConvertMetafilesToPng)
 
 void ExLoadOptions::OpenChmFile()
 {
-    System::SharedPtr<Aspose::Words::FileFormatInfo> info = Aspose::Words::FileFormatUtil::DetectFileFormat(get_MyDir() + u"HTML help.chm");
-    ASSERT_EQ(info->get_LoadFormat(), Aspose::Words::LoadFormat::Chm);
+    System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"HTML help.chm");
+    ASSERT_EQ(info->get_LoadFormat(), LoadFormat::Chm);
     
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>();
     loadOptions->set_Encoding(System::Text::Encoding::GetEncoding(u"windows-1251"));
@@ -540,7 +534,6 @@ void ExLoadOptions::ProgressCallback()
         
         // Handle loading duration issue.
     }
-    
 }
 
 namespace gtest_test
@@ -586,7 +579,7 @@ void ExLoadOptions::RecoveryMode()
     //ExFor:DocumentRecoveryMode
     //ExSummary:Shows how to try to recover a document if errors occurred during loading.
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>();
-    loadOptions->set_RecoveryMode(Aspose::Words::Loading::DocumentRecoveryMode::TryRecover);
+    loadOptions->set_RecoveryMode(DocumentRecoveryMode::TryRecover);
     
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Corrupted footnotes.docx", loadOptions);
     //ExEnd:RecoveryMode

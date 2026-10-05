@@ -1,10 +1,7 @@
-#pragma once
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
+﻿#pragma once
 
+#include <system/string.h>
+#include <gtest/gtest.h>
 #include <Aspose.Words.Cpp/Model/Document/Document.h>
 
 #include "ApiExampleBase.h"
@@ -46,6 +43,10 @@ public:
     void Gutter();
     void Booklet();
     void SetTextOrientation();
+    //ExStart
+    //ExFor:PageSetup.SuppressEndnotes
+    //ExFor:Body.ParentSection
+    //ExSummary:Shows how to store endnotes at the end of each section, and modify their positions.
     void SuppressEndnotes();
     void ChapterPageSeparator();
     void JisbPaperSize();
@@ -56,6 +57,7 @@ protected:
     /// Append a section with text and an endnote to a document.
     /// </summary>
     static void InsertSectionWithEndnote(System::SharedPtr<Aspose::Words::Document> doc, System::String sectionBodyText, System::String endnoteText);
+    //ExEnd
     static void TestSuppressEndnotes(System::SharedPtr<Aspose::Words::Document> doc);
     
 };

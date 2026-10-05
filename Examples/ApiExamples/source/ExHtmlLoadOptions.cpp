@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExHtmlLoadOptions.h"
+﻿#include "ExHtmlLoadOptions.h"
 
 #include <testing/test_predicates.h>
 #include <system/text/encoding.h>
@@ -12,10 +7,8 @@
 #include <system/test_tools/compare.h>
 #include <system/object_ext.h>
 #include <system/io/memory_stream.h>
-#include <system/enum_helpers.h>
 #include <system/date_time.h>
 #include <system/array.h>
-#include <gtest/gtest.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/HtmlFixedSaveOptions.h>
@@ -129,23 +122,23 @@ void ExHtmlLoadOptions::SupportVml(bool supportVml)
     
     if (supportVml)
     {
-        ASSERT_EQ(Aspose::Words::Drawing::ImageType::Jpeg, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
+        ASSERT_EQ(ImageType::Jpeg, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
     }
     else
     {
-        ASSERT_EQ(Aspose::Words::Drawing::ImageType::Png, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
+        ASSERT_EQ(ImageType::Png, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
     }
     //ExEnd
     
-    auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
+    auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     if (supportVml)
     {
-        Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Jpeg, imageShape);
+        TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
     }
     else
     {
-        Aspose::Words::ApiExamples::TestUtil::VerifyImageInShape(400, 400, Aspose::Words::Drawing::ImageType::Png, imageShape);
+        TestUtil::VerifyImageInShape(400, 400, ImageType::Png, imageShape);
     }
 }
 
@@ -202,16 +195,16 @@ void ExHtmlLoadOptions::WebRequestTimeout()
     
     // A web request that fails to obtain an image within the time limit will still produce an image.
     // However, the image will be the red 'x' that commonly signifies missing images.
-    auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true));
+    auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     ASSERT_EQ(924, imageShape->get_ImageData()->get_ImageBytes()->get_Length());
     
     // We can also configure a custom callback to pick up any warnings from timed out web requests.
-    ASSERT_EQ(Aspose::Words::WarningSource::Html, warningCallback->Warnings()->idx_get(0)->get_Source());
-    ASSERT_EQ(Aspose::Words::WarningType::DataLoss, warningCallback->Warnings()->idx_get(0)->get_WarningType());
+    ASSERT_EQ(WarningSource::Html, warningCallback->Warnings()->idx_get(0)->get_Source());
+    ASSERT_EQ(WarningType::DataLoss, warningCallback->Warnings()->idx_get(0)->get_WarningType());
     ASSERT_EQ(System::String::Format(u"Couldn't load a resource from \'{0}\'.", imageUri), warningCallback->Warnings()->idx_get(0)->get_Description());
     
-    ASSERT_EQ(Aspose::Words::WarningSource::Html, warningCallback->Warnings()->idx_get(1)->get_Source());
-    ASSERT_EQ(Aspose::Words::WarningType::DataLoss, warningCallback->Warnings()->idx_get(1)->get_WarningType());
+    ASSERT_EQ(WarningSource::Html, warningCallback->Warnings()->idx_get(1)->get_Source());
+    ASSERT_EQ(WarningType::DataLoss, warningCallback->Warnings()->idx_get(1)->get_WarningType());
     ASSERT_EQ(u"Image has been replaced with a placeholder.", warningCallback->Warnings()->idx_get(1)->get_Description());
     
     doc->Save(get_ArtifactsDir() + u"HtmlLoadOptions.WebRequestTimeout.docx");
@@ -229,10 +222,10 @@ TEST_F(ExHtmlLoadOptions, WebRequestTimeout)
 
 void ExHtmlLoadOptions::LoadHtmlFixed()
 {
-    auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Rendering.docx");
+    auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
-    saveOptions->set_SaveFormat(Aspose::Words::SaveFormat::HtmlFixed);
+    saveOptions->set_SaveFormat(SaveFormat::HtmlFixed);
     
     doc->Save(get_ArtifactsDir() + u"HtmlLoadOptions.Fixed.html", saveOptions);
     
@@ -244,8 +237,8 @@ void ExHtmlLoadOptions::LoadHtmlFixed()
     doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HtmlLoadOptions.Fixed.html", loadOptions);
     ASSERT_EQ(1, warningCallback->Warnings()->get_Count());
     
-    ASSERT_EQ(Aspose::Words::WarningSource::Html, warningCallback->Warnings()->idx_get(0)->get_Source());
-    ASSERT_EQ(Aspose::Words::WarningType::MajorFormattingLoss, warningCallback->Warnings()->idx_get(0)->get_WarningType());
+    ASSERT_EQ(WarningSource::Html, warningCallback->Warnings()->idx_get(0)->get_Source());
+    ASSERT_EQ(WarningType::MajorFormattingLoss, warningCallback->Warnings()->idx_get(0)->get_WarningType());
     ASSERT_EQ(u"The document is fixed-page HTML. Its structure may not be loaded correctly.", warningCallback->Warnings()->idx_get(0)->get_Description());
 }
 
@@ -265,7 +258,7 @@ void ExHtmlLoadOptions::EncryptedHtml()
     //ExFor:HtmlLoadOptions.#ctor(String)
     //ExSummary:Shows how to encrypt an Html document, and then open it using a password.
     // Create and sign an encrypted HTML document from an encrypted .docx.
-    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = Aspose::Words::DigitalSignatures::CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
+    System::SharedPtr<Aspose::Words::DigitalSignatures::CertificateHolder> certificateHolder = CertificateHolder::Create(get_MyDir() + u"morzal.pfx", u"aw");
     
     auto signOptions = System::MakeObject<Aspose::Words::DigitalSignatures::SignOptions>();
     signOptions->set_Comments(u"Comment");
@@ -274,7 +267,7 @@ void ExHtmlLoadOptions::EncryptedHtml()
     
     System::String inputFileName = get_MyDir() + u"Encrypted.docx";
     System::String outputFileName = get_ArtifactsDir() + u"HtmlLoadOptions.EncryptedHtml.html";
-    Aspose::Words::DigitalSignatures::DigitalSignatureUtil::Sign(inputFileName, outputFileName, certificateHolder, signOptions);
+    DigitalSignatureUtil::Sign(inputFileName, outputFileName, certificateHolder, signOptions);
     
     // To load and read this document, we will need to pass its decryption
     // password using a HtmlLoadOptions object.
@@ -308,24 +301,24 @@ void ExHtmlLoadOptions::BaseUri()
     //ExSummary:Shows how to specify a base URI when opening an html document.
     // Suppose we want to load an .html document that contains an image linked by a relative URI
     // while the image is in a different location. In that case, we will need to resolve the relative URI into an absolute one.
-    // We can provide a base URI using an HtmlLoadOptions object. 
-    auto loadOptions = System::MakeObject<Aspose::Words::Loading::HtmlLoadOptions>(Aspose::Words::LoadFormat::Html, u"", get_ImageDir());
+    // We can provide a base URI using an HtmlLoadOptions object.
+    auto loadOptions = System::MakeObject<Aspose::Words::Loading::HtmlLoadOptions>(LoadFormat::Html, u"", get_ImageDir());
     
-    ASSERT_EQ(Aspose::Words::LoadFormat::Html, loadOptions->get_LoadFormat());
+    ASSERT_EQ(LoadFormat::Html, loadOptions->get_LoadFormat());
     
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Missing image.html", loadOptions);
     
     // While the image was broken in the input .html, our custom base URI helped us repair the link.
-    auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChildNodes(Aspose::Words::NodeType::Shape, true)->idx_get(0));
+    auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChildNodes(NodeType::Shape, true)->idx_get(0));
     ASSERT_TRUE(imageShape->get_IsImage());
     
     // This output document will display the image that was missing.
     doc->Save(get_ArtifactsDir() + u"HtmlLoadOptions.BaseUri.docx");
     //ExEnd
     
-    doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HtmlLoadOptions.BaseUri.docx");
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlLoadOptions.BaseUri.docx"));
     
-    ASSERT_TRUE((System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(Aspose::Words::NodeType::Shape, 0, true)))->get_ImageData()->get_ImageBytes()->get_Length() > 0);
+    ASSERT_TRUE((System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageBytes()->get_Length() > 0);
 }
 
 namespace gtest_test
@@ -347,10 +340,10 @@ void ExHtmlLoadOptions::GetSelectAsSdt()
     const System::String html = u"\r\n                <html>\r\n                    <select name='ComboBox' size='1'>\r\n                        <option value='val1'>item1</option>\r\n                        <option value='val2'></option>\r\n                    </select>\r\n                </html>\r\n            ";
     
     auto htmlLoadOptions = System::MakeObject<Aspose::Words::Loading::HtmlLoadOptions>();
-    htmlLoadOptions->set_PreferredControlType(Aspose::Words::Loading::HtmlControlType::StructuredDocumentTag);
+    htmlLoadOptions->set_PreferredControlType(HtmlControlType::StructuredDocumentTag);
     
     auto doc = System::MakeObject<Aspose::Words::Document>(System::MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(html)), htmlLoadOptions);
-    System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(Aspose::Words::NodeType::StructuredDocumentTag, true);
+    System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(NodeType::StructuredDocumentTag, true);
     
     auto tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(nodes->idx_get(0));
     //ExEnd
@@ -380,7 +373,7 @@ void ExHtmlLoadOptions::GetInputAsFormField()
     auto htmlLoadOptions = System::MakeObject<Aspose::Words::Loading::HtmlLoadOptions>();
     
     auto doc = System::MakeObject<Aspose::Words::Document>(System::MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(html)), htmlLoadOptions);
-    System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(Aspose::Words::NodeType::FormField, true);
+    System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(NodeType::FormField, true);
     
     ASSERT_EQ(1, nodes->get_Count());
     
@@ -469,8 +462,8 @@ struct ExHtmlLoadOptions_BlockImport : public ExHtmlLoadOptions, public Aspose::
     {
         return
         {
-            std::make_tuple(Aspose::Words::Loading::BlockImportMode::Preserve),
-            std::make_tuple(Aspose::Words::Loading::BlockImportMode::Merge),
+            std::make_tuple(BlockImportMode::Preserve),
+            std::make_tuple(BlockImportMode::Merge),
         };
     }
 };

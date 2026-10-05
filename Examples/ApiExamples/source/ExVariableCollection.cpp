@@ -1,9 +1,4 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-// This file is part of Aspose.Words. The source code in this file
-// is only intended as a supplement to the documentation, and is provided
-// "as is", without warranty of any kind, either expressed or implied.
-//////////////////////////////////////////////////////////////////////////
-#include "ExVariableCollection.h"
+﻿#include "ExVariableCollection.h"
 
 #include <testing/test_predicates.h>
 #include <system/test_tools/test_tools.h>
@@ -11,11 +6,10 @@
 #include <system/object_ext.h>
 #include <system/linq/enumerable.h>
 #include <system/func.h>
-#include <system/details/dispose_guard.h>
+#include <system/console.h>
 #include <system/collections/keyvalue_pair.h>
 #include <system/collections/ienumerator.h>
 #include <iostream>
-#include <gtest/gtest.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Fields/FieldType.h>
@@ -94,7 +88,7 @@ void ExVariableCollection::Primer()
     
     // We can display the values of variables in the document body using DOCVARIABLE fields.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
-    auto field = System::ExplicitCast<Aspose::Words::Fields::FieldDocVariable>(builder->InsertField(Aspose::Words::Fields::FieldType::FieldDocVariable, true));
+    auto field = System::ExplicitCast<Aspose::Words::Fields::FieldDocVariable>(builder->InsertField(FieldType::FieldDocVariable, true));
     field->set_VariableName(u"Home address");
     field->Update();
     

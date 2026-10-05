@@ -1,11 +1,16 @@
-// Copyright (c) 2001-2026 Aspose Pty Ltd. All Rights Reserved.
-#include "HelperClasses/Common.h"
+﻿#include "HelperClasses/Common.h"
 
 #include <system/linq/enumerable.h>
 #include <system/enumerator_adapter.h>
 #include <system/date_time.h>
 #include <system/collections/list.h>
 #include <cstdint>
+
+#include "HelperClasses/TestClasses/ManagerTestClass.h"
+#include "HelperClasses/TestClasses/ContractTestClass.h"
+#include "HelperClasses/TestClasses/ClientTestClass.h"
+#include "HelperClasses/TestClasses/ShareTestClass.h"
+#include "HelperClasses/TestClasses/ShareQuoteTestClass.h"
 
 
 using namespace Aspose::Words::ApiExamples::HelperClasses::TestClasses;
@@ -20,7 +25,7 @@ namespace TestData {
 
 System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass>>> Common::GetManagers()
 {
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass>>> result = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass>>>();
+    auto result = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass>>>();
     auto manager = System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass>();
     manager->set_Name(u"John Smith");
     manager->set_Age(36);
@@ -30,7 +35,7 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
     initValue->get_Client()->set_Country(u"Australia");
     initValue->get_Client()->set_LocalAddress(u"219-241 Cleveland St STRAWBERRY HILLS  NSW  1427");
     initValue->set_Manager(manager);
-    initValue->set_Price(1200000.0f);
+    initValue->set_Price(1200000);
     initValue->set_Date(System::DateTime(2017, 1, 1));
     auto initValue2 = System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>();
     initValue2->set_Client(System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>());
@@ -38,7 +43,7 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
     initValue2->get_Client()->set_Country(u"Brazil");
     initValue2->get_Client()->set_LocalAddress(u"Avenida João Jorge, 112, ap. 31 Vila Industrial Campinas - SP 13035-680");
     initValue2->set_Manager(manager);
-    initValue2->set_Price(750000.0f);
+    initValue2->set_Price(750000);
     initValue2->set_Date(System::DateTime(2017, 4, 1));
     auto initValue3 = System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>();
     initValue3->set_Client(System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>());
@@ -46,10 +51,11 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
     initValue3->get_Client()->set_Country(u"Canada");
     initValue3->get_Client()->set_LocalAddress(u"101-3485 RUE DE LA MONTAGNE MONTRÉAL (QUÉBEC) H3G 2A6");
     initValue3->set_Manager(manager);
-    initValue3->set_Price(350000.0f);
+    initValue3->set_Price(350000);
     initValue3->set_Date(System::DateTime(2017, 7, 1));
     
-    manager->set_Contracts(System::MakeArray<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>({initValue, initValue2, initValue3}));
+    manager->set_Contracts(System::MakeArray<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>({
+        initValue, initValue2, initValue3}));
     
     result->Add(manager);
     
@@ -61,17 +67,18 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
     initValue4->get_Client()->set_Name(u"E Corp.");
     initValue4->get_Client()->set_LocalAddress(u"445 Mount Eden Road Mount Eden Auckland 1024");
     initValue4->set_Manager(manager);
-    initValue4->set_Price(650000.0f);
+    initValue4->set_Price(650000);
     initValue4->set_Date(System::DateTime(2017, 2, 1));
     auto initValue5 = System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>();
     initValue5->set_Client(System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>());
     initValue5->get_Client()->set_Name(u"F & Partners");
     initValue5->get_Client()->set_LocalAddress(u"20 Greens Road Tuahiwi Kaiapoi 7691 ");
     initValue5->set_Manager(manager);
-    initValue5->set_Price(550000.0f);
+    initValue5->set_Price(550000);
     initValue5->set_Date(System::DateTime(2017, 8, 1));
     
-    manager->set_Contracts(System::MakeArray<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>({initValue4, initValue5}));
+    manager->set_Contracts(System::MakeArray<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>({
+        initValue4, initValue5}));
     
     result->Add(manager);
     
@@ -84,7 +91,7 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
     initValue6->get_Client()->set_Country(u"Greece");
     initValue6->get_Client()->set_LocalAddress(u"Karkisias 6 GR-111 42  ATHINA GRÉCE");
     initValue6->set_Manager(manager);
-    initValue6->set_Price(350000.0f);
+    initValue6->set_Price(350000);
     initValue6->set_Date(System::DateTime(2017, 2, 1));
     auto initValue7 = System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>();
     initValue7->set_Client(System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>());
@@ -92,14 +99,14 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
     initValue7->get_Client()->set_Country(u"Hungary");
     initValue7->get_Client()->set_LocalAddress(u"Budapest Fiktív utca 82., IV. em./28.2806");
     initValue7->set_Manager(manager);
-    initValue7->set_Price(250000.0f);
+    initValue7->set_Price(250000);
     initValue7->set_Date(System::DateTime(2017, 5, 1));
     auto initValue8 = System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>();
     initValue8->set_Client(System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>());
     initValue8->get_Client()->set_Name(u"I & Sons");
     initValue8->get_Client()->set_LocalAddress(u"43 Vogel Street Roslyn Palmerston North 4414");
     initValue8->set_Manager(manager);
-    initValue8->set_Price(100000.0f);
+    initValue8->set_Price(100000);
     initValue8->set_Date(System::DateTime(2017, 7, 1));
     auto initValue9 = System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>();
     initValue9->set_Client(System::MakeObject<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>());
@@ -107,10 +114,11 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
     initValue9->get_Client()->set_Country(u"Japan");
     initValue9->get_Client()->set_LocalAddress(u"Hakusan 4-Chōme 3-2 Bunkyō-ku, TŌKYŌ 112-0001 Japan");
     initValue9->set_Manager(manager);
-    initValue9->set_Price(100000.0f);
+    initValue9->set_Price(100000);
     initValue9->set_Date(System::DateTime(2017, 8, 1));
     
-    manager->set_Contracts(System::MakeArray<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>({initValue6, initValue7, initValue8, initValue9}));
+    manager->set_Contracts(System::MakeArray<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>({
+        initValue6, initValue7, initValue8, initValue9}));
     
     result->Add(manager);
     return result;
@@ -118,12 +126,12 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
 
 System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass>>> Common::GetEmptyManagers()
 {
-    return System::Linq::Enumerable::Empty<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass> >();
+    return System::Linq::Enumerable::Empty<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ManagerTestClass>>();
 }
 
 System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>>> Common::GetClients()
 {
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>>> result = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>>>();
+    auto result = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ClientTestClass>>>();
     for (auto&& manager : System::IterateOver(GetManagers()))
     {
         for (auto&& contract : System::IterateOver(manager->get_Contracts()))
@@ -137,7 +145,7 @@ System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<As
 
 System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>> Common::GetContracts()
 {
-    System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>> result = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>>();
+    auto result = System::MakeObject<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::ApiExamples::TestData::TestClasses::ContractTestClass>>>();
     for (auto&& manager : System::IterateOver(GetManagers()))
     {
         for (auto&& contract : System::IterateOver(manager->get_Contracts()))
