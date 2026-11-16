@@ -9,6 +9,7 @@
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
 #include <system/console.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
 #include <drawing/rectangle_f.h>
@@ -206,8 +207,8 @@ void ExLayout::LayoutCollector()
     
     // Call the "GetNumPagesSpanned" method to count how many pages the content of our document spans.
     // Since the document is empty, that number of pages is currently zero.
-    ASPOSE_ASSERT_EQ(doc, layoutCollector->get_Document());
-    ASSERT_EQ(0, layoutCollector->GetNumPagesSpanned(doc));
+    ASPOSE_ASSERT_EQ(layoutCollector->get_Document(), doc);
+    ASSERT_EQ(layoutCollector->GetNumPagesSpanned(doc), 0);
     
     // Populate the document with 5 pages of content.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
@@ -221,12 +222,12 @@ void ExLayout::LayoutCollector()
     
     // Before the layout collector, we need to call the "UpdatePageLayout" method to give us
     // an accurate figure for any layout-related metric, such as the page count.
-    ASSERT_EQ(0, layoutCollector->GetNumPagesSpanned(doc));
+    ASSERT_EQ(layoutCollector->GetNumPagesSpanned(doc), 0);
     
     layoutCollector->Clear();
     doc->UpdatePageLayout();
     
-    ASSERT_EQ(5, layoutCollector->GetNumPagesSpanned(doc));
+    ASSERT_EQ(layoutCollector->GetNumPagesSpanned(doc), 5);
     
     // We can see the numbers of the start and end pages of any node and their overall page spans.
     System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(NodeType::Any, true);
@@ -239,14 +240,14 @@ void ExLayout::LayoutCollector()
     // We can iterate over the layout entities using a LayoutEnumerator.
     auto layoutEnumerator = System::MakeObject<Aspose::Words::Layout::LayoutEnumerator>(doc);
     
-    ASSERT_EQ(LayoutEntityType::Page, layoutEnumerator->get_Type());
+    ASSERT_EQ(layoutEnumerator->get_Type(), LayoutEntityType::Page);
     
     // The LayoutEnumerator can traverse the collection of layout entities like a tree.
     // We can also apply it to any node's corresponding layout entity.
     layoutEnumerator->set_Current(layoutCollector->GetEntity(doc->GetChild(NodeType::Paragraph, 1, true)));
     
-    ASSERT_EQ(LayoutEntityType::Span, layoutEnumerator->get_Type());
-    ASSERT_EQ(u"¶", layoutEnumerator->get_Text());
+    ASSERT_EQ(layoutEnumerator->get_Type(), LayoutEntityType::Span);
+    ASSERT_EQ(layoutEnumerator->get_Text(), u"¶");
     //ExEnd
 }
 
@@ -270,15 +271,15 @@ void ExLayout::LayoutEnumerator()
     // Create an enumerator that can traverse these entities like a tree.
     auto layoutEnumerator = System::MakeObject<Aspose::Words::Layout::LayoutEnumerator>(doc);
     
-    ASPOSE_ASSERT_EQ(doc, layoutEnumerator->get_Document());
+    ASPOSE_ASSERT_EQ(layoutEnumerator->get_Document(), doc);
     
     layoutEnumerator->MoveParent(LayoutEntityType::Page);
     
-    ASSERT_EQ(LayoutEntityType::Page, layoutEnumerator->get_Type());
-    ASSERT_THROW(static_cast<std::function<void()>>([&layoutEnumerator]() -> void
+    ASSERT_EQ(layoutEnumerator->get_Type(), LayoutEntityType::Page);
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&layoutEnumerator]() -> void
     {
         std::cout << layoutEnumerator->get_Text() << std::endl;
-    })(), System::InvalidOperationException);
+    }))(), System::InvalidOperationException);
     
     // We can call this method to make sure that the enumerator will be at the first layout entity.
     layoutEnumerator->Reset();

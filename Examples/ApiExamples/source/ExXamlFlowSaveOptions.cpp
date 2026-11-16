@@ -5,15 +5,15 @@
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
-#include <system/nullable.h>
+#include <system/object_ext.h>
 #include <system/io/file_stream.h>
 #include <system/io/file_mode.h>
 #include <system/io/file.h>
 #include <system/io/directory_info.h>
 #include <system/io/directory.h>
 #include <system/exceptions.h>
-#include <system/default.h>
 #include <system/console.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
 #include <cstdint>
@@ -81,7 +81,7 @@ RTTI_INFO_IMPL_HASH(3072051451u, ::Aspose::Words::ApiExamples::ExXamlFlowSaveOpt
 
 void ExXamlFlowSaveOptions::TestImageFolder(System::SharedPtr<Aspose::Words::ApiExamples::ExXamlFlowSaveOptions::ImageUriPrinter> callback)
 {
-    ASSERT_EQ(9, callback->get_Resources()->get_Count());
+    ASSERT_EQ(callback->get_Resources()->get_Count(), 9);
     for (auto&& resource : callback->get_Resources())
     {
         ASSERT_TRUE(System::IO::File::Exists(System::String::Format(u"{0}/{1}", callback->get_ImagesFolderAlias(), resource)));
@@ -130,7 +130,7 @@ void ExXamlFlowSaveOptions::ImageFolder()
     // to modify how we save the document to the XAML save format.
     auto options = System::MakeObject<Aspose::Words::Saving::XamlFlowSaveOptions>();
     
-    ASSERT_EQ(SaveFormat::XamlFlow, options->get_SaveFormat());
+    ASSERT_EQ(options->get_SaveFormat(), SaveFormat::XamlFlow);
     
     // Use the "ImagesFolder" property to assign a folder in the local file system into which
     // Aspose.Words will save all the document's linked images.
@@ -174,18 +174,12 @@ void ExXamlFlowSaveOptions::ProgressCallback(Aspose::Words::SaveFormat saveForma
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::XamlFlowSaveOptions>(saveFormat);
     saveOptions->set_ProgressCallback(System::MakeObject<Aspose::Words::ApiExamples::ExXamlFlowSaveOptions::SavingProgressCallback>());
     
-    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(static_cast<std::function<void()>>([&saveOptions, &doc, &ext]() -> void
+    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&saveOptions, &doc, &ext]() -> void
     {
         doc->Save(get_ArtifactsDir() + System::String::Format(u"XamlFlowSaveOptions.ProgressCallback.{0}", ext), saveOptions);
-    })(), System::OperationCanceledException, &exception)
+    }))(), System::OperationCanceledException, &exception)
     
-    System::Nullable<bool> actual = System::Default<System::Nullable<bool>>();
-    System::OperationCanceledException condExpression = exception;
-    if (condExpression != nullptr)
-    {
-        actual = condExpression->get_Message().Contains(u"EstimatedProgress");
-    }
-    ASSERT_TRUE(actual);
+    ASSERT_TRUE(System::SafeInvoke(exception, [&](auto&& expr){return expr->get_Message().Contains(u"EstimatedProgress");}));
 }
 
 namespace gtest_test

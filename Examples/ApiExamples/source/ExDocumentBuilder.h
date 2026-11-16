@@ -197,7 +197,6 @@ public:
     void MarkdownDocumentHorizontalRule();
     void MarkdownDocumentBulletedList();
     void LoadMarkdownDocumentAndAssertContent(System::String text, System::String styleName, bool isItalic, bool isBold);
-    void InsertOnlineVideoCustomThumbnail();
     void InsertOleObjectAsIcon();
     void PreserveBlocks();
     void PhoneticGuide();

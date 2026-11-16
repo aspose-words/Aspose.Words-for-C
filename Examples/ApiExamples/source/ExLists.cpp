@@ -11,6 +11,7 @@
 #include <system/console.h>
 #include <system/collections/list.h>
 #include <system/collections/ienumerable.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
 #include <drawing/color.h>
@@ -153,9 +154,9 @@ void ExLists::TestPrintOutAllLists(System::SharedPtr<Aspose::Words::Document> li
             {
                 return l->get_ListId() == list->get_ListId();
             })))->get_ListLevels()->idx_get(i);
-            ASSERT_EQ(expectedListLevel->get_NumberFormat(), list->get_ListLevels()->idx_get(i)->get_NumberFormat());
-            ASPOSE_ASSERT_EQ(expectedListLevel->get_NumberPosition(), list->get_ListLevels()->idx_get(i)->get_NumberPosition());
-            ASSERT_EQ(expectedListLevel->get_NumberStyle(), list->get_ListLevels()->idx_get(i)->get_NumberStyle());
+            ASSERT_EQ(list->get_ListLevels()->idx_get(i)->get_NumberFormat(), expectedListLevel->get_NumberFormat());
+            ASPOSE_ASSERT_EQ(list->get_ListLevels()->idx_get(i)->get_NumberPosition(), expectedListLevel->get_NumberPosition());
+            ASSERT_EQ(list->get_ListLevels()->idx_get(i)->get_NumberStyle(), expectedListLevel->get_NumberStyle());
         }
     }
 }
@@ -234,13 +235,13 @@ void ExLists::ApplyDefaultBulletsAndNumbers()
     // This paragraph is the first item. The first item of a numbered list will have a "1." as its list item symbol.
     builder->Writeln(u"Opening documents from different formats:");
     
-    ASSERT_EQ(0, builder->get_ListFormat()->get_ListLevelNumber());
+    ASSERT_EQ(builder->get_ListFormat()->get_ListLevelNumber(), 0);
     
     // Call the "ListIndent" method to increase the current list level,
     // which will start a new self-contained list, with a deeper indent, at the current item of the first list level.
     builder->get_ListFormat()->ListIndent();
     
-    ASSERT_EQ(1, builder->get_ListFormat()->get_ListLevelNumber());
+    ASSERT_EQ(builder->get_ListFormat()->get_ListLevelNumber(), 1);
     
     // These are the first three list items of the second list level, which will maintain a count
     // independent of the count of the first list level. According to the current list format,
@@ -252,7 +253,7 @@ void ExLists::ApplyDefaultBulletsAndNumbers()
     // Call the "ListOutdent" method to return to the previous list level.
     builder->get_ListFormat()->ListOutdent();
     
-    ASSERT_EQ(0, builder->get_ListFormat()->get_ListLevelNumber());
+    ASSERT_EQ(builder->get_ListFormat()->get_ListLevelNumber(), 0);
     
     // These two paragraphs will continue the count of the first list level.
     // These items will have symbols of "2.", and "3."
@@ -519,17 +520,17 @@ void ExLists::CreateCustomList()
     listLevel = doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(0);
     
     TestUtil::VerifyListLevel(u"\u0000", -36.0, NumberStyle::OrdinalText, listLevel);
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), listLevel->get_Font()->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(24.0, listLevel->get_Font()->get_Size());
-    ASSERT_EQ(21, listLevel->get_StartAt());
+    ASSERT_EQ(listLevel->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
+    ASPOSE_ASSERT_EQ(listLevel->get_Font()->get_Size(), 24.0);
+    ASSERT_EQ(listLevel->get_StartAt(), 21);
     
     listLevel = doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(1);
     
     TestUtil::VerifyListLevel(u"\xf0af", 144.0, NumberStyle::Bullet, listLevel);
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), listLevel->get_Font()->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(24.0, listLevel->get_Font()->get_Size());
-    ASSERT_EQ(1, listLevel->get_StartAt());
-    ASSERT_EQ(ListTrailingCharacter::Space, listLevel->get_TrailingCharacter());
+    ASSERT_EQ(listLevel->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASPOSE_ASSERT_EQ(listLevel->get_Font()->get_Size(), 24.0);
+    ASSERT_EQ(listLevel->get_StartAt(), 1);
+    ASSERT_EQ(listLevel->get_TrailingCharacter(), ListTrailingCharacter::Space);
 }
 
 namespace gtest_test
@@ -592,15 +593,15 @@ void ExLists::RestartNumberingUsingListCopy()
     
     list1 = doc->get_Lists()->idx_get(0);
     TestUtil::VerifyListLevel(u"\u0000)", 18.0, NumberStyle::Arabic, list1->get_ListLevels()->idx_get(0));
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), list1->get_ListLevels()->idx_get(0)->get_Font()->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(10.0, list1->get_ListLevels()->idx_get(0)->get_Font()->get_Size());
-    ASSERT_EQ(1, list1->get_ListLevels()->idx_get(0)->get_StartAt());
+    ASSERT_EQ(list1->get_ListLevels()->idx_get(0)->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
+    ASPOSE_ASSERT_EQ(list1->get_ListLevels()->idx_get(0)->get_Font()->get_Size(), 10.0);
+    ASSERT_EQ(list1->get_ListLevels()->idx_get(0)->get_StartAt(), 1);
     
     list2 = doc->get_Lists()->idx_get(1);
     TestUtil::VerifyListLevel(u"\u0000)", 18.0, NumberStyle::Arabic, list2->get_ListLevels()->idx_get(0));
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), list2->get_ListLevels()->idx_get(0)->get_Font()->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(10.0, list2->get_ListLevels()->idx_get(0)->get_Font()->get_Size());
-    ASSERT_EQ(10, list2->get_ListLevels()->idx_get(0)->get_StartAt());
+    ASSERT_EQ(list2->get_ListLevels()->idx_get(0)->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASPOSE_ASSERT_EQ(list2->get_ListLevels()->idx_get(0)->get_Font()->get_Size(), 10.0);
+    ASSERT_EQ(list2->get_ListLevels()->idx_get(0)->get_StartAt(), 10);
 }
 
 namespace gtest_test
@@ -642,7 +643,7 @@ void ExLists::CreateAndUseListStyle()
     ASSERT_TRUE(list1->get_IsListStyleDefinition());
     ASSERT_FALSE(list1->get_IsListStyleReference());
     ASSERT_TRUE(list1->get_IsMultiLevel());
-    ASPOSE_ASSERT_EQ(listStyle, list1->get_Style());
+    ASPOSE_ASSERT_EQ(list1->get_Style(), listStyle);
     
     // Change the appearance of all list levels in our list.
     for (auto&& level : list1->get_ListLevels())
@@ -661,7 +662,7 @@ void ExLists::CreateAndUseListStyle()
     
     ASSERT_FALSE(list2->get_IsListStyleDefinition());
     ASSERT_TRUE(list2->get_IsListStyleReference());
-    ASPOSE_ASSERT_EQ(listStyle, list2->get_Style());
+    ASPOSE_ASSERT_EQ(list2->get_Style(), listStyle);
     
     // Add some list items that our list will format.
     builder->get_ListFormat()->set_List(list2);
@@ -689,8 +690,8 @@ void ExLists::CreateAndUseListStyle()
     ASSERT_TRUE(list1->get_IsListStyleDefinition());
     ASSERT_FALSE(list1->get_IsListStyleReference());
     ASSERT_TRUE(list1->get_IsMultiLevel());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), list1->get_ListLevels()->idx_get(0)->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(u"Verdana", list1->get_ListLevels()->idx_get(0)->get_Font()->get_Name());
+    ASSERT_EQ(list1->get_ListLevels()->idx_get(0)->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASSERT_EQ(list1->get_ListLevels()->idx_get(0)->get_Font()->get_Name(), u"Verdana");
     ASSERT_TRUE(list1->get_ListLevels()->idx_get(0)->get_Font()->get_Bold());
     
     list2 = doc->get_Lists()->idx_get(1);
@@ -756,10 +757,10 @@ void ExLists::DetectBulletedParagraphs()
     doc = DocumentHelper::SaveOpen(doc);
     paras = doc->GetChildNodes(NodeType::Paragraph, true);
     
-    ASSERT_EQ(6, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_IsListItem();
-    }))));
+    }))), 6);
 }
 
 namespace gtest_test
@@ -787,20 +788,20 @@ void ExLists::RemoveBulletsFromParagraphs()
     builder->get_ListFormat()->RemoveNumbers();
     
     System::SharedPtr<Aspose::Words::NodeCollection> paras = doc->GetChildNodes(NodeType::Paragraph, true);
-    ASSERT_EQ(3, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_IsListItem();
-    }))));
+    }))), 3);
     
     for (auto&& paragraph : System::IterateOver<Aspose::Words::Paragraph>(paras))
     {
         paragraph->get_ListFormat()->RemoveNumbers();
     }
     
-    ASSERT_EQ(0, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_IsListItem();
-    }))));
+    }))), 0);
     //ExEnd
 }
 
@@ -828,10 +829,10 @@ void ExLists::ApplyExistingListToParagraphs()
     
     System::SharedPtr<Aspose::Words::NodeCollection> paras = doc->GetChildNodes(NodeType::Paragraph, true);
     
-    ASSERT_EQ(0, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_IsListItem();
-    }))));
+    }))), 0);
     
     doc->get_Lists()->Add(ListTemplate::NumberDefault);
     System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->idx_get(0);
@@ -842,23 +843,23 @@ void ExLists::ApplyExistingListToParagraphs()
         paragraph->get_ListFormat()->set_ListLevelNumber(2);
     }
     
-    ASSERT_EQ(3, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_IsListItem();
-    }))));
+    }))), 3);
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
     paras = doc->GetChildNodes(NodeType::Paragraph, true);
     
-    ASSERT_EQ(3, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_IsListItem();
-    }))));
-    ASSERT_EQ(3, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    }))), 3);
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_ListLevelNumber() == 2;
-    }))));
+    }))), 3);
 }
 
 namespace gtest_test
@@ -885,10 +886,10 @@ void ExLists::ApplyNewListToParagraphs()
     
     System::SharedPtr<Aspose::Words::NodeCollection> paras = doc->GetChildNodes(NodeType::Paragraph, true);
     
-    ASSERT_EQ(0, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_IsListItem();
-    }))));
+    }))), 0);
     
     System::SharedPtr<Aspose::Words::Lists::List> list = doc->get_Lists()->Add(ListTemplate::NumberUppercaseLetterDot);
     
@@ -898,23 +899,23 @@ void ExLists::ApplyNewListToParagraphs()
         paragraph->get_ListFormat()->set_ListLevelNumber(1);
     }
     
-    ASSERT_EQ(3, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_IsListItem();
-    }))));
+    }))), 3);
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
     paras = doc->GetChildNodes(NodeType::Paragraph, true);
     
-    ASSERT_EQ(3, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_IsListItem();
-    }))));
-    ASSERT_EQ(3, paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
+    }))), 3);
+    ASSERT_EQ(paras->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> n)>>([](System::SharedPtr<Aspose::Words::Node> n) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Paragraph>(n))->get_ListFormat()->get_ListLevelNumber() == 1;
-    }))));
+    }))), 3);
 }
 
 namespace gtest_test
@@ -1002,10 +1003,10 @@ void ExLists::ListDocument()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Lists::ListCollection> lists = doc->get_Lists();
-    ASPOSE_ASSERT_EQ(doc, lists->get_Document());
+    ASPOSE_ASSERT_EQ(lists->get_Document(), doc);
     
     System::SharedPtr<Aspose::Words::Lists::List> list = lists->Add(ListTemplate::BulletDefault);
-    ASPOSE_ASSERT_EQ(doc, list->get_Document());
+    ASPOSE_ASSERT_EQ(list->get_Document(), doc);
     
     std::cout << (System::String(u"Current list count: ") + lists->get_Count()) << std::endl;
     std::cout << (System::String(u"Is the first document list: ") + (System::ObjectExt::Equals(lists->idx_get(0), list))) << std::endl;
@@ -1016,10 +1017,10 @@ void ExLists::ListDocument()
     doc = DocumentHelper::SaveOpen(doc);
     lists = doc->get_Lists();
     
-    ASPOSE_ASSERT_EQ(doc, lists->get_Document());
-    ASSERT_EQ(1, lists->get_Count());
-    ASSERT_EQ(1, lists->idx_get(0)->get_ListId());
-    ASPOSE_ASSERT_EQ(lists->idx_get(0), lists->GetListByListId(1));
+    ASPOSE_ASSERT_EQ(lists->get_Document(), doc);
+    ASSERT_EQ(lists->get_Count(), 1);
+    ASSERT_EQ(lists->idx_get(0)->get_ListId(), 1);
+    ASPOSE_ASSERT_EQ(lists->GetListByListId(1), lists->idx_get(0));
 }
 
 namespace gtest_test
@@ -1102,14 +1103,14 @@ void ExLists::CreateListRestartAfterHigher()
     
     TestUtil::VerifyListLevel(u"Appendix \u0000", 18.0, NumberStyle::UppercaseLetter, listLevel);
     ASSERT_FALSE(listLevel->get_IsLegal());
-    ASSERT_EQ(-1, listLevel->get_RestartAfterLevel());
-    ASSERT_EQ(u"Heading 1", listLevel->get_LinkedStyle()->get_Name());
+    ASSERT_EQ(listLevel->get_RestartAfterLevel(), -1);
+    ASSERT_EQ(listLevel->get_LinkedStyle()->get_Name(), u"Heading 1");
     
     listLevel = doc->get_Lists()->idx_get(0)->get_ListLevels()->idx_get(1);
     
     TestUtil::VerifyListLevel(u"Section (\u0000.\u0001)", 54.0, NumberStyle::LeadingZero, listLevel);
     ASSERT_TRUE(listLevel->get_IsLegal());
-    ASSERT_EQ(0, listLevel->get_RestartAfterLevel());
+    ASSERT_EQ(listLevel->get_RestartAfterLevel(), 0);
     ASSERT_TRUE(System::TestTools::IsNull(listLevel->get_LinkedStyle()));
 }
 
@@ -1163,10 +1164,10 @@ void ExLists::GetListLabels()
     }
     //ExEnd
     
-    ASSERT_EQ(10, paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
+    ASSERT_EQ(paras->LINQ_OfType<System::SharedPtr<Aspose::Words::Paragraph>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Paragraph>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Paragraph> p)>>([](System::SharedPtr<Aspose::Words::Paragraph> p) -> bool
     {
         return p->get_ListFormat()->get_IsListItem();
-    }))));
+    }))), 10);
 }
 
 namespace gtest_test
@@ -1243,25 +1244,25 @@ void ExLists::GetCustomNumberStyleFormat()
         customNumberStyleFormat = listLevel->get_CustomNumberStyleFormat();
     }
     
-    ASSERT_EQ((u"001, 002, 003, ..."), customNumberStyleFormat);
+    ASSERT_EQ(customNumberStyleFormat, (u"001, 002, 003, ..."));
     
     // We can get value for the specified index of the list item.
-    ASSERT_EQ(u"iv", ListLevel::GetEffectiveValue(4, NumberStyle::LowercaseRoman, nullptr));
-    ASSERT_EQ(u"005", ListLevel::GetEffectiveValue(5, NumberStyle::Custom, customNumberStyleFormat));
+    ASSERT_EQ(ListLevel::GetEffectiveValue(4, NumberStyle::LowercaseRoman, nullptr), u"iv");
+    ASSERT_EQ(ListLevel::GetEffectiveValue(5, NumberStyle::Custom, customNumberStyleFormat), u"005");
     //ExEnd
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&customNumberStyleFormat]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&customNumberStyleFormat]() -> void
     {
         ListLevel::GetEffectiveValue(5, NumberStyle::LowercaseRoman, customNumberStyleFormat);
-    })(), System::ArgumentException);
-    ASSERT_THROW(static_cast<std::function<void()>>([]() -> void
+    }))(), System::ArgumentException);
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([]() -> void
     {
         ListLevel::GetEffectiveValue(5, NumberStyle::Custom, nullptr);
-    })(), System::ArgumentException);
-    ASSERT_THROW(static_cast<std::function<void()>>([]() -> void
+    }))(), System::ArgumentException);
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([]() -> void
     {
         ListLevel::GetEffectiveValue(5, NumberStyle::Custom, u"....");
-    })(), System::ArgumentException);
+    }))(), System::ArgumentException);
 }
 
 namespace gtest_test
@@ -1307,17 +1308,17 @@ void ExLists::SetCustomNumberStyleFormat()
     doc->UpdateListLabels();
     
     System::SharedPtr<Aspose::Words::ParagraphCollection> paras = doc->get_FirstSection()->get_Body()->get_Paragraphs();
-    ASSERT_EQ(u"001.", paras->idx_get(0)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(u"0001.", paras->idx_get(1)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(u"0002.", paras->idx_get(2)->get_ListLabel()->get_LabelString());
+    ASSERT_EQ(paras->idx_get(0)->get_ListLabel()->get_LabelString(), u"001.");
+    ASSERT_EQ(paras->idx_get(1)->get_ListLabel()->get_LabelString(), u"0001.");
+    ASSERT_EQ(paras->idx_get(2)->get_ListLabel()->get_LabelString(), u"0002.");
     
     paras->idx_get(1)->get_ListFormat()->get_ListLevel()->set_CustomNumberStyleFormat(u"001, 002, 003, ...");
     
     doc->UpdateListLabels();
     
-    ASSERT_EQ(u"001.", paras->idx_get(0)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(u"001.", paras->idx_get(1)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(u"002.", paras->idx_get(2)->get_ListLabel()->get_LabelString());
+    ASSERT_EQ(paras->idx_get(0)->get_ListLabel()->get_LabelString(), u"001.");
+    ASSERT_EQ(paras->idx_get(1)->get_ListLabel()->get_LabelString(), u"001.");
+    ASSERT_EQ(paras->idx_get(2)->get_ListLabel()->get_LabelString(), u"002.");
     //ExEnd:SetCustomNumberStyleFormat
 }
 

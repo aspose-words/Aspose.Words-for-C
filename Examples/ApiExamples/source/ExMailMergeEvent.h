@@ -128,6 +128,15 @@ private:
         
     };
     
+    //ExStart
+    //ExFor:MailMerge.FieldMergingCallback
+    //ExFor:MailMerge.ExecuteWithRegions(IDataReader,String)
+    //ExFor:IFieldMergingCallback
+    //ExFor:ImageFieldMergingArgs
+    //ExFor:IFieldMergingCallback.FieldMerging
+    //ExFor:IFieldMergingCallback.ImageFieldMerging
+    //ExFor:ImageFieldMergingArgs.ImageStream
+    //ExSummary:Shows how to insert images stored in a database BLOB field into a report (HandleMergeImageFieldFromBlob).
     class HandleMergeImageFieldFromBlob : public IFieldMergingCallback
     {
         typedef HandleMergeImageFieldFromBlob ThisType;

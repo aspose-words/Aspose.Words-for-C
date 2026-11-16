@@ -171,9 +171,9 @@ void ExTableColumn::RemoveColumnFromTable()
     
     doc->Save(get_ArtifactsDir() + u"TableColumn.RemoveColumn.doc");
     
-    ASSERT_EQ(16, table->GetChildNodes(NodeType::Cell, true)->get_Count());
-    ASSERT_EQ(u"Cell 7 contents", table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->ToString(SaveFormat::Text).Trim());
-    ASSERT_EQ(u"Cell 11 contents", table->get_LastRow()->get_Cells()->idx_get(2)->ToString(SaveFormat::Text).Trim());
+    ASSERT_EQ(table->GetChildNodes(NodeType::Cell, true)->get_Count(), 16);
+    ASSERT_EQ(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->ToString(SaveFormat::Text).Trim(), u"Cell 7 contents");
+    ASSERT_EQ(table->get_LastRow()->get_Cells()->idx_get(2)->ToString(SaveFormat::Text).Trim(), u"Cell 11 contents");
 }
 
 namespace gtest_test
@@ -205,9 +205,9 @@ void ExTableColumn::Insert()
     
     doc->Save(get_ArtifactsDir() + u"TableColumn.Insert.doc");
     
-    ASSERT_EQ(24, table->GetChildNodes(NodeType::Cell, true)->get_Count());
-    ASSERT_EQ(u"Column Text 0", table->get_FirstRow()->get_Cells()->idx_get(1)->ToString(SaveFormat::Text).Trim());
-    ASSERT_EQ(u"Column Text 3", table->get_LastRow()->get_Cells()->idx_get(1)->ToString(SaveFormat::Text).Trim());
+    ASSERT_EQ(table->GetChildNodes(NodeType::Cell, true)->get_Count(), 24);
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->ToString(SaveFormat::Text).Trim(), u"Column Text 0");
+    ASSERT_EQ(table->get_LastRow()->get_Cells()->idx_get(1)->ToString(SaveFormat::Text).Trim(), u"Column Text 3");
 }
 
 namespace gtest_test
@@ -228,7 +228,7 @@ void ExTableColumn::TableColumnToTxt()
     System::SharedPtr<Aspose::Words::ApiExamples::ExTableColumn::Column> column = ExTableColumn::Column::FromIndex(table, 0);
     std::cout << column->ToTxt() << std::endl;
     
-    ASSERT_EQ(u"\rRow 1\rRow 2\rRow 3\r", column->ToTxt());
+    ASSERT_EQ(column->ToTxt(), u"\rRow 1\rRow 2\rRow 3\r");
 }
 
 namespace gtest_test

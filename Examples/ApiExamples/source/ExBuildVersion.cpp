@@ -58,7 +58,7 @@ void ExBuildVersion::PrintBuildVersionInfo()
     std::cout << System::String::Format(u"I am currently using {0}, version number {1}!", BuildVersionInfo::get_Product(), BuildVersionInfo::get_Version()) << std::endl;
     //ExEnd
     
-    ASSERT_EQ(u"Aspose.Words for C++", BuildVersionInfo::get_Product());
+    ASSERT_EQ(BuildVersionInfo::get_Product(), u"Aspose.Words for C++");
     ASSERT_TRUE(System::Text::RegularExpressions::Regex::IsMatch(BuildVersionInfo::get_Version(), u"[0-9]{2}.[0-9]{1,2}"));
 }
 

@@ -101,7 +101,7 @@ void ExTxtLoadOptions::DetectNumberingWithWhitespaces(bool detectNumberingWithWh
     
     if (detectNumberingWithWhitespaces)
     {
-        ASSERT_EQ(4, doc->get_Lists()->get_Count());
+        ASSERT_EQ(doc->get_Lists()->get_Count(), 4);
         ASSERT_TRUE(doc->get_FirstSection()->get_Body()->get_Paragraphs()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> p)>>([](System::SharedPtr<Aspose::Words::Node> p) -> bool
         {
             return p->GetText().Contains(u"Fourth list") && (System::ExplicitCast<Aspose::Words::Paragraph>(p))->get_IsListItem();
@@ -109,7 +109,7 @@ void ExTxtLoadOptions::DetectNumberingWithWhitespaces(bool detectNumberingWithWh
     }
     else
     {
-        ASSERT_EQ(3, doc->get_Lists()->get_Count());
+        ASSERT_EQ(doc->get_Lists()->get_Count(), 3);
         ASSERT_FALSE(doc->get_FirstSection()->get_Body()->get_Paragraphs()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> p)>>([](System::SharedPtr<Aspose::Words::Node> p) -> bool
         {
             return p->GetText().Contains(u"Fourth list") && (System::ExplicitCast<Aspose::Words::Paragraph>(p))->get_IsListItem();
@@ -180,9 +180,9 @@ void ExTxtLoadOptions::TrailSpaces(Aspose::Words::Loading::TxtLeadingSpacesOptio
     switch (txtLeadingSpacesOptions)
     {
         case TxtLeadingSpacesOptions::ConvertToIndent:
-            ASPOSE_ASSERT_EQ(37.8, paragraphs->idx_get(0)->get_ParagraphFormat()->get_FirstLineIndent());
-            ASPOSE_ASSERT_EQ(25.2, paragraphs->idx_get(1)->get_ParagraphFormat()->get_FirstLineIndent());
-            ASPOSE_ASSERT_EQ(6.3, paragraphs->idx_get(2)->get_ParagraphFormat()->get_FirstLineIndent());
+            ASPOSE_ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_FirstLineIndent(), 37.8);
+            ASPOSE_ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_FirstLineIndent(), 25.2);
+            ASPOSE_ASSERT_EQ(paragraphs->idx_get(2)->get_ParagraphFormat()->get_FirstLineIndent(), 6.3);
             ASSERT_TRUE(paragraphs->idx_get(0)->GetText().StartsWith(u"Line 1"));
             ASSERT_TRUE(paragraphs->idx_get(1)->GetText().StartsWith(u"Line 2"));
             ASSERT_TRUE(paragraphs->idx_get(2)->GetText().StartsWith(u"Line 3"));
@@ -308,7 +308,7 @@ void ExTxtLoadOptions::AutoNumberingDetection()
         }
     }
     
-    ASSERT_EQ(0, listItemsCount);
+    ASSERT_EQ(listItemsCount, 0);
 }
 
 namespace gtest_test
@@ -347,8 +347,8 @@ void ExTxtLoadOptions::DetectHyperlinks()
             std::cout << field->get_Result() << std::endl;
         }
         
-        ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_Result().Trim(), u"https://www.aspose.com/");
-        ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->get_Result().Trim(), u"https://docs.aspose.com/words/net/");
+        ASSERT_EQ(u"https://www.aspose.com/", doc->get_Range()->get_Fields()->idx_get(0)->get_Result().Trim());
+        ASSERT_EQ(u"https://docs.aspose.com/words/net/", doc->get_Range()->get_Fields()->idx_get(1)->get_Result().Trim());
     }
     //ExEnd:DetectHyperlinks
 }

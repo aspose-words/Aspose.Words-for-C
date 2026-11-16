@@ -34,6 +34,7 @@
 #include <system/console.h>
 #include <system/collections/ienumerator.h>
 #include <system/collections/ienumerable.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
 #include <drawing/color_translator.h>
@@ -235,7 +236,7 @@ Aspose::Words::Replacing::ReplaceAction ExField::InsertTcFieldHandler::Replacing
     return ReplaceAction::Skip;
 }
 
-RTTI_INFO_IMPL_HASH(707388106u, ::Aspose::Words::ApiExamples::ExField::OleDbFieldDatabaseProvider, ThisTypeBaseTypesInfo);
+RTTI_INFO_IMPL_HASH(652372560u, ::Aspose::Words::ApiExamples::ExField::SqliteFieldDatabaseProvider, ThisTypeBaseTypesInfo);
 
 RTTI_INFO_IMPL_HASH(2554972784u, ::Aspose::Words::ApiExamples::ExField::MyPromptRespondent, ThisTypeBaseTypesInfo);
 
@@ -307,10 +308,10 @@ void ExField::MergedImageResizer::ImageFieldMerging(System::SharedPtr<Aspose::Wo
     args->set_ImageWidth(System::MakeObject<Aspose::Words::Fields::MergeFieldImageDimension>(mImageWidth, mUnit));
     args->set_ImageHeight(System::MakeObject<Aspose::Words::Fields::MergeFieldImageDimension>(mImageHeight, mUnit));
     
-    ASPOSE_ASSERT_EQ(mImageWidth, args->get_ImageWidth()->get_Value());
-    ASSERT_EQ(mUnit, args->get_ImageWidth()->get_Unit());
-    ASPOSE_ASSERT_EQ(mImageHeight, args->get_ImageHeight()->get_Value());
-    ASSERT_EQ(mUnit, args->get_ImageHeight()->get_Unit());
+    ASPOSE_ASSERT_EQ(args->get_ImageWidth()->get_Value(), mImageWidth);
+    ASSERT_EQ(args->get_ImageWidth()->get_Unit(), mUnit);
+    ASPOSE_ASSERT_EQ(args->get_ImageHeight()->get_Value(), mImageHeight);
+    ASSERT_EQ(args->get_ImageHeight()->get_Unit(), mUnit);
     ASSERT_TRUE(System::TestTools::IsNull(args->get_Shape()));
 }
 
@@ -390,7 +391,7 @@ System::SharedPtr<Aspose::Words::Fields::ComparisonEvaluationResult> ExField::Co
 
 System::SharedPtr<Aspose::Words::ApiExamples::ExField::ComparisonExpressionEvaluator> ExField::ComparisonExpressionEvaluator::AssertInvocationsCount(int32_t expected)
 {
-    EXPECT_EQ(expected, mInvocations->get_Count());
+    EXPECT_EQ(mInvocations->get_Count(), expected);
     return System::MakeSharedPtr(this);
 }
 
@@ -398,9 +399,9 @@ System::SharedPtr<Aspose::Words::ApiExamples::ExField::ComparisonExpressionEvalu
 {
     System::ArrayPtr<System::String> arguments = mInvocations->idx_get(invocationIndex);
     
-    EXPECT_EQ(expectedLeftExpression, arguments[0]);
-    EXPECT_EQ(expectedComparisonOperator, arguments[1]);
-    EXPECT_EQ(expectedRightExpression, arguments[2]);
+    EXPECT_EQ(arguments[0], expectedLeftExpression);
+    EXPECT_EQ(arguments[1], expectedComparisonOperator);
+    EXPECT_EQ(arguments[2], expectedRightExpression);
     
     return System::MakeSharedPtr(this);
 }
@@ -502,7 +503,7 @@ void ExField::TestFieldAutoNumLgl(System::SharedPtr<Aspose::Words::Document> doc
     {
         TestUtil::VerifyField(FieldType::FieldAutoNumLegal, u" AUTONUMLGL  \\s : \\e", System::String::Empty, field);
         
-        ASSERT_EQ(u":", field->get_SeparatorCharacter());
+        ASSERT_EQ(field->get_SeparatorCharacter(), u":");
         ASSERT_TRUE(field->get_RemoveTrailingPeriod());
     }
 }
@@ -527,20 +528,20 @@ void ExField::TestFieldAutoTextList(System::SharedPtr<Aspose::Words::Document> d
 {
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASSERT_EQ(3, doc->get_GlossaryDocument()->get_Count());
-    ASSERT_EQ(u"AutoText 1", doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(0)->get_Name());
-    ASSERT_EQ(u"Contents of AutoText 1", doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(0)->GetText().Trim());
-    ASSERT_EQ(u"AutoText 2", doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(1)->get_Name());
-    ASSERT_EQ(u"Contents of AutoText 2", doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(1)->GetText().Trim());
-    ASSERT_EQ(u"AutoText 3", doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(2)->get_Name());
-    ASSERT_EQ(u"Contents of AutoText 3", doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(2)->GetText().Trim());
+    ASSERT_EQ(doc->get_GlossaryDocument()->get_Count(), 3);
+    ASSERT_EQ(doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(0)->get_Name(), u"AutoText 1");
+    ASSERT_EQ(doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(0)->GetText().Trim(), u"Contents of AutoText 1");
+    ASSERT_EQ(doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(1)->get_Name(), u"AutoText 2");
+    ASSERT_EQ(doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(1)->GetText().Trim(), u"Contents of AutoText 2");
+    ASSERT_EQ(doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(2)->get_Name(), u"AutoText 3");
+    ASSERT_EQ(doc->get_GlossaryDocument()->get_BuildingBlocks()->idx_get(2)->GetText().Trim(), u"Contents of AutoText 3");
     
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldAutoTextList>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldAutoTextList, u" AUTOTEXTLIST  \"Right click here to select an AutoText block\" \\s \"Heading 1\" \\t \"Hover tip text for AutoTextList goes here\"", System::String::Empty, field);
-    ASSERT_EQ(u"Right click here to select an AutoText block", field->get_EntryName());
-    ASSERT_EQ(u"Heading 1", field->get_ListStyle());
-    ASSERT_EQ(u"Hover tip text for AutoTextList goes here", field->get_ScreenTip());
+    ASSERT_EQ(field->get_EntryName(), u"Right click here to select an AutoText block");
+    ASSERT_EQ(field->get_ListStyle(), u"Heading 1");
+    ASSERT_EQ(field->get_ScreenTip(), u"Hover tip text for AutoTextList goes here");
 }
 
 void ExField::InsertNewPageWithHeading(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String captionText, System::String styleName)
@@ -557,19 +558,19 @@ void ExField::TestFieldToc(System::SharedPtr<Aspose::Words::Document> doc)
     doc = DocumentHelper::SaveOpen(doc);
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
-    ASSERT_EQ(u"Quote; 6; Intense Quote; 7", field->get_CustomStyles());
-    ASSERT_EQ(u"-", field->get_EntrySeparator());
-    ASSERT_EQ(u"1-3", field->get_HeadingLevelRange());
-    ASSERT_EQ(u"2-5", field->get_PageNumberOmittingLevelRange());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark");
+    ASSERT_EQ(field->get_CustomStyles(), u"Quote; 6; Intense Quote; 7");
+    ASSERT_EQ(field->get_EntrySeparator(), u"-");
+    ASSERT_EQ(field->get_HeadingLevelRange(), u"1-3");
+    ASSERT_EQ(field->get_PageNumberOmittingLevelRange(), u"2-5");
     ASSERT_FALSE(field->get_HideInWebLayout());
     ASSERT_TRUE(field->get_InsertHyperlinks());
     ASSERT_TRUE(field->get_PreserveLineBreaks());
     ASSERT_TRUE(field->get_PreserveTabs());
     ASSERT_TRUE(field->UpdatePageNumbers());
     ASSERT_FALSE(field->get_UseParagraphOutlineLevel());
-    ASSERT_EQ(u" TOC  \\b MyBookmark \\t \"Quote; 6; Intense Quote; 7\" \\o 1-3 \\n 2-5 \\p - \\h \\x \\w", field->GetFieldCode());
-    ASSERT_EQ(System::String(u"\u0013 HYPERLINK \\l \"_Toc256000001\" \u0014First entry-\u0013 PAGEREF _Toc256000001 \\h \u00142\u0015\u0015\r") + u"\u0013 HYPERLINK \\l \"_Toc256000002\" \u0014Second entry-\u0013 PAGEREF _Toc256000002 \\h \u00143\u0015\u0015\r" + u"\u0013 HYPERLINK \\l \"_Toc256000003\" \u0014Third entry-\u0013 PAGEREF _Toc256000003 \\h \u00144\u0015\u0015\r" + u"\u0013 HYPERLINK \\l \"_Toc256000004\" \u0014Fourth entry-\u0013 PAGEREF _Toc256000004 \\h \u00145\u0015\u0015\r" + u"\u0013 HYPERLINK \\l \"_Toc256000005\" \u0014Fifth entry\u0015\r" + u"\u0013 HYPERLINK \\l \"_Toc256000006\" \u0014Sixth entry\u0015\r", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" TOC  \\b MyBookmark \\t \"Quote; 6; Intense Quote; 7\" \\o 1-3 \\n 2-5 \\p - \\h \\x \\w");
+    ASSERT_EQ(field->get_Result(), System::String(u"\u0013 HYPERLINK \\l \"_Toc256000001\" \u0014First entry-\u0013 PAGEREF _Toc256000001 \\h \u00142\u0015\u0015\r") + u"\u0013 HYPERLINK \\l \"_Toc256000002\" \u0014Second entry-\u0013 PAGEREF _Toc256000002 \\h \u00143\u0015\u0015\r" + u"\u0013 HYPERLINK \\l \"_Toc256000003\" \u0014Third entry-\u0013 PAGEREF _Toc256000003 \\h \u00144\u0015\u0015\r" + u"\u0013 HYPERLINK \\l \"_Toc256000004\" \u0014Fourth entry-\u0013 PAGEREF _Toc256000004 \\h \u00145\u0015\u0015\r" + u"\u0013 HYPERLINK \\l \"_Toc256000005\" \u0014Fifth entry\u0015\r" + u"\u0013 HYPERLINK \\l \"_Toc256000006\" \u0014Sixth entry\u0015\r");
 }
 
 void ExField::InsertTocEntry(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String text, System::String typeIdentifier, System::String entryLevel)
@@ -587,40 +588,40 @@ void ExField::TestFieldTocEntryIdentifier(System::SharedPtr<Aspose::Words::Docum
     auto fieldToc = System::ExplicitCast<Aspose::Words::Fields::FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldTOC, u" TOC  \\f A \\l 1-3", u"TC field 1\rTC field 2\r", fieldToc);
-    ASSERT_EQ(u"A", fieldToc->get_EntryIdentifier());
-    ASSERT_EQ(u"1-3", fieldToc->get_EntryLevelRange());
+    ASSERT_EQ(fieldToc->get_EntryIdentifier(), u"A");
+    ASSERT_EQ(fieldToc->get_EntryLevelRange(), u"1-3");
     
     auto fieldTc = System::ExplicitCast<Aspose::Words::Fields::FieldTC>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldTOCEntry, u" TC  \"TC field 1\" \\n \\f A \\l 1", System::String::Empty, fieldTc);
     ASSERT_TRUE(fieldTc->get_OmitPageNumber());
-    ASSERT_EQ(u"TC field 1", fieldTc->get_Text());
-    ASSERT_EQ(u"A", fieldTc->get_TypeIdentifier());
-    ASSERT_EQ(u"1", fieldTc->get_EntryLevel());
+    ASSERT_EQ(fieldTc->get_Text(), u"TC field 1");
+    ASSERT_EQ(fieldTc->get_TypeIdentifier(), u"A");
+    ASSERT_EQ(fieldTc->get_EntryLevel(), u"1");
     
     fieldTc = System::ExplicitCast<Aspose::Words::Fields::FieldTC>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldTOCEntry, u" TC  \"TC field 2\" \\n \\f A \\l 2", System::String::Empty, fieldTc);
     ASSERT_TRUE(fieldTc->get_OmitPageNumber());
-    ASSERT_EQ(u"TC field 2", fieldTc->get_Text());
-    ASSERT_EQ(u"A", fieldTc->get_TypeIdentifier());
-    ASSERT_EQ(u"2", fieldTc->get_EntryLevel());
+    ASSERT_EQ(fieldTc->get_Text(), u"TC field 2");
+    ASSERT_EQ(fieldTc->get_TypeIdentifier(), u"A");
+    ASSERT_EQ(fieldTc->get_EntryLevel(), u"2");
     
     fieldTc = System::ExplicitCast<Aspose::Words::Fields::FieldTC>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldTOCEntry, u" TC  \"TC field 3\" \\n \\f B \\l 1", System::String::Empty, fieldTc);
     ASSERT_TRUE(fieldTc->get_OmitPageNumber());
-    ASSERT_EQ(u"TC field 3", fieldTc->get_Text());
-    ASSERT_EQ(u"B", fieldTc->get_TypeIdentifier());
-    ASSERT_EQ(u"1", fieldTc->get_EntryLevel());
+    ASSERT_EQ(fieldTc->get_Text(), u"TC field 3");
+    ASSERT_EQ(fieldTc->get_TypeIdentifier(), u"B");
+    ASSERT_EQ(fieldTc->get_EntryLevel(), u"1");
     
     fieldTc = System::ExplicitCast<Aspose::Words::Fields::FieldTC>(doc->get_Range()->get_Fields()->idx_get(4));
     
     TestUtil::VerifyField(FieldType::FieldTOCEntry, u" TC  \"TC field 4\" \\n \\f A \\l 5", System::String::Empty, fieldTc);
     ASSERT_TRUE(fieldTc->get_OmitPageNumber());
-    ASSERT_EQ(u"TC field 4", fieldTc->get_Text());
-    ASSERT_EQ(u"A", fieldTc->get_TypeIdentifier());
-    ASSERT_EQ(u"5", fieldTc->get_EntryLevel());
+    ASSERT_EQ(fieldTc->get_Text(), u"TC field 4");
+    ASSERT_EQ(fieldTc->get_TypeIdentifier(), u"A");
+    ASSERT_EQ(fieldTc->get_EntryLevel(), u"5");
 }
 
 System::SharedPtr<Aspose::Words::Fields::FieldIncludeText> ExField::CreateFieldIncludeText(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String sourceFullName, bool lockFields, System::String mimeType, System::String textConverter, System::String encoding)
@@ -640,13 +641,13 @@ void ExField::TestFieldIncludeText(System::SharedPtr<Aspose::Words::Document> do
     doc = DocumentHelper::SaveOpen(doc);
     
     auto fieldIncludeText = System::ExplicitCast<Aspose::Words::Fields::FieldIncludeText>(doc->get_Range()->get_Fields()->idx_get(0));
-    ASSERT_EQ(get_MyDir() + u"CD collection data.xml", fieldIncludeText->get_SourceFullName());
-    ASSERT_EQ(get_MyDir() + u"CD collection XSL transformation.xsl", fieldIncludeText->get_XslTransformation());
+    ASSERT_EQ(fieldIncludeText->get_SourceFullName(), get_MyDir() + u"CD collection data.xml");
+    ASSERT_EQ(fieldIncludeText->get_XslTransformation(), get_MyDir() + u"CD collection XSL transformation.xsl");
     ASSERT_FALSE(fieldIncludeText->get_LockFields());
-    ASSERT_EQ(u"text/xml", fieldIncludeText->get_MimeType());
-    ASSERT_EQ(u"XML", fieldIncludeText->get_TextConverter());
-    ASSERT_EQ(u"ISO-8859-1", fieldIncludeText->get_Encoding());
-    ASSERT_EQ(System::String(u" INCLUDETEXT  \"") + get_MyDir().Replace(u"\\", u"\\\\") + u"CD collection data.xml\" \\m text/xml \\c XML \\e ISO-8859-1 \\t \"" + get_MyDir().Replace(u"\\", u"\\\\") + u"CD collection XSL transformation.xsl\"", fieldIncludeText->GetFieldCode());
+    ASSERT_EQ(fieldIncludeText->get_MimeType(), u"text/xml");
+    ASSERT_EQ(fieldIncludeText->get_TextConverter(), u"XML");
+    ASSERT_EQ(fieldIncludeText->get_Encoding(), u"ISO-8859-1");
+    ASSERT_EQ(fieldIncludeText->GetFieldCode(), System::String(u" INCLUDETEXT  \"") + get_MyDir().Replace(u"\\", u"\\\\") + u"CD collection data.xml\" \\m text/xml \\c XML \\e ISO-8859-1 \\t \"" + get_MyDir().Replace(u"\\", u"\\\\") + u"CD collection XSL transformation.xsl\"");
     ASSERT_TRUE(fieldIncludeText->get_Result().StartsWith(u"My CD Collection"));
     
     auto cdCollectionData = System::MakeObject<System::Xml::XmlDocument>();
@@ -670,31 +671,31 @@ void ExField::TestFieldIncludeText(System::SharedPtr<Aspose::Words::Document> do
                 // When on the first row from the input document's table, ensure that all table's cells match all XML element Names.
                 for (int32_t k = 0; k < table->get_Rows()->get_Count() - 1; k++)
                 {
-                    ASSERT_EQ(catalogData->get_ChildNodes()->idx_get(k)->get_ChildNodes()->idx_get(j)->get_Name(), table->get_Rows()->idx_get(i)->get_Cells()->idx_get(j)->GetText().Replace(ControlChar::Cell(), System::String::Empty).ToLower());
+                    ASSERT_EQ(table->get_Rows()->idx_get(i)->get_Cells()->idx_get(j)->GetText().Replace(ControlChar::Cell(), System::String::Empty).ToLower(), catalogData->get_ChildNodes()->idx_get(k)->get_ChildNodes()->idx_get(j)->get_Name());
                 }
                 
                 // Also, make sure that the whole first row has the same color as the XSL transform.
-                ASSERT_EQ(cdCollectionXslTransformation->SelectNodes(u"//xsl:stylesheet/xsl:template/html/body/table/tr", manager)->idx_get(0)->get_Attributes()->GetNamedItem(u"bgcolor")->get_Value(), System::Drawing::ColorTranslator::ToHtml(table->get_Rows()->idx_get(i)->get_Cells()->idx_get(j)->get_CellFormat()->get_Shading()->get_BackgroundPatternColor()).ToLower());
+                ASSERT_EQ(System::Drawing::ColorTranslator::ToHtml(table->get_Rows()->idx_get(i)->get_Cells()->idx_get(j)->get_CellFormat()->get_Shading()->get_BackgroundPatternColor()).ToLower(), cdCollectionXslTransformation->SelectNodes(u"//xsl:stylesheet/xsl:template/html/body/table/tr", manager)->idx_get(0)->get_Attributes()->GetNamedItem(u"bgcolor")->get_Value());
             }
             else
             {
                 // When on all other rows of the input document's table, ensure that cell contents match XML element Values.
-                ASSERT_EQ(catalogData->get_ChildNodes()->idx_get(i - 1)->get_ChildNodes()->idx_get(j)->get_FirstChild()->get_Value(), table->get_Rows()->idx_get(i)->get_Cells()->idx_get(j)->GetText().Replace(ControlChar::Cell(), System::String::Empty));
-                ASPOSE_ASSERT_EQ(System::Drawing::Color::Empty, table->get_Rows()->idx_get(i)->get_Cells()->idx_get(j)->get_CellFormat()->get_Shading()->get_BackgroundPatternColor());
+                ASSERT_EQ(table->get_Rows()->idx_get(i)->get_Cells()->idx_get(j)->GetText().Replace(ControlChar::Cell(), System::String::Empty), catalogData->get_ChildNodes()->idx_get(i - 1)->get_ChildNodes()->idx_get(j)->get_FirstChild()->get_Value());
+                ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(i)->get_Cells()->idx_get(j)->get_CellFormat()->get_Shading()->get_BackgroundPatternColor(), System::Drawing::Color::Empty);
             }
             
-            ASPOSE_ASSERT_EQ(System::Double::Parse(cdCollectionXslTransformation->SelectNodes(u"//xsl:stylesheet/xsl:template/html/body/table", manager)->idx_get(0)->get_Attributes()->GetNamedItem(u"border")->get_Value()) * 0.75, table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Bottom()->get_LineWidth());
+            ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Bottom()->get_LineWidth(), System::Double::Parse(cdCollectionXslTransformation->SelectNodes(u"//xsl:stylesheet/xsl:template/html/body/table", manager)->idx_get(0)->get_Attributes()->GetNamedItem(u"border")->get_Value()) * 0.75);
         }
     }
     
     fieldIncludeText = System::ExplicitCast<Aspose::Words::Fields::FieldIncludeText>(doc->get_Range()->get_Fields()->idx_get(1));
-    ASSERT_EQ(get_MyDir() + u"CD collection data.xml", fieldIncludeText->get_SourceFullName());
+    ASSERT_EQ(fieldIncludeText->get_SourceFullName(), get_MyDir() + u"CD collection data.xml");
     ASSERT_TRUE(System::TestTools::IsNull(fieldIncludeText->get_XslTransformation()));
     ASSERT_FALSE(fieldIncludeText->get_LockFields());
-    ASSERT_EQ(u"text/xml", fieldIncludeText->get_MimeType());
-    ASSERT_EQ(u"XML", fieldIncludeText->get_TextConverter());
-    ASSERT_EQ(u"ISO-8859-1", fieldIncludeText->get_Encoding());
-    ASSERT_EQ(System::String(u" INCLUDETEXT  \"") + get_MyDir().Replace(u"\\", u"\\\\") + u"CD collection data.xml\" \\m text/xml \\c XML \\e ISO-8859-1 \\n xmlns:n='myNamespace' \\x /catalog/cd/title", fieldIncludeText->GetFieldCode());
+    ASSERT_EQ(fieldIncludeText->get_MimeType(), u"text/xml");
+    ASSERT_EQ(fieldIncludeText->get_TextConverter(), u"XML");
+    ASSERT_EQ(fieldIncludeText->get_Encoding(), u"ISO-8859-1");
+    ASSERT_EQ(fieldIncludeText->GetFieldCode(), System::String(u" INCLUDETEXT  \"") + get_MyDir().Replace(u"\\", u"\\\\") + u"CD collection data.xml\" \\m text/xml \\c XML \\e ISO-8859-1 \\n xmlns:n='myNamespace' \\x /catalog/cd/title");
     
     System::String expectedFieldResult = u"";
     for (int32_t i = 0; i < catalogData->get_ChildNodes()->get_Count(); i++)
@@ -702,53 +703,53 @@ void ExField::TestFieldIncludeText(System::SharedPtr<Aspose::Words::Document> do
         expectedFieldResult += catalogData->get_ChildNodes()->idx_get(i)->get_ChildNodes()->idx_get(0)->get_ChildNodes()->idx_get(0)->get_Value();
     }
     
-    ASSERT_EQ(expectedFieldResult, fieldIncludeText->get_Result());
+    ASSERT_EQ(fieldIncludeText->get_Result(), expectedFieldResult);
 }
 
 void ExField::TestMergeFieldImageDimension(System::SharedPtr<Aspose::Words::Document> doc)
 {
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASSERT_EQ(0, doc->get_Range()->get_Fields()->get_Count());
-    ASSERT_EQ(3, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 0);
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->get_Count(), 3);
     
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
-    ASPOSE_ASSERT_EQ(200.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(200.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 200.0);
     
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Png, shape);
-    ASPOSE_ASSERT_EQ(200.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(200.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 200.0);
     
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 2, true));
     
     TestUtil::VerifyImageInShape(534, 534, ImageType::Emf, shape);
-    ASPOSE_ASSERT_EQ(200.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(200.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 200.0);
 }
 
 void ExField::TestMergeFieldImages(System::SharedPtr<Aspose::Words::Document> doc)
 {
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASSERT_EQ(0, doc->get_Range()->get_Fields()->get_Count());
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 0);
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->get_Count(), 2);
     
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
-    ASPOSE_ASSERT_EQ(300.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(300.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 300.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 300.0);
     
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Png, shape);
-    ASSERT_NEAR(300.0, shape->get_Width(), 1);
-    ASSERT_NEAR(300.0, shape->get_Height(), 1);
+    ASSERT_NEAR(shape->get_Width(), 300.0, 1);
+    ASSERT_NEAR(shape->get_Height(), 300.0, 1);
 }
 
 void ExField::InsertFieldLink(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, Aspose::Words::ApiExamples::InsertLinkedObjectAs insertLinkedObjectAs, System::String progId, System::String sourceFullName, System::String sourceItem, bool shouldAutoUpdate)
@@ -856,13 +857,13 @@ void ExField::TestFieldFillIn(System::SharedPtr<Aspose::Words::Document> doc)
 {
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASSERT_EQ(1, doc->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 1);
     
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldFillIn>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldFillIn, u" FILLIN  \"Please enter a response:\" \\d \"A default response.\" \\o", u"Response modified by PromptRespondent. A default response.", field);
-    ASSERT_EQ(u"Please enter a response:", field->get_PromptText());
-    ASSERT_EQ(u"A default response.", field->get_DefaultResponse());
+    ASSERT_EQ(field->get_PromptText(), u"Please enter a response:");
+    ASSERT_EQ(field->get_DefaultResponse(), u"A default response.");
     ASSERT_TRUE(field->get_PromptOnceOnMailMerge());
 }
 
@@ -886,8 +887,8 @@ void ExField::TestFieldNext(System::SharedPtr<Aspose::Words::Document> doc)
 {
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASSERT_EQ(0, doc->get_Range()->get_Fields()->get_Count());
-    ASSERT_EQ(System::String(u"First row: Mr. John Doe\r") + u"Second row: Mrs. Jane Cardholder\r" + u"Third row: Mr. Joe Bloggs\r\f", doc->GetText());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 0);
+    ASSERT_EQ(doc->GetText(), System::String(u"First row: Mr. John Doe\r") + u"Second row: Mrs. Jane Cardholder\r" + u"Third row: Mr. Joe Bloggs\r\f");
 }
 
 System::SharedPtr<Aspose::Words::Fields::FieldNoteRef> ExField::InsertFieldNoteRef(System::SharedPtr<Aspose::Words::DocumentBuilder> builder, System::String bookmarkName, bool insertHyperlink, bool insertRelativePosition, bool insertReferenceMark, System::String textBefore)
@@ -918,7 +919,7 @@ void ExField::TestNoteRef(System::SharedPtr<Aspose::Words::Document> doc)
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldNoteRef, u" NOTEREF  MyBookmark2 \\h", u"2", field);
-    ASSERT_EQ(u"MyBookmark2", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark2");
     ASSERT_TRUE(field->get_InsertHyperlink());
     ASSERT_FALSE(field->get_InsertRelativePosition());
     ASSERT_FALSE(field->get_InsertReferenceMark());
@@ -926,7 +927,7 @@ void ExField::TestNoteRef(System::SharedPtr<Aspose::Words::Document> doc)
     field = System::ExplicitCast<Aspose::Words::Fields::FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldNoteRef, u" NOTEREF  MyBookmark1 \\h \\p", u"1 above", field);
-    ASSERT_EQ(u"MyBookmark1", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark1");
     ASSERT_TRUE(field->get_InsertHyperlink());
     ASSERT_TRUE(field->get_InsertRelativePosition());
     ASSERT_FALSE(field->get_InsertReferenceMark());
@@ -934,7 +935,7 @@ void ExField::TestNoteRef(System::SharedPtr<Aspose::Words::Document> doc)
     field = System::ExplicitCast<Aspose::Words::Fields::FieldNoteRef>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldNoteRef, u" NOTEREF  MyBookmark2 \\h \\p \\f", u"2 below", field);
-    ASSERT_EQ(u"MyBookmark2", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark2");
     ASSERT_TRUE(field->get_InsertHyperlink());
     ASSERT_TRUE(field->get_InsertRelativePosition());
     ASSERT_TRUE(field->get_InsertReferenceMark());
@@ -965,28 +966,28 @@ void ExField::TestPageRef(System::SharedPtr<Aspose::Words::Document> doc)
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF  MyBookmark3 \\h", u"2", field);
-    ASSERT_EQ(u"MyBookmark3", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark3");
     ASSERT_TRUE(field->get_InsertHyperlink());
     ASSERT_FALSE(field->get_InsertRelativePosition());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF  MyBookmark1 \\h \\p", u"above", field);
-    ASSERT_EQ(u"MyBookmark1", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark1");
     ASSERT_TRUE(field->get_InsertHyperlink());
     ASSERT_TRUE(field->get_InsertRelativePosition());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF  MyBookmark2 \\h \\p", u"below", field);
-    ASSERT_EQ(u"MyBookmark2", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark2");
     ASSERT_TRUE(field->get_InsertHyperlink());
     ASSERT_TRUE(field->get_InsertRelativePosition());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF  MyBookmark3 \\h \\p", u"on page 2", field);
-    ASSERT_EQ(u"MyBookmark3", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark3");
     ASSERT_TRUE(field->get_InsertHyperlink());
     ASSERT_TRUE(field->get_InsertRelativePosition());
 }
@@ -1008,41 +1009,41 @@ void ExField::TestFieldRef(System::SharedPtr<Aspose::Words::Document> doc)
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldRef>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\f \\h", u"Text that will appear in REF field", field);
-    ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark");
     ASSERT_TRUE(field->get_IncludeNoteOrComment());
     ASSERT_TRUE(field->get_InsertHyperlink());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldRef>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\p", u"below", field);
-    ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark");
     ASSERT_TRUE(field->get_InsertRelativePosition());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldRef>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\n", u"‎>>> i", field);
-    ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark");
     ASSERT_TRUE(field->get_InsertParagraphNumber());
-    ASSERT_EQ(u" REF  MyBookmark \\n", field->GetFieldCode());
-    ASSERT_EQ(u"‎>>> i", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" REF  MyBookmark \\n");
+    ASSERT_EQ(field->get_Result(), u"‎>>> i");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldRef>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\n \\t", u"‎i", field);
-    ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark");
     ASSERT_TRUE(field->get_InsertParagraphNumber());
     ASSERT_TRUE(field->get_SuppressNonDelimiters());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldRef>(doc->get_Range()->get_Fields()->idx_get(4));
     
     TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\w", u"‎> 4>> c>>> i", field);
-    ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark");
     ASSERT_TRUE(field->get_InsertParagraphNumberInFullContext());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldRef>(doc->get_Range()->get_Fields()->idx_get(5));
     
     TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark \\r", u"‎>> c>>> i", field);
-    ASSERT_EQ(u"MyBookmark", field->get_BookmarkName());
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark");
     ASSERT_TRUE(field->get_InsertParagraphNumberInRelativeContext());
 }
 
@@ -1061,58 +1062,58 @@ void ExField::TestFieldTOA(System::SharedPtr<Aspose::Words::Document> doc)
 {
     auto fieldTOA = System::ExplicitCast<Aspose::Words::Fields::FieldToa>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(u"1", fieldTOA->get_EntryCategory());
+    ASSERT_EQ(fieldTOA->get_EntryCategory(), u"1");
     ASSERT_TRUE(fieldTOA->get_UseHeading());
-    ASSERT_EQ(u"MyBookmark", fieldTOA->get_BookmarkName());
-    ASSERT_EQ(u" \t p.", fieldTOA->get_EntrySeparator());
-    ASSERT_EQ(u" & p. ", fieldTOA->get_PageNumberListSeparator());
+    ASSERT_EQ(fieldTOA->get_BookmarkName(), u"MyBookmark");
+    ASSERT_EQ(fieldTOA->get_EntrySeparator(), u" \t p.");
+    ASSERT_EQ(fieldTOA->get_PageNumberListSeparator(), u" & p. ");
     ASSERT_TRUE(fieldTOA->get_UsePassim());
-    ASSERT_EQ(u" to ", fieldTOA->get_PageRangeSeparator());
+    ASSERT_EQ(fieldTOA->get_PageRangeSeparator(), u" to ");
     ASSERT_TRUE(fieldTOA->get_RemoveEntryFormatting());
-    ASSERT_EQ(u" TOA  \\c 1 \\h \\b MyBookmark \\e \" \t p.\" \\l \" & p. \" \\p \\g \" to \" \\f", fieldTOA->GetFieldCode());
-    ASSERT_EQ(System::String(u"Cases\r") + u"Source 2 \t p.5\r" + u"Source 3 \t p.4 & p. 7 to 10\r" + u"Source 4 \t p.passim\r", fieldTOA->get_Result());
+    ASSERT_EQ(fieldTOA->GetFieldCode(), u" TOA  \\c 1 \\h \\b MyBookmark \\e \" \t p.\" \\l \" & p. \" \\p \\g \" to \" \\f");
+    ASSERT_EQ(fieldTOA->get_Result(), System::String(u"Cases\r") + u"Source 2 \t p.5\r" + u"Source 3 \t p.4 & p. 7 to 10\r" + u"Source 4 \t p.passim\r");
     
     auto fieldTA = System::ExplicitCast<Aspose::Words::Fields::FieldTA>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 1\"", System::String::Empty, fieldTA);
-    ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
-    ASSERT_EQ(u"Source 1", fieldTA->get_LongCitation());
+    ASSERT_EQ(fieldTA->get_EntryCategory(), u"1");
+    ASSERT_EQ(fieldTA->get_LongCitation(), u"Source 1");
     
     fieldTA = System::ExplicitCast<Aspose::Words::Fields::FieldTA>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 2 \\l \"Source 2\"", System::String::Empty, fieldTA);
-    ASSERT_EQ(u"2", fieldTA->get_EntryCategory());
-    ASSERT_EQ(u"Source 2", fieldTA->get_LongCitation());
+    ASSERT_EQ(fieldTA->get_EntryCategory(), u"2");
+    ASSERT_EQ(fieldTA->get_LongCitation(), u"Source 2");
     
     fieldTA = System::ExplicitCast<Aspose::Words::Fields::FieldTA>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 3\" \\s S.3", System::String::Empty, fieldTA);
-    ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
-    ASSERT_EQ(u"Source 3", fieldTA->get_LongCitation());
-    ASSERT_EQ(u"S.3", fieldTA->get_ShortCitation());
+    ASSERT_EQ(fieldTA->get_EntryCategory(), u"1");
+    ASSERT_EQ(fieldTA->get_LongCitation(), u"Source 3");
+    ASSERT_EQ(fieldTA->get_ShortCitation(), u"S.3");
     
     fieldTA = System::ExplicitCast<Aspose::Words::Fields::FieldTA>(doc->get_Range()->get_Fields()->idx_get(4));
     
     TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 2\" \\b \\i", System::String::Empty, fieldTA);
-    ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
-    ASSERT_EQ(u"Source 2", fieldTA->get_LongCitation());
+    ASSERT_EQ(fieldTA->get_EntryCategory(), u"1");
+    ASSERT_EQ(fieldTA->get_LongCitation(), u"Source 2");
     ASSERT_TRUE(fieldTA->get_IsBold());
     ASSERT_TRUE(fieldTA->get_IsItalic());
     
     fieldTA = System::ExplicitCast<Aspose::Words::Fields::FieldTA>(doc->get_Range()->get_Fields()->idx_get(5));
     
     TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 3\" \\r MyMultiPageBookmark", System::String::Empty, fieldTA);
-    ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
-    ASSERT_EQ(u"Source 3", fieldTA->get_LongCitation());
-    ASSERT_EQ(u"MyMultiPageBookmark", fieldTA->get_PageRangeBookmarkName());
+    ASSERT_EQ(fieldTA->get_EntryCategory(), u"1");
+    ASSERT_EQ(fieldTA->get_LongCitation(), u"Source 3");
+    ASSERT_EQ(fieldTA->get_PageRangeBookmarkName(), u"MyMultiPageBookmark");
     
     for (int32_t i = 6; i < 11; i++)
     {
         fieldTA = System::ExplicitCast<Aspose::Words::Fields::FieldTA>(doc->get_Range()->get_Fields()->idx_get(i));
         
         TestUtil::VerifyField(FieldType::FieldTOAEntry, u" TA  \\c 1 \\l \"Source 4\"", System::String::Empty, fieldTA);
-        ASSERT_EQ(u"1", fieldTA->get_EntryCategory());
-        ASSERT_EQ(u"Source 4", fieldTA->get_LongCitation());
+        ASSERT_EQ(fieldTA->get_EntryCategory(), u"1");
+        ASSERT_EQ(fieldTA->get_LongCitation(), u"Source 4");
     }
 }
 
@@ -1162,21 +1163,21 @@ void ExField::TestFieldTime(System::SharedPtr<Aspose::Words::Document> doc)
     
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldTime>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(u" TIME ", field->GetFieldCode());
-    ASSERT_EQ(FieldType::FieldTime, field->get_Type());
-    ASSERT_EQ(System::DateTime::Parse(field->get_Result()), System::DateTime::get_Today().AddHours(docLoadingTime.get_Hour()).AddMinutes(docLoadingTime.get_Minute()));
+    ASSERT_EQ(field->GetFieldCode(), u" TIME ");
+    ASSERT_EQ(field->get_Type(), FieldType::FieldTime);
+    ASSERT_EQ(System::DateTime::get_Today().AddHours(docLoadingTime.get_Hour()).AddMinutes(docLoadingTime.get_Minute()), System::DateTime::Parse(field->get_Result()));
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldTime>(doc->get_Range()->get_Fields()->idx_get(1));
     
-    ASSERT_EQ(u" TIME \\@ HHmm", field->GetFieldCode());
-    ASSERT_EQ(FieldType::FieldTime, field->get_Type());
-    ASSERT_EQ(System::DateTime::Parse(field->get_Result()), System::DateTime::get_Today().AddHours(docLoadingTime.get_Hour()).AddMinutes(docLoadingTime.get_Minute()));
+    ASSERT_EQ(field->GetFieldCode(), u" TIME \\@ HHmm");
+    ASSERT_EQ(field->get_Type(), FieldType::FieldTime);
+    ASSERT_EQ(System::DateTime::get_Today().AddHours(docLoadingTime.get_Hour()).AddMinutes(docLoadingTime.get_Minute()), System::DateTime::Parse(field->get_Result()));
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldTime>(doc->get_Range()->get_Fields()->idx_get(2));
     
-    ASSERT_EQ(u" TIME \\@ \"M/d/yyyy h mm:ss am/pm\"", field->GetFieldCode());
-    ASSERT_EQ(FieldType::FieldTime, field->get_Type());
-    ASSERT_EQ(System::DateTime::Parse(field->get_Result()), System::DateTime::get_Today().AddHours(docLoadingTime.get_Hour()).AddMinutes(docLoadingTime.get_Minute()));
+    ASSERT_EQ(field->GetFieldCode(), u" TIME \\@ \"M/d/yyyy h mm:ss am/pm\"");
+    ASSERT_EQ(field->get_Type(), FieldType::FieldTime);
+    ASSERT_EQ(System::DateTime::get_Today().AddHours(docLoadingTime.get_Hour()).AddMinutes(docLoadingTime.get_Minute()), System::DateTime::Parse(field->get_Result()));
 }
 
 namespace gtest_test
@@ -1231,15 +1232,15 @@ void ExField::GetFieldFromDocument()
     
     System::SharedPtr<Aspose::Words::Fields::FieldChar> fieldStart = field->get_Start();
     
-    ASSERT_EQ(FieldType::FieldDate, fieldStart->get_FieldType());
-    ASPOSE_ASSERT_EQ(false, fieldStart->get_IsDirty());
-    ASPOSE_ASSERT_EQ(false, fieldStart->get_IsLocked());
+    ASSERT_EQ(fieldStart->get_FieldType(), FieldType::FieldDate);
+    ASPOSE_ASSERT_EQ(fieldStart->get_IsDirty(), false);
+    ASPOSE_ASSERT_EQ(fieldStart->get_IsLocked(), false);
     
     // Retrieve the facade object which represents the field in the document.
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDate>(fieldStart->GetField());
     
-    ASPOSE_ASSERT_EQ(false, field->get_IsLocked());
-    ASSERT_EQ((u" DATE  \\@ \"dddd, MMMM dd, yyyy\""), field->GetFieldCode());
+    ASPOSE_ASSERT_EQ(field->get_IsLocked(), false);
+    ASSERT_EQ(field->GetFieldCode(), (u" DATE  \\@ \"dddd, MMMM dd, yyyy\""));
     
     // Update the field to show the current date.
     field->Update();
@@ -1294,13 +1295,13 @@ void ExField::GetFieldCode()
     
     // There are two ways of getting a field's field code:
     // 1 -  Omit its inner fields:
-    ASSERT_EQ(u" IF  > 0 \" (surplus of ) \" \"\" ", fieldIf->GetFieldCode(false));
+    ASSERT_EQ(fieldIf->GetFieldCode(false), u" IF  > 0 \" (surplus of ) \" \"\" ");
     
     // 2 -  Include its inner fields:
-    ASSERT_EQ(System::String::Format(u" IF \u0013 MERGEFIELD NetIncome \u0014\u0015 > 0 \" (surplus of \u0013 MERGEFIELD  NetIncome \\f $ \u0014\u0015) \" \"\" ", System::MakeObject<System::Array<System::SharedPtr<System::Object>>>(0)), fieldIf->GetFieldCode(true));
+    ASSERT_EQ(fieldIf->GetFieldCode(true), System::String::Format(u" IF \u0013 MERGEFIELD NetIncome \u0014\u0015 > 0 \" (surplus of \u0013 MERGEFIELD  NetIncome \\f $ \u0014\u0015) \" \"\" ", System::MakeObject<System::Array<System::SharedPtr<System::Object>>>(0)));
     
     // By default, the GetFieldCode method displays inner fields.
-    ASSERT_EQ(fieldIf->GetFieldCode(), fieldIf->GetFieldCode(true));
+    ASSERT_EQ(fieldIf->GetFieldCode(true), fieldIf->GetFieldCode());
     //ExEnd
 }
 
@@ -1328,21 +1329,21 @@ void ExField::DisplayResult()
     
     // We can use the DisplayResult property to verify what exact text
     // a field would display in its place in the document.
-    ASSERT_EQ(System::String::Empty, fieldAuthor->get_DisplayResult());
+    ASSERT_EQ(fieldAuthor->get_DisplayResult(), System::String::Empty);
     
     // Fields do not maintain accurate result values in real-time.
     // To make sure our fields display accurate results at any given time,
     // such as right before a save operation, we need to update them manually.
     fieldAuthor->Update();
     
-    ASSERT_EQ(u"John Doe", fieldAuthor->get_DisplayResult());
+    ASSERT_EQ(fieldAuthor->get_DisplayResult(), u"John Doe");
     
     doc->Save(get_ArtifactsDir() + u"Field.DisplayResult.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.DisplayResult.docx"));
     
-    ASSERT_EQ(u"John Doe", doc->get_Range()->get_Fields()->idx_get(0)->get_DisplayResult());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_DisplayResult(), u"John Doe");
 }
 
 namespace gtest_test
@@ -1385,8 +1386,8 @@ void ExField::CreateWithFieldBuilder()
     
     TestUtil::VerifyField(FieldType::FieldBarcode, u" BARCODE 90210 \\f A \\u ", System::String::Empty, doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(11)->get_PreviousSibling(), doc->get_Range()->get_Fields()->idx_get(0)->get_End());
-    ASSERT_EQ(System::String::Format(u"{0} BARCODE 90210 \\f A \\u {1} Hello world! This text is one Run, which is an inline node.", ControlChar::FieldStartChar, ControlChar::FieldEndChar), doc->GetText().Trim());
+    ASPOSE_ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_End(), doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(11)->get_PreviousSibling());
+    ASSERT_EQ(doc->GetText().Trim(), System::String::Format(u"{0} BARCODE 90210 \\f A \\u {1} Hello world! This text is one Run, which is an inline node.", ControlChar::FieldStartChar, ControlChar::FieldEndChar));
 }
 
 namespace gtest_test
@@ -1413,23 +1414,23 @@ void ExField::RevNum()
     // Insert a REVNUM field, which displays the document's current revision number property.
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldRevNum>(builder->InsertField(FieldType::FieldRevisionNum, true));
     
-    ASSERT_EQ(u" REVNUM ", field->GetFieldCode());
-    ASSERT_EQ(u"1", field->get_Result());
-    ASSERT_EQ(1, doc->get_BuiltInDocumentProperties()->get_RevisionNumber());
+    ASSERT_EQ(field->GetFieldCode(), u" REVNUM ");
+    ASSERT_EQ(field->get_Result(), u"1");
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_RevisionNumber(), 1);
     
     // This property counts how many times a document has been saved in Microsoft Word,
     // and is unrelated to tracked revisions. We can find it by right clicking the document in Windows Explorer
     // via Properties -> Details. We can update this property manually.
     System::WithLambda::setter_post_increment_wrap(GETTER_SETTER_LVAL_LAMBDA_ARGS(doc->get_BuiltInDocumentProperties(), RevisionNumber));
-    ASSERT_EQ(u"1", field->get_Result());
+    ASSERT_EQ(field->get_Result(), u"1");
     //ExSkip
     field->Update();
     
-    ASSERT_EQ(u"2", field->get_Result());
+    ASSERT_EQ(field->get_Result(), u"2");
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
-    ASSERT_EQ(2, doc->get_BuiltInDocumentProperties()->get_RevisionNumber());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_RevisionNumber(), 2);
     
     TestUtil::VerifyField(FieldType::FieldRevisionNum, u" REVNUM ", u"2", doc->get_Range()->get_Fields()->idx_get(0));
 }
@@ -1456,11 +1457,11 @@ void ExField::InsertFieldNone()
     System::SharedPtr<Aspose::Words::Fields::Field> field = builder->InsertField(u" NOTAREALFIELD //a");
     
     // The "FieldNone" field type is reserved for fields such as these.
-    ASSERT_EQ(FieldType::FieldNone, field->get_Type());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldNone);
     
     // We can also still work with these fields and assign them as instances of the FieldUnknown class.
     auto fieldUnknown = System::ExplicitCast<Aspose::Words::Fields::FieldUnknown>(field);
-    ASSERT_EQ(u" NOTAREALFIELD //a", fieldUnknown->GetFieldCode());
+    ASSERT_EQ(fieldUnknown->GetFieldCode(), u" NOTAREALFIELD //a");
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
@@ -1531,8 +1532,8 @@ void ExField::FieldLocale()
     System::SharedPtr<Aspose::Words::Fields::Field> field = builder->InsertField(u"DATE");
     std::cout << System::String::Format(u"Today's date, as displayed in the \"{0}\" culture: {1}", System::Globalization::CultureInfo::get_CurrentCulture()->get_EnglishName(), field->get_Result()) << std::endl;
     
-    ASSERT_EQ(1033, field->get_LocaleId());
-    ASSERT_EQ(FieldUpdateCultureSource::CurrentThread, doc->get_FieldOptions()->get_FieldUpdateCultureSource());
+    ASSERT_EQ(field->get_LocaleId(), 1033);
+    ASSERT_EQ(doc->get_FieldOptions()->get_FieldUpdateCultureSource(), FieldUpdateCultureSource::CurrentThread);
     //ExSkip
     
     // Changing the culture of our thread will impact the result of the DATE field.
@@ -1550,7 +1551,7 @@ void ExField::FieldLocale()
     field = doc->get_Range()->get_Fields()->idx_get(0);
     
     TestUtil::VerifyField(FieldType::FieldDate, u"DATE", System::DateTime::get_Now().ToString(de->get_DateTimeFormat()->get_ShortDatePattern()), field);
-    ASSERT_EQ(System::MakeObject<System::Globalization::CultureInfo>(u"de-DE")->get_LCID(), field->get_LocaleId());
+    ASSERT_EQ(field->get_LocaleId(), System::MakeObject<System::Globalization::CultureInfo>(u"de-DE")->get_LCID());
 }
 
 namespace gtest_test
@@ -1577,12 +1578,12 @@ void ExField::UpdateDirtyFields(bool updateDirtyFields)
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldAuthor>(builder->InsertField(FieldType::FieldAuthor, true));
     
     ASSERT_FALSE(field->get_IsDirty());
-    ASSERT_EQ(u"John Doe", field->get_Result());
+    ASSERT_EQ(field->get_Result(), u"John Doe");
     
     // Update the property. The field still displays the old value.
     doc->get_BuiltInDocumentProperties()->set_Author(u"John & Jane Doe");
     
-    ASSERT_EQ(u"John Doe", field->get_Result());
+    ASSERT_EQ(field->get_Result(), u"John Doe");
     
     // Since the field's value is out of date, we can mark it as "dirty".
     // This value will stay out of date until we update the field manually with the Field.Update() method.
@@ -1600,19 +1601,19 @@ void ExField::UpdateDirtyFields(bool updateDirtyFields)
         options->set_UpdateDirtyFields(updateDirtyFields);
         doc = System::MakeObject<Aspose::Words::Document>(docStream, options);
         
-        ASSERT_EQ(u"John & Jane Doe", doc->get_BuiltInDocumentProperties()->get_Author());
+        ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Author(), u"John & Jane Doe");
         
         field = System::ExplicitCast<Aspose::Words::Fields::FieldAuthor>(doc->get_Range()->get_Fields()->idx_get(0));
         
         // Updating dirty fields like this automatically set their "IsDirty" flag to false.
         if (updateDirtyFields)
         {
-            ASSERT_EQ(u"John & Jane Doe", field->get_Result());
+            ASSERT_EQ(field->get_Result(), u"John & Jane Doe");
             ASSERT_FALSE(field->get_IsDirty());
         }
         else
         {
-            ASSERT_EQ(u"John Doe", field->get_Result());
+            ASSERT_EQ(field->get_Result(), u"John Doe");
             ASSERT_TRUE(field->get_IsDirty());
         }
     }
@@ -1659,10 +1660,10 @@ void ExField::InsertFieldWithFieldBuilderException()
     
     auto fieldBuilder = System::MakeObject<Aspose::Words::Fields::FieldBuilder>(FieldType::FieldIncludeText);
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&fieldBuilder, &argumentBuilder, &run]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&fieldBuilder, &argumentBuilder, &run]() -> void
     {
         fieldBuilder->AddArgument(argumentBuilder)->AddArgument(u"=")->AddArgument(u"BestField")->AddArgument(10)->AddArgument(20.0)->BuildAndInsert(run);
-    })(), System::ArgumentException);
+    }))(), System::ArgumentException);
 }
 
 namespace gtest_test
@@ -1771,8 +1772,8 @@ void ExField::FieldFormat()
     // Use a document builder to insert a field that displays a result with no format applied.
     System::SharedPtr<Aspose::Words::Fields::Field> field = builder->InsertField(u"= 2 + 3");
     
-    ASSERT_EQ(u"= 2 + 3", field->GetFieldCode());
-    ASSERT_EQ(u"5", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u"= 2 + 3");
+    ASSERT_EQ(field->get_Result(), u"5");
     
     // We can apply a format to a field's result using the field's properties.
     // Below are three types of formats that we can apply to a field's result.
@@ -1781,8 +1782,8 @@ void ExField::FieldFormat()
     format->set_NumericFormat(u"$###.00");
     field->Update();
     
-    ASSERT_EQ(u"= 2 + 3 \\# $###.00", field->GetFieldCode());
-    ASSERT_EQ(u"$  5.00", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u"= 2 + 3 \\# $###.00");
+    ASSERT_EQ(field->get_Result(), u"$  5.00");
     
     // 2 -  Date/time format:
     field = builder->InsertField(u"DATE");
@@ -1790,7 +1791,7 @@ void ExField::FieldFormat()
     format->set_DateTimeFormat(u"dddd, MMMM dd, yyyy");
     field->Update();
     
-    ASSERT_EQ((u"DATE \\@ \"dddd, MMMM dd, yyyy\""), field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), (u"DATE \\@ \"dddd, MMMM dd, yyyy\""));
     std::cout << System::String::Format(u"Today's date, in {0} format:\n\t{1}", format->get_DateTimeFormat(), field->get_Result()) << std::endl;
     
     // 3 -  General format:
@@ -1809,20 +1810,20 @@ void ExField::FieldFormat()
         }
     }
     
-    ASSERT_EQ(u"= 25 + 33 \\* roman \\* Upper", field->GetFieldCode());
-    ASSERT_EQ(u"LVIII", field->get_Result());
-    ASSERT_EQ(2, format->get_GeneralFormats()->get_Count());
-    ASSERT_EQ(GeneralFormat::LowercaseRoman, format->get_GeneralFormats()->idx_get(0));
+    ASSERT_EQ(field->GetFieldCode(), u"= 25 + 33 \\* roman \\* Upper");
+    ASSERT_EQ(field->get_Result(), u"LVIII");
+    ASSERT_EQ(format->get_GeneralFormats()->get_Count(), 2);
+    ASSERT_EQ(format->get_GeneralFormats()->idx_get(0), GeneralFormat::LowercaseRoman);
     
     // We can remove our formats to revert the field's result to its original form.
     format->get_GeneralFormats()->Remove(GeneralFormat::LowercaseRoman);
     format->get_GeneralFormats()->RemoveAt(0);
-    ASSERT_EQ(0, format->get_GeneralFormats()->get_Count());
+    ASSERT_EQ(format->get_GeneralFormats()->get_Count(), 0);
     field->Update();
     
-    ASSERT_EQ(u"= 25 + 33  ", field->GetFieldCode());
-    ASSERT_EQ(u"58", field->get_Result());
-    ASSERT_EQ(0, format->get_GeneralFormats()->get_Count());
+    ASSERT_EQ(field->GetFieldCode(), u"= 25 + 33  ");
+    ASSERT_EQ(field->get_Result(), u"58");
+    ASSERT_EQ(format->get_GeneralFormats()->get_Count(), 0);
     //ExEnd
 }
 
@@ -1849,7 +1850,7 @@ void ExField::Unlink()
     doc = DocumentHelper::SaveOpen(doc);
     System::String paraWithFields = DocumentHelper::GetParagraphText(doc, 0);
     
-    ASSERT_EQ(u"Fields.Docx   Элементы указателя не найдены.     1.\r", paraWithFields);
+    ASSERT_EQ(paraWithFields, u"Fields.Docx   Элементы указателя не найдены.     1.\r");
 }
 
 namespace gtest_test
@@ -1992,14 +1993,14 @@ void ExField::FieldAdvance()
     // or another ADVANCE field updates the offset/coordinate values.
     // 1 -  Specify a directional offset:
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldAdvance>(builder->InsertField(FieldType::FieldAdvance, true));
-    ASSERT_EQ(FieldType::FieldAdvance, field->get_Type());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldAdvance);
     //ExSkip
-    ASSERT_EQ(u" ADVANCE ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" ADVANCE ");
     //ExSkip
     field->set_RightOffset(u"5");
     field->set_UpOffset(u"5");
     
-    ASSERT_EQ(u" ADVANCE  \\r 5 \\u 5", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" ADVANCE  \\r 5 \\u 5");
     
     builder->Write(u"This text will be moved up and to the right.");
     
@@ -2007,7 +2008,7 @@ void ExField::FieldAdvance()
     field->set_DownOffset(u"5");
     field->set_LeftOffset(u"100");
     
-    ASSERT_EQ(u" ADVANCE  \\d 5 \\l 100", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" ADVANCE  \\d 5 \\l 100");
     
     builder->Writeln(u"This text is moved down and to the left, overlapping the previous text.");
     
@@ -2016,7 +2017,7 @@ void ExField::FieldAdvance()
     field->set_HorizontalPosition(u"-100");
     field->set_VerticalPosition(u"200");
     
-    ASSERT_EQ(u" ADVANCE  \\x -100 \\y 200", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" ADVANCE  \\x -100 \\y 200");
     
     builder->Write(u"This text is in a custom position.");
     
@@ -2028,20 +2029,20 @@ void ExField::FieldAdvance()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldAdvance>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldAdvance, u" ADVANCE  \\r 5 \\u 5", System::String::Empty, field);
-    ASSERT_EQ(u"5", field->get_RightOffset());
-    ASSERT_EQ(u"5", field->get_UpOffset());
+    ASSERT_EQ(field->get_RightOffset(), u"5");
+    ASSERT_EQ(field->get_UpOffset(), u"5");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldAdvance>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldAdvance, u" ADVANCE  \\d 5 \\l 100", System::String::Empty, field);
-    ASSERT_EQ(u"5", field->get_DownOffset());
-    ASSERT_EQ(u"100", field->get_LeftOffset());
+    ASSERT_EQ(field->get_DownOffset(), u"5");
+    ASSERT_EQ(field->get_LeftOffset(), u"100");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldAdvance>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldAdvance, u" ADVANCE  \\x -100 \\y 200", System::String::Empty, field);
-    ASSERT_EQ(u"-100", field->get_HorizontalPosition());
-    ASSERT_EQ(u"200", field->get_VerticalPosition());
+    ASSERT_EQ(field->get_HorizontalPosition(), u"-100");
+    ASSERT_EQ(field->get_VerticalPosition(), u"200");
 }
 
 namespace gtest_test
@@ -2068,7 +2069,7 @@ void ExField::FieldAddressBlock()
     
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldAddressBlock>(builder->InsertField(FieldType::FieldAddressBlock, true));
     
-    ASSERT_EQ(u" ADDRESSBLOCK ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" ADDRESSBLOCK ");
     
     // Setting this to "2" will include all countries and regions,
     // unless it is the one specified in the ExcludedCountryOrRegionName property.
@@ -2081,18 +2082,18 @@ void ExField::FieldAddressBlock()
     // We can set a different culture for the field to format the result with like this.
     field->set_LanguageId(System::Convert::ToString(System::MakeObject<System::Globalization::CultureInfo>(u"en-US")->get_LCID()));
     
-    ASSERT_EQ(u" ADDRESSBLOCK  \\c 2 \\d \\e \"United States\" \\f \"<Title> <Forename> <Surname> <Address Line 1> <Region> <Postcode> <Country>\" \\l 1033", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" ADDRESSBLOCK  \\c 2 \\d \\e \"United States\" \\f \"<Title> <Forename> <Surname> <Address Line 1> <Region> <Postcode> <Country>\" \\l 1033");
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
     field = System::ExplicitCast<Aspose::Words::Fields::FieldAddressBlock>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldAddressBlock, u" ADDRESSBLOCK  \\c 2 \\d \\e \"United States\" \\f \"<Title> <Forename> <Surname> <Address Line 1> <Region> <Postcode> <Country>\" \\l 1033", u"«AddressBlock»", field);
-    ASSERT_EQ(u"2", field->get_IncludeCountryOrRegionName());
-    ASPOSE_ASSERT_EQ(true, field->get_FormatAddressOnCountryOrRegion());
-    ASSERT_EQ(u"United States", field->get_ExcludedCountryOrRegionName());
-    ASSERT_EQ(u"<Title> <Forename> <Surname> <Address Line 1> <Region> <Postcode> <Country>", field->get_NameAndAddressFormat());
-    ASSERT_EQ(u"1033", field->get_LanguageId());
+    ASSERT_EQ(field->get_IncludeCountryOrRegionName(), u"2");
+    ASPOSE_ASSERT_EQ(field->get_FormatAddressOnCountryOrRegion(), true);
+    ASSERT_EQ(field->get_ExcludedCountryOrRegionName(), u"United States");
+    ASSERT_EQ(field->get_NameAndAddressFormat(), u"<Title> <Forename> <Surname> <Address Line 1> <Region> <Postcode> <Country>");
+    ASSERT_EQ(field->get_LanguageId(), u"1033");
 }
 
 namespace gtest_test
@@ -2120,7 +2121,7 @@ void ExField::FieldCollection()
     
     System::SharedPtr<Aspose::Words::Fields::FieldCollection> fields = doc->get_Range()->get_Fields();
     
-    ASSERT_EQ(6, fields->get_Count());
+    ASSERT_EQ(fields->get_Count(), 6);
     
     // Iterate over the field collection, and print contents and type
     // of every field using a custom visitor implementation.
@@ -2133,11 +2134,7 @@ void ExField::FieldCollection()
             if (fieldEnumerator->get_Current() != nullptr)
             {
                 fieldEnumerator->get_Current()->get_Start()->Accept(fieldVisitor);
-                System::SharedPtr<Aspose::Words::Fields::FieldSeparator> condExpression = fieldEnumerator->get_Current()->get_Separator();
-                if (condExpression != nullptr)
-                {
-                    condExpression->Accept(fieldVisitor);
-                }
+                System::SafeInvoke(fieldEnumerator->get_Current()->get_Separator(), [&](auto&& expr){return expr->Accept(fieldVisitor);});
                 fieldEnumerator->get_Current()->get_End()->Accept(fieldVisitor);
             }
             else
@@ -2186,25 +2183,25 @@ void ExField::RemoveFields()
     
     System::SharedPtr<Aspose::Words::Fields::FieldCollection> fields = doc->get_Range()->get_Fields();
     
-    ASSERT_EQ(6, fields->get_Count());
+    ASSERT_EQ(fields->get_Count(), 6);
     
     // Below are four ways of removing fields from a field collection.
     // 1 -  Get a field to remove itself:
     fields->idx_get(0)->Remove();
-    ASSERT_EQ(5, fields->get_Count());
+    ASSERT_EQ(fields->get_Count(), 5);
     
     // 2 -  Get the collection to remove a field that we pass to its removal method:
     System::SharedPtr<Aspose::Words::Fields::Field> lastField = fields->idx_get(3);
     fields->Remove(lastField);
-    ASSERT_EQ(4, fields->get_Count());
+    ASSERT_EQ(fields->get_Count(), 4);
     
     // 3 -  Remove a field from a collection at an index:
     fields->RemoveAt(2);
-    ASSERT_EQ(3, fields->get_Count());
+    ASSERT_EQ(fields->get_Count(), 3);
     
     // 4 -  Remove all the fields from the collection at once:
     fields->Clear();
-    ASSERT_EQ(0, fields->get_Count());
+    ASSERT_EQ(fields->get_Count(), 0);
     //ExEnd
 }
 
@@ -2237,8 +2234,8 @@ void ExField::FieldCompare()
     
     // The COMPARE field displays a "0" or a "1", depending on its statement's truth.
     // The result of this statement is false so that this field will display a "0".
-    ASSERT_EQ(u" COMPARE  3 < 2", field->GetFieldCode());
-    ASSERT_EQ(u"0", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" COMPARE  3 < 2");
+    ASSERT_EQ(field->get_Result(), u"0");
     
     builder->Writeln();
     
@@ -2249,8 +2246,8 @@ void ExField::FieldCompare()
     field->Update();
     
     // This field displays a "1" since the statement is true.
-    ASSERT_EQ(u" COMPARE  5 = \"2 + 3\"", field->GetFieldCode());
-    ASSERT_EQ(u"1", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" COMPARE  5 = \"2 + 3\"");
+    ASSERT_EQ(field->get_Result(), u"1");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.COMPARE.docx");
@@ -2261,16 +2258,16 @@ void ExField::FieldCompare()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldCompare>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldCompare, u" COMPARE  3 < 2", u"0", field);
-    ASSERT_EQ(u"3", field->get_LeftExpression());
-    ASSERT_EQ(u"<", field->get_ComparisonOperator());
-    ASSERT_EQ(u"2", field->get_RightExpression());
+    ASSERT_EQ(field->get_LeftExpression(), u"3");
+    ASSERT_EQ(field->get_ComparisonOperator(), u"<");
+    ASSERT_EQ(field->get_RightExpression(), u"2");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldCompare>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldCompare, u" COMPARE  5 = \"2 + 3\"", u"1", field);
-    ASSERT_EQ(u"5", field->get_LeftExpression());
-    ASSERT_EQ(u"=", field->get_ComparisonOperator());
-    ASSERT_EQ(u"\"2 + 3\"", field->get_RightExpression());
+    ASSERT_EQ(field->get_LeftExpression(), u"5");
+    ASSERT_EQ(field->get_ComparisonOperator(), u"=");
+    ASSERT_EQ(field->get_RightExpression(), u"\"2 + 3\"");
 }
 
 namespace gtest_test
@@ -2311,9 +2308,9 @@ void ExField::FieldIf()
     field->Update();
     
     // In this case, "0 = 1" is incorrect, so the displayed result will be "False".
-    ASSERT_EQ(u" IF  0 = 1 True False", field->GetFieldCode());
-    ASSERT_EQ(FieldIfComparisonResult::False, field->EvaluateCondition());
-    ASSERT_EQ(u"False", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" IF  0 = 1 True False");
+    ASSERT_EQ(field->EvaluateCondition(), FieldIfComparisonResult::False);
+    ASSERT_EQ(field->get_Result(), u"False");
     
     builder->Write(u"\nStatement 2: ");
     field = System::ExplicitCast<Aspose::Words::Fields::FieldIf>(builder->InsertField(FieldType::FieldIf, true));
@@ -2325,9 +2322,9 @@ void ExField::FieldIf()
     field->Update();
     
     // This time the statement is correct, so the displayed result will be "True".
-    ASSERT_EQ(u" IF  5 = \"2 + 3\" True False", field->GetFieldCode());
-    ASSERT_EQ(FieldIfComparisonResult::True, field->EvaluateCondition());
-    ASSERT_EQ(u"True", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" IF  5 = \"2 + 3\" True False");
+    ASSERT_EQ(field->EvaluateCondition(), FieldIfComparisonResult::True);
+    ASSERT_EQ(field->get_Result(), u"True");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.IF.docx");
@@ -2337,20 +2334,20 @@ void ExField::FieldIf()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldIf>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldIf, u" IF  0 = 1 True False", u"False", field);
-    ASSERT_EQ(u"0", field->get_LeftExpression());
-    ASSERT_EQ(u"=", field->get_ComparisonOperator());
-    ASSERT_EQ(u"1", field->get_RightExpression());
-    ASSERT_EQ(u"True", field->get_TrueText());
-    ASSERT_EQ(u"False", field->get_FalseText());
+    ASSERT_EQ(field->get_LeftExpression(), u"0");
+    ASSERT_EQ(field->get_ComparisonOperator(), u"=");
+    ASSERT_EQ(field->get_RightExpression(), u"1");
+    ASSERT_EQ(field->get_TrueText(), u"True");
+    ASSERT_EQ(field->get_FalseText(), u"False");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldIf>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldIf, u" IF  5 = \"2 + 3\" True False", u"True", field);
-    ASSERT_EQ(u"5", field->get_LeftExpression());
-    ASSERT_EQ(u"=", field->get_ComparisonOperator());
-    ASSERT_EQ(u"\"2 + 3\"", field->get_RightExpression());
-    ASSERT_EQ(u"True", field->get_TrueText());
-    ASSERT_EQ(u"False", field->get_FalseText());
+    ASSERT_EQ(field->get_LeftExpression(), u"5");
+    ASSERT_EQ(field->get_ComparisonOperator(), u"=");
+    ASSERT_EQ(field->get_RightExpression(), u"\"2 + 3\"");
+    ASSERT_EQ(field->get_TrueText(), u"True");
+    ASSERT_EQ(field->get_FalseText(), u"False");
 }
 
 namespace gtest_test
@@ -2378,7 +2375,7 @@ void ExField::FieldAutoNum()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldAutoNum>(builder->InsertField(FieldType::FieldAutoNum, true));
     builder->Writeln(u"\tParagraph 1.");
     
-    ASSERT_EQ(u" AUTONUM ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" AUTONUM ");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldAutoNum>(builder->InsertField(FieldType::FieldAutoNum, true));
     builder->Writeln(u"\tParagraph 2.");
@@ -2391,7 +2388,7 @@ void ExField::FieldAutoNum()
     // In this case, our AUTONUM field will now display "2:".
     field->set_SeparatorCharacter(u":");
     
-    ASSERT_EQ(u" AUTONUM  \\s :", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" AUTONUM  \\s :");
     
     doc->Save(get_ArtifactsDir() + u"Field.AUTONUM.docx");
     //ExEnd
@@ -2460,7 +2457,7 @@ void ExField::FieldAutoNumLgl()
         // We will apply this to all the fields that we have created.
         field->set_SeparatorCharacter(u":");
         field->set_RemoveTrailingPeriod(true);
-        ASSERT_EQ(u" AUTONUMLGL  \\s : \\e", field->GetFieldCode());
+        ASSERT_EQ(field->GetFieldCode(), u" AUTONUMLGL  \\s : \\e");
     }
     
     doc->Save(get_ArtifactsDir() + u"Field.AUTONUMLGL.docx");
@@ -2504,7 +2501,7 @@ void ExField::FieldAutoNumOut()
         return f->get_Type() == FieldType::FieldAutoNumOutline;
     })))->LINQ_ToList()))
     {
-        ASSERT_EQ(u" AUTONUMOUT ", field->GetFieldCode());
+        ASSERT_EQ(field->GetFieldCode(), u" AUTONUMOUT ");
     }
     
     doc->Save(get_ArtifactsDir() + u"Field.AUTONUMOUT.docx");
@@ -2568,13 +2565,13 @@ void ExField::FieldAutoText()
     auto fieldAutoText = System::ExplicitCast<Aspose::Words::Fields::FieldAutoText>(builder->InsertField(FieldType::FieldAutoText, true));
     fieldAutoText->set_EntryName(u"MyBlock");
     
-    ASSERT_EQ(u" AUTOTEXT  MyBlock", fieldAutoText->GetFieldCode());
+    ASSERT_EQ(fieldAutoText->GetFieldCode(), u" AUTOTEXT  MyBlock");
     
     // 2 -  Using a GLOSSARY field:
     auto fieldGlossary = System::ExplicitCast<Aspose::Words::Fields::FieldGlossary>(builder->InsertField(FieldType::FieldGlossary, true));
     fieldGlossary->set_EntryName(u"MyBlock");
     
-    ASSERT_EQ(u" GLOSSARY  MyBlock", fieldGlossary->GetFieldCode());
+    ASSERT_EQ(fieldGlossary->GetFieldCode(), u" GLOSSARY  MyBlock");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.AUTOTEXT.GLOSSARY.dotx");
@@ -2582,17 +2579,17 @@ void ExField::FieldAutoText()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.AUTOTEXT.GLOSSARY.dotx"));
     
-    ASSERT_EQ(0, doc->get_FieldOptions()->get_BuiltInTemplatesPaths()->get_Length());
+    ASSERT_EQ(doc->get_FieldOptions()->get_BuiltInTemplatesPaths()->get_Length(), 0);
     
     fieldAutoText = System::ExplicitCast<Aspose::Words::Fields::FieldAutoText>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldAutoText, u" AUTOTEXT  MyBlock", u"Hello World!\r", fieldAutoText);
-    ASSERT_EQ(u"MyBlock", fieldAutoText->get_EntryName());
+    ASSERT_EQ(fieldAutoText->get_EntryName(), u"MyBlock");
     
     fieldGlossary = System::ExplicitCast<Aspose::Words::Fields::FieldGlossary>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldGlossary, u" GLOSSARY  MyBlock", u"Hello World!\r", fieldGlossary);
-    ASSERT_EQ(u"MyBlock", fieldGlossary->get_EntryName());
+    ASSERT_EQ(fieldGlossary->get_EntryName(), u"MyBlock");
 }
 
 namespace gtest_test
@@ -2625,7 +2622,7 @@ void ExField::FieldAutoTextList()
     field->set_ListStyle(u"Heading 1");
     field->set_ScreenTip(u"Hover tip text for AutoTextList goes here");
     
-    ASSERT_EQ(System::String(u" AUTOTEXTLIST  \"Right click here to select an AutoText block\" ") + u"\\s \"Heading 1\" " + u"\\t \"Hover tip text for AutoTextList goes here\"", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), System::String(u" AUTOTEXTLIST  \"Right click here to select an AutoText block\" ") + u"\\s \"Heading 1\" " + u"\\t \"Hover tip text for AutoTextList goes here\"");
     
     doc->Save(get_ArtifactsDir() + u"Field.AUTOTEXTLIST.dotx");
     TestFieldAutoTextList(doc);
@@ -2663,7 +2660,7 @@ void ExField::FieldListNum()
     field->set_StartingNumber(u"0");
     builder->Writeln(u"Paragraph 1");
     
-    ASSERT_EQ(u" LISTNUM  \\s 0", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" LISTNUM  \\s 0");
     
     // LISTNUM fields maintain separate counts for each list level.
     // Inserting a LISTNUM field in the same paragraph as another LISTNUM field
@@ -2689,7 +2686,7 @@ void ExField::FieldListNum()
     field->set_ListLevel(u"2");
     builder->Writeln(u"Paragraph 3");
     
-    ASSERT_EQ(u" LISTNUM  \\l 2", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" LISTNUM  \\l 2");
     
     // We can set the ListName property to get the field to emulate a different AUTONUM field type.
     // "NumberDefault" emulates AUTONUM, "OutlineDefault" emulates AUTONUMOUT,
@@ -2701,7 +2698,7 @@ void ExField::FieldListNum()
     builder->Writeln(u"Paragraph 4");
     
     ASSERT_TRUE(field->get_HasListName());
-    ASSERT_EQ(u" LISTNUM  OutlineDefault \\s 1", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" LISTNUM  OutlineDefault \\s 1");
     
     // The ListName does not carry over from the previous field, so we will need to set it for each new field.
     // This field continues the count with the different list name and displays "II.".
@@ -2715,12 +2712,12 @@ void ExField::FieldListNum()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.LISTNUM.docx"));
     
-    ASSERT_EQ(7, doc->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 7);
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldListNum>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldListNum, u" LISTNUM  \\s 0", System::String::Empty, field);
-    ASSERT_EQ(u"0", field->get_StartingNumber());
+    ASSERT_EQ(field->get_StartingNumber(), u"0");
     ASSERT_TRUE(System::TestTools::IsNull(field->get_ListLevel()));
     ASSERT_FALSE(field->get_HasListName());
     ASSERT_TRUE(System::TestTools::IsNull(field->get_ListName()));
@@ -2740,17 +2737,17 @@ void ExField::FieldListNum()
     
     TestUtil::VerifyField(FieldType::FieldListNum, u" LISTNUM  \\l 2", System::String::Empty, field);
     ASSERT_TRUE(System::TestTools::IsNull(field->get_StartingNumber()));
-    ASSERT_EQ(u"2", field->get_ListLevel());
+    ASSERT_EQ(field->get_ListLevel(), u"2");
     ASSERT_FALSE(field->get_HasListName());
     ASSERT_TRUE(System::TestTools::IsNull(field->get_ListName()));
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldListNum>(doc->get_Range()->get_Fields()->idx_get(5));
     
     TestUtil::VerifyField(FieldType::FieldListNum, u" LISTNUM  OutlineDefault \\s 1", System::String::Empty, field);
-    ASSERT_EQ(u"1", field->get_StartingNumber());
+    ASSERT_EQ(field->get_StartingNumber(), u"1");
     ASSERT_TRUE(System::TestTools::IsNull(field->get_ListLevel()));
     ASSERT_TRUE(field->get_HasListName());
-    ASSERT_EQ(u"OutlineDefault", field->get_ListName());
+    ASSERT_EQ(field->get_ListName(), u"OutlineDefault");
 }
 
 namespace gtest_test
@@ -2820,7 +2817,7 @@ void ExField::FieldToc()
     // This entry does not appear because it is outside the bookmark specified by the TOC.
     InsertNewPageWithHeading(builder, u"Eighth entry", u"Heading 1");
     
-    ASSERT_EQ(u" TOC  \\b MyBookmark \\t \"Quote; 6; Intense Quote; 7\" \\o 1-3 \\n 2-5 \\p - \\h \\x \\w", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" TOC  \\b MyBookmark \\t \"Quote; 6; Intense Quote; 7\" \\o 1-3 \\n 2-5 \\p - \\h \\x \\w");
     
     field->UpdatePageNumbers();
     doc->UpdateFields();
@@ -2851,14 +2848,14 @@ void ExField::FieldTocEntryIdentifier()
     fieldToc->set_EntryIdentifier(u"A");
     fieldToc->set_EntryLevelRange(u"1-3");
     
-    ASSERT_EQ(u" TOC  \\f A \\l 1-3", fieldToc->GetFieldCode());
+    ASSERT_EQ(fieldToc->GetFieldCode(), u" TOC  \\f A \\l 1-3");
     
     // These two entries will appear in the table.
     builder->InsertBreak(BreakType::PageBreak);
     InsertTocEntry(builder, u"TC field 1", u"A", u"1");
     InsertTocEntry(builder, u"TC field 2", u"A", u"2");
     
-    ASSERT_EQ(u" TC  \"TC field 1\" \\n \\f A \\l 1", doc->get_Range()->get_Fields()->idx_get(1)->GetFieldCode());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->GetFieldCode(), u" TC  \"TC field 1\" \\n \\f A \\l 1");
     
     // This entry will be omitted from the table because it has a different type from "A".
     InsertTocEntry(builder, u"TC field 3", u"B", u"1");
@@ -2917,7 +2914,7 @@ void ExField::TocSeqPrefix()
     // We can specify a custom separator that will appear between these two numbers.
     fieldToc->set_SequenceSeparator(u">");
     
-    ASSERT_EQ(u" TOC  \\c MySequence \\s PrefixSequence \\d >", fieldToc->GetFieldCode());
+    ASSERT_EQ(fieldToc->GetFieldCode(), u" TOC  \\c MySequence \\s PrefixSequence \\d >");
     
     builder->InsertBreak(BreakType::PageBreak);
     
@@ -2930,7 +2927,7 @@ void ExField::TocSeqPrefix()
     fieldSeq->set_SequenceIdentifier(u"PrefixSequence");
     builder->InsertParagraph();
     
-    ASSERT_EQ(u" SEQ  PrefixSequence", fieldSeq->GetFieldCode());
+    ASSERT_EQ(fieldSeq->GetFieldCode(), u" SEQ  PrefixSequence");
     
     // 2 -  Inserting a SEQ field that belongs to the TOC's main sequence:
     // This SEQ field will create an entry in the TOC.
@@ -2943,7 +2940,7 @@ void ExField::TocSeqPrefix()
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
     fieldSeq->set_SequenceIdentifier(u"MySequence");
     
-    ASSERT_EQ(u" SEQ  MySequence", fieldSeq->GetFieldCode());
+    ASSERT_EQ(fieldSeq->GetFieldCode(), u" SEQ  MySequence");
     
     // Insert a page, advance the prefix sequence by 2, and insert a SEQ field to create a TOC entry afterwards.
     // The prefix sequence is now at 2, and the main sequence SEQ field is on page 3,
@@ -2962,57 +2959,57 @@ void ExField::TocSeqPrefix()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.TOC.SEQ.docx"));
     
-    ASSERT_EQ(9, doc->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 9);
     
     fieldToc = System::ExplicitCast<Aspose::Words::Fields::FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
     std::cout << fieldToc->get_DisplayResult() << std::endl;
     TestUtil::VerifyField(FieldType::FieldTOC, u" TOC  \\c MySequence \\s PrefixSequence \\d >", System::String(u"First TOC entry, MySequence #12\t\u0013 SEQ PrefixSequence _Toc256000000 \\* ARABIC \u00141\u0015>\u0013 PAGEREF _Toc256000000 \\h \u00142\u0015\r2") + u"Second TOC entry, MySequence #\t\u0013 SEQ PrefixSequence _Toc256000001 \\* ARABIC \u00142\u0015>\u0013 PAGEREF _Toc256000001 \\h \u00143\u0015\r", fieldToc);
-    ASSERT_EQ(u"MySequence", fieldToc->get_TableOfFiguresLabel());
-    ASSERT_EQ(u"PrefixSequence", fieldToc->get_PrefixedSequenceIdentifier());
-    ASSERT_EQ(u">", fieldToc->get_SequenceSeparator());
+    ASSERT_EQ(fieldToc->get_TableOfFiguresLabel(), u"MySequence");
+    ASSERT_EQ(fieldToc->get_PrefixedSequenceIdentifier(), u"PrefixSequence");
+    ASSERT_EQ(fieldToc->get_SequenceSeparator(), u">");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ PrefixSequence _Toc256000000 \\* ARABIC ", u"1", fieldSeq);
-    ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"PrefixSequence");
     
     // Byproduct field created by Aspose.Words
     auto fieldPageRef = System::ExplicitCast<Aspose::Words::Fields::FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF _Toc256000000 \\h ", u"2", fieldPageRef);
-    ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
-    ASSERT_EQ(u"_Toc256000000", fieldPageRef->get_BookmarkName());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"PrefixSequence");
+    ASSERT_EQ(fieldPageRef->get_BookmarkName(), u"_Toc256000000");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ PrefixSequence _Toc256000001 \\* ARABIC ", u"2", fieldSeq);
-    ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"PrefixSequence");
     
     fieldPageRef = System::ExplicitCast<Aspose::Words::Fields::FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(4));
     
     TestUtil::VerifyField(FieldType::FieldPageRef, u" PAGEREF _Toc256000001 \\h ", u"3", fieldPageRef);
-    ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
-    ASSERT_EQ(u"_Toc256000001", fieldPageRef->get_BookmarkName());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"PrefixSequence");
+    ASSERT_EQ(fieldPageRef->get_BookmarkName(), u"_Toc256000001");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(5));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  PrefixSequence", u"1", fieldSeq);
-    ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"PrefixSequence");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(6));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence", u"1", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(7));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  PrefixSequence", u"2", fieldSeq);
-    ASSERT_EQ(u"PrefixSequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"PrefixSequence");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(8));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence", u"2", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
 }
 
 namespace gtest_test
@@ -3048,8 +3045,8 @@ void ExField::TocSeqNumbering()
     fieldSeq->set_ResetNumber(u"100");
     fieldSeq->Update();
     
-    ASSERT_EQ(u" SEQ  MySequence \\r 100", fieldSeq->GetFieldCode());
-    ASSERT_EQ(u"100", fieldSeq->get_Result());
+    ASSERT_EQ(fieldSeq->GetFieldCode(), u" SEQ  MySequence \\r 100");
+    ASSERT_EQ(fieldSeq->get_Result(), u"100");
     
     // Display the next number in this sequence with another SEQ field.
     builder->Write(u", #");
@@ -3057,7 +3054,7 @@ void ExField::TocSeqNumbering()
     fieldSeq->set_SequenceIdentifier(u"MySequence");
     fieldSeq->Update();
     
-    ASSERT_EQ(u"101", fieldSeq->get_Result());
+    ASSERT_EQ(fieldSeq->get_Result(), u"101");
     
     // Insert a level 1 heading.
     builder->InsertBreak(BreakType::ParagraphBreak);
@@ -3073,8 +3070,8 @@ void ExField::TocSeqNumbering()
     fieldSeq->Update();
     
     // The above heading is a level 1 heading, so the count for this sequence is reset to 1.
-    ASSERT_EQ(u" SEQ  MySequence \\s 1", fieldSeq->GetFieldCode());
-    ASSERT_EQ(u"1", fieldSeq->get_Result());
+    ASSERT_EQ(fieldSeq->GetFieldCode(), u" SEQ  MySequence \\s 1");
+    ASSERT_EQ(fieldSeq->get_Result(), u"1");
     
     // Move to the next number of this sequence.
     builder->Write(u", #");
@@ -3083,8 +3080,8 @@ void ExField::TocSeqNumbering()
     fieldSeq->set_InsertNextNumber(true);
     fieldSeq->Update();
     
-    ASSERT_EQ(u" SEQ  MySequence \\n", fieldSeq->GetFieldCode());
-    ASSERT_EQ(u"2", fieldSeq->get_Result());
+    ASSERT_EQ(fieldSeq->GetFieldCode(), u" SEQ  MySequence \\n");
+    ASSERT_EQ(fieldSeq->get_Result(), u"2");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.SEQ.ResetNumbering.docx");
@@ -3092,27 +3089,27 @@ void ExField::TocSeqNumbering()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.SEQ.ResetNumbering.docx"));
     
-    ASSERT_EQ(4, doc->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 4);
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence \\r 100", u"100", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence", u"101", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence \\s 1", u"1", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence \\n", u"2", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
 }
 
 namespace gtest_test
@@ -3147,7 +3144,7 @@ void ExField::TocSeqBookmark()
     fieldToc->set_BookmarkName(u"TOCBookmark");
     builder->InsertBreak(BreakType::PageBreak);
     
-    ASSERT_EQ(u" TOC  \\c MySequence \\b TOCBookmark", fieldToc->GetFieldCode());
+    ASSERT_EQ(fieldToc->GetFieldCode(), u" TOC  \\c MySequence \\b TOCBookmark");
     
     // SEQ fields display a count that increments at each SEQ field.
     // These fields also maintain separate counts for each unique named sequence
@@ -3182,7 +3179,7 @@ void ExField::TocSeqBookmark()
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
     fieldSeq->set_SequenceIdentifier(u"MySequence");
     fieldSeq->set_BookmarkName(u"SEQBookmark");
-    ASSERT_EQ(u" SEQ  MySequence SEQBookmark", fieldSeq->GetFieldCode());
+    ASSERT_EQ(fieldSeq->GetFieldCode(), u" SEQ  MySequence SEQBookmark");
     
     // Create a bookmark with contents that will show up in the TOC entry due to the above SEQ field referencing it.
     builder->InsertBreak(BreakType::PageBreak);
@@ -3201,7 +3198,7 @@ void ExField::TocSeqBookmark()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.SEQ.Bookmark.docx"));
     
-    ASSERT_EQ(8, doc->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 8);
     
     fieldToc = System::ExplicitCast<Aspose::Words::Fields::FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
     System::ArrayPtr<System::String> pageRefIds = fieldToc->get_Result().Split(System::MakeArray<char16_t>({u' '}))->LINQ_Where(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
@@ -3209,45 +3206,45 @@ void ExField::TocSeqBookmark()
         return s.StartsWith(u"_Toc");
     })))->LINQ_ToArray();
     
-    ASSERT_EQ(FieldType::FieldTOC, fieldToc->get_Type());
-    ASSERT_EQ(u"MySequence", fieldToc->get_TableOfFiguresLabel());
+    ASSERT_EQ(fieldToc->get_Type(), FieldType::FieldTOC);
+    ASSERT_EQ(fieldToc->get_TableOfFiguresLabel(), u"MySequence");
     TestUtil::VerifyField(FieldType::FieldTOC, u" TOC  \\c MySequence \\b TOCBookmark", System::String::Format(u"MySequence #2, will show up in the TOC next to the entry for the above caption.\t\u0013 PAGEREF {0} \\h \u00142\u0015\r", pageRefIds[0]) + System::String::Format(u"3MySequence #3, text from inside SEQBookmark.\t\u0013 PAGEREF {0} \\h \u00142\u0015\r", pageRefIds[1]), fieldToc);
     
     auto fieldPageRef = System::ExplicitCast<Aspose::Words::Fields::FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldPageRef, System::String::Format(u" PAGEREF {0} \\h ", pageRefIds[0]), u"2", fieldPageRef);
-    ASSERT_EQ(pageRefIds[0], fieldPageRef->get_BookmarkName());
+    ASSERT_EQ(fieldPageRef->get_BookmarkName(), pageRefIds[0]);
     
     fieldPageRef = System::ExplicitCast<Aspose::Words::Fields::FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldPageRef, System::String::Format(u" PAGEREF {0} \\h ", pageRefIds[1]), u"2", fieldPageRef);
-    ASSERT_EQ(pageRefIds[1], fieldPageRef->get_BookmarkName());
+    ASSERT_EQ(fieldPageRef->get_BookmarkName(), pageRefIds[1]);
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence", u"1", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(4));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence", u"2", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(5));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  OtherSequence", u"1", fieldSeq);
-    ASSERT_EQ(u"OtherSequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"OtherSequence");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(6));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence SEQBookmark", u"3", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
-    ASSERT_EQ(u"SEQBookmark", fieldSeq->get_BookmarkName());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
+    ASSERT_EQ(fieldSeq->get_BookmarkName(), u"SEQBookmark");
     
     fieldSeq = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(doc->get_Range()->get_Fields()->idx_get(7));
     
     TestUtil::VerifyField(FieldType::FieldSequence, u" SEQ  MySequence", u"3", fieldSeq);
-    ASSERT_EQ(u"MySequence", fieldSeq->get_SequenceIdentifier());
+    ASSERT_EQ(fieldSeq->get_SequenceIdentifier(), u"MySequence");
 }
 
 namespace gtest_test
@@ -3300,7 +3297,7 @@ void ExField::FieldData()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldData>(builder->InsertField(FieldType::FieldData, true));
-    ASSERT_EQ(u" DATA ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DATA ");
     //ExEnd
     
     TestUtil::VerifyField(FieldType::FieldData, u" DATA ", System::String::Empty, DocumentHelper::SaveOpen(doc)->get_Range()->get_Fields()->idx_get(0));
@@ -3345,14 +3342,14 @@ void ExField::FieldInclude()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.INCLUDE.docx"));
     field = System::ExplicitCast<Aspose::Words::Fields::FieldInclude>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(FieldType::FieldInclude, field->get_Type());
-    ASSERT_EQ(u"First bookmark.", field->get_Result());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldInclude);
+    ASSERT_EQ(field->get_Result(), u"First bookmark.");
     ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(field->GetFieldCode(), u" INCLUDE .* MyBookmark1 \\\\c \"Microsoft Word\"")->get_Success());
     
-    ASSERT_EQ(get_MyDir() + u"Bookmarks.docx", field->get_SourceFullName());
-    ASSERT_EQ(u"MyBookmark1", field->get_BookmarkName());
+    ASSERT_EQ(field->get_SourceFullName(), get_MyDir() + u"Bookmarks.docx");
+    ASSERT_EQ(field->get_BookmarkName(), u"MyBookmark1");
     ASSERT_FALSE(field->get_LockFields());
-    ASSERT_EQ(u"Microsoft Word", field->get_TextConverter());
+    ASSERT_EQ(field->get_TextConverter(), u"Microsoft Word");
 }
 
 namespace gtest_test
@@ -3407,33 +3404,33 @@ void ExField::FieldIncludePicture()
     doc->Save(get_ArtifactsDir() + u"Field.IMPORT.INCLUDEPICTURE.docx");
     //ExEnd
     
-    ASSERT_EQ(get_ImageDir() + u"Transparent background logo.png", fieldIncludePicture->get_SourceFullName());
-    ASSERT_EQ(u"PNG32", fieldIncludePicture->get_GraphicFilter());
+    ASSERT_EQ(fieldIncludePicture->get_SourceFullName(), get_ImageDir() + u"Transparent background logo.png");
+    ASSERT_EQ(fieldIncludePicture->get_GraphicFilter(), u"PNG32");
     ASSERT_TRUE(fieldIncludePicture->get_IsLinked());
     ASSERT_TRUE(fieldIncludePicture->get_ResizeHorizontally());
     ASSERT_TRUE(fieldIncludePicture->get_ResizeVertically());
     
-    ASSERT_EQ(get_ImageDir() + u"Transparent background logo.png", fieldImport->get_SourceFullName());
-    ASSERT_EQ(u"PNG32", fieldImport->get_GraphicFilter());
+    ASSERT_EQ(fieldImport->get_SourceFullName(), get_ImageDir() + u"Transparent background logo.png");
+    ASSERT_EQ(fieldImport->get_GraphicFilter(), u"PNG32");
     ASSERT_TRUE(fieldImport->get_IsLinked());
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.IMPORT.INCLUDEPICTURE.docx"));
     
     // The INCLUDEPICTURE fields have been converted into shapes with linked images during loading.
-    ASSERT_EQ(0, doc->get_Range()->get_Fields()->get_Count());
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 0);
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->get_Count(), 2);
     
     auto image = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     ASSERT_TRUE(image->get_IsImage());
     ASSERT_TRUE(System::TestTools::IsNull(image->get_ImageData()->get_ImageBytes()));
-    ASSERT_EQ(get_ImageDir() + u"Transparent background logo.png", image->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "));
+    ASSERT_EQ(image->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "), get_ImageDir() + u"Transparent background logo.png");
     
     image = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
     
     ASSERT_TRUE(image->get_IsImage());
     ASSERT_TRUE(System::TestTools::IsNull(image->get_ImageData()->get_ImageBytes()));
-    ASSERT_EQ(get_ImageDir() + u"Transparent background logo.png", image->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "));
+    ASSERT_EQ(image->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "), get_ImageDir() + u"Transparent background logo.png");
 }
 
 namespace gtest_test
@@ -3487,16 +3484,16 @@ void ExField::FieldHyperlink()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldHyperlink, System::String(u" HYPERLINK \"") + get_MyDir().Replace(u"\\", u"\\\\") + u"Bookmarks.docx\" \\l \"MyBookmark3\" \\o \"Open " + get_MyDir() + u"Bookmarks.docx on bookmark MyBookmark3 in a new window\" ", get_MyDir() + u"Bookmarks.docx - MyBookmark3", field);
-    ASSERT_EQ(get_MyDir() + u"Bookmarks.docx", field->get_Address());
-    ASSERT_EQ(u"MyBookmark3", field->get_SubAddress());
-    ASSERT_EQ(System::String(u"Open ") + field->get_Address().Replace(u"\\", System::String::Empty) + u" on bookmark " + field->get_SubAddress() + u" in a new window", field->get_ScreenTip());
+    ASSERT_EQ(field->get_Address(), get_MyDir() + u"Bookmarks.docx");
+    ASSERT_EQ(field->get_SubAddress(), u"MyBookmark3");
+    ASSERT_EQ(field->get_ScreenTip(), System::String(u"Open ") + field->get_Address().Replace(u"\\", System::String::Empty) + u" on bookmark " + field->get_SubAddress() + u" in a new window");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldHyperlink, System::String(u" HYPERLINK \"file:///") + get_MyDir().Replace(u"\\", u"\\\\").Replace(u" ", u"%20") + u"Iframes.html\" \\t \"iframe_3\" \\o \"Open " + get_MyDir().Replace(u"\\", u"\\\\") + u"Iframes.html\" ", get_MyDir() + u"Iframes.html", field);
-    ASSERT_EQ(System::String(u"file:///") + get_MyDir().Replace(u" ", u"%20") + u"Iframes.html", field->get_Address());
-    ASSERT_EQ(System::String(u"Open ") + get_MyDir() + u"Iframes.html", field->get_ScreenTip());
-    ASSERT_EQ(u"iframe_3", field->get_Target());
+    ASSERT_EQ(field->get_Address(), System::String(u"file:///") + get_MyDir().Replace(u" ", u"%20") + u"Iframes.html");
+    ASSERT_EQ(field->get_ScreenTip(), System::String(u"Open ") + get_MyDir() + u"Iframes.html");
+    ASSERT_EQ(field->get_Target(), u"iframe_3");
     ASSERT_FALSE(field->get_OpenInNewWindow());
     ASSERT_FALSE(field->get_IsImageMap());
 }
@@ -3537,7 +3534,7 @@ void ExField::FieldIndexFilter()
     index->set_BookmarkName(u"MainBookmark");
     index->set_EntryType(u"A");
     
-    ASSERT_EQ(u" INDEX  \\b MainBookmark \\f A", index->GetFieldCode());
+    ASSERT_EQ(index->GetFieldCode(), u" INDEX  \\b MainBookmark \\f A");
     
     // On a new page, start the bookmark with a name that matches the value
     // of the INDEX field's "BookmarkName" property.
@@ -3550,7 +3547,7 @@ void ExField::FieldIndexFilter()
     indexEntry->set_Text(u"Index entry 1");
     indexEntry->set_EntryType(u"A");
     
-    ASSERT_EQ(u" XE  \"Index entry 1\" \\f A", indexEntry->GetFieldCode());
+    ASSERT_EQ(indexEntry->GetFieldCode(), u" XE  \"Index entry 1\" \\f A");
     
     // Insert an XE field that will not appear in the INDEX because the entry types do not match.
     builder->InsertBreak(BreakType::PageBreak);
@@ -3576,26 +3573,26 @@ void ExField::FieldIndexFilter()
     index = System::ExplicitCast<Aspose::Words::Fields::FieldIndex>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldIndex, u" INDEX  \\b MainBookmark \\f A", u"Index entry 1, 2\r", index);
-    ASSERT_EQ(u"MainBookmark", index->get_BookmarkName());
-    ASSERT_EQ(u"A", index->get_EntryType());
+    ASSERT_EQ(index->get_BookmarkName(), u"MainBookmark");
+    ASSERT_EQ(index->get_EntryType(), u"A");
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  \"Index entry 1\" \\f A", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Index entry 1", indexEntry->get_Text());
-    ASSERT_EQ(u"A", indexEntry->get_EntryType());
+    ASSERT_EQ(indexEntry->get_Text(), u"Index entry 1");
+    ASSERT_EQ(indexEntry->get_EntryType(), u"A");
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  \"Index entry 2\" \\f B", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Index entry 2", indexEntry->get_Text());
-    ASSERT_EQ(u"B", indexEntry->get_EntryType());
+    ASSERT_EQ(indexEntry->get_Text(), u"Index entry 2");
+    ASSERT_EQ(indexEntry->get_EntryType(), u"B");
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  \"Index entry 3\" \\f A", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Index entry 3", indexEntry->get_Text());
-    ASSERT_EQ(u"A", indexEntry->get_EntryType());
+    ASSERT_EQ(indexEntry->get_Text(), u"Index entry 3");
+    ASSERT_EQ(indexEntry->get_EntryType(), u"A");
 }
 
 namespace gtest_test
@@ -3642,7 +3639,7 @@ void ExField::FieldIndexFormatting()
     // Set any entries with starting letters outside the "a-c" character range to be omitted.
     index->set_LetterRange(u"a-c");
     
-    ASSERT_EQ(u" INDEX  \\z 1033 \\h A \\c 2 \\p a-c", index->GetFieldCode());
+    ASSERT_EQ(index->GetFieldCode(), u" INDEX  \\z 1033 \\h A \\c 2 \\p a-c");
     
     // These next two XE fields will show up under the "A" heading,
     // with their respective text stylings also applied to their page numbers.
@@ -3651,14 +3648,14 @@ void ExField::FieldIndexFormatting()
     indexEntry->set_Text(u"Apple");
     indexEntry->set_IsItalic(true);
     
-    ASSERT_EQ(u" XE  Apple \\i", indexEntry->GetFieldCode());
+    ASSERT_EQ(indexEntry->GetFieldCode(), u" XE  Apple \\i");
     
     builder->InsertBreak(BreakType::PageBreak);
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
     indexEntry->set_Text(u"Apricot");
     indexEntry->set_IsBold(true);
     
-    ASSERT_EQ(u" XE  Apricot \\b", indexEntry->GetFieldCode());
+    ASSERT_EQ(indexEntry->GetFieldCode(), u" XE  Apricot \\b");
     
     // Both the next two XE fields will be under a "B" and "C" heading in the INDEX fields table of contents.
     builder->InsertBreak(BreakType::PageBreak);
@@ -3688,52 +3685,52 @@ void ExField::FieldIndexFormatting()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.INDEX.XE.Formatting.docx"));
     index = System::ExplicitCast<Aspose::Words::Fields::FieldIndex>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(u"1033", index->get_LanguageId());
-    ASSERT_EQ(u"A", index->get_Heading());
-    ASSERT_EQ(u"2", index->get_NumberOfColumns());
-    ASSERT_EQ(u"a-c", index->get_LetterRange());
-    ASSERT_EQ(u" INDEX  \\z 1033 \\h A \\c 2 \\p a-c", index->GetFieldCode());
-    ASSERT_EQ((System::String(u"\fA\r") + u"Apple, 2\r" + u"Apricot, 3\r" + u"Avocado, 6\r" + u"B\r" + u"Banana, 4\r" + u"C\r" + u"Cherry, 5\r\f"), index->get_Result());
+    ASSERT_EQ(index->get_LanguageId(), u"1033");
+    ASSERT_EQ(index->get_Heading(), u"A");
+    ASSERT_EQ(index->get_NumberOfColumns(), u"2");
+    ASSERT_EQ(index->get_LetterRange(), u"a-c");
+    ASSERT_EQ(index->GetFieldCode(), u" INDEX  \\z 1033 \\h A \\c 2 \\p a-c");
+    ASSERT_EQ(index->get_Result(), (System::String(u"\fA\r") + u"Apple, 2\r" + u"Apricot, 3\r" + u"Avocado, 6\r" + u"B\r" + u"Banana, 4\r" + u"C\r" + u"Cherry, 5\r\f"));
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  Apple \\i", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Apple", indexEntry->get_Text());
+    ASSERT_EQ(indexEntry->get_Text(), u"Apple");
     ASSERT_FALSE(indexEntry->get_IsBold());
     ASSERT_TRUE(indexEntry->get_IsItalic());
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  Apricot \\b", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Apricot", indexEntry->get_Text());
+    ASSERT_EQ(indexEntry->get_Text(), u"Apricot");
     ASSERT_TRUE(indexEntry->get_IsBold());
     ASSERT_FALSE(indexEntry->get_IsItalic());
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  Banana", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Banana", indexEntry->get_Text());
+    ASSERT_EQ(indexEntry->get_Text(), u"Banana");
     ASSERT_FALSE(indexEntry->get_IsBold());
     ASSERT_FALSE(indexEntry->get_IsItalic());
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(4));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  Cherry", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Cherry", indexEntry->get_Text());
+    ASSERT_EQ(indexEntry->get_Text(), u"Cherry");
     ASSERT_FALSE(indexEntry->get_IsBold());
     ASSERT_FALSE(indexEntry->get_IsItalic());
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(5));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  Avocado", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Avocado", indexEntry->get_Text());
+    ASSERT_EQ(indexEntry->get_Text(), u"Avocado");
     ASSERT_FALSE(indexEntry->get_IsBold());
     ASSERT_FALSE(indexEntry->get_IsItalic());
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(6));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  Durian", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Durian", indexEntry->get_Text());
+    ASSERT_EQ(indexEntry->get_Text(), u"Durian");
     ASSERT_FALSE(indexEntry->get_IsBold());
     ASSERT_FALSE(indexEntry->get_IsItalic());
 }
@@ -3776,7 +3773,7 @@ void ExField::FieldIndexSequence()
     index->set_SequenceSeparator(u" on page ");
     ASSERT_TRUE(index->get_HasSequenceName());
     
-    ASSERT_EQ(u" INDEX  \\s MySequence \\e \"\tMySequence at \" \\d \" on page \"", index->GetFieldCode());
+    ASSERT_EQ(index->GetFieldCode(), u" INDEX  \\s MySequence \\e \"\tMySequence at \" \\d \" on page \"");
     
     // SEQ fields display a count that increments at each SEQ field.
     // These fields also maintain separate counts for each unique named sequence
@@ -3787,7 +3784,7 @@ void ExField::FieldIndexSequence()
     auto sequenceField = System::ExplicitCast<Aspose::Words::Fields::FieldSeq>(builder->InsertField(FieldType::FieldSequence, true));
     sequenceField->set_SequenceIdentifier(u"MySequence");
     
-    ASSERT_EQ(u" SEQ  MySequence", sequenceField->GetFieldCode());
+    ASSERT_EQ(sequenceField->GetFieldCode(), u" SEQ  MySequence");
     
     // Insert an XE field which will create an entry in the INDEX field.
     // Since "MySequence" is at 1 and this XE field is on page 2, along with the custom separators we defined above,
@@ -3795,7 +3792,7 @@ void ExField::FieldIndexSequence()
     auto indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
     indexEntry->set_Text(u"Cat");
     
-    ASSERT_EQ(u" XE  Cat", indexEntry->GetFieldCode());
+    ASSERT_EQ(indexEntry->GetFieldCode(), u" XE  Cat");
     
     // Insert a page break and use SEQ fields to advance "MySequence" to 3.
     builder->InsertBreak(BreakType::PageBreak);
@@ -3826,17 +3823,17 @@ void ExField::FieldIndexSequence()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.INDEX.XE.Sequence.docx"));
     index = System::ExplicitCast<Aspose::Words::Fields::FieldIndex>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(u"MySequence", index->get_SequenceName());
-    ASSERT_EQ(u"\tMySequence at ", index->get_PageNumberSeparator());
-    ASSERT_EQ(u" on page ", index->get_SequenceSeparator());
+    ASSERT_EQ(index->get_SequenceName(), u"MySequence");
+    ASSERT_EQ(index->get_PageNumberSeparator(), u"\tMySequence at ");
+    ASSERT_EQ(index->get_SequenceSeparator(), u" on page ");
     ASSERT_TRUE(index->get_HasSequenceName());
-    ASSERT_EQ(u" INDEX  \\s MySequence \\e \"\tMySequence at \" \\d \" on page \"", index->GetFieldCode());
-    ASSERT_EQ(System::String(u"Cat\tMySequence at 1 on page 2, 3 on page 3\r") + u"Dog\tMySequence at 3 on page 4\r", index->get_Result());
+    ASSERT_EQ(index->GetFieldCode(), u" INDEX  \\s MySequence \\e \"\tMySequence at \" \\d \" on page \"");
+    ASSERT_EQ(index->get_Result(), System::String(u"Cat\tMySequence at 1 on page 2, 3 on page 3\r") + u"Dog\tMySequence at 3 on page 4\r");
     
-    ASSERT_EQ(3, doc->get_Range()->get_Fields()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fields::Field>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fields::Field> f)>>([](System::SharedPtr<Aspose::Words::Fields::Field> f) -> bool
+    ASSERT_EQ(doc->get_Range()->get_Fields()->LINQ_Where(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fields::Field>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fields::Field> f)>>([](System::SharedPtr<Aspose::Words::Fields::Field> f) -> bool
     {
         return f->get_Type() == FieldType::FieldSequence;
-    })))->LINQ_Count());
+    })))->LINQ_Count(), 3);
 }
 
 namespace gtest_test
@@ -3872,7 +3869,7 @@ void ExField::FieldIndexPageNumberSeparator()
     index->set_PageNumberSeparator(u", on page(s) ");
     index->set_PageNumberListSeparator(u" & ");
     
-    ASSERT_EQ((u" INDEX  \\e \", on page(s) \" \\l \" & \""), index->GetFieldCode());
+    ASSERT_EQ(index->GetFieldCode(), (u" INDEX  \\e \", on page(s) \" \\l \" & \""));
     ASSERT_TRUE(index->get_HasPageNumberSeparator());
     
     // After we insert these XE fields, the INDEX field will display "First entry, on page(s) 2 & 3 & 4".
@@ -3880,7 +3877,7 @@ void ExField::FieldIndexPageNumberSeparator()
     auto indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
     indexEntry->set_Text(u"First entry");
     
-    ASSERT_EQ(u" XE  \"First entry\"", indexEntry->GetFieldCode());
+    ASSERT_EQ(indexEntry->GetFieldCode(), u" XE  \"First entry\"");
     
     builder->InsertBreak(BreakType::PageBreak);
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
@@ -3899,8 +3896,8 @@ void ExField::FieldIndexPageNumberSeparator()
     index = System::ExplicitCast<Aspose::Words::Fields::FieldIndex>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldIndex, u" INDEX  \\e \", on page(s) \" \\l \" & \"", u"First entry, on page(s) 2 & 3 & 4\r", index);
-    ASSERT_EQ((u", on page(s) "), index->get_PageNumberSeparator());
-    ASSERT_EQ(u" & ", index->get_PageNumberListSeparator());
+    ASSERT_EQ(index->get_PageNumberSeparator(), (u", on page(s) "));
+    ASSERT_EQ(index->get_PageNumberListSeparator(), u" & ");
     ASSERT_TRUE(index->get_HasPageNumberSeparator());
 }
 
@@ -3935,7 +3932,7 @@ void ExField::FieldIndexPageRangeBookmark()
     index->set_PageNumberSeparator(u", on page(s) ");
     index->set_PageRangeSeparator(u" to ");
     
-    ASSERT_EQ((u" INDEX  \\e \", on page(s) \" \\g \" to \""), index->GetFieldCode());
+    ASSERT_EQ(index->GetFieldCode(), (u" INDEX  \\e \", on page(s) \" \\g \" to \""));
     
     builder->InsertBreak(BreakType::PageBreak);
     auto indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
@@ -3946,8 +3943,8 @@ void ExField::FieldIndexPageRangeBookmark()
     // instead of the number of the page that contains the XE field.
     indexEntry->set_PageRangeBookmarkName(u"MyBookmark");
     
-    ASSERT_EQ(u" XE  \"My entry\" \\r MyBookmark", indexEntry->GetFieldCode());
-    ASSERT_EQ(u"MyBookmark", indexEntry->get_PageRangeBookmarkName());
+    ASSERT_EQ(indexEntry->GetFieldCode(), u" XE  \"My entry\" \\r MyBookmark");
+    ASSERT_EQ(indexEntry->get_PageRangeBookmarkName(), u"MyBookmark");
     
     // Insert a bookmark that starts on page 3 and ends on page 5.
     // The INDEX entry for the XE field that references this bookmark will display this page range.
@@ -3969,14 +3966,14 @@ void ExField::FieldIndexPageRangeBookmark()
     index = System::ExplicitCast<Aspose::Words::Fields::FieldIndex>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldIndex, u" INDEX  \\e \", on page(s) \" \\g \" to \"", u"My entry, on page(s) 3 to 5\r", index);
-    ASSERT_EQ((u", on page(s) "), index->get_PageNumberSeparator());
-    ASSERT_EQ(u" to ", index->get_PageRangeSeparator());
+    ASSERT_EQ(index->get_PageNumberSeparator(), (u", on page(s) "));
+    ASSERT_EQ(index->get_PageRangeSeparator(), u" to ");
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  \"My entry\" \\r MyBookmark", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"My entry", indexEntry->get_Text());
-    ASSERT_EQ(u"MyBookmark", indexEntry->get_PageRangeBookmarkName());
+    ASSERT_EQ(indexEntry->get_Text(), u"My entry");
+    ASSERT_EQ(indexEntry->get_PageRangeBookmarkName(), u"MyBookmark");
 }
 
 namespace gtest_test
@@ -4010,7 +4007,7 @@ void ExField::FieldIndexCrossReferenceSeparator()
     // specify a custom separator between the XE field's Text property value and the string.
     index->set_CrossReferenceSeparator(u", see: ");
     
-    ASSERT_EQ((u" INDEX  \\k \", see: \""), index->GetFieldCode());
+    ASSERT_EQ(index->GetFieldCode(), (u" INDEX  \\k \", see: \""));
     
     // Insert an XE field, which creates a regular INDEX entry which displays this field's page number,
     // and does not invoke the CrossReferenceSeparator value.
@@ -4019,7 +4016,7 @@ void ExField::FieldIndexCrossReferenceSeparator()
     auto indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
     indexEntry->set_Text(u"Apple");
     
-    ASSERT_EQ(u" XE  Apple", indexEntry->GetFieldCode());
+    ASSERT_EQ(indexEntry->GetFieldCode(), u" XE  Apple");
     
     // Insert another XE field on page 3 and set a value for the PageNumberReplacement property.
     // This value will show up instead of the number of the page that this field is on,
@@ -4030,7 +4027,7 @@ void ExField::FieldIndexCrossReferenceSeparator()
     indexEntry->set_Text(u"Banana");
     indexEntry->set_PageNumberReplacement(u"Tropical fruit");
     
-    ASSERT_EQ(u" XE  Banana \\t \"Tropical fruit\"", indexEntry->GetFieldCode());
+    ASSERT_EQ(indexEntry->GetFieldCode(), u" XE  Banana \\t \"Tropical fruit\"");
     
     doc->UpdatePageLayout();
     doc->UpdateFields();
@@ -4041,19 +4038,19 @@ void ExField::FieldIndexCrossReferenceSeparator()
     index = System::ExplicitCast<Aspose::Words::Fields::FieldIndex>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldIndex, u" INDEX  \\k \", see: \"", System::String(u"Apple, 2\r") + u"Banana, see: Tropical fruit\r", index);
-    ASSERT_EQ((u", see: "), index->get_CrossReferenceSeparator());
+    ASSERT_EQ(index->get_CrossReferenceSeparator(), (u", see: "));
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  Apple", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Apple", indexEntry->get_Text());
+    ASSERT_EQ(indexEntry->get_Text(), u"Apple");
     ASSERT_TRUE(System::TestTools::IsNull(indexEntry->get_PageNumberReplacement()));
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  Banana \\t \"Tropical fruit\"", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Banana", indexEntry->get_Text());
-    ASSERT_EQ(u"Tropical fruit", indexEntry->get_PageNumberReplacement());
+    ASSERT_EQ(indexEntry->get_Text(), u"Banana");
+    ASSERT_EQ(indexEntry->get_PageNumberReplacement(), u"Tropical fruit");
 }
 
 namespace gtest_test
@@ -4097,11 +4094,11 @@ void ExField::FieldIndexSubheading(bool runSubentriesOnTheSameLine)
     
     if (runSubentriesOnTheSameLine)
     {
-        ASSERT_EQ((u" INDEX  \\e \", see page \" \\h A \\r"), index->GetFieldCode());
+        ASSERT_EQ(index->GetFieldCode(), (u" INDEX  \\e \", see page \" \\h A \\r"));
     }
     else
     {
-        ASSERT_EQ((u" INDEX  \\e \", see page \" \\h A"), index->GetFieldCode());
+        ASSERT_EQ(index->GetFieldCode(), (u" INDEX  \\e \", see page \" \\h A"));
     }
     
     // Insert two XE fields, each on a new page, and with the same heading named "Heading 1",
@@ -4114,7 +4111,7 @@ void ExField::FieldIndexSubheading(bool runSubentriesOnTheSameLine)
     auto indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
     indexEntry->set_Text(u"Heading 1:Subheading 1");
     
-    ASSERT_EQ(u" XE  \"Heading 1:Subheading 1\"", indexEntry->GetFieldCode());
+    ASSERT_EQ(indexEntry->GetFieldCode(), u" XE  \"Heading 1:Subheading 1\"");
     
     builder->InsertBreak(BreakType::PageBreak);
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(builder->InsertField(FieldType::FieldIndexEntry, true));
@@ -4142,12 +4139,12 @@ void ExField::FieldIndexSubheading(bool runSubentriesOnTheSameLine)
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  \"Heading 1:Subheading 1\"", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Heading 1:Subheading 1", indexEntry->get_Text());
+    ASSERT_EQ(indexEntry->get_Text(), u"Heading 1:Subheading 1");
     
     indexEntry = System::ExplicitCast<Aspose::Words::Fields::FieldXE>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldIndexEntry, u" XE  \"Heading 1:Subheading 2\"", System::String::Empty, indexEntry);
-    ASSERT_EQ(u"Heading 1:Subheading 2", indexEntry->get_Text());
+    ASSERT_EQ(indexEntry->get_Text(), u"Heading 1:Subheading 2");
 }
 
 namespace gtest_test
@@ -4200,7 +4197,7 @@ void ExField::FieldBarcode()
     field->set_IsUSPostalAddress(true);
     field->set_FacingIdentificationMark(u"C");
     
-    ASSERT_EQ(u" BARCODE  96801 \\u \\f C", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" BARCODE  96801 \\u \\f C");
     
     builder->InsertBreak(BreakType::LineBreak);
     
@@ -4209,7 +4206,7 @@ void ExField::FieldBarcode()
     field->set_PostalAddress(u"BarcodeBookmark");
     field->set_IsBookmark(true);
     
-    ASSERT_EQ(u" BARCODE  BarcodeBookmark \\b", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" BARCODE  BarcodeBookmark \\b");
     
     // The bookmark that the BARCODE field references in its PostalAddress property
     // need to contain nothing besides the valid ZIP code.
@@ -4223,19 +4220,19 @@ void ExField::FieldBarcode()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.BARCODE.docx"));
     
-    ASSERT_EQ(0, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->get_Count(), 0);
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldBarcode>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldBarcode, u" BARCODE  96801 \\u \\f C", System::String::Empty, field);
-    ASSERT_EQ(u"C", field->get_FacingIdentificationMark());
-    ASSERT_EQ(u"96801", field->get_PostalAddress());
+    ASSERT_EQ(field->get_FacingIdentificationMark(), u"C");
+    ASSERT_EQ(field->get_PostalAddress(), u"96801");
     ASSERT_TRUE(field->get_IsUSPostalAddress());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldBarcode>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldBarcode, u" BARCODE  BarcodeBookmark \\b", System::String::Empty, field);
-    ASSERT_EQ(u"BarcodeBookmark", field->get_PostalAddress());
+    ASSERT_EQ(field->get_PostalAddress(), u"BarcodeBookmark");
     ASSERT_TRUE(field->get_IsBookmark());
 }
 
@@ -4283,7 +4280,7 @@ void ExField::FieldDisplayBarcode()
     field->set_SymbolHeight(u"1000");
     field->set_SymbolRotation(u"0");
     
-    ASSERT_EQ(u" DISPLAYBARCODE  ABC123 QR \\b 0xF8BD69 \\f 0xB5413B \\q 3 \\s 250 \\h 1000 \\r 0", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DISPLAYBARCODE  ABC123 QR \\b 0xF8BD69 \\f 0xB5413B \\q 3 \\s 250 \\h 1000 \\r 0");
     builder->Writeln();
     
     // 2 -  EAN13 barcode, with the digits displayed below the bars:
@@ -4294,7 +4291,7 @@ void ExField::FieldDisplayBarcode()
     field->set_PosCodeStyle(u"CASE");
     field->set_FixCheckDigit(true);
     
-    ASSERT_EQ(u" DISPLAYBARCODE  501234567890 EAN13 \\t \\p CASE \\x", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DISPLAYBARCODE  501234567890 EAN13 \\t \\p CASE \\x");
     builder->Writeln();
     
     // 3 -  CODE39 barcode:
@@ -4303,7 +4300,7 @@ void ExField::FieldDisplayBarcode()
     field->set_BarcodeValue(u"12345ABCDE");
     field->set_AddStartStopChar(true);
     
-    ASSERT_EQ(u" DISPLAYBARCODE  12345ABCDE CODE39 \\d", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DISPLAYBARCODE  12345ABCDE CODE39 \\d");
     builder->Writeln();
     
     // 4 -  ITF4 barcode, with a specified case code:
@@ -4312,49 +4309,49 @@ void ExField::FieldDisplayBarcode()
     field->set_BarcodeValue(u"09312345678907");
     field->set_CaseCodeStyle(u"STD");
     
-    ASSERT_EQ(u" DISPLAYBARCODE  09312345678907 ITF14 \\c STD", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DISPLAYBARCODE  09312345678907 ITF14 \\c STD");
     
     doc->Save(get_ArtifactsDir() + u"Field.DISPLAYBARCODE.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.DISPLAYBARCODE.docx"));
     
-    ASSERT_EQ(0, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->get_Count(), 0);
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldDisplayBarcode, u" DISPLAYBARCODE  ABC123 QR \\b 0xF8BD69 \\f 0xB5413B \\q 3 \\s 250 \\h 1000 \\r 0", System::String::Empty, field);
-    ASSERT_EQ(u"QR", field->get_BarcodeType());
-    ASSERT_EQ(u"ABC123", field->get_BarcodeValue());
-    ASSERT_EQ(u"0xF8BD69", field->get_BackgroundColor());
-    ASSERT_EQ(u"0xB5413B", field->get_ForegroundColor());
-    ASSERT_EQ(u"3", field->get_ErrorCorrectionLevel());
-    ASSERT_EQ(u"250", field->get_ScalingFactor());
-    ASSERT_EQ(u"1000", field->get_SymbolHeight());
-    ASSERT_EQ(u"0", field->get_SymbolRotation());
+    ASSERT_EQ(field->get_BarcodeType(), u"QR");
+    ASSERT_EQ(field->get_BarcodeValue(), u"ABC123");
+    ASSERT_EQ(field->get_BackgroundColor(), u"0xF8BD69");
+    ASSERT_EQ(field->get_ForegroundColor(), u"0xB5413B");
+    ASSERT_EQ(field->get_ErrorCorrectionLevel(), u"3");
+    ASSERT_EQ(field->get_ScalingFactor(), u"250");
+    ASSERT_EQ(field->get_SymbolHeight(), u"1000");
+    ASSERT_EQ(field->get_SymbolRotation(), u"0");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldDisplayBarcode, u" DISPLAYBARCODE  501234567890 EAN13 \\t \\p CASE \\x", System::String::Empty, field);
-    ASSERT_EQ(u"EAN13", field->get_BarcodeType());
-    ASSERT_EQ(u"501234567890", field->get_BarcodeValue());
+    ASSERT_EQ(field->get_BarcodeType(), u"EAN13");
+    ASSERT_EQ(field->get_BarcodeValue(), u"501234567890");
     ASSERT_TRUE(field->get_DisplayText());
-    ASSERT_EQ(u"CASE", field->get_PosCodeStyle());
+    ASSERT_EQ(field->get_PosCodeStyle(), u"CASE");
     ASSERT_TRUE(field->get_FixCheckDigit());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldDisplayBarcode, u" DISPLAYBARCODE  12345ABCDE CODE39 \\d", System::String::Empty, field);
-    ASSERT_EQ(u"CODE39", field->get_BarcodeType());
-    ASSERT_EQ(u"12345ABCDE", field->get_BarcodeValue());
+    ASSERT_EQ(field->get_BarcodeType(), u"CODE39");
+    ASSERT_EQ(field->get_BarcodeValue(), u"12345ABCDE");
     ASSERT_TRUE(field->get_AddStartStopChar());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDisplayBarcode>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldDisplayBarcode, u" DISPLAYBARCODE  09312345678907 ITF14 \\c STD", System::String::Empty, field);
-    ASSERT_EQ(u"ITF14", field->get_BarcodeType());
-    ASSERT_EQ(u"09312345678907", field->get_BarcodeValue());
-    ASSERT_EQ(u"STD", field->get_CaseCodeStyle());
+    ASSERT_EQ(field->get_BarcodeType(), u"ITF14");
+    ASSERT_EQ(field->get_BarcodeValue(), u"09312345678907");
+    ASSERT_EQ(field->get_CaseCodeStyle(), u"STD");
 }
 
 namespace gtest_test
@@ -4484,21 +4481,21 @@ void ExField::FieldUserAddress()
     // taken from the UserInformation object we created above.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     auto fieldUserAddress = System::ExplicitCast<Aspose::Words::Fields::FieldUserAddress>(builder->InsertField(FieldType::FieldUserAddress, true));
-    ASSERT_EQ(userInformation->get_Address(), fieldUserAddress->get_Result());
+    ASSERT_EQ(fieldUserAddress->get_Result(), userInformation->get_Address());
     //ExSkip
     
-    ASSERT_EQ(u" USERADDRESS ", fieldUserAddress->GetFieldCode());
-    ASSERT_EQ(u"123 Main Street", fieldUserAddress->get_Result());
+    ASSERT_EQ(fieldUserAddress->GetFieldCode(), u" USERADDRESS ");
+    ASSERT_EQ(fieldUserAddress->get_Result(), u"123 Main Street");
     
     // We can set this property to get our field to override the value currently stored in the UserInformation object.
     fieldUserAddress->set_UserAddress(u"456 North Road");
     fieldUserAddress->Update();
     
-    ASSERT_EQ(u" USERADDRESS  \"456 North Road\"", fieldUserAddress->GetFieldCode());
-    ASSERT_EQ(u"456 North Road", fieldUserAddress->get_Result());
+    ASSERT_EQ(fieldUserAddress->GetFieldCode(), u" USERADDRESS  \"456 North Road\"");
+    ASSERT_EQ(fieldUserAddress->get_Result(), u"456 North Road");
     
     // This does not affect the value in the UserInformation object.
-    ASSERT_EQ(u"123 Main Street", doc->get_FieldOptions()->get_CurrentUser()->get_Address());
+    ASSERT_EQ(doc->get_FieldOptions()->get_CurrentUser()->get_Address(), u"123 Main Street");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.USERADDRESS.docx");
@@ -4509,7 +4506,7 @@ void ExField::FieldUserAddress()
     fieldUserAddress = System::ExplicitCast<Aspose::Words::Fields::FieldUserAddress>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldUserAddress, u" USERADDRESS  \"456 North Road\"", u"456 North Road", fieldUserAddress);
-    ASSERT_EQ(u"456 North Road", fieldUserAddress->get_UserAddress());
+    ASSERT_EQ(fieldUserAddress->get_UserAddress(), u"456 North Road");
 }
 
 namespace gtest_test
@@ -4539,20 +4536,20 @@ void ExField::FieldUserInitials()
     // taken from the UserInformation object we created above.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     auto fieldUserInitials = System::ExplicitCast<Aspose::Words::Fields::FieldUserInitials>(builder->InsertField(FieldType::FieldUserInitials, true));
-    ASSERT_EQ(userInformation->get_Initials(), fieldUserInitials->get_Result());
+    ASSERT_EQ(fieldUserInitials->get_Result(), userInformation->get_Initials());
     
-    ASSERT_EQ(u" USERINITIALS ", fieldUserInitials->GetFieldCode());
-    ASSERT_EQ(u"J. D.", fieldUserInitials->get_Result());
+    ASSERT_EQ(fieldUserInitials->GetFieldCode(), u" USERINITIALS ");
+    ASSERT_EQ(fieldUserInitials->get_Result(), u"J. D.");
     
     // We can set this property to get our field to override the value currently stored in the UserInformation object.
     fieldUserInitials->set_UserInitials(u"J. C.");
     fieldUserInitials->Update();
     
-    ASSERT_EQ(u" USERINITIALS  \"J. C.\"", fieldUserInitials->GetFieldCode());
-    ASSERT_EQ(u"J. C.", fieldUserInitials->get_Result());
+    ASSERT_EQ(fieldUserInitials->GetFieldCode(), u" USERINITIALS  \"J. C.\"");
+    ASSERT_EQ(fieldUserInitials->get_Result(), u"J. C.");
     
     // This does not affect the value in the UserInformation object.
-    ASSERT_EQ(u"J. D.", doc->get_FieldOptions()->get_CurrentUser()->get_Initials());
+    ASSERT_EQ(doc->get_FieldOptions()->get_CurrentUser()->get_Initials(), u"J. D.");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.USERINITIALS.docx");
@@ -4563,7 +4560,7 @@ void ExField::FieldUserInitials()
     fieldUserInitials = System::ExplicitCast<Aspose::Words::Fields::FieldUserInitials>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldUserInitials, u" USERINITIALS  \"J. C.\"", u"J. C.", fieldUserInitials);
-    ASSERT_EQ(u"J. C.", fieldUserInitials->get_UserInitials());
+    ASSERT_EQ(fieldUserInitials->get_UserInitials(), u"J. C.");
 }
 
 namespace gtest_test
@@ -4594,20 +4591,20 @@ void ExField::FieldUserName()
     // Create a USERNAME field to display the current user's name,
     // taken from the UserInformation object we created above.
     auto fieldUserName = System::ExplicitCast<Aspose::Words::Fields::FieldUserName>(builder->InsertField(FieldType::FieldUserName, true));
-    ASSERT_EQ(userInformation->get_Name(), fieldUserName->get_Result());
+    ASSERT_EQ(fieldUserName->get_Result(), userInformation->get_Name());
     
-    ASSERT_EQ(u" USERNAME ", fieldUserName->GetFieldCode());
-    ASSERT_EQ(u"John Doe", fieldUserName->get_Result());
+    ASSERT_EQ(fieldUserName->GetFieldCode(), u" USERNAME ");
+    ASSERT_EQ(fieldUserName->get_Result(), u"John Doe");
     
     // We can set this property to get our field to override the value currently stored in the UserInformation object.
     fieldUserName->set_UserName(u"Jane Doe");
     fieldUserName->Update();
     
-    ASSERT_EQ(u" USERNAME  \"Jane Doe\"", fieldUserName->GetFieldCode());
-    ASSERT_EQ(u"Jane Doe", fieldUserName->get_Result());
+    ASSERT_EQ(fieldUserName->GetFieldCode(), u" USERNAME  \"Jane Doe\"");
+    ASSERT_EQ(fieldUserName->get_Result(), u"Jane Doe");
     
     // This does not affect the value in the UserInformation object.
-    ASSERT_EQ(u"John Doe", doc->get_FieldOptions()->get_CurrentUser()->get_Name());
+    ASSERT_EQ(doc->get_FieldOptions()->get_CurrentUser()->get_Name(), u"John Doe");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.USERNAME.docx");
@@ -4618,7 +4615,7 @@ void ExField::FieldUserName()
     fieldUserName = System::ExplicitCast<Aspose::Words::Fields::FieldUserName>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldUserName, u" USERNAME  \"Jane Doe\"", u"Jane Doe", fieldUserName);
-    ASSERT_EQ(u"Jane Doe", fieldUserName->get_UserName());
+    ASSERT_EQ(fieldUserName->get_UserName(), u"Jane Doe");
 }
 
 namespace gtest_test
@@ -4711,36 +4708,36 @@ void ExField::FieldStyleRefParagraphNumbers()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldStyleRef>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldStyleRef, u" STYLEREF  \"List Paragraph\"", u"Item 1", field);
-    ASSERT_EQ(u"List Paragraph", field->get_StyleName());
+    ASSERT_EQ(field->get_StyleName(), u"List Paragraph");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldStyleRef>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldStyleRef, u" STYLEREF  \"List Paragraph\" \\l", u"Item 3", field);
-    ASSERT_EQ(u"List Paragraph", field->get_StyleName());
+    ASSERT_EQ(field->get_StyleName(), u"List Paragraph");
     ASSERT_TRUE(field->get_SearchFromBottom());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldStyleRef>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldStyleRef, u" STYLEREF  Quote \\n", u"‎b )", field);
-    ASSERT_EQ(u"Quote", field->get_StyleName());
+    ASSERT_EQ(field->get_StyleName(), u"Quote");
     ASSERT_TRUE(field->get_InsertParagraphNumber());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldStyleRef>(doc->get_Range()->get_Fields()->idx_get(3));
     
     TestUtil::VerifyField(FieldType::FieldStyleRef, u" STYLEREF  Quote \\r", u"‎b )", field);
-    ASSERT_EQ(u"Quote", field->get_StyleName());
+    ASSERT_EQ(field->get_StyleName(), u"Quote");
     ASSERT_TRUE(field->get_InsertParagraphNumberInRelativeContext());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldStyleRef>(doc->get_Range()->get_Fields()->idx_get(4));
     
     TestUtil::VerifyField(FieldType::FieldStyleRef, u" STYLEREF  Quote \\w", u"‎1.b )", field);
-    ASSERT_EQ(u"Quote", field->get_StyleName());
+    ASSERT_EQ(field->get_StyleName(), u"Quote");
     ASSERT_TRUE(field->get_InsertParagraphNumberInFullContext());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldStyleRef>(doc->get_Range()->get_Fields()->idx_get(5));
     
     TestUtil::VerifyField(FieldType::FieldStyleRef, u" STYLEREF  Quote \\w \\t", u"‎1.b)", field);
-    ASSERT_EQ(u"Quote", field->get_StyleName());
+    ASSERT_EQ(field->get_StyleName(), u"Quote");
     ASSERT_TRUE(field->get_InsertParagraphNumberInFullContext());
     ASSERT_TRUE(field->get_SuppressNonDelimiters());
 }
@@ -4772,26 +4769,26 @@ void ExField::FieldDate()
     // 1 -  Islamic Lunar Calendar:
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldDate>(builder->InsertField(FieldType::FieldDate, true));
     field->set_UseLunarCalendar(true);
-    ASSERT_EQ(u" DATE  \\h", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DATE  \\h");
     builder->Writeln();
     
     // 2 -  Umm al-Qura calendar:
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDate>(builder->InsertField(FieldType::FieldDate, true));
     field->set_UseUmAlQuraCalendar(true);
-    ASSERT_EQ(u" DATE  \\u", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DATE  \\u");
     builder->Writeln();
     
     // 3 -  Indian National Calendar:
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDate>(builder->InsertField(FieldType::FieldDate, true));
     field->set_UseSakaEraCalendar(true);
-    ASSERT_EQ(u" DATE  \\s", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DATE  \\s");
     builder->Writeln();
     
     // Insert a DATE field and set its calendar type to the one last used by the host application.
     // In Microsoft Word, the type will be the most recently used in the Insert -> Text -> Date and Time dialog box.
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDate>(builder->InsertField(FieldType::FieldDate, true));
     field->set_UseLastFormat(true);
-    ASSERT_EQ(u" DATE  \\l", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DATE  \\l");
     builder->Writeln();
     
     doc->UpdateFields();
@@ -4802,9 +4799,9 @@ void ExField::FieldDate()
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDate>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(FieldType::FieldDate, field->get_Type());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldDate);
     ASSERT_TRUE(field->get_UseLunarCalendar());
-    ASSERT_EQ(u" DATE  \\h", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" DATE  \\h");
     ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(doc->get_Range()->get_Fields()->idx_get(0)->get_Result(), u"\\d{1,2}[/]\\d{1,2}[/]\\d{4}")->get_Success());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldDate>(doc->get_Range()->get_Fields()->idx_get(1));
@@ -4853,21 +4850,21 @@ void ExField::FieldCreateDate()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldCreateDate>(builder->InsertField(FieldType::FieldCreateDate, true));
     field->set_UseLunarCalendar(true);
     
-    ASSERT_EQ(u" CREATEDATE  \\h", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" CREATEDATE  \\h");
     
     // 2 -  Umm al-Qura calendar:
     builder->Write(u"\nAccording to the Umm al-Qura Calendar - ");
     field = System::ExplicitCast<Aspose::Words::Fields::FieldCreateDate>(builder->InsertField(FieldType::FieldCreateDate, true));
     field->set_UseUmAlQuraCalendar(true);
     
-    ASSERT_EQ(u" CREATEDATE  \\u", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" CREATEDATE  \\u");
     
     // 3 -  Indian National Calendar:
     builder->Write(u"\nAccording to the Indian National Calendar - ");
     field = System::ExplicitCast<Aspose::Words::Fields::FieldCreateDate>(builder->InsertField(FieldType::FieldCreateDate, true));
     field->set_UseSakaEraCalendar(true);
     
-    ASSERT_EQ(u" CREATEDATE  \\s", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" CREATEDATE  \\s");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.CREATEDATE.docx");
@@ -4875,20 +4872,20 @@ void ExField::FieldCreateDate()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.CREATEDATE.docx"));
     
-    ASSERT_EQ(System::DateTime(2017, 12, 5, 9, 56, 0), doc->get_BuiltInDocumentProperties()->get_CreatedTime());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_CreatedTime(), System::DateTime(2017, 12, 5, 9, 56, 0));
     
     System::DateTime expectedDate = doc->get_BuiltInDocumentProperties()->get_CreatedTime().AddHours(System::TimeZoneInfo::get_Local()->GetUtcOffset(System::DateTime::get_UtcNow()).get_Hours());
     field = System::ExplicitCast<Aspose::Words::Fields::FieldCreateDate>(doc->get_Range()->get_Fields()->idx_get(0));
     System::SharedPtr<System::Globalization::Calendar> umAlQuraCalendar = System::MakeObject<System::Globalization::UmAlQuraCalendar>();
     
     TestUtil::VerifyField(FieldType::FieldCreateDate, u" CREATEDATE  \\h", System::String::Format(u"{0}/{1}/{2} ", umAlQuraCalendar->GetMonth(expectedDate), umAlQuraCalendar->GetDayOfMonth(expectedDate), umAlQuraCalendar->GetYear(expectedDate)) + expectedDate.AddHours(1).ToString(u"hh:mm:ss tt"), field);
-    ASSERT_EQ(FieldType::FieldCreateDate, field->get_Type());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldCreateDate);
     ASSERT_TRUE(field->get_UseLunarCalendar());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldCreateDate>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldCreateDate, u" CREATEDATE  \\u", System::String::Format(u"{0}/{1}/{2} ", umAlQuraCalendar->GetMonth(expectedDate), umAlQuraCalendar->GetDayOfMonth(expectedDate), umAlQuraCalendar->GetYear(expectedDate)) + expectedDate.AddHours(1).ToString(u"hh:mm:ss tt"), field);
-    ASSERT_EQ(FieldType::FieldCreateDate, field->get_Type());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldCreateDate);
     ASSERT_TRUE(field->get_UseUmAlQuraCalendar());
 }
 
@@ -4925,21 +4922,21 @@ void ExField::FieldSaveDate()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldSaveDate>(builder->InsertField(FieldType::FieldSaveDate, true));
     field->set_UseLunarCalendar(true);
     
-    ASSERT_EQ(u" SAVEDATE  \\h", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SAVEDATE  \\h");
     
     // 2 -  Umm al-Qura calendar:
     builder->Write(u"\nAccording to the Umm al-Qura calendar - ");
     field = System::ExplicitCast<Aspose::Words::Fields::FieldSaveDate>(builder->InsertField(FieldType::FieldSaveDate, true));
     field->set_UseUmAlQuraCalendar(true);
     
-    ASSERT_EQ(u" SAVEDATE  \\u", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SAVEDATE  \\u");
     
     // 3 -  Indian National calendar:
     builder->Write(u"\nAccording to the Indian National calendar - ");
     field = System::ExplicitCast<Aspose::Words::Fields::FieldSaveDate>(builder->InsertField(FieldType::FieldSaveDate, true));
     field->set_UseSakaEraCalendar(true);
     
-    ASSERT_EQ(u" SAVEDATE  \\s", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SAVEDATE  \\s");
     
     // The SAVEDATE fields draw their date/time values from the LastSavedTime built-in property.
     // The document's Save method will not update this value, but we can still update it manually.
@@ -4955,17 +4952,17 @@ void ExField::FieldSaveDate()
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldSaveDate>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(FieldType::FieldSaveDate, field->get_Type());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldSaveDate);
     ASSERT_TRUE(field->get_UseLunarCalendar());
-    ASSERT_EQ(u" SAVEDATE  \\h", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SAVEDATE  \\h");
     
     ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(field->get_Result(), u"\\d{1,2}[/]\\d{1,2}[/]\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} [A,P]M")->get_Success());
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldSaveDate>(doc->get_Range()->get_Fields()->idx_get(1));
     
-    ASSERT_EQ(FieldType::FieldSaveDate, field->get_Type());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldSaveDate);
     ASSERT_TRUE(field->get_UseUmAlQuraCalendar());
-    ASSERT_EQ(u" SAVEDATE  \\u", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SAVEDATE  \\u");
     ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(field->get_Result(), u"\\d{1,2}[/]\\d{1,2}[/]\\d{4} \\d{1,2}:\\d{1,2}:\\d{1,2} [A,P]M")->get_Success());
 }
 
@@ -5011,7 +5008,7 @@ void ExField::FieldBuilder()
     builder->AddSwitch(u"\\u");
     System::SharedPtr<Aspose::Words::Fields::Field> field = builder->BuildAndInsert(doc->get_FirstSection()->get_Body()->get_FirstParagraph());
     
-    ASSERT_EQ(u" SYMBOL 402 \\f Arial \\s 25 \\u ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SYMBOL 402 \\f Arial \\s 25 \\u ");
     
     // 2 -  Nested field:
     // Use a field builder to create a formula field used as an inner field by another field builder.
@@ -5028,7 +5025,7 @@ void ExField::FieldBuilder()
     
     // The outer SYMBOL field will use the formula field result, 174, as its argument,
     // which will make the field display the ® (Registered Sign) symbol since its character number is 174.
-    ASSERT_EQ(u" SYMBOL \u0013 = 100 + 74 \u0014\u0015 ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SYMBOL \u0013 = 100 + 74 \u0014\u0015 ");
     
     // 3 -  Multiple nested fields and arguments:
     // Now, we will use a builder to create an IF field, which displays one of two custom string values,
@@ -5066,7 +5063,7 @@ void ExField::FieldBuilder()
     builder->AddArgument(falseOutput);
     field = builder->BuildAndInsert(doc->get_FirstSection()->get_Body()->AppendParagraph(System::String::Empty));
     
-    ASSERT_EQ((System::String(u" IF \u0013 = 2 + 3 \u0014\u0015 = \u0013 = 2.5 * 5.2 \u0014\u0015 ") + u"\"True, both expressions amount to \u0013 = 2 + 3 \u0014\u0015\" " + u"\"False, \u0013 = 2 + 3 \u0014\u0015 does not equal \u0013 = 2.5 * 5.2 \u0014\u0015\" "), field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), (System::String(u" IF \u0013 = 2 + 3 \u0014\u0015 = \u0013 = 2.5 * 5.2 \u0014\u0015 ") + u"\"True, both expressions amount to \u0013 = 2 + 3 \u0014\u0015\" " + u"\"False, \u0013 = 2 + 3 \u0014\u0015 does not equal \u0013 = 2.5 * 5.2 \u0014\u0015\" "));
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.SYMBOL.docx");
@@ -5077,12 +5074,12 @@ void ExField::FieldBuilder()
     auto fieldSymbol = System::ExplicitCast<Aspose::Words::Fields::FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL 402 \\f Arial \\s 25 \\u ", System::String::Empty, fieldSymbol);
-    ASSERT_EQ(u"ƒ", fieldSymbol->get_DisplayResult());
+    ASSERT_EQ(fieldSymbol->get_DisplayResult(), u"ƒ");
     
     fieldSymbol = System::ExplicitCast<Aspose::Words::Fields::FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL \u0013 = 100 + 74 \u0014174\u0015 ", System::String::Empty, fieldSymbol);
-    ASSERT_EQ(u"®", fieldSymbol->get_DisplayResult());
+    ASSERT_EQ(fieldSymbol->get_DisplayResult(), u"®");
     
     TestUtil::VerifyField(FieldType::FieldFormula, u" = 100 + 74 ", u"174", doc->get_Range()->get_Fields()->idx_get(2));
     
@@ -5128,7 +5125,7 @@ void ExField::FieldAuthor()
     // it will have our username in that property.
     // However, if we create a document programmatically using Aspose.Words,
     // the "Author" property, by default, will be an empty string.
-    ASSERT_EQ(System::String::Empty, doc->get_BuiltInDocumentProperties()->get_Author());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Author(), System::String::Empty);
     
     // Set a backup author name for AUTHOR fields to use
     // if the "Author" property contains an empty string.
@@ -5138,31 +5135,31 @@ void ExField::FieldAuthor()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldAuthor>(builder->InsertField(FieldType::FieldAuthor, true));
     field->Update();
     
-    ASSERT_EQ(u" AUTHOR ", field->GetFieldCode());
-    ASSERT_EQ(u"Joe Bloggs", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" AUTHOR ");
+    ASSERT_EQ(field->get_Result(), u"Joe Bloggs");
     
     // Updating an AUTHOR field that contains a value
     // will apply that value to the "Author" built-in property.
-    ASSERT_EQ(u"Joe Bloggs", doc->get_BuiltInDocumentProperties()->get_Author());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Author(), u"Joe Bloggs");
     
     // Changing this property, then updating the AUTHOR field will apply this value to the field.
     doc->get_BuiltInDocumentProperties()->set_Author(u"John Doe");
     field->Update();
     
-    ASSERT_EQ(u" AUTHOR ", field->GetFieldCode());
-    ASSERT_EQ(u"John Doe", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" AUTHOR ");
+    ASSERT_EQ(field->get_Result(), u"John Doe");
     
     // If we update an AUTHOR field after changing its "Name" property,
     // then the field will display the new name and apply the new name to the built-in property.
     field->set_AuthorName(u"Jane Doe");
     field->Update();
     
-    ASSERT_EQ(u" AUTHOR  \"Jane Doe\"", field->GetFieldCode());
-    ASSERT_EQ(u"Jane Doe", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" AUTHOR  \"Jane Doe\"");
+    ASSERT_EQ(field->get_Result(), u"Jane Doe");
     
     // AUTHOR fields do not affect the DefaultDocumentAuthor property.
-    ASSERT_EQ(u"Jane Doe", doc->get_BuiltInDocumentProperties()->get_Author());
-    ASSERT_EQ(u"Joe Bloggs", doc->get_FieldOptions()->get_DefaultDocumentAuthor());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Author(), u"Jane Doe");
+    ASSERT_EQ(doc->get_FieldOptions()->get_DefaultDocumentAuthor(), u"Joe Bloggs");
     
     doc->Save(get_ArtifactsDir() + u"Field.AUTHOR.docx");
     //ExEnd
@@ -5170,12 +5167,12 @@ void ExField::FieldAuthor()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.AUTHOR.docx"));
     
     ASSERT_TRUE(System::TestTools::IsNull(doc->get_FieldOptions()->get_DefaultDocumentAuthor()));
-    ASSERT_EQ(u"Jane Doe", doc->get_BuiltInDocumentProperties()->get_Author());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Author(), u"Jane Doe");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldAuthor>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldAuthor, u" AUTHOR  \"Jane Doe\"", u"Jane Doe", field);
-    ASSERT_EQ(u"Jane Doe", field->get_AuthorName());
+    ASSERT_EQ(field->get_AuthorName(), u"Jane Doe");
 }
 
 namespace gtest_test
@@ -5206,29 +5203,29 @@ void ExField::FieldDocVariable()
     auto fieldDocProperty = System::ExplicitCast<Aspose::Words::Fields::FieldDocProperty>(builder->InsertField(u" DOCPROPERTY Category "));
     fieldDocProperty->Update();
     
-    ASSERT_EQ(u" DOCPROPERTY Category ", fieldDocProperty->GetFieldCode());
-    ASSERT_EQ(u"My category", fieldDocProperty->get_Result());
+    ASSERT_EQ(fieldDocProperty->GetFieldCode(), u" DOCPROPERTY Category ");
+    ASSERT_EQ(fieldDocProperty->get_Result(), u"My category");
     
     builder->InsertParagraph();
     
     // 2 -  Display a custom document variable:
     // Define a custom variable, then reference that variable with a DOCPROPERTY field.
-    ASSERT_EQ(0, doc->get_Variables()->get_Count());
+    ASSERT_EQ(doc->get_Variables()->get_Count(), 0);
     doc->get_Variables()->Add(u"My variable", u"My variable's value");
     
     auto fieldDocVariable = System::ExplicitCast<Aspose::Words::Fields::FieldDocVariable>(builder->InsertField(FieldType::FieldDocVariable, true));
     fieldDocVariable->set_VariableName(u"My Variable");
     fieldDocVariable->Update();
     
-    ASSERT_EQ(u" DOCVARIABLE  \"My Variable\"", fieldDocVariable->GetFieldCode());
-    ASSERT_EQ(u"My variable's value", fieldDocVariable->get_Result());
+    ASSERT_EQ(fieldDocVariable->GetFieldCode(), u" DOCVARIABLE  \"My Variable\"");
+    ASSERT_EQ(fieldDocVariable->get_Result(), u"My variable's value");
     
     doc->Save(get_ArtifactsDir() + u"Field.DOCPROPERTY.DOCVARIABLE.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.DOCPROPERTY.DOCVARIABLE.docx"));
     
-    ASSERT_EQ(u"My category", doc->get_BuiltInDocumentProperties()->get_Category());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Category(), u"My category");
     
     fieldDocProperty = System::ExplicitCast<Aspose::Words::Fields::FieldDocProperty>(doc->get_Range()->get_Fields()->idx_get(0));
     
@@ -5237,7 +5234,7 @@ void ExField::FieldDocVariable()
     fieldDocVariable = System::ExplicitCast<Aspose::Words::Fields::FieldDocVariable>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldDocVariable, u" DOCVARIABLE  \"My Variable\"", u"My variable's value", fieldDocVariable);
-    ASSERT_EQ(u"My Variable", fieldDocVariable->get_VariableName());
+    ASSERT_EQ(fieldDocVariable->get_VariableName(), u"My Variable");
 }
 
 namespace gtest_test
@@ -5266,8 +5263,8 @@ void ExField::FieldSubject()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldSubject>(builder->InsertField(FieldType::FieldSubject, true));
     field->Update();
     
-    ASSERT_EQ(u" SUBJECT ", field->GetFieldCode());
-    ASSERT_EQ(u"My subject", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" SUBJECT ");
+    ASSERT_EQ(field->get_Result(), u"My subject");
     
     // If we give the SUBJECT field's Text property value and update it, the field will
     // overwrite the current value of the "Subject" built-in property with the value of its Text property,
@@ -5275,22 +5272,22 @@ void ExField::FieldSubject()
     field->set_Text(u"My new subject");
     field->Update();
     
-    ASSERT_EQ(u" SUBJECT  \"My new subject\"", field->GetFieldCode());
-    ASSERT_EQ(u"My new subject", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" SUBJECT  \"My new subject\"");
+    ASSERT_EQ(field->get_Result(), u"My new subject");
     
-    ASSERT_EQ(u"My new subject", doc->get_BuiltInDocumentProperties()->get_Subject());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Subject(), u"My new subject");
     
     doc->Save(get_ArtifactsDir() + u"Field.SUBJECT.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.SUBJECT.docx"));
     
-    ASSERT_EQ(u"My new subject", doc->get_BuiltInDocumentProperties()->get_Subject());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Subject(), u"My new subject");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldSubject>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldSubject, u" SUBJECT  \"My new subject\"", u"My new subject", field);
-    ASSERT_EQ(u"My new subject", field->get_Text());
+    ASSERT_EQ(field->get_Text(), u"My new subject");
 }
 
 namespace gtest_test
@@ -5319,8 +5316,8 @@ void ExField::FieldComments()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldComments>(builder->InsertField(FieldType::FieldComments, true));
     field->Update();
     
-    ASSERT_EQ(u" COMMENTS ", field->GetFieldCode());
-    ASSERT_EQ(u"My comment.", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" COMMENTS ");
+    ASSERT_EQ(field->get_Result(), u"My comment.");
     
     // If we give the COMMENTS field's Text property value and update it, the field will
     // overwrite the current value of the "Comments" built-in property with the value of its Text property,
@@ -5328,20 +5325,20 @@ void ExField::FieldComments()
     field->set_Text(u"My overriding comment.");
     field->Update();
     
-    ASSERT_EQ(u" COMMENTS  \"My overriding comment.\"", field->GetFieldCode());
-    ASSERT_EQ(u"My overriding comment.", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" COMMENTS  \"My overriding comment.\"");
+    ASSERT_EQ(field->get_Result(), u"My overriding comment.");
     
     doc->Save(get_ArtifactsDir() + u"Field.COMMENTS.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.COMMENTS.docx"));
     
-    ASSERT_EQ(u"My overriding comment.", doc->get_BuiltInDocumentProperties()->get_Comments());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Comments(), u"My overriding comment.");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldComments>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldComments, u" COMMENTS  \"My overriding comment.\"", u"My overriding comment.", field);
-    ASSERT_EQ(u"My overriding comment.", field->get_Text());
+    ASSERT_EQ(field->get_Text(), u"My overriding comment.");
 }
 
 namespace gtest_test
@@ -5363,7 +5360,7 @@ void ExField::FieldFileSize()
     //ExSummary:Shows how to display the file size of a document with a FILESIZE field.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
-    ASSERT_EQ(18105, doc->get_BuiltInDocumentProperties()->get_Bytes());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Bytes(), 18105);
     
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->MoveToDocumentEnd();
@@ -5375,8 +5372,8 @@ void ExField::FieldFileSize()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldFileSize>(builder->InsertField(FieldType::FieldFileSize, true));
     field->Update();
     
-    ASSERT_EQ(u" FILESIZE ", field->GetFieldCode());
-    ASSERT_EQ(u"18105", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" FILESIZE ");
+    ASSERT_EQ(field->get_Result(), u"18105");
     
     // 2 -  Kilobytes:
     builder->InsertParagraph();
@@ -5384,8 +5381,8 @@ void ExField::FieldFileSize()
     field->set_IsInKilobytes(true);
     field->Update();
     
-    ASSERT_EQ(u" FILESIZE  \\k", field->GetFieldCode());
-    ASSERT_EQ(u"18", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" FILESIZE  \\k");
+    ASSERT_EQ(field->get_Result(), u"18");
     
     // 3 -  Megabytes:
     builder->InsertParagraph();
@@ -5393,8 +5390,8 @@ void ExField::FieldFileSize()
     field->set_IsInMegabytes(true);
     field->Update();
     
-    ASSERT_EQ(u" FILESIZE  \\m", field->GetFieldCode());
-    ASSERT_EQ(u"0", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" FILESIZE  \\m");
+    ASSERT_EQ(field->get_Result(), u"0");
     
     // To update the values of these fields while editing in Microsoft Word,
     // we must first save the changes, and then manually update these fields.
@@ -5447,7 +5444,7 @@ void ExField::FieldGoToButton()
     field->set_DisplayText(u"My Button");
     field->set_Location(u"MyBookmark");
     
-    ASSERT_EQ(u" GOTOBUTTON  MyBookmark My Button", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" GOTOBUTTON  MyBookmark My Button");
     
     // Insert a valid bookmark for the field to reference.
     builder->InsertBreak(BreakType::PageBreak);
@@ -5463,8 +5460,8 @@ void ExField::FieldGoToButton()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldGoToButton>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldGoToButton, u" GOTOBUTTON  MyBookmark My Button", System::String::Empty, field);
-    ASSERT_EQ(u"My Button", field->get_DisplayText());
-    ASSERT_EQ(u"MyBookmark", field->get_Location());
+    ASSERT_EQ(field->get_DisplayText(), u"My Button");
+    ASSERT_EQ(field->get_Location(), u"MyBookmark");
 }
 
 namespace gtest_test
@@ -5492,7 +5489,7 @@ void ExField::FieldFillIn()
     // created during a mail merge done using Microsoft Word.
     field->set_PromptOnceOnMailMerge(true);
     
-    ASSERT_EQ(u" FILLIN  \"Please enter a response:\" \\d \"A default response.\" \\o", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" FILLIN  \"Please enter a response:\" \\d \"A default response.\" \\o");
     
     auto mergeField = System::ExplicitCast<Aspose::Words::Fields::FieldMergeField>(builder->InsertField(FieldType::FieldMergeField, true));
     mergeField->set_FieldName(u"MergeField");
@@ -5534,8 +5531,8 @@ void ExField::FieldInfo()
     field->set_InfoType(u"Comments");
     field->Update();
     
-    ASSERT_EQ(u" INFO  Comments", field->GetFieldCode());
-    ASSERT_EQ(u"My comment", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" INFO  Comments");
+    ASSERT_EQ(field->get_Result(), u"My comment");
     
     builder->Writeln();
     
@@ -5546,27 +5543,27 @@ void ExField::FieldInfo()
     field->set_NewValue(u"New comment");
     field->Update();
     
-    ASSERT_EQ(u" INFO  Comments \"New comment\"", field->GetFieldCode());
-    ASSERT_EQ(u"New comment", field->get_Result());
-    ASSERT_EQ(u"New comment", doc->get_BuiltInDocumentProperties()->get_Comments());
+    ASSERT_EQ(field->GetFieldCode(), u" INFO  Comments \"New comment\"");
+    ASSERT_EQ(field->get_Result(), u"New comment");
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Comments(), u"New comment");
     
     doc->Save(get_ArtifactsDir() + u"Field.INFO.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.INFO.docx"));
     
-    ASSERT_EQ(u"New comment", doc->get_BuiltInDocumentProperties()->get_Comments());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Comments(), u"New comment");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldInfo>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldInfo, u" INFO  Comments", u"My comment", field);
-    ASSERT_EQ(u"Comments", field->get_InfoType());
+    ASSERT_EQ(field->get_InfoType(), u"Comments");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldInfo>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldInfo, u" INFO  Comments \"New comment\"", u"New comment", field);
-    ASSERT_EQ(u"Comments", field->get_InfoType());
-    ASSERT_EQ(u"New comment", field->get_NewValue());
+    ASSERT_EQ(field->get_InfoType(), u"Comments");
+    ASSERT_EQ(field->get_NewValue(), u"New comment");
 }
 
 namespace gtest_test
@@ -5597,7 +5594,7 @@ void ExField::FieldMacroButton()
     field->set_MacroName(u"MyMacro");
     field->set_DisplayText(System::String(u"Double click to run macro: ") + field->get_MacroName());
     
-    ASSERT_EQ(u" MACROBUTTON  MyMacro Double click to run macro: MyMacro", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" MACROBUTTON  MyMacro Double click to run macro: MyMacro");
     
     // Use the property to reference "ViewZoom200", a macro that ships with Microsoft Word.
     // We can find all other macros via View -> Macros (dropdown) -> View Macros.
@@ -5609,7 +5606,7 @@ void ExField::FieldMacroButton()
     field->set_MacroName(u"ViewZoom200");
     field->set_DisplayText(System::String(u"Run ") + field->get_MacroName());
     
-    ASSERT_EQ(u" MACROBUTTON  ViewZoom200 Run ViewZoom200", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" MACROBUTTON  ViewZoom200 Run ViewZoom200");
     
     // Save the document as a macro-enabled document type.
     doc->Save(get_ArtifactsDir() + u"Field.MACROBUTTON.docm");
@@ -5620,14 +5617,14 @@ void ExField::FieldMacroButton()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldMacroButton>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldMacroButton, u" MACROBUTTON  MyMacro Double click to run macro: MyMacro", System::String::Empty, field);
-    ASSERT_EQ(u"MyMacro", field->get_MacroName());
-    ASSERT_EQ(u"Double click to run macro: MyMacro", field->get_DisplayText());
+    ASSERT_EQ(field->get_MacroName(), u"MyMacro");
+    ASSERT_EQ(field->get_DisplayText(), u"Double click to run macro: MyMacro");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldMacroButton>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldMacroButton, u" MACROBUTTON  ViewZoom200 Run ViewZoom200", System::String::Empty, field);
-    ASSERT_EQ(u"ViewZoom200", field->get_MacroName());
-    ASSERT_EQ(u"Run ViewZoom200", field->get_DisplayText());
+    ASSERT_EQ(field->get_MacroName(), u"ViewZoom200");
+    ASSERT_EQ(field->get_DisplayText(), u"Run ViewZoom200");
 }
 
 namespace gtest_test
@@ -5656,29 +5653,29 @@ void ExField::FieldKeywords()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldKeywords>(builder->InsertField(FieldType::FieldKeyword, true));
     field->Update();
     
-    ASSERT_EQ(u" KEYWORDS ", field->GetFieldCode());
-    ASSERT_EQ((u"Keyword1, Keyword2"), field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" KEYWORDS ");
+    ASSERT_EQ(field->get_Result(), (u"Keyword1, Keyword2"));
     
     // Setting a value for the field's Text property,
     // and then updating the field will also overwrite the corresponding built-in property with the new value.
     field->set_Text(u"OverridingKeyword");
     field->Update();
     
-    ASSERT_EQ(u" KEYWORDS  OverridingKeyword", field->GetFieldCode());
-    ASSERT_EQ(u"OverridingKeyword", field->get_Result());
-    ASSERT_EQ(u"OverridingKeyword", doc->get_BuiltInDocumentProperties()->get_Keywords());
+    ASSERT_EQ(field->GetFieldCode(), u" KEYWORDS  OverridingKeyword");
+    ASSERT_EQ(field->get_Result(), u"OverridingKeyword");
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Keywords(), u"OverridingKeyword");
     
     doc->Save(get_ArtifactsDir() + u"Field.KEYWORDS.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.KEYWORDS.docx"));
     
-    ASSERT_EQ(u"OverridingKeyword", doc->get_BuiltInDocumentProperties()->get_Keywords());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Keywords(), u"OverridingKeyword");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldKeywords>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldKeyword, u" KEYWORDS  OverridingKeyword", u"OverridingKeyword", field);
-    ASSERT_EQ(u"OverridingKeyword", field->get_Text());
+    ASSERT_EQ(field->get_Text(), u"OverridingKeyword");
 }
 
 namespace gtest_test
@@ -5722,10 +5719,10 @@ void ExField::FieldNum()
     builder->Write(u" of ");
     auto fieldNumPages = System::ExplicitCast<Aspose::Words::Fields::FieldNumPages>(builder->InsertField(FieldType::FieldNumPages, true));
     
-    ASSERT_EQ(u" NUMCHARS ", fieldNumChars->GetFieldCode());
-    ASSERT_EQ(u" NUMWORDS ", fieldNumWords->GetFieldCode());
-    ASSERT_EQ(u" NUMPAGES ", fieldNumPages->GetFieldCode());
-    ASSERT_EQ(u" PAGE ", fieldPage->GetFieldCode());
+    ASSERT_EQ(fieldNumChars->GetFieldCode(), u" NUMCHARS ");
+    ASSERT_EQ(fieldNumWords->GetFieldCode(), u" NUMWORDS ");
+    ASSERT_EQ(fieldNumPages->GetFieldCode(), u" NUMPAGES ");
+    ASSERT_EQ(fieldPage->GetFieldCode(), u" PAGE ");
     
     // These fields will not maintain accurate values in real time
     // while we edit the document programmatically using Aspose.Words, or in Microsoft Word.
@@ -5776,7 +5773,7 @@ void ExField::FieldPrint()
     // this command will turn the entire area that we specified in "field.PostScriptGroup" white.
     field->set_PrinterInstructions(u"erasepage");
     
-    ASSERT_EQ(u" PRINT  erasepage \\p para", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" PRINT  erasepage \\p para");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.PRINT.docx");
@@ -5787,8 +5784,8 @@ void ExField::FieldPrint()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldPrint>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldPrint, u" PRINT  erasepage \\p para", System::String::Empty, field);
-    ASSERT_EQ(u"para", field->get_PostScriptGroup());
-    ASSERT_EQ(u"erasepage", field->get_PrinterInstructions());
+    ASSERT_EQ(field->get_PostScriptGroup(), u"para");
+    ASSERT_EQ(field->get_PrinterInstructions(), u"erasepage");
 }
 
 namespace gtest_test
@@ -5816,8 +5813,8 @@ void ExField::FieldPrintDate()
     // If no printing has taken place, these fields will display "0/0/0000".
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(u"3/25/2020 12:00:00 AM", field->get_Result());
-    ASSERT_EQ(u" PRINTDATE ", field->GetFieldCode());
+    ASSERT_EQ(field->get_Result(), u"3/25/2020 12:00:00 AM");
+    ASSERT_EQ(field->GetFieldCode(), u" PRINTDATE ");
     
     // Below are three different calendar types according to which the PRINTDATE field
     // can display the date and time of the last printing operation.
@@ -5825,22 +5822,22 @@ void ExField::FieldPrintDate()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(1));
     
     ASSERT_TRUE(field->get_UseLunarCalendar());
-    ASSERT_EQ(u"8/1/1441 12:00:00 AM", field->get_Result());
-    ASSERT_EQ(u" PRINTDATE  \\h", field->GetFieldCode());
+    ASSERT_EQ(field->get_Result(), u"8/1/1441 12:00:00 AM");
+    ASSERT_EQ(field->GetFieldCode(), u" PRINTDATE  \\h");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(2));
     
     // 2 -  Umm al-Qura calendar:
     ASSERT_TRUE(field->get_UseUmAlQuraCalendar());
-    ASSERT_EQ(u"8/1/1441 12:00:00 AM", field->get_Result());
-    ASSERT_EQ(u" PRINTDATE  \\u", field->GetFieldCode());
+    ASSERT_EQ(field->get_Result(), u"8/1/1441 12:00:00 AM");
+    ASSERT_EQ(field->GetFieldCode(), u" PRINTDATE  \\u");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldPrintDate>(doc->get_Range()->get_Fields()->idx_get(3));
     
     // 3 -  Indian National Calendar:
     ASSERT_TRUE(field->get_UseSakaEraCalendar());
-    ASSERT_EQ(u"1/5/1942 12:00:00 AM", field->get_Result());
-    ASSERT_EQ(u" PRINTDATE  \\s", field->GetFieldCode());
+    ASSERT_EQ(field->get_Result(), u"1/5/1942 12:00:00 AM");
+    ASSERT_EQ(field->GetFieldCode(), u" PRINTDATE  \\s");
     //ExEnd
 }
 
@@ -5868,7 +5865,7 @@ void ExField::FieldQuote()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldQuote>(builder->InsertField(FieldType::FieldQuote, true));
     field->set_Text(u"\"Quoted text\"");
     
-    ASSERT_EQ(u" QUOTE  \"\\\"Quoted text\\\"\"", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" QUOTE  \"\\\"Quoted text\\\"\"");
     
     // Insert a QUOTE field and nest a DATE field inside it.
     // DATE fields update their value to the current date every time we open the document using Microsoft Word.
@@ -5879,12 +5876,12 @@ void ExField::FieldQuote()
     builder->MoveTo(field->get_Separator());
     builder->InsertField(FieldType::FieldDate, true);
     
-    ASSERT_EQ(System::String(u" QUOTE \u0013 DATE \u0014") + System::DateTime::get_Now().get_Date().ToShortDateString() + u"\u0015", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), System::String(u" QUOTE \u0013 DATE \u0014") + System::DateTime::get_Now().get_Date().ToShortDateString() + u"\u0015");
     
     // Update all the fields to display their correct results.
     doc->UpdateFields();
     
-    ASSERT_EQ(u"\"Quoted text\"", doc->get_Range()->get_Fields()->idx_get(0)->get_Result());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_Result(), u"\"Quoted text\"");
     
     doc->Save(get_ArtifactsDir() + u"Field.QUOTE.docx");
     //ExEnd
@@ -5916,15 +5913,15 @@ void ExField::FieldNoteRef()
     
     // This NOTEREF field will display the number of the footnote inside the referenced bookmark.
     // Setting the InsertHyperlink property lets us jump to the bookmark by Ctrl + clicking the field in Microsoft Word.
-    ASSERT_EQ(u" NOTEREF  MyBookmark2 \\h", InsertFieldNoteRef(builder, u"MyBookmark2", true, false, false, u"Hyperlink to Bookmark2, with footnote number ")->GetFieldCode());
+    ASSERT_EQ(InsertFieldNoteRef(builder, u"MyBookmark2", true, false, false, u"Hyperlink to Bookmark2, with footnote number ")->GetFieldCode(), u" NOTEREF  MyBookmark2 \\h");
     
     // When using the \p flag, after the footnote number, the field also displays the bookmark's position relative to the field.
     // Bookmark1 is above this field and contains footnote number 1, so the result will be "1 above" on update.
-    ASSERT_EQ(u" NOTEREF  MyBookmark1 \\h \\p", InsertFieldNoteRef(builder, u"MyBookmark1", true, true, false, u"Bookmark1, with footnote number ")->GetFieldCode());
+    ASSERT_EQ(InsertFieldNoteRef(builder, u"MyBookmark1", true, true, false, u"Bookmark1, with footnote number ")->GetFieldCode(), u" NOTEREF  MyBookmark1 \\h \\p");
     
     // Bookmark2 is below this field and contains footnote number 2, so the field will display "2 below".
     // The \f flag makes the number 2 appear in the same format as the footnote number label in the actual text.
-    ASSERT_EQ(u" NOTEREF  MyBookmark2 \\h \\p \\f", InsertFieldNoteRef(builder, u"MyBookmark2", true, true, true, u"Bookmark2, with footnote number ")->GetFieldCode());
+    ASSERT_EQ(InsertFieldNoteRef(builder, u"MyBookmark2", true, true, true, u"Bookmark2, with footnote number ")->GetFieldCode(), u" NOTEREF  MyBookmark2 \\h \\p \\f");
     
     builder->InsertBreak(BreakType::PageBreak);
     InsertBookmarkWithFootnote(builder, u"MyBookmark2", u"Contents of MyBookmark2", u"Footnote from MyBookmark2");
@@ -6002,18 +5999,18 @@ void ExField::FieldPageRef()
     
     // Insert a PAGEREF field that displays what page a bookmark is on.
     // Set the InsertHyperlink flag to make the field also function as a clickable link to the bookmark.
-    ASSERT_EQ(u" PAGEREF  MyBookmark3 \\h", InsertFieldPageRef(builder, u"MyBookmark3", true, false, u"Hyperlink to Bookmark3, on page: ")->GetFieldCode());
+    ASSERT_EQ(InsertFieldPageRef(builder, u"MyBookmark3", true, false, u"Hyperlink to Bookmark3, on page: ")->GetFieldCode(), u" PAGEREF  MyBookmark3 \\h");
     
     // We can use the \p flag to get the PAGEREF field to display
     // the bookmark's position relative to the position of the field.
     // Bookmark1 is on the same page and above this field, so this field's displayed result will be "above".
-    ASSERT_EQ(u" PAGEREF  MyBookmark1 \\h \\p", InsertFieldPageRef(builder, u"MyBookmark1", true, true, u"Bookmark1 is ")->GetFieldCode());
+    ASSERT_EQ(InsertFieldPageRef(builder, u"MyBookmark1", true, true, u"Bookmark1 is ")->GetFieldCode(), u" PAGEREF  MyBookmark1 \\h \\p");
     
     // Bookmark2 will be on the same page and below this field, so this field's displayed result will be "below".
-    ASSERT_EQ(u" PAGEREF  MyBookmark2 \\h \\p", InsertFieldPageRef(builder, u"MyBookmark2", true, true, u"Bookmark2 is ")->GetFieldCode());
+    ASSERT_EQ(InsertFieldPageRef(builder, u"MyBookmark2", true, true, u"Bookmark2 is ")->GetFieldCode(), u" PAGEREF  MyBookmark2 \\h \\p");
     
     // Bookmark3 will be on a different page, so the field will display "on page 2".
-    ASSERT_EQ(u" PAGEREF  MyBookmark3 \\h \\p", InsertFieldPageRef(builder, u"MyBookmark3", true, true, u"Bookmark3 is ")->GetFieldCode());
+    ASSERT_EQ(InsertFieldPageRef(builder, u"MyBookmark3", true, true, u"Bookmark3 is ")->GetFieldCode(), u" PAGEREF  MyBookmark3 \\h \\p");
     
     InsertAndNameBookmark(builder, u"MyBookmark2");
     builder->InsertBreak(BreakType::PageBreak);
@@ -6057,26 +6054,26 @@ void ExField::FieldRef()
     field->set_IncludeNoteOrComment(true);
     field->set_InsertHyperlink(true);
     
-    ASSERT_EQ(u" REF  MyBookmark \\f \\h", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" REF  MyBookmark \\f \\h");
     
     // Insert a REF field, and display whether the referenced bookmark is above or below it.
     field = InsertFieldRef(builder, u"MyBookmark", u"The referenced paragraph is ", u" this field.\n");
     field->set_InsertRelativePosition(true);
     
-    ASSERT_EQ(u" REF  MyBookmark \\p", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" REF  MyBookmark \\p");
     
     // Display the list number of the bookmark as it appears in the document.
     field = InsertFieldRef(builder, u"MyBookmark", u"The bookmark's paragraph number is ", u"\n");
     field->set_InsertParagraphNumber(true);
     
-    ASSERT_EQ(u" REF  MyBookmark \\n", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" REF  MyBookmark \\n");
     
     // Display the bookmark's list number, but with non-delimiter characters, such as the angle brackets, omitted.
     field = InsertFieldRef(builder, u"MyBookmark", u"The bookmark's paragraph number, non-delimiters suppressed, is ", u"\n");
     field->set_InsertParagraphNumber(true);
     field->set_SuppressNonDelimiters(true);
     
-    ASSERT_EQ(u" REF  MyBookmark \\n \\t", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" REF  MyBookmark \\n \\t");
     
     // Move down one list level.
     System::WithLambda::setter_post_increment_wrap(GETTER_SETTER_LVAL_LAMBDA_ARGS(builder->get_ListFormat(), ListLevelNumber));
@@ -6086,7 +6083,7 @@ void ExField::FieldRef()
     field = InsertFieldRef(builder, u"MyBookmark", u"The bookmark's full context paragraph number is ", u"\n");
     field->set_InsertParagraphNumberInFullContext(true);
     
-    ASSERT_EQ(u" REF  MyBookmark \\w", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" REF  MyBookmark \\w");
     
     builder->InsertBreak(BreakType::PageBreak);
     
@@ -6094,7 +6091,7 @@ void ExField::FieldRef()
     field = InsertFieldRef(builder, u"MyBookmark", u"The bookmark's relative paragraph number is ", u"\n");
     field->set_InsertParagraphNumberInRelativeContext(true);
     
-    ASSERT_EQ(u" REF  MyBookmark \\r", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" REF  MyBookmark \\r");
     
     // At the end of the document, the bookmark will show up as a list item here.
     builder->Writeln(u"List level above bookmark");
@@ -6139,7 +6136,7 @@ void ExField::FieldRD()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldRD>(builder->InsertField(FieldType::FieldRefDoc, true));
     field->set_FileName(get_ArtifactsDir() + u"ReferencedDocument.docx");
     
-    ASSERT_EQ(System::String::Format(u" RD  {0}ReferencedDocument.docx", get_ArtifactsDir().Replace(u"\\", u"\\\\")), field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), System::String::Format(u" RD  {0}ReferencedDocument.docx", get_ArtifactsDir().Replace(u"\\", u"\\\\")));
     
     // Create the document that the RD field is referencing and insert a heading.
     // This heading will show up as an entry in the TOC field in our first document.
@@ -6157,7 +6154,7 @@ void ExField::FieldRD()
     
     auto fieldToc = System::ExplicitCast<Aspose::Words::Fields::FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(System::String(u"TOC entry from within this document\t\u0013 PAGEREF _Toc256000000 \\h \u00142\u0015\r") + u"TOC entry from referenced document\t1\r", fieldToc->get_Result());
+    ASSERT_EQ(fieldToc->get_Result(), System::String(u"TOC entry from within this document\t\u0013 PAGEREF _Toc256000000 \\h \u00142\u0015\r") + u"TOC entry from referenced document\t1\r");
     
     auto fieldPageRef = System::ExplicitCast<Aspose::Words::Fields::FieldPageRef>(doc->get_Range()->get_Fields()->idx_get(1));
     
@@ -6166,7 +6163,7 @@ void ExField::FieldRD()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldRD>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldRefDoc, System::String::Format(u" RD  {0}ReferencedDocument.docx", get_ArtifactsDir().Replace(u"\\", u"\\\\")), System::String::Empty, field);
-    ASSERT_EQ(get_ArtifactsDir().Replace(u"\\", u"\\\\") + u"ReferencedDocument.docx", field->get_FileName());
+    ASSERT_EQ(field->get_FileName(), get_ArtifactsDir().Replace(u"\\", u"\\\\") + u"ReferencedDocument.docx");
     ASSERT_FALSE(field->get_IsPathRelative());
 }
 
@@ -6199,31 +6196,31 @@ void ExField::FieldSetRef()
     fieldSet->set_BookmarkText(u"Hello world!");
     fieldSet->Update();
     
-    ASSERT_EQ(u" SET  MyBookmark \"Hello world!\"", fieldSet->GetFieldCode());
+    ASSERT_EQ(fieldSet->GetFieldCode(), u" SET  MyBookmark \"Hello world!\"");
     
     // Refer to the bookmark by name in a REF field and display its contents.
     auto fieldRef = System::ExplicitCast<Aspose::Words::Fields::FieldRef>(builder->InsertField(FieldType::FieldRef, true));
     fieldRef->set_BookmarkName(u"MyBookmark");
     fieldRef->Update();
     
-    ASSERT_EQ(u" REF  MyBookmark", fieldRef->GetFieldCode());
-    ASSERT_EQ(u"Hello world!", fieldRef->get_Result());
+    ASSERT_EQ(fieldRef->GetFieldCode(), u" REF  MyBookmark");
+    ASSERT_EQ(fieldRef->get_Result(), u"Hello world!");
     
     doc->Save(get_ArtifactsDir() + u"Field.SET.REF.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.SET.REF.docx"));
     
-    ASSERT_EQ(u"Hello world!", doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Text());
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Text(), u"Hello world!");
     
     fieldSet = System::ExplicitCast<Aspose::Words::Fields::FieldSet>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldSet, u" SET  MyBookmark \"Hello world!\"", u"Hello world!", fieldSet);
-    ASSERT_EQ(u"MyBookmark", fieldSet->get_BookmarkName());
-    ASSERT_EQ(u"Hello world!", fieldSet->get_BookmarkText());
+    ASSERT_EQ(fieldSet->get_BookmarkName(), u"MyBookmark");
+    ASSERT_EQ(fieldSet->get_BookmarkText(), u"Hello world!");
     
     TestUtil::VerifyField(FieldType::FieldRef, u" REF  MyBookmark", u"Hello world!", fieldRef);
-    ASSERT_EQ(u"Hello world!", fieldRef->get_Result());
+    ASSERT_EQ(fieldRef->get_Result(), u"Hello world!");
 }
 
 namespace gtest_test
@@ -6251,13 +6248,13 @@ void ExField::FieldTemplate()
     doc->get_FieldOptions()->set_TemplateName(System::String::Empty);
     
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldTemplate>(builder->InsertField(FieldType::FieldTemplate, false));
-    ASSERT_EQ(u" TEMPLATE ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" TEMPLATE ");
     
     builder->Writeln();
     field = System::ExplicitCast<Aspose::Words::Fields::FieldTemplate>(builder->InsertField(FieldType::FieldTemplate, false));
     field->set_IncludeFullPath(true);
     
-    ASSERT_EQ(u" TEMPLATE  \\p", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" TEMPLATE  \\p");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.TEMPLATE.docx");
@@ -6266,12 +6263,12 @@ void ExField::FieldTemplate()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.TEMPLATE.docx"));
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldTemplate>(doc->get_Range()->get_Fields()->idx_get(0));
-    ASSERT_EQ(u" TEMPLATE ", field->GetFieldCode());
-    ASSERT_EQ(u"Normal.dotm", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" TEMPLATE ");
+    ASSERT_EQ(field->get_Result(), u"Normal.dotm");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldTemplate>(doc->get_Range()->get_Fields()->idx_get(1));
-    ASSERT_EQ(u" TEMPLATE  \\p", field->GetFieldCode());
-    ASSERT_EQ(u"Normal.dotm", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" TEMPLATE  \\p");
+    ASSERT_EQ(field->get_Result(), u"Normal.dotm");
 }
 
 namespace gtest_test
@@ -6307,7 +6304,7 @@ void ExField::FieldSymbol()
     field->set_CharacterCode(System::Convert::ToString(0x00a9));
     field->set_IsAnsi(true);
     
-    ASSERT_EQ(u" SYMBOL  169 \\a", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SYMBOL  169 \\a");
     
     builder->Writeln(u" Line 1");
     
@@ -6326,7 +6323,7 @@ void ExField::FieldSymbol()
     // We can set this flag for tall symbols to make them not push down the rest of the text on their line.
     field->set_DontAffectsLineSpacing(true);
     
-    ASSERT_EQ(u" SYMBOL  8734 \\u \\f Calibri \\s 24 \\h", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SYMBOL  8734 \\u \\f Calibri \\s 24 \\h");
     
     builder->Writeln(u"Line 2");
     
@@ -6337,7 +6334,7 @@ void ExField::FieldSymbol()
     field->set_CharacterCode(System::Convert::ToString(0x82A0));
     field->set_IsShiftJis(true);
     
-    ASSERT_EQ(u" SYMBOL  33440 \\f \"MS Gothic\" \\j", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" SYMBOL  33440 \\f \"MS Gothic\" \\j");
     
     builder->Write(u"Line 3");
     
@@ -6349,25 +6346,25 @@ void ExField::FieldSymbol()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL  169 \\a", System::String::Empty, field);
-    ASSERT_EQ(System::Convert::ToString(0x00a9), field->get_CharacterCode());
+    ASSERT_EQ(field->get_CharacterCode(), System::Convert::ToString(0x00a9));
     ASSERT_TRUE(field->get_IsAnsi());
-    ASSERT_EQ(u"©", field->get_DisplayResult());
+    ASSERT_EQ(field->get_DisplayResult(), u"©");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL  8734 \\u \\f Calibri \\s 24 \\h", System::String::Empty, field);
-    ASSERT_EQ(System::Convert::ToString(0x221E), field->get_CharacterCode());
-    ASSERT_EQ(u"Calibri", field->get_FontName());
-    ASSERT_EQ(u"24", field->get_FontSize());
+    ASSERT_EQ(field->get_CharacterCode(), System::Convert::ToString(0x221E));
+    ASSERT_EQ(field->get_FontName(), u"Calibri");
+    ASSERT_EQ(field->get_FontSize(), u"24");
     ASSERT_TRUE(field->get_IsUnicode());
     ASSERT_TRUE(field->get_DontAffectsLineSpacing());
-    ASSERT_EQ(u"∞", field->get_DisplayResult());
+    ASSERT_EQ(field->get_DisplayResult(), u"∞");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldSymbol>(doc->get_Range()->get_Fields()->idx_get(2));
     
     TestUtil::VerifyField(FieldType::FieldSymbol, u" SYMBOL  33440 \\f \"MS Gothic\" \\j", System::String::Empty, field);
-    ASSERT_EQ(System::Convert::ToString(0x82A0), field->get_CharacterCode());
-    ASSERT_EQ(u"MS Gothic", field->get_FontName());
+    ASSERT_EQ(field->get_CharacterCode(), System::Convert::ToString(0x82A0));
+    ASSERT_EQ(field->get_FontName(), u"MS Gothic");
     ASSERT_TRUE(field->get_IsShiftJis());
 }
 
@@ -6397,8 +6394,8 @@ void ExField::FieldTitle()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldTitle>(builder->InsertField(FieldType::FieldTitle, false));
     field->Update();
     
-    ASSERT_EQ(u" TITLE ", field->GetFieldCode());
-    ASSERT_EQ(u"My Title", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" TITLE ");
+    ASSERT_EQ(field->get_Result(), u"My Title");
     
     // Setting a value for the field's Text property,
     // and then updating the field will also overwrite the corresponding built-in property with the new value.
@@ -6407,9 +6404,9 @@ void ExField::FieldTitle()
     field->set_Text(u"My New Title");
     field->Update();
     
-    ASSERT_EQ(u" TITLE  \"My New Title\"", field->GetFieldCode());
-    ASSERT_EQ(u"My New Title", field->get_Result());
-    ASSERT_EQ(u"My New Title", doc->get_BuiltInDocumentProperties()->get_Title());
+    ASSERT_EQ(field->GetFieldCode(), u" TITLE  \"My New Title\"");
+    ASSERT_EQ(field->get_Result(), u"My New Title");
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Title(), u"My New Title");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.TITLE.docx");
@@ -6417,7 +6414,7 @@ void ExField::FieldTitle()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.TITLE.docx"));
     
-    ASSERT_EQ(u"My New Title", doc->get_BuiltInDocumentProperties()->get_Title());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Title(), u"My New Title");
     
     field = System::ExplicitCast<Aspose::Words::Fields::FieldTitle>(doc->get_Range()->get_Fields()->idx_get(0));
     
@@ -6426,7 +6423,7 @@ void ExField::FieldTitle()
     field = System::ExplicitCast<Aspose::Words::Fields::FieldTitle>(doc->get_Range()->get_Fields()->idx_get(1));
     
     TestUtil::VerifyField(FieldType::FieldTitle, u" TITLE  \"My New Title\"", u"My New Title", field);
-    ASSERT_EQ(u"My New Title", field->get_Text());
+    ASSERT_EQ(field->get_Text(), u"My New Title");
 }
 
 namespace gtest_test
@@ -6483,7 +6480,7 @@ void ExField::FieldTOA()
     builder->get_Font()->set_Color(System::Drawing::Color::get_Green());
     builder->get_Font()->set_Name(u"Arial Black");
     
-    ASSERT_EQ(u" TOA  \\c 1 \\h \\b MyBookmark \\e \" \t p.\" \\l \" & p. \" \\p \\g \" to \" \\f", fieldToa->GetFieldCode());
+    ASSERT_EQ(fieldToa->GetFieldCode(), u" TOA  \\c 1 \\h \\b MyBookmark \\e \" \t p.\" \\l \" & p. \" \\p \\g \" to \" \\f");
     
     builder->InsertBreak(BreakType::PageBreak);
     
@@ -6491,7 +6488,7 @@ void ExField::FieldTOA()
     // the bookmark's bounds that the TOA's BookmarkName property specifies.
     System::SharedPtr<Aspose::Words::Fields::FieldTA> fieldTA = InsertToaEntry(builder, u"1", u"Source 1");
     
-    ASSERT_EQ(u" TA  \\c 1 \\l \"Source 1\"", fieldTA->GetFieldCode());
+    ASSERT_EQ(fieldTA->GetFieldCode(), u" TA  \\c 1 \\l \"Source 1\"");
     
     // This TA field is inside the bookmark,
     // but the entry category does not match that of the table, so the TA field will not include it.
@@ -6505,7 +6502,7 @@ void ExField::FieldTOA()
     // but we can use them as a shorthand to refer to bulky source names that multiple TA fields reference.
     fieldTA->set_ShortCitation(u"S.3");
     
-    ASSERT_EQ(u" TA  \\c 1 \\l \"Source 3\" \\s S.3", fieldTA->GetFieldCode());
+    ASSERT_EQ(fieldTA->GetFieldCode(), u" TA  \\c 1 \\l \"Source 3\" \\s S.3");
     
     // We can format the page number to make it bold/italic using the following properties.
     // We will still see these effects if we set our table to ignore formatting.
@@ -6513,7 +6510,7 @@ void ExField::FieldTOA()
     fieldTA->set_IsBold(true);
     fieldTA->set_IsItalic(true);
     
-    ASSERT_EQ(u" TA  \\c 1 \\l \"Source 2\" \\b \\i", fieldTA->GetFieldCode());
+    ASSERT_EQ(fieldTA->GetFieldCode(), u" TA  \\c 1 \\l \"Source 2\" \\b \\i");
     
     // We can configure TA fields to get their TOA entries to refer to a range of pages that a bookmark spans across.
     // Note that this entry refers to the same source as the one above to share one row in our table.
@@ -6528,7 +6525,7 @@ void ExField::FieldTOA()
     builder->InsertBreak(BreakType::PageBreak);
     builder->EndBookmark(u"MyMultiPageBookmark");
     
-    ASSERT_EQ(u" TA  \\c 1 \\l \"Source 3\" \\r MyMultiPageBookmark", fieldTA->GetFieldCode());
+    ASSERT_EQ(fieldTA->GetFieldCode(), u" TA  \\c 1 \\l \"Source 3\" \\r MyMultiPageBookmark");
     
     // If we have enabled the "Passim" feature of our table, having 5 or more TA entries with the same source will invoke it.
     for (int32_t i = 0; i < 5; i++)
@@ -6564,7 +6561,7 @@ void ExField::FieldAddIn()
     // Aspose.Words does not support inserting ADDIN fields, but we can still load and read them.
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldAddIn>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(u" ADDIN \"My value\" ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" ADDIN \"My value\" ");
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
@@ -6602,8 +6599,8 @@ void ExField::FieldEditTime()
     doc->get_BuiltInDocumentProperties()->set_TotalEditingTime(10);
     field->Update();
     
-    ASSERT_EQ(u" EDITTIME ", field->GetFieldCode());
-    ASSERT_EQ(u"10", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" EDITTIME ");
+    ASSERT_EQ(field->get_Result(), u"10");
     
     // The field does not update itself in real-time, and will also have to be
     // manually updated in Microsoft Word anytime we need an accurate value.
@@ -6613,7 +6610,7 @@ void ExField::FieldEditTime()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.EDITTIME.docx"));
     
-    ASSERT_EQ(10, doc->get_BuiltInDocumentProperties()->get_TotalEditingTime());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_TotalEditingTime(), 10);
     
     TestUtil::VerifyField(FieldType::FieldEditTime, u" EDITTIME ", u"10", doc->get_Range()->get_Fields()->idx_get(0));
 }
@@ -6643,7 +6640,7 @@ void ExField::FieldEQ()
     // This field will display a fraction with 1 as the numerator and 4 as the denominator.
     System::SharedPtr<Aspose::Words::Fields::FieldEQ> field = InsertFieldEQ(builder, u"\\f(1,4)");
     
-    ASSERT_EQ(u" EQ \\f(1,4)", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" EQ \\f(1,4)");
     
     // One EQ field may contain multiple elements placed sequentially.
     // We can also nest elements inside one another by placing the inner elements
@@ -6740,13 +6737,13 @@ void ExField::FieldForms()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Form fields.docx"));
     
     auto fieldFormCheckBox = System::ExplicitCast<Aspose::Words::Fields::FieldFormCheckBox>(doc->get_Range()->get_Fields()->idx_get(1));
-    ASSERT_EQ(u" FORMCHECKBOX \u0001", fieldFormCheckBox->GetFieldCode());
+    ASSERT_EQ(fieldFormCheckBox->GetFieldCode(), u" FORMCHECKBOX \u0001");
     
     auto fieldFormDropDown = System::ExplicitCast<Aspose::Words::Fields::FieldFormDropDown>(doc->get_Range()->get_Fields()->idx_get(2));
-    ASSERT_EQ(u" FORMDROPDOWN \u0001", fieldFormDropDown->GetFieldCode());
+    ASSERT_EQ(fieldFormDropDown->GetFieldCode(), u" FORMDROPDOWN \u0001");
     
     auto fieldFormText = System::ExplicitCast<Aspose::Words::Fields::FieldFormText>(doc->get_Range()->get_Fields()->idx_get(0));
-    ASSERT_EQ(u" FORMTEXT \u0001", fieldFormText->GetFieldCode());
+    ASSERT_EQ(fieldFormText->GetFieldCode(), u" FORMTEXT \u0001");
     //ExEnd
 }
 
@@ -6777,8 +6774,8 @@ void ExField::FieldFormula()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldFormula>(fieldBuilder->BuildAndInsert(doc->get_FirstSection()->get_Body()->get_FirstParagraph()));
     field->Update();
     
-    ASSERT_EQ(u" = 2 * 5 ", field->GetFieldCode());
-    ASSERT_EQ(u"10", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" = 2 * 5 ");
+    ASSERT_EQ(field->get_Result(), u"10");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"Field.FORMULA.docx");
@@ -6814,15 +6811,15 @@ void ExField::FieldLastSavedBy()
     // We can use the LASTSAVEDBY field to display the value of this property in the document.
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldLastSavedBy>(builder->InsertField(FieldType::FieldLastSavedBy, true));
     
-    ASSERT_EQ(u" LASTSAVEDBY ", field->GetFieldCode());
-    ASSERT_EQ(u"John Doe", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" LASTSAVEDBY ");
+    ASSERT_EQ(field->get_Result(), u"John Doe");
     
     doc->Save(get_ArtifactsDir() + u"Field.LASTSAVEDBY.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.LASTSAVEDBY.docx"));
     
-    ASSERT_EQ(u"John Doe", doc->get_BuiltInDocumentProperties()->get_LastSavedBy());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_LastSavedBy(), u"John Doe");
     TestUtil::VerifyField(FieldType::FieldLastSavedBy, u" LASTSAVEDBY ", u"John Doe", doc->get_Range()->get_Fields()->idx_get(0));
 }
 
@@ -6846,7 +6843,7 @@ void ExField::FieldOcx()
     
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldOcx>(builder->InsertField(FieldType::FieldOcx, true));
     
-    ASSERT_EQ(u" OCX ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" OCX ");
     //ExEnd
     
     TestUtil::VerifyField(FieldType::FieldOcx, u" OCX ", System::String::Empty, field);
@@ -6872,8 +6869,8 @@ void ExField::FieldPrivate()
     // but provides no functionality for them.
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldPrivate>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(u" PRIVATE \"My value\" ", field->GetFieldCode());
-    ASSERT_EQ(FieldType::FieldPrivate, field->get_Type());
+    ASSERT_EQ(field->GetFieldCode(), u" PRIVATE \"My value\" ");
+    ASSERT_EQ(field->get_Type(), FieldType::FieldPrivate);
     
     // We can also insert PRIVATE fields using a document builder.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
@@ -6882,13 +6879,13 @@ void ExField::FieldPrivate()
     // These fields are not a viable way of protecting sensitive information.
     // Unless backward compatibility with older versions of WordPerfect is essential,
     // we can safely remove these fields. We can do this using a DocumentVisiitor implementation.
-    ASSERT_EQ(2, doc->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 2);
     
     auto remover = System::MakeObject<Aspose::Words::ApiExamples::ExField::FieldPrivateRemover>();
     doc->Accept(remover);
     
-    ASSERT_EQ(2, remover->GetFieldsRemovedCount());
-    ASSERT_EQ(0, doc->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(remover->GetFieldsRemovedCount(), 2);
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 0);
 }
 
 namespace gtest_test
@@ -6917,19 +6914,19 @@ void ExField::FieldSection()
     builder->Write(u"Section ");
     auto fieldSection = System::ExplicitCast<Aspose::Words::Fields::FieldSection>(builder->InsertField(FieldType::FieldSection, true));
     
-    ASSERT_EQ(u" SECTION ", fieldSection->GetFieldCode());
+    ASSERT_EQ(fieldSection->GetFieldCode(), u" SECTION ");
     
     // A PAGE field displays the number of the page it is in.
     builder->Write(u"\nPage ");
     auto fieldPage = System::ExplicitCast<Aspose::Words::Fields::FieldPage>(builder->InsertField(FieldType::FieldPage, true));
     
-    ASSERT_EQ(u" PAGE ", fieldPage->GetFieldCode());
+    ASSERT_EQ(fieldPage->GetFieldCode(), u" PAGE ");
     
     // A SECTIONPAGES field displays the number of pages that the section it is in spans across.
     builder->Write(u" of ");
     auto fieldSectionPages = System::ExplicitCast<Aspose::Words::Fields::FieldSectionPages>(builder->InsertField(FieldType::FieldSectionPages, true));
     
-    ASSERT_EQ(u" SECTIONPAGES ", fieldSectionPages->GetFieldCode());
+    ASSERT_EQ(fieldSectionPages->GetFieldCode(), u" SECTIONPAGES ");
     
     // Move out of the header back into the main document and insert two pages.
     // All these pages will be in the first section. Our fields, which appear once every header,
@@ -6976,17 +6973,17 @@ void ExField::FieldTime()
     // By default, time is displayed in the "h:mm am/pm" format.
     System::SharedPtr<Aspose::Words::Fields::FieldTime> field = InsertFieldTime(builder, u"");
     
-    ASSERT_EQ(u" TIME ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" TIME ");
     
     // We can use the \@ flag to change the format of our displayed time.
     field = InsertFieldTime(builder, u"\\@ HHmm");
     
-    ASSERT_EQ(u" TIME \\@ HHmm", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" TIME \\@ HHmm");
     
     // We can adjust the format to get TIME field to also display the date, according to the Gregorian calendar.
     field = InsertFieldTime(builder, u"\\@ \"M/d/yyyy h mm:ss am/pm\"");
     
-    ASSERT_EQ(u" TIME \\@ \"M/d/yyyy h mm:ss am/pm\"", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" TIME \\@ \"M/d/yyyy h mm:ss am/pm\"");
     
     doc->Save(get_ArtifactsDir() + u"Field.TIME.docx");
     TestFieldTime(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Field.TIME.docx")));
@@ -7020,7 +7017,7 @@ void ExField::BidiOutline()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldBidiOutline>(builder->InsertField(FieldType::FieldBidiOutline, true));
     builder->Writeln(u"שלום");
     
-    ASSERT_EQ(u" BIDIOUTLINE ", field->GetFieldCode());
+    ASSERT_EQ(field->GetFieldCode(), u" BIDIOUTLINE ");
     
     // Add two more BIDIOUTLINE fields, which will display ".2" and ".3".
     builder->InsertField(FieldType::FieldBidiOutline, true);
@@ -7072,26 +7069,26 @@ void ExField::Legacy()
     // An EMBED field has the same function, but for an embedded object,
     // such as a spreadsheet from an external Excel document.
     // However, these fields will not appear in the document's Fields collection.
-    ASSERT_EQ(0, doc->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 0);
     
     // These fields are supported only by old versions of Microsoft Word.
     // The document loading process will convert these fields into Shape objects,
     // which we can access in the document's node collection.
     System::SharedPtr<Aspose::Words::NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
-    ASSERT_EQ(3, shapes->get_Count());
+    ASSERT_EQ(shapes->get_Count(), 3);
     
     // The first Shape node corresponds to the SHAPE field in the input document,
     // which is the inline canvas for the AutoShape.
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(0));
-    ASSERT_EQ(ShapeType::Image, shape->get_ShapeType());
+    ASSERT_EQ(shape->get_ShapeType(), ShapeType::Image);
     
     // The second Shape node is the AutoShape itself.
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(1));
-    ASSERT_EQ(ShapeType::Can, shape->get_ShapeType());
+    ASSERT_EQ(shape->get_ShapeType(), ShapeType::Can);
     
     // The third Shape is what was the EMBED field that contained the external spreadsheet.
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(2));
-    ASSERT_EQ(ShapeType::OleObject, shape->get_ShapeType());
+    ASSERT_EQ(shape->get_ShapeType(), ShapeType::OleObject);
     //ExEnd
 }
 
@@ -7158,7 +7155,7 @@ void ExField::ConditionEvaluationExtensionPoint(System::String fieldCode, int8_t
     
     builder->get_Document()->UpdateFields();
     
-    ASSERT_EQ(expectedResult, field->get_Result());
+    ASSERT_EQ(field->get_Result(), expectedResult);
     evaluator->AssertInvocationsCount(1)->AssertInvocationArguments(0, left, operator_, right);
 }
 
@@ -7371,13 +7368,13 @@ void ExField::BibliographySources()
     auto document = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Bibliography sources.docx"));
     
     System::SharedPtr<Aspose::Words::Bibliography::Bibliography> bibliography = document->get_Bibliography();
-    ASSERT_EQ(12, bibliography->get_Sources()->get_Count());
+    ASSERT_EQ(bibliography->get_Sources()->get_Count(), 12);
     
     // Get default data from bibliography sources.
     System::SharedPtr<Aspose::Words::Bibliography::Source> source = bibliography->get_Sources()->LINQ_FirstOrDefault();
-    ASSERT_EQ(u"Book 0 (No LCID)", source->get_Title());
-    ASSERT_EQ(SourceType::Book, source->get_SourceType());
-    ASSERT_EQ(3, source->get_Contributors()->LINQ_Count());
+    ASSERT_EQ(source->get_Title(), u"Book 0 (No LCID)");
+    ASSERT_EQ(source->get_SourceType(), SourceType::Book);
+    ASSERT_EQ(source->get_Contributors()->LINQ_Count(), 3);
     ASSERT_TRUE(System::TestTools::IsNull(source->get_AbbreviatedCaseNumber()));
     ASSERT_TRUE(System::TestTools::IsNull(source->get_AlbumTitle()));
     ASSERT_TRUE(System::TestTools::IsNull(source->get_BookTitle()));
@@ -7418,7 +7415,7 @@ void ExField::BibliographySources()
     ASSERT_TRUE(System::TestTools::IsNull(source->get_StandardNumber()));
     ASSERT_TRUE(System::TestTools::IsNull(source->get_StateOrProvince()));
     ASSERT_TRUE(System::TestTools::IsNull(source->get_Station()));
-    ASSERT_EQ(u"BookNoLCID", source->get_Tag());
+    ASSERT_EQ(source->get_Tag(), u"BookNoLCID");
     ASSERT_TRUE(System::TestTools::IsNull(source->get_Theater()));
     ASSERT_TRUE(System::TestTools::IsNull(source->get_ThesisType()));
     ASSERT_TRUE(System::TestTools::IsNull(source->get_Type()));
@@ -7449,15 +7446,15 @@ void ExField::BibliographySources()
     ASSERT_TRUE(System::TestTools::IsNull(contributors->get_Writer()));
     
     System::SharedPtr<Aspose::Words::Bibliography::Contributor> editor = contributors->get_Editor();
-    ASSERT_EQ(2, (System::ExplicitCast<Aspose::Words::Bibliography::PersonCollection>(editor))->LINQ_Count());
+    ASSERT_EQ((System::ExplicitCast<Aspose::Words::Bibliography::PersonCollection>(editor))->LINQ_Count(), 2);
     
     auto authors = System::ExplicitCast<Aspose::Words::Bibliography::PersonCollection>(contributors->get_Author());
-    ASSERT_EQ(2, authors->LINQ_Count());
+    ASSERT_EQ(authors->LINQ_Count(), 2);
     
     System::SharedPtr<Aspose::Words::Bibliography::Person> person = authors->idx_get(0);
-    ASSERT_EQ(u"Roxanne", person->get_First());
-    ASSERT_EQ(u"Brielle", person->get_Middle());
-    ASSERT_EQ(u"Tejeda", person->get_Last());
+    ASSERT_EQ(person->get_First(), u"Roxanne");
+    ASSERT_EQ(person->get_Middle(), u"Brielle");
+    ASSERT_EQ(person->get_Last(), u"Tejeda");
     //ExEnd:BibliographySources
 }
 
@@ -7488,23 +7485,23 @@ void ExField::BibliographyPersons()
     auto person = System::MakeObject<Aspose::Words::Bibliography::Person>(u"Roxanne", u"Brielle", u"Tejeda_updated");
     // Add new person to the collection.
     persons->Add(person);
-    ASSERT_EQ(1, persons->get_Count());
+    ASSERT_EQ(persons->get_Count(), 1);
     // Remove person from the collection if it exists.
     if (persons->Contains(person))
     {
         persons->Remove(person);
     }
-    ASSERT_EQ(0, persons->get_Count());
+    ASSERT_EQ(persons->get_Count(), 0);
     
     // Create person collection with two persons.
     persons = System::MakeObject<Aspose::Words::Bibliography::PersonCollection>(System::MakeArray<System::SharedPtr<Aspose::Words::Bibliography::Person>>({System::MakeObject<Aspose::Words::Bibliography::Person>(u"Roxanne_1", u"Brielle_1", u"Tejeda_1"), System::MakeObject<Aspose::Words::Bibliography::Person>(u"Roxanne_2", u"Brielle_2", u"Tejeda_2")}));
-    ASSERT_EQ(2, persons->get_Count());
+    ASSERT_EQ(persons->get_Count(), 2);
     // Remove person from the collection by the index.
     persons->RemoveAt(0);
-    ASSERT_EQ(1, persons->get_Count());
+    ASSERT_EQ(persons->get_Count(), 1);
     // Remove all persons from the collection.
     persons->Clear();
-    ASSERT_EQ(0, persons->get_Count());
+    ASSERT_EQ(persons->get_Count(), 0);
     //ExEnd
 }
 
@@ -7529,7 +7526,7 @@ void ExField::CaptionlessTableOfFiguresLabel()
     auto fieldToc = System::ExplicitCast<Aspose::Words::Fields::FieldToc>(builder->InsertField(FieldType::FieldTOC, true));
     fieldToc->set_CaptionlessTableOfFiguresLabel(u"Test");
     
-    ASSERT_EQ(u" TOC  \\a Test", fieldToc->GetFieldCode());
+    ASSERT_EQ(fieldToc->GetFieldCode(), u" TOC  \\a Test");
     //ExEnd
 }
 

@@ -2,12 +2,15 @@
 
 #include <system/uri.h>
 #include <system/threading/thread.h>
+#include <system/platform_id.h>
+#include <system/operating_system.h>
 #include <system/io/search_option.h>
 #include <system/io/path.h>
 #include <system/io/file.h>
 #include <system/io/directory_info.h>
 #include <system/io/directory.h>
 #include <system/globalization/culture_info.h>
+#include <system/environment.h>
 #include <system/array.h>
 #include <mutex>
 #include <memory>
@@ -147,6 +150,12 @@ void ApiExampleBase::OneTimeTearDown()
             System::IO::Directory::Delete(subDir, true);
         }
     }
+}
+
+bool ApiExampleBase::IsRunningOnLinux()
+{
+    __StaticConstructor__();
+    return System::Environment::get_OSVersion().get_Platform() == System::PlatformID::Unix;
 }
 
 void ApiExampleBase::SetUnlimitedLicense()

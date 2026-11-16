@@ -73,6 +73,9 @@ public:
     
 private:
 
+    //ExStart
+    //ExFor:LoadOptions.ResourceLoadingCallback
+    //ExSummary:Shows how to handle external resources when loading Html documents (HtmlLinkedResourceLoadingCallback).
     /// <summary>
     /// Prints the filenames of all external stylesheets and substitutes all images of a loaded html document.
     /// </summary>
@@ -117,9 +120,6 @@ private:
     
 public:
 
-    //ExStart
-    //ExFor:LoadOptions.ResourceLoadingCallback
-    //ExSummary:Shows how to handle external resources when loading Html documents.
     void LoadOptionsCallback();
     //ExEnd
     void ConvertShapeToOfficeMath(bool isConvertShapeToOfficeMath);

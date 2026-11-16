@@ -93,17 +93,17 @@ void ExDocumentProperties::TestContent(System::SharedPtr<Aspose::Words::Document
 {
     System::SharedPtr<Aspose::Words::Properties::BuiltInDocumentProperties> properties = doc->get_BuiltInDocumentProperties();
     
-    ASSERT_EQ(6, properties->get_Pages());
+    ASSERT_EQ(properties->get_Pages(), 6);
     
-    ASSERT_EQ(1035, properties->get_Words());
-    ASSERT_EQ(6026, properties->get_Characters());
-    ASSERT_EQ(7041, properties->get_CharactersWithSpaces());
-    ASSERT_EQ(142, properties->get_Lines());
-    ASSERT_EQ(29, properties->get_Paragraphs());
-    ASSERT_NEAR(15500, properties->get_Bytes(), 200);
-    ASSERT_EQ(get_MyDir().Replace(u"\\\\", u"\\") + u"Business brochure.dotx", properties->get_Template());
-    ASSERT_EQ(u"Draft", properties->get_ContentStatus());
-    ASSERT_EQ(System::String::Empty, properties->get_ContentType());
+    ASSERT_EQ(properties->get_Words(), 1035);
+    ASSERT_EQ(properties->get_Characters(), 6026);
+    ASSERT_EQ(properties->get_CharactersWithSpaces(), 7041);
+    ASSERT_EQ(properties->get_Lines(), 142);
+    ASSERT_EQ(properties->get_Paragraphs(), 29);
+    ASSERT_NEAR(properties->get_Bytes(), 15500, 200);
+    ASSERT_EQ(properties->get_Template(), get_MyDir().Replace(u"\\\\", u"\\") + u"Business brochure.dotx");
+    ASSERT_EQ(properties->get_ContentStatus(), u"Draft");
+    ASSERT_EQ(properties->get_ContentType(), System::String::Empty);
     ASSERT_FALSE(properties->get_LinksUpToDate());
 }
 
@@ -177,7 +177,7 @@ void ExDocumentProperties::BuiltIn()
     }
     //ExEnd
     
-    ASSERT_EQ(31, doc->get_BuiltInDocumentProperties()->get_Count());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Count(), 31);
 }
 
 namespace gtest_test
@@ -203,7 +203,7 @@ void ExDocumentProperties::Custom()
     
     // Every document contains a collection of custom properties, which, like the built-in properties, are key-value pairs.
     // The document has a fixed list of built-in properties. The user creates all of the custom properties.
-    ASSERT_EQ(u"Value of custom document property", System::ObjectExt::ToString(doc->get_CustomDocumentProperties()->idx_get(u"CustomProperty")));
+    ASSERT_EQ(System::ObjectExt::ToString(doc->get_CustomDocumentProperties()->idx_get(u"CustomProperty")), u"Value of custom document property");
     
     doc->get_CustomDocumentProperties()->Add(u"CustomProperty2", System::String(u"Value of custom document property #2"));
     
@@ -216,7 +216,7 @@ void ExDocumentProperties::Custom()
     }
     //ExEnd
     
-    ASSERT_EQ(2, doc->get_CustomDocumentProperties()->get_Count());
+    ASSERT_EQ(doc->get_CustomDocumentProperties()->get_Count(), 2);
 }
 
 namespace gtest_test
@@ -280,13 +280,13 @@ void ExDocumentProperties::Description()
     
     properties = doc->get_BuiltInDocumentProperties();
     
-    ASSERT_EQ(u"John Doe", properties->get_Author());
-    ASSERT_EQ(u"My category", properties->get_Category());
-    ASSERT_EQ(System::String::Format(u"This is {0}'s document about {1}", properties->get_Author(), properties->get_Subject()), properties->get_Comments());
-    ASSERT_EQ(u"Tag 1; Tag 2; Tag 3", properties->get_Keywords());
-    ASSERT_EQ(u"My subject", properties->get_Subject());
-    ASSERT_EQ(u"John's Document", properties->get_Title());
-    ASSERT_EQ(System::String(u"Author:\t\u0013 AUTHOR \u0014John Doe\u0015\r") + u"Doc title:\t\u0013 TITLE \u0014John's Document\u0015\r" + u"Subject:\t\u0013 SUBJECT \u0014My subject\u0015\r" + u"Comments:\t\"\u0013 COMMENTS \u0014This is John Doe's document about My subject\u0015\"", doc->GetText().Trim());
+    ASSERT_EQ(properties->get_Author(), u"John Doe");
+    ASSERT_EQ(properties->get_Category(), u"My category");
+    ASSERT_EQ(properties->get_Comments(), System::String::Format(u"This is {0}'s document about {1}", properties->get_Author(), properties->get_Subject()));
+    ASSERT_EQ(properties->get_Keywords(), u"Tag 1; Tag 2; Tag 3");
+    ASSERT_EQ(properties->get_Subject(), u"My subject");
+    ASSERT_EQ(properties->get_Title(), u"John's Document");
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"Author:\t\u0013 AUTHOR \u0014John Doe\u0015\r") + u"Doc title:\t\u0013 TITLE \u0014John's Document\u0015\r" + u"Subject:\t\u0013 SUBJECT \u0014My subject\u0015\r" + u"Comments:\t\"\u0013 COMMENTS \u0014This is John Doe's document about My subject\u0015\"");
 }
 
 namespace gtest_test
@@ -344,17 +344,17 @@ void ExDocumentProperties::Origin()
     
     properties = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Origin.docx"))->get_BuiltInDocumentProperties();
     
-    ASSERT_EQ(u"Doe Ltd.", properties->get_Company());
-    ASSERT_EQ(System::DateTime(2006, 4, 25, 10, 10, 0), properties->get_CreatedTime());
-    ASSERT_EQ(System::DateTime(2019, 4, 21, 10, 0, 0), properties->get_LastPrinted());
-    ASSERT_EQ(u"John Doe", properties->get_LastSavedBy());
+    ASSERT_EQ(properties->get_Company(), u"Doe Ltd.");
+    ASSERT_EQ(properties->get_CreatedTime(), System::DateTime(2006, 4, 25, 10, 10, 0));
+    ASSERT_EQ(properties->get_LastPrinted(), System::DateTime(2019, 4, 21, 10, 0, 0));
+    ASSERT_EQ(properties->get_LastSavedBy(), u"John Doe");
     TestUtil::VerifyDate(System::DateTime::get_Now(), properties->get_LastSavedTime(), System::TimeSpan::FromSeconds(5));
-    ASSERT_EQ(u"Jane Doe", properties->get_Manager());
-    ASSERT_EQ(u"Microsoft Office Word", properties->get_NameOfApplication());
-    ASSERT_EQ(12, properties->get_RevisionNumber());
-    ASSERT_EQ(u"Normal", properties->get_Template());
-    ASSERT_EQ(8, properties->get_TotalEditingTime());
-    ASSERT_EQ(786432, properties->get_Version());
+    ASSERT_EQ(properties->get_Manager(), u"Jane Doe");
+    ASSERT_EQ(properties->get_NameOfApplication(), u"Microsoft Office Word");
+    ASSERT_EQ(properties->get_RevisionNumber(), 12);
+    ASSERT_EQ(properties->get_Template(), u"Normal");
+    ASSERT_EQ(properties->get_TotalEditingTime(), 8);
+    ASSERT_EQ(properties->get_Version(), 786432);
 }
 
 namespace gtest_test
@@ -380,39 +380,39 @@ void ExDocumentProperties::Content()
     // Page count: The PageCount property shows the page count in real time and its value can be assigned to the Pages property
     
     // The "Pages" property stores the page count of the document.
-    ASSERT_EQ(6, properties->get_Pages());
+    ASSERT_EQ(properties->get_Pages(), 6);
     
     // The "Words", "Characters", and "CharactersWithSpaces" built-in properties also display various document statistics,
     // but we need to call the "UpdateWordCount" method on the whole document before we can expect them to contain accurate values.
-    ASSERT_EQ(1054, properties->get_Words());
+    ASSERT_EQ(properties->get_Words(), 1054);
     //ExSkip
-    ASSERT_EQ(6009, properties->get_Characters());
+    ASSERT_EQ(properties->get_Characters(), 6009);
     //ExSkip
-    ASSERT_EQ(7049, properties->get_CharactersWithSpaces());
+    ASSERT_EQ(properties->get_CharactersWithSpaces(), 7049);
     //ExSkip
     doc->UpdateWordCount();
     
-    ASSERT_EQ(1035, properties->get_Words());
-    ASSERT_EQ(6026, properties->get_Characters());
-    ASSERT_EQ(7041, properties->get_CharactersWithSpaces());
+    ASSERT_EQ(properties->get_Words(), 1035);
+    ASSERT_EQ(properties->get_Characters(), 6026);
+    ASSERT_EQ(properties->get_CharactersWithSpaces(), 7041);
     
     // Count the number of lines in the document, and then assign the result to the "Lines" built-in property.
     auto lineCounter = System::MakeObject<Aspose::Words::ApiExamples::ExDocumentProperties::LineCounter>(doc);
     properties->set_Lines(lineCounter->GetLineCount());
     
-    ASSERT_EQ(142, properties->get_Lines());
+    ASSERT_EQ(properties->get_Lines(), 142);
     
     // Assign the number of Paragraph nodes in the document to the "Paragraphs" built-in property.
     properties->set_Paragraphs(doc->GetChildNodes(NodeType::Paragraph, true)->get_Count());
-    ASSERT_EQ(29, properties->get_Paragraphs());
+    ASSERT_EQ(properties->get_Paragraphs(), 29);
     
     // Get an estimate of the file size of our document via the "Bytes" built-in property.
-    ASSERT_EQ(20310, properties->get_Bytes());
+    ASSERT_EQ(properties->get_Bytes(), 20310);
     
     // Set a different template for our document, and then update the "Template" built-in property manually to reflect this change.
     doc->set_AttachedTemplate(get_MyDir() + u"Business brochure.dotx");
     
-    ASSERT_EQ(u"Normal", properties->get_Template());
+    ASSERT_EQ(properties->get_Template(), u"Normal");
     
     properties->set_Template(doc->get_AttachedTemplate());
     
@@ -420,7 +420,7 @@ void ExDocumentProperties::Content()
     properties->set_ContentStatus(u"Draft");
     
     // Upon saving, the "ContentType" built-in property will contain the MIME type of the output save format.
-    ASSERT_EQ(System::String::Empty, properties->get_ContentType());
+    ASSERT_EQ(properties->get_ContentType(), System::String::Empty);
     
     // If the document contains links, and they are all up to date, we can set the "LinksUpToDate" property to "true".
     ASSERT_FALSE(properties->get_LinksUpToDate());
@@ -509,12 +509,12 @@ void ExDocumentProperties::HyperlinkBase()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.HyperlinkBase.BrokenLink.docx"));
     properties = doc->get_BuiltInDocumentProperties();
     
-    ASSERT_EQ(System::String::Empty, properties->get_HyperlinkBase());
+    ASSERT_EQ(properties->get_HyperlinkBase(), System::String::Empty);
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.HyperlinkBase.WorkingLink.docx"));
     properties = doc->get_BuiltInDocumentProperties();
     
-    ASSERT_EQ(get_MyDir(), properties->get_HyperlinkBase());
+    ASSERT_EQ(properties->get_HyperlinkBase(), get_MyDir());
     ASSERT_TRUE(System::IO::File::Exists(properties->get_HyperlinkBase() + (System::ExplicitCast<Aspose::Words::Fields::FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0)))->get_Address()));
 }
 
@@ -560,26 +560,26 @@ void ExDocumentProperties::HeadingPairs()
     //ExEnd
     
     // There are 6 array elements designating 3 heading/part count pairs
-    ASSERT_EQ(6, headingPairs->get_Length());
-    ASSERT_EQ(u"Title", System::ObjectExt::ToString(headingPairs[0]));
-    ASSERT_EQ(u"1", System::ObjectExt::ToString(headingPairs[1]));
-    ASSERT_EQ(u"Heading 1", System::ObjectExt::ToString(headingPairs[2]));
-    ASSERT_EQ(u"5", System::ObjectExt::ToString(headingPairs[3]));
-    ASSERT_EQ(u"Heading 2", System::ObjectExt::ToString(headingPairs[4]));
-    ASSERT_EQ(u"2", System::ObjectExt::ToString(headingPairs[5]));
+    ASSERT_EQ(headingPairs->get_Length(), 6);
+    ASSERT_EQ(System::ObjectExt::ToString(headingPairs[0]), u"Title");
+    ASSERT_EQ(System::ObjectExt::ToString(headingPairs[1]), u"1");
+    ASSERT_EQ(System::ObjectExt::ToString(headingPairs[2]), u"Heading 1");
+    ASSERT_EQ(System::ObjectExt::ToString(headingPairs[3]), u"5");
+    ASSERT_EQ(System::ObjectExt::ToString(headingPairs[4]), u"Heading 2");
+    ASSERT_EQ(System::ObjectExt::ToString(headingPairs[5]), u"2");
     
-    ASSERT_EQ(8, titlesOfParts->get_Length());
+    ASSERT_EQ(titlesOfParts->get_Length(), 8);
     // "Title"
-    ASSERT_EQ(u"", titlesOfParts[0]);
+    ASSERT_EQ(titlesOfParts[0], u"");
     // "Heading 1"
-    ASSERT_EQ(u"Part1", titlesOfParts[1]);
-    ASSERT_EQ(u"Part2", titlesOfParts[2]);
-    ASSERT_EQ(u"Part3", titlesOfParts[3]);
-    ASSERT_EQ(u"Part4", titlesOfParts[4]);
-    ASSERT_EQ(u"Part5", titlesOfParts[5]);
+    ASSERT_EQ(titlesOfParts[1], u"Part1");
+    ASSERT_EQ(titlesOfParts[2], u"Part2");
+    ASSERT_EQ(titlesOfParts[3], u"Part3");
+    ASSERT_EQ(titlesOfParts[4], u"Part4");
+    ASSERT_EQ(titlesOfParts[5], u"Part5");
     // "Heading 2"
-    ASSERT_EQ(u"Part6", titlesOfParts[6]);
-    ASSERT_EQ(u"Part7", titlesOfParts[7]);
+    ASSERT_EQ(titlesOfParts[6], u"Part6");
+    ASSERT_EQ(titlesOfParts[7], u"Part7");
 }
 
 namespace gtest_test
@@ -600,13 +600,13 @@ void ExDocumentProperties::Security()
     //ExSummary:Shows how to use document properties to display the security level of a document.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    ASSERT_EQ(DocumentSecurity::None, doc->get_BuiltInDocumentProperties()->get_Security());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Security(), DocumentSecurity::None);
     
     // If we configure a document to be read-only, it will display this status using the "Security" built-in property.
     doc->get_WriteProtection()->set_ReadOnlyRecommended(true);
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyRecommended.docx");
     
-    ASSERT_EQ(DocumentSecurity::ReadOnlyRecommended, System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyRecommended.docx"))->get_BuiltInDocumentProperties()->get_Security());
+    ASSERT_EQ(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyRecommended.docx"))->get_BuiltInDocumentProperties()->get_Security(), DocumentSecurity::ReadOnlyRecommended);
     
     // Write-protect a document, and then verify its security level.
     doc = System::MakeObject<Aspose::Words::Document>();
@@ -620,7 +620,7 @@ void ExDocumentProperties::Security()
     
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyEnforced.docx");
     
-    ASSERT_EQ(DocumentSecurity::ReadOnlyEnforced, System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyEnforced.docx"))->get_BuiltInDocumentProperties()->get_Security());
+    ASSERT_EQ(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyEnforced.docx"))->get_BuiltInDocumentProperties()->get_Security(), DocumentSecurity::ReadOnlyEnforced);
     
     // "Security" is a descriptive property. We can edit its value manually.
     doc = System::MakeObject<Aspose::Words::Document>();
@@ -629,7 +629,7 @@ void ExDocumentProperties::Security()
     doc->get_BuiltInDocumentProperties()->set_Security(DocumentSecurity::ReadOnlyExceptAnnotations);
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyExceptAnnotations.docx");
     
-    ASSERT_EQ(DocumentSecurity::ReadOnlyExceptAnnotations, System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyExceptAnnotations.docx"))->get_BuiltInDocumentProperties()->get_Security());
+    ASSERT_EQ(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.Security.ReadOnlyExceptAnnotations.docx"))->get_BuiltInDocumentProperties()->get_Security(), DocumentSecurity::ReadOnlyExceptAnnotations);
     //ExEnd
 }
 
@@ -689,9 +689,9 @@ void ExDocumentProperties::LinkCustomDocumentPropertiesToBookmark()
     System::SharedPtr<Aspose::Words::Properties::CustomDocumentProperties> customProperties = doc->get_CustomDocumentProperties();
     System::SharedPtr<Aspose::Words::Properties::DocumentProperty> customProperty = customProperties->AddLinkToContent(u"Bookmark", u"MyBookmark");
     
-    ASPOSE_ASSERT_EQ(true, customProperty->get_IsLinkToContent());
-    ASSERT_EQ(u"MyBookmark", customProperty->get_LinkSource());
-    ASPOSE_ASSERT_EQ(u"Hello world!", customProperty->get_Value());
+    ASPOSE_ASSERT_EQ(customProperty->get_IsLinkToContent(), true);
+    ASSERT_EQ(customProperty->get_LinkSource(), u"MyBookmark");
+    ASPOSE_ASSERT_EQ(customProperty->get_Value(), u"Hello world!");
     
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.LinkCustomDocumentPropertiesToBookmark.docx");
     //ExEnd
@@ -699,9 +699,9 @@ void ExDocumentProperties::LinkCustomDocumentPropertiesToBookmark()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentProperties.LinkCustomDocumentPropertiesToBookmark.docx"));
     customProperty = doc->get_CustomDocumentProperties()->idx_get(u"Bookmark");
     
-    ASPOSE_ASSERT_EQ(true, customProperty->get_IsLinkToContent());
-    ASSERT_EQ(u"MyBookmark", customProperty->get_LinkSource());
-    ASPOSE_ASSERT_EQ(u"Hello world!", customProperty->get_Value());
+    ASPOSE_ASSERT_EQ(customProperty->get_IsLinkToContent(), true);
+    ASSERT_EQ(customProperty->get_LinkSource(), u"MyBookmark");
+    ASPOSE_ASSERT_EQ(customProperty->get_Value(), u"Hello world!");
 }
 
 namespace gtest_test
@@ -735,7 +735,7 @@ void ExDocumentProperties::DocumentPropertyCollection()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     System::SharedPtr<Aspose::Words::Properties::CustomDocumentProperties> properties = doc->get_CustomDocumentProperties();
     
-    ASSERT_EQ(0, properties->get_Count());
+    ASSERT_EQ(properties->get_Count(), 0);
     
     // Custom document properties are key-value pairs that we can add to the document.
     properties->Add(u"Authorized", true);
@@ -745,8 +745,8 @@ void ExDocumentProperties::DocumentPropertyCollection()
     properties->Add(u"Authorized Amount", 123.45);
     
     // The collection sorts the custom properties in alphabetic order.
-    ASSERT_EQ(1, properties->IndexOf(u"Authorized Amount"));
-    ASSERT_EQ(5, properties->get_Count());
+    ASSERT_EQ(properties->IndexOf(u"Authorized Amount"), 1);
+    ASSERT_EQ(properties->get_Count(), 5);
     
     // Print every custom property in the document.
     {
@@ -762,7 +762,7 @@ void ExDocumentProperties::DocumentPropertyCollection()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldDocProperty>(builder->InsertField(u" DOCPROPERTY \"Authorized By\""));
     field->Update();
     
-    ASSERT_EQ(u"John Doe", field->get_Result());
+    ASSERT_EQ(field->get_Result(), u"John Doe");
     
     // We can find these custom properties in Microsoft Word via "File" -> "Properties" > "Advanced Properties" > "Custom".
     doc->Save(get_ArtifactsDir() + u"DocumentProperties.DocumentPropertyCollection.docx");
@@ -772,18 +772,18 @@ void ExDocumentProperties::DocumentPropertyCollection()
     properties->RemoveAt(1);
     
     ASSERT_FALSE(properties->Contains(u"Authorized Amount"));
-    ASSERT_EQ(4, properties->get_Count());
+    ASSERT_EQ(properties->get_Count(), 4);
     
     // 2 -  Remove by name:
     properties->Remove(u"Authorized Revision");
     
     ASSERT_FALSE(properties->Contains(u"Authorized Revision"));
-    ASSERT_EQ(3, properties->get_Count());
+    ASSERT_EQ(properties->get_Count(), 3);
     
     // 3 -  Empty the entire collection at once:
     properties->Clear();
     
-    ASSERT_EQ(0, properties->get_Count());
+    ASSERT_EQ(properties->get_Count(), 0);
     //ExEnd
 }
 
@@ -816,11 +816,11 @@ void ExDocumentProperties::PropertyTypes()
     properties->Add(u"Authorized Revision", doc->get_BuiltInDocumentProperties()->get_RevisionNumber());
     properties->Add(u"Authorized Amount", 123.45);
     
-    ASPOSE_ASSERT_EQ(true, properties->idx_get(u"Authorized")->ToBool());
-    ASSERT_EQ(u"John Doe", System::ObjectExt::ToString(properties->idx_get(u"Authorized By")));
-    ASSERT_EQ(authDate, properties->idx_get(u"Authorized Date")->ToDateTime());
-    ASSERT_EQ(1, properties->idx_get(u"Authorized Revision")->ToInt());
-    ASPOSE_ASSERT_EQ(123.45, properties->idx_get(u"Authorized Amount")->ToDouble());
+    ASPOSE_ASSERT_EQ(properties->idx_get(u"Authorized")->ToBool(), true);
+    ASSERT_EQ(System::ObjectExt::ToString(properties->idx_get(u"Authorized By")), u"John Doe");
+    ASSERT_EQ(properties->idx_get(u"Authorized Date")->ToDateTime(), authDate);
+    ASSERT_EQ(properties->idx_get(u"Authorized Revision")->ToInt(), 1);
+    ASPOSE_ASSERT_EQ(properties->idx_get(u"Authorized Amount")->ToDouble(), 123.45);
     //ExEnd
 }
 

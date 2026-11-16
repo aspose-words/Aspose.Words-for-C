@@ -80,7 +80,7 @@ void ExCleanupOptions::RemoveUnusedResources()
     // Combined with the built-in styles, the document now has eight styles.
     // A custom style is marked as "used" while there is any text within the document
     // formatted in that style. This means that the 4 styles we added are currently unused.
-    ASSERT_EQ(8, doc->get_Styles()->get_Count());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 8);
     
     // Apply a custom character style, and then a custom list style. Doing so will mark them as "used".
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
@@ -101,14 +101,14 @@ void ExCleanupOptions::RemoveUnusedResources()
     
     doc->Cleanup(cleanupOptions);
     
-    ASSERT_EQ(4, doc->get_Styles()->get_Count());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 4);
     
     // Removing every node that a custom style is applied to marks it as "unused" again.
     // Rerun the Cleanup method to remove them.
     doc->get_FirstSection()->get_Body()->RemoveAllChildren();
     doc->Cleanup(cleanupOptions);
     
-    ASSERT_EQ(2, doc->get_Styles()->get_Count());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 2);
     //ExEnd
 }
 
@@ -141,7 +141,7 @@ void ExCleanupOptions::RemoveDuplicateStyles()
     duplicateStyle->get_Font()->set_Name(u"Courier New");
     duplicateStyle->get_Font()->set_Color(System::Drawing::Color::get_Blue());
     
-    ASSERT_EQ(6, doc->get_Styles()->get_Count());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 6);
     
     // Apply both styles to different paragraphs within the document.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
@@ -153,8 +153,8 @@ void ExCleanupOptions::RemoveDuplicateStyles()
     
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    ASPOSE_ASSERT_EQ(myStyle, paragraphs->idx_get(0)->get_ParagraphFormat()->get_Style());
-    ASPOSE_ASSERT_EQ(duplicateStyle, paragraphs->idx_get(1)->get_ParagraphFormat()->get_Style());
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Style(), myStyle);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Style(), duplicateStyle);
     
     // Configure a CleanOptions object, then call the Cleanup method to substitute all duplicate styles
     // with the original and remove the duplicates from the document.
@@ -163,9 +163,9 @@ void ExCleanupOptions::RemoveDuplicateStyles()
     
     doc->Cleanup(cleanupOptions);
     
-    ASSERT_EQ(5, doc->get_Styles()->get_Count());
-    ASPOSE_ASSERT_EQ(myStyle, paragraphs->idx_get(0)->get_ParagraphFormat()->get_Style());
-    ASPOSE_ASSERT_EQ(myStyle, paragraphs->idx_get(1)->get_ParagraphFormat()->get_Style());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 5);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Style(), myStyle);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Style(), myStyle);
     //ExEnd
 }
 

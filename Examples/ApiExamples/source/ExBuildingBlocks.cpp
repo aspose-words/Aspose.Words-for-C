@@ -7,7 +7,6 @@
 #include <system/console.h>
 #include <system/array.h>
 #include <iostream>
-#include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
@@ -96,7 +95,7 @@ Aspose::Words::VisitorAction ExBuildingBlocks::GlossaryDocVisitor::VisitGlossary
 
 Aspose::Words::VisitorAction ExBuildingBlocks::GlossaryDocVisitor::VisitBuildingBlockStart(System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock> block)
 {
-    EXPECT_EQ(u"00000000-0000-0000-0000-000000000000", System::ObjectExt::ToString(block->get_Guid()));
+    EXPECT_EQ(System::ObjectExt::ToString(block->get_Guid()), u"00000000-0000-0000-0000-000000000000");
     //ExSkip
     block->set_Guid(System::Guid::NewGuid());
     mBlocksByGuid->Add(block->get_Guid(), block);
@@ -162,16 +161,16 @@ void ExBuildingBlocks::CreateAndInsert()
     glossaryDoc->AppendChild<System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock>>(block);
     
     // All new building block GUIDs have the same zero value by default, and we can give them a new unique value.
-    ASSERT_EQ(u"00000000-0000-0000-0000-000000000000", System::ObjectExt::ToString(block->get_Guid()));
+    ASSERT_EQ(System::ObjectExt::ToString(block->get_Guid()), u"00000000-0000-0000-0000-000000000000");
     
     block->set_Guid(System::Guid::NewGuid());
     
     // The following properties categorize building blocks
     // in the menu we can access in Microsoft Word via "Insert" -> "Quick Parts" -> "Building Blocks Organizer".
-    ASSERT_EQ(u"(Empty Category)", block->get_Category());
-    ASSERT_EQ(BuildingBlockType::None, block->get_Type());
-    ASSERT_EQ(BuildingBlockGallery::All, block->get_Gallery());
-    ASSERT_EQ(BuildingBlockBehavior::Content, block->get_Behavior());
+    ASSERT_EQ(block->get_Category(), u"(Empty Category)");
+    ASSERT_EQ(block->get_Type(), BuildingBlockType::None);
+    ASSERT_EQ(block->get_Gallery(), BuildingBlockGallery::All);
+    ASSERT_EQ(block->get_Behavior(), BuildingBlockBehavior::Content);
     
     // Before we can add this building block to our document, we will need to give it some contents,
     // which we will do using a document visitor. This visitor will also set a category, gallery, and behavior.
@@ -183,20 +182,17 @@ void ExBuildingBlocks::CreateAndInsert()
     System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock> customBlock = glossaryDoc->GetBuildingBlock(BuildingBlockGallery::QuickParts, u"My custom building blocks", u"Custom Block");
     
     // The block itself is a section that contains the text.
-    ASSERT_EQ(System::String::Format(u"Text inside {0}\f", customBlock->get_Name()), customBlock->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText());
-    ASPOSE_ASSERT_EQ(customBlock->get_FirstSection(), customBlock->get_LastSection());
-    ASSERT_NO_THROW(static_cast<std::function<void()>>([&customBlock]() -> void
-    {
-        System::Guid::Parse(System::ObjectExt::ToString(customBlock->get_Guid()));
-    })());
+    ASSERT_EQ(customBlock->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText(), System::String::Format(u"Text inside {0}\f", customBlock->get_Name()));
+    ASPOSE_ASSERT_EQ(customBlock->get_LastSection(), customBlock->get_FirstSection());
+    System::Guid::Parse(System::ObjectExt::ToString(customBlock->get_Guid()));
     //ExSkip
-    ASSERT_EQ(u"My custom building blocks", customBlock->get_Category());
+    ASSERT_EQ(customBlock->get_Category(), u"My custom building blocks");
     //ExSkip
-    ASSERT_EQ(BuildingBlockType::None, customBlock->get_Type());
+    ASSERT_EQ(customBlock->get_Type(), BuildingBlockType::None);
     //ExSkip
-    ASSERT_EQ(BuildingBlockGallery::QuickParts, customBlock->get_Gallery());
+    ASSERT_EQ(customBlock->get_Gallery(), BuildingBlockGallery::QuickParts);
     //ExSkip
-    ASSERT_EQ(BuildingBlockBehavior::Paragraph, customBlock->get_Behavior());
+    ASSERT_EQ(customBlock->get_Behavior(), BuildingBlockBehavior::Paragraph);
     //ExSkip
     
     // Now, we can insert it into the document as a new section.
@@ -237,21 +233,21 @@ void ExBuildingBlocks::GlossaryDocument()
     child5->set_Name(u"Block 5");
     glossaryDoc->AppendChild<System::SharedPtr<Aspose::Words::BuildingBlocks::BuildingBlock>>(child5);
     
-    ASSERT_EQ(5, glossaryDoc->get_BuildingBlocks()->get_Count());
+    ASSERT_EQ(glossaryDoc->get_BuildingBlocks()->get_Count(), 5);
     
     doc->set_GlossaryDocument(glossaryDoc);
     
     // There are various ways of accessing building blocks.
     // 1 -  Get the first/last building blocks in the collection:
-    ASSERT_EQ(u"Block 1", glossaryDoc->get_FirstBuildingBlock()->get_Name());
-    ASSERT_EQ(u"Block 5", glossaryDoc->get_LastBuildingBlock()->get_Name());
+    ASSERT_EQ(glossaryDoc->get_FirstBuildingBlock()->get_Name(), u"Block 1");
+    ASSERT_EQ(glossaryDoc->get_LastBuildingBlock()->get_Name(), u"Block 5");
     
     // 2 -  Get a building block by index:
-    ASSERT_EQ(u"Block 2", glossaryDoc->get_BuildingBlocks()->idx_get(1)->get_Name());
-    ASSERT_EQ(u"Block 3", glossaryDoc->get_BuildingBlocks()->ToArray()[2]->get_Name());
+    ASSERT_EQ(glossaryDoc->get_BuildingBlocks()->idx_get(1)->get_Name(), u"Block 2");
+    ASSERT_EQ(glossaryDoc->get_BuildingBlocks()->ToArray()[2]->get_Name(), u"Block 3");
     
     // 3 -  Get the first building block that matches a gallery, name and category:
-    ASSERT_EQ(u"Block 4", glossaryDoc->GetBuildingBlock(BuildingBlockGallery::All, u"(Empty Category)", u"Block 4")->get_Name());
+    ASSERT_EQ(glossaryDoc->GetBuildingBlock(BuildingBlockGallery::All, u"(Empty Category)", u"Block 4")->get_Name(), u"Block 4");
     
     // We will do that using a custom visitor,
     // which will give every BuildingBlock in the GlossaryDocument a unique GUID
@@ -262,7 +258,7 @@ void ExBuildingBlocks::GlossaryDocument()
     glossaryDoc->AcceptStart(visitor);
     // Visit only end of the Glossary document.
     glossaryDoc->AcceptEnd(visitor);
-    ASSERT_EQ(5, visitor->GetDictionary()->get_Count());
+    ASSERT_EQ(visitor->GetDictionary()->get_Count(), 5);
     //ExSkip
     
     std::cout << visitor->GetText() << std::endl;

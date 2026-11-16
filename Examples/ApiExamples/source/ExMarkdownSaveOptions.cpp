@@ -12,7 +12,6 @@
 #include <system/io/file.h>
 #include <system/io/directory.h>
 #include <system/func.h>
-#include <system/environment.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
 #include <functional>
@@ -20,6 +19,7 @@
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphAlignment.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
+#include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
 #include <Aspose.Words.Cpp/Model/Tables/TableCollection.h>
 #include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/Row.h>
@@ -138,20 +138,20 @@ void ExMarkdownSaveOptions::MarkdownDocumentTableContentAlignment(Aspose::Words:
     switch (tableContentAlignment)
     {
         case TableContentAlignment::Auto:
-            ASSERT_EQ(ParagraphAlignment::Right, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
-            ASSERT_EQ(ParagraphAlignment::Center, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+            ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Right);
+            ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
             break;
         case TableContentAlignment::Left:
-            ASSERT_EQ(ParagraphAlignment::Left, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
-            ASSERT_EQ(ParagraphAlignment::Left, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+            ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Left);
+            ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Left);
             break;
         case TableContentAlignment::Center:
-            ASSERT_EQ(ParagraphAlignment::Center, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
-            ASSERT_EQ(ParagraphAlignment::Center, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+            ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
+            ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
             break;
         case TableContentAlignment::Right:
-            ASSERT_EQ(ParagraphAlignment::Right, table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
-            ASSERT_EQ(ParagraphAlignment::Right, table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+            ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Right);
+            ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Right);
             break;
     }
     //ExEnd
@@ -200,20 +200,20 @@ void ExMarkdownSaveOptions::RenameImages()
     // The ImageSaving() method of our callback will be run at this time.
     doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.HandleDocument.md", saveOptions);
     
-    ASSERT_EQ(1, System::IO::Directory::GetFiles(get_ArtifactsDir())->LINQ_Where(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
+    ASSERT_EQ(System::IO::Directory::GetFiles(get_ArtifactsDir())->LINQ_Where(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
     {
         return s.StartsWith(get_ArtifactsDir() + u"MarkdownSaveOptions.HandleDocument.md shape");
     })))->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
     {
         return f.EndsWith(u".jpeg");
-    }))));
-    ASSERT_EQ(8, System::IO::Directory::GetFiles(get_ArtifactsDir())->LINQ_Where(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
+    }))), 1);
+    ASSERT_EQ(System::IO::Directory::GetFiles(get_ArtifactsDir())->LINQ_Where(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
     {
         return s.StartsWith(get_ArtifactsDir() + u"MarkdownSaveOptions.HandleDocument.md shape");
     })))->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
     {
         return f.EndsWith(u".png");
-    }))));
+    }))), 8);
 }
 
 namespace gtest_test
@@ -337,7 +337,7 @@ void ExMarkdownSaveOptions::ImagesFolder()
     //ExEnd
     
     System::ArrayPtr<System::String> dirFiles = System::IO::Directory::GetFiles(imagesFolder, u"MarkdownSaveOptions.ImagesFolder.001.jpeg");
-    ASSERT_EQ(1, dirFiles->get_Length());
+    ASSERT_EQ(dirFiles->get_Length(), 1);
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"MarkdownSaveOptions.ImagesFolder.md"));
     doc->GetText().Contains(u"http://example.com/images/MarkdownSaveOptions.ImagesFolder.001.jpeg");
 }
@@ -406,7 +406,7 @@ void ExMarkdownSaveOptions::LinkExportMode()
     //ExEnd:LinkExportMode
     
     System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"MarkdownSaveOptions.LinkExportMode.Inline.md");
-    ASSERT_EQ(u"![](MarkdownSaveOptions.LinkExportMode.Inline.001.png)", outDocContents.Trim());
+    ASSERT_EQ(outDocContents.Trim(), u"![](MarkdownSaveOptions.LinkExportMode.Inline.001.png)");
 }
 
 namespace gtest_test
@@ -445,9 +445,11 @@ void ExMarkdownSaveOptions::ExportTableAsHtml()
     doc->Save(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportTableAsHtml.md", saveOptions);
     //ExEnd:ExportTableAsHtml
     
-    System::String newLine = System::Environment::get_NewLine();
+    // ControlChar.CrLf is used as a paragraph break by default in text formats.
+    // This can be configured using TxtSaveOptions.ParagraphBreak.
+    System::String newLine = ControlChar::CrLf();
     System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"MarkdownSaveOptions.ExportTableAsHtml.md");
-    ASSERT_EQ(System::String::Format(u"Sample table:{0}<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%; border:0.75pt solid #000000; border-collapse:collapse\">", newLine) + u"<tr><td style=\"border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top\">" + u"<p style=\"margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:12pt\"><span style=\"font-family:'Times New Roman'\">Cell1</span></p>" + u"</td><td style=\"border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top\">" + u"<p style=\"margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt\"><span style=\"font-family:'Times New Roman'\">Cell2</span></p>" + u"</td></tr></table>", outDocContents.Trim());
+    ASSERT_EQ(outDocContents.Trim(), System::String::Format(u"Sample table:{0}<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%; border:0.75pt solid #000000; border-collapse:collapse\">", newLine) + u"<tr><td style=\"border-right-style:solid; border-right-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top\">" + u"<p style=\"margin-top:0pt; margin-bottom:0pt; text-align:right; font-size:12pt\"><span style=\"font-family:'Times New Roman'\">Cell1</span></p>" + u"</td><td style=\"border-left-style:solid; border-left-width:0.75pt; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top\">" + u"<p style=\"margin-top:0pt; margin-bottom:0pt; text-align:center; font-size:12pt\"><span style=\"font-family:'Times New Roman'\">Cell2</span></p>" + u"</td></tr></table>");
 }
 
 namespace gtest_test
@@ -534,13 +536,13 @@ void ExMarkdownSaveOptions::EmptyParagraphExportMode(Aspose::Words::Saving::Mark
     switch (exportMode)
     {
         case MarkdownEmptyParagraphExportMode::None:
-            ASSERT_EQ(u"First\r\n\r\nLast\r\n", result);
+            ASSERT_EQ(result, u"First\r\n\r\nLast\r\n");
             break;
         case MarkdownEmptyParagraphExportMode::EmptyLine:
-            ASSERT_EQ(u"First\r\n\r\n\r\n\r\n\r\nLast\r\n\r\n", result);
+            ASSERT_EQ(result, u"First\r\n\r\n\r\n\r\n\r\nLast\r\n\r\n");
             break;
         case MarkdownEmptyParagraphExportMode::MarkdownHardLineBreak:
-            ASSERT_EQ(u"First\r\n\\\r\n\\\r\n\\\r\n\\\r\n\\\r\nLast\r\n<br>\r\n", result);
+            ASSERT_EQ(result, u"First\r\n\\\r\n\\\r\n\\\r\n\\\r\n\\\r\nLast\r\n<br>\r\n");
             break;
     }
     //ExEnd:EmptyParagraphExportMode

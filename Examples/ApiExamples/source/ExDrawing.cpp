@@ -97,21 +97,21 @@ void ExDrawing::TestGroupShapes(System::SharedPtr<Aspose::Words::Document> doc)
     doc = DocumentHelper::SaveOpen(doc);
     auto shapes = System::ExplicitCast<Aspose::Words::Drawing::GroupShape>(doc->GetChild(NodeType::GroupShape, 0, true));
     
-    ASSERT_EQ(2, shapes->GetChildNodes(NodeType::Any, false)->get_Count());
+    ASSERT_EQ(shapes->GetChildNodes(NodeType::Any, false)->get_Count(), 2);
     
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->GetChildNodes(NodeType::Any, false)->idx_get(0));
     
-    ASSERT_EQ(ShapeType::Balloon, shape->get_ShapeType());
-    ASPOSE_ASSERT_EQ(200.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(200.0, shape->get_Height());
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), shape->get_StrokeColor().ToArgb());
+    ASSERT_EQ(shape->get_ShapeType(), ShapeType::Balloon);
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 200.0);
+    ASSERT_EQ(shape->get_StrokeColor().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
     
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->GetChildNodes(NodeType::Any, false)->idx_get(1));
     
-    ASSERT_EQ(ShapeType::Cube, shape->get_ShapeType());
-    ASPOSE_ASSERT_EQ(100.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(100.0, shape->get_Height());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), shape->get_StrokeColor().ToArgb());
+    ASSERT_EQ(shape->get_ShapeType(), ShapeType::Cube);
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 100.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 100.0);
+    ASSERT_EQ(shape->get_StrokeColor().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
 }
 
 namespace gtest_test
@@ -154,7 +154,7 @@ void ExDrawing::TypeOfImage()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     System::SharedPtr<Aspose::Words::Drawing::Shape> imgShape = builder->InsertImage(get_ImageDir() + u"Logo.jpg");
-    ASSERT_EQ(ImageType::Jpeg, imgShape->get_ImageData()->get_ImageType());
+    ASSERT_EQ(imgShape->get_ImageData()->get_ImageType(), ImageType::Jpeg);
     //ExEnd
 }
 
@@ -221,8 +221,8 @@ void ExDrawing::StrokePattern()
     
     // Strokes can have two colors, which are used to create a pattern defined by two-tone image data.
     // Strokes with a single color do not use the Color2 property.
-    ASPOSE_ASSERT_EQ(System::Drawing::Color::FromArgb(255, 128, 0, 0), stroke->get_Color());
-    ASPOSE_ASSERT_EQ(System::Drawing::Color::FromArgb(255, 255, 255, 0), stroke->get_Color2());
+    ASPOSE_ASSERT_EQ(stroke->get_Color(), System::Drawing::Color::FromArgb(255, 128, 0, 0));
+    ASPOSE_ASSERT_EQ(stroke->get_Color2(), System::Drawing::Color::FromArgb(255, 255, 255, 0));
     
     ASSERT_FALSE(System::TestTools::IsNull(stroke->get_ImageBytes()));
     System::IO::File::WriteAllBytes(get_ArtifactsDir() + u"Drawing.StrokePattern.png", stroke->get_ImageBytes());
@@ -310,11 +310,11 @@ void ExDrawing::TextBox()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Drawing.TextBox.docx"));
     textbox = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASSERT_EQ(ShapeType::TextBox, textbox->get_ShapeType());
-    ASPOSE_ASSERT_EQ(100.0, textbox->get_Width());
-    ASPOSE_ASSERT_EQ(100.0, textbox->get_Height());
-    ASSERT_EQ(LayoutFlow::BottomToTop, textbox->get_TextBox()->get_LayoutFlow());
-    ASSERT_EQ(u"This text is flipped 90 degrees to the left.", textbox->GetText().Trim());
+    ASSERT_EQ(textbox->get_ShapeType(), ShapeType::TextBox);
+    ASPOSE_ASSERT_EQ(textbox->get_Width(), 100.0);
+    ASPOSE_ASSERT_EQ(textbox->get_Height(), 100.0);
+    ASSERT_EQ(textbox->get_TextBox()->get_LayoutFlow(), LayoutFlow::BottomToTop);
+    ASSERT_EQ(textbox->GetText().Trim(), u"This text is flipped 90 degrees to the left.");
 }
 
 namespace gtest_test
@@ -335,7 +335,7 @@ void ExDrawing::GetDataFromImage()
     //ExFor:ImageData.ToStream
     //ExSummary:Shows how to create an image file from a shape's raw image data.
     auto imgSourceDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
-    ASSERT_EQ(10, imgSourceDoc->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(imgSourceDoc->GetChildNodes(NodeType::Shape, true)->get_Count(), 10);
     //ExSkip
     
     auto imgShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(imgSourceDoc->GetChild(NodeType::Shape, 0, true));
@@ -343,7 +343,7 @@ void ExDrawing::GetDataFromImage()
     ASSERT_TRUE(imgShape->get_HasImage());
     
     // ToByteArray() returns the array stored in the ImageBytes property.
-    ASPOSE_ASSERT_EQ(imgShape->get_ImageData()->get_ImageBytes(), imgShape->get_ImageData()->ToByteArray());
+    ASPOSE_ASSERT_EQ(imgShape->get_ImageData()->ToByteArray(), imgShape->get_ImageData()->get_ImageBytes());
     
     // Save the shape's image data to an image file in the local file system.
     {
@@ -401,8 +401,8 @@ void ExDrawing::ImageData()
     ASSERT_TRUE(imageData->get_HasImage());
     
     // If an image has no borders, its ImageData object will define the border color as empty.
-    ASSERT_EQ(4, imageData->get_Borders()->get_Count());
-    ASPOSE_ASSERT_EQ(System::Drawing::Color::Empty, imageData->get_Borders()->idx_get(0)->get_Color());
+    ASSERT_EQ(imageData->get_Borders()->get_Count(), 4);
+    ASPOSE_ASSERT_EQ(imageData->get_Borders()->idx_get(0)->get_Color(), System::Drawing::Color::Empty);
     
     // This image does not link to another shape or image file in the local file system.
     ASSERT_FALSE(imageData->get_IsLink());
@@ -444,10 +444,10 @@ void ExDrawing::ImageData()
     sourceShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(imgSourceDoc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(2467, 1500, ImageType::Jpeg, sourceShape);
-    ASSERT_EQ(u"Imported Image", sourceShape->get_ImageData()->get_Title());
-    ASSERT_NEAR(0.8, sourceShape->get_ImageData()->get_Brightness(), 0.1);
-    ASSERT_NEAR(1.0, sourceShape->get_ImageData()->get_Contrast(), 0.1);
-    ASSERT_EQ(System::Drawing::Color::get_White().ToArgb(), sourceShape->get_ImageData()->get_ChromaKey().ToArgb());
+    ASSERT_EQ(sourceShape->get_ImageData()->get_Title(), u"Imported Image");
+    ASSERT_NEAR(sourceShape->get_ImageData()->get_Brightness(), 0.8, 0.1);
+    ASSERT_NEAR(sourceShape->get_ImageData()->get_Contrast(), 1.0, 0.1);
+    ASSERT_EQ(sourceShape->get_ImageData()->get_ChromaKey().ToArgb(), System::Drawing::Color::get_White().ToArgb());
     
     sourceShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(imgSourceDoc->GetChild(NodeType::Shape, 1, true));
     
@@ -458,10 +458,10 @@ void ExDrawing::ImageData()
     
     TestUtil::VerifyImageInShape(2467, 1500, ImageType::Jpeg, sourceShape);
     ASSERT_TRUE(sourceShape->get_ImageData()->get_BiLevel());
-    ASSERT_NEAR(0.3, sourceShape->get_ImageData()->get_CropBottom(), 0.1);
-    ASSERT_NEAR(0.3, sourceShape->get_ImageData()->get_CropLeft(), 0.1);
-    ASSERT_NEAR(0.3, sourceShape->get_ImageData()->get_CropTop(), 0.1);
-    ASSERT_NEAR(0.3, sourceShape->get_ImageData()->get_CropRight(), 0.1);
+    ASSERT_NEAR(sourceShape->get_ImageData()->get_CropBottom(), 0.3, 0.1);
+    ASSERT_NEAR(sourceShape->get_ImageData()->get_CropLeft(), 0.3, 0.1);
+    ASSERT_NEAR(sourceShape->get_ImageData()->get_CropTop(), 0.3, 0.1);
+    ASSERT_NEAR(sourceShape->get_ImageData()->get_CropRight(), 0.3, 0.1);
 }
 
 namespace gtest_test
@@ -493,12 +493,12 @@ void ExDrawing::ImageSize()
     System::SharedPtr<Aspose::Words::Drawing::ImageSize> imageSize = shape->get_ImageData()->get_ImageSize();
     
     // The ImageSize object contains read-only information about the image within the shape.
-    ASSERT_EQ(400, imageSize->get_HeightPixels());
-    ASSERT_EQ(400, imageSize->get_WidthPixels());
+    ASSERT_EQ(imageSize->get_HeightPixels(), 400);
+    ASSERT_EQ(imageSize->get_WidthPixels(), 400);
     
     const double delta = 0.05;
-    ASSERT_NEAR(95.98, imageSize->get_HorizontalResolution(), delta);
-    ASSERT_NEAR(95.98, imageSize->get_VerticalResolution(), delta);
+    ASSERT_NEAR(imageSize->get_HorizontalResolution(), 95.98, delta);
+    ASSERT_NEAR(imageSize->get_VerticalResolution(), 95.98, delta);
     
     // We can base the size of the shape on the size of its image to avoid stretching the image.
     shape->set_Width(imageSize->get_WidthPoints() * 2);
@@ -511,15 +511,15 @@ void ExDrawing::ImageSize()
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
-    ASPOSE_ASSERT_EQ(600.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(600.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 600.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 600.0);
     
     imageSize = shape->get_ImageData()->get_ImageSize();
     
-    ASSERT_EQ(400, imageSize->get_HeightPixels());
-    ASSERT_EQ(400, imageSize->get_WidthPixels());
-    ASSERT_NEAR(95.98, imageSize->get_HorizontalResolution(), delta);
-    ASSERT_NEAR(95.98, imageSize->get_VerticalResolution(), delta);
+    ASSERT_EQ(imageSize->get_HeightPixels(), 400);
+    ASSERT_EQ(imageSize->get_WidthPixels(), 400);
+    ASSERT_NEAR(imageSize->get_HorizontalResolution(), 95.98, delta);
+    ASSERT_NEAR(imageSize->get_VerticalResolution(), 95.98, delta);
 }
 
 namespace gtest_test

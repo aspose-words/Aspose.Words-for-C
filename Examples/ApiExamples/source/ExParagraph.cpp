@@ -151,20 +151,20 @@ void ExParagraph::DocumentBuilderInsertParagraph()
     doc = DocumentHelper::SaveOpen(doc);
     System::SharedPtr<Aspose::Words::Paragraph> paragraph = doc->get_FirstSection()->get_Body()->get_FirstParagraph();
     
-    ASPOSE_ASSERT_EQ(8, paragraph->get_ParagraphFormat()->get_FirstLineIndent());
-    ASSERT_EQ(ParagraphAlignment::Justify, paragraph->get_ParagraphFormat()->get_Alignment());
+    ASPOSE_ASSERT_EQ(paragraph->get_ParagraphFormat()->get_FirstLineIndent(), 8);
+    ASSERT_EQ(paragraph->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Justify);
     ASSERT_TRUE(paragraph->get_ParagraphFormat()->get_AddSpaceBetweenFarEastAndAlpha());
     ASSERT_TRUE(paragraph->get_ParagraphFormat()->get_AddSpaceBetweenFarEastAndDigit());
     ASSERT_TRUE(paragraph->get_ParagraphFormat()->get_KeepTogether());
-    ASSERT_EQ(u"Hello world!", paragraph->GetText().Trim());
+    ASSERT_EQ(paragraph->GetText().Trim(), u"Hello world!");
     
     System::SharedPtr<Aspose::Words::Font> runFont = paragraph->get_Runs()->idx_get(0)->get_Font();
     
-    ASPOSE_ASSERT_EQ(16.0, runFont->get_Size());
+    ASPOSE_ASSERT_EQ(runFont->get_Size(), 16.0);
     ASSERT_TRUE(runFont->get_Bold());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), runFont->get_Color().ToArgb());
-    ASSERT_EQ(u"Arial", runFont->get_Name());
-    ASSERT_EQ(Underline::Dash, runFont->get_Underline());
+    ASSERT_EQ(runFont->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASSERT_EQ(runFont->get_Name(), u"Arial");
+    ASSERT_EQ(runFont->get_Underline(), Underline::Dash);
 }
 
 namespace gtest_test
@@ -197,12 +197,12 @@ void ExParagraph::AppendField()
     // 3 -  Append a QUOTE field using a field code, and get it to display a placeholder value:
     paragraph->AppendField(u" QUOTE \"Real value\"", u"Placeholder value");
     
-    ASSERT_EQ(u"Placeholder value", doc->get_Range()->get_Fields()->idx_get(2)->get_Result());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(2)->get_Result(), u"Placeholder value");
     
     // This field will display its placeholder value until we update it.
     doc->UpdateFields();
     
-    ASSERT_EQ(u"Real value", doc->get_Range()->get_Fields()->idx_get(2)->get_Result());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(2)->get_Result(), u"Real value");
     
     doc->Save(get_ArtifactsDir() + u"Paragraph.AppendField.docx");
     //ExEnd
@@ -254,12 +254,12 @@ void ExParagraph::InsertField()
     // and get it to display a placeholder value:
     para->InsertField(u" QUOTE \" Real value.\"", u" Placeholder value.", field->get_Start(), false);
     
-    ASSERT_EQ(u" Placeholder value.", doc->get_Range()->get_Fields()->idx_get(1)->get_Result());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->get_Result(), u" Placeholder value.");
     
     // This field will display its placeholder value until we update it.
     doc->UpdateFields();
     
-    ASSERT_EQ(u" Real value.", doc->get_Range()->get_Fields()->idx_get(1)->get_Result());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->get_Result(), u" Real value.");
     
     doc->Save(get_ArtifactsDir() + u"Paragraph.InsertField.docx");
     //ExEnd
@@ -287,7 +287,7 @@ void ExParagraph::InsertFieldBeforeTextInParagraph()
     
     InsertFieldUsingFieldCode(doc, u" AUTHOR ", nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014Test Author\u0015Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), u"\u0013 AUTHOR \u0014Test Author\u0015Hello World!\r");
 }
 
 namespace gtest_test
@@ -308,7 +308,7 @@ void ExParagraph::InsertFieldAfterTextInParagraph()
     
     InsertFieldUsingFieldCode(doc, u" DATE ", nullptr, true, 1);
     
-    ASSERT_EQ(System::String::Format(u"Hello World!\u0013 DATE \u0014{0}\u0015\r", date), DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), System::String::Format(u"Hello World!\u0013 DATE \u0014{0}\u0015\r", date));
 }
 
 namespace gtest_test
@@ -327,7 +327,7 @@ void ExParagraph::InsertFieldBeforeTextInParagraphWithoutUpdateField()
     
     InsertFieldUsingFieldType(doc, FieldType::FieldAuthor, false, nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014\u0015Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), u"\u0013 AUTHOR \u0014\u0015Hello World!\r");
 }
 
 namespace gtest_test
@@ -346,7 +346,7 @@ void ExParagraph::InsertFieldAfterTextInParagraphWithoutUpdateField()
     
     InsertFieldUsingFieldType(doc, FieldType::FieldAuthor, false, nullptr, true, 1);
     
-    ASSERT_EQ(u"Hello World!\u0013 AUTHOR \u0014\u0015\r", DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), u"Hello World!\u0013 AUTHOR \u0014\u0015\r");
 }
 
 namespace gtest_test
@@ -365,7 +365,7 @@ void ExParagraph::InsertFieldWithoutSeparator()
     
     InsertFieldUsingFieldType(doc, FieldType::FieldListNum, true, nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 LISTNUM \u0015Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), u"\u0013 LISTNUM \u0015Hello World!\r");
 }
 
 namespace gtest_test
@@ -385,7 +385,7 @@ void ExParagraph::InsertFieldBeforeParagraphWithoutDocumentAuthor()
     
     InsertFieldUsingFieldCodeFieldString(doc, u" AUTHOR ", nullptr, nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014\u0015Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), u"\u0013 AUTHOR \u0014\u0015Hello World!\r");
 }
 
 namespace gtest_test
@@ -404,7 +404,7 @@ void ExParagraph::InsertFieldAfterParagraphWithoutChangingDocumentAuthor()
     
     InsertFieldUsingFieldCodeFieldString(doc, u" AUTHOR ", nullptr, nullptr, true, 1);
     
-    ASSERT_EQ(u"Hello World!\u0013 AUTHOR \u0014\u0015\r", DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), u"Hello World!\u0013 AUTHOR \u0014\u0015\r");
 }
 
 namespace gtest_test
@@ -426,7 +426,7 @@ void ExParagraph::InsertFieldBeforeRunText()
     
     InsertFieldUsingFieldCodeFieldString(doc, u" AUTHOR ", u"Test Field Value", run, false, 1);
     
-    ASSERT_EQ(u"Hello World!\u0013 AUTHOR \u0014Test Field Value\u0015 Hello World!\r", DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), u"Hello World!\u0013 AUTHOR \u0014Test Field Value\u0015 Hello World!\r");
 }
 
 namespace gtest_test
@@ -448,7 +448,7 @@ void ExParagraph::InsertFieldAfterRunText()
     
     InsertFieldUsingFieldCodeFieldString(doc, u" AUTHOR ", u"", run, true, 1);
     
-    ASSERT_EQ(u"Hello World! Hello World!\u0013 AUTHOR \u0014\u0015\r", DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), u"Hello World! Hello World!\u0013 AUTHOR \u0014\u0015\r");
 }
 
 namespace gtest_test
@@ -467,7 +467,7 @@ void ExParagraph::InsertFieldEmptyParagraphWithoutUpdateField()
     
     InsertFieldUsingFieldType(doc, FieldType::FieldAuthor, false, nullptr, false, 1);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014\u0015\f", DocumentHelper::GetParagraphText(doc, 1));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 1), u"\u0013 AUTHOR \u0014\u0015\f");
 }
 
 namespace gtest_test
@@ -486,7 +486,7 @@ void ExParagraph::InsertFieldEmptyParagraphWithUpdateField()
     
     InsertFieldUsingFieldType(doc, FieldType::FieldAuthor, true, nullptr, false, 0);
     
-    ASSERT_EQ(u"\u0013 AUTHOR \u0014Test Author\u0015\r", DocumentHelper::GetParagraphText(doc, 0));
+    ASSERT_EQ(DocumentHelper::GetParagraphText(doc, 0), u"\u0013 AUTHOR \u0014Test Author\u0015\r");
 }
 
 namespace gtest_test
@@ -513,7 +513,7 @@ void ExParagraph::CompositeNodeChildren()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
     // An empty document, by default, has one paragraph.
-    ASSERT_EQ(1, doc->get_FirstSection()->get_Body()->get_Paragraphs()->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->get_Count(), 1);
     
     // Composite nodes such as our paragraph can contain other composite and inline nodes as children.
     System::SharedPtr<Aspose::Words::Paragraph> paragraph = doc->get_FirstSection()->get_Body()->get_FirstParagraph();
@@ -529,30 +529,30 @@ void ExParagraph::CompositeNodeChildren()
     // that itself is a part of the document's node tree, as we did with the first run.
     // We can determine where the text contents of nodes that we insert
     // appears in the document by specifying an insertion location relative to another node in the paragraph.
-    ASSERT_EQ(u"Initial text.", paragraph->GetText().Trim());
+    ASSERT_EQ(paragraph->GetText().Trim(), u"Initial text.");
     
     // Insert the second run into the paragraph in front of the initial run.
     paragraph->InsertBefore<System::SharedPtr<Aspose::Words::Run>>(run2, paragraphText);
     
-    ASSERT_EQ(u"Run 2. Initial text.", paragraph->GetText().Trim());
+    ASSERT_EQ(paragraph->GetText().Trim(), u"Run 2. Initial text.");
     
     // Insert the third run after the initial run.
     paragraph->InsertAfter<System::SharedPtr<Aspose::Words::Run>>(run3, paragraphText);
     
-    ASSERT_EQ(u"Run 2. Initial text. Run 3.", paragraph->GetText().Trim());
+    ASSERT_EQ(paragraph->GetText().Trim(), u"Run 2. Initial text. Run 3.");
     
     // Insert the first run to the start of the paragraph's child nodes collection.
     paragraph->PrependChild<System::SharedPtr<Aspose::Words::Run>>(run1);
     
-    ASSERT_EQ(u"Run 1. Run 2. Initial text. Run 3.", paragraph->GetText().Trim());
-    ASSERT_EQ(4, paragraph->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(paragraph->GetText().Trim(), u"Run 1. Run 2. Initial text. Run 3.");
+    ASSERT_EQ(paragraph->GetChildNodes(NodeType::Any, true)->get_Count(), 4);
     
     // We can modify the contents of the run by editing and deleting existing child nodes.
     (System::ExplicitCast<Aspose::Words::Run>(paragraph->GetChildNodes(NodeType::Run, true)->idx_get(1)))->set_Text(u"Updated run 2. ");
     paragraph->GetChildNodes(NodeType::Run, true)->Remove(paragraphText);
     
-    ASSERT_EQ(u"Run 1. Updated run 2. Run 3.", paragraph->GetText().Trim());
-    ASSERT_EQ(3, paragraph->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(paragraph->GetText().Trim(), u"Run 1. Updated run 2. Run 3.");
+    ASSERT_EQ(paragraph->GetChildNodes(NodeType::Any, true)->get_Count(), 3);
     //ExEnd
 }
 
@@ -580,10 +580,10 @@ void ExParagraph::MoveRevisions()
     // This document contains "Move" revisions, which appear when we highlight text with the cursor,
     // and then drag it to move it to another location
     // while tracking revisions in Microsoft Word via "Review" -> "Track changes".
-    ASSERT_EQ(6, doc->get_Revisions()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Revision>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Revision> r)>>([](System::SharedPtr<Aspose::Words::Revision> r) -> bool
+    ASSERT_EQ(doc->get_Revisions()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Revision>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Revision> r)>>([](System::SharedPtr<Aspose::Words::Revision> r) -> bool
     {
         return r->get_RevisionType() == RevisionType::Moving;
-    }))));
+    }))), 6);
     
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
@@ -592,7 +592,7 @@ void ExParagraph::MoveRevisions()
     // Before we accept/reject a move revision, the document
     // must keep track of both the departure and arrival destinations of the text.
     // The second and the fourth paragraph define one such revision, and thus both have the same contents.
-    ASSERT_EQ(paragraphs->idx_get(1)->GetText(), paragraphs->idx_get(3)->GetText());
+    ASSERT_EQ(paragraphs->idx_get(3)->GetText(), paragraphs->idx_get(1)->GetText());
     
     // The "Move from" revision is the paragraph where we dragged the text from.
     // If we accept the revision, this paragraph will disappear,
@@ -694,17 +694,17 @@ void ExParagraph::GetFrameProperties()
         return p->get_FrameFormat()->get_IsFrame();
     })));
     
-    ASPOSE_ASSERT_EQ(233.3, paragraphFrame->get_FrameFormat()->get_Width());
-    ASPOSE_ASSERT_EQ(138.8, paragraphFrame->get_FrameFormat()->get_Height());
-    ASSERT_EQ(HeightRule::AtLeast, paragraphFrame->get_FrameFormat()->get_HeightRule());
-    ASSERT_EQ(HorizontalAlignment::Default, paragraphFrame->get_FrameFormat()->get_HorizontalAlignment());
-    ASSERT_EQ(VerticalAlignment::Default, paragraphFrame->get_FrameFormat()->get_VerticalAlignment());
-    ASPOSE_ASSERT_EQ(34.05, paragraphFrame->get_FrameFormat()->get_HorizontalPosition());
-    ASSERT_EQ(RelativeHorizontalPosition::Page, paragraphFrame->get_FrameFormat()->get_RelativeHorizontalPosition());
-    ASPOSE_ASSERT_EQ(9.0, paragraphFrame->get_FrameFormat()->get_HorizontalDistanceFromText());
-    ASPOSE_ASSERT_EQ(20.5, paragraphFrame->get_FrameFormat()->get_VerticalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, paragraphFrame->get_FrameFormat()->get_RelativeVerticalPosition());
-    ASPOSE_ASSERT_EQ(0.0, paragraphFrame->get_FrameFormat()->get_VerticalDistanceFromText());
+    ASPOSE_ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_Width(), 233.3);
+    ASPOSE_ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_Height(), 138.8);
+    ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_HeightRule(), HeightRule::AtLeast);
+    ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_HorizontalAlignment(), HorizontalAlignment::Default);
+    ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_VerticalAlignment(), VerticalAlignment::Default);
+    ASPOSE_ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_HorizontalPosition(), 34.05);
+    ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Page);
+    ASPOSE_ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_HorizontalDistanceFromText(), 9.0);
+    ASPOSE_ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_VerticalPosition(), 20.5);
+    ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_RelativeVerticalPosition(), RelativeVerticalPosition::Paragraph);
+    ASPOSE_ASSERT_EQ(paragraphFrame->get_FrameFormat()->get_VerticalDistanceFromText(), 0.0);
     //ExEnd
 }
 
@@ -743,7 +743,7 @@ void ExParagraph::IsRevision()
     // Paragraphs that we remove after starting revision tracking will register as "Delete" revisions.
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = body->get_Paragraphs();
     
-    ASSERT_EQ(4, paragraphs->get_Count());
+    ASSERT_EQ(paragraphs->get_Count(), 4);
     
     para = paragraphs->idx_get(2);
     para->Remove();
@@ -751,15 +751,15 @@ void ExParagraph::IsRevision()
     // Such paragraphs will remain until we either accept or reject the delete revision.
     // Accepting the revision will remove the paragraph for good,
     // and rejecting the revision will leave it in the document as if we never deleted it.
-    ASSERT_EQ(4, paragraphs->get_Count());
+    ASSERT_EQ(paragraphs->get_Count(), 4);
     ASSERT_TRUE(para->get_IsDeleteRevision());
     
     // Accept the revision, and then verify that the paragraph is gone.
     doc->AcceptAllRevisions();
     
-    ASSERT_EQ(3, paragraphs->get_Count());
-    ASSERT_EQ(0, para->get_Count());
-    ASSERT_EQ(System::String(u"Paragraph 1. \r") + u"Paragraph 2. \r" + u"Paragraph 4.", doc->GetText().Trim());
+    ASSERT_EQ(paragraphs->get_Count(), 3);
+    ASSERT_EQ(para->get_Count(), 0);
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"Paragraph 1. \r") + u"Paragraph 2. \r" + u"Paragraph 4.");
     //ExEnd
 }
 
@@ -832,7 +832,7 @@ void ExParagraph::TabStops()
     
     // If we are in a paragraph with no tab stops in this collection,
     // the cursor will jump 36 points each time we press the Tab key in Microsoft Word.
-    ASSERT_EQ(0, doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetEffectiveTabStops()->get_Length());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetEffectiveTabStops()->get_Length(), 0);
     
     // We can add custom tab stops in Microsoft Word if we enable the ruler via the "View" tab.
     // Each unit on this ruler is two default tab stops, which is 72 points.
@@ -843,7 +843,7 @@ void ExParagraph::TabStops()
     tabStops->Add(static_cast<double>(360), TabAlignment::Right, TabLeader::Line);
     
     // We can see these tab stops in Microsoft Word by enabling the ruler via "View" -> "Show" -> "Ruler".
-    ASSERT_EQ(3, para->GetEffectiveTabStops()->get_Length());
+    ASSERT_EQ(para->GetEffectiveTabStops()->get_Length(), 3);
     
     // Any tab characters we add will make use of the tab stops on the ruler and may,
     // depending on the tab leader's value, leave a line between the tab departure and arrival destinations.
@@ -889,7 +889,7 @@ void ExParagraph::JoinRuns()
     // may occur when we manually edit parts of one paragraph many times in Microsoft Word.
     System::SharedPtr<Aspose::Words::Paragraph> para = builder->get_CurrentParagraph();
     
-    ASSERT_EQ(4, para->get_Runs()->get_Count());
+    ASSERT_EQ(para->get_Runs()->get_Count(), 4);
     
     // Change the style of the last run to set it apart from the first three.
     para->get_Runs()->idx_get(3)->get_Font()->set_StyleIdentifier(StyleIdentifier::Emphasis);
@@ -899,13 +899,13 @@ void ExParagraph::JoinRuns()
     // This method also returns the number of runs that this method merged.
     // These two merges occurred to combine Runs #1, #2, and #3,
     // while leaving out Run #4 because it has an incompatible style.
-    ASSERT_EQ(2, para->JoinRunsWithSameFormatting());
+    ASSERT_EQ(para->JoinRunsWithSameFormatting(), 2);
     
     // The number of runs left will equal the original count
     // minus the number of run merges that the "JoinRunsWithSameFormatting" method carried out.
-    ASSERT_EQ(2, para->get_Runs()->get_Count());
-    ASSERT_EQ(u"Run 1. Run 2. Run 3. ", para->get_Runs()->idx_get(0)->get_Text());
-    ASSERT_EQ(u"Run 4. ", para->get_Runs()->idx_get(1)->get_Text());
+    ASSERT_EQ(para->get_Runs()->get_Count(), 2);
+    ASSERT_EQ(para->get_Runs()->idx_get(0)->get_Text(), u"Run 1. Run 2. Run 3. ");
+    ASSERT_EQ(para->get_Runs()->idx_get(1)->get_Text(), u"Run 4. ");
     //ExEnd
 }
 
@@ -936,9 +936,9 @@ void ExParagraph::JoinRunsWithSameFormattingWithOptions()
     builder->Write(u"world");
     
     // Verify runs before join.
-    ASSERT_EQ(2, doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->get_Count());
-    ASSERT_EQ(u"Hello ", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text());
-    ASSERT_EQ(u"world", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(1)->get_Text());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->get_Count(), 2);
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text(), u"Hello ");
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(1)->get_Text(), u"world");
     
     // Configure options to ignore redundant and insignificant attributes during join.
     auto options = System::MakeObject<Aspose::Words::JoinRunsOptions>();
@@ -951,8 +951,8 @@ void ExParagraph::JoinRunsWithSameFormattingWithOptions()
     doc->get_FirstSection()->get_Body()->get_FirstParagraph()->JoinRunsWithSameFormatting(options);
     
     // Verify that runs were successfully joined.
-    ASSERT_EQ(1, doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->get_Count());
-    ASSERT_EQ(u"Hello world", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->get_Count(), 1);
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text(), u"Hello world");
     
     doc->Save(get_ArtifactsDir() + u"Paragraph.JoinRunsWithSameFormattingWithOptions.docx");
     //ExEnd:JoinRunsWithSameFormattingWithOptions

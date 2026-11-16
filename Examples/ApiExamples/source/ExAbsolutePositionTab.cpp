@@ -95,7 +95,7 @@ void ExAbsolutePositionTab::DocumentToTxt()
     fisrtSection->get_Body()->AcceptEnd(myDocTextExtractor);
     
     // The absolute position tab, which has no equivalent in string form, has been explicitly converted to a tab character.
-    ASSERT_EQ(u"Before AbsolutePositionTab\tAfter AbsolutePositionTab", myDocTextExtractor->GetText());
+    ASSERT_EQ(myDocTextExtractor->GetText(), u"Before AbsolutePositionTab\tAfter AbsolutePositionTab");
     
     // An AbsolutePositionTab can accept a DocumentVisitor by itself too.
     auto absPositionTab = System::ExplicitCast<Aspose::Words::AbsolutePositionTab>(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetChild(NodeType::SpecialChar, 0, true));
@@ -103,7 +103,7 @@ void ExAbsolutePositionTab::DocumentToTxt()
     myDocTextExtractor = System::MakeObject<Aspose::Words::ApiExamples::ExAbsolutePositionTab::DocTextExtractor>();
     absPositionTab->Accept(myDocTextExtractor);
     
-    ASSERT_EQ(u"\t", myDocTextExtractor->GetText());
+    ASSERT_EQ(myDocTextExtractor->GetText(), u"\t");
 }
 
 namespace gtest_test

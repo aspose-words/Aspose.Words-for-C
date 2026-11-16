@@ -142,9 +142,9 @@ void ExFieldOptions::CurrentUser()
     
     // Insert USERNAME, USERINITIALS, and USERADDRESS fields, which display values of
     // the respective properties of the UserInformation object that we have created above.
-    ASSERT_EQ(userInformation->get_Name(), builder->InsertField(u" USERNAME ")->get_Result());
-    ASSERT_EQ(userInformation->get_Initials(), builder->InsertField(u" USERINITIALS ")->get_Result());
-    ASSERT_EQ(userInformation->get_Address(), builder->InsertField(u" USERADDRESS ")->get_Result());
+    ASSERT_EQ(builder->InsertField(u" USERNAME ")->get_Result(), userInformation->get_Name());
+    ASSERT_EQ(builder->InsertField(u" USERINITIALS ")->get_Result(), userInformation->get_Initials());
+    ASSERT_EQ(builder->InsertField(u" USERADDRESS ")->get_Result(), userInformation->get_Address());
     
     // The field options object also has a static default user that fields from all documents can refer to.
     UserInformation::get_DefaultUser()->set_Name(u"Default User");
@@ -152,9 +152,9 @@ void ExFieldOptions::CurrentUser()
     UserInformation::get_DefaultUser()->set_Address(u"One Microsoft Way");
     doc->get_FieldOptions()->set_CurrentUser(UserInformation::get_DefaultUser());
     
-    ASSERT_EQ(u"Default User", builder->InsertField(u" USERNAME ")->get_Result());
-    ASSERT_EQ(u"D. U.", builder->InsertField(u" USERINITIALS ")->get_Result());
-    ASSERT_EQ(u"One Microsoft Way", builder->InsertField(u" USERADDRESS ")->get_Result());
+    ASSERT_EQ(builder->InsertField(u" USERNAME ")->get_Result(), u"Default User");
+    ASSERT_EQ(builder->InsertField(u" USERINITIALS ")->get_Result(), u"D. U.");
+    ASSERT_EQ(builder->InsertField(u" USERADDRESS ")->get_Result(), u"One Microsoft Way");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + u"FieldOptions.CurrentUser.docx");
@@ -167,17 +167,17 @@ void ExFieldOptions::CurrentUser()
     auto fieldUserName = System::ExplicitCast<Aspose::Words::Fields::FieldUserName>(doc->get_Range()->get_Fields()->idx_get(0));
     
     ASSERT_TRUE(System::TestTools::IsNull(fieldUserName->get_UserName()));
-    ASSERT_EQ(u"Default User", fieldUserName->get_Result());
+    ASSERT_EQ(fieldUserName->get_Result(), u"Default User");
     
     auto fieldUserInitials = System::ExplicitCast<Aspose::Words::Fields::FieldUserInitials>(doc->get_Range()->get_Fields()->idx_get(1));
     
     ASSERT_TRUE(System::TestTools::IsNull(fieldUserInitials->get_UserInitials()));
-    ASSERT_EQ(u"D. U.", fieldUserInitials->get_Result());
+    ASSERT_EQ(fieldUserInitials->get_Result(), u"D. U.");
     
     auto fieldUserAddress = System::ExplicitCast<Aspose::Words::Fields::FieldUserAddress>(doc->get_Range()->get_Fields()->idx_get(2));
     
     ASSERT_TRUE(System::TestTools::IsNull(fieldUserAddress->get_UserAddress()));
-    ASSERT_EQ(u"One Microsoft Way", fieldUserAddress->get_Result());
+    ASSERT_EQ(fieldUserAddress->get_Result(), u"One Microsoft Way");
 }
 
 namespace gtest_test
@@ -207,8 +207,8 @@ void ExFieldOptions::FileName()
     auto field = System::ExplicitCast<Aspose::Words::Fields::FieldFileName>(builder->InsertField(FieldType::FieldFileName, true));
     field->Update();
     
-    ASSERT_EQ(u" FILENAME ", field->GetFieldCode());
-    ASSERT_EQ(u"Document.docx", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" FILENAME ");
+    ASSERT_EQ(field->get_Result(), u"Document.docx");
     
     builder->Writeln();
     
@@ -218,15 +218,15 @@ void ExFieldOptions::FileName()
     field->set_IncludeFullPath(true);
     field->Update();
     
-    ASSERT_EQ(get_MyDir() + u"Document.docx", field->get_Result());
+    ASSERT_EQ(field->get_Result(), get_MyDir() + u"Document.docx");
     
     // We can also set a value for this property to
     // override the value that the FILENAME field displays.
     doc->get_FieldOptions()->set_FileName(u"FieldOptions.FILENAME.docx");
     field->Update();
     
-    ASSERT_EQ(u" FILENAME  \\p", field->GetFieldCode());
-    ASSERT_EQ(u"FieldOptions.FILENAME.docx", field->get_Result());
+    ASSERT_EQ(field->GetFieldCode(), u" FILENAME  \\p");
+    ASSERT_EQ(field->get_Result(), u"FieldOptions.FILENAME.docx");
     
     doc->UpdateFields();
     doc->Save(get_ArtifactsDir() + doc->get_FieldOptions()->get_FileName());
@@ -274,7 +274,7 @@ void ExFieldOptions::Bidi()
     
     comboBox = doc->get_Range()->get_FormFields()->idx_get(0);
     
-    ASSERT_EQ(u"עֶשְׂרִים", comboBox->get_Result());
+    ASSERT_EQ(comboBox->get_Result(), u"עֶשְׂרִים");
 }
 
 namespace gtest_test
@@ -297,12 +297,12 @@ void ExFieldOptions::LegacyNumberFormat()
     
     System::SharedPtr<Aspose::Words::Fields::Field> field = builder->InsertField(u"= 2 + 3 \\# $##");
     
-    ASSERT_EQ(u"$ 5", field->get_Result());
+    ASSERT_EQ(field->get_Result(), u"$ 5");
     
     doc->get_FieldOptions()->set_LegacyNumberFormat(true);
     field->Update();
     
-    ASSERT_EQ(u"$5", field->get_Result());
+    ASSERT_EQ(field->get_Result(), u"$5");
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
@@ -377,15 +377,15 @@ void ExFieldOptions::TableOfAuthorityCategories()
     doc->get_FieldOptions()->set_ToaCategories(toaCategories);
     
     // This collection of categories comes with default values, which we can overwrite with custom values.
-    ASSERT_EQ(u"Cases", toaCategories->idx_get(1));
-    ASSERT_EQ(u"Statutes", toaCategories->idx_get(2));
+    ASSERT_EQ(toaCategories->idx_get(1), u"Cases");
+    ASSERT_EQ(toaCategories->idx_get(2), u"Statutes");
     
     toaCategories->idx_set(1, u"My Category 1");
     toaCategories->idx_set(2, u"My Category 2");
     
     // We can always access the default values via this collection.
-    ASSERT_EQ(u"Cases", ToaCategories::get_DefaultCategories()->idx_get(1));
-    ASSERT_EQ(u"Statutes", ToaCategories::get_DefaultCategories()->idx_get(2));
+    ASSERT_EQ(ToaCategories::get_DefaultCategories()->idx_get(1), u"Cases");
+    ASSERT_EQ(ToaCategories::get_DefaultCategories()->idx_get(2), u"Statutes");
     
     // Insert 2 TOA fields. TOA fields create an entry for each TA field in the document.
     // Use the "\c" switch to select the index of a category from our collection.
@@ -441,7 +441,7 @@ void ExFieldOptions::UseInvariantCultureNumberFormat()
     
     // Sometimes, fields may not format their numbers correctly under certain cultures.
     ASSERT_FALSE(doc->get_FieldOptions()->get_UseInvariantCultureNumberFormat());
-    ASSERT_EQ((u"$1.234.567,89 ,     "), field->get_Result());
+    ASSERT_EQ(field->get_Result(), (u"$1.234.567,89 ,     "));
     
     // To fix this, we could change the culture for the entire thread.
     // Another way to fix this is to set this flag,
@@ -449,7 +449,7 @@ void ExFieldOptions::UseInvariantCultureNumberFormat()
     // This way allows us to avoid changing the culture for the entire thread.
     doc->get_FieldOptions()->set_UseInvariantCultureNumberFormat(true);
     field->Update();
-    ASSERT_EQ((u"$1.234.567,89"), field->get_Result());
+    ASSERT_EQ(field->get_Result(), (u"$1.234.567,89"));
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);

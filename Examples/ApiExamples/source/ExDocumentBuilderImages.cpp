@@ -104,48 +104,48 @@ void ExDocumentBuilderImages::InsertImageFromStream()
     
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 0.0);
     
-    ASSERT_EQ(WrapType::Inline, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Column);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Paragraph);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0);
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
     
-    ASPOSE_ASSERT_EQ(108.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(187.5, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 108.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 187.5);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 0.0);
     
-    ASSERT_EQ(WrapType::Inline, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Column);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Paragraph);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0);
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 2, true));
     
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(200.0, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 100.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 100.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 100.0);
     
-    ASSERT_EQ(WrapType::Square, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Margin, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Margin, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Square);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Margin);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Margin);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0);
 }
 
 namespace gtest_test
@@ -189,48 +189,48 @@ void ExDocumentBuilderImages::InsertImageFromFilename()
     
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 0.0);
     
-    ASSERT_EQ(WrapType::Inline, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Column);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Paragraph);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0);
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
     
-    ASPOSE_ASSERT_EQ(108.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(187.5, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 108.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 187.5);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 0.0);
     
-    ASSERT_EQ(WrapType::Inline, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Column);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Paragraph);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Png, imageShape);
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0);
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 2, true));
     
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(200.0, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 100.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 100.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 100.0);
     
-    ASSERT_EQ(WrapType::Square, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Margin, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Margin, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Square);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Margin);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Margin);
     
     TestUtil::VerifyImageInShape(1600, 1600, ImageType::Wmf, imageShape);
-    ASPOSE_ASSERT_EQ(400.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
-    ASPOSE_ASSERT_EQ(400.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 400.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 400.0);
 }
 
 namespace gtest_test
@@ -310,48 +310,48 @@ void ExDocumentBuilderImages::InsertImageFromImageObject()
     
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 0.0);
     
-    ASSERT_EQ(WrapType::Inline, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Column);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Paragraph);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0);
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
     
-    ASPOSE_ASSERT_EQ(108.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(187.5, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 108.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 187.5);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 0.0);
     
-    ASSERT_EQ(WrapType::Inline, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Column);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Paragraph);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0);
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 2, true));
     
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(200.0, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 100.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 100.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 100.0);
     
-    ASSERT_EQ(WrapType::Square, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Margin, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Margin, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Square);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Margin);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Margin);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints());
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0);
 }
 
 namespace gtest_test
@@ -397,48 +397,48 @@ void ExDocumentBuilderImages::InsertImageFromByteArray()
     
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASSERT_NEAR(300.0, imageShape->get_Height(), 0.1);
-    ASSERT_NEAR(300.0, imageShape->get_Width(), 0.1);
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Top());
+    ASSERT_NEAR(imageShape->get_Height(), 300.0, 0.1);
+    ASSERT_NEAR(imageShape->get_Width(), 300.0, 0.1);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 0.0);
     
-    ASSERT_EQ(WrapType::Inline, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Column);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Paragraph);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 0.1);
-    ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 0.1);
+    ASSERT_NEAR(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0, 0.1);
+    ASSERT_NEAR(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0, 0.1);
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
     
-    ASPOSE_ASSERT_EQ(108.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(187.5, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 108.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 187.5);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 0.0);
     
-    ASSERT_EQ(WrapType::Inline, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Column, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Column);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Paragraph);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 0.1);
-    ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 0.1);
+    ASSERT_NEAR(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0, 0.1);
+    ASSERT_NEAR(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0, 0.1);
     
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 2, true));
     
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Height());
-    ASPOSE_ASSERT_EQ(200.0, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(100.0, imageShape->get_Top());
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 100.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 100.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 100.0);
     
-    ASSERT_EQ(WrapType::Square, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Margin, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Margin, imageShape->get_RelativeVerticalPosition());
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Square);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Margin);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Margin);
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 0.1);
-    ASSERT_NEAR(300.0, imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 0.1);
+    ASSERT_NEAR(imageShape->get_ImageData()->get_ImageSize()->get_HeightPoints(), 300.0, 0.1);
+    ASSERT_NEAR(imageShape->get_ImageData()->get_ImageSize()->get_WidthPoints(), 300.0, 0.1);
 }
 
 namespace gtest_test

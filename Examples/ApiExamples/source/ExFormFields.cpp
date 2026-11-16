@@ -97,41 +97,42 @@ void ExFormFields::TestFormField(System::SharedPtr<Aspose::Words::Document> doc)
 {
     doc = DocumentHelper::SaveOpen(doc);
     System::SharedPtr<Aspose::Words::Fields::FieldCollection> fields = doc->get_Range()->get_Fields();
-    ASSERT_EQ(3, fields->get_Count());
+    ASSERT_EQ(fields->get_Count(), 3);
     
     TestUtil::VerifyField(FieldType::FieldFormDropDown, u" FORMDROPDOWN \u0001", System::String::Empty, doc->get_Range()->get_Fields()->idx_get(0));
     TestUtil::VerifyField(FieldType::FieldFormCheckBox, u" FORMCHECKBOX \u0001", System::String::Empty, doc->get_Range()->get_Fields()->idx_get(1));
     TestUtil::VerifyField(FieldType::FieldFormTextInput, u" FORMTEXT \u0001", u"Regular", doc->get_Range()->get_Fields()->idx_get(2));
     
     System::SharedPtr<Aspose::Words::Fields::FormFieldCollection> formFields = doc->get_Range()->get_FormFields();
-    ASSERT_EQ(3, formFields->get_Count());
+    ASSERT_EQ(formFields->get_Count(), 3);
     
-    ASSERT_EQ(FieldType::FieldFormDropDown, formFields->idx_get(0)->get_Type());
-    ASPOSE_ASSERT_EQ(System::MakeArray<System::String>({u"One", u"Two", u"Three"}), formFields->idx_get(0)->get_DropDownItems());
+    ASSERT_EQ(formFields->idx_get(0)->get_Type(), FieldType::FieldFormDropDown);
+    ASPOSE_ASSERT_EQ(formFields->idx_get(0)->get_DropDownItems(), System::MakeArray<System::String>({u"One", u"Two", 
+        u"Three"}));
     ASSERT_TRUE(formFields->idx_get(0)->get_CalculateOnExit());
-    ASSERT_EQ(0, formFields->idx_get(0)->get_DropDownSelectedIndex());
+    ASSERT_EQ(formFields->idx_get(0)->get_DropDownSelectedIndex(), 0);
     ASSERT_TRUE(formFields->idx_get(0)->get_Enabled());
-    ASSERT_EQ(u"One", formFields->idx_get(0)->get_Result());
+    ASSERT_EQ(formFields->idx_get(0)->get_Result(), u"One");
     
-    ASSERT_EQ(FieldType::FieldFormCheckBox, formFields->idx_get(1)->get_Type());
+    ASSERT_EQ(formFields->idx_get(1)->get_Type(), FieldType::FieldFormCheckBox);
     ASSERT_TRUE(formFields->idx_get(1)->get_IsCheckBoxExactSize());
-    ASSERT_EQ(u"Right click to check this box", formFields->idx_get(1)->get_HelpText());
+    ASSERT_EQ(formFields->idx_get(1)->get_HelpText(), u"Right click to check this box");
     ASSERT_TRUE(formFields->idx_get(1)->get_OwnHelp());
-    ASSERT_EQ(u"Checkbox status text", formFields->idx_get(1)->get_StatusText());
+    ASSERT_EQ(formFields->idx_get(1)->get_StatusText(), u"Checkbox status text");
     ASSERT_TRUE(formFields->idx_get(1)->get_OwnStatus());
-    ASPOSE_ASSERT_EQ(50.0, formFields->idx_get(1)->get_CheckBoxSize());
+    ASPOSE_ASSERT_EQ(formFields->idx_get(1)->get_CheckBoxSize(), 50.0);
     ASSERT_FALSE(formFields->idx_get(1)->get_Checked());
     ASSERT_FALSE(formFields->idx_get(1)->get_Default());
-    ASSERT_EQ(u"0", formFields->idx_get(1)->get_Result());
+    ASSERT_EQ(formFields->idx_get(1)->get_Result(), u"0");
     
-    ASSERT_EQ(FieldType::FieldFormTextInput, formFields->idx_get(2)->get_Type());
-    ASSERT_EQ(u"EntryMacro", formFields->idx_get(2)->get_EntryMacro());
-    ASSERT_EQ(u"ExitMacro", formFields->idx_get(2)->get_ExitMacro());
-    ASSERT_EQ(u"Regular", formFields->idx_get(2)->get_TextInputDefault());
-    ASSERT_EQ(u"FIRST CAPITAL", formFields->idx_get(2)->get_TextInputFormat());
-    ASSERT_EQ(TextFormFieldType::Regular, formFields->idx_get(2)->get_TextInputType());
-    ASSERT_EQ(50, formFields->idx_get(2)->get_MaxLength());
-    ASSERT_EQ(u"Regular", formFields->idx_get(2)->get_Result());
+    ASSERT_EQ(formFields->idx_get(2)->get_Type(), FieldType::FieldFormTextInput);
+    ASSERT_EQ(formFields->idx_get(2)->get_EntryMacro(), u"EntryMacro");
+    ASSERT_EQ(formFields->idx_get(2)->get_ExitMacro(), u"ExitMacro");
+    ASSERT_EQ(formFields->idx_get(2)->get_TextInputDefault(), u"Regular");
+    ASSERT_EQ(formFields->idx_get(2)->get_TextInputFormat(), u"FIRST CAPITAL");
+    ASSERT_EQ(formFields->idx_get(2)->get_TextInputType(), TextFormFieldType::Regular);
+    ASSERT_EQ(formFields->idx_get(2)->get_MaxLength(), 50);
+    ASSERT_EQ(formFields->idx_get(2)->get_Result(), u"Regular");
 }
 
 namespace gtest_test
@@ -182,9 +183,9 @@ void ExFormFields::Create()
     System::SharedPtr<Aspose::Words::Fields::FormField> comboBox = builder->InsertComboBox(u"MyComboBox", System::MakeArray<System::String>({
         u"Apple", u"Banana", u"Cherry"}), 0);
     
-    ASSERT_EQ(u"MyComboBox", comboBox->get_Name());
-    ASSERT_EQ(FieldType::FieldFormDropDown, comboBox->get_Type());
-    ASSERT_EQ(u"Apple", comboBox->get_Result());
+    ASSERT_EQ(comboBox->get_Name(), u"MyComboBox");
+    ASSERT_EQ(comboBox->get_Type(), FieldType::FieldFormDropDown);
+    ASSERT_EQ(comboBox->get_Result(), u"Apple");
     
     // The form field will appear in the form of a "select" html tag.
     doc->Save(get_ArtifactsDir() + u"FormFields.Create.html");
@@ -193,9 +194,9 @@ void ExFormFields::Create()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"FormFields.Create.html"));
     comboBox = doc->get_Range()->get_FormFields()->idx_get(0);
     
-    ASSERT_EQ(u"MyComboBox", comboBox->get_Name());
-    ASSERT_EQ(FieldType::FieldFormDropDown, comboBox->get_Type());
-    ASSERT_EQ(u"Apple", comboBox->get_Result());
+    ASSERT_EQ(comboBox->get_Name(), u"MyComboBox");
+    ASSERT_EQ(comboBox->get_Type(), FieldType::FieldFormDropDown);
+    ASSERT_EQ(comboBox->get_Result(), u"Apple");
 }
 
 namespace gtest_test
@@ -231,11 +232,11 @@ void ExFormFields::TextInput()
     
     System::SharedPtr<Aspose::Words::Fields::FormField> textInput = doc->get_Range()->get_FormFields()->idx_get(0);
     
-    ASSERT_EQ(u"TextInput1", textInput->get_Name());
-    ASSERT_EQ(TextFormFieldType::Regular, textInput->get_TextInputType());
-    ASSERT_EQ(System::String::Empty, textInput->get_TextInputFormat());
-    ASSERT_EQ(u"Placeholder text", textInput->get_Result());
-    ASSERT_EQ(0, textInput->get_MaxLength());
+    ASSERT_EQ(textInput->get_Name(), u"TextInput1");
+    ASSERT_EQ(textInput->get_TextInputType(), TextFormFieldType::Regular);
+    ASSERT_EQ(textInput->get_TextInputFormat(), System::String::Empty);
+    ASSERT_EQ(textInput->get_Result(), u"Placeholder text");
+    ASSERT_EQ(textInput->get_MaxLength(), 0);
 }
 
 namespace gtest_test
@@ -286,13 +287,13 @@ void ExFormFields::DeleteFormFieldAssociatedWithBookmark()
     doc = DocumentHelper::SaveOpen(doc);
     
     System::SharedPtr<Aspose::Words::BookmarkCollection> bookmarkBeforeDeleteFormField = doc->get_Range()->get_Bookmarks();
-    ASSERT_EQ(u"MyBookmark", bookmarkBeforeDeleteFormField->idx_get(0)->get_Name());
+    ASSERT_EQ(bookmarkBeforeDeleteFormField->idx_get(0)->get_Name(), u"MyBookmark");
     
     System::SharedPtr<Aspose::Words::Fields::FormField> formField = doc->get_Range()->get_FormFields()->idx_get(0);
     formField->RemoveField();
     
     System::SharedPtr<Aspose::Words::BookmarkCollection> bookmarkAfterDeleteFormField = doc->get_Range()->get_Bookmarks();
-    ASSERT_EQ(u"MyBookmark", bookmarkAfterDeleteFormField->idx_get(0)->get_Name());
+    ASSERT_EQ(bookmarkAfterDeleteFormField->idx_get(0)->get_Name(), u"MyBookmark");
 }
 
 namespace gtest_test
@@ -323,10 +324,10 @@ void ExFormFields::FormFieldFontFormatting()
     
     System::SharedPtr<Aspose::Words::Run> formFieldRun = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(1);
     
-    ASSERT_EQ(u"Aspose.FormField", formFieldRun->get_Text());
-    ASPOSE_ASSERT_EQ(true, formFieldRun->get_Font()->get_Bold());
-    ASPOSE_ASSERT_EQ(24, formFieldRun->get_Font()->get_Size());
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), formFieldRun->get_Font()->get_Color().ToArgb());
+    ASSERT_EQ(formFieldRun->get_Text(), u"Aspose.FormField");
+    ASPOSE_ASSERT_EQ(formFieldRun->get_Font()->get_Bold(), true);
+    ASPOSE_ASSERT_EQ(formFieldRun->get_Font()->get_Size(), 24);
+    ASSERT_EQ(formFieldRun->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
     //ExEnd
 }
 
@@ -350,8 +351,8 @@ void ExFormFields::Visitor()
     System::SharedPtr<Aspose::Words::Fields::FormField> comboBox = builder->InsertComboBox(u"MyComboBox", System::MakeArray<System::String>({
         u"One", u"Two", u"Three"}), 0);
     comboBox->set_CalculateOnExit(true);
-    ASSERT_EQ(3, comboBox->get_DropDownItems()->get_Count());
-    ASSERT_EQ(0, comboBox->get_DropDownSelectedIndex());
+    ASSERT_EQ(comboBox->get_DropDownItems()->get_Count(), 3);
+    ASSERT_EQ(comboBox->get_DropDownSelectedIndex(), 0);
     ASSERT_TRUE(comboBox->get_Enabled());
     
     builder->InsertBreak(BreakType::ParagraphBreak);
@@ -364,7 +365,7 @@ void ExFormFields::Visitor()
     checkBox->set_OwnHelp(true);
     checkBox->set_StatusText(u"Checkbox status text");
     checkBox->set_OwnStatus(true);
-    ASPOSE_ASSERT_EQ(50.0, checkBox->get_CheckBoxSize());
+    ASPOSE_ASSERT_EQ(checkBox->get_CheckBoxSize(), 50.0);
     ASSERT_FALSE(checkBox->get_Checked());
     ASSERT_FALSE(checkBox->get_Default());
     
@@ -378,20 +379,20 @@ void ExFormFields::Visitor()
     textInput->set_TextInputDefault(u"Regular");
     textInput->set_TextInputFormat(u"FIRST CAPITAL");
     textInput->SetTextInputValue(System::ExplicitCast<System::Object>(u"New placeholder text"));
-    ASSERT_EQ(TextFormFieldType::Regular, textInput->get_TextInputType());
-    ASSERT_EQ(50, textInput->get_MaxLength());
+    ASSERT_EQ(textInput->get_TextInputType(), TextFormFieldType::Regular);
+    ASSERT_EQ(textInput->get_MaxLength(), 50);
     
     // This collection contains all our form fields.
     System::SharedPtr<Aspose::Words::Fields::FormFieldCollection> formFields = doc->get_Range()->get_FormFields();
-    ASSERT_EQ(3, formFields->get_Count());
+    ASSERT_EQ(formFields->get_Count(), 3);
     
     // Fields display our form fields. We can see their field codes by opening this document
     // in Microsoft and pressing Alt + F9. These fields have no switches,
     // and members of the FormField object fully govern their form fields' content.
-    ASSERT_EQ(3, doc->get_Range()->get_Fields()->get_Count());
-    ASSERT_EQ(u" FORMDROPDOWN \u0001", doc->get_Range()->get_Fields()->idx_get(0)->GetFieldCode());
-    ASSERT_EQ(u" FORMCHECKBOX \u0001", doc->get_Range()->get_Fields()->idx_get(1)->GetFieldCode());
-    ASSERT_EQ(u" FORMTEXT \u0001", doc->get_Range()->get_Fields()->idx_get(2)->GetFieldCode());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 3);
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->GetFieldCode(), u" FORMDROPDOWN \u0001");
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->GetFieldCode(), u" FORMCHECKBOX \u0001");
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(2)->GetFieldCode(), u" FORMTEXT \u0001");
     
     // Allow each form field to accept a document visitor.
     auto formFieldVisitor = System::MakeObject<Aspose::Words::ApiExamples::ExFormFields::FormFieldVisitor>();
@@ -447,9 +448,9 @@ void ExFormFields::DropDownItemCollection()
     System::SharedPtr<Aspose::Words::Fields::FormField> comboBoxField = builder->InsertComboBox(u"DropDown", items, 0);
     System::SharedPtr<Aspose::Words::Fields::DropDownItemCollection> dropDownItems = comboBoxField->get_DropDownItems();
     
-    ASSERT_EQ(3, dropDownItems->get_Count());
-    ASSERT_EQ(u"One", dropDownItems->idx_get(0));
-    ASSERT_EQ(1, dropDownItems->IndexOf(u"Two"));
+    ASSERT_EQ(dropDownItems->get_Count(), 3);
+    ASSERT_EQ(dropDownItems->idx_get(0), u"One");
+    ASSERT_EQ(dropDownItems->IndexOf(u"Two"), 1);
     ASSERT_TRUE(dropDownItems->Contains(u"Three"));
     
     // There are two ways of adding a new item to an existing collection of drop-down box items.
@@ -459,7 +460,7 @@ void ExFormFields::DropDownItemCollection()
     // 2 -  Insert an item before another item at a specified index:
     dropDownItems->Insert(3, u"Three and a half");
     
-    ASSERT_EQ(5, dropDownItems->get_Count());
+    ASSERT_EQ(dropDownItems->get_Count(), 5);
     
     // Iterate over the collection and print every element.
     {
@@ -477,7 +478,7 @@ void ExFormFields::DropDownItemCollection()
     // 2 -  Remove an item at an index:
     dropDownItems->RemoveAt(3);
     
-    ASSERT_EQ(3, dropDownItems->get_Count());
+    ASSERT_EQ(dropDownItems->get_Count(), 3);
     ASSERT_FALSE(dropDownItems->Contains(u"Three and a half"));
     ASSERT_FALSE(dropDownItems->Contains(u"Four"));
     
@@ -490,15 +491,15 @@ void ExFormFields::DropDownItemCollection()
     doc = DocumentHelper::SaveOpen(doc);
     dropDownItems = doc->get_Range()->get_FormFields()->idx_get(0)->get_DropDownItems();
     
-    ASSERT_EQ(0, dropDownItems->get_Count());
+    ASSERT_EQ(dropDownItems->get_Count(), 0);
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"FormFields.DropDownItemCollection.html"));
     dropDownItems = doc->get_Range()->get_FormFields()->idx_get(0)->get_DropDownItems();
     
-    ASSERT_EQ(3, dropDownItems->get_Count());
-    ASSERT_EQ(u"One", dropDownItems->idx_get(0));
-    ASSERT_EQ(u"Two", dropDownItems->idx_get(1));
-    ASSERT_EQ(u"Three", dropDownItems->idx_get(2));
+    ASSERT_EQ(dropDownItems->get_Count(), 3);
+    ASSERT_EQ(dropDownItems->idx_get(0), u"One");
+    ASSERT_EQ(dropDownItems->idx_get(1), u"Two");
+    ASSERT_EQ(dropDownItems->idx_get(2), u"Three");
 }
 
 namespace gtest_test

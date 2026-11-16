@@ -55,28 +55,28 @@ void TestUtil::VerifyImage(int32_t expectedWidth, int32_t expectedHeight, System
         {
             auto metafile = System::MakeObject<System::Drawing::Imaging::Metafile>(filename);
             System::Drawing::Rectangle bounds = metafile->GetMetafileHeader()->get_Bounds();
-            ASSERT_NEAR(expectedWidth, bounds.get_Width(), 1);
-            ASSERT_NEAR(expectedHeight, bounds.get_Height(), 1);
+            ASSERT_NEAR(bounds.get_Width(), expectedWidth, 1);
+            ASSERT_NEAR(bounds.get_Height(), expectedHeight, 1);
         }
     }
     else if (ext == u".emf")
     {
         System::SharedPtr<System::Collections::Generic::Dictionary<System::String, int32_t>> emfDimensions = GetEmfDimensions(filename);
-        ASSERT_NEAR(expectedWidth, emfDimensions->idx_get(u"width"), 1);
-        ASSERT_NEAR(expectedHeight, emfDimensions->idx_get(u"height"), 1);
+        ASSERT_NEAR(emfDimensions->idx_get(u"width"), expectedWidth, 1);
+        ASSERT_NEAR(emfDimensions->idx_get(u"height"), expectedHeight, 1);
     }
     else if (ext == u".wmf")
     {
         System::SharedPtr<System::Collections::Generic::Dictionary<System::String, int32_t>> wmfDimensions = GetWmfDimensions(filename);
-        ASSERT_NEAR(expectedWidth, wmfDimensions->idx_get(u"width"), 1);
-        ASSERT_NEAR(expectedHeight, wmfDimensions->idx_get(u"height"), 1);
+        ASSERT_NEAR(wmfDimensions->idx_get(u"width"), expectedWidth, 1);
+        ASSERT_NEAR(wmfDimensions->idx_get(u"height"), expectedHeight, 1);
     }
     else
     {
         {
             auto image = System::Drawing::Image::FromFile(filename);
-            ASSERT_NEAR(expectedWidth, image->get_Width(), 1);
-            ASSERT_NEAR(expectedHeight, image->get_Height(), 1);
+            ASSERT_NEAR(image->get_Width(), expectedWidth, 1);
+            ASSERT_NEAR(image->get_Height(), expectedHeight, 1);
         }
     }
 }
@@ -236,15 +236,15 @@ void TestUtil::StreamContainsString(System::String expected, System::SharedPtr<S
 
 void TestUtil::VerifyField(Aspose::Words::Fields::FieldType expectedType, System::String expectedFieldCode, System::String expectedResult, System::SharedPtr<Aspose::Words::Fields::Field> field)
 {
-    ASSERT_EQ(expectedType, field->get_Type());
-    ASSERT_EQ(expectedFieldCode, field->GetFieldCode(true));
-    ASSERT_EQ(expectedResult, field->get_Result());
+    ASSERT_EQ(field->get_Type(), expectedType);
+    ASSERT_EQ(field->GetFieldCode(true), expectedFieldCode);
+    ASSERT_EQ(field->get_Result(), expectedResult);
 }
 
 void TestUtil::VerifyField(Aspose::Words::Fields::FieldType expectedType, System::String expectedFieldCode, System::DateTime expectedResult, System::SharedPtr<Aspose::Words::Fields::Field> field, System::TimeSpan delta)
 {
-    ASSERT_EQ(expectedType, field->get_Type());
-    ASSERT_EQ(expectedFieldCode, field->GetFieldCode(true));
+    ASSERT_EQ(field->get_Type(), expectedType);
+    ASSERT_EQ(field->GetFieldCode(true), expectedFieldCode);
     System::DateTime actual = System::DateTime::get_Now();
     try
     {
@@ -281,24 +281,24 @@ void TestUtil::FieldsAreNested(System::SharedPtr<Aspose::Words::Fields::Field> i
 void TestUtil::VerifyImageInShape(int32_t expectedWidth, int32_t expectedHeight, Aspose::Words::Drawing::ImageType expectedImageType, System::SharedPtr<Aspose::Words::Drawing::Shape> imageShape)
 {
     ASSERT_TRUE(imageShape->get_HasImage());
-    ASSERT_EQ(expectedImageType, imageShape->get_ImageData()->get_ImageType());
-    ASSERT_EQ(expectedWidth, imageShape->get_ImageData()->get_ImageSize()->get_WidthPixels());
-    ASSERT_EQ(expectedHeight, imageShape->get_ImageData()->get_ImageSize()->get_HeightPixels());
+    ASSERT_EQ(imageShape->get_ImageData()->get_ImageType(), expectedImageType);
+    ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_WidthPixels(), expectedWidth);
+    ASSERT_EQ(imageShape->get_ImageData()->get_ImageSize()->get_HeightPixels(), expectedHeight);
 }
 
 void TestUtil::VerifyFootnote(Aspose::Words::Notes::FootnoteType expectedFootnoteType, bool expectedIsAuto, System::String expectedReferenceMark, System::String expectedContents, System::SharedPtr<Aspose::Words::Notes::Footnote> footnote)
 {
-    ASSERT_EQ(expectedFootnoteType, footnote->get_FootnoteType());
-    ASPOSE_ASSERT_EQ(expectedIsAuto, footnote->get_IsAuto());
-    ASSERT_EQ(expectedReferenceMark, footnote->get_ReferenceMark());
-    ASSERT_EQ(expectedContents, footnote->ToString(SaveFormat::Text).Trim());
+    ASSERT_EQ(footnote->get_FootnoteType(), expectedFootnoteType);
+    ASPOSE_ASSERT_EQ(footnote->get_IsAuto(), expectedIsAuto);
+    ASSERT_EQ(footnote->get_ReferenceMark(), expectedReferenceMark);
+    ASSERT_EQ(footnote->ToString(SaveFormat::Text).Trim(), expectedContents);
 }
 
 void TestUtil::VerifyListLevel(System::String expectedListFormat, double expectedNumberPosition, Aspose::Words::NumberStyle expectedNumberStyle, System::SharedPtr<Aspose::Words::Lists::ListLevel> listLevel)
 {
-    ASSERT_EQ(expectedListFormat, listLevel->get_NumberFormat());
-    ASPOSE_ASSERT_EQ(expectedNumberPosition, listLevel->get_NumberPosition());
-    ASSERT_EQ(expectedNumberStyle, listLevel->get_NumberStyle());
+    ASSERT_EQ(listLevel->get_NumberFormat(), expectedListFormat);
+    ASPOSE_ASSERT_EQ(listLevel->get_NumberPosition(), expectedNumberPosition);
+    ASSERT_EQ(listLevel->get_NumberStyle(), expectedNumberStyle);
 }
 
 void TestUtil::CopyStream(System::SharedPtr<System::IO::Stream> srcStream, System::SharedPtr<System::IO::Stream> dstStream)
@@ -345,38 +345,38 @@ System::String TestUtil::DumpArray(System::ArrayPtr<uint8_t> data, int32_t start
 
 void TestUtil::VerifyTabStop(double expectedPosition, Aspose::Words::TabAlignment expectedTabAlignment, Aspose::Words::TabLeader expectedTabLeader, bool isClear, System::SharedPtr<Aspose::Words::TabStop> tabStop)
 {
-    ASPOSE_ASSERT_EQ(expectedPosition, tabStop->get_Position());
-    ASSERT_EQ(expectedTabAlignment, tabStop->get_Alignment());
-    ASSERT_EQ(expectedTabLeader, tabStop->get_Leader());
-    ASPOSE_ASSERT_EQ(isClear, tabStop->get_IsClear());
+    ASPOSE_ASSERT_EQ(tabStop->get_Position(), expectedPosition);
+    ASSERT_EQ(tabStop->get_Alignment(), expectedTabAlignment);
+    ASSERT_EQ(tabStop->get_Leader(), expectedTabLeader);
+    ASPOSE_ASSERT_EQ(tabStop->get_IsClear(), isClear);
 }
 
 void TestUtil::VerifyShape(Aspose::Words::Drawing::ShapeType expectedShapeType, System::String expectedName, double expectedWidth, double expectedHeight, double expectedTop, double expectedLeft, System::SharedPtr<Aspose::Words::Drawing::Shape> shape)
 {
-    ASSERT_EQ(expectedShapeType, shape->get_ShapeType());
-    ASSERT_EQ(expectedName, shape->get_Name());
-    ASPOSE_ASSERT_EQ(expectedWidth, shape->get_Width());
-    ASPOSE_ASSERT_EQ(expectedHeight, shape->get_Height());
-    ASPOSE_ASSERT_EQ(expectedTop, shape->get_Top());
-    ASPOSE_ASSERT_EQ(expectedLeft, shape->get_Left());
+    ASSERT_EQ(shape->get_ShapeType(), expectedShapeType);
+    ASSERT_EQ(shape->get_Name(), expectedName);
+    ASPOSE_ASSERT_EQ(shape->get_Width(), expectedWidth);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), expectedHeight);
+    ASPOSE_ASSERT_EQ(shape->get_Top(), expectedTop);
+    ASPOSE_ASSERT_EQ(shape->get_Left(), expectedLeft);
 }
 
 void TestUtil::VerifyTextBox(Aspose::Words::Drawing::LayoutFlow expectedLayoutFlow, bool expectedFitShapeToText, Aspose::Words::Drawing::TextBoxWrapMode expectedTextBoxWrapMode, double marginTop, double marginBottom, double marginLeft, double marginRight, System::SharedPtr<Aspose::Words::Drawing::TextBox> textBox)
 {
-    ASSERT_EQ(expectedLayoutFlow, textBox->get_LayoutFlow());
-    ASPOSE_ASSERT_EQ(expectedFitShapeToText, textBox->get_FitShapeToText());
-    ASSERT_EQ(expectedTextBoxWrapMode, textBox->get_TextBoxWrapMode());
-    ASPOSE_ASSERT_EQ(marginTop, textBox->get_InternalMarginTop());
-    ASPOSE_ASSERT_EQ(marginBottom, textBox->get_InternalMarginBottom());
-    ASPOSE_ASSERT_EQ(marginLeft, textBox->get_InternalMarginLeft());
-    ASPOSE_ASSERT_EQ(marginRight, textBox->get_InternalMarginRight());
+    ASSERT_EQ(textBox->get_LayoutFlow(), expectedLayoutFlow);
+    ASPOSE_ASSERT_EQ(textBox->get_FitShapeToText(), expectedFitShapeToText);
+    ASSERT_EQ(textBox->get_TextBoxWrapMode(), expectedTextBoxWrapMode);
+    ASPOSE_ASSERT_EQ(textBox->get_InternalMarginTop(), marginTop);
+    ASPOSE_ASSERT_EQ(textBox->get_InternalMarginBottom(), marginBottom);
+    ASPOSE_ASSERT_EQ(textBox->get_InternalMarginLeft(), marginLeft);
+    ASPOSE_ASSERT_EQ(textBox->get_InternalMarginRight(), marginRight);
 }
 
 void TestUtil::VerifyEditableRange(int32_t expectedId, System::String expectedEditorUser, Aspose::Words::EditorType expectedEditorGroup, System::SharedPtr<Aspose::Words::EditableRange> editableRange)
 {
-    ASSERT_EQ(expectedId, editableRange->get_Id());
-    ASSERT_EQ(expectedEditorUser, editableRange->get_SingleUser());
-    ASSERT_EQ(expectedEditorGroup, editableRange->get_EditorGroup());
+    ASSERT_EQ(editableRange->get_Id(), expectedId);
+    ASSERT_EQ(editableRange->get_SingleUser(), expectedEditorUser);
+    ASSERT_EQ(editableRange->get_EditorGroup(), expectedEditorGroup);
 }
 
 System::SharedPtr<System::Text::Encoding> TestUtil::GetEncoding(System::String filename)

@@ -76,7 +76,7 @@ void ExMarkdownLoadOptions::PreserveEmptyLines()
         loadOptions->set_PreserveEmptyLines(true);
         auto doc = System::MakeObject<Aspose::Words::Document>(stream, loadOptions);
         
-        ASSERT_EQ(u"\rLine1\r\rLine2\r\f", doc->GetText());
+        ASSERT_EQ(doc->GetText(), u"\rLine1\r\rLine2\r\f");
     }
     //ExEnd:PreserveEmptyLines
 }
@@ -104,14 +104,14 @@ void ExMarkdownLoadOptions::ImportUnderlineFormatting()
         auto doc = System::MakeObject<Aspose::Words::Document>(stream, loadOptions);
         
         auto para = System::ExplicitCast<Aspose::Words::Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
-        ASSERT_EQ(Underline::Single, para->get_Runs()->idx_get(0)->get_Font()->get_Underline());
+        ASSERT_EQ(para->get_Runs()->idx_get(0)->get_Font()->get_Underline(), Underline::Single);
         
         loadOptions = System::MakeObject<Aspose::Words::Loading::MarkdownLoadOptions>();
         loadOptions->set_ImportUnderlineFormatting(false);
         doc = System::MakeObject<Aspose::Words::Document>(stream, loadOptions);
         
         para = System::ExplicitCast<Aspose::Words::Paragraph>(doc->GetChild(NodeType::Paragraph, 0, true));
-        ASSERT_EQ(Underline::None, para->get_Runs()->idx_get(0)->get_Font()->get_Underline());
+        ASSERT_EQ(para->get_Runs()->idx_get(0)->get_Font()->get_Underline(), Underline::None);
     }
     //ExEnd:ImportUnderlineFormatting
 }
@@ -138,7 +138,7 @@ void ExMarkdownLoadOptions::SoftLineBreakCharacter()
         loadOptions->set_SoftLineBreakCharacter(ControlChar::LineBreakChar);
         auto doc = System::MakeObject<Aspose::Words::Document>(stream, loadOptions);
         
-        ASSERT_EQ(u"line1\u000bline2", doc->GetText().Trim());
+        ASSERT_EQ(doc->GetText().Trim(), u"line1\u000bline2");
     }
     //ExEnd:SoftLineBreakCharacter
 }

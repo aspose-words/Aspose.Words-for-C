@@ -79,7 +79,7 @@ void ExMailMergeEvent::HandleMergeFieldInsertCheckBox::FieldMerging(System::Shar
 {
     if (args->get_DocumentFieldName() == u"CourseName")
     {
-        ASSERT_EQ(u"StudentCourse", args->get_TableName());
+        ASSERT_EQ(args->get_TableName(), u"StudentCourse");
         
         auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(args->get_Document());
         builder->MoveToMergeField(args->get_FieldName());
@@ -88,7 +88,7 @@ void ExMailMergeEvent::HandleMergeFieldInsertCheckBox::FieldMerging(System::Shar
         System::String fieldValue = System::ObjectExt::ToString(args->get_FieldValue());
         
         // In this case, for every record index 'n', the corresponding field value is "Course n".
-        ASPOSE_ASSERT_EQ(System::Char::GetNumericValue(fieldValue[7]), args->get_RecordIndex());
+        ASPOSE_ASSERT_EQ(args->get_RecordIndex(), System::Char::GetNumericValue(fieldValue[7]));
         
         builder->Write(fieldValue);
         mCheckBoxCount++;
@@ -231,7 +231,7 @@ void ExMailMergeEvent::FieldFormats()
     
     builder->get_Document()->get_MailMerge()->Execute(System::MakeArray<System::String>({u"text_Field1", u"text_Field2", u"numeric_Field1"}), System::MakeArray<System::SharedPtr<System::Object>>({System::ExplicitCast<System::Object>(u"Field 1"), System::ExplicitCast<System::Object>(u"Field 2"), System::ExplicitCast<System::Object>(10)}));
     System::String t = doc->GetText().Trim();
-    ASSERT_EQ((u"Merge Value For \"Text_Field1\": Field 1, MERGE VALUE FOR \"TEXT_FIELD2\": FIELD 2, 10000.0"), doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), (u"Merge Value For \"Text_Field1\": Field 1, MERGE VALUE FOR \"TEXT_FIELD2\": FIELD 2, 10000.0"));
 }
 
 namespace gtest_test

@@ -5,9 +5,7 @@
 #include <system/test_tools/test_tools.h>
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
-#include <system/random.h>
 #include <system/object_ext.h>
-#include <system/nullable.h>
 #include <system/io/memory_stream.h>
 #include <system/io/file_stream.h>
 #include <system/io/file_mode.h>
@@ -15,15 +13,11 @@
 #include <system/io/file.h>
 #include <system/exceptions.h>
 #include <system/diagnostics/stopwatch.h>
-#include <system/default.h>
 #include <system/console.h>
 #include <system/array.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
-#include <drawing/imaging/image_format.h>
-#include <drawing/graphics.h>
-#include <drawing/color.h>
-#include <drawing/bitmap.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/RunCollection.h>
 #include <Aspose.Words.Cpp/Model/Text/Run.h>
@@ -34,7 +28,6 @@
 #include <Aspose.Words.Cpp/Model/Settings/CompatibilityOptions.h>
 #include <Aspose.Words.Cpp/Model/Sections/Section.h>
 #include <Aspose.Words.Cpp/Model/Sections/Body.h>
-#include <Aspose.Words.Cpp/Model/Saving/Zip64Mode.h>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
 #include <Aspose.Words.Cpp/Model/Saving/OoxmlSaveOptions.h>
 #include <Aspose.Words.Cpp/Model/Saving/OoxmlCompliance.h>
@@ -140,15 +133,15 @@ void ExOoxmlSaveOptions::Password()
     
     // We will not be able to open this document with Microsoft Word or
     // Aspose.Words without providing the correct password.
-    ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&doc]() -> void
     {
         doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.Password.docx"));
-    })(), Aspose::Words::IncorrectPasswordException);
+    }))(), Aspose::Words::IncorrectPasswordException);
     
     // Open the encrypted document by passing the correct password in a LoadOptions object.
     doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OoxmlSaveOptions.Password.docx", System::MakeObject<Aspose::Words::Loading::LoadOptions>(u"MyPassword"));
     
-    ASSERT_EQ(u"Hello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world!");
     //ExEnd
 }
 
@@ -182,7 +175,7 @@ void ExOoxmlSaveOptions::Iso29500Strict()
     doc->get_CompatibilityOptions()->OptimizeFor(MsWordVersion::Word2003);
     builder->InsertImage(get_ImageDir() + u"Transparent background logo.png");
     
-    ASSERT_EQ(ShapeMarkupLanguage::Vml, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_MarkupLanguage());
+    ASSERT_EQ((System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_MarkupLanguage(), ShapeMarkupLanguage::Vml);
     
     // The "ISO/IEC 29500:2008" OOXML standard does not support VML shapes.
     // If we set the "Compliance" property of the SaveOptions object to "OoxmlCompliance.Iso29500_2008_Strict",
@@ -196,7 +189,7 @@ void ExOoxmlSaveOptions::Iso29500Strict()
     // Our saved document defines the shape using DML to adhere to the "ISO/IEC 29500:2008" OOXML standard.
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.Iso29500Strict.docx"));
     
-    ASSERT_EQ(ShapeMarkupLanguage::Dml, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_MarkupLanguage());
+    ASSERT_EQ((System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_MarkupLanguage(), ShapeMarkupLanguage::Dml);
     //ExEnd
 }
 
@@ -242,7 +235,7 @@ void ExOoxmlSaveOptions::RestartingDocumentList(bool restartListAtEachSection)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.RestartingDocumentList.docx"));
     
-    ASPOSE_ASSERT_EQ(restartListAtEachSection, doc->get_Lists()->idx_get(0)->get_IsRestartAtEachSection());
+    ASPOSE_ASSERT_EQ(doc->get_Lists()->idx_get(0)->get_IsRestartAtEachSection(), restartListAtEachSection);
     //ExEnd
 }
 
@@ -280,7 +273,7 @@ void ExOoxmlSaveOptions::LastSavedTime(bool updateLastSavedTimeProperty)
     //ExSummary:Shows how to determine whether to preserve the document's "Last saved time" property when saving.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
-    ASSERT_EQ(System::DateTime(2021, 5, 11, 6, 32, 0), doc->get_BuiltInDocumentProperties()->get_LastSavedTime());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_LastSavedTime(), System::DateTime(2021, 5, 11, 6, 32, 0));
     
     // When we save the document to an OOXML format, we can create an OoxmlSaveOptions object
     // and then pass it to the document's saving method to modify how we save the document.
@@ -302,7 +295,7 @@ void ExOoxmlSaveOptions::LastSavedTime(bool updateLastSavedTimeProperty)
     }
     else
     {
-        ASSERT_EQ(System::DateTime(2021, 5, 11, 6, 32, 0), lastSavedTimeNew);
+        ASSERT_EQ(lastSavedTimeNew, System::DateTime(2021, 5, 11, 6, 32, 0));
     }
     //ExEnd
 }
@@ -355,7 +348,7 @@ void ExOoxmlSaveOptions::KeepLegacyControlChars(bool keepLegacyControlChars)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OoxmlSaveOptions.KeepLegacyControlChars.docx"));
     
-    ASSERT_EQ(keepLegacyControlChars ? System::String(u"\u0013date \\@ \"MM/dd/yyyy\"\u0014\u0015\f") : System::String(u"\u001e\f"), doc->get_FirstSection()->get_Body()->GetText());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->GetText(), keepLegacyControlChars ? System::String(u"\u0013date \\@ \"MM/dd/yyyy\"\u0014\u0015\f") : System::String(u"\u001e\f"));
     //ExEnd
 }
 
@@ -487,7 +480,7 @@ void ExOoxmlSaveOptions::CheckFileSignatures()
                 ASSERT_TRUE(prevFileSize < fileSize);
                 
                 TestUtil::CopyStream(outputFileStream, stream);
-                ASSERT_EQ(fileSignatures[i], TestUtil::DumpArray(stream->ToArray(), 0, 10));
+                ASSERT_EQ(TestUtil::DumpArray(stream->ToArray(), 0, 10), fileSignatures[i]);
                 
                 prevFileSize = fileSize;
             }
@@ -538,18 +531,12 @@ void ExOoxmlSaveOptions::ProgressCallback(Aspose::Words::SaveFormat saveFormat, 
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::OoxmlSaveOptions>(saveFormat);
     saveOptions->set_ProgressCallback(System::MakeObject<Aspose::Words::ApiExamples::ExOoxmlSaveOptions::SavingProgressCallback>());
     
-    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(static_cast<std::function<void()>>([&saveOptions, &doc, &ext]() -> void
+    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&saveOptions, &doc, &ext]() -> void
     {
         doc->Save(get_ArtifactsDir() + System::String::Format(u"OoxmlSaveOptions.ProgressCallback.{0}", ext), saveOptions);
-    })(), System::OperationCanceledException, &exception)
+    }))(), System::OperationCanceledException, &exception)
     
-    System::Nullable<bool> actual = System::Default<System::Nullable<bool>>();
-    System::OperationCanceledException condExpression = exception;
-    if (condExpression != nullptr)
-    {
-        actual = condExpression->get_Message().Contains(u"EstimatedProgress");
-    }
-    ASSERT_TRUE(actual);
+    ASSERT_TRUE(System::SafeInvoke(exception, [&](auto&& expr){return expr->get_Message().Contains(u"EstimatedProgress");}));
 }
 
 namespace gtest_test
@@ -582,48 +569,6 @@ INSTANTIATE_TEST_SUITE_P(, ExOoxmlSaveOptions_ProgressCallback, ::testing::Value
 
 } // namespace gtest_test
 
-void ExOoxmlSaveOptions::Zip64ModeOption()
-{
-    //ExStart:Zip64ModeOption
-    //GistId:e386727403c2341ce4018bca370a5b41
-    //ExFor:OoxmlSaveOptions.Zip64Mode
-    //ExFor:Zip64Mode
-    //ExSummary:Shows how to use ZIP64 format extensions.
-    auto random = System::MakeObject<System::Random>();
-    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>();
-    
-    for (int32_t i = 0; i < 10000; i++)
-    {
-        {
-            auto bmp = System::MakeObject<System::Drawing::Bitmap>(5, 5);
-            {
-                System::SharedPtr<System::Drawing::Graphics> g = System::Drawing::Graphics::FromImage(bmp);
-                g->Clear(System::Drawing::Color::FromArgb(random->Next(0, 254), random->Next(0, 254), random->Next(0, 254)));
-                {
-                    auto ms = System::MakeObject<System::IO::MemoryStream>();
-                    bmp->Save(ms, System::Drawing::Imaging::ImageFormat::get_Png());
-                    builder->InsertImage(ms->ToArray());
-                }
-            }
-        }
-    }
-    auto saveOptions = System::MakeObject<Aspose::Words::Saving::OoxmlSaveOptions>();
-    saveOptions->set_Zip64Mode(Zip64Mode::Always);
-    
-    builder->get_Document()->Save(get_ArtifactsDir() + u"OoxmlSaveOptions.Zip64ModeOption.docx", saveOptions);
-    //ExEnd:Zip64ModeOption
-}
-
-namespace gtest_test
-{
-
-TEST_F(ExOoxmlSaveOptions, Zip64ModeOption)
-{
-    s_instance->Zip64ModeOption();
-}
-
-} // namespace gtest_test
-
 void ExOoxmlSaveOptions::DigitalSignature()
 {
     //ExStart:DigitalSignature
@@ -645,8 +590,8 @@ void ExOoxmlSaveOptions::DigitalSignature()
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::OoxmlSaveOptions>();
     saveOptions->set_DigitalSignatureDetails(digitalSignatureDetails);
     
-    ASPOSE_ASSERT_EQ(certificateHolder, digitalSignatureDetails->get_CertificateHolder());
-    ASSERT_EQ(u"Some comments", digitalSignatureDetails->get_SignOptions()->get_Comments());
+    ASPOSE_ASSERT_EQ(digitalSignatureDetails->get_CertificateHolder(), certificateHolder);
+    ASSERT_EQ(digitalSignatureDetails->get_SignOptions()->get_Comments(), u"Some comments");
     
     doc->Save(get_ArtifactsDir() + u"OoxmlSaveOptions.DigitalSignature.docx", saveOptions);
     //ExEnd:DigitalSignature

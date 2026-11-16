@@ -151,6 +151,8 @@ public:
     void InsertChartSeries();
     void SetChartStyle();
     void TitleOrientation();
+    void ChartSeriesAndDataPointIsTotal();
+    void PlotAreaFormat();
     
 protected:
 

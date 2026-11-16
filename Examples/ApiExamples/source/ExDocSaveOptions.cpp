@@ -9,6 +9,7 @@
 #include <system/io/directory.h>
 #include <system/date_time.h>
 #include <system/array.h>
+#include <system/action.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -95,15 +96,15 @@ void ExDocSaveOptions::SaveAsDoc()
     
     // To be able to load the document,
     // we will need to apply the password we specified in the DocSaveOptions object in a LoadOptions object.
-    ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&doc]() -> void
     {
         doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocSaveOptions.SaveAsDoc.doc"));
-    })(), Aspose::Words::IncorrectPasswordException);
+    }))(), Aspose::Words::IncorrectPasswordException);
     
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>(u"MyPassword");
     doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"DocSaveOptions.SaveAsDoc.doc", loadOptions);
     
-    ASSERT_EQ(u"Hello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world!");
     //ExEnd
 }
 
@@ -136,7 +137,7 @@ void ExDocSaveOptions::TempFolder()
     doc->Save(get_ArtifactsDir() + u"DocSaveOptions.TempFolder.doc", options);
     
     // The folder will persist with no residual contents from the load operation.
-    ASSERT_EQ(0, System::IO::Directory::GetFiles(options->get_TempFolder())->get_Length());
+    ASSERT_EQ(System::IO::Directory::GetFiles(options->get_TempFolder())->get_Length(), 0);
     //ExEnd
 }
 
@@ -208,11 +209,11 @@ void ExDocSaveOptions::UpdateLastPrintedProperty(bool isUpdateLastPrintedPropert
     
     if (isUpdateLastPrintedProperty)
     {
-        ASSERT_NE(lastPrinted, doc->get_BuiltInDocumentProperties()->get_LastPrinted());
+        ASSERT_NE(doc->get_BuiltInDocumentProperties()->get_LastPrinted(), lastPrinted);
     }
     else
     {
-        ASSERT_EQ(lastPrinted, doc->get_BuiltInDocumentProperties()->get_LastPrinted());
+        ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_LastPrinted(), lastPrinted);
     }
     //ExEnd
 }
@@ -267,11 +268,11 @@ void ExDocSaveOptions::UpdateCreatedTimeProperty(bool isUpdateCreatedTimePropert
     
     if (isUpdateCreatedTimeProperty)
     {
-        ASSERT_NE(createdTime, doc->get_BuiltInDocumentProperties()->get_CreatedTime());
+        ASSERT_NE(doc->get_BuiltInDocumentProperties()->get_CreatedTime(), createdTime);
     }
     else
     {
-        ASSERT_EQ(createdTime, doc->get_BuiltInDocumentProperties()->get_CreatedTime());
+        ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_CreatedTime(), createdTime);
     }
     
     //ExEnd

@@ -156,7 +156,7 @@ void ExHyphenation::RegisterDictionary()
     System::SharedPtr<System::IO::Stream> dictionaryStream = System::MakeObject<System::IO::FileStream>(get_MyDir() + u"hyph_en_US.dic", System::IO::FileMode::Open);
     Hyphenation::RegisterDictionary(u"en-US", dictionaryStream);
     
-    ASSERT_EQ(0, warningInfoCollection->get_Count());
+    ASSERT_EQ(warningInfoCollection->get_Count(), 0);
     
     // Open a document with a locale that Microsoft Word may not hyphenate on an English machine, such as German.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"German text.docx"));
@@ -169,10 +169,10 @@ void ExHyphenation::RegisterDictionary()
     doc->Save(get_ArtifactsDir() + u"Hyphenation.RegisterDictionary.pdf");
     
     // This dictionary contains two identical patterns, which will trigger a warning.
-    ASSERT_EQ(1, warningInfoCollection->get_Count());
-    ASSERT_EQ(WarningType::MinorFormattingLoss, warningInfoCollection->idx_get(0)->get_WarningType());
-    ASSERT_EQ(WarningSource::Layout, warningInfoCollection->idx_get(0)->get_Source());
-    ASSERT_EQ(System::String(u"Hyphenation dictionary contains duplicate patterns. The only first found pattern will be used. ") + u"Content can be wrapped differently.", warningInfoCollection->idx_get(0)->get_Description());
+    ASSERT_EQ(warningInfoCollection->get_Count(), 1);
+    ASSERT_EQ(warningInfoCollection->idx_get(0)->get_WarningType(), WarningType::MinorFormattingLoss);
+    ASSERT_EQ(warningInfoCollection->idx_get(0)->get_Source(), WarningSource::Layout);
+    ASSERT_EQ(warningInfoCollection->idx_get(0)->get_Description(), System::String(u"Hyphenation dictionary contains duplicate patterns. The only first found pattern will be used. ") + u"Content can be wrapped differently.");
     
     Hyphenation::set_WarningCallback(nullptr);
     //ExSkip

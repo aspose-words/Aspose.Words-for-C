@@ -73,12 +73,12 @@ void ExPageSetup::InsertSectionWithEndnote(System::SharedPtr<Aspose::Words::Docu
     auto body = System::MakeObject<Aspose::Words::Body>(doc);
     section->AppendChild<System::SharedPtr<Aspose::Words::Body>>(body);
     
-    ASPOSE_ASSERT_EQ(section, body->get_ParentNode());
+    ASPOSE_ASSERT_EQ(body->get_ParentNode(), section);
     
     auto para = System::MakeObject<Aspose::Words::Paragraph>(doc);
     body->AppendChild<System::SharedPtr<Aspose::Words::Paragraph>>(para);
     
-    ASPOSE_ASSERT_EQ(body, para->get_ParentNode());
+    ASPOSE_ASSERT_EQ(para->get_ParentNode(), body);
     
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->MoveTo(para);
@@ -151,14 +151,14 @@ void ExPageSetup::ClearFormatting()
     // it will inherit the builder's current page setup properties.
     builder->InsertBreak(BreakType::SectionBreakNewPage);
     
-    ASSERT_EQ(Orientation::Landscape, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_Orientation());
-    ASSERT_EQ(PageVerticalAlignment::Center, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_VerticalAlignment());
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_Orientation(), Orientation::Landscape);
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_VerticalAlignment(), PageVerticalAlignment::Center);
     
     // We can revert its page setup properties to their default values using the "ClearFormatting" method.
     builder->get_PageSetup()->ClearFormatting();
     
-    ASSERT_EQ(Orientation::Portrait, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_Orientation());
-    ASSERT_EQ(PageVerticalAlignment::Top, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_VerticalAlignment());
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_Orientation(), Orientation::Portrait);
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_VerticalAlignment(), PageVerticalAlignment::Top);
     
     builder->Writeln(u"This is the second section, which is in default Letter paper size, portrait orientation and top alignment.");
     
@@ -167,11 +167,11 @@ void ExPageSetup::ClearFormatting()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.ClearFormatting.docx"));
     
-    ASSERT_EQ(Orientation::Landscape, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_Orientation());
-    ASSERT_EQ(PageVerticalAlignment::Center, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_VerticalAlignment());
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_PageSetup()->get_Orientation(), Orientation::Landscape);
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_PageSetup()->get_VerticalAlignment(), PageVerticalAlignment::Center);
     
-    ASSERT_EQ(Orientation::Portrait, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_Orientation());
-    ASSERT_EQ(PageVerticalAlignment::Top, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_VerticalAlignment());
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_Orientation(), Orientation::Portrait);
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_VerticalAlignment(), PageVerticalAlignment::Top);
 }
 
 namespace gtest_test
@@ -227,7 +227,7 @@ void ExPageSetup::DifferentFirstPageHeaderFooter(bool differentFirstPageHeaderFo
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.DifferentFirstPageHeaderFooter.docx"));
     
-    ASPOSE_ASSERT_EQ(differentFirstPageHeaderFooter, doc->get_FirstSection()->get_PageSetup()->get_DifferentFirstPageHeaderFooter());
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_DifferentFirstPageHeaderFooter(), differentFirstPageHeaderFooter);
 }
 
 namespace gtest_test
@@ -301,7 +301,7 @@ void ExPageSetup::OddAndEvenPagesHeaderFooter(bool oddAndEvenPagesHeaderFooter)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.OddAndEvenPagesHeaderFooter.docx"));
     
-    ASPOSE_ASSERT_EQ(oddAndEvenPagesHeaderFooter, doc->get_FirstSection()->get_PageSetup()->get_OddAndEvenPagesHeaderFooter());
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_OddAndEvenPagesHeaderFooter(), oddAndEvenPagesHeaderFooter);
 }
 
 namespace gtest_test
@@ -348,7 +348,7 @@ void ExPageSetup::CharactersPerLine()
     // The number of characters also depends on the size of the font.
     doc->get_Styles()->idx_get(u"Normal")->get_Font()->set_Size(20);
     
-    ASSERT_EQ(8, doc->get_FirstSection()->get_PageSetup()->get_CharactersPerLine());
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_CharactersPerLine(), 8);
     
     builder->Writeln(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
     
@@ -357,8 +357,8 @@ void ExPageSetup::CharactersPerLine()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.CharactersPerLine.docx"));
     
-    ASSERT_EQ(SectionLayoutMode::Grid, doc->get_FirstSection()->get_PageSetup()->get_LayoutMode());
-    ASSERT_EQ(8, doc->get_FirstSection()->get_PageSetup()->get_CharactersPerLine());
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_LayoutMode(), SectionLayoutMode::Grid);
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_CharactersPerLine(), 8);
 }
 
 namespace gtest_test
@@ -399,8 +399,8 @@ void ExPageSetup::LinesPerPage()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.LinesPerPage.docx"));
     
-    ASSERT_EQ(SectionLayoutMode::LineGrid, doc->get_FirstSection()->get_PageSetup()->get_LayoutMode());
-    ASSERT_EQ(15, doc->get_FirstSection()->get_PageSetup()->get_LinesPerPage());
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_LayoutMode(), SectionLayoutMode::LineGrid);
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_LinesPerPage(), 15);
     
     for (auto&& paragraph : System::IterateOver<Aspose::Words::Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
     {
@@ -435,25 +435,25 @@ void ExPageSetup::SetSectionStart()
     builder->InsertBreak(BreakType::SectionBreakNewPage);
     builder->Writeln(u"This text is in section 2.");
     
-    ASSERT_EQ(SectionStart::NewPage, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_SectionStart());
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_SectionStart(), SectionStart::NewPage);
     
     // 2 -  Starts the next section on the current page:
     builder->InsertBreak(BreakType::SectionBreakContinuous);
     builder->Writeln(u"This text is in section 3.");
     
-    ASSERT_EQ(SectionStart::Continuous, doc->get_Sections()->idx_get(2)->get_PageSetup()->get_SectionStart());
+    ASSERT_EQ(doc->get_Sections()->idx_get(2)->get_PageSetup()->get_SectionStart(), SectionStart::Continuous);
     
     // 3 -  Starts the next section on a new even page:
     builder->InsertBreak(BreakType::SectionBreakEvenPage);
     builder->Writeln(u"This text is in section 4.");
     
-    ASSERT_EQ(SectionStart::EvenPage, doc->get_Sections()->idx_get(3)->get_PageSetup()->get_SectionStart());
+    ASSERT_EQ(doc->get_Sections()->idx_get(3)->get_PageSetup()->get_SectionStart(), SectionStart::EvenPage);
     
     // 4 -  Starts the next section on a new odd page:
     builder->InsertBreak(BreakType::SectionBreakOddPage);
     builder->Writeln(u"This text is in section 5.");
     
-    ASSERT_EQ(SectionStart::OddPage, doc->get_Sections()->idx_get(4)->get_PageSetup()->get_SectionStart());
+    ASSERT_EQ(doc->get_Sections()->idx_get(4)->get_PageSetup()->get_SectionStart(), SectionStart::OddPage);
     
     // 5 -  Starts the next section on a new column:
     System::SharedPtr<Aspose::Words::TextColumnCollection> columns = builder->get_PageSetup()->get_TextColumns();
@@ -462,19 +462,19 @@ void ExPageSetup::SetSectionStart()
     builder->InsertBreak(BreakType::SectionBreakNewColumn);
     builder->Writeln(u"This text is in section 6.");
     
-    ASSERT_EQ(SectionStart::NewColumn, doc->get_Sections()->idx_get(5)->get_PageSetup()->get_SectionStart());
+    ASSERT_EQ(doc->get_Sections()->idx_get(5)->get_PageSetup()->get_SectionStart(), SectionStart::NewColumn);
     
     doc->Save(get_ArtifactsDir() + u"PageSetup.SetSectionStart.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.SetSectionStart.docx"));
     
-    ASSERT_EQ(SectionStart::NewPage, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_SectionStart());
-    ASSERT_EQ(SectionStart::NewPage, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_SectionStart());
-    ASSERT_EQ(SectionStart::Continuous, doc->get_Sections()->idx_get(2)->get_PageSetup()->get_SectionStart());
-    ASSERT_EQ(SectionStart::EvenPage, doc->get_Sections()->idx_get(3)->get_PageSetup()->get_SectionStart());
-    ASSERT_EQ(SectionStart::OddPage, doc->get_Sections()->idx_get(4)->get_PageSetup()->get_SectionStart());
-    ASSERT_EQ(SectionStart::NewColumn, doc->get_Sections()->idx_get(5)->get_PageSetup()->get_SectionStart());
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_PageSetup()->get_SectionStart(), SectionStart::NewPage);
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_SectionStart(), SectionStart::NewPage);
+    ASSERT_EQ(doc->get_Sections()->idx_get(2)->get_PageSetup()->get_SectionStart(), SectionStart::Continuous);
+    ASSERT_EQ(doc->get_Sections()->idx_get(3)->get_PageSetup()->get_SectionStart(), SectionStart::EvenPage);
+    ASSERT_EQ(doc->get_Sections()->idx_get(4)->get_PageSetup()->get_SectionStart(), SectionStart::OddPage);
+    ASSERT_EQ(doc->get_Sections()->idx_get(5)->get_PageSetup()->get_SectionStart(), SectionStart::NewColumn);
 }
 
 namespace gtest_test
@@ -521,16 +521,16 @@ void ExPageSetup::PageMargins()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.PageMargins.docx"));
     
-    ASSERT_EQ(PaperSize::Legal, doc->get_FirstSection()->get_PageSetup()->get_PaperSize());
-    ASPOSE_ASSERT_EQ(1008.0, doc->get_FirstSection()->get_PageSetup()->get_PageWidth());
-    ASPOSE_ASSERT_EQ(612.0, doc->get_FirstSection()->get_PageSetup()->get_PageHeight());
-    ASSERT_EQ(Orientation::Landscape, doc->get_FirstSection()->get_PageSetup()->get_Orientation());
-    ASPOSE_ASSERT_EQ(72.0, doc->get_FirstSection()->get_PageSetup()->get_TopMargin());
-    ASPOSE_ASSERT_EQ(72.0, doc->get_FirstSection()->get_PageSetup()->get_BottomMargin());
-    ASPOSE_ASSERT_EQ(108.0, doc->get_FirstSection()->get_PageSetup()->get_LeftMargin());
-    ASPOSE_ASSERT_EQ(108.0, doc->get_FirstSection()->get_PageSetup()->get_RightMargin());
-    ASPOSE_ASSERT_EQ(14.4, doc->get_FirstSection()->get_PageSetup()->get_HeaderDistance());
-    ASPOSE_ASSERT_EQ(14.4, doc->get_FirstSection()->get_PageSetup()->get_FooterDistance());
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_PaperSize(), PaperSize::Legal);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_PageWidth(), 1008.0);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_PageHeight(), 612.0);
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_Orientation(), Orientation::Landscape);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_TopMargin(), 72.0);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_BottomMargin(), 72.0);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_LeftMargin(), 108.0);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_RightMargin(), 108.0);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_HeaderDistance(), 14.4);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_FooterDistance(), 14.4);
 }
 
 namespace gtest_test
@@ -556,8 +556,8 @@ void ExPageSetup::PaperSizes()
     // by using the "PaperSize" property of this section's PageSetup object.
     builder->get_PageSetup()->set_PaperSize(PaperSize::Tabloid);
     
-    ASPOSE_ASSERT_EQ(792.0, builder->get_PageSetup()->get_PageWidth());
-    ASPOSE_ASSERT_EQ(1224.0, builder->get_PageSetup()->get_PageHeight());
+    ASPOSE_ASSERT_EQ(builder->get_PageSetup()->get_PageWidth(), 792.0);
+    ASPOSE_ASSERT_EQ(builder->get_PageSetup()->get_PageHeight(), 1224.0);
     
     builder->Writeln(System::String::Format(u"This page is {0}x{1}.", builder->get_PageSetup()->get_PageWidth(), builder->get_PageSetup()->get_PageHeight()));
     
@@ -565,13 +565,13 @@ void ExPageSetup::PaperSizes()
     // that section's PageSetup object inherits all the previous section's PageSetup object's values.
     builder->InsertBreak(BreakType::SectionBreakEvenPage);
     
-    ASSERT_EQ(PaperSize::Tabloid, builder->get_PageSetup()->get_PaperSize());
+    ASSERT_EQ(builder->get_PageSetup()->get_PaperSize(), PaperSize::Tabloid);
     
     builder->get_PageSetup()->set_PaperSize(PaperSize::A5);
     builder->Writeln(System::String::Format(u"This page is {0}x{1}.", builder->get_PageSetup()->get_PageWidth(), builder->get_PageSetup()->get_PageHeight()));
     
-    ASPOSE_ASSERT_EQ(419.55, builder->get_PageSetup()->get_PageWidth());
-    ASPOSE_ASSERT_EQ(595.30, builder->get_PageSetup()->get_PageHeight());
+    ASPOSE_ASSERT_EQ(builder->get_PageSetup()->get_PageWidth(), 419.55);
+    ASPOSE_ASSERT_EQ(builder->get_PageSetup()->get_PageHeight(), 595.30);
     
     builder->InsertBreak(BreakType::SectionBreakEvenPage);
     
@@ -579,7 +579,7 @@ void ExPageSetup::PaperSizes()
     builder->get_PageSetup()->set_PageWidth(620);
     builder->get_PageSetup()->set_PageHeight(480);
     
-    ASSERT_EQ(PaperSize::Custom, builder->get_PageSetup()->get_PaperSize());
+    ASSERT_EQ(builder->get_PageSetup()->get_PaperSize(), PaperSize::Custom);
     
     builder->Writeln(System::String::Format(u"This page is {0}x{1}.", builder->get_PageSetup()->get_PageWidth(), builder->get_PageSetup()->get_PageHeight()));
     
@@ -588,15 +588,15 @@ void ExPageSetup::PaperSizes()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.PaperSizes.docx"));
     
-    ASSERT_EQ(PaperSize::Tabloid, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_PaperSize());
-    ASPOSE_ASSERT_EQ(792.0, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_PageWidth());
-    ASPOSE_ASSERT_EQ(1224.0, doc->get_Sections()->idx_get(0)->get_PageSetup()->get_PageHeight());
-    ASSERT_EQ(PaperSize::A5, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_PaperSize());
-    ASPOSE_ASSERT_EQ(419.55, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_PageWidth());
-    ASPOSE_ASSERT_EQ(595.30, doc->get_Sections()->idx_get(1)->get_PageSetup()->get_PageHeight());
-    ASSERT_EQ(PaperSize::Custom, doc->get_Sections()->idx_get(2)->get_PageSetup()->get_PaperSize());
-    ASPOSE_ASSERT_EQ(620.0, doc->get_Sections()->idx_get(2)->get_PageSetup()->get_PageWidth());
-    ASPOSE_ASSERT_EQ(480.0, doc->get_Sections()->idx_get(2)->get_PageSetup()->get_PageHeight());
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_PageSetup()->get_PaperSize(), PaperSize::Tabloid);
+    ASPOSE_ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_PageSetup()->get_PageWidth(), 792.0);
+    ASPOSE_ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_PageSetup()->get_PageHeight(), 1224.0);
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_PaperSize(), PaperSize::A5);
+    ASPOSE_ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_PageWidth(), 419.55);
+    ASPOSE_ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_PageSetup()->get_PageHeight(), 595.30);
+    ASSERT_EQ(doc->get_Sections()->idx_get(2)->get_PageSetup()->get_PaperSize(), PaperSize::Custom);
+    ASPOSE_ASSERT_EQ(doc->get_Sections()->idx_get(2)->get_PageSetup()->get_PageWidth(), 620.0);
+    ASPOSE_ASSERT_EQ(doc->get_Sections()->idx_get(2)->get_PageSetup()->get_PageHeight(), 480.0);
 }
 
 namespace gtest_test
@@ -635,9 +635,9 @@ void ExPageSetup::ColumnsSameWidth()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.ColumnsSameWidth.docx"));
     
-    ASPOSE_ASSERT_EQ(100.0, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Spacing());
-    ASSERT_EQ(2, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Count());
-    ASSERT_NEAR(185.15, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Width(), 0.01);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Spacing(), 100.0);
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Count(), 2);
+    ASSERT_NEAR(doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Width(), 185.15, 0.01);
 }
 
 namespace gtest_test
@@ -670,7 +670,7 @@ void ExPageSetup::CustomColumnWidth()
     // Determine the amount of room that we have available for arranging columns.
     double contentWidth = pageSetup->get_PageWidth() - pageSetup->get_LeftMargin() - pageSetup->get_RightMargin();
     
-    ASSERT_NEAR(470.30, contentWidth, 0.01);
+    ASSERT_NEAR(contentWidth, 470.30, 0.01);
     
     // Set the first column to be narrow.
     System::SharedPtr<Aspose::Words::TextColumn> column = columns->idx_get(0);
@@ -692,11 +692,11 @@ void ExPageSetup::CustomColumnWidth()
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_FALSE(pageSetup->get_TextColumns()->get_EvenlySpaced());
-    ASSERT_EQ(2, pageSetup->get_TextColumns()->get_Count());
-    ASPOSE_ASSERT_EQ(100.0, pageSetup->get_TextColumns()->idx_get(0)->get_Width());
-    ASPOSE_ASSERT_EQ(20.0, pageSetup->get_TextColumns()->idx_get(0)->get_SpaceAfter());
-    ASPOSE_ASSERT_EQ(470.3, pageSetup->get_TextColumns()->idx_get(1)->get_Width());
-    ASPOSE_ASSERT_EQ(0.0, pageSetup->get_TextColumns()->idx_get(1)->get_SpaceAfter());
+    ASSERT_EQ(pageSetup->get_TextColumns()->get_Count(), 2);
+    ASPOSE_ASSERT_EQ(pageSetup->get_TextColumns()->idx_get(0)->get_Width(), 100.0);
+    ASPOSE_ASSERT_EQ(pageSetup->get_TextColumns()->idx_get(0)->get_SpaceAfter(), 20.0);
+    ASPOSE_ASSERT_EQ(pageSetup->get_TextColumns()->idx_get(1)->get_Width(), 470.3);
+    ASPOSE_ASSERT_EQ(pageSetup->get_TextColumns()->idx_get(1)->get_SpaceAfter(), 0.0);
 }
 
 namespace gtest_test
@@ -735,7 +735,7 @@ void ExPageSetup::VerticalLineBetweenColumns(bool lineBetween)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.VerticalLineBetweenColumns.docx"));
     
-    ASPOSE_ASSERT_EQ(lineBetween, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_LineBetween());
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_LineBetween(), lineBetween);
 }
 
 namespace gtest_test
@@ -806,10 +806,10 @@ void ExPageSetup::LineNumbers()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.LineNumbers.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
-    ASSERT_EQ(1, pageSetup->get_LineStartingNumber());
-    ASSERT_EQ(3, pageSetup->get_LineNumberCountBy());
-    ASSERT_EQ(LineNumberRestartMode::RestartPage, pageSetup->get_LineNumberRestartMode());
-    ASPOSE_ASSERT_EQ(50.0, pageSetup->get_LineNumberDistanceFromText());
+    ASSERT_EQ(pageSetup->get_LineStartingNumber(), 1);
+    ASSERT_EQ(pageSetup->get_LineNumberCountBy(), 3);
+    ASSERT_EQ(pageSetup->get_LineNumberRestartMode(), LineNumberRestartMode::RestartPage);
+    ASPOSE_ASSERT_EQ(pageSetup->get_LineNumberDistanceFromText(), 50.0);
 }
 
 namespace gtest_test
@@ -853,15 +853,15 @@ void ExPageSetup::PageBorderProperties()
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
     ASSERT_FALSE(pageSetup->get_BorderAlwaysInFront());
-    ASSERT_EQ(PageBorderDistanceFrom::PageEdge, pageSetup->get_BorderDistanceFrom());
-    ASSERT_EQ(PageBorderAppliesTo::FirstPage, pageSetup->get_BorderAppliesTo());
+    ASSERT_EQ(pageSetup->get_BorderDistanceFrom(), PageBorderDistanceFrom::PageEdge);
+    ASSERT_EQ(pageSetup->get_BorderAppliesTo(), PageBorderAppliesTo::FirstPage);
     
     border = pageSetup->get_Borders()->idx_get(BorderType::Top);
     
-    ASSERT_EQ(LineStyle::Single, border->get_LineStyle());
-    ASPOSE_ASSERT_EQ(30.0, border->get_LineWidth());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), border->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(0.0, border->get_DistanceFromText());
+    ASSERT_EQ(border->get_LineStyle(), LineStyle::Single);
+    ASPOSE_ASSERT_EQ(border->get_LineWidth(), 30.0);
+    ASSERT_EQ(border->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASPOSE_ASSERT_EQ(border->get_DistanceFromText(), 0.0);
 }
 
 namespace gtest_test
@@ -902,10 +902,10 @@ void ExPageSetup::PageBorders()
     
     for (auto&& border : System::IterateOver(pageSetup->get_Borders()))
     {
-        ASSERT_EQ(LineStyle::DoubleWave, border->get_LineStyle());
-        ASPOSE_ASSERT_EQ(2.0, border->get_LineWidth());
-        ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), border->get_Color().ToArgb());
-        ASPOSE_ASSERT_EQ(24.0, border->get_DistanceFromText());
+        ASSERT_EQ(border->get_LineStyle(), LineStyle::DoubleWave);
+        ASPOSE_ASSERT_EQ(border->get_LineWidth(), 2.0);
+        ASSERT_EQ(border->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+        ASPOSE_ASSERT_EQ(border->get_DistanceFromText(), 24.0);
         ASSERT_TRUE(border->get_Shadow());
     }
 }
@@ -981,14 +981,14 @@ void ExPageSetup::PageNumbering()
     pageSetup = doc->get_Sections()->idx_get(0)->get_PageSetup();
     
     ASSERT_TRUE(pageSetup->get_RestartPageNumbering());
-    ASSERT_EQ(5, pageSetup->get_PageStartingNumber());
-    ASSERT_EQ(NumberStyle::UppercaseRoman, pageSetup->get_PageNumberStyle());
+    ASSERT_EQ(pageSetup->get_PageStartingNumber(), 5);
+    ASSERT_EQ(pageSetup->get_PageNumberStyle(), NumberStyle::UppercaseRoman);
     
     pageSetup = doc->get_Sections()->idx_get(1)->get_PageSetup();
     
     ASSERT_TRUE(pageSetup->get_RestartPageNumbering());
-    ASSERT_EQ(10, pageSetup->get_PageStartingNumber());
-    ASSERT_EQ(NumberStyle::Arabic, pageSetup->get_PageNumberStyle());
+    ASSERT_EQ(pageSetup->get_PageStartingNumber(), 10);
+    ASSERT_EQ(pageSetup->get_PageNumberStyle(), NumberStyle::Arabic);
 }
 
 namespace gtest_test
@@ -1036,15 +1036,15 @@ void ExPageSetup::FootnoteOptions()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.FootnoteOptions.docx"));
     footnoteOptions = doc->get_FirstSection()->get_PageSetup()->get_FootnoteOptions();
     
-    ASSERT_EQ(FootnotePosition::BeneathText, footnoteOptions->get_Position());
-    ASSERT_EQ(FootnoteNumberingRule::RestartPage, footnoteOptions->get_RestartRule());
-    ASSERT_EQ(1, footnoteOptions->get_StartNumber());
+    ASSERT_EQ(footnoteOptions->get_Position(), FootnotePosition::BeneathText);
+    ASSERT_EQ(footnoteOptions->get_RestartRule(), FootnoteNumberingRule::RestartPage);
+    ASSERT_EQ(footnoteOptions->get_StartNumber(), 1);
     
     endnoteOptions = doc->get_FirstSection()->get_PageSetup()->get_EndnoteOptions();
     
-    ASSERT_EQ(EndnotePosition::EndOfDocument, endnoteOptions->get_Position());
-    ASSERT_EQ(FootnoteNumberingRule::Continuous, endnoteOptions->get_RestartRule());
-    ASSERT_EQ(1, endnoteOptions->get_StartNumber());
+    ASSERT_EQ(endnoteOptions->get_Position(), EndnotePosition::EndOfDocument);
+    ASSERT_EQ(endnoteOptions->get_RestartRule(), FootnoteNumberingRule::Continuous);
+    ASSERT_EQ(endnoteOptions->get_StartNumber(), 1);
 }
 
 namespace gtest_test
@@ -1086,8 +1086,8 @@ void ExPageSetup::Bidi(bool reverseColumns)
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.Bidi.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
-    ASSERT_EQ(3, pageSetup->get_TextColumns()->get_Count());
-    ASPOSE_ASSERT_EQ(reverseColumns, pageSetup->get_Bidi());
+    ASSERT_EQ(pageSetup->get_TextColumns()->get_Count(), 3);
+    ASPOSE_ASSERT_EQ(pageSetup->get_Bidi(), reverseColumns);
 }
 
 namespace gtest_test
@@ -1187,7 +1187,7 @@ void ExPageSetup::Gutter()
     System::SharedPtr<Aspose::Words::PageSetup> pageSetup = doc->get_Sections()->idx_get(0)->get_PageSetup();
     
     // Determine how much space our pages have for text within the margins and then add an amount to pad a margin.
-    ASSERT_NEAR(470.30, pageSetup->get_PageWidth() - pageSetup->get_LeftMargin() - pageSetup->get_RightMargin(), 0.01);
+    ASSERT_NEAR(pageSetup->get_PageWidth() - pageSetup->get_LeftMargin() - pageSetup->get_RightMargin(), 470.30, 0.01);
     
     pageSetup->set_Gutter(100.0);
     
@@ -1204,9 +1204,9 @@ void ExPageSetup::Gutter()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.Gutter.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
-    ASPOSE_ASSERT_EQ(100.0, pageSetup->get_Gutter());
+    ASPOSE_ASSERT_EQ(pageSetup->get_Gutter(), 100.0);
     ASSERT_TRUE(pageSetup->get_RtlGutter());
-    ASSERT_EQ(MultiplePagesType::MirrorMargins, pageSetup->get_MultiplePages());
+    ASSERT_EQ(pageSetup->get_MultiplePages(), MultiplePagesType::MirrorMargins);
 }
 
 namespace gtest_test
@@ -1254,8 +1254,8 @@ void ExPageSetup::Booklet()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.Booklet.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
-    ASSERT_EQ(MultiplePagesType::BookFoldPrinting, pageSetup->get_MultiplePages());
-    ASSERT_EQ(4, pageSetup->get_SheetsPerBooklet());
+    ASSERT_EQ(pageSetup->get_MultiplePages(), MultiplePagesType::BookFoldPrinting);
+    ASSERT_EQ(pageSetup->get_SheetsPerBooklet(), 4);
 }
 
 namespace gtest_test
@@ -1289,7 +1289,7 @@ void ExPageSetup::SetTextOrientation()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"PageSetup.SetTextOrientation.docx"));
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
-    ASSERT_EQ(TextOrientation::Upward, pageSetup->get_TextOrientation());
+    ASSERT_EQ(pageSetup->get_TextOrientation(), TextOrientation::Upward);
 }
 
 namespace gtest_test
@@ -1308,7 +1308,7 @@ void ExPageSetup::SuppressEndnotes()
     doc->RemoveAllChildren();
     
     // By default, a document compiles all endnotes at its end.
-    ASSERT_EQ(EndnotePosition::EndOfDocument, doc->get_EndnoteOptions()->get_Position());
+    ASSERT_EQ(doc->get_EndnoteOptions()->get_Position(), EndnotePosition::EndOfDocument);
     
     // We use the "Position" property of the document's "EndnoteOptions" object
     // to collect endnotes at the end of each section instead.
@@ -1384,7 +1384,7 @@ void ExPageSetup::JisbPaperSize()
     doc = DocumentHelper::SaveOpen(doc);
     pageSetup = doc->get_FirstSection()->get_PageSetup();
     
-    ASSERT_EQ(PaperSize::JisB5, pageSetup->get_PaperSize());
+    ASSERT_EQ(pageSetup->get_PaperSize(), PaperSize::JisB5);
 }
 
 namespace gtest_test

@@ -193,24 +193,24 @@ void ExCompatibilityOptions::Tables()
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
     compatibilityOptions->OptimizeFor(MsWordVersion::Word2002);
     
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_AdjustLineHeightInTable());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_AlignTablesRowByRow());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_AllowSpaceOfSameStyleInTable());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DoNotAutofitConstrainedTables());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DoNotBreakConstrainedForcedTable());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_DoNotBreakWrappedTables());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_DoNotSnapToGridInCell());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_DoNotUseHTMLParagraphAutoSpacing());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DoNotVertAlignCellWithSp());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_ForgetLastTabAlignment());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_GrowAutofit());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_LayoutRawTableWidth());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_LayoutTableRowsApart());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_NoColumnBalance());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_OverrideTableStyleFontSizeAndJustification());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_UseSingleBorderforContiguousCells());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_UseWord2002TableStyleRules());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_UseWord2010TableStyleRules());
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_AdjustLineHeightInTable(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_AlignTablesRowByRow(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_AllowSpaceOfSameStyleInTable(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotAutofitConstrainedTables(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotBreakConstrainedForcedTable(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotBreakWrappedTables(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotSnapToGridInCell(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotUseHTMLParagraphAutoSpacing(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotVertAlignCellWithSp(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_ForgetLastTabAlignment(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_GrowAutofit(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_LayoutRawTableWidth(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_LayoutTableRowsApart(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_NoColumnBalance(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_OverrideTableStyleFontSizeAndJustification(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UseSingleBorderforContiguousCells(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UseWord2002TableStyleRules(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UseWord2010TableStyleRules(), false);
     
     // In the output document, these settings can be accessed in Microsoft Word via
     // File -> Options -> Advanced -> Compatibility options for...
@@ -234,12 +234,12 @@ void ExCompatibilityOptions::Breaks()
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
     compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_ApplyBreakingRules());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DoNotUseEastAsianBreakRules());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_ShowBreaksInFrames());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_SplitPgBreakAndParaMark());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_UseAltKinsokuLineBreakRules());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_UseWord97LineBreakRules());
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_ApplyBreakingRules(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotUseEastAsianBreakRules(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_ShowBreaksInFrames(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SplitPgBreakAndParaMark(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UseAltKinsokuLineBreakRules(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UseWord97LineBreakRules(), false);
     
     // In the output document, these settings can be accessed in Microsoft Word via
     // File -> Options -> Advanced -> Compatibility options for...
@@ -263,18 +263,18 @@ void ExCompatibilityOptions::Spacing()
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
     compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_AutoSpaceLikeWord95());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DisplayHangulFixedWidth());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_NoExtraLineSpacing());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_NoLeading());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_NoSpaceRaiseLower());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SpaceForUL());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SpacingInWholePoints());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SuppressBottomSpacing());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SuppressSpBfAfterPgBrk());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SuppressSpacingAtTopOfPage());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SuppressTopSpacing());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_UlTrailSpace());
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_AutoSpaceLikeWord95(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DisplayHangulFixedWidth(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_NoExtraLineSpacing(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_NoLeading(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_NoSpaceRaiseLower(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SpaceForUL(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SpacingInWholePoints(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SuppressBottomSpacing(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SuppressSpBfAfterPgBrk(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SuppressSpacingAtTopOfPage(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SuppressTopSpacing(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UlTrailSpace(), false);
     
     // In the output document, these settings can be accessed in Microsoft Word via
     // File -> Options -> Advanced -> Compatibility options for...
@@ -298,11 +298,11 @@ void ExCompatibilityOptions::WordPerfect()
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
     compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SuppressTopSpacingWP());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_TruncateFontHeightsLikeWP6());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_WPJustification());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_WPSpaceWidth());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_WrapTrailSpaces());
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SuppressTopSpacingWP(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_TruncateFontHeightsLikeWP6(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_WPJustification(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_WPSpaceWidth(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_WrapTrailSpaces(), false);
     
     // In the output document, these settings can be accessed in Microsoft Word via
     // File -> Options -> Advanced -> Compatibility options for...
@@ -326,10 +326,10 @@ void ExCompatibilityOptions::Alignment()
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
     compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_CachedColBalance());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DoNotVertAlignInTxbx());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DoNotWrapTextWithPunct());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_NoTabHangInd());
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_CachedColBalance(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotVertAlignInTxbx(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotWrapTextWithPunct(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_NoTabHangInd(), false);
     
     // In the output document, these settings can be accessed in Microsoft Word via
     // File -> Options -> Advanced -> Compatibility options for...
@@ -353,11 +353,11 @@ void ExCompatibilityOptions::Legacy()
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
     compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_FootnoteLayoutLikeWW8());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_LineWrapLikeWord6());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_MWSmallCaps());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_ShapeLayoutLikeWW8());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_UICompat97To2003());
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_FootnoteLayoutLikeWW8(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_LineWrapLikeWord6(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_MWSmallCaps(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_ShapeLayoutLikeWW8(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UICompat97To2003(), false);
     
     // In the output document, these settings can be accessed in Microsoft Word via
     // File -> Options -> Advanced -> Compatibility options for...
@@ -381,8 +381,8 @@ void ExCompatibilityOptions::List()
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
     compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_UnderlineTabInNumList());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_UseNormalStyleForList());
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UnderlineTabInNumList(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UseNormalStyleForList(), true);
     
     // In the output document, these settings can be accessed in Microsoft Word via
     // File -> Options -> Advanced -> Compatibility options for...
@@ -406,21 +406,21 @@ void ExCompatibilityOptions::Misc()
     System::SharedPtr<Aspose::Words::Settings::CompatibilityOptions> compatibilityOptions = doc->get_CompatibilityOptions();
     compatibilityOptions->OptimizeFor(MsWordVersion::Word2000);
     
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_BalanceSingleByteDoubleByteWidth());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_ConvMailMergeEsc());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_DoNotExpandShiftReturn());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_DoNotLeaveBackslashAlone());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_DoNotSuppressParagraphBorders());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_DoNotUseIndentAsNumberingTabStop());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_PrintBodyTextBeforeHeader());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_PrintColBlack());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_SelectFldWithFirstOrLastChar());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SubFontBySize());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_SwapBordersFacingPgs());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_TransparentMetafiles());
-    ASPOSE_ASSERT_EQ(true, compatibilityOptions->get_UseAnsiKerningPairs());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_UseFELayout());
-    ASPOSE_ASSERT_EQ(false, compatibilityOptions->get_UsePrinterMetrics());
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_BalanceSingleByteDoubleByteWidth(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_ConvMailMergeEsc(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotExpandShiftReturn(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotLeaveBackslashAlone(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotSuppressParagraphBorders(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_DoNotUseIndentAsNumberingTabStop(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_PrintBodyTextBeforeHeader(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_PrintColBlack(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SelectFldWithFirstOrLastChar(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SubFontBySize(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_SwapBordersFacingPgs(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_TransparentMetafiles(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UseAnsiKerningPairs(), true);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UseFELayout(), false);
+    ASPOSE_ASSERT_EQ(compatibilityOptions->get_UsePrinterMetrics(), false);
     
     // In the output document, these settings can be accessed in Microsoft Word via
     // File -> Options -> Advanced -> Compatibility options for...

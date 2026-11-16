@@ -99,11 +99,11 @@ void ExBookmarksOutlineLevelCollection::BookmarkLevels()
     outlineLevels->Add(u"Bookmark 2", 2);
     outlineLevels->Add(u"Bookmark 3", 3);
     
-    ASSERT_EQ(3, outlineLevels->get_Count());
+    ASSERT_EQ(outlineLevels->get_Count(), 3);
     ASSERT_TRUE(outlineLevels->Contains(u"Bookmark 1"));
-    ASSERT_EQ(1, outlineLevels->idx_get(0));
-    ASSERT_EQ(2, outlineLevels->idx_get(u"Bookmark 2"));
-    ASSERT_EQ(2, outlineLevels->IndexOfKey(u"Bookmark 3"));
+    ASSERT_EQ(outlineLevels->idx_get(0), 1);
+    ASSERT_EQ(outlineLevels->idx_get(u"Bookmark 2"), 2);
+    ASSERT_EQ(outlineLevels->IndexOfKey(u"Bookmark 3"), 2);
     
     // We can remove two elements so that only the outline level designation for "Bookmark 1" is left.
     outlineLevels->RemoveAt(2);

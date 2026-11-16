@@ -970,7 +970,7 @@ void ExDocumentVisitor::HeaderFooterToText()
     
     // An alternative way of accessing a document's header/footers section-by-section is by accessing the collection.
     System::ArrayPtr<System::SharedPtr<Aspose::Words::HeaderFooter>> headerFooters = doc->get_FirstSection()->get_HeadersFooters()->ToArray();
-    ASSERT_EQ(3, headerFooters->get_Length());
+    ASSERT_EQ(headerFooters->get_Length(), 3);
     TestHeaderFooterToText(visitor);
     //ExSkip
 }

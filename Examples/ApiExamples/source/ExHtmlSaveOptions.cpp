@@ -11,7 +11,6 @@
 #include <system/primitive_types.h>
 #include <system/predicate.h>
 #include <system/object_ext.h>
-#include <system/nullable.h>
 #include <system/math.h>
 #include <system/linq/enumerable.h>
 #include <system/io/search_option.h>
@@ -26,11 +25,10 @@
 #include <system/globalization/culture_info.h>
 #include <system/func.h>
 #include <system/exceptions.h>
-#include <system/environment.h>
-#include <system/default.h>
 #include <system/console.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
 #include <drawing/rectangle_f.h>
@@ -39,6 +37,7 @@
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Font.h>
+#include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
 #include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/PreferredWidth.h>
 #include <Aspose.Words.Cpp/Model/Tables/Cell.h>
@@ -299,23 +298,23 @@ void ExHtmlSaveOptions::ExportTextBoxAsSvgEpub(Aspose::Words::SaveFormat saveFor
     {
         case SaveFormat::Html:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
-            ASSERT_EQ(0, dirFiles->get_Length());
+            ASSERT_EQ(dirFiles->get_Length(), 0);
             return;
         case SaveFormat::Epub:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
-            ASSERT_EQ(0, dirFiles->get_Length());
+            ASSERT_EQ(dirFiles->get_Length(), 0);
             return;
         case SaveFormat::Mhtml:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
-            ASSERT_EQ(0, dirFiles->get_Length());
+            ASSERT_EQ(dirFiles->get_Length(), 0);
             return;
         case SaveFormat::Azw3:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
-            ASSERT_EQ(0, dirFiles->get_Length());
+            ASSERT_EQ(dirFiles->get_Length(), 0);
             return;
         case SaveFormat::Mobi:
             dirFiles = System::IO::Directory::GetFiles(get_ArtifactsDir(), u"HtmlSaveOptions.ExportTextBoxAsSvgEpub.001.png", System::IO::SearchOption::AllDirectories);
-            ASSERT_EQ(0, dirFiles->get_Length());
+            ASSERT_EQ(dirFiles->get_Length(), 0);
             return;
         default:
             break;
@@ -513,13 +512,13 @@ TEST_F(ExHtmlSaveOptions, ExportRoundtripInformation)
 void ExHtmlSaveOptions::RoundtripInformationDefaulValue()
 {
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Html);
-    ASPOSE_ASSERT_EQ(true, saveOptions->get_ExportRoundtripInformation());
+    ASPOSE_ASSERT_EQ(saveOptions->get_ExportRoundtripInformation(), true);
     
     saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Mhtml);
-    ASPOSE_ASSERT_EQ(false, saveOptions->get_ExportRoundtripInformation());
+    ASPOSE_ASSERT_EQ(saveOptions->get_ExportRoundtripInformation(), false);
     
     saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(SaveFormat::Epub);
-    ASPOSE_ASSERT_EQ(false, saveOptions->get_ExportRoundtripInformation());
+    ASPOSE_ASSERT_EQ(saveOptions->get_ExportRoundtripInformation(), false);
 }
 
 namespace gtest_test
@@ -545,13 +544,13 @@ void ExHtmlSaveOptions::ExternalResourceSavingConfig()
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExternalResourceSavingConfig.html", saveOptions);
     
     System::ArrayPtr<System::String> imageFiles = System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources/", u"HtmlSaveOptions.ExternalResourceSavingConfig*.png", System::IO::SearchOption::AllDirectories);
-    ASSERT_EQ(8, imageFiles->get_Length());
+    ASSERT_EQ(imageFiles->get_Length(), 8);
     
     System::ArrayPtr<System::String> fontFiles = System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources/", u"HtmlSaveOptions.ExternalResourceSavingConfig*.ttf", System::IO::SearchOption::AllDirectories);
-    ASSERT_EQ(10, fontFiles->get_Length());
+    ASSERT_EQ(fontFiles->get_Length(), 10);
     
     System::ArrayPtr<System::String> cssFiles = System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources/", u"HtmlSaveOptions.ExternalResourceSavingConfig*.css", System::IO::SearchOption::AllDirectories);
-    ASSERT_EQ(1, cssFiles->get_Length());
+    ASSERT_EQ(cssFiles->get_Length(), 1);
     
     DocumentHelper::FindTextInFile(get_ArtifactsDir() + u"HtmlSaveOptions.ExternalResourceSavingConfig.html", u"<link href=\"https://www.aspose.com/HtmlSaveOptions.ExternalResourceSavingConfig.css\"");
 }
@@ -641,7 +640,7 @@ void ExHtmlSaveOptions::ExportFonts(bool exportAsBase64)
     {
         case false:
             doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ExportFonts.False.html", saveOptions);
-            ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(fontsFolder, u"HtmlSaveOptions.ExportFonts.False.times.ttf", System::IO::SearchOption::AllDirectories)));
+            ASSERT_GT(System::IO::Directory::GetFiles(fontsFolder, u"HtmlSaveOptions.ExportFonts.False.times.ttf", System::IO::SearchOption::AllDirectories)->get_Length(), 0);
             System::IO::Directory::Delete(fontsFolder, true);
             break;
         case true:
@@ -690,10 +689,10 @@ void ExHtmlSaveOptions::ResourceFolderPriority()
     
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ResourceFolderPriority.html", saveOptions);
     
-    ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderPriority.001.png", System::IO::SearchOption::AllDirectories)));
-    ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderPriority.002.png", System::IO::SearchOption::AllDirectories)));
-    ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderPriority.arial.ttf", System::IO::SearchOption::AllDirectories)));
-    ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderPriority.css", System::IO::SearchOption::AllDirectories)));
+    ASSERT_GT(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderPriority.001.png", System::IO::SearchOption::AllDirectories)->get_Length(), 0);
+    ASSERT_GT(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderPriority.002.png", System::IO::SearchOption::AllDirectories)->get_Length(), 0);
+    ASSERT_GT(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderPriority.arial.ttf", System::IO::SearchOption::AllDirectories)->get_Length(), 0);
+    ASSERT_GT(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderPriority.css", System::IO::SearchOption::AllDirectories)->get_Length(), 0);
 }
 
 namespace gtest_test
@@ -720,10 +719,10 @@ void ExHtmlSaveOptions::ResourceFolderLowPriority()
     
     doc->Save(get_ArtifactsDir() + u"HtmlSaveOptions.ResourceFolderLowPriority.html", saveOptions);
     
-    ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Images", u"HtmlSaveOptions.ResourceFolderLowPriority.001.png", System::IO::SearchOption::AllDirectories)));
-    ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Images", u"HtmlSaveOptions.ResourceFolderLowPriority.002.png", System::IO::SearchOption::AllDirectories)));
-    ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Fonts", u"HtmlSaveOptions.ResourceFolderLowPriority.arial.ttf", System::IO::SearchOption::AllDirectories)));
-    ASSERT_FALSE(System::TestTools::IsEmpty(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderLowPriority.css", System::IO::SearchOption::AllDirectories)));
+    ASSERT_GT(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Images", u"HtmlSaveOptions.ResourceFolderLowPriority.001.png", System::IO::SearchOption::AllDirectories)->get_Length(), 0);
+    ASSERT_GT(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Images", u"HtmlSaveOptions.ResourceFolderLowPriority.002.png", System::IO::SearchOption::AllDirectories)->get_Length(), 0);
+    ASSERT_GT(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Fonts", u"HtmlSaveOptions.ResourceFolderLowPriority.arial.ttf", System::IO::SearchOption::AllDirectories)->get_Length(), 0);
+    ASSERT_GT(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"Resources", u"HtmlSaveOptions.ResourceFolderLowPriority.css", System::IO::SearchOption::AllDirectories)->get_Length(), 0);
 }
 
 namespace gtest_test
@@ -840,10 +839,10 @@ TEST_F(ExHtmlSaveOptions, CssClassNamesPrefix)
 void ExHtmlSaveOptions::CssClassNamesNotValidPrefix()
 {
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
-    ASSERT_THROW(static_cast<std::function<void()>>([&saveOptions]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&saveOptions]() -> void
     {
         saveOptions->set_CssClassNamePrefix(u"@%-");
-    })(), System::ArgumentException) << "The class name prefix must be a valid CSS identifier.";
+    }))(), System::ArgumentException) << "The class name prefix must be a valid CSS identifier.";
 }
 
 namespace gtest_test
@@ -938,19 +937,19 @@ void ExHtmlSaveOptions::HeadingLevels()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels.html"));
     
-    ASSERT_EQ(u"Heading #1", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Heading #1");
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels-01.html"));
     
-    ASSERT_EQ(System::String(u"Heading #2\r") + u"Heading #3", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"Heading #2\r") + u"Heading #3");
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels-02.html"));
     
-    ASSERT_EQ(u"Heading #4", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Heading #4");
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HtmlSaveOptions.HeadingLevels-03.html"));
     
-    ASSERT_EQ(System::String(u"Heading #5\r") + u"Heading #6", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"Heading #5\r") + u"Heading #6");
     //ExEnd
 }
 
@@ -1108,10 +1107,10 @@ void ExHtmlSaveOptions::SaveExportedFonts()
         std::cout << fontFilename << std::endl;
     }
     
-    ASSERT_EQ(10, System::Array<System::String>::FindAll(System::IO::Directory::GetFiles(get_ArtifactsDir()), static_cast<System::Predicate<System::String>>(static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
+    ASSERT_EQ(System::Array<System::String>::FindAll(System::IO::Directory::GetFiles(get_ArtifactsDir()), static_cast<System::Predicate<System::String>>(static_cast<std::function<bool(System::String s)>>([](System::String s) -> bool
     {
         return s.EndsWith(u".ttf");
-    })))->get_Length());
+    })))->get_Length(), 10);
     //ExSkip
 }
 
@@ -1207,7 +1206,7 @@ void ExHtmlSaveOptions::ExportXhtmlTransitional(bool showDoctypeDeclaration)
     
     // Our document will only contain a DOCTYPE declaration heading if we have set the "ExportXhtmlTransitional" flag to "true".
     System::String outDocContents = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlSaveOptions.ExportXhtmlTransitional.html");
-    System::String newLine = System::Environment::get_NewLine();
+    System::String newLine = ControlChar::CrLf();
     
     if (showDoctypeDeclaration)
     {
@@ -1961,10 +1960,10 @@ void ExHtmlSaveOptions::RoundTripInformation(bool exportRoundtripInformation)
         
         ASSERT_TRUE(outDocContents.Contains(System::String(u"<span>Page number </span>") + u"<span style=\"-aw-field-start:true\"></span>" + u"<span style=\"-aw-field-code:' PAGE   \\\\* MERGEFORMAT '\"></span>" + u"<span style=\"-aw-field-separator:true\"></span>" + u"<span>1</span>" + u"<span style=\"-aw-field-end:true\"></span>"));
         
-        ASSERT_EQ(1, doc->get_Range()->get_Fields()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fields::Field>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fields::Field> f)>>([](System::SharedPtr<Aspose::Words::Fields::Field> f) -> bool
+        ASSERT_EQ(doc->get_Range()->get_Fields()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fields::Field>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fields::Field> f)>>([](System::SharedPtr<Aspose::Words::Fields::Field> f) -> bool
         {
             return f->get_Type() == FieldType::FieldPage;
-        }))));
+        }))), 1);
     }
     else
     {
@@ -1979,10 +1978,10 @@ void ExHtmlSaveOptions::RoundTripInformation(bool exportRoundtripInformation)
         
         ASSERT_TRUE(outDocContents.Contains(u"<span>Page number 1</span>"));
         
-        ASSERT_EQ(0, doc->get_Range()->get_Fields()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fields::Field>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fields::Field> f)>>([](System::SharedPtr<Aspose::Words::Fields::Field> f) -> bool
+        ASSERT_EQ(doc->get_Range()->get_Fields()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Fields::Field>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Fields::Field> f)>>([](System::SharedPtr<Aspose::Words::Fields::Field> f) -> bool
         {
             return f->get_Type() == FieldType::FieldPage;
-        }))));
+        }))), 0);
     }
     //ExEnd
 }
@@ -2132,7 +2131,7 @@ void ExHtmlSaveOptions::FontSubsetting(int32_t fontResourcesSubsettingSizeThresh
         return s.EndsWith(u".ttf");
     })))->LINQ_ToArray();
     
-    ASSERT_EQ(3, fontFileNames->get_Length());
+    ASSERT_EQ(fontFileNames->get_Length(), 3);
     
     for (System::String filename : fontFileNames)
     {
@@ -2340,7 +2339,7 @@ void ExHtmlSaveOptions::ImageFolder()
     //ExEnd
     
     ASSERT_TRUE(System::IO::File::Exists(get_ArtifactsDir() + u"HtmlSaveOptions.SaveHtmlWithOptions.html"));
-    ASSERT_EQ(9, System::IO::Directory::GetFiles(imagesDir)->get_Length());
+    ASSERT_EQ(System::IO::Directory::GetFiles(imagesDir)->get_Length(), 9);
     
     System::IO::Directory::Delete(imagesDir, true);
 }
@@ -2394,14 +2393,14 @@ void ExHtmlSaveOptions::PrettyFormat(bool usePrettyFormat)
     // Enabling pretty format makes the raw html code more readable by adding tab stop and new line characters.
     System::String html = System::IO::File::ReadAllText(get_ArtifactsDir() + u"HtmlSaveOptions.PrettyFormat.html");
     
-    System::String newLine = System::Environment::get_NewLine();
+    System::String newLine = ControlChar::CrLf();
     if (usePrettyFormat)
     {
-        ASSERT_EQ(System::String::Format(u"<html>{0}", newLine) + System::String::Format(u"\t<head>{0}", newLine) + System::String::Format(u"\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />{0}", newLine) + System::String::Format(u"\t\t<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />{0}", newLine) + System::String::Format(u"\t\t<meta name=\"generator\" content=\"{0} {1}\" />{2}", BuildVersionInfo::get_Product(), BuildVersionInfo::get_Version(), newLine) + System::String::Format(u"\t\t<title>{0}", newLine) + System::String::Format(u"\t\t</title>{0}", newLine) + System::String::Format(u"\t</head>{0}", newLine) + System::String::Format(u"\t<body style=\"font-family:'Times New Roman'; font-size:12pt\">{0}", newLine) + System::String::Format(u"\t\t<div>{0}", newLine) + System::String::Format(u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">{0}", newLine) + System::String::Format(u"\t\t\t\t<span>Hello world!</span>{0}", newLine) + System::String::Format(u"\t\t\t</p>{0}", newLine) + System::String::Format(u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">{0}", newLine) + System::String::Format(u"\t\t\t\t<span style=\"-aw-import:ignore\">&#xa0;</span>{0}", newLine) + System::String::Format(u"\t\t\t</p>{0}", newLine) + System::String::Format(u"\t\t</div>{0}", newLine) + System::String::Format(u"\t</body>{0}</html>", newLine), html);
+        ASSERT_EQ(html, System::String::Format(u"<html>{0}", newLine) + System::String::Format(u"\t<head>{0}", newLine) + System::String::Format(u"\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />{0}", newLine) + System::String::Format(u"\t\t<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />{0}", newLine) + System::String::Format(u"\t\t<meta name=\"generator\" content=\"{0} {1}\" />{2}", BuildVersionInfo::get_Product(), BuildVersionInfo::get_Version(), newLine) + System::String::Format(u"\t\t<title>{0}", newLine) + System::String::Format(u"\t\t</title>{0}", newLine) + System::String::Format(u"\t</head>{0}", newLine) + System::String::Format(u"\t<body style=\"font-family:'Times New Roman'; font-size:12pt\">{0}", newLine) + System::String::Format(u"\t\t<div>{0}", newLine) + System::String::Format(u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">{0}", newLine) + System::String::Format(u"\t\t\t\t<span>Hello world!</span>{0}", newLine) + System::String::Format(u"\t\t\t</p>{0}", newLine) + System::String::Format(u"\t\t\t<p style=\"margin-top:0pt; margin-bottom:0pt\">{0}", newLine) + System::String::Format(u"\t\t\t\t<span style=\"-aw-import:ignore\">&#xa0;</span>{0}", newLine) + System::String::Format(u"\t\t\t</p>{0}", newLine) + System::String::Format(u"\t\t</div>{0}", newLine) + System::String::Format(u"\t</body>{0}</html>", newLine));
     }
     else
     {
-        ASSERT_EQ(System::String(u"<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />") + u"<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />" + System::String::Format(u"<meta name=\"generator\" content=\"{0} {1}\" /><title></title></head>", BuildVersionInfo::get_Product(), BuildVersionInfo::get_Version()) + u"<body style=\"font-family:'Times New Roman'; font-size:12pt\">" + u"<div><p style=\"margin-top:0pt; margin-bottom:0pt\"><span>Hello world!</span></p>" + u"<p style=\"margin-top:0pt; margin-bottom:0pt\"><span style=\"-aw-import:ignore\">&#xa0;</span></p></div></body></html>", html);
+        ASSERT_EQ(html, System::String(u"<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />") + u"<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />" + System::String::Format(u"<meta name=\"generator\" content=\"{0} {1}\" /><title></title></head>", BuildVersionInfo::get_Product(), BuildVersionInfo::get_Version()) + u"<body style=\"font-family:'Times New Roman'; font-size:12pt\">" + u"<div><p style=\"margin-top:0pt; margin-bottom:0pt\"><span>Hello world!</span></p>" + u"<p style=\"margin-top:0pt; margin-bottom:0pt\"><span style=\"-aw-import:ignore\">&#xa0;</span></p></div></body></html>");
     }
     //ExEnd
 }
@@ -2441,18 +2440,12 @@ void ExHtmlSaveOptions::ProgressCallback(Aspose::Words::SaveFormat saveFormat, S
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>(saveFormat);
     saveOptions->set_ProgressCallback(System::MakeObject<Aspose::Words::ApiExamples::ExHtmlSaveOptions::SavingProgressCallback>());
     
-    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(static_cast<std::function<void()>>([&saveOptions, &doc, &ext]() -> void
+    System::OperationCanceledException exception; ASPOSE_ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&saveOptions, &doc, &ext]() -> void
     {
         doc->Save(get_ArtifactsDir() + System::String::Format(u"HtmlSaveOptions.ProgressCallback.{0}", ext), saveOptions);
-    })(), System::OperationCanceledException, &exception)
+    }))(), System::OperationCanceledException, &exception)
     
-    System::Nullable<bool> actual = System::Default<System::Nullable<bool>>();
-    System::OperationCanceledException condExpression = exception;
-    if (condExpression != nullptr)
-    {
-        actual = condExpression->get_Message().Contains(u"EstimatedProgress");
-    }
-    ASSERT_TRUE(actual);
+    ASSERT_TRUE(System::SafeInvoke(exception, [&](auto&& expr){return expr->get_Message().Contains(u"EstimatedProgress");}));
 }
 
 namespace gtest_test
@@ -2495,8 +2488,8 @@ void ExHtmlSaveOptions::MobiAzw3DefaultEncoding(Aspose::Words::SaveFormat saveFo
     doc->Save(outputFileName);
     
     System::SharedPtr<System::Text::Encoding> encoding = TestUtil::GetEncoding(outputFileName);
-    ASPOSE_ASSERT_NE(System::Text::Encoding::get_ASCII(), encoding);
-    ASPOSE_ASSERT_EQ(System::Text::Encoding::get_UTF8(), encoding);
+    ASPOSE_ASSERT_NE(encoding, System::Text::Encoding::get_ASCII());
+    ASPOSE_ASSERT_EQ(encoding, System::Text::Encoding::get_UTF8());
 }
 
 namespace gtest_test

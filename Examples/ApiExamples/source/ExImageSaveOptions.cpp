@@ -188,7 +188,7 @@ void ExImageSaveOptions::PageSet()
     builder->InsertBreak(BreakType::PageBreak);
     builder->Writeln(u"This is page 3.");
     
-    ASSERT_EQ(3, doc->get_PageCount());
+    ASSERT_EQ(doc->get_PageCount(), 3);
     
     // When we save the document as an image, Aspose.Words only renders the first page by default.
     // We can pass a SaveOptions object to specify a different page to render.
@@ -315,7 +315,7 @@ void ExImageSaveOptions::PageByPage()
     {
         return item.Contains(u"ImageSaveOptions.PageByPage.") && item.EndsWith(u".tiff");
     })))->LINQ_ToList();
-    ASSERT_EQ(3, imageFileNames->get_Count());
+    ASSERT_EQ(imageFileNames->get_Count(), 3);
 }
 
 namespace gtest_test
@@ -404,7 +404,7 @@ void ExImageSaveOptions::FloydSteinbergDithering()
     {
         return item.Contains(u"ImageSaveOptions.FloydSteinbergDithering.") && item.EndsWith(u".tiff");
     })))->LINQ_ToList();
-    ASSERT_EQ(1, imageFileNames->get_Count());
+    ASSERT_EQ(imageFileNames->get_Count(), 1);
 }
 
 namespace gtest_test

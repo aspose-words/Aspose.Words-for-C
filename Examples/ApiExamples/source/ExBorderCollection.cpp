@@ -90,9 +90,9 @@ void ExBorderCollection::GetBordersEnumerator()
     
     for (auto&& border : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
     {
-        ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), border->get_Color().ToArgb());
-        ASSERT_EQ(LineStyle::Wave, border->get_LineStyle());
-        ASPOSE_ASSERT_EQ(3.0, border->get_LineWidth());
+        ASSERT_EQ(border->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+        ASSERT_EQ(border->get_LineStyle(), LineStyle::Wave);
+        ASPOSE_ASSERT_EQ(border->get_LineWidth(), 3.0);
     }
 }
 
@@ -116,9 +116,9 @@ void ExBorderCollection::RemoveAllBorders()
     // The first paragraph of this document has visible borders with these settings.
     System::SharedPtr<Aspose::Words::BorderCollection> firstParagraphBorders = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders();
     
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), firstParagraphBorders->get_Color().ToArgb());
-    ASSERT_EQ(LineStyle::Single, firstParagraphBorders->get_LineStyle());
-    ASPOSE_ASSERT_EQ(3.0, firstParagraphBorders->get_LineWidth());
+    ASSERT_EQ(firstParagraphBorders->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
+    ASSERT_EQ(firstParagraphBorders->get_LineStyle(), LineStyle::Single);
+    ASPOSE_ASSERT_EQ(firstParagraphBorders->get_LineWidth(), 3.0);
     
     // Use the "ClearFormatting" method on each paragraph to remove all borders.
     for (auto&& paragraph : System::IterateOver<Aspose::Words::Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
@@ -127,9 +127,9 @@ void ExBorderCollection::RemoveAllBorders()
         
         for (auto&& border : System::IterateOver(paragraph->get_ParagraphFormat()->get_Borders()))
         {
-            ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), border->get_Color().ToArgb());
-            ASSERT_EQ(LineStyle::None, border->get_LineStyle());
-            ASPOSE_ASSERT_EQ(0.0, border->get_LineWidth());
+            ASSERT_EQ(border->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+            ASSERT_EQ(border->get_LineStyle(), LineStyle::None);
+            ASPOSE_ASSERT_EQ(border->get_LineWidth(), 0.0);
         }
     }
     
@@ -140,9 +140,9 @@ void ExBorderCollection::RemoveAllBorders()
     
     for (auto&& border : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
     {
-        ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), border->get_Color().ToArgb());
-        ASSERT_EQ(LineStyle::None, border->get_LineStyle());
-        ASPOSE_ASSERT_EQ(0.0, border->get_LineWidth());
+        ASSERT_EQ(border->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+        ASSERT_EQ(border->get_LineStyle(), LineStyle::None);
+        ASPOSE_ASSERT_EQ(border->get_LineWidth(), 0.0);
     }
 }
 

@@ -147,12 +147,12 @@ void ExTable::TestCreateNestedTable(System::SharedPtr<Aspose::Words::Document> d
     System::SharedPtr<Aspose::Words::Tables::Table> outerTable = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     auto innerTable = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true));
     
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Table, true)->get_Count());
-    ASSERT_EQ(1, outerTable->get_FirstRow()->get_FirstCell()->get_Tables()->get_Count());
-    ASSERT_EQ(16, outerTable->GetChildNodes(NodeType::Cell, true)->get_Count());
-    ASSERT_EQ(4, innerTable->GetChildNodes(NodeType::Cell, true)->get_Count());
-    ASSERT_EQ(u"Aspose table title", innerTable->get_Title());
-    ASSERT_EQ(u"Aspose table description", innerTable->get_Description());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 2);
+    ASSERT_EQ(outerTable->get_FirstRow()->get_FirstCell()->get_Tables()->get_Count(), 1);
+    ASSERT_EQ(outerTable->GetChildNodes(NodeType::Cell, true)->get_Count(), 16);
+    ASSERT_EQ(innerTable->GetChildNodes(NodeType::Cell, true)->get_Count(), 4);
+    ASSERT_EQ(innerTable->get_Title(), u"Aspose table title");
+    ASSERT_EQ(innerTable->get_Description(), u"Aspose table description");
 }
 
 System::String ExTable::PrintCellMergeType(System::SharedPtr<Aspose::Words::Tables::Cell> cell)
@@ -407,9 +407,9 @@ void ExTable::CreateTable()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CreateTable.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(1, table->get_Rows()->get_Count());
-    ASSERT_EQ(1, table->get_FirstRow()->get_Cells()->get_Count());
-    ASSERT_EQ(u"Hello world!\a\a", table->GetText().Trim());
+    ASSERT_EQ(table->get_Rows()->get_Count(), 1);
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->get_Count(), 1);
+    ASSERT_EQ(table->GetText().Trim(), u"Hello world!\a\a");
 }
 
 namespace gtest_test
@@ -454,10 +454,10 @@ void ExTable::Padding()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.SetRowFormatting.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASPOSE_ASSERT_EQ(30.0, table->get_LeftPadding());
-    ASPOSE_ASSERT_EQ(60.0, table->get_RightPadding());
-    ASPOSE_ASSERT_EQ(10.0, table->get_TopPadding());
-    ASPOSE_ASSERT_EQ(90.0, table->get_BottomPadding());
+    ASPOSE_ASSERT_EQ(table->get_LeftPadding(), 30.0);
+    ASPOSE_ASSERT_EQ(table->get_RightPadding(), 60.0);
+    ASPOSE_ASSERT_EQ(table->get_TopPadding(), 10.0);
+    ASPOSE_ASSERT_EQ(table->get_BottomPadding(), 90.0);
 }
 
 namespace gtest_test
@@ -511,17 +511,17 @@ void ExTable::RowCellFormat()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.RowCellFormat.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(u"City\aCountry\a\aLondon\aU.K.\a\a", table->GetText().Trim());
+    ASSERT_EQ(table->GetText().Trim(), u"City\aCountry\a\aLondon\aU.K.\a\a");
     
     rowFormat = table->get_FirstRow()->get_RowFormat();
     
-    ASPOSE_ASSERT_EQ(25.0, rowFormat->get_Height());
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), rowFormat->get_Borders()->idx_get(BorderType::Bottom)->get_Color().ToArgb());
+    ASPOSE_ASSERT_EQ(rowFormat->get_Height(), 25.0);
+    ASSERT_EQ(rowFormat->get_Borders()->idx_get(BorderType::Bottom)->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
     
     cellFormat = table->get_LastRow()->get_FirstCell()->get_CellFormat();
     
-    ASPOSE_ASSERT_EQ(110.8, cellFormat->get_Width());
-    ASSERT_EQ(System::Drawing::Color::get_Orange().ToArgb(), cellFormat->get_Shading()->get_BackgroundPatternColor().ToArgb());
+    ASPOSE_ASSERT_EQ(cellFormat->get_Width(), 110.8);
+    ASSERT_EQ(cellFormat->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_Orange().ToArgb());
 }
 
 namespace gtest_test
@@ -554,7 +554,7 @@ void ExTable::DisplayContentOfTables()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     System::SharedPtr<Aspose::Words::Tables::TableCollection> tables = doc->get_FirstSection()->get_Body()->get_Tables();
     
-    ASSERT_EQ(2, tables->ToArray()->get_Length());
+    ASSERT_EQ(tables->ToArray()->get_Length(), 2);
     
     for (int32_t i = 0; i < tables->get_Count(); i++)
     {
@@ -563,8 +563,8 @@ void ExTable::DisplayContentOfTables()
         System::SharedPtr<Aspose::Words::Tables::RowCollection> rows = tables->idx_get(i)->get_Rows();
         
         // We can use the "ToArray" method on a row collection to clone it into an array.
-        ASPOSE_ASSERT_EQ(rows, rows->ToArray());
-        ASPOSE_ASSERT_NS(rows, rows->ToArray());
+        ASPOSE_ASSERT_EQ(rows->ToArray(), rows);
+        ASSERT_FALSE(System::Object::ReferenceEquals(rows->ToArray(), rows));
         
         for (int32_t j = 0; j < rows->get_Count(); j++)
         {
@@ -573,8 +573,8 @@ void ExTable::DisplayContentOfTables()
             System::SharedPtr<Aspose::Words::Tables::CellCollection> cells = rows->idx_get(j)->get_Cells();
             
             // We can use the "ToArray" method on a cell collection to clone it into an array.
-            ASPOSE_ASSERT_EQ(cells, cells->ToArray());
-            ASPOSE_ASSERT_NS(cells, cells->ToArray());
+            ASPOSE_ASSERT_EQ(cells->ToArray(), cells);
+            ASSERT_FALSE(System::Object::ReferenceEquals(cells->ToArray(), cells));
             
             for (int32_t k = 0; k < cells->get_Count(); k++)
             {
@@ -612,7 +612,7 @@ void ExTable::EnsureTableMinimum()
     // Tables contain rows, which contain cells, which may contain paragraphs
     // with typical elements such as runs, shapes, and even other tables.
     // Our new table has none of these nodes, and we cannot add contents to it until it does.
-    ASSERT_EQ(0, table->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(table->GetChildNodes(NodeType::Any, true)->get_Count(), 0);
     
     // Calling the "EnsureMinimum" method on a table will ensure that
     // the table has at least one row and one cell with an empty paragraph.
@@ -620,7 +620,7 @@ void ExTable::EnsureTableMinimum()
     table->get_FirstRow()->get_FirstCell()->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     //ExEnd
     
-    ASSERT_EQ(4, table->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(table->GetChildNodes(NodeType::Any, true)->get_Count(), 4);
 }
 
 namespace gtest_test
@@ -646,7 +646,7 @@ void ExTable::EnsureRowMinimum()
     
     // Rows contain cells, containing paragraphs with typical elements such as runs, shapes, and even other tables.
     // Our new row has none of these nodes, and we cannot add contents to it until it does.
-    ASSERT_EQ(0, row->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(row->GetChildNodes(NodeType::Any, true)->get_Count(), 0);
     
     // Calling the "EnsureMinimum" method on a table will ensure that
     // the table has at least one cell with an empty paragraph.
@@ -654,7 +654,7 @@ void ExTable::EnsureRowMinimum()
     row->get_FirstCell()->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     //ExEnd
     
-    ASSERT_EQ(3, row->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(row->GetChildNodes(NodeType::Any, true)->get_Count(), 3);
 }
 
 namespace gtest_test
@@ -682,7 +682,7 @@ void ExTable::EnsureCellMinimum()
     
     // Cells may contain paragraphs with typical elements such as runs, shapes, and even other tables.
     // Our new cell does not have any paragraphs, and we cannot add contents such as run and shape nodes to it until it does.
-    ASSERT_EQ(0, cell->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(cell->GetChildNodes(NodeType::Any, true)->get_Count(), 0);
     
     // Calling the "EnsureMinimum" method on a cell will ensure that
     // the cell has at least one empty paragraph, which we can then add contents to.
@@ -690,7 +690,7 @@ void ExTable::EnsureCellMinimum()
     cell->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     //ExEnd
     
-    ASSERT_EQ(2, cell->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(cell->GetChildNodes(NodeType::Any, true)->get_Count(), 2);
 }
 
 namespace gtest_test
@@ -739,17 +739,17 @@ void ExTable::SetOutlineBorders()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.SetOutlineBorders.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(TableAlignment::Center, table->get_Alignment());
+    ASSERT_EQ(table->get_Alignment(), TableAlignment::Center);
     
     System::SharedPtr<Aspose::Words::BorderCollection> borders = table->get_FirstRow()->get_RowFormat()->get_Borders();
     
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), borders->get_Top()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), borders->get_Left()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), borders->get_Right()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), borders->get_Bottom()->get_Color().ToArgb());
-    ASSERT_NE(System::Drawing::Color::get_Green().ToArgb(), borders->get_Horizontal()->get_Color().ToArgb());
-    ASSERT_NE(System::Drawing::Color::get_Green().ToArgb(), borders->get_Vertical()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_LightGreen().ToArgb(), table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_ForegroundPatternColor().ToArgb());
+    ASSERT_EQ(borders->get_Top()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_EQ(borders->get_Left()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_EQ(borders->get_Right()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_EQ(borders->get_Bottom()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_NE(borders->get_Horizontal()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_NE(borders->get_Vertical()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_EQ(table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_ForegroundPatternColor().ToArgb(), System::Drawing::Color::get_LightGreen().ToArgb());
 }
 
 namespace gtest_test
@@ -782,12 +782,12 @@ void ExTable::SetBorders()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.SetBorders.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Top()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Left()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Right()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Bottom()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Horizontal()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Vertical()->get_Color().ToArgb());
+    ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Top()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Left()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Right()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Bottom()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Horizontal()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_Borders()->get_Vertical()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
 }
 
 namespace gtest_test
@@ -821,8 +821,8 @@ void ExTable::RowFormat()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.RowFormat.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(LineStyle::None, table->get_FirstRow()->get_RowFormat()->get_Borders()->get_LineStyle());
-    ASSERT_EQ(HeightRule::Auto, table->get_FirstRow()->get_RowFormat()->get_HeightRule());
+    ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_Borders()->get_LineStyle(), LineStyle::None);
+    ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_HeightRule(), HeightRule::Auto);
     ASSERT_TRUE(table->get_FirstRow()->get_RowFormat()->get_AllowBreakAcrossPages());
 }
 
@@ -857,9 +857,9 @@ void ExTable::CellFormat()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CellFormat.docx"));
     
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-    ASPOSE_ASSERT_EQ(30, table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Width());
-    ASSERT_EQ(TextOrientation::Downward, table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Orientation());
-    ASSERT_EQ(System::Drawing::Color::get_LightGreen().ToArgb(), table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_ForegroundPatternColor().ToArgb());
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Width(), 30);
+    ASSERT_EQ(table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Orientation(), TextOrientation::Downward);
+    ASSERT_EQ(table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_ForegroundPatternColor().ToArgb(), System::Drawing::Color::get_LightGreen().ToArgb());
 }
 
 namespace gtest_test
@@ -883,10 +883,10 @@ void ExTable::DistanceBetweenTableAndText()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Table wrapped by text.docx"));
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
-    ASPOSE_ASSERT_EQ(25.9, table->get_DistanceTop());
-    ASPOSE_ASSERT_EQ(25.9, table->get_DistanceBottom());
-    ASPOSE_ASSERT_EQ(17.3, table->get_DistanceLeft());
-    ASPOSE_ASSERT_EQ(17.3, table->get_DistanceRight());
+    ASPOSE_ASSERT_EQ(table->get_DistanceTop(), 25.9);
+    ASPOSE_ASSERT_EQ(table->get_DistanceBottom(), 25.9);
+    ASPOSE_ASSERT_EQ(table->get_DistanceLeft(), 17.3);
+    ASPOSE_ASSERT_EQ(table->get_DistanceRight(), 17.3);
     
     // Set distance between table and surrounding text.
     table->set_DistanceLeft(24);
@@ -925,9 +925,9 @@ void ExTable::Borders()
     System::SharedPtr<Aspose::Words::Border> topBorder = table->get_FirstRow()->get_RowFormat()->get_Borders()->idx_get(BorderType::Top);
     table->SetBorder(BorderType::Top, LineStyle::Double, 1.5, System::Drawing::Color::get_Red(), true);
     
-    ASPOSE_ASSERT_EQ(1.5, topBorder->get_LineWidth());
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), topBorder->get_Color().ToArgb());
-    ASSERT_EQ(LineStyle::Double, topBorder->get_LineStyle());
+    ASPOSE_ASSERT_EQ(topBorder->get_LineWidth(), 1.5);
+    ASSERT_EQ(topBorder->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
+    ASSERT_EQ(topBorder->get_LineStyle(), LineStyle::Double);
     
     // Clear the borders of all cells in the table, and then save the document.
     table->ClearBorders();
@@ -938,9 +938,9 @@ void ExTable::Borders()
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     topBorder = table->get_FirstRow()->get_RowFormat()->get_Borders()->idx_get(BorderType::Top);
     
-    ASPOSE_ASSERT_EQ(0.0, topBorder->get_LineWidth());
-    ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), topBorder->get_Color().ToArgb());
-    ASSERT_EQ(LineStyle::None, topBorder->get_LineStyle());
+    ASPOSE_ASSERT_EQ(topBorder->get_LineWidth(), 0.0);
+    ASSERT_EQ(topBorder->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+    ASSERT_EQ(topBorder->get_LineStyle(), LineStyle::None);
     //ExEnd
 }
 
@@ -984,7 +984,7 @@ void ExTable::ReplaceCellText()
     // Perform a find-and-replace operation on the last cell of the last row of the table.
     table->get_LastRow()->get_LastCell()->get_Range()->Replace(u"50", u"20", options);
     
-    ASSERT_EQ(System::String(u"Eggs\a50\a\a") + u"Potatoes\a20\a\a", table->GetText().Trim());
+    ASSERT_EQ(table->GetText().Trim(), System::String(u"Eggs\a50\a\a") + u"Potatoes\a20\a\a");
     //ExEnd
 }
 
@@ -1028,7 +1028,7 @@ void ExTable::RemoveParagraphTextAndMark(bool isSmartParagraphBreakReplacement)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.RemoveParagraphTextAndMark.docx"));
     
-    ASSERT_EQ(isSmartParagraphBreakReplacement ? 1 : 2, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_Paragraphs()->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_Paragraphs()->get_Count(), isSmartParagraphBreakReplacement ? 1 : 2);
 }
 
 namespace gtest_test
@@ -1079,8 +1079,8 @@ void ExTable::PrintTableRange()
     std::cout << "\nContents of the cell: " << std::endl;
     std::cout << table->get_LastRow()->get_LastCell()->get_Range()->get_Text() << std::endl;
     
-    ASSERT_EQ(u"\aColumn 1\aColumn 2\aColumn 3\aColumn 4\a\a", table->get_Rows()->idx_get(1)->get_Range()->get_Text());
-    ASSERT_EQ(u"Cell 12 contents\a", table->get_LastRow()->get_LastCell()->get_Range()->get_Text());
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Range()->get_Text(), u"\aColumn 1\aColumn 2\aColumn 3\aColumn 4\a\a");
+    ASSERT_EQ(table->get_LastRow()->get_LastCell()->get_Range()->get_Text(), u"Cell 12 contents\a");
 }
 
 namespace gtest_test
@@ -1109,15 +1109,15 @@ void ExTable::CloneTable()
     
     doc->Save(get_ArtifactsDir() + u"Table.CloneTable.doc");
     
-    ASSERT_EQ(3, doc->GetChildNodes(NodeType::Table, true)->get_Count());
-    ASSERT_EQ(table->get_Range()->get_Text(), tableClone->get_Range()->get_Text());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 3);
+    ASSERT_EQ(tableClone->get_Range()->get_Text(), table->get_Range()->get_Text());
     
     for (auto&& cell : System::IterateOver<Aspose::Words::Tables::Cell>(tableClone->GetChildNodes(NodeType::Cell, true)))
     {
         cell->RemoveAllChildren();
     }
     
-    ASSERT_EQ(System::String::Empty, tableClone->ToString(SaveFormat::Text).Trim());
+    ASSERT_EQ(tableClone->ToString(SaveFormat::Text).Trim(), System::String::Empty);
 }
 
 namespace gtest_test
@@ -1153,10 +1153,10 @@ void ExTable::AllowBreakAcrossPages(bool allowBreakAcrossPages)
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.AllowBreakAcrossPages.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(3, table->get_Rows()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> r)>>([&allowBreakAcrossPages](System::SharedPtr<Aspose::Words::Node> r) -> bool
+    ASSERT_EQ(table->get_Rows()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> r)>>([&allowBreakAcrossPages](System::SharedPtr<Aspose::Words::Node> r) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Tables::Row>(r))->get_RowFormat()->get_AllowBreakAcrossPages() == allowBreakAcrossPages;
-    }))));
+    }))), 3);
 }
 
 namespace gtest_test
@@ -1320,15 +1320,15 @@ void ExTable::GetIndexOfTableElements()
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::NodeCollection> allTables = doc->GetChildNodes(NodeType::Table, true);
     
-    ASSERT_EQ(0, allTables->IndexOf(table));
+    ASSERT_EQ(allTables->IndexOf(table), 0);
     
     System::SharedPtr<Aspose::Words::Tables::Row> row = table->get_Rows()->idx_get(2);
     
-    ASSERT_EQ(2, table->IndexOf(row));
+    ASSERT_EQ(table->IndexOf(row), 2);
     
     System::SharedPtr<Aspose::Words::Tables::Cell> cell = row->get_LastCell();
     
-    ASSERT_EQ(4, row->IndexOf(cell));
+    ASSERT_EQ(row->IndexOf(cell), 4);
     //ExEnd
 }
 
@@ -1354,8 +1354,8 @@ void ExTable::GetPreferredWidthTypeAndValue()
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::Tables::Cell> firstCell = table->get_FirstRow()->get_FirstCell();
     
-    ASSERT_EQ(PreferredWidthType::Percent, firstCell->get_CellFormat()->get_PreferredWidth()->get_Type());
-    ASPOSE_ASSERT_EQ(11.16, firstCell->get_CellFormat()->get_PreferredWidth()->get_Value());
+    ASSERT_EQ(firstCell->get_CellFormat()->get_PreferredWidth()->get_Type(), PreferredWidthType::Percent);
+    ASPOSE_ASSERT_EQ(firstCell->get_CellFormat()->get_PreferredWidth()->get_Value(), 11.16);
     //ExEnd
 }
 
@@ -1409,15 +1409,15 @@ void ExTable::AllowCellSpacing(bool allowCellSpacing)
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.AllowCellSpacing.html"));
     table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 0, true));
     
-    ASPOSE_ASSERT_EQ(allowCellSpacing, table->get_AllowCellSpacing());
+    ASPOSE_ASSERT_EQ(table->get_AllowCellSpacing(), allowCellSpacing);
     
     if (allowCellSpacing)
     {
-        ASPOSE_ASSERT_EQ(3.0, table->get_CellSpacing());
+        ASPOSE_ASSERT_EQ(table->get_CellSpacing(), 3.0);
     }
     else
     {
-        ASPOSE_ASSERT_EQ(0.0, table->get_CellSpacing());
+        ASPOSE_ASSERT_EQ(table->get_CellSpacing(), 0.0);
     }
     
     TestUtil::FileContainsString(allowCellSpacing ? System::String(u"<td style=\"border-style:solid; border-width:0.75pt; padding-right:5.4pt; padding-left:5.4pt; vertical-align:top; -aw-border:0.5pt single #000000\">") : System::String(u"<td style=\"border-right-style:solid; border-right-width:0.75pt; border-bottom-style:solid; border-bottom-width:0.75pt; ") + u"padding-right:5.03pt; padding-left:5.03pt; vertical-align:top; -aw-border-bottom:0.5pt single #000000; -aw-border-right:0.5pt single #000000\">", get_ArtifactsDir() + u"Table.AllowCellSpacing.html");
@@ -1489,7 +1489,7 @@ void ExTable::CheckCellsMerged()
             std::cout << PrintCellMergeType(cell) << std::endl;
         }
     }
-    ASSERT_EQ((u"The cell at R1, C1 is vertically merged"), PrintCellMergeType(table->get_FirstRow()->get_FirstCell()));
+    ASSERT_EQ(PrintCellMergeType(table->get_FirstRow()->get_FirstCell()), (u"The cell at R1, C1 is vertically merged"));
     //ExSkip
 }
 
@@ -1528,7 +1528,7 @@ void ExTable::MergeCellRange()
         }
     }
     
-    ASSERT_EQ(4, mergedCellsCount);
+    ASSERT_EQ(mergedCellsCount, 4);
     ASSERT_TRUE(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->get_CellFormat()->get_HorizontalMerge() == CellMerge::First);
     ASSERT_TRUE(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(2)->get_CellFormat()->get_VerticalMerge() == CellMerge::First);
     ASSERT_TRUE(table->get_Rows()->idx_get(3)->get_Cells()->idx_get(3)->get_CellFormat()->get_HorizontalMerge() == CellMerge::Previous);
@@ -1578,9 +1578,9 @@ void ExTable::CombineTables()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.CombineTables.docx"));
     
-    ASSERT_EQ(1, doc->GetChildNodes(NodeType::Table, true)->get_Count());
-    ASSERT_EQ(9, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Rows()->get_Count());
-    ASSERT_EQ(42, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->GetChildNodes(NodeType::Cell, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 1);
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Rows()->get_Count(), 9);
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->GetChildNodes(NodeType::Cell, true)->get_Count(), 42);
 }
 
 namespace gtest_test
@@ -1621,10 +1621,10 @@ void ExTable::SplitTable()
     
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASPOSE_ASSERT_EQ(row, table->get_FirstRow());
-    ASSERT_EQ(2, firstTable->get_Rows()->get_Count());
-    ASSERT_EQ(3, table->get_Rows()->get_Count());
-    ASSERT_EQ(3, doc->GetChildNodes(NodeType::Table, true)->get_Count());
+    ASPOSE_ASSERT_EQ(table->get_FirstRow(), row);
+    ASSERT_EQ(firstTable->get_Rows()->get_Count(), 2);
+    ASSERT_EQ(table->get_Rows()->get_Count(), 3);
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 3);
 }
 
 namespace gtest_test
@@ -1669,9 +1669,9 @@ void ExTable::WrapText()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.WrapText.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(TextWrapping::Around, table->get_TextWrapping());
-    ASPOSE_ASSERT_EQ(100.0, table->get_AbsoluteHorizontalDistance());
-    ASPOSE_ASSERT_EQ(20.0, table->get_AbsoluteVerticalDistance());
+    ASSERT_EQ(table->get_TextWrapping(), TextWrapping::Around);
+    ASPOSE_ASSERT_EQ(table->get_AbsoluteHorizontalDistance(), 100.0);
+    ASPOSE_ASSERT_EQ(table->get_AbsoluteVerticalDistance(), 20.0);
 }
 
 namespace gtest_test
@@ -1698,9 +1698,9 @@ void ExTable::GetFloatingTableProperties()
     
     if (table->get_TextWrapping() == TextWrapping::Around)
     {
-        ASSERT_EQ(RelativeHorizontalPosition::Margin, table->get_HorizontalAnchor());
-        ASSERT_EQ(RelativeVerticalPosition::Paragraph, table->get_VerticalAnchor());
-        ASPOSE_ASSERT_EQ(false, table->get_AllowOverlap());
+        ASSERT_EQ(table->get_HorizontalAnchor(), RelativeHorizontalPosition::Margin);
+        ASSERT_EQ(table->get_VerticalAnchor(), RelativeVerticalPosition::Paragraph);
+        ASPOSE_ASSERT_EQ(table->get_AllowOverlap(), false);
         
         // Only Margin, Page, Column available in RelativeHorizontalPosition for HorizontalAnchor setter.
         // The ArgumentException will be thrown for any other values.
@@ -1760,13 +1760,13 @@ void ExTable::ChangeFloatingTableProperties()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.ChangeFloatingTableProperties.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(VerticalAlignment::Bottom, table->get_RelativeVerticalAlignment());
-    ASSERT_EQ(HorizontalAlignment::Right, table->get_RelativeHorizontalAlignment());
+    ASSERT_EQ(table->get_RelativeVerticalAlignment(), VerticalAlignment::Bottom);
+    ASSERT_EQ(table->get_RelativeHorizontalAlignment(), HorizontalAlignment::Right);
     
     table = System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true));
     
-    ASPOSE_ASSERT_EQ(50.0, table->get_AbsoluteVerticalDistance());
-    ASPOSE_ASSERT_EQ(100.0, table->get_AbsoluteHorizontalDistance());
+    ASPOSE_ASSERT_EQ(table->get_AbsoluteVerticalDistance(), 50.0);
+    ASPOSE_ASSERT_EQ(table->get_AbsoluteHorizontalDistance(), 100.0);
 }
 
 namespace gtest_test
@@ -1826,8 +1826,8 @@ void ExTable::TableStyleCreation()
     
     // Setting the style properties of a table may affect the properties of the table itself.
     ASSERT_FALSE(table->get_Bidi());
-    ASPOSE_ASSERT_EQ(5.0, table->get_CellSpacing());
-    ASSERT_EQ(u"MyTableStyle1", table->get_StyleName());
+    ASPOSE_ASSERT_EQ(table->get_CellSpacing(), 5.0);
+    ASSERT_EQ(table->get_StyleName(), u"MyTableStyle1");
     
     doc->Save(get_ArtifactsDir() + u"Table.TableStyleCreation.docx");
     //ExEnd
@@ -1836,30 +1836,30 @@ void ExTable::TableStyleCreation()
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
     ASSERT_FALSE(table->get_Bidi());
-    ASPOSE_ASSERT_EQ(5.0, table->get_CellSpacing());
-    ASSERT_EQ(u"MyTableStyle1", table->get_StyleName());
-    ASPOSE_ASSERT_EQ(20.0, tableStyle->get_BottomPadding());
-    ASPOSE_ASSERT_EQ(5.0, tableStyle->get_LeftPadding());
-    ASPOSE_ASSERT_EQ(10.0, tableStyle->get_RightPadding());
-    ASPOSE_ASSERT_EQ(20.0, tableStyle->get_TopPadding());
-    ASSERT_EQ(6, table->get_FirstRow()->get_RowFormat()->get_Borders()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Border>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Border> b)>>([](System::SharedPtr<Aspose::Words::Border> b) -> bool
+    ASPOSE_ASSERT_EQ(table->get_CellSpacing(), 5.0);
+    ASSERT_EQ(table->get_StyleName(), u"MyTableStyle1");
+    ASPOSE_ASSERT_EQ(tableStyle->get_BottomPadding(), 20.0);
+    ASPOSE_ASSERT_EQ(tableStyle->get_LeftPadding(), 5.0);
+    ASPOSE_ASSERT_EQ(tableStyle->get_RightPadding(), 10.0);
+    ASPOSE_ASSERT_EQ(tableStyle->get_TopPadding(), 20.0);
+    ASSERT_EQ(table->get_FirstRow()->get_RowFormat()->get_Borders()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Border>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Border> b)>>([](System::SharedPtr<Aspose::Words::Border> b) -> bool
     {
         return b->get_Color().ToArgb() == System::Drawing::Color::get_Blue().ToArgb();
-    }))));
-    ASSERT_EQ(CellVerticalAlignment::Center, tableStyle->get_VerticalAlignment());
+    }))), 6);
+    ASSERT_EQ(tableStyle->get_VerticalAlignment(), CellVerticalAlignment::Center);
     
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
     
     ASSERT_TRUE(tableStyle->get_AllowBreakAcrossPages());
-    ASPOSE_ASSERT_EQ(5.0, tableStyle->get_CellSpacing());
-    ASPOSE_ASSERT_EQ(20.0, tableStyle->get_BottomPadding());
-    ASPOSE_ASSERT_EQ(5.0, tableStyle->get_LeftPadding());
-    ASPOSE_ASSERT_EQ(10.0, tableStyle->get_RightPadding());
-    ASPOSE_ASSERT_EQ(20.0, tableStyle->get_TopPadding());
-    ASSERT_EQ(System::Drawing::Color::get_AntiqueWhite().ToArgb(), tableStyle->get_Shading()->get_BackgroundPatternColor().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), tableStyle->get_Borders()->get_Color().ToArgb());
-    ASSERT_EQ(LineStyle::DotDash, tableStyle->get_Borders()->get_LineStyle());
-    ASSERT_EQ(CellVerticalAlignment::Center, tableStyle->get_VerticalAlignment());
+    ASPOSE_ASSERT_EQ(tableStyle->get_CellSpacing(), 5.0);
+    ASPOSE_ASSERT_EQ(tableStyle->get_BottomPadding(), 20.0);
+    ASPOSE_ASSERT_EQ(tableStyle->get_LeftPadding(), 5.0);
+    ASPOSE_ASSERT_EQ(tableStyle->get_RightPadding(), 10.0);
+    ASPOSE_ASSERT_EQ(tableStyle->get_TopPadding(), 20.0);
+    ASSERT_EQ(tableStyle->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_AntiqueWhite().ToArgb());
+    ASSERT_EQ(tableStyle->get_Borders()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASSERT_EQ(tableStyle->get_Borders()->get_LineStyle(), LineStyle::DotDash);
+    ASSERT_EQ(tableStyle->get_VerticalAlignment(), CellVerticalAlignment::Center);
 }
 
 namespace gtest_test
@@ -1918,13 +1918,13 @@ void ExTable::SetTableAlignment()
     
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
     
-    ASSERT_EQ(TableAlignment::Center, tableStyle->get_Alignment());
-    ASPOSE_ASSERT_EQ(tableStyle, doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Style());
+    ASSERT_EQ(tableStyle->get_Alignment(), TableAlignment::Center);
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->get_Style(), System::ExplicitCast<Aspose::Words::Style>(tableStyle));
     
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle2"));
     
-    ASPOSE_ASSERT_EQ(55.0, tableStyle->get_LeftIndent());
-    ASPOSE_ASSERT_EQ(tableStyle, (System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true)))->get_Style());
+    ASPOSE_ASSERT_EQ(tableStyle->get_LeftIndent(), 55.0);
+    ASPOSE_ASSERT_EQ((System::ExplicitCast<Aspose::Words::Tables::Table>(doc->GetChild(NodeType::Table, 1, true)))->get_Style(), System::ExplicitCast<Aspose::Words::Style>(tableStyle));
 }
 
 namespace gtest_test
@@ -1997,7 +1997,7 @@ void ExTable::ConditionalStyles()
     // 2 -  By index:
     tableStyle->get_ConditionalStyles()->idx_get(0)->get_Borders()->set_Color(System::Drawing::Color::get_Black());
     tableStyle->get_ConditionalStyles()->idx_get(0)->get_Borders()->set_LineStyle(LineStyle::DotDash);
-    ASSERT_EQ(ConditionalStyleType::FirstRow, tableStyle->get_ConditionalStyles()->idx_get(0)->get_Type());
+    ASSERT_EQ(tableStyle->get_ConditionalStyles()->idx_get(0)->get_Type(), ConditionalStyleType::FirstRow);
     
     // 3 -  As a property:
     tableStyle->get_ConditionalStyles()->get_FirstRow()->get_ParagraphFormat()->set_Alignment(ParagraphAlignment::Center);
@@ -2026,7 +2026,7 @@ void ExTable::ConditionalStyles()
     table->set_Style(tableStyle);
     
     // Our style applies some conditional styles by default.
-    ASSERT_EQ(TableStyleOptions::FirstRow | TableStyleOptions::FirstColumn | TableStyleOptions::RowBands, table->get_StyleOptions());
+    ASSERT_EQ(table->get_StyleOptions(), TableStyleOptions::FirstRow | TableStyleOptions::FirstColumn | TableStyleOptions::RowBands);
     
     // We will need to enable all other styles ourselves via the "StyleOptions" property.
     table->set_StyleOptions(table->get_StyleOptions() | TableStyleOptions::LastRow | TableStyleOptions::LastColumn);
@@ -2037,22 +2037,22 @@ void ExTable::ConditionalStyles()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Table.ConditionalStyles.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(TableStyleOptions::Default | TableStyleOptions::LastRow | TableStyleOptions::LastColumn, table->get_StyleOptions());
+    ASSERT_EQ(table->get_StyleOptions(), TableStyleOptions::Default | TableStyleOptions::LastRow | TableStyleOptions::LastColumn);
     System::SharedPtr<Aspose::Words::ConditionalStyleCollection> conditionalStyles = (System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1")))->get_ConditionalStyles();
     
-    ASSERT_EQ(ConditionalStyleType::FirstRow, conditionalStyles->idx_get(0)->get_Type());
-    ASSERT_EQ(System::Drawing::Color::get_AliceBlue().ToArgb(), conditionalStyles->idx_get(0)->get_Shading()->get_BackgroundPatternColor().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Black().ToArgb(), conditionalStyles->idx_get(0)->get_Borders()->get_Color().ToArgb());
-    ASSERT_EQ(LineStyle::DotDash, conditionalStyles->idx_get(0)->get_Borders()->get_LineStyle());
-    ASSERT_EQ(ParagraphAlignment::Center, conditionalStyles->idx_get(0)->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(conditionalStyles->idx_get(0)->get_Type(), ConditionalStyleType::FirstRow);
+    ASSERT_EQ(conditionalStyles->idx_get(0)->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_AliceBlue().ToArgb());
+    ASSERT_EQ(conditionalStyles->idx_get(0)->get_Borders()->get_Color().ToArgb(), System::Drawing::Color::get_Black().ToArgb());
+    ASSERT_EQ(conditionalStyles->idx_get(0)->get_Borders()->get_LineStyle(), LineStyle::DotDash);
+    ASSERT_EQ(conditionalStyles->idx_get(0)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
     
-    ASSERT_EQ(ConditionalStyleType::LastRow, conditionalStyles->idx_get(2)->get_Type());
-    ASPOSE_ASSERT_EQ(10.0, conditionalStyles->idx_get(2)->get_BottomPadding());
-    ASPOSE_ASSERT_EQ(10.0, conditionalStyles->idx_get(2)->get_LeftPadding());
-    ASPOSE_ASSERT_EQ(10.0, conditionalStyles->idx_get(2)->get_RightPadding());
-    ASPOSE_ASSERT_EQ(10.0, conditionalStyles->idx_get(2)->get_TopPadding());
+    ASSERT_EQ(conditionalStyles->idx_get(2)->get_Type(), ConditionalStyleType::LastRow);
+    ASPOSE_ASSERT_EQ(conditionalStyles->idx_get(2)->get_BottomPadding(), 10.0);
+    ASPOSE_ASSERT_EQ(conditionalStyles->idx_get(2)->get_LeftPadding(), 10.0);
+    ASPOSE_ASSERT_EQ(conditionalStyles->idx_get(2)->get_RightPadding(), 10.0);
+    ASPOSE_ASSERT_EQ(conditionalStyles->idx_get(2)->get_TopPadding(), 10.0);
     
-    ASSERT_EQ(ConditionalStyleType::LastColumn, conditionalStyles->idx_get(3)->get_Type());
+    ASSERT_EQ(conditionalStyles->idx_get(3)->get_Type(), ConditionalStyleType::LastColumn);
     ASSERT_TRUE(conditionalStyles->idx_get(3)->get_Font()->get_Bold());
 }
 
@@ -2096,7 +2096,7 @@ void ExTable::ClearTableStyleFormatting()
     // 1 -  Clear the conditional styles for a specific part of a table:
     tableStyle->get_ConditionalStyles()->idx_get(0)->ClearFormatting();
     
-    ASPOSE_ASSERT_EQ(System::Drawing::Color::Empty, tableStyle->get_ConditionalStyles()->get_FirstRow()->get_Borders()->get_Color());
+    ASPOSE_ASSERT_EQ(tableStyle->get_ConditionalStyles()->get_FirstRow()->get_Borders()->get_Color(), System::Drawing::Color::Empty);
     
     // 2 -  Clear the conditional styles for the entire table:
     tableStyle->get_ConditionalStyles()->ClearFormatting();
@@ -2162,7 +2162,7 @@ void ExTable::AlternatingRowStyles()
     table->set_Style(tableStyle);
     
     // The "StyleOptions" property enables row banding by default.
-    ASSERT_EQ(TableStyleOptions::FirstRow | TableStyleOptions::FirstColumn | TableStyleOptions::RowBands, table->get_StyleOptions());
+    ASSERT_EQ(table->get_StyleOptions(), TableStyleOptions::FirstRow | TableStyleOptions::FirstColumn | TableStyleOptions::RowBands);
     
     // Use the "StyleOptions" property also to enable column banding.
     table->set_StyleOptions(table->get_StyleOptions() | TableStyleOptions::ColumnBands);
@@ -2174,16 +2174,16 @@ void ExTable::AlternatingRowStyles()
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     tableStyle = System::ExplicitCast<Aspose::Words::TableStyle>(doc->get_Styles()->idx_get(u"MyTableStyle1"));
     
-    ASPOSE_ASSERT_EQ(tableStyle, table->get_Style());
-    ASSERT_EQ(table->get_StyleOptions() | TableStyleOptions::ColumnBands, table->get_StyleOptions());
+    ASPOSE_ASSERT_EQ(table->get_Style(), System::ExplicitCast<Aspose::Words::Style>(tableStyle));
+    ASSERT_EQ(table->get_StyleOptions(), table->get_StyleOptions() | TableStyleOptions::ColumnBands);
     
-    ASSERT_EQ(System::Drawing::Color::get_Black().ToArgb(), tableStyle->get_Borders()->get_Color().ToArgb());
-    ASSERT_EQ(LineStyle::Double, tableStyle->get_Borders()->get_LineStyle());
-    ASSERT_EQ(3, tableStyle->get_RowStripe());
-    ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::OddRowBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_LightCyan().ToArgb(), tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::EvenRowBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb());
-    ASSERT_EQ(1, tableStyle->get_ColumnStripe());
-    ASSERT_EQ(System::Drawing::Color::get_LightSalmon().ToArgb(), tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::EvenColumnBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb());
+    ASSERT_EQ(tableStyle->get_Borders()->get_Color().ToArgb(), System::Drawing::Color::get_Black().ToArgb());
+    ASSERT_EQ(tableStyle->get_Borders()->get_LineStyle(), LineStyle::Double);
+    ASSERT_EQ(tableStyle->get_RowStripe(), 3);
+    ASSERT_EQ(tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::OddRowBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_LightBlue().ToArgb());
+    ASSERT_EQ(tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::EvenRowBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_LightCyan().ToArgb());
+    ASSERT_EQ(tableStyle->get_ColumnStripe(), 1);
+    ASSERT_EQ(tableStyle->get_ConditionalStyles()->idx_get(ConditionalStyleType::EvenColumnBanding)->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_LightSalmon().ToArgb());
 }
 
 namespace gtest_test
@@ -2209,7 +2209,7 @@ void ExTable::ConvertToHorizontallyMergedCells()
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::Tables::Row> row = table->get_Rows()->idx_get(0);
     
-    ASSERT_EQ(5, row->get_Cells()->get_Count());
+    ASSERT_EQ(row->get_Cells()->get_Count(), 5);
     ASSERT_TRUE(row->get_Cells()->LINQ_All(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> c)>>([](System::SharedPtr<Aspose::Words::Node> c) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Tables::Cell>(c))->get_CellFormat()->get_HorizontalMerge() == CellMerge::None;
@@ -2221,15 +2221,15 @@ void ExTable::ConvertToHorizontallyMergedCells()
     table->ConvertToHorizontallyMergedCells();
     row = table->get_Rows()->idx_get(0);
     
-    ASSERT_EQ(7, row->get_Cells()->get_Count());
+    ASSERT_EQ(row->get_Cells()->get_Count(), 7);
     
-    ASSERT_EQ(CellMerge::None, row->get_Cells()->idx_get(0)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(CellMerge::First, row->get_Cells()->idx_get(1)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(CellMerge::Previous, row->get_Cells()->idx_get(2)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(CellMerge::None, row->get_Cells()->idx_get(3)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(CellMerge::First, row->get_Cells()->idx_get(4)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(CellMerge::Previous, row->get_Cells()->idx_get(5)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(CellMerge::None, row->get_Cells()->idx_get(6)->get_CellFormat()->get_HorizontalMerge());
+    ASSERT_EQ(row->get_Cells()->idx_get(0)->get_CellFormat()->get_HorizontalMerge(), CellMerge::None);
+    ASSERT_EQ(row->get_Cells()->idx_get(1)->get_CellFormat()->get_HorizontalMerge(), CellMerge::First);
+    ASSERT_EQ(row->get_Cells()->idx_get(2)->get_CellFormat()->get_HorizontalMerge(), CellMerge::Previous);
+    ASSERT_EQ(row->get_Cells()->idx_get(3)->get_CellFormat()->get_HorizontalMerge(), CellMerge::None);
+    ASSERT_EQ(row->get_Cells()->idx_get(4)->get_CellFormat()->get_HorizontalMerge(), CellMerge::First);
+    ASSERT_EQ(row->get_Cells()->idx_get(5)->get_CellFormat()->get_HorizontalMerge(), CellMerge::Previous);
+    ASSERT_EQ(row->get_Cells()->idx_get(6)->get_CellFormat()->get_HorizontalMerge(), CellMerge::None);
     //ExEnd
 }
 
@@ -2426,7 +2426,7 @@ void ExTable::AutofitToWindow()
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     table->AutoFit(AutoFitBehavior::AutoFitToWindow);
     
-    ASSERT_EQ(expectedPercents->get_Length(), table->get_FirstRow()->get_Cells()->get_Count());
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->get_Count(), expectedPercents->get_Length());
     
     for (auto&& row : System::IterateOver<Aspose::Words::Tables::Row>(table->get_Rows()))
     {
@@ -2436,7 +2436,7 @@ void ExTable::AutofitToWindow()
             double expectedPercent = expectedPercents[i];
             
             System::SharedPtr<Aspose::Words::Tables::PreferredWidth> cellPrefferedWidth = cell->get_CellFormat()->get_PreferredWidth();
-            ASPOSE_ASSERT_EQ(expectedPercent, cellPrefferedWidth->get_Value());
+            ASPOSE_ASSERT_EQ(cellPrefferedWidth->get_Value(), expectedPercent);
             
             i++;
         }
