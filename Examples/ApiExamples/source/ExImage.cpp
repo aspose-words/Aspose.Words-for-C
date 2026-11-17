@@ -104,8 +104,8 @@ void ExImage::FromFile()
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(1600, 1600, ImageType::Wmf, shape);
-    ASPOSE_ASSERT_EQ(100.0, shape->get_Height());
-    ASPOSE_ASSERT_EQ(100.0, shape->get_Width());
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 100.0);
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 100.0);
 }
 
 namespace gtest_test
@@ -144,7 +144,7 @@ void ExImage::FromUrl()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Image.FromUrl.docx"));
     System::SharedPtr<Aspose::Words::NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
     
-    ASSERT_EQ(2, shapes->get_Count());
+    ASSERT_EQ(shapes->get_Count(), 2);
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(0)));
     TestUtil::VerifyImageInShape(400, 300, ImageType::Png, System::ExplicitCast<Aspose::Words::Drawing::Shape>(shapes->idx_get(1)));
 }
@@ -230,12 +230,12 @@ void ExImage::CreateFloatingPageCenter()
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
-    ASSERT_EQ(WrapType::None, shape->get_WrapType());
+    ASSERT_EQ(shape->get_WrapType(), WrapType::None);
     ASSERT_TRUE(shape->get_BehindText());
-    ASSERT_EQ(RelativeHorizontalPosition::Page, shape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Page, shape->get_RelativeVerticalPosition());
-    ASSERT_EQ(HorizontalAlignment::Center, shape->get_HorizontalAlignment());
-    ASSERT_EQ(VerticalAlignment::Center, shape->get_VerticalAlignment());
+    ASSERT_EQ(shape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Page);
+    ASSERT_EQ(shape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Page);
+    ASSERT_EQ(shape->get_HorizontalAlignment(), HorizontalAlignment::Center);
+    ASSERT_EQ(shape->get_VerticalAlignment(), VerticalAlignment::Center);
 }
 
 namespace gtest_test
@@ -280,11 +280,11 @@ void ExImage::CreateFloatingPositionSize()
     // Set the shape's height, which will automatically scale the width to preserve dimensions.
     shape->set_Height(125);
     
-    ASPOSE_ASSERT_EQ(125.0, shape->get_Width());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 125.0);
     
     // The "Bottom" and "Right" properties contain the bottom and right edges of the image.
-    ASPOSE_ASSERT_EQ(shape->get_Top() + shape->get_Height(), shape->get_Bottom());
-    ASPOSE_ASSERT_EQ(shape->get_Left() + shape->get_Width(), shape->get_Right());
+    ASPOSE_ASSERT_EQ(shape->get_Bottom(), shape->get_Top() + shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Right(), shape->get_Left() + shape->get_Width());
     
     doc->Save(get_ArtifactsDir() + u"Image.CreateFloatingPositionSize.docx");
     //ExEnd
@@ -293,15 +293,15 @@ void ExImage::CreateFloatingPositionSize()
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
-    ASSERT_EQ(WrapType::None, shape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Page, shape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Page, shape->get_RelativeVerticalPosition());
-    ASPOSE_ASSERT_EQ(100.0, shape->get_Left());
-    ASPOSE_ASSERT_EQ(80.0, shape->get_Top());
-    ASPOSE_ASSERT_EQ(125.0, shape->get_Height());
-    ASPOSE_ASSERT_EQ(125.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(shape->get_Top() + shape->get_Height(), shape->get_Bottom());
-    ASPOSE_ASSERT_EQ(shape->get_Left() + shape->get_Width(), shape->get_Right());
+    ASSERT_EQ(shape->get_WrapType(), WrapType::None);
+    ASSERT_EQ(shape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Page);
+    ASSERT_EQ(shape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Page);
+    ASPOSE_ASSERT_EQ(shape->get_Left(), 100.0);
+    ASPOSE_ASSERT_EQ(shape->get_Top(), 80.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 125.0);
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 125.0);
+    ASPOSE_ASSERT_EQ(shape->get_Bottom(), shape->get_Top() + shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Right(), shape->get_Left() + shape->get_Width());
 }
 
 namespace gtest_test
@@ -337,10 +337,10 @@ void ExImage::InsertImageWithHyperlink()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Image.InsertImageWithHyperlink.docx"));
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASSERT_EQ(u"https://forum.aspose.com/", shape->get_HRef());
+    ASSERT_EQ(shape->get_HRef(), u"https://forum.aspose.com/");
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
-    ASSERT_EQ(u"New Window", shape->get_Target());
-    ASSERT_EQ(u"Aspose.Words Support Forums", shape->get_ScreenTip());
+    ASSERT_EQ(shape->get_Target(), u"New Window");
+    ASSERT_EQ(shape->get_ScreenTip(), u"Aspose.Words Support Forums");
 }
 
 namespace gtest_test
@@ -401,16 +401,16 @@ void ExImage::CreateLinkedImage()
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(1600, 1600, ImageType::Wmf, shape);
-    ASSERT_EQ(WrapType::Inline, shape->get_WrapType());
-    ASSERT_EQ(System::String::Empty, shape->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "));
+    ASSERT_EQ(shape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(shape->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "), System::String::Empty);
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Image.CreateLinkedImage.Linked.docx"));
     
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(0, 0, ImageType::Wmf, shape);
-    ASSERT_EQ(WrapType::Inline, shape->get_WrapType());
-    ASSERT_EQ(imageFileName, shape->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "));
+    ASSERT_EQ(shape->get_WrapType(), WrapType::Inline);
+    ASSERT_EQ(shape->get_ImageData()->get_SourceFullName().Replace(u"%20", u" "), imageFileName);
 }
 
 namespace gtest_test
@@ -432,10 +432,10 @@ void ExImage::DeleteAllImages()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
     System::SharedPtr<Aspose::Words::NodeCollection> shapes = doc->GetChildNodes(NodeType::Shape, true);
     
-    ASSERT_EQ(9, shapes->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Drawing::Shape>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Drawing::Shape> s)>>([](System::SharedPtr<Aspose::Words::Drawing::Shape> s) -> bool
+    ASSERT_EQ(shapes->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Drawing::Shape>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Drawing::Shape> s)>>([](System::SharedPtr<Aspose::Words::Drawing::Shape> s) -> bool
     {
         return s->get_HasImage();
-    }))));
+    }))), 9);
     
     for (auto&& shape : System::IterateOver(shapes->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()))
     {
@@ -445,10 +445,10 @@ void ExImage::DeleteAllImages()
         }
     }
     
-    ASSERT_EQ(0, shapes->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Drawing::Shape>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Drawing::Shape> s)>>([](System::SharedPtr<Aspose::Words::Drawing::Shape> s) -> bool
+    ASSERT_EQ(shapes->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Drawing::Shape>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Drawing::Shape> s)>>([](System::SharedPtr<Aspose::Words::Drawing::Shape> s) -> bool
     {
         return s->get_HasImage();
-    }))));
+    }))), 0);
     //ExEnd
 }
 
@@ -470,10 +470,10 @@ void ExImage::DeleteAllImagesPreOrder()
     //ExSummary:Shows how to traverse the document's node tree using the pre-order traversal algorithm, and delete any encountered shape with an image.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Images.docx"));
     
-    ASSERT_EQ(9, doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Drawing::Shape>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Drawing::Shape> s)>>([](System::SharedPtr<Aspose::Words::Drawing::Shape> s) -> bool
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Drawing::Shape>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Drawing::Shape> s)>>([](System::SharedPtr<Aspose::Words::Drawing::Shape> s) -> bool
     {
         return s->get_HasImage();
-    }))));
+    }))), 9);
     
     System::SharedPtr<Aspose::Words::Node> curNode = doc;
     while (curNode != nullptr)
@@ -482,7 +482,7 @@ void ExImage::DeleteAllImagesPreOrder()
         
         if (curNode->PreviousPreOrder(doc) != nullptr && nextNode != nullptr)
         {
-            ASPOSE_ASSERT_EQ(curNode, nextNode->PreviousPreOrder(doc));
+            ASPOSE_ASSERT_EQ(nextNode->PreviousPreOrder(doc), curNode);
         }
         
         if (curNode->get_NodeType() == NodeType::Shape && (System::ExplicitCast<Aspose::Words::Drawing::Shape>(curNode))->get_HasImage())
@@ -493,10 +493,10 @@ void ExImage::DeleteAllImagesPreOrder()
         curNode = nextNode;
     }
     
-    ASSERT_EQ(0, doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Drawing::Shape>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Drawing::Shape> s)>>([](System::SharedPtr<Aspose::Words::Drawing::Shape> s) -> bool
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Drawing::Shape>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Drawing::Shape>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Drawing::Shape> s)>>([](System::SharedPtr<Aspose::Words::Drawing::Shape> s) -> bool
     {
         return s->get_HasImage();
-    }))));
+    }))), 0);
     //ExEnd
 }
 
@@ -529,30 +529,30 @@ void ExImage::ScaleImage()
     // A 400x400 image will create an ImageData object with an image size of 300x300pt.
     System::SharedPtr<Aspose::Words::Drawing::ImageSize> imageSize = shape->get_ImageData()->get_ImageSize();
     
-    ASPOSE_ASSERT_EQ(300.0, imageSize->get_WidthPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageSize->get_HeightPoints());
+    ASPOSE_ASSERT_EQ(imageSize->get_WidthPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageSize->get_HeightPoints(), 300.0);
     
     // If a shape's dimensions match the image data's dimensions,
     // then the shape is displaying the image in its original size.
-    ASPOSE_ASSERT_EQ(300.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(300.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 300.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 300.0);
     
     // Reduce the overall size of the shape by 50%.
     System::WithLambda::setter_mul_wrap(GETTER_SETTER_LAMBDA_ARGS(shape, Width), 0.5);
     
     // Scaling factors apply to both the width and the height at the same time to preserve the shape's proportions.
-    ASPOSE_ASSERT_EQ(150.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(150.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 150.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 150.0);
     
     // When we resize the shape, the size of the image data remains the same.
-    ASPOSE_ASSERT_EQ(300.0, imageSize->get_WidthPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageSize->get_HeightPoints());
+    ASPOSE_ASSERT_EQ(imageSize->get_WidthPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageSize->get_HeightPoints(), 300.0);
     
     // We can reference the image data dimensions to apply a scaling based on the size of the image.
     shape->set_Width(imageSize->get_WidthPoints() * 1.1);
     
-    ASPOSE_ASSERT_EQ(330.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(330.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 330.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 330.0);
     
     doc->Save(get_ArtifactsDir() + u"Image.ScaleImage.docx");
     //ExEnd
@@ -560,13 +560,13 @@ void ExImage::ScaleImage()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Image.ScaleImage.docx"));
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASPOSE_ASSERT_EQ(330.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(330.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 330.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 330.0);
     
     imageSize = shape->get_ImageData()->get_ImageSize();
     
-    ASPOSE_ASSERT_EQ(300.0, imageSize->get_WidthPoints());
-    ASPOSE_ASSERT_EQ(300.0, imageSize->get_HeightPoints());
+    ASPOSE_ASSERT_EQ(imageSize->get_WidthPoints(), 300.0);
+    ASPOSE_ASSERT_EQ(imageSize->get_HeightPoints(), 300.0);
 }
 
 namespace gtest_test

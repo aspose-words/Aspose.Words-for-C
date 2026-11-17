@@ -169,11 +169,11 @@ void ExNodeImporter::KeepSourceNumbering(bool keepSourceNumbering)
     
     if (keepSourceNumbering)
     {
-        ASSERT_EQ(System::String(u"6. Item 1\r\n") + u"7. Item 2 \r\n" + u"8. Item 3\r\n" + u"9. Item 4\r\n" + u"6. Item 1\r\n" + u"7. Item 2 \r\n" + u"8. Item 3\r\n" + u"9. Item 4", dstDoc->get_FirstSection()->get_Body()->ToString(SaveFormat::Text).Trim());
+        ASSERT_EQ(dstDoc->get_FirstSection()->get_Body()->ToString(SaveFormat::Text).Trim(), System::String(u"6. Item 1\r\n") + u"7. Item 2 \r\n" + u"8. Item 3\r\n" + u"9. Item 4\r\n" + u"6. Item 1\r\n" + u"7. Item 2 \r\n" + u"8. Item 3\r\n" + u"9. Item 4");
     }
     else
     {
-        ASSERT_EQ(System::String(u"6. Item 1\r\n") + u"7. Item 2 \r\n" + u"8. Item 3\r\n" + u"9. Item 4\r\n" + u"10. Item 1\r\n" + u"11. Item 2 \r\n" + u"12. Item 3\r\n" + u"13. Item 4", dstDoc->get_FirstSection()->get_Body()->ToString(SaveFormat::Text).Trim());
+        ASSERT_EQ(dstDoc->get_FirstSection()->get_Body()->ToString(SaveFormat::Text).Trim(), System::String(u"6. Item 1\r\n") + u"7. Item 2 \r\n" + u"8. Item 3\r\n" + u"9. Item 4\r\n" + u"10. Item 1\r\n" + u"11. Item 2 \r\n" + u"12. Item 3\r\n" + u"13. Item 4");
     }
     //ExEnd
 }
@@ -224,7 +224,7 @@ void ExNodeImporter::InsertAtBookmark()
     System::SharedPtr<Aspose::Words::Bookmark> bookmark = doc->get_Range()->get_Bookmarks()->idx_get(u"InsertionPoint");
     InsertDocument(bookmark->get_BookmarkStart()->get_ParentNode(), docToInsert);
     
-    ASSERT_EQ(System::String(u"We will insert a document here: ") + u"\rHello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"We will insert a document here: ") + u"\rHello world!");
 }
 
 namespace gtest_test
@@ -257,7 +257,7 @@ void ExNodeImporter::InsertAtMergeField()
     // of the document that we wish to insert into the MERGEFIELD.
     doc->get_MailMerge()->Execute(System::MakeArray<System::String>({u"Document_1"}), System::MakeArray<System::SharedPtr<System::Object>>({System::ExplicitCast<System::Object>(get_ArtifactsDir() + u"NodeImporter.InsertAtMergeField.docx")}));
     
-    ASSERT_EQ(System::String(u"A document will appear here: \r") + u"Hello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"A document will appear here: \r") + u"Hello world!");
 }
 
 namespace gtest_test

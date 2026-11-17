@@ -9,6 +9,7 @@
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
 #include <system/array.h>
+#include <system/action.h>
 #include <functional>
 #include <drawing/color.h>
 #include <cstdint>
@@ -88,7 +89,7 @@ void ExDocumentBase::TestResourceLoadingCallback(System::SharedPtr<Aspose::Words
     for (auto&& shape : System::IterateOver<Aspose::Words::Drawing::Shape>(doc->GetChildNodes(NodeType::Shape, true)))
     {
         ASSERT_TRUE(shape->get_HasImage());
-        ASSERT_FALSE(System::TestTools::IsEmpty(shape->get_ImageData()->get_ImageBytes()));
+        ASSERT_GT(shape->get_ImageData()->get_ImageBytes()->get_Length(), 0);
     }
 }
 
@@ -130,12 +131,12 @@ void ExDocumentBase::Constructor()
     //ExSummary:Shows how to initialize the subclasses of DocumentBase.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    ASPOSE_ASSERT_EQ(System::ObjectExt::GetType<Aspose::Words::DocumentBase>(), System::ObjectExt::GetType(doc).get_BaseType());
+    ASPOSE_ASSERT_EQ(System::ObjectExt::GetType(doc).get_BaseType(), System::ObjectExt::GetType<Aspose::Words::DocumentBase>());
     
     auto glossaryDoc = System::MakeObject<Aspose::Words::BuildingBlocks::GlossaryDocument>();
     doc->set_GlossaryDocument(glossaryDoc);
     
-    ASPOSE_ASSERT_EQ(System::ObjectExt::GetType<Aspose::Words::DocumentBase>(), System::ObjectExt::GetType(glossaryDoc).get_BaseType());
+    ASPOSE_ASSERT_EQ(System::ObjectExt::GetType(glossaryDoc).get_BaseType(), System::ObjectExt::GetType<Aspose::Words::DocumentBase>());
     //ExEnd
 }
 
@@ -165,7 +166,7 @@ void ExDocumentBase::SetPageColor()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBase.SetPageColor.docx"));
     
-    ASSERT_EQ(System::Drawing::Color::get_LightGray().ToArgb(), doc->get_PageColor().ToArgb());
+    ASSERT_EQ(doc->get_PageColor().ToArgb(), System::Drawing::Color::get_LightGray().ToArgb());
 }
 
 namespace gtest_test
@@ -191,27 +192,27 @@ void ExDocumentBase::ImportNode()
     
     // Every node has a parent document, which is the document that contains the node.
     // Inserting a node into a document that the node does not belong to will throw an exception.
-    ASPOSE_ASSERT_NE(dstDoc, srcDoc->get_FirstSection()->get_Document());
-    ASSERT_THROW(static_cast<std::function<void()>>([&dstDoc, &srcDoc]() -> void
+    ASPOSE_ASSERT_NE(srcDoc->get_FirstSection()->get_Document(), dstDoc);
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&dstDoc, &srcDoc]() -> void
     {
         dstDoc->AppendChild<System::SharedPtr<Aspose::Words::Section>>(srcDoc->get_FirstSection());
-    })(), System::ArgumentException);
+    }))(), System::ArgumentException);
     
     // Use the ImportNode method to create a copy of a node, which will have the document
     // that called the ImportNode method set as its new owner document.
     auto importedSection = System::ExplicitCast<Aspose::Words::Section>(dstDoc->ImportNode(srcDoc->get_FirstSection(), true));
     
-    ASPOSE_ASSERT_EQ(dstDoc, importedSection->get_Document());
+    ASPOSE_ASSERT_EQ(importedSection->get_Document(), dstDoc);
     
     // We can now insert the node into the document.
     dstDoc->AppendChild<System::SharedPtr<Aspose::Words::Section>>(importedSection);
     
-    ASSERT_EQ(u"Destination document first paragraph text.\r\nSource document first paragraph text.\r\n", dstDoc->ToString(SaveFormat::Text));
+    ASSERT_EQ(dstDoc->ToString(SaveFormat::Text), u"Destination document first paragraph text.\r\nSource document first paragraph text.\r\n");
     //ExEnd
     
-    ASPOSE_ASSERT_NE(importedSection, srcDoc->get_FirstSection());
-    ASPOSE_ASSERT_NE(importedSection->get_Document(), srcDoc->get_FirstSection()->get_Document());
-    ASSERT_EQ(importedSection->get_Body()->get_FirstParagraph()->GetText(), srcDoc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText());
+    ASPOSE_ASSERT_NE(srcDoc->get_FirstSection(), importedSection);
+    ASPOSE_ASSERT_NE(srcDoc->get_FirstSection()->get_Document(), importedSection->get_Document());
+    ASSERT_EQ(srcDoc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText(), importedSection->get_Body()->get_FirstParagraph()->GetText());
 }
 
 namespace gtest_test
@@ -249,18 +250,18 @@ void ExDocumentBase::ImportNodeCustom()
     // If we use destination styles, then the imported source text with the same style name
     // as destination text will adopt the destination style.
     auto importedSection = System::ExplicitCast<Aspose::Words::Section>(dstDoc->ImportNode(srcDoc->get_FirstSection(), true, ImportFormatMode::UseDestinationStyles));
-    ASSERT_EQ(u"Source document text.", importedSection->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0)->GetText().Trim());
+    ASSERT_EQ(importedSection->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0)->GetText().Trim(), u"Source document text.");
     //ExSkip
     ASSERT_TRUE(System::TestTools::IsNull(dstDoc->get_Styles()->idx_get(u"My style_0")));
     //ExSkip
-    ASSERT_EQ(dstStyle->get_Font()->get_Name(), importedSection->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Name());
-    ASSERT_EQ(dstStyle->get_Name(), importedSection->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_StyleName());
+    ASSERT_EQ(importedSection->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Name(), dstStyle->get_Font()->get_Name());
+    ASSERT_EQ(importedSection->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_StyleName(), dstStyle->get_Name());
     
     // If we use ImportFormatMode.KeepDifferentStyles, the source style is preserved,
     // and the naming clash resolves by adding a suffix.
     dstDoc->ImportNode(srcDoc->get_FirstSection(), true, ImportFormatMode::KeepDifferentStyles);
-    ASSERT_EQ(dstStyle->get_Font()->get_Name(), dstDoc->get_Styles()->idx_get(u"My style")->get_Font()->get_Name());
-    ASSERT_EQ(srcStyle->get_Font()->get_Name(), dstDoc->get_Styles()->idx_get(u"My style_0")->get_Font()->get_Name());
+    ASSERT_EQ(dstDoc->get_Styles()->idx_get(u"My style")->get_Font()->get_Name(), dstStyle->get_Font()->get_Name());
+    ASSERT_EQ(dstDoc->get_Styles()->idx_get(u"My style_0")->get_Font()->get_Name(), srcStyle->get_Font()->get_Name());
     //ExEnd
 }
 
@@ -315,11 +316,11 @@ void ExDocumentBase::BackgroundShape()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBase.BackgroundShape.FlatColor.docx"));
     
-    ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), doc->get_BackgroundShape()->get_FillColor().ToArgb());
-    ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
+    ASSERT_EQ(doc->get_BackgroundShape()->get_FillColor().ToArgb(), System::Drawing::Color::get_LightBlue().ToArgb());
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&doc]() -> void
     {
         doc->set_BackgroundShape(System::MakeObject<Aspose::Words::Drawing::Shape>(doc, ShapeType::Triangle));
-    })(), System::ArgumentException);
+    }))(), System::ArgumentException);
 }
 
 namespace gtest_test

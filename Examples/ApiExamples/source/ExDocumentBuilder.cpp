@@ -18,9 +18,9 @@
 #include <system/enumerator_adapter.h>
 #include <system/console.h>
 #include <system/array.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
-#include <drawing/image.h>
 #include <drawing/color.h>
 #include <Aspose.Words.Cpp/Model/Text/Underline.h>
 #include <Aspose.Words.Cpp/Model/Text/TextOrientation.h>
@@ -591,12 +591,12 @@ void ExDocumentBuilder::WriteAndFont()
     doc = DocumentHelper::SaveOpen(builder->get_Document());
     System::SharedPtr<Aspose::Words::Run> firstRun = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Hello world!", firstRun->GetText().Trim());
-    ASPOSE_ASSERT_EQ(16.0, firstRun->get_Font()->get_Size());
+    ASSERT_EQ(firstRun->GetText().Trim(), u"Hello world!");
+    ASPOSE_ASSERT_EQ(firstRun->get_Font()->get_Size(), 16.0);
     ASSERT_TRUE(firstRun->get_Font()->get_Bold());
-    ASSERT_EQ(u"Courier New", firstRun->get_Font()->get_Name());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), firstRun->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(Underline::Dash, firstRun->get_Font()->get_Underline());
+    ASSERT_EQ(firstRun->get_Font()->get_Name(), u"Courier New");
+    ASSERT_EQ(firstRun->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASSERT_EQ(firstRun->get_Font()->get_Underline(), Underline::Dash);
 }
 
 namespace gtest_test
@@ -624,8 +624,8 @@ void ExDocumentBuilder::MergeFields()
     builder->MoveToMergeField(u"MyMergeField1", true, false);
     
     // Note that the cursor is placed immediately after the first MERGEFIELD, and before the second.
-    ASPOSE_ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->get_Start(), builder->get_CurrentNode());
-    ASPOSE_ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_End(), builder->get_CurrentNode()->get_PreviousSibling());
+    ASPOSE_ASSERT_EQ(builder->get_CurrentNode(), doc->get_Range()->get_Fields()->idx_get(1)->get_Start());
+    ASPOSE_ASSERT_EQ(builder->get_CurrentNode()->get_PreviousSibling(), doc->get_Range()->get_Fields()->idx_get(0)->get_End());
     
     // If we wish to edit the field's field code or contents using the builder,
     // its cursor would need to be inside a field.
@@ -638,8 +638,8 @@ void ExDocumentBuilder::MergeFields()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.MergeFields.docx"));
     
-    ASSERT_EQ(System::String(u"\u0013MERGEFIELD MyMergeField1 \\* MERGEFORMAT\u0014«MyMergeField1»\u0015") + u" Text between our merge fields. " + u"\u0013MERGEFIELD MyMergeField2 \\* MERGEFORMAT\u0014«MyMergeField2»\u0015", doc->GetText().Trim());
-    ASSERT_EQ(2, doc->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"\u0013MERGEFIELD MyMergeField1 \\* MERGEFORMAT\u0014«MyMergeField1»\u0015") + u" Text between our merge fields. " + u"\u0013MERGEFIELD MyMergeField2 \\* MERGEFORMAT\u0014«MyMergeField2»\u0015");
+    ASSERT_EQ(doc->get_Range()->get_Fields()->get_Count(), 2);
     TestUtil::VerifyField(FieldType::FieldMergeField, u"MERGEFIELD MyMergeField1 \\* MERGEFORMAT", u"«MyMergeField1»", doc->get_Range()->get_Fields()->idx_get(0));
     TestUtil::VerifyField(FieldType::FieldMergeField, u"MERGEFIELD MyMergeField2 \\* MERGEFORMAT", u"«MyMergeField2»", doc->get_Range()->get_Fields()->idx_get(1));
 }
@@ -686,10 +686,10 @@ void ExDocumentBuilder::InsertHorizontalRule()
     doc = DocumentHelper::SaveOpen(doc);
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASSERT_EQ(HorizontalRuleAlignment::Center, shape->get_HorizontalRuleFormat()->get_Alignment());
-    ASPOSE_ASSERT_EQ(70, shape->get_HorizontalRuleFormat()->get_WidthPercent());
-    ASPOSE_ASSERT_EQ(3, shape->get_HorizontalRuleFormat()->get_Height());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), shape->get_HorizontalRuleFormat()->get_Color().ToArgb());
+    ASSERT_EQ(shape->get_HorizontalRuleFormat()->get_Alignment(), HorizontalRuleAlignment::Center);
+    ASPOSE_ASSERT_EQ(shape->get_HorizontalRuleFormat()->get_WidthPercent(), 70);
+    ASPOSE_ASSERT_EQ(shape->get_HorizontalRuleFormat()->get_Height(), 3);
+    ASSERT_EQ(shape->get_HorizontalRuleFormat()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
 }
 
 namespace gtest_test
@@ -710,25 +710,25 @@ void ExDocumentBuilder::HorizontalRuleFormatExceptions()
     System::SharedPtr<Aspose::Words::Drawing::HorizontalRuleFormat> horizontalRuleFormat = shape->get_HorizontalRuleFormat();
     horizontalRuleFormat->set_WidthPercent(1);
     horizontalRuleFormat->set_WidthPercent(100);
-    ASSERT_THROW(static_cast<std::function<void()>>([&horizontalRuleFormat]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&horizontalRuleFormat]() -> void
     {
         horizontalRuleFormat->set_WidthPercent(0);
-    })(), System::ArgumentOutOfRangeException);
-    ASSERT_THROW(static_cast<std::function<void()>>([&horizontalRuleFormat]() -> void
+    }))(), System::ArgumentOutOfRangeException);
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&horizontalRuleFormat]() -> void
     {
         horizontalRuleFormat->set_WidthPercent(101);
-    })(), System::ArgumentOutOfRangeException);
+    }))(), System::ArgumentOutOfRangeException);
     
     horizontalRuleFormat->set_Height(0);
     horizontalRuleFormat->set_Height(1584);
-    ASSERT_THROW(static_cast<std::function<void()>>([&horizontalRuleFormat]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&horizontalRuleFormat]() -> void
     {
         horizontalRuleFormat->set_Height(-1);
-    })(), System::ArgumentOutOfRangeException);
-    ASSERT_THROW(static_cast<std::function<void()>>([&horizontalRuleFormat]() -> void
+    }))(), System::ArgumentOutOfRangeException);
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&horizontalRuleFormat]() -> void
     {
         horizontalRuleFormat->set_Height(1585);
-    })(), System::ArgumentOutOfRangeException);
+    }))(), System::ArgumentOutOfRangeException);
 }
 
 namespace gtest_test
@@ -770,17 +770,17 @@ void ExDocumentBuilder::InsertHyperlink()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertHyperlink.docx"));
     
     auto hyperlink = System::ExplicitCast<Aspose::Words::Fields::FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
-    ASSERT_EQ(u"https://www.google.com", hyperlink->get_Address());
+    ASSERT_EQ(hyperlink->get_Address(), u"https://www.google.com");
     
     // This field is written as w:hyperlink element therefore field code cannot have formatting.
     auto fieldCode = System::ExplicitCast<Aspose::Words::Run>(hyperlink->get_Start()->get_NextSibling());
-    ASSERT_EQ(u"HYPERLINK \"https://www.google.com\"", fieldCode->GetText().Trim());
+    ASSERT_EQ(fieldCode->GetText().Trim(), u"HYPERLINK \"https://www.google.com\"");
     
     auto fieldResult = System::ExplicitCast<Aspose::Words::Run>(hyperlink->get_Separator()->get_NextSibling());
     
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), fieldResult->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(Underline::Single, fieldResult->get_Font()->get_Underline());
-    ASSERT_EQ(u"Google website", fieldResult->GetText().Trim());
+    ASSERT_EQ(fieldResult->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASSERT_EQ(fieldResult->get_Font()->get_Underline(), Underline::Single);
+    ASSERT_EQ(fieldResult->GetText().Trim(), u"Google website");
 }
 
 namespace gtest_test
@@ -815,14 +815,14 @@ void ExDocumentBuilder::PushPopFont()
     builder->get_Font()->set_StyleIdentifier(StyleIdentifier::Hyperlink);
     builder->InsertHyperlink(u"here", u"http://www.google.com", false);
     
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), builder->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(Underline::Single, builder->get_Font()->get_Underline());
+    ASSERT_EQ(builder->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASSERT_EQ(builder->get_Font()->get_Underline(), Underline::Single);
     
     // Restore the font formatting that we saved earlier and remove the element from the stack.
     builder->PopFont();
     
-    ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), builder->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(Underline::None, builder->get_Font()->get_Underline());
+    ASSERT_EQ(builder->get_Font()->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+    ASSERT_EQ(builder->get_Font()->get_Underline(), Underline::None);
     
     builder->Write(u". We hope you enjoyed the example.");
     
@@ -832,20 +832,20 @@ void ExDocumentBuilder::PushPopFont()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.PushPopFont.docx"));
     System::SharedPtr<Aspose::Words::RunCollection> runs = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs();
     
-    ASSERT_EQ(4, runs->get_Count());
+    ASSERT_EQ(runs->get_Count(), 4);
     
-    ASSERT_EQ((u"To visit Google, hold Ctrl and click"), runs->idx_get(0)->GetText().Trim());
-    ASSERT_EQ(u". We hope you enjoyed the example.", runs->idx_get(3)->GetText().Trim());
-    ASPOSE_ASSERT_EQ(runs->idx_get(0)->get_Font()->get_Color(), runs->idx_get(3)->get_Font()->get_Color());
-    ASSERT_EQ(runs->idx_get(0)->get_Font()->get_Underline(), runs->idx_get(3)->get_Font()->get_Underline());
+    ASSERT_EQ(runs->idx_get(0)->GetText().Trim(), (u"To visit Google, hold Ctrl and click"));
+    ASSERT_EQ(runs->idx_get(3)->GetText().Trim(), u". We hope you enjoyed the example.");
+    ASPOSE_ASSERT_EQ(runs->idx_get(3)->get_Font()->get_Color(), runs->idx_get(0)->get_Font()->get_Color());
+    ASSERT_EQ(runs->idx_get(3)->get_Font()->get_Underline(), runs->idx_get(0)->get_Font()->get_Underline());
     
-    ASSERT_EQ(u"here", runs->idx_get(2)->GetText().Trim());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), runs->idx_get(2)->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(Underline::Single, runs->idx_get(2)->get_Font()->get_Underline());
-    ASPOSE_ASSERT_NE(runs->idx_get(0)->get_Font()->get_Color(), runs->idx_get(2)->get_Font()->get_Color());
-    ASSERT_NE(runs->idx_get(0)->get_Font()->get_Underline(), runs->idx_get(2)->get_Font()->get_Underline());
+    ASSERT_EQ(runs->idx_get(2)->GetText().Trim(), u"here");
+    ASSERT_EQ(runs->idx_get(2)->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASSERT_EQ(runs->idx_get(2)->get_Font()->get_Underline(), Underline::Single);
+    ASPOSE_ASSERT_NE(runs->idx_get(2)->get_Font()->get_Color(), runs->idx_get(0)->get_Font()->get_Color());
+    ASSERT_NE(runs->idx_get(2)->get_Font()->get_Underline(), runs->idx_get(0)->get_Font()->get_Underline());
     
-    ASSERT_EQ(u"http://www.google.com", (System::ExplicitCast<Aspose::Words::Fields::FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0)))->get_Address());
+    ASSERT_EQ((System::ExplicitCast<Aspose::Words::Fields::FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0)))->get_Address(), u"http://www.google.com");
 }
 
 namespace gtest_test
@@ -890,12 +890,12 @@ void ExDocumentBuilder::InsertWatermark()
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Png, shape);
-    ASSERT_EQ(WrapType::None, shape->get_WrapType());
+    ASSERT_EQ(shape->get_WrapType(), WrapType::None);
     ASSERT_TRUE(shape->get_BehindText());
-    ASSERT_EQ(RelativeHorizontalPosition::Page, shape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Page, shape->get_RelativeVerticalPosition());
-    ASPOSE_ASSERT_EQ((doc->get_FirstSection()->get_PageSetup()->get_PageWidth() - shape->get_Width()) / 2, shape->get_Left());
-    ASPOSE_ASSERT_EQ((doc->get_FirstSection()->get_PageSetup()->get_PageHeight() - shape->get_Height()) / 2, shape->get_Top());
+    ASSERT_EQ(shape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Page);
+    ASSERT_EQ(shape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Page);
+    ASPOSE_ASSERT_EQ(shape->get_Left(), (doc->get_FirstSection()->get_PageSetup()->get_PageWidth() - shape->get_Width()) / 2);
+    ASPOSE_ASSERT_EQ(shape->get_Top(), (doc->get_FirstSection()->get_PageSetup()->get_PageHeight() - shape->get_Height()) / 2);
 }
 
 namespace gtest_test
@@ -945,21 +945,21 @@ void ExDocumentBuilder::InsertOleObject()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertOleObject.docx"));
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASSERT_EQ(ShapeType::OleObject, shape->get_ShapeType());
-    ASSERT_EQ(u"Excel.Sheet.12", shape->get_OleFormat()->get_ProgId());
-    ASSERT_EQ(u".xlsx", shape->get_OleFormat()->get_SuggestedExtension());
+    ASSERT_EQ(shape->get_ShapeType(), ShapeType::OleObject);
+    ASSERT_EQ(shape->get_OleFormat()->get_ProgId(), u"Excel.Sheet.12");
+    ASSERT_EQ(shape->get_OleFormat()->get_SuggestedExtension(), u".xlsx");
     
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
     
-    ASSERT_EQ(ShapeType::OleObject, shape->get_ShapeType());
-    ASSERT_EQ(u"Package", shape->get_OleFormat()->get_ProgId());
-    ASSERT_EQ(u".xlsx", shape->get_OleFormat()->get_SuggestedExtension());
+    ASSERT_EQ(shape->get_ShapeType(), ShapeType::OleObject);
+    ASSERT_EQ(shape->get_OleFormat()->get_ProgId(), u"Package");
+    ASSERT_EQ(shape->get_OleFormat()->get_SuggestedExtension(), u".xlsx");
     
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 2, true));
     
-    ASSERT_EQ(ShapeType::OleObject, shape->get_ShapeType());
-    ASSERT_EQ(u"PowerPoint.Show.12", shape->get_OleFormat()->get_ProgId());
-    ASSERT_EQ(u".pptx", shape->get_OleFormat()->get_SuggestedExtension());
+    ASSERT_EQ(shape->get_ShapeType(), ShapeType::OleObject);
+    ASSERT_EQ(shape->get_OleFormat()->get_ProgId(), u"PowerPoint.Show.12");
+    ASSERT_EQ(shape->get_OleFormat()->get_SuggestedExtension(), u".pptx");
 }
 
 namespace gtest_test
@@ -987,18 +987,18 @@ void ExDocumentBuilder::InsertHtml()
     // Inserting HTML code parses the formatting of each element into equivalent document text formatting.
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    ASSERT_EQ(u"Paragraph right", paragraphs->idx_get(0)->GetText().Trim());
-    ASSERT_EQ(ParagraphAlignment::Right, paragraphs->idx_get(0)->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(paragraphs->idx_get(0)->GetText().Trim(), u"Paragraph right");
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Right);
     
-    ASSERT_EQ(u"Implicit paragraph left", paragraphs->idx_get(1)->GetText().Trim());
-    ASSERT_EQ(ParagraphAlignment::Left, paragraphs->idx_get(1)->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(paragraphs->idx_get(1)->GetText().Trim(), u"Implicit paragraph left");
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Left);
     ASSERT_TRUE(paragraphs->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_Bold());
     
-    ASSERT_EQ(u"Div center", paragraphs->idx_get(2)->GetText().Trim());
-    ASSERT_EQ(ParagraphAlignment::Center, paragraphs->idx_get(2)->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(paragraphs->idx_get(2)->GetText().Trim(), u"Div center");
+    ASSERT_EQ(paragraphs->idx_get(2)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
     
-    ASSERT_EQ(u"Heading 1 left.", paragraphs->idx_get(3)->GetText().Trim());
-    ASSERT_EQ(u"Heading 1", paragraphs->idx_get(3)->get_ParagraphFormat()->get_Style()->get_Name());
+    ASSERT_EQ(paragraphs->idx_get(3)->GetText().Trim(), u"Heading 1 left.");
+    ASSERT_EQ(paragraphs->idx_get(3)->get_ParagraphFormat()->get_Style()->get_Name(), u"Heading 1");
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.InsertHtml.docx");
     //ExEnd
@@ -1030,13 +1030,13 @@ void ExDocumentBuilder::InsertHtmlWithFormatting(bool useBuilderFormatting)
     
     // The first paragraph has an alignment specified. When InsertHtml parses the HTML code,
     // the paragraph alignment value found in the HTML code always supersedes the document builder's value.
-    ASSERT_EQ(u"Paragraph 1.", paragraphs->idx_get(0)->GetText().Trim());
-    ASSERT_EQ(ParagraphAlignment::Right, paragraphs->idx_get(0)->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(paragraphs->idx_get(0)->GetText().Trim(), u"Paragraph 1.");
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Right);
     
     // The second paragraph has no alignment specified. It can have its alignment value filled in
     // by the builder's value depending on the flag we passed to the InsertHtml method.
-    ASSERT_EQ(u"Paragraph 2.", paragraphs->idx_get(1)->GetText().Trim());
-    ASSERT_EQ(useBuilderFormatting ? ParagraphAlignment::Distributed : ParagraphAlignment::Left, paragraphs->idx_get(1)->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(paragraphs->idx_get(1)->GetText().Trim(), u"Paragraph 2.");
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Alignment(), useBuilderFormatting ? ParagraphAlignment::Distributed : ParagraphAlignment::Left);
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.InsertHtmlWithFormatting.docx");
     //ExEnd
@@ -1109,9 +1109,9 @@ void ExDocumentBuilder::InsertTextAndBookmark()
     builder->Writeln(u"Hello world!");
     builder->EndBookmark(u"MyBookmark");
     
-    ASSERT_EQ(1, doc->get_Range()->get_Bookmarks()->get_Count());
-    ASSERT_EQ(u"MyBookmark", doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Name());
-    ASSERT_EQ(u"Hello world!", doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Text().Trim());
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->get_Count(), 1);
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Name(), u"MyBookmark");
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Text().Trim(), u"Hello world!");
     //ExEnd
 }
 
@@ -1160,10 +1160,10 @@ void ExDocumentBuilder::CreateColumnBookmark()
     builder->EndColumnBookmark(u"MyBookmark_1");
     builder->EndColumnBookmark(u"MyBookmark_1");
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&builder]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&builder]() -> void
     {
         builder->EndColumnBookmark(u"BadEndBookmark");
-    })(), System::InvalidOperationException);
+    }))(), System::InvalidOperationException);
     //ExSkip
     
     builder->InsertCell();
@@ -1212,18 +1212,18 @@ void ExDocumentBuilder::CreateForm()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.CreateForm.docx"));
     System::SharedPtr<Aspose::Words::Fields::FormField> formField = doc->get_Range()->get_FormFields()->idx_get(0);
     
-    ASSERT_EQ(u"My text input", formField->get_Name());
-    ASSERT_EQ(TextFormFieldType::Regular, formField->get_TextInputType());
-    ASSERT_EQ(u"Enter your name here", formField->get_Result());
+    ASSERT_EQ(formField->get_Name(), u"My text input");
+    ASSERT_EQ(formField->get_TextInputType(), TextFormFieldType::Regular);
+    ASSERT_EQ(formField->get_Result(), u"Enter your name here");
     
     formField = doc->get_Range()->get_FormFields()->idx_get(1);
     
-    ASSERT_EQ(u"My combo box", formField->get_Name());
-    ASSERT_EQ(TextFormFieldType::Regular, formField->get_TextInputType());
-    ASSERT_EQ(u"-- Select your favorite footwear --", formField->get_Result());
-    ASSERT_EQ(0, formField->get_DropDownSelectedIndex());
-    ASPOSE_ASSERT_EQ(System::MakeArray<System::String>({u"-- Select your favorite footwear --", u"Sneakers", 
-        u"Oxfords", u"Flip-flops", u"Other"}), formField->get_DropDownItems()->LINQ_ToArray());
+    ASSERT_EQ(formField->get_Name(), u"My combo box");
+    ASSERT_EQ(formField->get_TextInputType(), TextFormFieldType::Regular);
+    ASSERT_EQ(formField->get_Result(), u"-- Select your favorite footwear --");
+    ASSERT_EQ(formField->get_DropDownSelectedIndex(), 0);
+    ASPOSE_ASSERT_EQ(formField->get_DropDownItems()->LINQ_ToArray(), System::MakeArray<System::String>({
+        u"-- Select your favorite footwear --", u"Sneakers", u"Oxfords", u"Flip-flops", u"Other"}));
 }
 
 namespace gtest_test
@@ -1258,7 +1258,7 @@ void ExDocumentBuilder::InsertCheckBox()
     builder->Write(u"Very large checked check box: ");
     builder->InsertCheckBox(u"CheckBox_OnlyCheckedValue", true, 100);
     
-    ASSERT_EQ(u"CheckBox_OnlyChecked", doc->get_Range()->get_FormFields()->idx_get(2)->get_Name());
+    ASSERT_EQ(doc->get_Range()->get_FormFields()->idx_get(2)->get_Name(), u"CheckBox_OnlyChecked");
     
     // We can interact with these check boxes in Microsoft Word by double clicking them.
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.InsertCheckBox.docx");
@@ -1268,20 +1268,20 @@ void ExDocumentBuilder::InsertCheckBox()
     
     System::SharedPtr<Aspose::Words::Fields::FormFieldCollection> formFields = doc->get_Range()->get_FormFields();
     
-    ASSERT_EQ(System::String::Empty, formFields->idx_get(0)->get_Name());
-    ASPOSE_ASSERT_EQ(false, formFields->idx_get(0)->get_Checked());
-    ASPOSE_ASSERT_EQ(false, formFields->idx_get(0)->get_Default());
-    ASPOSE_ASSERT_EQ(10, formFields->idx_get(0)->get_CheckBoxSize());
+    ASSERT_EQ(formFields->idx_get(0)->get_Name(), System::String::Empty);
+    ASPOSE_ASSERT_EQ(formFields->idx_get(0)->get_Checked(), false);
+    ASPOSE_ASSERT_EQ(formFields->idx_get(0)->get_Default(), false);
+    ASPOSE_ASSERT_EQ(formFields->idx_get(0)->get_CheckBoxSize(), 10);
     
-    ASSERT_EQ(u"CheckBox_Default", formFields->idx_get(1)->get_Name());
-    ASPOSE_ASSERT_EQ(true, formFields->idx_get(1)->get_Checked());
-    ASPOSE_ASSERT_EQ(true, formFields->idx_get(1)->get_Default());
-    ASPOSE_ASSERT_EQ(50, formFields->idx_get(1)->get_CheckBoxSize());
+    ASSERT_EQ(formFields->idx_get(1)->get_Name(), u"CheckBox_Default");
+    ASPOSE_ASSERT_EQ(formFields->idx_get(1)->get_Checked(), true);
+    ASPOSE_ASSERT_EQ(formFields->idx_get(1)->get_Default(), true);
+    ASPOSE_ASSERT_EQ(formFields->idx_get(1)->get_CheckBoxSize(), 50);
     
-    ASSERT_EQ(u"CheckBox_OnlyChecked", formFields->idx_get(2)->get_Name());
-    ASPOSE_ASSERT_EQ(true, formFields->idx_get(2)->get_Checked());
-    ASPOSE_ASSERT_EQ(true, formFields->idx_get(2)->get_Default());
-    ASPOSE_ASSERT_EQ(100, formFields->idx_get(2)->get_CheckBoxSize());
+    ASSERT_EQ(formFields->idx_get(2)->get_Name(), u"CheckBox_OnlyChecked");
+    ASPOSE_ASSERT_EQ(formFields->idx_get(2)->get_Checked(), true);
+    ASPOSE_ASSERT_EQ(formFields->idx_get(2)->get_Default(), true);
+    ASPOSE_ASSERT_EQ(formFields->idx_get(2)->get_CheckBoxSize(), 100);
 }
 
 namespace gtest_test
@@ -1337,10 +1337,10 @@ void ExDocumentBuilder::WorkingWithNodes()
     
     System::SharedPtr<Aspose::Words::NodeCollection> firstParagraphNodes = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetChildNodes(NodeType::Any, false);
     
-    ASSERT_EQ(NodeType::BookmarkStart, firstParagraphNodes->idx_get(0)->get_NodeType());
-    ASSERT_EQ(NodeType::Run, firstParagraphNodes->idx_get(1)->get_NodeType());
-    ASSERT_EQ(u"Bookmark contents.", firstParagraphNodes->idx_get(1)->GetText().Trim());
-    ASSERT_EQ(NodeType::BookmarkEnd, firstParagraphNodes->idx_get(2)->get_NodeType());
+    ASSERT_EQ(firstParagraphNodes->idx_get(0)->get_NodeType(), NodeType::BookmarkStart);
+    ASSERT_EQ(firstParagraphNodes->idx_get(1)->get_NodeType(), NodeType::Run);
+    ASSERT_EQ(firstParagraphNodes->idx_get(1)->GetText().Trim(), u"Bookmark contents.");
+    ASSERT_EQ(firstParagraphNodes->idx_get(2)->get_NodeType(), NodeType::BookmarkEnd);
     
     // The document builder's cursor is always ahead of the node that we last added with it.
     // If the builder's cursor is at the end of the document, its current node will be null.
@@ -1353,13 +1353,13 @@ void ExDocumentBuilder::WorkingWithNodes()
     builder->MoveToBookmark(u"MyBookmark");
     
     // Moving it to a bookmark will move it to the first node within the bookmark start and end nodes, the enclosed run.
-    ASPOSE_ASSERT_EQ(firstParagraphNodes->idx_get(1), builder->get_CurrentNode());
+    ASPOSE_ASSERT_EQ(builder->get_CurrentNode(), firstParagraphNodes->idx_get(1));
     
     // We can also move the cursor to an individual node like this.
     builder->MoveTo(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetChildNodes(NodeType::Any, false)->idx_get(0));
     
-    ASSERT_EQ(NodeType::BookmarkStart, builder->get_CurrentNode()->get_NodeType());
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph(), builder->get_CurrentParagraph());
+    ASSERT_EQ(builder->get_CurrentNode()->get_NodeType(), NodeType::BookmarkStart);
+    ASPOSE_ASSERT_EQ(builder->get_CurrentParagraph(), doc->get_FirstSection()->get_Body()->get_FirstParagraph());
     ASSERT_TRUE(builder->get_IsAtStartOfParagraph());
     
     // We can use specific methods to move to the start/end of a document.
@@ -1418,13 +1418,13 @@ void ExDocumentBuilder::FillMergeFields()
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
     ASSERT_TRUE(paragraphs->idx_get(0)->get_Runs()->idx_get(0)->get_Font()->get_Bold());
-    ASSERT_EQ(u"John Doe", paragraphs->idx_get(0)->get_Runs()->idx_get(0)->GetText().Trim());
+    ASSERT_EQ(paragraphs->idx_get(0)->get_Runs()->idx_get(0)->GetText().Trim(), u"John Doe");
     
     ASSERT_TRUE(paragraphs->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_Italic());
-    ASSERT_EQ(u"Jane Doe", paragraphs->idx_get(1)->get_Runs()->idx_get(0)->GetText().Trim());
+    ASSERT_EQ(paragraphs->idx_get(1)->get_Runs()->idx_get(0)->GetText().Trim(), u"Jane Doe");
     
     ASSERT_TRUE(paragraphs->idx_get(2)->get_Runs()->idx_get(0)->get_Font()->get_Italic());
-    ASSERT_EQ(u"John Bloggs", paragraphs->idx_get(2)->get_Runs()->idx_get(0)->GetText().Trim());
+    ASSERT_EQ(paragraphs->idx_get(2)->get_Runs()->idx_get(0)->GetText().Trim(), u"John Bloggs");
 }
 
 namespace gtest_test
@@ -1494,7 +1494,7 @@ void ExDocumentBuilder::InsertToc()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertToc.docx"));
     auto tableOfContents = System::ExplicitCast<Aspose::Words::Fields::FieldToc>(doc->get_Range()->get_Fields()->idx_get(0));
     
-    ASSERT_EQ(u"1-3", tableOfContents->get_HeadingLevelRange());
+    ASSERT_EQ(tableOfContents->get_HeadingLevelRange(), u"1-3");
     ASSERT_TRUE(tableOfContents->get_InsertHyperlinks());
     ASSERT_TRUE(tableOfContents->get_HideInWebLayout());
     ASSERT_TRUE(tableOfContents->get_UseParagraphOutlineLevel());
@@ -1594,48 +1594,48 @@ void ExDocumentBuilder::InsertTable()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertTable.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ((u"Row 1, Col 1\a"), table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim());
-    ASSERT_EQ((u"Row 1, Col 2\a"), table->get_Rows()->idx_get(0)->get_Cells()->idx_get(1)->GetText().Trim());
-    ASSERT_EQ(HeightRule::Exactly, table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule());
-    ASPOSE_ASSERT_EQ(50.0, table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height());
-    ASSERT_EQ(LineStyle::Engrave3D, table->get_Rows()->idx_get(0)->get_RowFormat()->get_Borders()->get_LineStyle());
-    ASSERT_EQ(System::Drawing::Color::get_Orange().ToArgb(), table->get_Rows()->idx_get(0)->get_RowFormat()->get_Borders()->get_Color().ToArgb());
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim(), (u"Row 1, Col 1\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(1)->GetText().Trim(), (u"Row 1, Col 2\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule(), HeightRule::Exactly);
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height(), 50.0);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_Borders()->get_LineStyle(), LineStyle::Engrave3D);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_Borders()->get_Color().ToArgb(), System::Drawing::Color::get_Orange().ToArgb());
     
     for (auto&& c : System::IterateOver<Aspose::Words::Tables::Cell>(table->get_Rows()->idx_get(0)->get_Cells()))
     {
-        ASPOSE_ASSERT_EQ(150, c->get_CellFormat()->get_Width());
-        ASSERT_EQ(CellVerticalAlignment::Center, c->get_CellFormat()->get_VerticalAlignment());
-        ASSERT_EQ(System::Drawing::Color::get_GreenYellow().ToArgb(), c->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb());
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Width(), 150);
+        ASSERT_EQ(c->get_CellFormat()->get_VerticalAlignment(), CellVerticalAlignment::Center);
+        ASSERT_EQ(c->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_GreenYellow().ToArgb());
         ASSERT_FALSE(c->get_CellFormat()->get_WrapText());
         ASSERT_TRUE(c->get_CellFormat()->get_FitText());
         
-        ASSERT_EQ(ParagraphAlignment::Center, c->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+        ASSERT_EQ(c->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
     }
     
-    ASSERT_EQ((u"Row 2, Col 1\a"), table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->GetText().Trim());
-    ASSERT_EQ((u"Row 2, Col 2\a"), table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->GetText().Trim());
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->GetText().Trim(), (u"Row 2, Col 1\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->GetText().Trim(), (u"Row 2, Col 2\a"));
     
     
     for (auto&& c : System::IterateOver<Aspose::Words::Tables::Cell>(table->get_Rows()->idx_get(1)->get_Cells()))
     {
-        ASPOSE_ASSERT_EQ(150, c->get_CellFormat()->get_Width());
-        ASSERT_EQ(CellVerticalAlignment::Center, c->get_CellFormat()->get_VerticalAlignment());
-        ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), c->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb());
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Width(), 150);
+        ASSERT_EQ(c->get_CellFormat()->get_VerticalAlignment(), CellVerticalAlignment::Center);
+        ASSERT_EQ(c->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::Empty.ToArgb());
         ASSERT_FALSE(c->get_CellFormat()->get_WrapText());
         ASSERT_TRUE(c->get_CellFormat()->get_FitText());
         
-        ASSERT_EQ(ParagraphAlignment::Center, c->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+        ASSERT_EQ(c->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
     }
     
-    ASPOSE_ASSERT_EQ(150, table->get_Rows()->idx_get(2)->get_RowFormat()->get_Height());
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(2)->get_RowFormat()->get_Height(), 150);
     
-    ASSERT_EQ((u"Row 3, Col 1\a"), table->get_Rows()->idx_get(2)->get_Cells()->idx_get(0)->GetText().Trim());
-    ASSERT_EQ(TextOrientation::Upward, table->get_Rows()->idx_get(2)->get_Cells()->idx_get(0)->get_CellFormat()->get_Orientation());
-    ASSERT_EQ(ParagraphAlignment::Center, table->get_Rows()->idx_get(2)->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(0)->GetText().Trim(), (u"Row 3, Col 1\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(0)->get_CellFormat()->get_Orientation(), TextOrientation::Upward);
+    ASSERT_EQ(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(0)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
     
-    ASSERT_EQ((u"Row 3, Col 2\a"), table->get_Rows()->idx_get(2)->get_Cells()->idx_get(1)->GetText().Trim());
-    ASSERT_EQ(TextOrientation::Downward, table->get_Rows()->idx_get(2)->get_Cells()->idx_get(1)->get_CellFormat()->get_Orientation());
-    ASSERT_EQ(ParagraphAlignment::Center, table->get_Rows()->idx_get(2)->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(1)->GetText().Trim(), (u"Row 3, Col 2\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(1)->get_CellFormat()->get_Orientation(), TextOrientation::Downward);
+    ASSERT_EQ(table->get_Rows()->idx_get(2)->get_Cells()->idx_get(1)->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
 }
 
 namespace gtest_test
@@ -1703,12 +1703,12 @@ void ExDocumentBuilder::InsertTableWithStyle()
     
     doc->ExpandTableStylesToDirectFormatting();
     
-    ASSERT_EQ(u"Medium Shading 1 Accent 1", table->get_Style()->get_Name());
-    ASSERT_EQ(TableStyleOptions::FirstColumn | TableStyleOptions::RowBands | TableStyleOptions::FirstRow, table->get_StyleOptions());
-    ASSERT_EQ(189, ASPOSECPP_CHECKED_CAST(int32_t, table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().get_B()));
-    ASSERT_EQ(System::Drawing::Color::get_White().ToArgb(), table->get_FirstRow()->get_FirstCell()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Color().ToArgb());
-    ASSERT_NE(System::Drawing::Color::get_LightBlue().ToArgb(), ASPOSECPP_CHECKED_CAST(int32_t, table->get_LastRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().get_B()));
-    ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), table->get_LastRow()->get_FirstCell()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Color().ToArgb());
+    ASSERT_EQ(table->get_Style()->get_Name(), u"Medium Shading 1 Accent 1");
+    ASSERT_EQ(table->get_StyleOptions(), TableStyleOptions::FirstColumn | TableStyleOptions::RowBands | TableStyleOptions::FirstRow);
+    ASSERT_EQ(ASPOSECPP_CHECKED_CAST(int32_t, table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().get_B()), 189);
+    ASSERT_EQ(table->get_FirstRow()->get_FirstCell()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_White().ToArgb());
+    ASSERT_NE(ASPOSECPP_CHECKED_CAST(int32_t, table->get_LastRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().get_B()), System::Drawing::Color::get_LightBlue().ToArgb());
+    ASSERT_EQ(table->get_LastRow()->get_FirstCell()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
 }
 
 namespace gtest_test
@@ -1765,7 +1765,7 @@ void ExDocumentBuilder::InsertTableSetHeadingRow()
     
     for (int32_t i = 0; i < table->get_Rows()->get_Count(); i++)
     {
-        ASPOSE_ASSERT_EQ(i < 2, table->get_Rows()->idx_get(i)->get_RowFormat()->get_HeadingFormat());
+        ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(i)->get_RowFormat()->get_HeadingFormat(), i < 2);
     }
 }
 
@@ -1805,8 +1805,8 @@ void ExDocumentBuilder::InsertTableWithPreferredWidth()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertTableWithPreferredWidth.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(PreferredWidthType::Percent, table->get_PreferredWidth()->get_Type());
-    ASPOSE_ASSERT_EQ(50, table->get_PreferredWidth()->get_Value());
+    ASSERT_EQ(table->get_PreferredWidth()->get_Type(), PreferredWidthType::Percent);
+    ASPOSE_ASSERT_EQ(table->get_PreferredWidth()->get_Value(), 50);
 }
 
 namespace gtest_test
@@ -1855,7 +1855,7 @@ void ExDocumentBuilder::InsertCellsWithPreferredWidths()
     builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::Auto());
     
     // Each configuration of the "PreferredWidth" property creates a new object.
-    ASSERT_NE(System::ObjectExt::GetHashCode(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_PreferredWidth()), System::ObjectExt::GetHashCode(builder->get_CellFormat()->get_PreferredWidth()));
+    ASSERT_NE(System::ObjectExt::GetHashCode(builder->get_CellFormat()->get_PreferredWidth()), System::ObjectExt::GetHashCode(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_PreferredWidth()));
     
     builder->get_CellFormat()->get_Shading()->set_BackgroundPatternColor(System::Drawing::Color::get_LightGreen());
     builder->Writeln(u"Automatically sized cell.");
@@ -1863,23 +1863,23 @@ void ExDocumentBuilder::InsertCellsWithPreferredWidths()
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.InsertCellsWithPreferredWidths.docx");
     //ExEnd
     
-    ASPOSE_ASSERT_EQ(100.0, PreferredWidth::FromPercent(100)->get_Value());
-    ASPOSE_ASSERT_EQ(100.0, PreferredWidth::FromPoints(100)->get_Value());
+    ASPOSE_ASSERT_EQ(PreferredWidth::FromPercent(100)->get_Value(), 100.0);
+    ASPOSE_ASSERT_EQ(PreferredWidth::FromPoints(100)->get_Value(), 100.0);
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertCellsWithPreferredWidths.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(PreferredWidthType::Points, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_PreferredWidth()->get_Type());
-    ASPOSE_ASSERT_EQ(40.0, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_PreferredWidth()->get_Value());
-    ASSERT_EQ(u"Cell with a width of 800.\r\a", table->get_FirstRow()->get_Cells()->idx_get(0)->GetText().Trim());
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_PreferredWidth()->get_Type(), PreferredWidthType::Points);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_PreferredWidth()->get_Value(), 40.0);
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->GetText().Trim(), u"Cell with a width of 800.\r\a");
     
-    ASSERT_EQ(PreferredWidthType::Percent, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_PreferredWidth()->get_Type());
-    ASPOSE_ASSERT_EQ(20.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_PreferredWidth()->get_Value());
-    ASSERT_EQ(u"Cell with a width of 20%.\r\a", table->get_FirstRow()->get_Cells()->idx_get(1)->GetText().Trim());
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_PreferredWidth()->get_Type(), PreferredWidthType::Percent);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_PreferredWidth()->get_Value(), 20.0);
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->GetText().Trim(), u"Cell with a width of 20%.\r\a");
     
-    ASSERT_EQ(PreferredWidthType::Auto, table->get_FirstRow()->get_Cells()->idx_get(2)->get_CellFormat()->get_PreferredWidth()->get_Type());
-    ASPOSE_ASSERT_EQ(0.0, table->get_FirstRow()->get_Cells()->idx_get(2)->get_CellFormat()->get_PreferredWidth()->get_Value());
-    ASSERT_EQ(u"Automatically sized cell.\r\a", table->get_FirstRow()->get_Cells()->idx_get(2)->GetText().Trim());
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(2)->get_CellFormat()->get_PreferredWidth()->get_Type(), PreferredWidthType::Auto);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(2)->get_CellFormat()->get_PreferredWidth()->get_Value(), 0.0);
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(2)->GetText().Trim(), u"Automatically sized cell.\r\a");
 }
 
 namespace gtest_test
@@ -1905,9 +1905,9 @@ void ExDocumentBuilder::InsertTableFromHtml()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertTableFromHtml.docx"));
     
-    ASSERT_EQ(1, doc->GetChildNodes(NodeType::Table, true)->get_Count());
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Row, true)->get_Count());
-    ASSERT_EQ(4, doc->GetChildNodes(NodeType::Cell, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 1);
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Row, true)->get_Count(), 2);
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Cell, true)->get_Count(), 4);
 }
 
 namespace gtest_test
@@ -1948,10 +1948,10 @@ void ExDocumentBuilder::InsertNestedTable()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertNestedTable.docx"));
     
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Table, true)->get_Count());
-    ASSERT_EQ(4, doc->GetChildNodes(NodeType::Cell, true)->get_Count());
-    ASSERT_EQ(1, cell->get_Tables()->idx_get(0)->get_Count());
-    ASSERT_EQ(2, cell->get_Tables()->idx_get(0)->get_FirstRow()->get_Cells()->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 2);
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Cell, true)->get_Count(), 4);
+    ASSERT_EQ(cell->get_Tables()->idx_get(0)->get_Count(), 1);
+    ASSERT_EQ(cell->get_Tables()->idx_get(0)->get_FirstRow()->get_Cells()->get_Count(), 2);
 }
 
 namespace gtest_test
@@ -1995,12 +1995,12 @@ void ExDocumentBuilder::CreateTable()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.CreateTable.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(4, table->GetChildNodes(NodeType::Cell, true)->get_Count());
+    ASSERT_EQ(table->GetChildNodes(NodeType::Cell, true)->get_Count(), 4);
     
-    ASSERT_EQ((u"Row 1, Cell 1.\a"), table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim());
-    ASSERT_EQ((u"Row 1, Cell 2.\a"), table->get_Rows()->idx_get(0)->get_Cells()->idx_get(1)->GetText().Trim());
-    ASSERT_EQ((u"Row 2, Cell 1.\a"), table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->GetText().Trim());
-    ASSERT_EQ((u"Row 2, Cell 2.\a"), table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->GetText().Trim());
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim(), (u"Row 1, Cell 1.\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(1)->GetText().Trim(), (u"Row 1, Cell 2.\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->GetText().Trim(), (u"Row 2, Cell 1.\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->GetText().Trim(), (u"Row 2, Cell 2.\a"));
 }
 
 namespace gtest_test
@@ -2080,27 +2080,27 @@ void ExDocumentBuilder::BuildFormattedTable()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.CreateFormattedTable.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASPOSE_ASSERT_EQ(20.0, table->get_LeftIndent());
+    ASPOSE_ASSERT_EQ(table->get_LeftIndent(), 20.0);
     
-    ASSERT_EQ(HeightRule::AtLeast, table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule());
-    ASPOSE_ASSERT_EQ(40.0, table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height());
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule(), HeightRule::AtLeast);
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height(), 40.0);
     
     for (auto&& c : System::IterateOver<Aspose::Words::Tables::Cell>(doc->GetChildNodes(NodeType::Cell, true)))
     {
-        ASSERT_EQ(ParagraphAlignment::Center, c->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment());
+        ASSERT_EQ(c->get_FirstParagraph()->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
         
         for (auto&& r : System::IterateOver<Aspose::Words::Run>(c->get_FirstParagraph()->get_Runs()))
         {
-            ASSERT_EQ(u"Arial", r->get_Font()->get_Name());
+            ASSERT_EQ(r->get_Font()->get_Name(), u"Arial");
             
             if (c->get_ParentRow() == table->get_FirstRow())
             {
-                ASPOSE_ASSERT_EQ(16, r->get_Font()->get_Size());
+                ASPOSE_ASSERT_EQ(r->get_Font()->get_Size(), 16);
                 ASSERT_TRUE(r->get_Font()->get_Bold());
             }
             else
             {
-                ASPOSE_ASSERT_EQ(12, r->get_Font()->get_Size());
+                ASPOSE_ASSERT_EQ(r->get_Font()->get_Size(), 12);
                 ASSERT_FALSE(r->get_Font()->get_Bold());
             }
         }
@@ -2165,28 +2165,28 @@ void ExDocumentBuilder::TableBordersAndShading()
     
     for (auto&& c : System::IterateOver<Aspose::Words::Tables::Cell>(table->get_FirstRow()))
     {
-        ASPOSE_ASSERT_EQ(0.5, c->get_CellFormat()->get_Borders()->get_Top()->get_LineWidth());
-        ASPOSE_ASSERT_EQ(0.5, c->get_CellFormat()->get_Borders()->get_Bottom()->get_LineWidth());
-        ASPOSE_ASSERT_EQ(0.5, c->get_CellFormat()->get_Borders()->get_Left()->get_LineWidth());
-        ASPOSE_ASSERT_EQ(0.5, c->get_CellFormat()->get_Borders()->get_Right()->get_LineWidth());
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Top()->get_LineWidth(), 0.5);
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Bottom()->get_LineWidth(), 0.5);
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Left()->get_LineWidth(), 0.5);
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Right()->get_LineWidth(), 0.5);
         
-        ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), c->get_CellFormat()->get_Borders()->get_Left()->get_Color().ToArgb());
-        ASSERT_EQ(LineStyle::Single, c->get_CellFormat()->get_Borders()->get_Left()->get_LineStyle());
+        ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Left()->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+        ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Left()->get_LineStyle(), LineStyle::Single);
     }
     
-    ASSERT_EQ(System::Drawing::Color::get_LightSkyBlue().ToArgb(), table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Orange().ToArgb(), table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb());
+    ASSERT_EQ(table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_LightSkyBlue().ToArgb());
+    ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_Orange().ToArgb());
     
     for (auto&& c : System::IterateOver<Aspose::Words::Tables::Cell>(table->get_LastRow()))
     {
-        ASPOSE_ASSERT_EQ(4.0, c->get_CellFormat()->get_Borders()->get_Top()->get_LineWidth());
-        ASPOSE_ASSERT_EQ(4.0, c->get_CellFormat()->get_Borders()->get_Bottom()->get_LineWidth());
-        ASPOSE_ASSERT_EQ(4.0, c->get_CellFormat()->get_Borders()->get_Left()->get_LineWidth());
-        ASPOSE_ASSERT_EQ(4.0, c->get_CellFormat()->get_Borders()->get_Right()->get_LineWidth());
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Top()->get_LineWidth(), 4.0);
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Bottom()->get_LineWidth(), 4.0);
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Left()->get_LineWidth(), 4.0);
+        ASPOSE_ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Right()->get_LineWidth(), 4.0);
         
-        ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), c->get_CellFormat()->get_Borders()->get_Left()->get_Color().ToArgb());
-        ASSERT_EQ(LineStyle::Single, c->get_CellFormat()->get_Borders()->get_Left()->get_LineStyle());
-        ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), c->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb());
+        ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Left()->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+        ASSERT_EQ(c->get_CellFormat()->get_Borders()->get_Left()->get_LineStyle(), LineStyle::Single);
+        ASSERT_EQ(c->get_CellFormat()->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::Empty.ToArgb());
     }
 }
 
@@ -2212,7 +2212,7 @@ void ExDocumentBuilder::SetPreferredTypeConvertUtil()
     builder->get_CellFormat()->set_PreferredWidth(PreferredWidth::FromPoints(ConvertUtil::InchToPoint(3)));
     builder->InsertCell();
     
-    ASPOSE_ASSERT_EQ(216.0, table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_PreferredWidth()->get_Value());
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_FirstCell()->get_CellFormat()->get_PreferredWidth()->get_Value(), 216.0);
     //ExEnd
 }
 
@@ -2255,8 +2255,8 @@ void ExDocumentBuilder::InsertHyperlinkToLocalBookmark()
     hyperlink = System::ExplicitCast<Aspose::Words::Fields::FieldHyperlink>(doc->get_Range()->get_Fields()->idx_get(0));
     
     TestUtil::VerifyField(FieldType::FieldHyperlink, u" HYPERLINK \\l \"Bookmark1\" \\o \"Hyperlink Tip\" ", u"Link to Bookmark1", hyperlink);
-    ASSERT_EQ(u"Bookmark1", hyperlink->get_SubAddress());
-    ASSERT_EQ(u"Hyperlink Tip", hyperlink->get_ScreenTip());
+    ASSERT_EQ(hyperlink->get_SubAddress(), u"Bookmark1");
+    ASSERT_EQ(hyperlink->get_ScreenTip(), u"Hyperlink Tip");
     ASSERT_TRUE(doc->get_Range()->get_Bookmarks()->LINQ_Any(static_cast<System::Func<System::SharedPtr<Aspose::Words::Bookmark>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Bookmark> b)>>([](System::SharedPtr<Aspose::Words::Bookmark> b) -> bool
     {
         return b->get_Name() == u"Bookmark1";
@@ -2283,11 +2283,11 @@ void ExDocumentBuilder::CursorPosition()
     // there will be no nodes in front of it so that the current node will be null.
     ASSERT_TRUE(System::TestTools::IsNull(builder->get_CurrentNode()));
     
-    ASSERT_EQ(u"Hello world!", builder->get_CurrentParagraph()->GetText().Trim());
+    ASSERT_EQ(builder->get_CurrentParagraph()->GetText().Trim(), u"Hello world!");
     
     // Move to the beginning of the document and place the cursor at an existing node.
     builder->MoveToDocumentStart();
-    ASSERT_EQ(NodeType::Run, builder->get_CurrentNode()->get_NodeType());
+    ASSERT_EQ(builder->get_CurrentNode()->get_NodeType(), NodeType::Run);
 }
 
 namespace gtest_test
@@ -2316,24 +2316,24 @@ void ExDocumentBuilder::MoveTo()
     // and it also always ends up immediately after any node that the builder just inserted.
     // To append content to a different part of the document,
     // we can move the cursor to a different node with the "MoveTo" method.
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_LastParagraph(), builder->get_CurrentParagraph());
+    ASPOSE_ASSERT_EQ(builder->get_CurrentParagraph(), doc->get_FirstSection()->get_Body()->get_LastParagraph());
     //ExSkip
     builder->MoveTo(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0));
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph(), builder->get_CurrentParagraph());
+    ASPOSE_ASSERT_EQ(builder->get_CurrentParagraph(), doc->get_FirstSection()->get_Body()->get_FirstParagraph());
     //ExSkip
     
     // The cursor is now in front of the node that we moved it to.
     // Adding a second run will insert it in front of the first run.
     builder->Writeln(u"Run 2. ");
     
-    ASSERT_EQ(u"Run 2. \rRun 1.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Run 2. \rRun 1.");
     
     // Move the cursor to the end of the document to continue appending text to the end as before.
     builder->MoveTo(doc->get_LastSection()->get_Body()->get_LastParagraph());
     builder->Writeln(u"Run 3. ");
     
-    ASSERT_EQ(u"Run 2. \rRun 1. \rRun 3.", doc->GetText().Trim());
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_LastParagraph(), builder->get_CurrentParagraph());
+    ASSERT_EQ(doc->GetText().Trim(), u"Run 2. \rRun 1. \rRun 3.");
+    ASPOSE_ASSERT_EQ(builder->get_CurrentParagraph(), doc->get_FirstSection()->get_Body()->get_LastParagraph());
     //ExSkip
     
     //ExEnd
@@ -2357,29 +2357,29 @@ void ExDocumentBuilder::MoveToParagraph()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Paragraphs.docx"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    ASSERT_EQ(22, paragraphs->get_Count());
+    ASSERT_EQ(paragraphs->get_Count(), 22);
     
     // Create document builder to edit the document. The builder's cursor,
     // which is the point where it will insert new nodes when we call its document construction methods,
     // is currently at the beginning of the document.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    ASSERT_EQ(0, paragraphs->IndexOf(builder->get_CurrentParagraph()));
+    ASSERT_EQ(paragraphs->IndexOf(builder->get_CurrentParagraph()), 0);
     
     // Move that cursor to a different paragraph will place that cursor in front of that paragraph.
     builder->MoveToParagraph(2, 0);
-    ASSERT_EQ(2, paragraphs->IndexOf(builder->get_CurrentParagraph()));
+    ASSERT_EQ(paragraphs->IndexOf(builder->get_CurrentParagraph()), 2);
     //ExSkip
     
     // Any new content that we add will be inserted at that point.
     builder->Writeln(u"This is a new third paragraph. ");
     //ExEnd
     
-    ASSERT_EQ(3, paragraphs->IndexOf(builder->get_CurrentParagraph()));
+    ASSERT_EQ(paragraphs->IndexOf(builder->get_CurrentParagraph()), 3);
     
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASSERT_EQ(u"This is a new third paragraph.", doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(2)->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(2)->GetText().Trim(), u"This is a new third paragraph.");
 }
 
 namespace gtest_test
@@ -2424,7 +2424,7 @@ void ExDocumentBuilder::MoveToCell()
     
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ((u"Column 2, cell 2.\a"), table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->GetText().Trim());
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->GetText().Trim(), (u"Column 2, cell 2.\a"));
 }
 
 namespace gtest_test
@@ -2458,29 +2458,29 @@ void ExDocumentBuilder::MoveToBookmark()
     ASSERT_TRUE(builder->MoveToBookmark(u"MyBookmark", true, false));
     builder->Write(u"1. ");
     
-    ASSERT_EQ(u"Hello world! ", doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark")->get_Text());
-    ASSERT_EQ(u"1. Hello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark")->get_Text(), u"Hello world! ");
+    ASSERT_EQ(doc->GetText().Trim(), u"1. Hello world!");
     
     // 2 -  Inside the bookmark, right after the BookmarkStart node:
     ASSERT_TRUE(builder->MoveToBookmark(u"MyBookmark", true, true));
     builder->Write(u"2. ");
     
-    ASSERT_EQ(u"2. Hello world! ", doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark")->get_Text());
-    ASSERT_EQ(u"1. 2. Hello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark")->get_Text(), u"2. Hello world! ");
+    ASSERT_EQ(doc->GetText().Trim(), u"1. 2. Hello world!");
     
     // 2 -  Inside the bookmark, right in front of the BookmarkEnd node:
     ASSERT_TRUE(builder->MoveToBookmark(u"MyBookmark", false, false));
     builder->Write(u"3. ");
     
-    ASSERT_EQ(u"2. Hello world! 3. ", doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark")->get_Text());
-    ASSERT_EQ(u"1. 2. Hello world! 3.", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark")->get_Text(), u"2. Hello world! 3. ");
+    ASSERT_EQ(doc->GetText().Trim(), u"1. 2. Hello world! 3.");
     
     // 4 -  Outside of the bookmark, after the BookmarkEnd node:
     ASSERT_TRUE(builder->MoveToBookmark(u"MyBookmark", false, true));
     builder->Write(u"4.");
     
-    ASSERT_EQ(u"2. Hello world! 3. ", doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark")->get_Text());
-    ASSERT_EQ(u"1. 2. Hello world! 3. 4.", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->idx_get(u"MyBookmark")->get_Text(), u"2. Hello world! 3. ");
+    ASSERT_EQ(doc->GetText().Trim(), u"1. 2. Hello world! 3. 4.");
     //ExEnd
 }
 
@@ -2523,8 +2523,8 @@ void ExDocumentBuilder::BuildTable()
     
     // While building the table, the document builder will apply its current RowFormat/CellFormat property values
     // to the current row/cell that its cursor is in and any new rows/cells as it creates them.
-    ASSERT_EQ(CellVerticalAlignment::Center, table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_CellFormat()->get_VerticalAlignment());
-    ASSERT_EQ(CellVerticalAlignment::Center, table->get_Rows()->idx_get(0)->get_Cells()->idx_get(1)->get_CellFormat()->get_VerticalAlignment());
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_CellFormat()->get_VerticalAlignment(), CellVerticalAlignment::Center);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(1)->get_CellFormat()->get_VerticalAlignment(), CellVerticalAlignment::Center);
     
     builder->InsertCell();
     builder->get_RowFormat()->set_Height(100);
@@ -2538,12 +2538,12 @@ void ExDocumentBuilder::BuildTable()
     builder->EndTable();
     
     // Previously added rows and cells are not retroactively affected by changes to the builder's formatting.
-    ASPOSE_ASSERT_EQ(0, table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height());
-    ASSERT_EQ(HeightRule::Auto, table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule());
-    ASPOSE_ASSERT_EQ(100, table->get_Rows()->idx_get(1)->get_RowFormat()->get_Height());
-    ASSERT_EQ(HeightRule::Exactly, table->get_Rows()->idx_get(1)->get_RowFormat()->get_HeightRule());
-    ASSERT_EQ(TextOrientation::Upward, table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->get_CellFormat()->get_Orientation());
-    ASSERT_EQ(TextOrientation::Downward, table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->get_CellFormat()->get_Orientation());
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height(), 0);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule(), HeightRule::Auto);
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(1)->get_RowFormat()->get_Height(), 100);
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_RowFormat()->get_HeightRule(), HeightRule::Exactly);
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->get_CellFormat()->get_Orientation(), TextOrientation::Upward);
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->get_CellFormat()->get_Orientation(), TextOrientation::Downward);
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.BuildTable.docx");
     //ExEnd
@@ -2551,25 +2551,25 @@ void ExDocumentBuilder::BuildTable()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.BuildTable.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(2, table->get_Rows()->get_Count());
-    ASSERT_EQ(2, table->get_Rows()->idx_get(0)->get_Cells()->get_Count());
-    ASSERT_EQ(2, table->get_Rows()->idx_get(1)->get_Cells()->get_Count());
+    ASSERT_EQ(table->get_Rows()->get_Count(), 2);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->get_Count(), 2);
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->get_Count(), 2);
     
-    ASPOSE_ASSERT_EQ(0, table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height());
-    ASSERT_EQ(HeightRule::Auto, table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule());
-    ASPOSE_ASSERT_EQ(100, table->get_Rows()->idx_get(1)->get_RowFormat()->get_Height());
-    ASSERT_EQ(HeightRule::Exactly, table->get_Rows()->idx_get(1)->get_RowFormat()->get_HeightRule());
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height(), 0);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule(), HeightRule::Auto);
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(1)->get_RowFormat()->get_Height(), 100);
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_RowFormat()->get_HeightRule(), HeightRule::Exactly);
     
-    ASSERT_EQ((u"Row 1, cell 1.\a"), table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim());
-    ASSERT_EQ(CellVerticalAlignment::Center, table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_CellFormat()->get_VerticalAlignment());
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim(), (u"Row 1, cell 1.\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_CellFormat()->get_VerticalAlignment(), CellVerticalAlignment::Center);
     
-    ASSERT_EQ((u"Row 1, cell 2.\a"), table->get_Rows()->idx_get(0)->get_Cells()->idx_get(1)->GetText().Trim());
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(1)->GetText().Trim(), (u"Row 1, cell 2.\a"));
     
-    ASSERT_EQ((u"Row 2, cell 1.\a"), table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->GetText().Trim());
-    ASSERT_EQ(TextOrientation::Upward, table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->get_CellFormat()->get_Orientation());
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->GetText().Trim(), (u"Row 2, cell 1.\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->get_CellFormat()->get_Orientation(), TextOrientation::Upward);
     
-    ASSERT_EQ((u"Row 2, cell 2.\a"), table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->GetText().Trim());
-    ASSERT_EQ(TextOrientation::Downward, table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->get_CellFormat()->get_Orientation());
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->GetText().Trim(), (u"Row 2, cell 2.\a"));
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(1)->get_CellFormat()->get_Orientation(), TextOrientation::Downward);
 }
 
 namespace gtest_test
@@ -2589,14 +2589,14 @@ void ExDocumentBuilder::TableCellVerticalRotatedFarEastTextOrientation()
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::Tables::Cell> cell = table->get_FirstRow()->get_FirstCell();
     
-    ASSERT_EQ(TextOrientation::VerticalRotatedFarEast, cell->get_CellFormat()->get_Orientation());
+    ASSERT_EQ(cell->get_CellFormat()->get_Orientation(), TextOrientation::VerticalRotatedFarEast);
     
     doc = DocumentHelper::SaveOpen(doc);
     
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     cell = table->get_FirstRow()->get_FirstCell();
     
-    ASSERT_EQ(TextOrientation::VerticalRotatedFarEast, cell->get_CellFormat()->get_Orientation());
+    ASSERT_EQ(cell->get_CellFormat()->get_Orientation(), TextOrientation::VerticalRotatedFarEast);
 }
 
 namespace gtest_test
@@ -2631,24 +2631,24 @@ void ExDocumentBuilder::InsertFloatingImage()
     auto image = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Png, image);
-    ASPOSE_ASSERT_EQ(100.0, image->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, image->get_Top());
-    ASPOSE_ASSERT_EQ(200.0, image->get_Width());
-    ASPOSE_ASSERT_EQ(200.0, image->get_Height());
-    ASSERT_EQ(WrapType::Square, image->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Margin, image->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Margin, image->get_RelativeVerticalPosition());
+    ASPOSE_ASSERT_EQ(image->get_Left(), 100.0);
+    ASPOSE_ASSERT_EQ(image->get_Top(), 0.0);
+    ASPOSE_ASSERT_EQ(image->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(image->get_Height(), 200.0);
+    ASSERT_EQ(image->get_WrapType(), WrapType::Square);
+    ASSERT_EQ(image->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Margin);
+    ASSERT_EQ(image->get_RelativeVerticalPosition(), RelativeVerticalPosition::Margin);
     
     image = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
     
     TestUtil::VerifyImageInShape(400, 300, ImageType::Png, image);
-    ASPOSE_ASSERT_EQ(100.0, image->get_Left());
-    ASPOSE_ASSERT_EQ(250.0, image->get_Top());
-    ASPOSE_ASSERT_EQ(200.0, image->get_Width());
-    ASPOSE_ASSERT_EQ(200.0, image->get_Height());
-    ASSERT_EQ(WrapType::Square, image->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Margin, image->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Margin, image->get_RelativeVerticalPosition());
+    ASPOSE_ASSERT_EQ(image->get_Left(), 100.0);
+    ASPOSE_ASSERT_EQ(image->get_Top(), 250.0);
+    ASPOSE_ASSERT_EQ(image->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(image->get_Height(), 200.0);
+    ASSERT_EQ(image->get_WrapType(), WrapType::Square);
+    ASSERT_EQ(image->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Margin);
+    ASSERT_EQ(image->get_RelativeVerticalPosition(), RelativeVerticalPosition::Margin);
 }
 
 namespace gtest_test
@@ -2675,8 +2675,8 @@ void ExDocumentBuilder::InsertImageOriginalSize()
     
     // Passing negative values as the intended dimensions will automatically define
     // the shape's dimensions based on the dimensions of its image.
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Height());
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 300.0);
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.InsertImageOriginalSize.docx");
     //ExEnd
@@ -2685,13 +2685,13 @@ void ExDocumentBuilder::InsertImageOriginalSize()
     imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, imageShape);
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, imageShape->get_Top());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Width());
-    ASPOSE_ASSERT_EQ(300.0, imageShape->get_Height());
-    ASSERT_EQ(WrapType::Square, imageShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Margin, imageShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Margin, imageShape->get_RelativeVerticalPosition());
+    ASPOSE_ASSERT_EQ(imageShape->get_Left(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Top(), 0.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Width(), 300.0);
+    ASPOSE_ASSERT_EQ(imageShape->get_Height(), 300.0);
+    ASSERT_EQ(imageShape->get_WrapType(), WrapType::Square);
+    ASSERT_EQ(imageShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Margin);
+    ASSERT_EQ(imageShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Margin);
 }
 
 namespace gtest_test
@@ -2722,12 +2722,12 @@ void ExDocumentBuilder::InsertTextInput()
     System::SharedPtr<Aspose::Words::Fields::FormField> formField = doc->get_Range()->get_FormFields()->idx_get(0);
     
     ASSERT_TRUE(formField->get_Enabled());
-    ASSERT_EQ(u"TextInput", formField->get_Name());
-    ASSERT_EQ(0, formField->get_MaxLength());
-    ASSERT_EQ(u"Enter your text here", formField->get_Result());
-    ASSERT_EQ(FieldType::FieldFormTextInput, formField->get_Type());
-    ASSERT_EQ(u"", formField->get_TextInputFormat());
-    ASSERT_EQ(TextFormFieldType::Regular, formField->get_TextInputType());
+    ASSERT_EQ(formField->get_Name(), u"TextInput");
+    ASSERT_EQ(formField->get_MaxLength(), 0);
+    ASSERT_EQ(formField->get_Result(), u"Enter your text here");
+    ASSERT_EQ(formField->get_Type(), FieldType::FieldFormTextInput);
+    ASSERT_EQ(formField->get_TextInputFormat(), u"");
+    ASSERT_EQ(formField->get_TextInputType(), TextFormFieldType::Regular);
 }
 
 namespace gtest_test
@@ -2760,10 +2760,10 @@ void ExDocumentBuilder::InsertComboBox()
     System::SharedPtr<Aspose::Words::Fields::FormField> formField = doc->get_Range()->get_FormFields()->idx_get(0);
     
     ASSERT_TRUE(formField->get_Enabled());
-    ASSERT_EQ(u"DropDown", formField->get_Name());
-    ASSERT_EQ(0, formField->get_DropDownSelectedIndex());
-    ASPOSE_ASSERT_EQ(items, formField->get_DropDownItems());
-    ASSERT_EQ(FieldType::FieldFormDropDown, formField->get_Type());
+    ASSERT_EQ(formField->get_Name(), u"DropDown");
+    ASSERT_EQ(formField->get_DropDownSelectedIndex(), 0);
+    ASPOSE_ASSERT_EQ(formField->get_DropDownItems(), items);
+    ASSERT_EQ(formField->get_Type(), FieldType::FieldFormDropDown);
 }
 
 namespace gtest_test
@@ -2831,24 +2831,24 @@ void ExDocumentBuilder::SignatureLineProviderId()
     ASSERT_TRUE(signatureLine->get_IsValid());
     //ExEnd
     
-    ASSERT_EQ(u"vderyushev", signatureLine->get_Signer());
-    ASSERT_EQ(u"QA", signatureLine->get_SignerTitle());
-    ASSERT_EQ(u"vderyushev@aspose.com", signatureLine->get_Email());
+    ASSERT_EQ(signatureLine->get_Signer(), u"vderyushev");
+    ASSERT_EQ(signatureLine->get_SignerTitle(), u"QA");
+    ASSERT_EQ(signatureLine->get_Email(), u"vderyushev@aspose.com");
     ASSERT_TRUE(signatureLine->get_ShowDate());
     ASSERT_FALSE(signatureLine->get_DefaultInstructions());
-    ASSERT_EQ(u"Please sign here.", signatureLine->get_Instructions());
+    ASSERT_EQ(signatureLine->get_Instructions(), u"Please sign here.");
     ASSERT_TRUE(signatureLine->get_AllowComments());
     ASSERT_TRUE(signatureLine->get_IsSigned());
     ASSERT_TRUE(signatureLine->get_IsValid());
     
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> signatures = DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DocumentBuilder.SignatureLineProviderId.Signed.docx");
     
-    ASSERT_EQ(1, signatures->get_Count());
+    ASSERT_EQ(signatures->get_Count(), 1);
     ASSERT_TRUE(signatures->idx_get(0)->get_IsValid());
-    ASSERT_EQ(u"Document was signed by vderyushev", signatures->idx_get(0)->get_Comments());
-    ASSERT_EQ(System::DateTime::get_Today(), signatures->idx_get(0)->get_SignTime().get_Date());
-    ASSERT_EQ(u"CN=Morzal.Me", signatures->idx_get(0)->get_IssuerName());
-    ASSERT_EQ(DigitalSignatureType::XmlDsig, signatures->idx_get(0)->get_SignatureType());
+    ASSERT_EQ(signatures->idx_get(0)->get_Comments(), u"Document was signed by vderyushev");
+    ASSERT_EQ(signatures->idx_get(0)->get_SignTime().get_Date(), System::DateTime::get_Today());
+    ASSERT_EQ(signatures->idx_get(0)->get_IssuerName(), u"CN=Morzal.Me");
+    ASSERT_EQ(signatures->idx_get(0)->get_SignatureType(), DigitalSignatureType::XmlDsig);
 }
 
 namespace gtest_test
@@ -2889,12 +2889,12 @@ void ExDocumentBuilder::SignatureLineInline()
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     System::SharedPtr<Aspose::Words::Drawing::SignatureLine> signatureLine = shape->get_SignatureLine();
     
-    ASSERT_EQ(u"John Doe", signatureLine->get_Signer());
-    ASSERT_EQ(u"Manager", signatureLine->get_SignerTitle());
-    ASSERT_EQ(u"johndoe@aspose.com", signatureLine->get_Email());
+    ASSERT_EQ(signatureLine->get_Signer(), u"John Doe");
+    ASSERT_EQ(signatureLine->get_SignerTitle(), u"Manager");
+    ASSERT_EQ(signatureLine->get_Email(), u"johndoe@aspose.com");
     ASSERT_TRUE(signatureLine->get_ShowDate());
     ASSERT_FALSE(signatureLine->get_DefaultInstructions());
-    ASSERT_EQ(u"Please sign here.", signatureLine->get_Instructions());
+    ASSERT_EQ(signatureLine->get_Instructions(), u"Please sign here.");
     ASSERT_TRUE(signatureLine->get_AllowComments());
     ASSERT_FALSE(signatureLine->get_IsSigned());
     ASSERT_FALSE(signatureLine->get_IsValid());
@@ -2938,10 +2938,10 @@ void ExDocumentBuilder::SetParagraphFormatting()
     
     for (auto&& paragraph : System::IterateOver<Aspose::Words::Paragraph>(doc->get_FirstSection()->get_Body()->get_Paragraphs()))
     {
-        ASSERT_EQ(ParagraphAlignment::Center, paragraph->get_ParagraphFormat()->get_Alignment());
-        ASPOSE_ASSERT_EQ(100.0, paragraph->get_ParagraphFormat()->get_LeftIndent());
-        ASPOSE_ASSERT_EQ(50.0, paragraph->get_ParagraphFormat()->get_RightIndent());
-        ASPOSE_ASSERT_EQ(25.0, paragraph->get_ParagraphFormat()->get_SpaceAfter());
+        ASSERT_EQ(paragraph->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Center);
+        ASPOSE_ASSERT_EQ(paragraph->get_ParagraphFormat()->get_LeftIndent(), 100.0);
+        ASPOSE_ASSERT_EQ(paragraph->get_ParagraphFormat()->get_RightIndent(), 50.0);
+        ASPOSE_ASSERT_EQ(paragraph->get_ParagraphFormat()->get_SpaceAfter(), 25.0);
     }
 }
 
@@ -2990,17 +2990,17 @@ void ExDocumentBuilder::SetCellFormatting()
     builder->EndTable();
     
     // The first cell was unaffected by the padding reconfiguration, and still holds the default values.
-    ASPOSE_ASSERT_EQ(0.0, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_Width());
-    ASPOSE_ASSERT_EQ(5.4, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_LeftPadding());
-    ASPOSE_ASSERT_EQ(5.4, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_RightPadding());
-    ASPOSE_ASSERT_EQ(0.0, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_TopPadding());
-    ASPOSE_ASSERT_EQ(0.0, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_BottomPadding());
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_Width(), 0.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_LeftPadding(), 5.4);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_RightPadding(), 5.4);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_TopPadding(), 0.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_BottomPadding(), 0.0);
     
-    ASPOSE_ASSERT_EQ(250.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_Width());
-    ASPOSE_ASSERT_EQ(30.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_LeftPadding());
-    ASPOSE_ASSERT_EQ(30.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_RightPadding());
-    ASPOSE_ASSERT_EQ(30.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_TopPadding());
-    ASPOSE_ASSERT_EQ(30.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_BottomPadding());
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_Width(), 250.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_LeftPadding(), 30.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_RightPadding(), 30.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_TopPadding(), 30.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_BottomPadding(), 30.0);
     
     // The first cell will still grow in the output document to match the size of its neighboring cell.
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.SetCellFormatting.docx");
@@ -3009,17 +3009,17 @@ void ExDocumentBuilder::SetCellFormatting()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.SetCellFormatting.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASPOSE_ASSERT_EQ(159.3, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_Width());
-    ASPOSE_ASSERT_EQ(5.4, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_LeftPadding());
-    ASPOSE_ASSERT_EQ(5.4, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_RightPadding());
-    ASPOSE_ASSERT_EQ(0.0, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_TopPadding());
-    ASPOSE_ASSERT_EQ(0.0, table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_BottomPadding());
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_Width(), 159.3);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_LeftPadding(), 5.4);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_RightPadding(), 5.4);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_TopPadding(), 0.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(0)->get_CellFormat()->get_BottomPadding(), 0.0);
     
-    ASPOSE_ASSERT_EQ(310.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_Width());
-    ASPOSE_ASSERT_EQ(30.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_LeftPadding());
-    ASPOSE_ASSERT_EQ(30.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_RightPadding());
-    ASPOSE_ASSERT_EQ(30.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_TopPadding());
-    ASPOSE_ASSERT_EQ(30.0, table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_BottomPadding());
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_Width(), 310.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_LeftPadding(), 30.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_RightPadding(), 30.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_TopPadding(), 30.0);
+    ASPOSE_ASSERT_EQ(table->get_FirstRow()->get_Cells()->idx_get(1)->get_CellFormat()->get_BottomPadding(), 30.0);
 }
 
 namespace gtest_test
@@ -3060,11 +3060,11 @@ void ExDocumentBuilder::SetRowFormatting()
     builder->EndTable();
     
     // The first row was unaffected by the padding reconfiguration and still holds the default values.
-    ASPOSE_ASSERT_EQ(0.0, table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height());
-    ASSERT_EQ(HeightRule::Auto, table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule());
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height(), 0.0);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule(), HeightRule::Auto);
     
-    ASPOSE_ASSERT_EQ(100.0, table->get_Rows()->idx_get(1)->get_RowFormat()->get_Height());
-    ASSERT_EQ(HeightRule::Exactly, table->get_Rows()->idx_get(1)->get_RowFormat()->get_HeightRule());
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(1)->get_RowFormat()->get_Height(), 100.0);
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_RowFormat()->get_HeightRule(), HeightRule::Exactly);
     
     doc->Save(get_ArtifactsDir() + u"DocumentBuilder.SetRowFormatting.docx");
     //ExEnd
@@ -3072,11 +3072,11 @@ void ExDocumentBuilder::SetRowFormatting()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.SetRowFormatting.docx"));
     table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASPOSE_ASSERT_EQ(0.0, table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height());
-    ASSERT_EQ(HeightRule::Auto, table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule());
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_Height(), 0.0);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_RowFormat()->get_HeightRule(), HeightRule::Auto);
     
-    ASPOSE_ASSERT_EQ(100.0, table->get_Rows()->idx_get(1)->get_RowFormat()->get_Height());
-    ASSERT_EQ(HeightRule::Exactly, table->get_Rows()->idx_get(1)->get_RowFormat()->get_HeightRule());
+    ASPOSE_ASSERT_EQ(table->get_Rows()->idx_get(1)->get_RowFormat()->get_Height(), 100.0);
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_RowFormat()->get_HeightRule(), HeightRule::Exactly);
 }
 
 namespace gtest_test
@@ -3168,15 +3168,15 @@ void ExDocumentBuilder::ApplyBordersAndShading()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.ApplyBordersAndShading.docx"));
     borders = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders();
     
-    ASPOSE_ASSERT_EQ(20.0, borders->get_DistanceFromText());
-    ASSERT_EQ(LineStyle::Double, borders->idx_get(BorderType::Left)->get_LineStyle());
-    ASSERT_EQ(LineStyle::Double, borders->idx_get(BorderType::Right)->get_LineStyle());
-    ASSERT_EQ(LineStyle::Double, borders->idx_get(BorderType::Top)->get_LineStyle());
-    ASSERT_EQ(LineStyle::Double, borders->idx_get(BorderType::Bottom)->get_LineStyle());
+    ASPOSE_ASSERT_EQ(borders->get_DistanceFromText(), 20.0);
+    ASSERT_EQ(borders->idx_get(BorderType::Left)->get_LineStyle(), LineStyle::Double);
+    ASSERT_EQ(borders->idx_get(BorderType::Right)->get_LineStyle(), LineStyle::Double);
+    ASSERT_EQ(borders->idx_get(BorderType::Top)->get_LineStyle(), LineStyle::Double);
+    ASSERT_EQ(borders->idx_get(BorderType::Bottom)->get_LineStyle(), LineStyle::Double);
     
-    ASSERT_EQ(TextureIndex::TextureDiagonalCross, shading->get_Texture());
-    ASSERT_EQ(System::Drawing::Color::get_LightCoral().ToArgb(), shading->get_BackgroundPatternColor().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_LightSalmon().ToArgb(), shading->get_ForegroundPatternColor().ToArgb());
+    ASSERT_EQ(shading->get_Texture(), TextureIndex::TextureDiagonalCross);
+    ASSERT_EQ(shading->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_LightCoral().ToArgb());
+    ASSERT_EQ(shading->get_ForegroundPatternColor().ToArgb(), System::Drawing::Color::get_LightSalmon().ToArgb());
 }
 
 namespace gtest_test
@@ -3209,13 +3209,13 @@ void ExDocumentBuilder::DeleteRow()
     builder->Write(u"Row 2, cell 2.");
     builder->EndTable();
     
-    ASSERT_EQ(2, table->get_Rows()->get_Count());
+    ASSERT_EQ(table->get_Rows()->get_Count(), 2);
     
     // Delete the first row of the first table in the document.
     builder->DeleteRow(0, 0);
     
-    ASSERT_EQ(1, table->get_Rows()->get_Count());
-    ASSERT_EQ((u"Row 2, cell 1.\aRow 2, cell 2.\a\a"), table->GetText().Trim());
+    ASSERT_EQ(table->get_Rows()->get_Count(), 1);
+    ASSERT_EQ(table->GetText().Trim(), (u"Row 2, cell 1.\aRow 2, cell 2.\a\a"));
     //ExEnd
 }
 
@@ -3432,13 +3432,13 @@ void ExDocumentBuilder::IgnoreTextBoxes(bool ignoreTextBoxes)
     
     if (ignoreTextBoxes)
     {
-        ASPOSE_ASSERT_EQ(12.0, importedTextBox->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Size());
-        ASSERT_EQ(u"Times New Roman", importedTextBox->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Name());
+        ASPOSE_ASSERT_EQ(importedTextBox->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Size(), 12.0);
+        ASSERT_EQ(importedTextBox->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Name(), u"Times New Roman");
     }
     else
     {
-        ASPOSE_ASSERT_EQ(24.0, importedTextBox->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Size());
-        ASSERT_EQ(u"Courier New", importedTextBox->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Name());
+        ASPOSE_ASSERT_EQ(importedTextBox->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Size(), 24.0);
+        ASSERT_EQ(importedTextBox->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Name(), u"Courier New");
     }
     
     dstDoc->Save(get_ArtifactsDir() + u"DocumentBuilder.IgnoreTextBoxes.docx");
@@ -3498,14 +3498,14 @@ void ExDocumentBuilder::MoveToField(bool moveCursorToAfterTheField)
         ASSERT_TRUE(System::TestTools::IsNull(builder->get_CurrentNode()));
         builder->Write(u" Text immediately after the field.");
         
-        ASSERT_EQ(u"\u0013 AUTHOR \"John Doe\" \u0014John Doe\u0015 Text immediately after the field.", doc->GetText().Trim());
+        ASSERT_EQ(doc->GetText().Trim(), u"\u0013 AUTHOR \"John Doe\" \u0014John Doe\u0015 Text immediately after the field.");
     }
     else
     {
-        ASPOSE_ASSERT_EQ(field->get_Start(), builder->get_CurrentNode());
+        ASPOSE_ASSERT_EQ(builder->get_CurrentNode(), field->get_Start());
         builder->Write(u"Text immediately before the field. ");
         
-        ASSERT_EQ(u"Text immediately before the field. \u0013 AUTHOR \"John Doe\" \u0014John Doe\u0015", doc->GetText().Trim());
+        ASSERT_EQ(doc->GetText().Trim(), u"Text immediately before the field. \u0013 AUTHOR \"John Doe\" \u0014John Doe\u0015");
     }
     //ExEnd
 }
@@ -3542,10 +3542,10 @@ void ExDocumentBuilder::InsertOleObjectException()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&builder]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&builder]() -> void
     {
         builder->InsertOleObject(u"", u"checkbox", false, true, nullptr);
-    })(), System::ArgumentException);
+    }))(), System::ArgumentException);
 }
 
 namespace gtest_test
@@ -3567,7 +3567,7 @@ void ExDocumentBuilder::InsertPieChart()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = builder->InsertChart(ChartType::Pie, ConvertUtil::PixelToPoint(static_cast<double>(300)), ConvertUtil::PixelToPoint(static_cast<double>(300)))->get_Chart();
-    ASPOSE_ASSERT_EQ(225.0, ConvertUtil::PixelToPoint(static_cast<double>(300)));
+    ASPOSE_ASSERT_EQ(ConvertUtil::PixelToPoint(static_cast<double>(300)), 225.0);
     //ExSkip
     chart->get_Series()->Clear();
     chart->get_Series()->Add(u"My fruit", System::MakeArray<System::String>({u"Apples", u"Bananas", u"Cherries"}), System::MakeArray<double>({
@@ -3579,9 +3579,9 @@ void ExDocumentBuilder::InsertPieChart()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertPieChart.docx"));
     auto chartShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASSERT_EQ(u"Chart Title", chartShape->get_Chart()->get_Title()->get_Text());
-    ASPOSE_ASSERT_EQ(225.0, chartShape->get_Width());
-    ASPOSE_ASSERT_EQ(225.0, chartShape->get_Height());
+    ASSERT_EQ(chartShape->get_Chart()->get_Title()->get_Text(), u"Chart Title");
+    ASPOSE_ASSERT_EQ(chartShape->get_Width(), 225.0);
+    ASPOSE_ASSERT_EQ(chartShape->get_Height(), 225.0);
 }
 
 namespace gtest_test
@@ -3610,13 +3610,13 @@ void ExDocumentBuilder::InsertChartRelativePosition()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertedChartRelativePosition.docx"));
     auto chartShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASPOSE_ASSERT_EQ(100.0, chartShape->get_Top());
-    ASPOSE_ASSERT_EQ(100.0, chartShape->get_Left());
-    ASPOSE_ASSERT_EQ(200.0, chartShape->get_Width());
-    ASPOSE_ASSERT_EQ(100.0, chartShape->get_Height());
-    ASSERT_EQ(WrapType::Square, chartShape->get_WrapType());
-    ASSERT_EQ(RelativeHorizontalPosition::Margin, chartShape->get_RelativeHorizontalPosition());
-    ASSERT_EQ(RelativeVerticalPosition::Margin, chartShape->get_RelativeVerticalPosition());
+    ASPOSE_ASSERT_EQ(chartShape->get_Top(), 100.0);
+    ASPOSE_ASSERT_EQ(chartShape->get_Left(), 100.0);
+    ASPOSE_ASSERT_EQ(chartShape->get_Width(), 200.0);
+    ASPOSE_ASSERT_EQ(chartShape->get_Height(), 100.0);
+    ASSERT_EQ(chartShape->get_WrapType(), WrapType::Square);
+    ASSERT_EQ(chartShape->get_RelativeHorizontalPosition(), RelativeHorizontalPosition::Margin);
+    ASSERT_EQ(chartShape->get_RelativeVerticalPosition(), RelativeVerticalPosition::Margin);
 }
 
 namespace gtest_test
@@ -3644,8 +3644,8 @@ void ExDocumentBuilder::InsertField()
     
     System::SharedPtr<Aspose::Words::Fields::Field> field = builder->InsertField(u"DATE \\@ \"dddd, MMMM dd, yyyy\"");
     
-    ASSERT_EQ(FieldType::FieldDate, field->get_Type());
-    ASSERT_EQ((u"DATE \\@ \"dddd, MMMM dd, yyyy\""), field->GetFieldCode());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldDate);
+    ASSERT_EQ(field->GetFieldCode(), (u"DATE \\@ \"dddd, MMMM dd, yyyy\""));
     
     // This overload of the InsertField method automatically updates inserted fields.
     ASSERT_TRUE((System::DateTime::get_Today() - System::DateTime::Parse(field->get_Result())).get_Days() <= 1);
@@ -3681,33 +3681,33 @@ void ExDocumentBuilder::InsertFieldAndUpdate(bool updateInsertedFieldsImmediatel
     builder->Write(u"\nThis is page ");
     builder->InsertField(FieldType::FieldPage, updateInsertedFieldsImmediately);
     
-    ASSERT_EQ(u" AUTHOR ", doc->get_Range()->get_Fields()->idx_get(0)->GetFieldCode());
-    ASSERT_EQ(u" PAGE ", doc->get_Range()->get_Fields()->idx_get(1)->GetFieldCode());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->GetFieldCode(), u" AUTHOR ");
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->GetFieldCode(), u" PAGE ");
     
     if (updateInsertedFieldsImmediately)
     {
-        ASSERT_EQ(u"John Doe", doc->get_Range()->get_Fields()->idx_get(0)->get_Result());
-        ASSERT_EQ(u"1", doc->get_Range()->get_Fields()->idx_get(1)->get_Result());
+        ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_Result(), u"John Doe");
+        ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->get_Result(), u"1");
     }
     else
     {
-        ASSERT_EQ(System::String::Empty, doc->get_Range()->get_Fields()->idx_get(0)->get_Result());
-        ASSERT_EQ(System::String::Empty, doc->get_Range()->get_Fields()->idx_get(1)->get_Result());
+        ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_Result(), System::String::Empty);
+        ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->get_Result(), System::String::Empty);
         
         // We will need to update these fields using the update methods manually.
         doc->get_Range()->get_Fields()->idx_get(0)->Update();
         
-        ASSERT_EQ(u"John Doe", doc->get_Range()->get_Fields()->idx_get(0)->get_Result());
+        ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_Result(), u"John Doe");
         
         doc->UpdateFields();
         
-        ASSERT_EQ(u"1", doc->get_Range()->get_Fields()->idx_get(1)->get_Result());
+        ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->get_Result(), u"1");
     }
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASSERT_EQ(System::String(u"This document was written by \u0013 AUTHOR \u0014John Doe\u0015") + u"\r\rThis is page \u0013 PAGE \u00141\u0015", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"This document was written by \u0013 AUTHOR \u0014John Doe\u0015") + u"\r\rThis is page \u0013 PAGE \u00141\u0015");
     
     TestUtil::VerifyField(FieldType::FieldAuthor, u" AUTHOR ", u"John Doe", doc->get_Range()->get_Fields()->idx_get(0));
     TestUtil::VerifyField(FieldType::FieldPage, u" PAGE ", u"1", doc->get_Range()->get_Fields()->idx_get(1));
@@ -3753,20 +3753,20 @@ void ExDocumentBuilder::FieldResultFormatting()
     // 1 -  Numeric:
     builder->InsertField(u" = 2 + 3 \\# $###");
     
-    ASSERT_EQ(u"$5", doc->get_Range()->get_Fields()->idx_get(0)->get_Result());
-    ASSERT_EQ(1, formatter->CountFormatInvocations(ExDocumentBuilder::FieldResultFormatter::FormatInvocationType::Numeric));
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_Result(), u"$5");
+    ASSERT_EQ(formatter->CountFormatInvocations(ExDocumentBuilder::FieldResultFormatter::FormatInvocationType::Numeric), 1);
     
     // 2 -  Date/time:
     builder->InsertField(u"DATE \\@ \"d MMMM yyyy\"");
     
     ASSERT_TRUE(doc->get_Range()->get_Fields()->idx_get(1)->get_Result().StartsWith(u"Date: "));
-    ASSERT_EQ(1, formatter->CountFormatInvocations(ExDocumentBuilder::FieldResultFormatter::FormatInvocationType::DateTime));
+    ASSERT_EQ(formatter->CountFormatInvocations(ExDocumentBuilder::FieldResultFormatter::FormatInvocationType::DateTime), 1);
     
     // 3 -  General:
     builder->InsertField(u"QUOTE \"2\" \\* Ordinal");
     
-    ASSERT_EQ(u"Item # 2:", doc->get_Range()->get_Fields()->idx_get(2)->get_Result());
-    ASSERT_EQ(1, formatter->CountFormatInvocations(ExDocumentBuilder::FieldResultFormatter::FormatInvocationType::General));
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(2)->get_Result(), u"Item # 2:");
+    ASSERT_EQ(formatter->CountFormatInvocations(ExDocumentBuilder::FieldResultFormatter::FormatInvocationType::General), 1);
     
     formatter->PrintFormatInvocations();
 }
@@ -3799,10 +3799,10 @@ void ExDocumentBuilder::InsertVideoWithUrl()
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
     TestUtil::VerifyImageInShape(480, 360, ImageType::Jpeg, shape);
-    ASSERT_EQ(u"https://youtu.be/t_1LYZ102RA", shape->get_HRef());
+    ASSERT_EQ(shape->get_HRef(), u"https://youtu.be/t_1LYZ102RA");
     
-    ASPOSE_ASSERT_EQ(360.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(270.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 360.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 270.0);
 }
 
 namespace gtest_test
@@ -3836,10 +3836,10 @@ void ExDocumentBuilder::InsertUnderline()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertUnderline.docx"));
     System::SharedPtr<Aspose::Words::Run> firstRun = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
     
-    ASSERT_EQ((u"Large, blue, and underlined text."), firstRun->GetText().Trim());
-    ASSERT_EQ(Underline::Dash, firstRun->get_Font()->get_Underline());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), firstRun->get_Font()->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(32.0, firstRun->get_Font()->get_Size());
+    ASSERT_EQ(firstRun->GetText().Trim(), (u"Large, blue, and underlined text."));
+    ASSERT_EQ(firstRun->get_Font()->get_Underline(), Underline::Dash);
+    ASSERT_EQ(firstRun->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASPOSE_ASSERT_EQ(firstRun->get_Font()->get_Size(), 32.0);
 }
 
 namespace gtest_test
@@ -3861,9 +3861,9 @@ void ExDocumentBuilder::CurrentStory()
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
     // A Story is a type of node that has child Paragraph nodes, such as a Body.
-    ASPOSE_ASSERT_EQ(builder->get_CurrentStory(), doc->get_FirstSection()->get_Body());
-    ASPOSE_ASSERT_EQ(builder->get_CurrentStory(), builder->get_CurrentParagraph()->get_ParentNode());
-    ASSERT_EQ(StoryType::MainText, builder->get_CurrentStory()->get_StoryType());
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body(), builder->get_CurrentStory());
+    ASPOSE_ASSERT_EQ(builder->get_CurrentParagraph()->get_ParentNode(), builder->get_CurrentStory());
+    ASSERT_EQ(builder->get_CurrentStory()->get_StoryType(), StoryType::MainText);
     
     builder->get_CurrentStory()->AppendParagraph(u"Text added to current Story.");
     
@@ -3879,8 +3879,8 @@ void ExDocumentBuilder::CurrentStory()
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
-    ASSERT_EQ(1, doc->get_FirstSection()->get_Body()->get_Tables()->get_Count());
-    ASSERT_EQ((u"Row 1, cell 1\aRow 1, cell 2\a\a\rText added to current Story."), doc->get_FirstSection()->get_Body()->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Tables()->get_Count(), 1);
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->GetText().Trim(), (u"Row 1, cell 1\aRow 1, cell 2\a\a\rText added to current Story."));
 }
 
 namespace gtest_test
@@ -3932,14 +3932,14 @@ void ExDocumentBuilder::InsertOleObjects()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertOleObjects.docx"));
     
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->get_Count(), 2);
     
     auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
-    ASSERT_EQ(u"", shape->get_OleFormat()->get_IconCaption());
+    ASSERT_EQ(shape->get_OleFormat()->get_IconCaption(), u"");
     ASSERT_FALSE(shape->get_OleFormat()->get_OleIcon());
     
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
-    ASSERT_EQ(u"Unknown", shape->get_OleFormat()->get_IconCaption());
+    ASSERT_EQ(shape->get_OleFormat()->get_IconCaption(), u"Unknown");
     ASSERT_TRUE(shape->get_OleFormat()->get_OleIcon());
 }
 
@@ -3971,7 +3971,7 @@ void ExDocumentBuilder::InsertDocument()
     builder->get_Document()->Save(get_ArtifactsDir() + u"DocumentBuilder.InsertDocument.docx");
     //ExEnd
     
-    ASSERT_EQ(29, doc->get_Styles()->get_Count());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 29);
     ASSERT_TRUE(DocumentHelper::CompareDocs(get_ArtifactsDir() + u"DocumentBuilder.InsertDocument.docx", get_GoldsDir() + u"DocumentBuilder.InsertDocument Gold.docx"));
 }
 
@@ -4021,13 +4021,13 @@ void ExDocumentBuilder::SmartStyleBehavior()
     
     dstDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.SmartStyleBehavior.docx"));
     
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), dstDoc->get_Styles()->idx_get(u"MyStyle")->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(u"MyStyle", dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Style()->get_Name());
+    ASSERT_EQ(dstDoc->get_Styles()->idx_get(u"MyStyle")->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASSERT_EQ(dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Style()->get_Name(), u"MyStyle");
     
-    ASSERT_EQ(u"Normal", dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat()->get_Style()->get_Name());
-    ASPOSE_ASSERT_EQ(14, dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_Size());
-    ASSERT_EQ(u"Courier New", dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_Name());
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_Color().ToArgb());
+    ASSERT_EQ(dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat()->get_Style()->get_Name(), u"Normal");
+    ASPOSE_ASSERT_EQ(dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_Size(), 14);
+    ASSERT_EQ(dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_Name(), u"Courier New");
+    ASSERT_EQ(dstDoc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
 }
 
 namespace gtest_test
@@ -4056,7 +4056,7 @@ void ExDocumentBuilder::EmphasesWarningSourceMarkdown()
     {
         if (warningInfo->get_Source() == WarningSource::Markdown)
         {
-            ASSERT_EQ(u"The (*, 0:11) cannot be properly written into Markdown.", warningInfo->get_Description());
+            ASSERT_EQ(warningInfo->get_Description(), u"The (*, 0:11) cannot be properly written into Markdown.");
         }
     }
     //ExEnd
@@ -4126,13 +4126,13 @@ void ExDocumentBuilder::LoadMarkdownDocumentAndAssertContent(System::String text
             // Check that all document text has the necessary styles.
             if (paragraph->get_Runs()->idx_get(0)->get_Text() == text && !text.Contains(u"InlineCode"))
             {
-                ASSERT_EQ(styleName, paragraph->get_ParagraphFormat()->get_Style()->get_Name());
-                ASPOSE_ASSERT_EQ(isItalic, paragraph->get_Runs()->idx_get(0)->get_Font()->get_Italic());
-                ASPOSE_ASSERT_EQ(isBold, paragraph->get_Runs()->idx_get(0)->get_Font()->get_Bold());
+                ASSERT_EQ(paragraph->get_ParagraphFormat()->get_Style()->get_Name(), styleName);
+                ASPOSE_ASSERT_EQ(paragraph->get_Runs()->idx_get(0)->get_Font()->get_Italic(), isItalic);
+                ASPOSE_ASSERT_EQ(paragraph->get_Runs()->idx_get(0)->get_Font()->get_Bold(), isBold);
             }
             else if (paragraph->get_Runs()->idx_get(0)->get_Text() == text && text.Contains(u"InlineCode"))
             {
-                ASSERT_EQ(styleName, paragraph->get_Runs()->idx_get(0)->get_Font()->get_StyleName());
+                ASSERT_EQ(paragraph->get_Runs()->idx_get(0)->get_Font()->get_StyleName(), styleName);
             }
         }
         
@@ -4191,80 +4191,6 @@ TEST_P(ExDocumentBuilder_LoadMarkdownDocumentAndAssertContent, Test)
 }
 
 INSTANTIATE_TEST_SUITE_P(, ExDocumentBuilder_LoadMarkdownDocumentAndAssertContent, ::testing::ValuesIn(ExDocumentBuilder_LoadMarkdownDocumentAndAssertContent::TestCases()));
-
-} // namespace gtest_test
-
-void ExDocumentBuilder::InsertOnlineVideoCustomThumbnail()
-{
-    //ExStart
-    //ExFor:DocumentBuilder.InsertOnlineVideo(String, String, Byte[], Double, Double)
-    //ExFor:DocumentBuilder.InsertOnlineVideo(String, String, Byte[], RelativeHorizontalPosition, Double, RelativeVerticalPosition, Double, Double, Double, WrapType)
-    //ExSummary:Shows how to insert an online video into a document with a custom thumbnail.
-    auto doc = System::MakeObject<Aspose::Words::Document>();
-    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
-    
-    System::String videoUrl = u"https://vimeo.com/52477838";
-    System::String videoEmbedCode = System::String(u"<iframe src=\"https://player.vimeo.com/video/52477838\" width=\"640\" height=\"360\" frameborder=\"0\" ") + u"title=\"Aspose\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
-    
-    System::ArrayPtr<uint8_t> thumbnailImageBytes = System::IO::File::ReadAllBytes(get_ImageDir() + u"Logo.jpg");
-    
-    {
-        auto stream = System::MakeObject<System::IO::MemoryStream>(thumbnailImageBytes);
-        {
-            System::SharedPtr<System::Drawing::Image> image = System::Drawing::Image::FromStream(stream);
-            // Below are two ways of creating a shape with a custom thumbnail, which links to an online video
-            // that will play when we click on the shape in Microsoft Word.
-            // 1 -  Insert an inline shape at the builder's node insertion cursor:
-            builder->InsertOnlineVideo(videoUrl, videoEmbedCode, thumbnailImageBytes, static_cast<double>(image->get_Width()), static_cast<double>(image->get_Height()));
-            
-            builder->InsertBreak(BreakType::PageBreak);
-            
-            // 2 -  Insert a floating shape:
-            double left = builder->get_PageSetup()->get_RightMargin() - image->get_Width();
-            double top = builder->get_PageSetup()->get_BottomMargin() - image->get_Height();
-            
-            builder->InsertOnlineVideo(videoUrl, videoEmbedCode, thumbnailImageBytes, RelativeHorizontalPosition::RightMargin, left, RelativeVerticalPosition::BottomMargin, top, static_cast<double>(image->get_Width()), static_cast<double>(image->get_Height()), WrapType::Square);
-        }
-    }
-    
-    doc->Save(get_ArtifactsDir() + u"DocumentBuilder.InsertOnlineVideoCustomThumbnail.docx");
-    //ExEnd
-    
-    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DocumentBuilder.InsertOnlineVideoCustomThumbnail.docx"));
-    auto shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
-    
-    TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
-    ASPOSE_ASSERT_EQ(400.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(400.0, shape->get_Height());
-    ASPOSE_ASSERT_EQ(0.0, shape->get_Left());
-    ASPOSE_ASSERT_EQ(0.0, shape->get_Top());
-    ASSERT_EQ(WrapType::Inline, shape->get_WrapType());
-    ASSERT_EQ(RelativeVerticalPosition::Paragraph, shape->get_RelativeVerticalPosition());
-    ASSERT_EQ(RelativeHorizontalPosition::Column, shape->get_RelativeHorizontalPosition());
-    
-    ASSERT_EQ(u"https://vimeo.com/52477838", shape->get_HRef());
-    
-    shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true));
-    
-    TestUtil::VerifyImageInShape(400, 400, ImageType::Jpeg, shape);
-    ASPOSE_ASSERT_EQ(400.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(400.0, shape->get_Height());
-    ASPOSE_ASSERT_EQ(-329.15, shape->get_Left());
-    ASPOSE_ASSERT_EQ(-329.15, shape->get_Top());
-    ASSERT_EQ(WrapType::Square, shape->get_WrapType());
-    ASSERT_EQ(RelativeVerticalPosition::BottomMargin, shape->get_RelativeVerticalPosition());
-    ASSERT_EQ(RelativeHorizontalPosition::RightMargin, shape->get_RelativeHorizontalPosition());
-    
-    ASSERT_EQ(u"https://vimeo.com/52477838", shape->get_HRef());
-}
-
-namespace gtest_test
-{
-
-TEST_F(ExDocumentBuilder, InsertOnlineVideoCustomThumbnail)
-{
-    s_instance->InsertOnlineVideoCustomThumbnail();
-}
 
 } // namespace gtest_test
 
@@ -4346,9 +4272,9 @@ void ExDocumentBuilder::PhoneticGuide()
     
     System::SharedPtr<Aspose::Words::RunCollection> runs = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs();
     // Use phonetic guide in the Asian text.
-    ASPOSE_ASSERT_EQ(true, runs->idx_get(0)->get_IsPhoneticGuide());
-    ASSERT_EQ(u"base", runs->idx_get(0)->get_PhoneticGuide()->get_BaseText());
-    ASSERT_EQ(u"ruby", runs->idx_get(0)->get_PhoneticGuide()->get_RubyText());
+    ASPOSE_ASSERT_EQ(runs->idx_get(0)->get_IsPhoneticGuide(), true);
+    ASSERT_EQ(runs->idx_get(0)->get_PhoneticGuide()->get_BaseText(), u"base");
+    ASSERT_EQ(runs->idx_get(0)->get_PhoneticGuide()->get_RubyText(), u"ruby");
     //ExEnd
 }
 

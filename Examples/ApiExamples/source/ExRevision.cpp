@@ -11,6 +11,7 @@
 #include <system/date_time.h>
 #include <system/console.h>
 #include <system/collections/ienumerator.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
 #include <cstdint>
@@ -158,7 +159,7 @@ void ExRevision::Revisions()
     builder->Write(u"This is revision #1. ");
     
     ASSERT_TRUE(doc->get_HasRevisions());
-    ASSERT_EQ(1, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 1);
     
     // This flag corresponds to the "Review" -> "Tracking" -> "Track Changes" option in Microsoft Word.
     // The "StartTrackRevisions" method does not affect its value,
@@ -168,30 +169,30 @@ void ExRevision::Revisions()
     
     // We have added text using the document builder, so the first revision is an insertion-type revision.
     System::SharedPtr<Aspose::Words::Revision> revision = doc->get_Revisions()->idx_get(0);
-    ASSERT_EQ(u"John Doe", revision->get_Author());
-    ASSERT_EQ(u"This is revision #1. ", revision->get_ParentNode()->GetText());
-    ASSERT_EQ(RevisionType::Insertion, revision->get_RevisionType());
-    ASSERT_EQ(revision->get_DateTime().get_Date(), System::DateTime::get_Now().get_Date());
-    ASPOSE_ASSERT_EQ(doc->get_Revisions()->get_Groups()->idx_get(0), revision->get_Group());
+    ASSERT_EQ(revision->get_Author(), u"John Doe");
+    ASSERT_EQ(revision->get_ParentNode()->GetText(), u"This is revision #1. ");
+    ASSERT_EQ(revision->get_RevisionType(), RevisionType::Insertion);
+    ASSERT_EQ(System::DateTime::get_Now().get_Date(), revision->get_DateTime().get_Date());
+    ASPOSE_ASSERT_EQ(revision->get_Group(), doc->get_Revisions()->get_Groups()->idx_get(0));
     
     // Remove a run to create a deletion-type revision.
     doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->Remove();
     
     // Adding a new revision places it at the beginning of the revision collection.
-    ASSERT_EQ(RevisionType::Deletion, doc->get_Revisions()->idx_get(0)->get_RevisionType());
-    ASSERT_EQ(2, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->idx_get(0)->get_RevisionType(), RevisionType::Deletion);
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 2);
     
     // Insert revisions show up in the document body even before we accept/reject the revision.
     // Rejecting the revision will remove its nodes from the body. Conversely, nodes that make up delete revisions
     // also linger in the document until we accept the revision.
-    ASSERT_EQ(u"This does not count as a revision. This is revision #1.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"This does not count as a revision. This is revision #1.");
     
     // Accepting the delete revision will remove its parent node from the paragraph text
     // and then remove the collection's revision itself.
     doc->get_Revisions()->idx_get(0)->Accept();
     
-    ASSERT_EQ(1, doc->get_Revisions()->get_Count());
-    ASSERT_EQ(u"This is revision #1.", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 1);
+    ASSERT_EQ(doc->GetText().Trim(), u"This is revision #1.");
     
     builder->Writeln(u"");
     builder->Write(u"This is revision #2.");
@@ -208,15 +209,15 @@ void ExRevision::Revisions()
         node = nextNode;
     }
     
-    ASSERT_EQ(RevisionType::Moving, doc->get_Revisions()->idx_get(0)->get_RevisionType());
-    ASSERT_EQ(8, doc->get_Revisions()->get_Count());
-    ASSERT_EQ(u"This is revision #2.\rThis is revision #1. \rThis is revision #2.", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Revisions()->idx_get(0)->get_RevisionType(), RevisionType::Moving);
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 8);
+    ASSERT_EQ(doc->GetText().Trim(), u"This is revision #2.\rThis is revision #1. \rThis is revision #2.");
     
     // The moving revision is now at index 1. Reject the revision to discard its contents.
     doc->get_Revisions()->idx_get(1)->Reject();
     
-    ASSERT_EQ(6, doc->get_Revisions()->get_Count());
-    ASSERT_EQ(u"This is revision #1. \rThis is revision #2.", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 6);
+    ASSERT_EQ(doc->GetText().Trim(), u"This is revision #1. \rThis is revision #2.");
     //ExEnd
 }
 
@@ -244,7 +245,7 @@ void ExRevision::RevisionCollection()
     
     // This collection itself has a collection of revision groups.
     // Each group is a sequence of adjacent revisions.
-    ASSERT_EQ(7, revisions->get_Groups()->get_Count());
+    ASSERT_EQ(revisions->get_Groups()->get_Count(), 7);
     //ExSkip
     std::cout << System::String::Format(u"{0} revision groups:", revisions->get_Groups()->get_Count()) << std::endl;
     
@@ -260,7 +261,7 @@ void ExRevision::RevisionCollection()
     // Each Run that a revision affects gets a corresponding Revision object.
     // The revisions' collection is considerably larger than the condensed form we printed above,
     // depending on how many Runs we have segmented the document into during Microsoft Word editing.
-    ASSERT_EQ(11, revisions->get_Count());
+    ASSERT_EQ(revisions->get_Count(), 11);
     //ExSkip
     std::cout << System::String::Format(u"\n{0} revisions:", revisions->get_Count()) << std::endl;
     
@@ -285,7 +286,7 @@ void ExRevision::RevisionCollection()
     // Reject all revisions via the collection, reverting the document to its original form.
     revisions->RejectAll();
     
-    ASSERT_EQ(0, revisions->get_Count());
+    ASSERT_EQ(revisions->get_Count(), 0);
     //ExEnd
 }
 
@@ -311,7 +312,7 @@ void ExRevision::GetInfoAboutRevisionsInRevisionGroups()
     //ExSummary:Shows how to print info about a group of revisions in a document.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Revisions.docx"));
     
-    ASSERT_EQ(7, doc->get_Revisions()->get_Groups()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Groups()->get_Count(), 7);
     
     for (auto&& group : doc->get_Revisions()->get_Groups())
     {
@@ -341,8 +342,8 @@ void ExRevision::GetSpecificRevisionGroup()
     System::SharedPtr<Aspose::Words::RevisionGroup> revisionGroup = doc->get_Revisions()->get_Groups()->idx_get(0);
     //ExEnd
     
-    ASSERT_EQ(RevisionType::Deletion, revisionGroup->get_RevisionType());
-    ASSERT_EQ(u"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ", revisionGroup->get_Text());
+    ASSERT_EQ(revisionGroup->get_RevisionType(), RevisionType::Deletion);
+    ASSERT_EQ(revisionGroup->get_Text(), u"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ");
 }
 
 namespace gtest_test
@@ -471,13 +472,13 @@ void ExRevision::RevisionSpecifiedCriteria()
     doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->Remove();
     doc->StopTrackRevisions();
     
-    ASSERT_EQ(3, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 3);
     // We have two revisions from different authors, so we need to accept only one.
     doc->get_Revisions()->Accept(System::MakeObject<Aspose::Words::ApiExamples::ExRevision::RevisionCriteria>(u"John Doe", RevisionType::Insertion));
-    ASSERT_EQ(2, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 2);
     // Reject revision with different author name and revision type.
     doc->get_Revisions()->Reject(System::MakeObject<Aspose::Words::ApiExamples::ExRevision::RevisionCriteria>(u"Jane Doe", RevisionType::Deletion));
-    ASSERT_EQ(1, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 1);
     
     doc->Save(get_ArtifactsDir() + u"Revision.RevisionSpecifiedCriteria.docx");
 }
@@ -505,23 +506,23 @@ void ExRevision::TrackRevisions()
     // Editing a document usually does not count as a revision until we begin tracking them.
     builder->Write(u"Hello world! ");
     
-    ASSERT_EQ(0, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 0);
     ASSERT_FALSE(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0)->get_IsInsertRevision());
     
     doc->StartTrackRevisions(u"John Doe");
     
     builder->Write(u"Hello again! ");
     
-    ASSERT_EQ(1, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 1);
     ASSERT_TRUE(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(1)->get_IsInsertRevision());
-    ASSERT_EQ(u"John Doe", doc->get_Revisions()->idx_get(0)->get_Author());
+    ASSERT_EQ(doc->get_Revisions()->idx_get(0)->get_Author(), u"John Doe");
     ASSERT_TRUE((System::DateTime::get_Now() - doc->get_Revisions()->idx_get(0)->get_DateTime()).get_Milliseconds() <= 10);
     
     // Stop tracking revisions to not count any future edits as revisions.
     doc->StopTrackRevisions();
     builder->Write(u"Hello again! ");
     
-    ASSERT_EQ(1, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 1);
     ASSERT_FALSE(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(2)->get_IsInsertRevision());
     
     // Creating revisions gives them a date and time of the operation.
@@ -529,9 +530,9 @@ void ExRevision::TrackRevisions()
     doc->StartTrackRevisions(u"John Doe", System::DateTime::MinValue);
     builder->Write(u"Hello again! ");
     
-    ASSERT_EQ(2, doc->get_Revisions()->get_Count());
-    ASSERT_EQ(u"John Doe", doc->get_Revisions()->idx_get(1)->get_Author());
-    ASSERT_EQ(System::DateTime::MinValue, doc->get_Revisions()->idx_get(1)->get_DateTime());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 2);
+    ASSERT_EQ(doc->get_Revisions()->idx_get(1)->get_Author(), u"John Doe");
+    ASSERT_EQ(doc->get_Revisions()->idx_get(1)->get_DateTime(), System::DateTime::MinValue);
     
     // We can accept/reject these revisions programmatically
     // by calling methods such as Document.AcceptAllRevisions, or each revision's Accept method.
@@ -565,14 +566,14 @@ void ExRevision::AcceptAllRevisions()
     builder->Write(u"This is another revision.");
     doc->StopTrackRevisions();
     
-    ASSERT_EQ(3, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 3);
     
     // We can iterate through every revision and accept/reject it as a part of our document.
     // If we know we wish to accept every revision, we can do it more straightforwardly so by calling this method.
     doc->AcceptAllRevisions();
     
-    ASSERT_EQ(0, doc->get_Revisions()->get_Count());
-    ASSERT_EQ(u"Hello world! Hello again! This is another revision.", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 0);
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world! Hello again! This is another revision.");
     //ExEnd
 }
 
@@ -596,24 +597,24 @@ void ExRevision::GetRevisedPropertiesOfList()
     doc->UpdateListLabels();
     
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
-    ASSERT_EQ(u"1.", paragraphs->idx_get(0)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(u"a.", paragraphs->idx_get(1)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(System::String::Empty, paragraphs->idx_get(2)->get_ListLabel()->get_LabelString());
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ListLabel()->get_LabelString(), u"1.");
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ListLabel()->get_LabelString(), u"a.");
+    ASSERT_EQ(paragraphs->idx_get(2)->get_ListLabel()->get_LabelString(), System::String::Empty);
     
     // View the document object as if all the revisions are accepted. Currently supports list labels.
     doc->set_RevisionsView(RevisionsView::Final);
     
-    ASSERT_EQ(System::String::Empty, paragraphs->idx_get(0)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(u"1.", paragraphs->idx_get(1)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(u"a.", paragraphs->idx_get(2)->get_ListLabel()->get_LabelString());
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ListLabel()->get_LabelString(), System::String::Empty);
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ListLabel()->get_LabelString(), u"1.");
+    ASSERT_EQ(paragraphs->idx_get(2)->get_ListLabel()->get_LabelString(), u"a.");
     //ExEnd
     
     doc->set_RevisionsView(RevisionsView::Original);
     doc->AcceptAllRevisions();
     
-    ASSERT_EQ(u"a.", paragraphs->idx_get(0)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(System::String::Empty, paragraphs->idx_get(1)->get_ListLabel()->get_LabelString());
-    ASSERT_EQ(u"b.", paragraphs->idx_get(2)->get_ListLabel()->get_LabelString());
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ListLabel()->get_LabelString(), u"a.");
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ListLabel()->get_LabelString(), System::String::Empty);
+    ASSERT_EQ(paragraphs->idx_get(2)->get_ListLabel()->get_LabelString(), u"b.");
 }
 
 namespace gtest_test
@@ -648,7 +649,7 @@ void ExRevision::Compare()
     
     // After the comparison, the original document will gain a new revision
     // for every element that is different in the edited document.
-    ASSERT_EQ(2, docOriginal->get_Revisions()->get_Count());
+    ASSERT_EQ(docOriginal->get_Revisions()->get_Count(), 2);
     //ExSkip
     for (auto&& r : System::IterateOver(docOriginal->get_Revisions()))
     {
@@ -659,11 +660,11 @@ void ExRevision::Compare()
     // Accepting these revisions will transform the original document into the edited document.
     docOriginal->get_Revisions()->AcceptAll();
     
-    ASSERT_EQ(docOriginal->GetText(), docEdited->GetText());
+    ASSERT_EQ(docEdited->GetText(), docOriginal->GetText());
     //ExEnd
     
     docOriginal = DocumentHelper::SaveOpen(docOriginal);
-    ASSERT_EQ(0, docOriginal->get_Revisions()->get_Count());
+    ASSERT_EQ(docOriginal->get_Revisions()->get_Count(), 0);
 }
 
 namespace gtest_test
@@ -688,10 +689,10 @@ void ExRevision::CompareDocumentWithRevisions()
     docWithRevision->StartTrackRevisions(u"John Doe");
     builder->Writeln(u"This is a revision.");
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&docWithRevision, &doc1]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&docWithRevision, &doc1]() -> void
     {
         docWithRevision->Compare(doc1, u"John Doe", System::DateTime::get_Now());
-    })(), System::InvalidOperationException);
+    }))(), System::InvalidOperationException);
 }
 
 namespace gtest_test
@@ -819,7 +820,7 @@ void ExRevision::IgnoreDmlUniqueId(bool isIgnoreDmlUniqueId)
     
     docA->Compare(docB, u"Aspose.Words", System::DateTime::get_Now(), compareOptions);
     
-    ASSERT_EQ(isIgnoreDmlUniqueId ? 0 : 2, docA->get_Revisions()->get_Count());
+    ASSERT_EQ(docA->get_Revisions()->get_Count(), isIgnoreDmlUniqueId ? 0 : 2);
     //ExEnd
 }
 
@@ -868,7 +869,7 @@ void ExRevision::LayoutOptionsRevisions()
     // Insert a revision, then change the color of all revisions to green.
     builder->Writeln(u"This is not a revision.");
     doc->StartTrackRevisions(u"John Doe", System::DateTime::get_Now());
-    ASSERT_EQ(RevisionColor::ByAuthor, doc->get_LayoutOptions()->get_RevisionOptions()->get_InsertedTextColor());
+    ASSERT_EQ(doc->get_LayoutOptions()->get_RevisionOptions()->get_InsertedTextColor(), RevisionColor::ByAuthor);
     //ExSkip
     ASSERT_TRUE(doc->get_LayoutOptions()->get_RevisionOptions()->get_ShowRevisionBars());
     //ExSkip
@@ -918,42 +919,42 @@ void ExRevision::GranularityCompareOption(Aspose::Words::Comparing::Granularity 
     
     // The first document's collection of revision groups contains all the differences between documents.
     System::SharedPtr<Aspose::Words::RevisionGroupCollection> groups = docA->get_Revisions()->get_Groups();
-    ASSERT_EQ(5, groups->get_Count());
+    ASSERT_EQ(groups->get_Count(), 5);
     //ExEnd
     
     if (granularity == Granularity::CharLevel)
     {
-        ASSERT_EQ(RevisionType::Deletion, groups->idx_get(0)->get_RevisionType());
-        ASSERT_EQ(u"Alpha ", groups->idx_get(0)->get_Text());
+        ASSERT_EQ(groups->idx_get(0)->get_RevisionType(), RevisionType::Deletion);
+        ASSERT_EQ(groups->idx_get(0)->get_Text(), u"Alpha ");
         
-        ASSERT_EQ(RevisionType::Deletion, groups->idx_get(1)->get_RevisionType());
-        ASSERT_EQ((u","), groups->idx_get(1)->get_Text());
+        ASSERT_EQ(groups->idx_get(1)->get_RevisionType(), RevisionType::Deletion);
+        ASSERT_EQ(groups->idx_get(1)->get_Text(), (u","));
         
-        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(2)->get_RevisionType());
-        ASSERT_EQ(u"s", groups->idx_get(2)->get_Text());
+        ASSERT_EQ(groups->idx_get(2)->get_RevisionType(), RevisionType::Insertion);
+        ASSERT_EQ(groups->idx_get(2)->get_Text(), u"s");
         
-        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(3)->get_RevisionType());
-        ASSERT_EQ(u"- \"", groups->idx_get(3)->get_Text());
+        ASSERT_EQ(groups->idx_get(3)->get_RevisionType(), RevisionType::Insertion);
+        ASSERT_EQ(groups->idx_get(3)->get_Text(), u"- \"");
         
-        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(4)->get_RevisionType());
-        ASSERT_EQ(u"\"", groups->idx_get(4)->get_Text());
+        ASSERT_EQ(groups->idx_get(4)->get_RevisionType(), RevisionType::Insertion);
+        ASSERT_EQ(groups->idx_get(4)->get_Text(), u"\"");
     }
     else
     {
-        ASSERT_EQ(RevisionType::Deletion, groups->idx_get(0)->get_RevisionType());
-        ASSERT_EQ(u"Alpha Lorem", groups->idx_get(0)->get_Text());
+        ASSERT_EQ(groups->idx_get(0)->get_RevisionType(), RevisionType::Deletion);
+        ASSERT_EQ(groups->idx_get(0)->get_Text(), u"Alpha Lorem");
         
-        ASSERT_EQ(RevisionType::Deletion, groups->idx_get(1)->get_RevisionType());
-        ASSERT_EQ((u","), groups->idx_get(1)->get_Text());
+        ASSERT_EQ(groups->idx_get(1)->get_RevisionType(), RevisionType::Deletion);
+        ASSERT_EQ(groups->idx_get(1)->get_Text(), (u","));
         
-        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(2)->get_RevisionType());
-        ASSERT_EQ(u"Lorems", groups->idx_get(2)->get_Text());
+        ASSERT_EQ(groups->idx_get(2)->get_RevisionType(), RevisionType::Insertion);
+        ASSERT_EQ(groups->idx_get(2)->get_Text(), u"Lorems");
         
-        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(3)->get_RevisionType());
-        ASSERT_EQ(u"- \"", groups->idx_get(3)->get_Text());
+        ASSERT_EQ(groups->idx_get(3)->get_RevisionType(), RevisionType::Insertion);
+        ASSERT_EQ(groups->idx_get(3)->get_Text(), u"- \"");
         
-        ASSERT_EQ(RevisionType::Insertion, groups->idx_get(4)->get_RevisionType());
-        ASSERT_EQ(u"\"", groups->idx_get(4)->get_Text());
+        ASSERT_EQ(groups->idx_get(4)->get_RevisionType(), RevisionType::Insertion);
+        ASSERT_EQ(groups->idx_get(4)->get_Text(), u"\"");
     }
 }
 
@@ -999,13 +1000,13 @@ void ExRevision::IgnoreStoreItemId()
     compareOptions->get_AdvancedOptions()->set_IgnoreStoreItemId(false);
     
     docA->Compare(docB, u"user", System::DateTime::get_Now(), compareOptions);
-    ASSERT_EQ(8, docA->get_Revisions()->get_Count());
+    ASSERT_EQ(docA->get_Revisions()->get_Count(), 8);
     
     compareOptions->get_AdvancedOptions()->set_IgnoreStoreItemId(true);
     
     docA->get_Revisions()->RejectAll();
     docA->Compare(docB, u"user", System::DateTime::get_Now(), compareOptions);
-    ASSERT_EQ(0, docA->get_Revisions()->get_Count());
+    ASSERT_EQ(docA->get_Revisions()->get_Count(), 0);
     //ExEnd:IgnoreStoreItemId
 }
 
@@ -1075,11 +1076,11 @@ void ExRevision::CompareListDefinitions(bool isCompareListDefinitions)
     // Since the lists are identical, no revisions should be produced.
     if (isCompareListDefinitions)
     {
-        ASSERT_EQ(2, docA->get_Revisions()->get_Count());
+        ASSERT_EQ(docA->get_Revisions()->get_Count(), 2);
     }
     else
     {
-        ASSERT_EQ(0, docA->get_Revisions()->get_Count());
+        ASSERT_EQ(docA->get_Revisions()->get_Count(), 0);
     }
 }
 

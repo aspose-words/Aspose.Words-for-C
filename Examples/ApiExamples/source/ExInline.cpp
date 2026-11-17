@@ -77,7 +77,7 @@ void ExInline::InlineRevisions()
     // invoking the document's "StartTrackRevisions" method and stop tracking by using the "StopTrackRevisions" method.
     // We can either accept revisions to assimilate them into the document
     // or reject them to change the proposed change effectively.
-    ASSERT_EQ(6, doc->get_Revisions()->get_Count());
+    ASSERT_EQ(doc->get_Revisions()->get_Count(), 6);
     
     // The parent node of a revision is the run that the revision concerns. A Run is an Inline node.
     auto run = System::ExplicitCast<Aspose::Words::Run>(doc->get_Revisions()->idx_get(0)->get_ParentNode());
@@ -85,7 +85,7 @@ void ExInline::InlineRevisions()
     System::SharedPtr<Aspose::Words::Paragraph> firstParagraph = run->get_ParentParagraph();
     System::SharedPtr<Aspose::Words::RunCollection> runs = firstParagraph->get_Runs();
     
-    ASSERT_EQ(6, runs->ToArray()->get_Length());
+    ASSERT_EQ(runs->ToArray()->get_Length(), 6);
     
     // Below are five types of revisions that can flag an Inline node.
     // 1 -  An "insert" revision:

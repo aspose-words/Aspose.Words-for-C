@@ -128,9 +128,9 @@ void ExHeaderFooter::Create()
     ASSERT_FALSE(footer->get_IsHeader());
     ASSERT_TRUE(para->get_IsEndOfHeaderFooter());
     
-    ASPOSE_ASSERT_EQ(footer, para->get_ParentStory());
-    ASPOSE_ASSERT_EQ(footer->get_ParentSection(), para->get_ParentSection());
-    ASPOSE_ASSERT_EQ(footer->get_ParentSection(), header->get_ParentSection());
+    ASPOSE_ASSERT_EQ(para->get_ParentStory(), footer);
+    ASPOSE_ASSERT_EQ(para->get_ParentSection(), footer->get_ParentSection());
+    ASPOSE_ASSERT_EQ(header->get_ParentSection(), footer->get_ParentSection());
     
     doc->Save(get_ArtifactsDir() + u"HeaderFooter.Create.docx");
     //ExEnd
@@ -185,8 +185,8 @@ void ExHeaderFooter::Link()
     
     // Each section will still have its own header/footer objects. When we link sections,
     // the linking section will display the linked section's header/footers while keeping its own.
-    ASPOSE_ASSERT_NE(doc->get_Sections()->idx_get(0)->get_HeadersFooters()->idx_get(0), doc->get_Sections()->idx_get(1)->get_HeadersFooters()->idx_get(0));
-    ASPOSE_ASSERT_NE(doc->get_Sections()->idx_get(0)->get_HeadersFooters()->idx_get(0)->get_ParentSection(), doc->get_Sections()->idx_get(1)->get_HeadersFooters()->idx_get(0)->get_ParentSection());
+    ASPOSE_ASSERT_NE(doc->get_Sections()->idx_get(1)->get_HeadersFooters()->idx_get(0), doc->get_Sections()->idx_get(0)->get_HeadersFooters()->idx_get(0));
+    ASPOSE_ASSERT_NE(doc->get_Sections()->idx_get(1)->get_HeadersFooters()->idx_get(0)->get_ParentSection(), doc->get_Sections()->idx_get(0)->get_HeadersFooters()->idx_get(0)->get_ParentSection());
     
     // Link the headers/footers of the third section to the headers/footers of the second section.
     // The second section already links to the first section's header/footers,
@@ -202,25 +202,25 @@ void ExHeaderFooter::Link()
     doc->get_Sections()->idx_get(2)->get_HeadersFooters()->LinkToPrevious(HeaderFooterType::FooterPrimary, true);
     
     // The first section's header/footers cannot link themselves to anything because there is no previous section.
-    ASSERT_EQ(2, doc->get_Sections()->idx_get(0)->get_HeadersFooters()->get_Count());
-    ASSERT_EQ(2, doc->get_Sections()->idx_get(0)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_HeadersFooters()->get_Count(), 2);
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
     {
         return !(System::ExplicitCast<Aspose::Words::HeaderFooter>(hf))->get_IsLinkedToPrevious();
-    }))));
+    }))), 2);
     
     // All the second section's header/footers are linked to the first section's headers/footers.
-    ASSERT_EQ(6, doc->get_Sections()->idx_get(1)->get_HeadersFooters()->get_Count());
-    ASSERT_EQ(6, doc->get_Sections()->idx_get(1)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_HeadersFooters()->get_Count(), 6);
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::HeaderFooter>(hf))->get_IsLinkedToPrevious();
-    }))));
+    }))), 6);
     
     // In the third section, only the footer is linked to the first section's footer via the second section.
-    ASSERT_EQ(6, doc->get_Sections()->idx_get(2)->get_HeadersFooters()->get_Count());
-    ASSERT_EQ(5, doc->get_Sections()->idx_get(2)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
+    ASSERT_EQ(doc->get_Sections()->idx_get(2)->get_HeadersFooters()->get_Count(), 6);
+    ASSERT_EQ(doc->get_Sections()->idx_get(2)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
     {
         return !(System::ExplicitCast<Aspose::Words::HeaderFooter>(hf))->get_IsLinkedToPrevious();
-    }))));
+    }))), 5);
     ASSERT_TRUE(doc->get_Sections()->idx_get(2)->get_HeadersFooters()->idx_get(3)->get_IsLinkedToPrevious());
     
     doc->Save(get_ArtifactsDir() + u"HeaderFooter.Link.docx");
@@ -228,23 +228,23 @@ void ExHeaderFooter::Link()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HeaderFooter.Link.docx"));
     
-    ASSERT_EQ(2, doc->get_Sections()->idx_get(0)->get_HeadersFooters()->get_Count());
-    ASSERT_EQ(2, doc->get_Sections()->idx_get(0)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_HeadersFooters()->get_Count(), 2);
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
     {
         return !(System::ExplicitCast<Aspose::Words::HeaderFooter>(hf))->get_IsLinkedToPrevious();
-    }))));
+    }))), 2);
     
-    ASSERT_EQ(0, doc->get_Sections()->idx_get(1)->get_HeadersFooters()->get_Count());
-    ASSERT_EQ(0, doc->get_Sections()->idx_get(1)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_HeadersFooters()->get_Count(), 0);
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::HeaderFooter>(hf))->get_IsLinkedToPrevious();
-    }))));
+    }))), 0);
     
-    ASSERT_EQ(5, doc->get_Sections()->idx_get(2)->get_HeadersFooters()->get_Count());
-    ASSERT_EQ(5, doc->get_Sections()->idx_get(2)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
+    ASSERT_EQ(doc->get_Sections()->idx_get(2)->get_HeadersFooters()->get_Count(), 5);
+    ASSERT_EQ(doc->get_Sections()->idx_get(2)->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
     {
         return !(System::ExplicitCast<Aspose::Words::HeaderFooter>(hf))->get_IsLinkedToPrevious();
-    }))));
+    }))), 5);
 }
 
 namespace gtest_test
@@ -273,32 +273,20 @@ void ExHeaderFooter::RemoveFooters()
         // There are three kinds of footer and header types.
         // 1 -  The "First" header/footer, which only appears on the first page of a section.
         System::SharedPtr<Aspose::Words::HeaderFooter> footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterFirst);
-        System::SharedPtr<Aspose::Words::HeaderFooter> condExpression = footer;
-        if (condExpression != nullptr)
-        {
-            condExpression->Remove();
-        }
+        System::SafeInvoke(footer, [&](auto&& expr){return expr->Remove();});
         
         // 2 -  The "Primary" header/footer, which appears on odd pages.
         footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary);
-        System::SharedPtr<Aspose::Words::HeaderFooter> condExpression2 = footer;
-        if (condExpression2 != nullptr)
-        {
-            condExpression2->Remove();
-        }
+        System::SafeInvoke(footer, [&](auto&& expr){return expr->Remove();});
         
         // 3 -  The "Even" header/footer, which appears on even pages.
         footer = section->get_HeadersFooters()->idx_get(HeaderFooterType::FooterEven);
-        System::SharedPtr<Aspose::Words::HeaderFooter> condExpression3 = footer;
-        if (condExpression3 != nullptr)
-        {
-            condExpression3->Remove();
-        }
+        System::SafeInvoke(footer, [&](auto&& expr){return expr->Remove();});
         
-        ASSERT_EQ(0, section->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
+        ASSERT_EQ(section->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
         {
             return !(System::ExplicitCast<Aspose::Words::HeaderFooter>(hf))->get_IsHeader();
-        }))));
+        }))), 0);
     }
     
     doc->Save(get_ArtifactsDir() + u"HeaderFooter.RemoveFooters.docx");
@@ -306,15 +294,15 @@ void ExHeaderFooter::RemoveFooters()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"HeaderFooter.RemoveFooters.docx"));
     
-    ASSERT_EQ(1, doc->get_Sections()->get_Count());
-    ASSERT_EQ(0, doc->get_FirstSection()->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
+    ASSERT_EQ(doc->get_Sections()->get_Count(), 1);
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
     {
         return !(System::ExplicitCast<Aspose::Words::HeaderFooter>(hf))->get_IsHeader();
-    }))));
-    ASSERT_EQ(3, doc->get_FirstSection()->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
+    }))), 0);
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> hf)>>([](System::SharedPtr<Aspose::Words::Node> hf) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::HeaderFooter>(hf))->get_IsHeader();
-    }))));
+    }))), 3);
 }
 
 namespace gtest_test
@@ -336,7 +324,7 @@ void ExHeaderFooter::ExportMode()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Header and footer types.docx"));
     
     // This document contains headers and footers. We can access them via the "HeadersFooters" collection.
-    ASSERT_EQ(u"First header", doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderFirst)->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderFirst)->GetText().Trim(), u"First header");
     
     // Formats such as .html do not split the document into pages, so headers/footers will not function the same way
     // they would when we open the document as a .docx using Microsoft Word.
@@ -418,11 +406,11 @@ void ExHeaderFooter::Order(bool differentFirstPageHeaderFooter)
     
     if (differentFirstPageHeaderFooter)
     {
-        ASSERT_EQ(u"First header\nFirst footer\nSecond header\nSecond footer\nThird header\nThird footer\n", logger->get_Text().Replace(u"\r", u""));
+        ASSERT_EQ(logger->get_Text().Replace(u"\r", u""), u"First header\nFirst footer\nSecond header\nSecond footer\nThird header\nThird footer\n");
     }
     else
     {
-        ASSERT_EQ(u"Third header\nFirst header\nThird footer\nFirst footer\nSecond header\nSecond footer\n", logger->get_Text().Replace(u"\r", u""));
+        ASSERT_EQ(logger->get_Text().Replace(u"\r", u""), u"Third header\nFirst header\nThird footer\nFirst footer\nSecond header\nSecond footer\n");
     }
 }
 

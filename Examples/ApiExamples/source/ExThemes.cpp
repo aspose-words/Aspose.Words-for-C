@@ -89,10 +89,10 @@ void ExThemes::CustomColorsAndFonts()
     theme->get_MinorFonts()->set_Latin(u"Agency FB");
     
     // Other languages may also have their custom fonts in this theme.
-    ASSERT_EQ(System::String::Empty, theme->get_MajorFonts()->get_ComplexScript());
-    ASSERT_EQ(System::String::Empty, theme->get_MajorFonts()->get_EastAsian());
-    ASSERT_EQ(System::String::Empty, theme->get_MinorFonts()->get_ComplexScript());
-    ASSERT_EQ(System::String::Empty, theme->get_MinorFonts()->get_EastAsian());
+    ASSERT_EQ(theme->get_MajorFonts()->get_ComplexScript(), System::String::Empty);
+    ASSERT_EQ(theme->get_MajorFonts()->get_EastAsian(), System::String::Empty);
+    ASSERT_EQ(theme->get_MinorFonts()->get_ComplexScript(), System::String::Empty);
+    ASSERT_EQ(theme->get_MinorFonts()->get_EastAsian(), System::String::Empty);
     
     // The "Colors" property contains the color palette from Microsoft Word,
     // which appears when changing shading or font color.
@@ -121,19 +121,19 @@ void ExThemes::CustomColorsAndFonts()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Themes.CustomColorsAndFonts.docx"));
     
-    ASSERT_EQ(System::Drawing::Color::get_OrangeRed().ToArgb(), doc->get_Theme()->get_Colors()->get_Accent1().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_MidnightBlue().ToArgb(), doc->get_Theme()->get_Colors()->get_Dark1().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Gray().ToArgb(), doc->get_Theme()->get_Colors()->get_FollowedHyperlink().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_Black().ToArgb(), doc->get_Theme()->get_Colors()->get_Hyperlink().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_PaleGreen().ToArgb(), doc->get_Theme()->get_Colors()->get_Light1().ToArgb());
+    ASSERT_EQ(doc->get_Theme()->get_Colors()->get_Accent1().ToArgb(), System::Drawing::Color::get_OrangeRed().ToArgb());
+    ASSERT_EQ(doc->get_Theme()->get_Colors()->get_Dark1().ToArgb(), System::Drawing::Color::get_MidnightBlue().ToArgb());
+    ASSERT_EQ(doc->get_Theme()->get_Colors()->get_FollowedHyperlink().ToArgb(), System::Drawing::Color::get_Gray().ToArgb());
+    ASSERT_EQ(doc->get_Theme()->get_Colors()->get_Hyperlink().ToArgb(), System::Drawing::Color::get_Black().ToArgb());
+    ASSERT_EQ(doc->get_Theme()->get_Colors()->get_Light1().ToArgb(), System::Drawing::Color::get_PaleGreen().ToArgb());
     
-    ASSERT_EQ(System::String::Empty, doc->get_Theme()->get_MajorFonts()->get_ComplexScript());
-    ASSERT_EQ(System::String::Empty, doc->get_Theme()->get_MajorFonts()->get_EastAsian());
-    ASSERT_EQ(u"Courier New", doc->get_Theme()->get_MajorFonts()->get_Latin());
+    ASSERT_EQ(doc->get_Theme()->get_MajorFonts()->get_ComplexScript(), System::String::Empty);
+    ASSERT_EQ(doc->get_Theme()->get_MajorFonts()->get_EastAsian(), System::String::Empty);
+    ASSERT_EQ(doc->get_Theme()->get_MajorFonts()->get_Latin(), u"Courier New");
     
-    ASSERT_EQ(System::String::Empty, doc->get_Theme()->get_MinorFonts()->get_ComplexScript());
-    ASSERT_EQ(System::String::Empty, doc->get_Theme()->get_MinorFonts()->get_EastAsian());
-    ASSERT_EQ(u"Agency FB", doc->get_Theme()->get_MinorFonts()->get_Latin());
+    ASSERT_EQ(doc->get_Theme()->get_MinorFonts()->get_ComplexScript(), System::String::Empty);
+    ASSERT_EQ(doc->get_Theme()->get_MinorFonts()->get_EastAsian(), System::String::Empty);
+    ASSERT_EQ(doc->get_Theme()->get_MinorFonts()->get_Latin(), u"Agency FB");
 }
 
 namespace gtest_test

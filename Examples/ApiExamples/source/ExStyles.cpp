@@ -100,7 +100,7 @@ void ExStyles::Styles()
     //ExSummary:Shows how to access a document's style collection.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    ASSERT_EQ(4, doc->get_Styles()->get_Count());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 4);
     
     // Enumerate and list all the styles that a document created using Aspose.Words contains by default.
     {
@@ -113,7 +113,7 @@ void ExStyles::Styles()
             std::cout << System::String::Format(u"\tIs heading:\t\t\t{0}", curStyle->get_IsHeading()) << std::endl;
             std::cout << System::String::Format(u"\tIs QuickStyle:\t\t{0}", curStyle->get_IsQuickStyle()) << std::endl;
             
-            ASPOSE_ASSERT_EQ(doc, curStyle->get_Document());
+            ASPOSE_ASSERT_EQ(curStyle->get_Document(), doc);
         }
     }
     //ExEnd
@@ -154,7 +154,7 @@ void ExStyles::CreateStyle()
     
     System::SharedPtr<Aspose::Words::Style> firstParagraphStyle = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Style();
     
-    ASPOSE_ASSERT_EQ(style, firstParagraphStyle);
+    ASPOSE_ASSERT_EQ(firstParagraphStyle, style);
     
     // Remove our custom style from the document's styles collection.
     doc->get_Styles()->idx_get(u"MyStyle")->Remove();
@@ -166,9 +166,9 @@ void ExStyles::CreateStyle()
     {
         return s->get_Name() == u"MyStyle";
     }))));
-    ASSERT_EQ(u"Times New Roman", firstParagraphStyle->get_Font()->get_Name());
-    ASPOSE_ASSERT_EQ(12.0, firstParagraphStyle->get_Font()->get_Size());
-    ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), firstParagraphStyle->get_Font()->get_Color().ToArgb());
+    ASSERT_EQ(firstParagraphStyle->get_Font()->get_Name(), u"Times New Roman");
+    ASPOSE_ASSERT_EQ(firstParagraphStyle->get_Font()->get_Size(), 12.0);
+    ASSERT_EQ(firstParagraphStyle->get_Font()->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
     //ExEnd
 }
 
@@ -203,8 +203,8 @@ void ExStyles::StyleCollection()
     // Add a style, and then verify that it has the default settings.
     styles->Add(StyleType::Paragraph, u"MyStyle");
     
-    ASSERT_EQ(u"Courier New", styles->idx_get(4)->get_Font()->get_Name());
-    ASPOSE_ASSERT_EQ(15.0, styles->idx_get(u"MyStyle")->get_ParagraphFormat()->get_FirstLineIndent());
+    ASSERT_EQ(styles->idx_get(4)->get_Font()->get_Name(), u"Courier New");
+    ASPOSE_ASSERT_EQ(styles->idx_get(u"MyStyle")->get_ParagraphFormat()->get_FirstLineIndent(), 15.0);
     //ExEnd
 }
 
@@ -278,9 +278,9 @@ void ExStyles::ChangeTocsTabStops()
         if (para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() >= StyleIdentifier::Toc1 && para->get_ParagraphFormat()->get_Style()->get_StyleIdentifier() <= StyleIdentifier::Toc9)
         {
             System::SharedPtr<Aspose::Words::TabStop> tabStop = para->GetEffectiveTabStops()[0];
-            ASPOSE_ASSERT_EQ(400.8, tabStop->get_Position());
-            ASSERT_EQ(TabAlignment::Right, tabStop->get_Alignment());
-            ASSERT_EQ(TabLeader::Dots, tabStop->get_Leader());
+            ASPOSE_ASSERT_EQ(tabStop->get_Position(), 400.8);
+            ASSERT_EQ(tabStop->get_Alignment(), TabAlignment::Right);
+            ASSERT_EQ(tabStop->get_Leader(), TabLeader::Dots);
         }
     }
 }
@@ -314,13 +314,13 @@ void ExStyles::CopyStyleSameDocument()
     // Changing settings of one of the styles do not affect the other.
     newStyle->get_Font()->set_Color(System::Drawing::Color::get_Red());
     
-    ASSERT_EQ(u"My Heading 1", newStyle->get_Name());
-    ASSERT_EQ(u"Heading 1", doc->get_Styles()->idx_get(u"Heading 1")->get_Name());
+    ASSERT_EQ(newStyle->get_Name(), u"My Heading 1");
+    ASSERT_EQ(doc->get_Styles()->idx_get(u"Heading 1")->get_Name(), u"Heading 1");
     
-    ASSERT_EQ(doc->get_Styles()->idx_get(u"Heading 1")->get_Type(), newStyle->get_Type());
-    ASSERT_EQ(doc->get_Styles()->idx_get(u"Heading 1")->get_Font()->get_Name(), newStyle->get_Font()->get_Name());
-    ASPOSE_ASSERT_EQ(doc->get_Styles()->idx_get(u"Heading 1")->get_Font()->get_Size(), newStyle->get_Font()->get_Size());
-    ASPOSE_ASSERT_NE(doc->get_Styles()->idx_get(u"Heading 1")->get_Font()->get_Color(), newStyle->get_Font()->get_Color());
+    ASSERT_EQ(newStyle->get_Type(), doc->get_Styles()->idx_get(u"Heading 1")->get_Type());
+    ASSERT_EQ(newStyle->get_Font()->get_Name(), doc->get_Styles()->idx_get(u"Heading 1")->get_Font()->get_Name());
+    ASPOSE_ASSERT_EQ(newStyle->get_Font()->get_Size(), doc->get_Styles()->idx_get(u"Heading 1")->get_Font()->get_Size());
+    ASPOSE_ASSERT_NE(newStyle->get_Font()->get_Color(), doc->get_Styles()->idx_get(u"Heading 1")->get_Font()->get_Color());
     //ExEnd
 }
 
@@ -350,8 +350,8 @@ void ExStyles::CopyStyleDifferentDocument()
     System::SharedPtr<Aspose::Words::Style> newStyle = dstDoc->get_Styles()->AddCopy(srcStyle);
     
     // The imported style has an appearance identical to its source style.
-    ASSERT_EQ(u"MyStyle", newStyle->get_Name());
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), newStyle->get_Font()->get_Color().ToArgb());
+    ASSERT_EQ(newStyle->get_Name(), u"MyStyle");
+    ASSERT_EQ(newStyle->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
     //ExEnd
 }
 
@@ -378,9 +378,9 @@ void ExStyles::DefaultStyles()
     doc = DocumentHelper::SaveOpen(doc);
     
     ASSERT_TRUE(doc->get_Styles()->get_DefaultFont()->get_Bold());
-    ASSERT_EQ(u"PMingLiU", doc->get_Styles()->get_DefaultFont()->get_Name());
-    ASPOSE_ASSERT_EQ(20, doc->get_Styles()->get_DefaultParagraphFormat()->get_SpaceAfter());
-    ASSERT_EQ(ParagraphAlignment::Right, doc->get_Styles()->get_DefaultParagraphFormat()->get_Alignment());
+    ASSERT_EQ(doc->get_Styles()->get_DefaultFont()->get_Name(), u"PMingLiU");
+    ASPOSE_ASSERT_EQ(doc->get_Styles()->get_DefaultParagraphFormat()->get_SpaceAfter(), 20);
+    ASSERT_EQ(doc->get_Styles()->get_DefaultParagraphFormat()->get_Alignment(), ParagraphAlignment::Right);
 }
 
 namespace gtest_test
@@ -433,10 +433,10 @@ void ExStyles::ParagraphStyleBulletedList()
     
     style = doc->get_Styles()->idx_get(u"MyStyle1");
     
-    ASSERT_EQ(u"MyStyle1", style->get_Name());
-    ASPOSE_ASSERT_EQ(24, style->get_Font()->get_Size());
-    ASSERT_EQ(u"Verdana", style->get_Font()->get_Name());
-    ASPOSE_ASSERT_EQ(12.0, style->get_ParagraphFormat()->get_SpaceAfter());
+    ASSERT_EQ(style->get_Name(), u"MyStyle1");
+    ASPOSE_ASSERT_EQ(style->get_Font()->get_Size(), 24);
+    ASSERT_EQ(style->get_Font()->get_Name(), u"Verdana");
+    ASPOSE_ASSERT_EQ(style->get_ParagraphFormat()->get_SpaceAfter(), 12.0);
 }
 
 namespace gtest_test
@@ -462,12 +462,12 @@ void ExStyles::StyleAliases()
     // This document contains a style named "MyStyle,MyStyle Alias 1,MyStyle Alias 2".
     // If a style's name has multiple values separated by commas, each clause is a separate alias.
     System::SharedPtr<Aspose::Words::Style> style = doc->get_Styles()->idx_get(u"MyStyle");
-    ASPOSE_ASSERT_EQ(System::MakeArray<System::String>({u"MyStyle Alias 1", u"MyStyle Alias 2"}), style->get_Aliases());
-    ASSERT_EQ(u"Title", style->get_BaseStyleName());
-    ASSERT_EQ(u"MyStyle Char", style->get_LinkedStyleName());
+    ASPOSE_ASSERT_EQ(style->get_Aliases(), System::MakeArray<System::String>({u"MyStyle Alias 1", u"MyStyle Alias 2"}));
+    ASSERT_EQ(style->get_BaseStyleName(), u"Title");
+    ASSERT_EQ(style->get_LinkedStyleName(), u"MyStyle Char");
     
     // We can reference a style using its alias, as well as its name.
-    ASPOSE_ASSERT_EQ(doc->get_Styles()->idx_get(u"MyStyle Alias 1"), doc->get_Styles()->idx_get(u"MyStyle Alias 2"));
+    ASPOSE_ASSERT_EQ(doc->get_Styles()->idx_get(u"MyStyle Alias 2"), doc->get_Styles()->idx_get(u"MyStyle Alias 1"));
     
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     builder->MoveToDocumentEnd();
@@ -476,7 +476,7 @@ void ExStyles::StyleAliases()
     builder->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"MyStyle Alias 2"));
     builder->Write(u"Hello again!");
     
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Style(), doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat()->get_Style());
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat()->get_Style(), doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Style());
     //ExEnd
 }
 
@@ -579,8 +579,8 @@ void ExStyles::LinkedStyleName()
     
     styleHeading1->set_LinkedStyleName(u"Heading 1 Char");
     
-    ASSERT_EQ(u"Heading 1 Char", styleHeading1->get_LinkedStyleName());
-    ASSERT_EQ(u"Heading 1", styleHeading1Char->get_LinkedStyleName());
+    ASSERT_EQ(styleHeading1->get_LinkedStyleName(), u"Heading 1 Char");
+    ASSERT_EQ(styleHeading1Char->get_LinkedStyleName(), u"Heading 1");
     //ExEnd:LinkedStyleName
 }
 

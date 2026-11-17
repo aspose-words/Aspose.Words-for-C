@@ -147,19 +147,19 @@ void ExSection::AddRemove()
     builder->InsertBreak(BreakType::SectionBreakNewPage);
     builder->Write(u"Section 2");
     
-    ASSERT_EQ(u"Section 1\x000c" u"Section 2", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Section 1\x000c" u"Section 2");
     
     // Delete the first section from the document.
     doc->get_Sections()->RemoveAt(0);
     
-    ASSERT_EQ(u"Section 2", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Section 2");
     
     // Append a copy of what is now the first section to the end of the document.
     int32_t lastSectionIdx = doc->get_Sections()->get_Count() - 1;
     System::SharedPtr<Aspose::Words::Section> newSection = doc->get_Sections()->idx_get(lastSectionIdx)->Clone();
     doc->get_Sections()->Add(newSection);
     
-    ASSERT_EQ(u"Section 2\x000c" u"Section 2", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Section 2\x000c" u"Section 2");
     //ExEnd
 }
 
@@ -183,7 +183,7 @@ void ExSection::FirstAndLast()
     
     // A blank document contains one section by default,
     // which contains child nodes that we can edit.
-    ASSERT_EQ(1, doc->get_Sections()->get_Count());
+    ASSERT_EQ(doc->get_Sections()->get_Count(), 1);
     
     // Use a document builder to add text to the first section.
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
@@ -192,7 +192,7 @@ void ExSection::FirstAndLast()
     // Create a second section by inserting a section break.
     builder->InsertBreak(BreakType::SectionBreakNewPage);
     
-    ASSERT_EQ(2, doc->get_Sections()->get_Count());
+    ASSERT_EQ(doc->get_Sections()->get_Count(), 2);
     
     // Each section has its own page setup settings.
     // We can split the text in the second section into two columns.
@@ -202,16 +202,16 @@ void ExSection::FirstAndLast()
     builder->InsertBreak(BreakType::ColumnBreak);
     builder->Writeln(u"Column 2.");
     
-    ASSERT_EQ(1, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Count());
-    ASSERT_EQ(2, doc->get_LastSection()->get_PageSetup()->get_TextColumns()->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Count(), 1);
+    ASSERT_EQ(doc->get_LastSection()->get_PageSetup()->get_TextColumns()->get_Count(), 2);
     
     doc->Save(get_ArtifactsDir() + u"Section.Create.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Section.Create.docx"));
     
-    ASSERT_EQ(1, doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Count());
-    ASSERT_EQ(2, doc->get_LastSection()->get_PageSetup()->get_TextColumns()->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_TextColumns()->get_Count(), 1);
+    ASSERT_EQ(doc->get_LastSection()->get_PageSetup()->get_TextColumns()->get_Count(), 2);
 }
 
 namespace gtest_test
@@ -288,7 +288,7 @@ void ExSection::CreateManually()
     run->get_Font()->set_Color(System::Drawing::Color::get_Red());
     para->AppendChild<System::SharedPtr<Aspose::Words::Run>>(run);
     
-    ASSERT_EQ(u"Hello World!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello World!");
     
     doc->Save(get_ArtifactsDir() + u"Section.CreateManually.docx");
     //ExEnd
@@ -315,24 +315,24 @@ void ExSection::EnsureMinimum()
     
     // A blank document comes with a section, which has a body, which in turn has a paragraph.
     // We can add contents to this document by adding elements such as text runs, shapes, or tables to that paragraph.
-    ASSERT_EQ(NodeType::Section, doc->GetChild(NodeType::Any, 0, true)->get_NodeType());
-    ASSERT_EQ(NodeType::Body, doc->get_Sections()->idx_get(0)->GetChild(NodeType::Any, 0, true)->get_NodeType());
-    ASSERT_EQ(NodeType::Paragraph, doc->get_Sections()->idx_get(0)->get_Body()->GetChild(NodeType::Any, 0, true)->get_NodeType());
+    ASSERT_EQ(doc->GetChild(NodeType::Any, 0, true)->get_NodeType(), NodeType::Section);
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->GetChild(NodeType::Any, 0, true)->get_NodeType(), NodeType::Body);
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->get_Body()->GetChild(NodeType::Any, 0, true)->get_NodeType(), NodeType::Paragraph);
     
     // If we add a new section like this, it will not have a body, or any other child nodes.
     doc->get_Sections()->Add(System::MakeObject<Aspose::Words::Section>(doc));
     
-    ASSERT_EQ(0, doc->get_Sections()->idx_get(1)->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->GetChildNodes(NodeType::Any, true)->get_Count(), 0);
     
     // Run the "EnsureMinimum" method to add a body and a paragraph to this section to begin editing it.
     doc->get_LastSection()->EnsureMinimum();
     
-    ASSERT_EQ(NodeType::Body, doc->get_Sections()->idx_get(1)->GetChild(NodeType::Any, 0, true)->get_NodeType());
-    ASSERT_EQ(NodeType::Paragraph, doc->get_Sections()->idx_get(1)->get_Body()->GetChild(NodeType::Any, 0, true)->get_NodeType());
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->GetChild(NodeType::Any, 0, true)->get_NodeType(), NodeType::Body);
+    ASSERT_EQ(doc->get_Sections()->idx_get(1)->get_Body()->GetChild(NodeType::Any, 0, true)->get_NodeType(), NodeType::Paragraph);
     
     doc->get_Sections()->idx_get(0)->get_Body()->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     
-    ASSERT_EQ(u"Hello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world!");
     //ExEnd
 }
 
@@ -371,7 +371,7 @@ void ExSection::BodyEnsureMinimum()
     section->AppendChild<System::SharedPtr<Aspose::Words::Body>>(body);
     
     // This body has no children, so we cannot add runs to it yet.
-    ASSERT_EQ(0, doc->get_FirstSection()->get_Body()->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->GetChildNodes(NodeType::Any, true)->get_Count(), 0);
     
     // Call the "EnsureMinimum" to make sure that this body contains at least one empty paragraph.
     body->EnsureMinimum();
@@ -379,7 +379,7 @@ void ExSection::BodyEnsureMinimum()
     // Now, we can add runs to the body, and get the document to display them.
     body->get_FirstParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Run>>(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     
-    ASSERT_EQ(u"Hello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world!");
     //ExEnd
 }
 
@@ -460,15 +460,15 @@ void ExSection::Clear()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     // This document has one section with a few child nodes containing and displaying all the document's contents.
-    ASSERT_EQ(1, doc->get_Sections()->get_Count());
-    ASSERT_EQ(17, doc->get_Sections()->idx_get(0)->GetChildNodes(NodeType::Any, true)->get_Count());
-    ASSERT_EQ(u"Hello World!\r\rHello Word!\r\r\rHello World!", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Sections()->get_Count(), 1);
+    ASSERT_EQ(doc->get_Sections()->idx_get(0)->GetChildNodes(NodeType::Any, true)->get_Count(), 17);
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello World!\r\rHello Word!\r\r\rHello World!");
     
     // Clear the collection of sections, which will remove all of the document's children.
     doc->get_Sections()->Clear();
     
-    ASSERT_EQ(0, doc->GetChildNodes(NodeType::Any, true)->get_Count());
-    ASSERT_EQ(System::String::Empty, doc->GetText().Trim());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Any, true)->get_Count(), 0);
+    ASSERT_EQ(doc->GetText().Trim(), System::String::Empty);
     //ExEnd
 }
 
@@ -499,7 +499,7 @@ void ExSection::PrependAppendContent()
     
     System::SharedPtr<Aspose::Words::Section> section = doc->get_Sections()->idx_get(2);
     
-    ASSERT_EQ(System::String(u"Section 3") + ControlChar::SectionBreak(), section->GetText());
+    ASSERT_EQ(section->GetText(), System::String(u"Section 3") + ControlChar::SectionBreak());
     
     // Insert the contents of the first section to the beginning of the third section.
     System::SharedPtr<Aspose::Words::Section> sectionToPrepend = doc->get_Sections()->idx_get(0);
@@ -510,8 +510,8 @@ void ExSection::PrependAppendContent()
     section->AppendContent(sectionToAppend);
     
     // The "PrependContent" and "AppendContent" methods did not create any new sections.
-    ASSERT_EQ(3, doc->get_Sections()->get_Count());
-    ASSERT_EQ(System::String(u"Section 1") + ControlChar::ParagraphBreak() + u"Section 3" + ControlChar::ParagraphBreak() + u"Section 2" + ControlChar::SectionBreak(), section->GetText());
+    ASSERT_EQ(doc->get_Sections()->get_Count(), 3);
+    ASSERT_EQ(section->GetText(), System::String(u"Section 1") + ControlChar::ParagraphBreak() + u"Section 3" + ControlChar::ParagraphBreak() + u"Section 2" + ControlChar::SectionBreak());
     //ExEnd
 }
 
@@ -535,15 +535,15 @@ void ExSection::ClearContent()
     
     builder->Write(u"Hello world!");
     
-    ASSERT_EQ(u"Hello world!", doc->GetText().Trim());
-    ASSERT_EQ(1, doc->get_FirstSection()->get_Body()->get_Paragraphs()->get_Count());
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world!");
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->get_Count(), 1);
     
     // Running the "ClearContent" method will remove all the section contents
     // but leave a blank paragraph to add content again.
     doc->get_FirstSection()->ClearContent();
     
-    ASSERT_EQ(System::String::Empty, doc->GetText().Trim());
-    ASSERT_EQ(1, doc->get_FirstSection()->get_Body()->get_Paragraphs()->get_Count());
+    ASSERT_EQ(doc->GetText().Trim(), System::String::Empty);
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->get_Count(), 1);
     //ExEnd
 }
 
@@ -564,7 +564,7 @@ void ExSection::ClearHeadersFooters()
     //ExSummary:Shows how to clear the contents of all headers and footers in a section.
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    ASSERT_EQ(0, doc->get_FirstSection()->get_HeadersFooters()->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->get_Count(), 0);
     
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
     
@@ -573,19 +573,19 @@ void ExSection::ClearHeadersFooters()
     builder->MoveToHeaderFooter(HeaderFooterType::FooterPrimary);
     builder->Writeln(u"This is the primary footer.");
     
-    ASSERT_EQ(2, doc->get_FirstSection()->get_HeadersFooters()->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->get_Count(), 2);
     
-    ASSERT_EQ(u"This is the primary header.", doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetText().Trim());
-    ASSERT_EQ(u"This is the primary footer.", doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetText().Trim(), u"This is the primary header.");
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->GetText().Trim(), u"This is the primary footer.");
     
     // Empty all the headers and footers in this section of all their contents.
     // The headers and footers themselves will still be present but will have nothing to display.
     doc->get_FirstSection()->ClearHeadersFooters();
     
-    ASSERT_EQ(2, doc->get_FirstSection()->get_HeadersFooters()->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->get_Count(), 2);
     
-    ASSERT_EQ(System::String::Empty, doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetText().Trim());
-    ASSERT_EQ(System::String::Empty, doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetText().Trim(), System::String::Empty);
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->GetText().Trim(), System::String::Empty);
     //ExEnd
 }
 
@@ -615,14 +615,14 @@ void ExSection::DeleteHeaderFooterShapes()
     builder->MoveToHeaderFooter(HeaderFooterType::FooterPrimary);
     builder->InsertImage(get_ImageDir() + u"Logo icon.ico");
     
-    ASSERT_EQ(1, doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetChildNodes(NodeType::Shape, true)->get_Count());
-    ASSERT_EQ(1, doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetChildNodes(NodeType::Shape, true)->get_Count(), 1);
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->GetChildNodes(NodeType::Shape, true)->get_Count(), 1);
     
     // Remove all shapes from the headers and footers in the first section.
     doc->get_FirstSection()->DeleteHeaderFooterShapes();
     
-    ASSERT_EQ(0, doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetChildNodes(NodeType::Shape, true)->get_Count());
-    ASSERT_EQ(0, doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::HeaderPrimary)->GetChildNodes(NodeType::Shape, true)->get_Count(), 0);
+    ASSERT_EQ(doc->get_FirstSection()->get_HeadersFooters()->idx_get(HeaderFooterType::FooterPrimary)->GetChildNodes(NodeType::Shape, true)->get_Count(), 0);
     //ExEnd
 }
 
@@ -729,19 +729,19 @@ void ExSection::CultureInfoPageSetupDefaults()
     
     // Assert that page defaults comply with current culture info.
     System::SharedPtr<Aspose::Words::Section> sectionEn = docEn->get_Sections()->idx_get(0);
-    ASPOSE_ASSERT_EQ(72.0, sectionEn->get_PageSetup()->get_LeftMargin());
+    ASPOSE_ASSERT_EQ(sectionEn->get_PageSetup()->get_LeftMargin(), 72.0);
     // 2.54 cm
-    ASPOSE_ASSERT_EQ(72.0, sectionEn->get_PageSetup()->get_RightMargin());
+    ASPOSE_ASSERT_EQ(sectionEn->get_PageSetup()->get_RightMargin(), 72.0);
     // 2.54 cm
-    ASPOSE_ASSERT_EQ(72.0, sectionEn->get_PageSetup()->get_TopMargin());
+    ASPOSE_ASSERT_EQ(sectionEn->get_PageSetup()->get_TopMargin(), 72.0);
     // 2.54 cm
-    ASPOSE_ASSERT_EQ(72.0, sectionEn->get_PageSetup()->get_BottomMargin());
+    ASPOSE_ASSERT_EQ(sectionEn->get_PageSetup()->get_BottomMargin(), 72.0);
     // 2.54 cm
-    ASPOSE_ASSERT_EQ(36.0, sectionEn->get_PageSetup()->get_HeaderDistance());
+    ASPOSE_ASSERT_EQ(sectionEn->get_PageSetup()->get_HeaderDistance(), 36.0);
     // 1.27 cm
-    ASPOSE_ASSERT_EQ(36.0, sectionEn->get_PageSetup()->get_FooterDistance());
+    ASPOSE_ASSERT_EQ(sectionEn->get_PageSetup()->get_FooterDistance(), 36.0);
     // 1.27 cm
-    ASPOSE_ASSERT_EQ(36.0, sectionEn->get_PageSetup()->get_TextColumns()->get_Spacing());
+    ASPOSE_ASSERT_EQ(sectionEn->get_PageSetup()->get_TextColumns()->get_Spacing(), 36.0);
     // 1.27 cm
     
     // Change the culture and assert that the page defaults are changed.
@@ -750,19 +750,19 @@ void ExSection::CultureInfoPageSetupDefaults()
     auto docDe = System::MakeObject<Aspose::Words::Document>();
     
     System::SharedPtr<Aspose::Words::Section> sectionDe = docDe->get_Sections()->idx_get(0);
-    ASPOSE_ASSERT_EQ(70.85, sectionDe->get_PageSetup()->get_LeftMargin());
+    ASPOSE_ASSERT_EQ(sectionDe->get_PageSetup()->get_LeftMargin(), 70.85);
     // 2.5 cm
-    ASPOSE_ASSERT_EQ(70.85, sectionDe->get_PageSetup()->get_RightMargin());
+    ASPOSE_ASSERT_EQ(sectionDe->get_PageSetup()->get_RightMargin(), 70.85);
     // 2.5 cm
-    ASPOSE_ASSERT_EQ(70.85, sectionDe->get_PageSetup()->get_TopMargin());
+    ASPOSE_ASSERT_EQ(sectionDe->get_PageSetup()->get_TopMargin(), 70.85);
     // 2.5 cm
-    ASPOSE_ASSERT_EQ(56.7, sectionDe->get_PageSetup()->get_BottomMargin());
+    ASPOSE_ASSERT_EQ(sectionDe->get_PageSetup()->get_BottomMargin(), 56.7);
     // 2 cm
-    ASPOSE_ASSERT_EQ(35.4, sectionDe->get_PageSetup()->get_HeaderDistance());
+    ASPOSE_ASSERT_EQ(sectionDe->get_PageSetup()->get_HeaderDistance(), 35.4);
     // 1.25 cm
-    ASPOSE_ASSERT_EQ(35.4, sectionDe->get_PageSetup()->get_FooterDistance());
+    ASPOSE_ASSERT_EQ(sectionDe->get_PageSetup()->get_FooterDistance(), 35.4);
     // 1.25 cm
-    ASPOSE_ASSERT_EQ(35.4, sectionDe->get_PageSetup()->get_TextColumns()->get_Spacing());
+    ASPOSE_ASSERT_EQ(sectionDe->get_PageSetup()->get_TextColumns()->get_Spacing(), 35.4);
     // 1.25 cm
     
     // Change page defaults.
@@ -784,19 +784,19 @@ void ExSection::CultureInfoPageSetupDefaults()
     docDe = DocumentHelper::SaveOpen(docDe);
     
     System::SharedPtr<Aspose::Words::Section> sectionDeAfter = docDe->get_Sections()->idx_get(0);
-    ASPOSE_ASSERT_EQ(90.0, sectionDeAfter->get_PageSetup()->get_LeftMargin());
+    ASPOSE_ASSERT_EQ(sectionDeAfter->get_PageSetup()->get_LeftMargin(), 90.0);
     // 3.17 cm
-    ASPOSE_ASSERT_EQ(90.0, sectionDeAfter->get_PageSetup()->get_RightMargin());
+    ASPOSE_ASSERT_EQ(sectionDeAfter->get_PageSetup()->get_RightMargin(), 90.0);
     // 3.17 cm
-    ASPOSE_ASSERT_EQ(72.0, sectionDeAfter->get_PageSetup()->get_TopMargin());
+    ASPOSE_ASSERT_EQ(sectionDeAfter->get_PageSetup()->get_TopMargin(), 72.0);
     // 2.54 cm
-    ASPOSE_ASSERT_EQ(72.0, sectionDeAfter->get_PageSetup()->get_BottomMargin());
+    ASPOSE_ASSERT_EQ(sectionDeAfter->get_PageSetup()->get_BottomMargin(), 72.0);
     // 2.54 cm
-    ASPOSE_ASSERT_EQ(35.4, sectionDeAfter->get_PageSetup()->get_HeaderDistance());
+    ASPOSE_ASSERT_EQ(sectionDeAfter->get_PageSetup()->get_HeaderDistance(), 35.4);
     // 1.25 cm
-    ASPOSE_ASSERT_EQ(35.4, sectionDeAfter->get_PageSetup()->get_FooterDistance());
+    ASPOSE_ASSERT_EQ(sectionDeAfter->get_PageSetup()->get_FooterDistance(), 35.4);
     // 1.25 cm
-    ASPOSE_ASSERT_EQ(35.4, sectionDeAfter->get_PageSetup()->get_TextColumns()->get_Spacing());
+    ASPOSE_ASSERT_EQ(sectionDeAfter->get_PageSetup()->get_TextColumns()->get_Spacing(), 35.4);
     // 1.25 cm
 }
 
@@ -823,28 +823,28 @@ void ExSection::PreserveWatermarks()
     
     // Make sure the headers and footers have content.
     System::SharedPtr<Aspose::Words::HeaderFooterCollection> headersFooters = doc->get_FirstSection()->get_HeadersFooters();
-    ASSERT_EQ(u"First header", headersFooters->idx_get(HeaderFooterType::HeaderFirst)->GetText().Trim());
-    ASSERT_EQ(u"Second header", headersFooters->idx_get(HeaderFooterType::HeaderEven)->GetText().Trim());
-    ASSERT_EQ(u"Third header", headersFooters->idx_get(HeaderFooterType::HeaderPrimary)->GetText().Trim());
-    ASSERT_EQ(u"First footer", headersFooters->idx_get(HeaderFooterType::FooterFirst)->GetText().Trim());
-    ASSERT_EQ(u"Second footer", headersFooters->idx_get(HeaderFooterType::FooterEven)->GetText().Trim());
-    ASSERT_EQ(u"Third footer", headersFooters->idx_get(HeaderFooterType::FooterPrimary)->GetText().Trim());
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::HeaderFirst)->GetText().Trim(), u"First header");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::HeaderEven)->GetText().Trim(), u"Second header");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::HeaderPrimary)->GetText().Trim(), u"Third header");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::FooterFirst)->GetText().Trim(), u"First footer");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::FooterEven)->GetText().Trim(), u"Second footer");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::FooterPrimary)->GetText().Trim(), u"Third footer");
     
     // Removes all header and footer content except watermarks.
     doc->get_FirstSection()->ClearHeadersFooters(true);
     
     headersFooters = doc->get_FirstSection()->get_HeadersFooters();
-    ASSERT_EQ(u"", headersFooters->idx_get(HeaderFooterType::HeaderFirst)->GetText().Trim());
-    ASSERT_EQ(u"", headersFooters->idx_get(HeaderFooterType::HeaderEven)->GetText().Trim());
-    ASSERT_EQ(u"", headersFooters->idx_get(HeaderFooterType::HeaderPrimary)->GetText().Trim());
-    ASSERT_EQ(u"", headersFooters->idx_get(HeaderFooterType::FooterFirst)->GetText().Trim());
-    ASSERT_EQ(u"", headersFooters->idx_get(HeaderFooterType::FooterEven)->GetText().Trim());
-    ASSERT_EQ(u"", headersFooters->idx_get(HeaderFooterType::FooterPrimary)->GetText().Trim());
-    ASSERT_EQ(WatermarkType::Text, doc->get_Watermark()->get_Type());
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::HeaderFirst)->GetText().Trim(), u"");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::HeaderEven)->GetText().Trim(), u"");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::HeaderPrimary)->GetText().Trim(), u"");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::FooterFirst)->GetText().Trim(), u"");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::FooterEven)->GetText().Trim(), u"");
+    ASSERT_EQ(headersFooters->idx_get(HeaderFooterType::FooterPrimary)->GetText().Trim(), u"");
+    ASSERT_EQ(doc->get_Watermark()->get_Type(), WatermarkType::Text);
     
     // Removes all header and footer content including watermarks.
     doc->get_FirstSection()->ClearHeadersFooters(false);
-    ASSERT_EQ(WatermarkType::None, doc->get_Watermark()->get_Type());
+    ASSERT_EQ(doc->get_Watermark()->get_Type(), WatermarkType::None);
     //ExEnd:PreserveWatermarks
 }
 

@@ -120,7 +120,7 @@ void ExInlineStory::PositionFootnote(Aspose::Words::Notes::FootnotePosition foot
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.PositionFootnote.docx"));
     
-    ASSERT_EQ(footnotePosition, doc->get_FootnoteOptions()->get_Position());
+    ASSERT_EQ(doc->get_FootnoteOptions()->get_Position(), footnotePosition);
     
     TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote contents.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
 }
@@ -187,7 +187,7 @@ void ExInlineStory::PositionEndnote(Aspose::Words::Notes::EndnotePosition endnot
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.PositionEndnote.docx"));
     
-    ASSERT_EQ(endnotePosition, doc->get_EndnoteOptions()->get_Position());
+    ASSERT_EQ(doc->get_EndnoteOptions()->get_Position(), endnotePosition);
     
     TestUtil::VerifyFootnote(FootnoteType::Endnote, true, System::String::Empty, u"Endnote contents.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
 }
@@ -260,8 +260,8 @@ void ExInlineStory::RefMarkNumberStyle()
     // among all the document's footnotes/endnotes. Each document maintains separate counts
     // for footnotes and for endnotes. By default, footnotes display their numbers using Arabic numerals,
     // and endnotes display their numbers in lowercase Roman numerals.
-    ASSERT_EQ(NumberStyle::Arabic, doc->get_FootnoteOptions()->get_NumberStyle());
-    ASSERT_EQ(NumberStyle::LowercaseRoman, doc->get_EndnoteOptions()->get_NumberStyle());
+    ASSERT_EQ(doc->get_FootnoteOptions()->get_NumberStyle(), NumberStyle::Arabic);
+    ASSERT_EQ(doc->get_EndnoteOptions()->get_NumberStyle(), NumberStyle::LowercaseRoman);
     
     // We can use the "NumberStyle" property to apply custom numbering styles to footnotes and endnotes.
     // This will not affect footnotes/endnotes with custom reference marks.
@@ -273,8 +273,8 @@ void ExInlineStory::RefMarkNumberStyle()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.RefMarkNumberStyle.docx"));
     
-    ASSERT_EQ(NumberStyle::UppercaseRoman, doc->get_FootnoteOptions()->get_NumberStyle());
-    ASSERT_EQ(NumberStyle::UppercaseLetter, doc->get_EndnoteOptions()->get_NumberStyle());
+    ASSERT_EQ(doc->get_FootnoteOptions()->get_NumberStyle(), NumberStyle::UppercaseRoman);
+    ASSERT_EQ(doc->get_EndnoteOptions()->get_NumberStyle(), NumberStyle::UppercaseLetter);
     
     TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
     TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
@@ -341,8 +341,8 @@ void ExInlineStory::NumberingRule()
     // By default, the reference symbol for each footnote and endnote is its index
     // among all the document's footnotes/endnotes. Each document maintains separate counts
     // for footnotes and endnotes and does not restart these counts at any point.
-    ASSERT_EQ(doc->get_FootnoteOptions()->get_RestartRule(), FootnoteNumberingRule::Default);
-    ASSERT_EQ(FootnoteNumberingRule::Default, FootnoteNumberingRule::Continuous);
+    ASSERT_EQ(FootnoteNumberingRule::Default, doc->get_FootnoteOptions()->get_RestartRule());
+    ASSERT_EQ(FootnoteNumberingRule::Continuous, FootnoteNumberingRule::Default);
     
     // We can use the "RestartRule" property to get the document to restart
     // the footnote/endnote counts at a new page or section.
@@ -354,8 +354,8 @@ void ExInlineStory::NumberingRule()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.NumberingRule.docx"));
     
-    ASSERT_EQ(FootnoteNumberingRule::RestartPage, doc->get_FootnoteOptions()->get_RestartRule());
-    ASSERT_EQ(FootnoteNumberingRule::RestartSection, doc->get_EndnoteOptions()->get_RestartRule());
+    ASSERT_EQ(doc->get_FootnoteOptions()->get_RestartRule(), FootnoteNumberingRule::RestartPage);
+    ASSERT_EQ(doc->get_EndnoteOptions()->get_RestartRule(), FootnoteNumberingRule::RestartSection);
     
     TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
     TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
@@ -418,8 +418,8 @@ void ExInlineStory::StartNumber()
     // By default, the reference symbol for each footnote and endnote is its index
     // among all the document's footnotes/endnotes. Each document maintains separate counts
     // for footnotes and for endnotes, which both begin at 1.
-    ASSERT_EQ(1, doc->get_FootnoteOptions()->get_StartNumber());
-    ASSERT_EQ(1, doc->get_EndnoteOptions()->get_StartNumber());
+    ASSERT_EQ(doc->get_FootnoteOptions()->get_StartNumber(), 1);
+    ASSERT_EQ(doc->get_EndnoteOptions()->get_StartNumber(), 1);
     
     // We can use the "StartNumber" property to get the document to
     // begin a footnote or endnote count at a different number.
@@ -431,10 +431,10 @@ void ExInlineStory::StartNumber()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.StartNumber.docx"));
     
-    ASSERT_EQ(1, doc->get_FootnoteOptions()->get_StartNumber());
-    ASSERT_EQ(50, doc->get_EndnoteOptions()->get_StartNumber());
-    ASSERT_EQ(NumberStyle::Arabic, doc->get_FootnoteOptions()->get_NumberStyle());
-    ASSERT_EQ(NumberStyle::Arabic, doc->get_EndnoteOptions()->get_NumberStyle());
+    ASSERT_EQ(doc->get_FootnoteOptions()->get_StartNumber(), 1);
+    ASSERT_EQ(doc->get_EndnoteOptions()->get_StartNumber(), 50);
+    ASSERT_EQ(doc->get_FootnoteOptions()->get_NumberStyle(), NumberStyle::Arabic);
+    ASSERT_EQ(doc->get_EndnoteOptions()->get_NumberStyle(), NumberStyle::Arabic);
     
     TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 1.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
     TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, u"Footnote 2.", System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 1, true)));
@@ -486,7 +486,7 @@ void ExInlineStory::AddFootnote()
     builder->Write(u" More text added by a DocumentBuilder.");
     builder->MoveToDocumentEnd();
     
-    ASSERT_EQ(u"\u0002 Footnote text. More text added by a DocumentBuilder.", footnote->GetText().Trim());
+    ASSERT_EQ(footnote->GetText().Trim(), u"\u0002 Footnote text. More text added by a DocumentBuilder.");
     
     builder->Write(u" More main body text.");
     footnote = builder->InsertFootnote(FootnoteType::Footnote, u"Footnote text.");
@@ -547,8 +547,8 @@ void ExInlineStory::FootnoteEndnote()
     builder->InsertBreak(BreakType::SectionBreakNewPage);
     builder->InsertBreak(BreakType::SectionBreakNewPage);
     
-    ASSERT_EQ(FootnoteType::Footnote, footnote->get_FootnoteType());
-    ASSERT_EQ(FootnoteType::Endnote, endnote->get_FootnoteType());
+    ASSERT_EQ(footnote->get_FootnoteType(), FootnoteType::Footnote);
+    ASSERT_EQ(endnote->get_FootnoteType(), FootnoteType::Endnote);
     
     doc->Save(get_ArtifactsDir() + u"InlineStory.FootnoteEndnote.docx");
     //ExEnd
@@ -587,7 +587,7 @@ void ExInlineStory::AddComment()
     builder->MoveTo(comment->AppendChild<System::SharedPtr<Aspose::Words::Paragraph>>(System::MakeObject<Aspose::Words::Paragraph>(doc)));
     builder->Write(u"Comment text.");
     
-    ASSERT_EQ(System::DateTime::get_Today(), comment->get_DateTime());
+    ASSERT_EQ(comment->get_DateTime(), System::DateTime::get_Today());
     
     // In Microsoft Word, we can right-click this comment in the document body to edit it, or reply to it.
     doc->Save(get_ArtifactsDir() + u"InlineStory.AddComment.docx");
@@ -596,10 +596,10 @@ void ExInlineStory::AddComment()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"InlineStory.AddComment.docx"));
     comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(NodeType::Comment, 0, true));
     
-    ASSERT_EQ(u"Comment text.\r", comment->GetText());
-    ASSERT_EQ(u"John Doe", comment->get_Author());
-    ASSERT_EQ(u"JD", comment->get_Initial());
-    ASSERT_EQ(System::DateTime::get_Today(), comment->get_DateTime());
+    ASSERT_EQ(comment->GetText(), u"Comment text.\r");
+    ASSERT_EQ(comment->get_Author(), u"John Doe");
+    ASSERT_EQ(comment->get_Initial(), u"JD");
+    ASSERT_EQ(comment->get_DateTime(), System::DateTime::get_Today());
 }
 
 namespace gtest_test
@@ -632,7 +632,7 @@ void ExInlineStory::InlineStoryRevisions()
     
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Notes::Footnote>>> footnotes = doc->GetChildNodes(NodeType::Footnote, true)->LINQ_Cast<System::SharedPtr<Aspose::Words::Notes::Footnote>>()->LINQ_ToList();
     
-    ASSERT_EQ(5, footnotes->get_Count());
+    ASSERT_EQ(footnotes->get_Count(), 5);
     
     // Below are five types of revisions that can flag an InlineStory node.
     // 1 -  An "insert" revision:
@@ -692,16 +692,16 @@ void ExInlineStory::InsertInlineStoryNodes()
     table->EnsureMinimum();
     
     // We can place a table inside a footnote, which will make it appear at the referencing page's footer.
-    ASSERT_EQ(0, footnote->get_Tables()->get_Count());
+    ASSERT_EQ(footnote->get_Tables()->get_Count(), 0);
     footnote->AppendChild<System::SharedPtr<Aspose::Words::Tables::Table>>(table);
-    ASSERT_EQ(1, footnote->get_Tables()->get_Count());
-    ASSERT_EQ(NodeType::Table, footnote->get_LastChild()->get_NodeType());
+    ASSERT_EQ(footnote->get_Tables()->get_Count(), 1);
+    ASSERT_EQ(footnote->get_LastChild()->get_NodeType(), NodeType::Table);
     
     // An InlineStory has an "EnsureMinimum()" method as well, but in this case,
     // it makes sure the last child of the node is a paragraph,
     // for us to be able to click and write text easily in Microsoft Word.
     footnote->EnsureMinimum();
-    ASSERT_EQ(NodeType::Paragraph, footnote->get_LastChild()->get_NodeType());
+    ASSERT_EQ(footnote->get_LastChild()->get_NodeType(), NodeType::Paragraph);
     
     // Edit the appearance of the anchor, which is the small superscript number
     // in the main text that points to the footnote.
@@ -709,13 +709,13 @@ void ExInlineStory::InsertInlineStoryNodes()
     footnote->get_Font()->set_Color(System::Drawing::Color::get_Green());
     
     // All inline story nodes have their respective story types.
-    ASSERT_EQ(StoryType::Footnotes, footnote->get_StoryType());
+    ASSERT_EQ(footnote->get_StoryType(), StoryType::Footnotes);
     
     // A comment is another type of inline story.
     auto comment = System::ExplicitCast<Aspose::Words::Comment>(builder->get_CurrentParagraph()->AppendChild<System::SharedPtr<Aspose::Words::Comment>>(System::MakeObject<Aspose::Words::Comment>(doc, u"John Doe", u"J. D.", System::DateTime::get_Now())));
     
     // The parent paragraph of an inline story node will be the one from the main document body.
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph(), comment->get_ParentParagraph());
+    ASPOSE_ASSERT_EQ(comment->get_ParentParagraph(), doc->get_FirstSection()->get_Body()->get_FirstParagraph());
     
     // However, the last paragraph is the one from the comment text contents,
     // which will be outside the main document body in a speech bubble.
@@ -723,13 +723,13 @@ void ExInlineStory::InsertInlineStoryNodes()
     // so we can apply the EnsureMinimum() method to place a paragraph here as well.
     ASSERT_TRUE(System::TestTools::IsNull(comment->get_LastParagraph()));
     comment->EnsureMinimum();
-    ASSERT_EQ(NodeType::Paragraph, comment->get_LastChild()->get_NodeType());
+    ASSERT_EQ(comment->get_LastChild()->get_NodeType(), NodeType::Paragraph);
     
     // Once we have a paragraph, we can move the builder to do it and write our comment.
     builder->MoveTo(comment->get_LastParagraph());
     builder->Write(u"My comment.");
     
-    ASSERT_EQ(StoryType::Comments, comment->get_StoryType());
+    ASSERT_EQ(comment->get_StoryType(), StoryType::Comments);
     
     doc->Save(get_ArtifactsDir() + u"InlineStory.InsertInlineStoryNodes.docx");
     //ExEnd
@@ -739,12 +739,12 @@ void ExInlineStory::InsertInlineStoryNodes()
     footnote = System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true));
     
     TestUtil::VerifyFootnote(FootnoteType::Footnote, true, System::String::Empty, System::String::Empty, System::ExplicitCast<Aspose::Words::Notes::Footnote>(doc->GetChild(NodeType::Footnote, 0, true)));
-    ASSERT_EQ(u"Arial", footnote->get_Font()->get_Name());
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), footnote->get_Font()->get_Color().ToArgb());
+    ASSERT_EQ(footnote->get_Font()->get_Name(), u"Arial");
+    ASSERT_EQ(footnote->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
     
     comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(NodeType::Comment, 0, true));
     
-    ASSERT_EQ(u"My comment.", comment->ToString(SaveFormat::Text).Trim());
+    ASSERT_EQ(comment->ToString(SaveFormat::Text).Trim(), u"My comment.");
 }
 
 namespace gtest_test
@@ -772,13 +772,13 @@ void ExInlineStory::DeleteShapes()
     // which has a parent Paragraph, which is a child node of the first section's Body.
     builder->InsertShape(ShapeType::Cube, 100.0, 100.0);
     
-    ASSERT_EQ(1, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->get_Count(), 1);
     
     // We can delete all shapes from the child paragraphs of this Body.
-    ASSERT_EQ(StoryType::MainText, doc->get_FirstSection()->get_Body()->get_StoryType());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_StoryType(), StoryType::MainText);
     doc->get_FirstSection()->get_Body()->DeleteShapes();
     
-    ASSERT_EQ(0, doc->GetChildNodes(NodeType::Shape, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Shape, true)->get_Count(), 0);
     //ExEnd
 }
 
@@ -805,7 +805,7 @@ void ExInlineStory::UpdateActualReferenceMarks()
     doc->UpdateFields();
     doc->UpdateActualReferenceMarks();
     
-    ASSERT_EQ(u"1", footnote->get_ActualReferenceMark());
+    ASSERT_EQ(footnote->get_ActualReferenceMark(), u"1");
     //ExEnd:UpdateActualReferenceMarks
 }
 

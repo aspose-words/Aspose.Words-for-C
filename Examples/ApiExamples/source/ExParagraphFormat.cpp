@@ -134,8 +134,8 @@ void ExParagraphFormat::DropCap(Aspose::Words::DropCapPosition dropCapPosition)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.DropCap.docx"));
     
-    ASSERT_EQ(dropCapPosition, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_DropCapPosition());
-    ASSERT_EQ(DropCapPosition::None, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat()->get_DropCapPosition());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_DropCapPosition(), dropCapPosition);
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat()->get_DropCapPosition(), DropCapPosition::None);
 }
 
 namespace gtest_test
@@ -209,20 +209,20 @@ void ExParagraphFormat::LineSpacing()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.LineSpacing.docx"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    ASSERT_EQ(LineSpacingRule::AtLeast, paragraphs->idx_get(0)->get_ParagraphFormat()->get_LineSpacingRule());
-    ASPOSE_ASSERT_EQ(20.0, paragraphs->idx_get(0)->get_ParagraphFormat()->get_LineSpacing());
-    ASSERT_EQ(LineSpacingRule::AtLeast, paragraphs->idx_get(1)->get_ParagraphFormat()->get_LineSpacingRule());
-    ASPOSE_ASSERT_EQ(20.0, paragraphs->idx_get(1)->get_ParagraphFormat()->get_LineSpacing());
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_LineSpacingRule(), LineSpacingRule::AtLeast);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_LineSpacing(), 20.0);
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_LineSpacingRule(), LineSpacingRule::AtLeast);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_LineSpacing(), 20.0);
     
-    ASSERT_EQ(LineSpacingRule::Exactly, paragraphs->idx_get(2)->get_ParagraphFormat()->get_LineSpacingRule());
-    ASPOSE_ASSERT_EQ(5.0, paragraphs->idx_get(2)->get_ParagraphFormat()->get_LineSpacing());
-    ASSERT_EQ(LineSpacingRule::Exactly, paragraphs->idx_get(3)->get_ParagraphFormat()->get_LineSpacingRule());
-    ASPOSE_ASSERT_EQ(5.0, paragraphs->idx_get(3)->get_ParagraphFormat()->get_LineSpacing());
+    ASSERT_EQ(paragraphs->idx_get(2)->get_ParagraphFormat()->get_LineSpacingRule(), LineSpacingRule::Exactly);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(2)->get_ParagraphFormat()->get_LineSpacing(), 5.0);
+    ASSERT_EQ(paragraphs->idx_get(3)->get_ParagraphFormat()->get_LineSpacingRule(), LineSpacingRule::Exactly);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(3)->get_ParagraphFormat()->get_LineSpacing(), 5.0);
     
-    ASSERT_EQ(LineSpacingRule::Multiple, paragraphs->idx_get(4)->get_ParagraphFormat()->get_LineSpacingRule());
-    ASPOSE_ASSERT_EQ(18.0, paragraphs->idx_get(4)->get_ParagraphFormat()->get_LineSpacing());
-    ASSERT_EQ(LineSpacingRule::Multiple, paragraphs->idx_get(5)->get_ParagraphFormat()->get_LineSpacingRule());
-    ASPOSE_ASSERT_EQ(18.0, paragraphs->idx_get(5)->get_ParagraphFormat()->get_LineSpacing());
+    ASSERT_EQ(paragraphs->idx_get(4)->get_ParagraphFormat()->get_LineSpacingRule(), LineSpacingRule::Multiple);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(4)->get_ParagraphFormat()->get_LineSpacing(), 18.0);
+    ASSERT_EQ(paragraphs->idx_get(5)->get_ParagraphFormat()->get_LineSpacingRule(), LineSpacingRule::Multiple);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(5)->get_ParagraphFormat()->get_LineSpacing(), 18.0);
 }
 
 namespace gtest_test
@@ -266,17 +266,17 @@ void ExParagraphFormat::ParagraphSpacingAuto(bool autoSpacing)
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.ParagraphSpacingAuto.docx"));
     System::SharedPtr<Aspose::Words::ParagraphFormat> format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
     
-    ASPOSE_ASSERT_EQ(24.0, format->get_SpaceBefore());
-    ASPOSE_ASSERT_EQ(24.0, format->get_SpaceAfter());
-    ASPOSE_ASSERT_EQ(autoSpacing, format->get_SpaceAfterAuto());
-    ASPOSE_ASSERT_EQ(autoSpacing, format->get_SpaceBeforeAuto());
+    ASPOSE_ASSERT_EQ(format->get_SpaceBefore(), 24.0);
+    ASPOSE_ASSERT_EQ(format->get_SpaceAfter(), 24.0);
+    ASPOSE_ASSERT_EQ(format->get_SpaceAfterAuto(), autoSpacing);
+    ASPOSE_ASSERT_EQ(format->get_SpaceBeforeAuto(), autoSpacing);
     
     format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_ParagraphFormat();
     
-    ASPOSE_ASSERT_EQ(24.0, format->get_SpaceBefore());
-    ASPOSE_ASSERT_EQ(24.0, format->get_SpaceAfter());
-    ASPOSE_ASSERT_EQ(autoSpacing, format->get_SpaceAfterAuto());
-    ASPOSE_ASSERT_EQ(autoSpacing, format->get_SpaceBeforeAuto());
+    ASPOSE_ASSERT_EQ(format->get_SpaceBefore(), 24.0);
+    ASPOSE_ASSERT_EQ(format->get_SpaceAfter(), 24.0);
+    ASPOSE_ASSERT_EQ(format->get_SpaceAfterAuto(), autoSpacing);
+    ASPOSE_ASSERT_EQ(format->get_SpaceBeforeAuto(), autoSpacing);
 }
 
 namespace gtest_test
@@ -346,9 +346,9 @@ void ExParagraphFormat::ParagraphSpacingSameStyle(bool noSpaceBetweenParagraphsO
     {
         System::SharedPtr<Aspose::Words::ParagraphFormat> format = paragraph->get_ParagraphFormat();
         
-        ASPOSE_ASSERT_EQ(24.0, format->get_SpaceBefore());
-        ASPOSE_ASSERT_EQ(24.0, format->get_SpaceAfter());
-        ASPOSE_ASSERT_EQ(noSpaceBetweenParagraphsOfSameStyle, format->get_NoSpaceBetweenParagraphsOfSameStyle());
+        ASPOSE_ASSERT_EQ(format->get_SpaceBefore(), 24.0);
+        ASPOSE_ASSERT_EQ(format->get_SpaceAfter(), 24.0);
+        ASPOSE_ASSERT_EQ(format->get_NoSpaceBetweenParagraphsOfSameStyle(), noSpaceBetweenParagraphsOfSameStyle);
     }
 }
 
@@ -415,11 +415,11 @@ void ExParagraphFormat::ParagraphOutlineLevel()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.ParagraphOutlineLevel.docx"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    ASSERT_EQ(OutlineLevel::Level1, paragraphs->idx_get(0)->get_ParagraphFormat()->get_OutlineLevel());
-    ASSERT_EQ(OutlineLevel::Level2, paragraphs->idx_get(1)->get_ParagraphFormat()->get_OutlineLevel());
-    ASSERT_EQ(OutlineLevel::Level3, paragraphs->idx_get(2)->get_ParagraphFormat()->get_OutlineLevel());
-    ASSERT_EQ(OutlineLevel::Level3, paragraphs->idx_get(3)->get_ParagraphFormat()->get_OutlineLevel());
-    ASSERT_EQ(OutlineLevel::BodyText, paragraphs->idx_get(4)->get_ParagraphFormat()->get_OutlineLevel());
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_OutlineLevel(), OutlineLevel::Level1);
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_OutlineLevel(), OutlineLevel::Level2);
+    ASSERT_EQ(paragraphs->idx_get(2)->get_ParagraphFormat()->get_OutlineLevel(), OutlineLevel::Level3);
+    ASSERT_EQ(paragraphs->idx_get(3)->get_ParagraphFormat()->get_OutlineLevel(), OutlineLevel::Level3);
+    ASSERT_EQ(paragraphs->idx_get(4)->get_ParagraphFormat()->get_OutlineLevel(), OutlineLevel::BodyText);
 }
 
 namespace gtest_test
@@ -455,13 +455,13 @@ void ExParagraphFormat::PageBreakBefore(bool pageBreakBefore)
     
     if (pageBreakBefore)
     {
-        ASSERT_EQ(1, layoutCollector->GetStartPageIndex(paragraphs->idx_get(0)));
-        ASSERT_EQ(2, layoutCollector->GetStartPageIndex(paragraphs->idx_get(1)));
+        ASSERT_EQ(layoutCollector->GetStartPageIndex(paragraphs->idx_get(0)), 1);
+        ASSERT_EQ(layoutCollector->GetStartPageIndex(paragraphs->idx_get(1)), 2);
     }
     else
     {
-        ASSERT_EQ(1, layoutCollector->GetStartPageIndex(paragraphs->idx_get(0)));
-        ASSERT_EQ(1, layoutCollector->GetStartPageIndex(paragraphs->idx_get(1)));
+        ASSERT_EQ(layoutCollector->GetStartPageIndex(paragraphs->idx_get(0)), 1);
+        ASSERT_EQ(layoutCollector->GetStartPageIndex(paragraphs->idx_get(1)), 1);
     }
     
     doc->Save(get_ArtifactsDir() + u"ParagraphFormat.PageBreakBefore.docx");
@@ -470,8 +470,8 @@ void ExParagraphFormat::PageBreakBefore(bool pageBreakBefore)
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.PageBreakBefore.docx"));
     paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    ASPOSE_ASSERT_EQ(pageBreakBefore, paragraphs->idx_get(0)->get_ParagraphFormat()->get_PageBreakBefore());
-    ASPOSE_ASSERT_EQ(pageBreakBefore, paragraphs->idx_get(1)->get_ParagraphFormat()->get_PageBreakBefore());
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_PageBreakBefore(), pageBreakBefore);
+    ASPOSE_ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_PageBreakBefore(), pageBreakBefore);
 }
 
 namespace gtest_test
@@ -529,7 +529,7 @@ void ExParagraphFormat::WidowControl(bool widowControl)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.WidowControl.docx"));
     
-    ASPOSE_ASSERT_EQ(widowControl, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_WidowControl());
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_WidowControl(), widowControl);
 }
 
 namespace gtest_test
@@ -584,8 +584,8 @@ void ExParagraphFormat::LinesToDrop()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.LinesToDrop.odt"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    ASSERT_EQ(4, paragraphs->idx_get(0)->get_ParagraphFormat()->get_LinesToDrop());
-    ASSERT_EQ(0, paragraphs->idx_get(1)->get_ParagraphFormat()->get_LinesToDrop());
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_LinesToDrop(), 4);
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_LinesToDrop(), 0);
 }
 
 namespace gtest_test
@@ -663,39 +663,39 @@ void ExParagraphFormat::ParagraphSpacingAndIndents()
     
     // Below are five different spacing options, along with the properties that their configuration indirectly affects.
     // 1 -  Left indent:
-    ASPOSE_ASSERT_EQ(format->get_LeftIndent(), 0.0);
+    ASPOSE_ASSERT_EQ(0.0, format->get_LeftIndent());
     
     format->set_CharacterUnitLeftIndent(10.0);
     
-    ASPOSE_ASSERT_EQ(format->get_LeftIndent(), 120.0);
+    ASPOSE_ASSERT_EQ(120.0, format->get_LeftIndent());
     
     // 2 -  Right indent:
-    ASPOSE_ASSERT_EQ(format->get_RightIndent(), 0.0);
+    ASPOSE_ASSERT_EQ(0.0, format->get_RightIndent());
     
     format->set_CharacterUnitRightIndent(-5.5);
     
-    ASPOSE_ASSERT_EQ(format->get_RightIndent(), -66.0);
+    ASPOSE_ASSERT_EQ(-66.0, format->get_RightIndent());
     
     // 3 -  Hanging indent:
-    ASPOSE_ASSERT_EQ(format->get_FirstLineIndent(), 0.0);
+    ASPOSE_ASSERT_EQ(0.0, format->get_FirstLineIndent());
     
     format->set_CharacterUnitFirstLineIndent(20.3);
     
-    ASSERT_NEAR(format->get_FirstLineIndent(), 243.59, 0.1);
+    ASSERT_NEAR(243.59, format->get_FirstLineIndent(), 0.1);
     
     // 4 -  Line spacing before paragraphs:
-    ASPOSE_ASSERT_EQ(format->get_SpaceBefore(), 0.0);
+    ASPOSE_ASSERT_EQ(0.0, format->get_SpaceBefore());
     
     format->set_LineUnitBefore(5.1);
     
-    ASSERT_NEAR(format->get_SpaceBefore(), 61.1, 0.1);
+    ASSERT_NEAR(61.1, format->get_SpaceBefore(), 0.1);
     
     // 5 -  Line spacing after paragraphs:
-    ASPOSE_ASSERT_EQ(format->get_SpaceAfter(), 0.0);
+    ASPOSE_ASSERT_EQ(0.0, format->get_SpaceAfter());
     
     format->set_LineUnitAfter(10.9);
     
-    ASSERT_NEAR(format->get_SpaceAfter(), 130.8, 0.1);
+    ASSERT_NEAR(130.8, format->get_SpaceAfter(), 0.1);
     
     builder->Writeln(System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit, ") + u"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
     builder->Write(System::String(u"测试文档测试文档测试文档测试文档测试文档测试文档测试文档测试文档测试") + u"文档测试文档测试文档测试文档测试文档测试文档测试文档测试文档测试文档测试文档");
@@ -704,20 +704,20 @@ void ExParagraphFormat::ParagraphSpacingAndIndents()
     doc = DocumentHelper::SaveOpen(doc);
     format = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat();
     
-    ASPOSE_ASSERT_EQ(format->get_CharacterUnitLeftIndent(), 10.0);
-    ASPOSE_ASSERT_EQ(format->get_LeftIndent(), 120.0);
+    ASPOSE_ASSERT_EQ(10.0, format->get_CharacterUnitLeftIndent());
+    ASPOSE_ASSERT_EQ(120.0, format->get_LeftIndent());
     
-    ASPOSE_ASSERT_EQ(format->get_CharacterUnitRightIndent(), -5.5);
-    ASPOSE_ASSERT_EQ(format->get_RightIndent(), -66.0);
+    ASPOSE_ASSERT_EQ(-5.5, format->get_CharacterUnitRightIndent());
+    ASPOSE_ASSERT_EQ(-66.0, format->get_RightIndent());
     
-    ASPOSE_ASSERT_EQ(format->get_CharacterUnitFirstLineIndent(), 20.3);
-    ASSERT_NEAR(format->get_FirstLineIndent(), 243.59, 0.1);
+    ASPOSE_ASSERT_EQ(20.3, format->get_CharacterUnitFirstLineIndent());
+    ASSERT_NEAR(243.59, format->get_FirstLineIndent(), 0.1);
     
-    ASSERT_NEAR(format->get_LineUnitBefore(), 5.1, 0.1);
-    ASSERT_NEAR(format->get_SpaceBefore(), 61.1, 0.1);
+    ASSERT_NEAR(5.1, format->get_LineUnitBefore(), 0.1);
+    ASSERT_NEAR(61.1, format->get_SpaceBefore(), 0.1);
     
-    ASPOSE_ASSERT_EQ(format->get_LineUnitAfter(), 10.9);
-    ASSERT_NEAR(format->get_SpaceAfter(), 130.8, 0.1);
+    ASPOSE_ASSERT_EQ(10.9, format->get_LineUnitAfter());
+    ASSERT_NEAR(130.8, format->get_SpaceAfter(), 0.1);
 }
 
 namespace gtest_test
@@ -749,7 +749,7 @@ void ExParagraphFormat::ParagraphBaselineAlignment()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.ParagraphBaselineAlignment.docx"));
     format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
-    ASSERT_EQ(BaselineAlignment::Top, format->get_BaselineAlignment());
+    ASSERT_EQ(format->get_BaselineAlignment(), BaselineAlignment::Top);
 }
 
 namespace gtest_test
@@ -779,7 +779,7 @@ void ExParagraphFormat::MirrorIndents()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ParagraphFormat.MirrorIndents.docx"));
     format = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat();
     
-    ASPOSE_ASSERT_EQ(true, format->get_MirrorIndents());
+    ASPOSE_ASSERT_EQ(format->get_MirrorIndents(), true);
 }
 
 namespace gtest_test

@@ -234,9 +234,9 @@ RTTI_INFO_IMPL_HASH(2650332447u, ::Aspose::Words::ApiExamples::ExFont, ThisTypeB
 
 void ExFont::TestRemoveHiddenContent(System::SharedPtr<Aspose::Words::Document> doc)
 {
-    ASSERT_EQ(20, doc->GetChildNodes(NodeType::Paragraph, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Paragraph, true)->get_Count(), 20);
     //ExSkip
-    ASSERT_EQ(1, doc->GetChildNodes(NodeType::Table, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 1);
     //ExSkip
     
     for (auto&& node : System::IterateOver(doc->GetChildNodes(NodeType::Any, true)))
@@ -358,10 +358,10 @@ void ExFont::CreateFormattedRun()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.CreateFormattedRun.docx"));
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Hello world!", run->GetText().Trim());
-    ASSERT_EQ(u"Courier New", run->get_Font()->get_Name());
-    ASPOSE_ASSERT_EQ(36, run->get_Font()->get_Size());
-    ASSERT_EQ(System::Drawing::Color::get_Yellow().ToArgb(), run->get_Font()->get_HighlightColor().ToArgb());
+    ASSERT_EQ(run->GetText().Trim(), u"Hello world!");
+    ASSERT_EQ(run->get_Font()->get_Name(), u"Courier New");
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Size(), 36);
+    ASSERT_EQ(run->get_Font()->get_HighlightColor().ToArgb(), System::Drawing::Color::get_Yellow().ToArgb());
 }
 
 namespace gtest_test
@@ -405,12 +405,12 @@ void ExFont::Caps()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Caps.docx"));
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"all capitals", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"all capitals");
     ASSERT_TRUE(run->get_Font()->get_AllCaps());
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Small Capitals", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"Small Capitals");
     ASSERT_TRUE(run->get_Font()->get_SmallCaps());
 }
 
@@ -436,7 +436,7 @@ void ExFont::GetDocumentFonts()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Embedded font.docx"));
     
     System::SharedPtr<Aspose::Words::Fonts::FontInfoCollection> allFonts = doc->get_FontInfos();
-    ASSERT_EQ(5, allFonts->get_Count());
+    ASSERT_EQ(allFonts->get_Count(), 5);
     //ExSkip
     
     // Print all the used and unused fonts in the document.
@@ -604,12 +604,12 @@ void ExFont::StrikeThrough()
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Text with a single-line strikethrough.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"Text with a single-line strikethrough.");
     ASSERT_TRUE(run->get_Font()->get_StrikeThrough());
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Text with a double-line strikethrough.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"Text with a double-line strikethrough.");
     ASSERT_TRUE(run->get_Font()->get_DoubleStrikeThrough());
 }
 
@@ -663,23 +663,23 @@ void ExFont::PositionSubscript()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.PositionSubscript.docx"));
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Raised text.", run->GetText().Trim());
-    ASPOSE_ASSERT_EQ(5, run->get_Font()->get_Position());
+    ASSERT_EQ(run->GetText().Trim(), u"Raised text.");
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Position(), 5);
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.PositionSubscript.docx"));
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(1);
     
-    ASSERT_EQ(u"Lowered text.", run->GetText().Trim());
-    ASPOSE_ASSERT_EQ(-10, run->get_Font()->get_Position());
+    ASSERT_EQ(run->GetText().Trim(), u"Lowered text.");
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Position(), -10);
     
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(3);
     
-    ASSERT_EQ(u"Subscript.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"Subscript.");
     ASSERT_TRUE(run->get_Font()->get_Subscript());
     
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(4);
     
-    ASSERT_EQ(u"Superscript.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"Superscript.");
     ASSERT_TRUE(run->get_Font()->get_Superscript());
 }
 
@@ -720,18 +720,18 @@ void ExFont::ScalingSpacing()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.ScalingSpacing.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Wide characters", run->GetText().Trim());
-    ASSERT_EQ(150, run->get_Font()->get_Scaling());
+    ASSERT_EQ(run->GetText().Trim(), u"Wide characters");
+    ASSERT_EQ(run->get_Font()->get_Scaling(), 150);
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Expanded by 1pt", run->GetText().Trim());
-    ASPOSE_ASSERT_EQ(1, run->get_Font()->get_Spacing());
+    ASSERT_EQ(run->GetText().Trim(), u"Expanded by 1pt");
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Spacing(), 1);
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(2)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Condensed by 1pt", run->GetText().Trim());
-    ASPOSE_ASSERT_EQ(-1, run->get_Font()->get_Spacing());
+    ASSERT_EQ(run->GetText().Trim(), u"Condensed by 1pt");
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Spacing(), -1);
 }
 
 namespace gtest_test
@@ -762,7 +762,7 @@ void ExFont::Italic()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Italic.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Hello world!", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"Hello world!");
     ASSERT_TRUE(run->get_Font()->get_Italic());
 }
 
@@ -806,13 +806,13 @@ void ExFont::EngraveEmboss()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.EngraveEmboss.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"This text is engraved.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"This text is engraved.");
     ASSERT_TRUE(run->get_Font()->get_Engrave());
     ASSERT_FALSE(run->get_Font()->get_Emboss());
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"This text is embossed.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"This text is embossed.");
     ASSERT_FALSE(run->get_Font()->get_Engrave());
     ASSERT_TRUE(run->get_Font()->get_Emboss());
 }
@@ -848,7 +848,7 @@ void ExFont::Shadow()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Shadow.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"This text has a shadow.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"This text has a shadow.");
     ASSERT_TRUE(run->get_Font()->get_Shadow());
 }
 
@@ -884,7 +884,7 @@ void ExFont::Outline()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Outline.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"This text has an outline.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"This text has an outline.");
     ASSERT_TRUE(run->get_Font()->get_Outline());
 }
 
@@ -922,7 +922,7 @@ void ExFont::Hidden()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Hidden.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"This text will not be visible in the document.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"This text will not be visible in the document.");
     ASSERT_TRUE(run->get_Font()->get_Hidden());
 }
 
@@ -965,15 +965,15 @@ void ExFont::Kerning()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Kerning.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"TALLY. (Kerning not applied)", run->GetText().Trim());
-    ASPOSE_ASSERT_EQ(24, run->get_Font()->get_Kerning());
-    ASPOSE_ASSERT_EQ(18, run->get_Font()->get_Size());
+    ASSERT_EQ(run->GetText().Trim(), u"TALLY. (Kerning not applied)");
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Kerning(), 24);
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Size(), 18);
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"TALLY. (Kerning applied)", run->GetText().Trim());
-    ASPOSE_ASSERT_EQ(12, run->get_Font()->get_Kerning());
-    ASPOSE_ASSERT_EQ(18, run->get_Font()->get_Size());
+    ASSERT_EQ(run->GetText().Trim(), u"TALLY. (Kerning applied)");
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Kerning(), 12);
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Size(), 18);
 }
 
 namespace gtest_test
@@ -1007,7 +1007,7 @@ void ExFont::NoProofing()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.NoProofing.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ((u"Proofing has been disabled, so these spelking errrs will not display red lines underneath."), run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), (u"Proofing has been disabled, so these spelking errrs will not display red lines underneath."));
     ASSERT_TRUE(run->get_Font()->get_NoProofing());
 }
 
@@ -1044,13 +1044,13 @@ void ExFont::LocaleId()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.LocaleId.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Привет!", run->GetText().Trim());
-    ASSERT_EQ(1033, run->get_Font()->get_LocaleId());
+    ASSERT_EQ(run->GetText().Trim(), u"Привет!");
+    ASSERT_EQ(run->get_Font()->get_LocaleId(), 1033);
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Привет!", run->GetText().Trim());
-    ASSERT_EQ(1049, run->get_Font()->get_LocaleId());
+    ASSERT_EQ(run->GetText().Trim(), u"Привет!");
+    ASSERT_EQ(run->get_Font()->get_LocaleId(), 1049);
 }
 
 namespace gtest_test
@@ -1083,9 +1083,9 @@ void ExFont::Underlines()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Underlines.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Underlined text.", run->GetText().Trim());
-    ASSERT_EQ(Underline::Dotted, run->get_Font()->get_Underline());
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), run->get_Font()->get_UnderlineColor().ToArgb());
+    ASSERT_EQ(run->GetText().Trim(), u"Underlined text.");
+    ASSERT_EQ(run->get_Font()->get_Underline(), Underline::Dotted);
+    ASSERT_EQ(run->get_Font()->get_UnderlineColor().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
 }
 
 namespace gtest_test
@@ -1116,7 +1116,7 @@ void ExFont::ComplexScript()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.ComplexScript.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Text treated as complex script.", run->GetText().Trim());
+    ASSERT_EQ(run->GetText().Trim(), u"Text treated as complex script.");
     ASSERT_TRUE(run->get_Font()->get_ComplexScript());
 }
 
@@ -1151,8 +1151,8 @@ void ExFont::SparklingText()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.SparklingText.doc"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Text with a sparkle effect.", run->GetText().Trim());
-    ASSERT_EQ(TextEffect::SparkleText, run->get_Font()->get_TextEffect());
+    ASSERT_EQ(run->GetText().Trim(), u"Text with a sparkle effect.");
+    ASSERT_EQ(run->get_Font()->get_TextEffect(), TextEffect::SparkleText);
 }
 
 namespace gtest_test
@@ -1196,12 +1196,12 @@ void ExFont::ForegroundAndBackground()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.ForegroundAndBackground.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Foreground and background pattern colors for shading texture.", run->GetText().Trim());
-    ASSERT_EQ(ThemeColor::Dark1, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Shading()->get_ForegroundPatternThemeColor());
-    ASSERT_EQ(ThemeColor::Dark2, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Shading()->get_BackgroundPatternThemeColor());
+    ASSERT_EQ(run->GetText().Trim(), u"Foreground and background pattern colors for shading texture.");
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Shading()->get_ForegroundPatternThemeColor(), ThemeColor::Dark1);
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Shading()->get_BackgroundPatternThemeColor(), ThemeColor::Dark2);
     
-    ASSERT_NEAR(0.5, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Shading()->get_ForegroundTintAndShade(), 0.1);
-    ASSERT_NEAR(-0.2, doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Shading()->get_BackgroundTintAndShade(), 0.1);
+    ASSERT_NEAR(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Shading()->get_ForegroundTintAndShade(), 0.5, 0.1);
+    ASSERT_NEAR(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_ParagraphFormat()->get_Shading()->get_BackgroundTintAndShade(), -0.2, 0.1);
 }
 
 namespace gtest_test
@@ -1239,12 +1239,12 @@ void ExFont::Shading()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Shading.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"White text on an orange background with a two-tone texture.", run->GetText().Trim());
-    ASSERT_EQ(System::Drawing::Color::get_White().ToArgb(), run->get_Font()->get_Color().ToArgb());
+    ASSERT_EQ(run->GetText().Trim(), u"White text on an orange background with a two-tone texture.");
+    ASSERT_EQ(run->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_White().ToArgb());
     
-    ASSERT_EQ(TextureIndex::TextureDiagonalUp, run->get_Font()->get_Shading()->get_Texture());
-    ASSERT_EQ(System::Drawing::Color::get_OrangeRed().ToArgb(), run->get_Font()->get_Shading()->get_BackgroundPatternColor().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_DarkBlue().ToArgb(), run->get_Font()->get_Shading()->get_ForegroundPatternColor().ToArgb());
+    ASSERT_EQ(run->get_Font()->get_Shading()->get_Texture(), TextureIndex::TextureDiagonalUp);
+    ASSERT_EQ(run->get_Font()->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_OrangeRed().ToArgb());
+    ASSERT_EQ(run->get_Font()->get_Shading()->get_ForegroundPatternColor().ToArgb(), System::Drawing::Color::get_DarkBlue().ToArgb());
 }
 
 namespace gtest_test
@@ -1305,22 +1305,22 @@ void ExFont::Bidi()
         switch (doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->IndexOf(run))
         {
             case 0:
-                ASSERT_EQ(u"مرحبًا", run->GetText().Trim());
+                ASSERT_EQ(run->GetText().Trim(), u"مرحبًا");
                 ASSERT_TRUE(run->get_Font()->get_Bidi());
                 break;
             case 1:
-                ASSERT_EQ(u"Hello world!", run->GetText().Trim());
+                ASSERT_EQ(run->GetText().Trim(), u"Hello world!");
                 ASSERT_FALSE(run->get_Font()->get_Bidi());
                 break;
         }
         
-        ASSERT_EQ(1033, run->get_Font()->get_LocaleId());
-        ASPOSE_ASSERT_EQ(16, run->get_Font()->get_Size());
+        ASSERT_EQ(run->get_Font()->get_LocaleId(), 1033);
+        ASPOSE_ASSERT_EQ(run->get_Font()->get_Size(), 16);
         ASSERT_FALSE(run->get_Font()->get_Italic());
         ASSERT_FALSE(run->get_Font()->get_Bold());
-        ASSERT_EQ(1025, run->get_Font()->get_LocaleIdBi());
-        ASPOSE_ASSERT_EQ(24, run->get_Font()->get_SizeBi());
-        ASSERT_EQ(u"Andalus", run->get_Font()->get_NameBi());
+        ASSERT_EQ(run->get_Font()->get_LocaleIdBi(), 1025);
+        ASPOSE_ASSERT_EQ(run->get_Font()->get_SizeBi(), 24);
+        ASSERT_EQ(run->get_Font()->get_NameBi(), u"Andalus");
         ASSERT_TRUE(run->get_Font()->get_ItalicBi());
         ASSERT_TRUE(run->get_Font()->get_BoldBi());
     }
@@ -1370,19 +1370,19 @@ void ExFont::FarEast()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.FarEast.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Hello world!", run->GetText().Trim());
-    ASSERT_EQ(1033, run->get_Font()->get_LocaleId());
-    ASSERT_EQ(u"Courier New", run->get_Font()->get_Name());
-    ASSERT_EQ(2052, run->get_Font()->get_LocaleIdFarEast());
-    ASSERT_EQ(u"SimSun", run->get_Font()->get_NameFarEast());
+    ASSERT_EQ(run->GetText().Trim(), u"Hello world!");
+    ASSERT_EQ(run->get_Font()->get_LocaleId(), 1033);
+    ASSERT_EQ(run->get_Font()->get_Name(), u"Courier New");
+    ASSERT_EQ(run->get_Font()->get_LocaleIdFarEast(), 2052);
+    ASSERT_EQ(run->get_Font()->get_NameFarEast(), u"SimSun");
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"你好世界", run->GetText().Trim());
-    ASSERT_EQ(1033, run->get_Font()->get_LocaleId());
-    ASSERT_EQ(u"SimSun", run->get_Font()->get_Name());
-    ASSERT_EQ(2052, run->get_Font()->get_LocaleIdFarEast());
-    ASSERT_EQ(u"SimSun", run->get_Font()->get_NameFarEast());
+    ASSERT_EQ(run->GetText().Trim(), u"你好世界");
+    ASSERT_EQ(run->get_Font()->get_LocaleId(), 1033);
+    ASSERT_EQ(run->get_Font()->get_Name(), u"SimSun");
+    ASSERT_EQ(run->get_Font()->get_LocaleIdFarEast(), 2052);
+    ASSERT_EQ(run->get_Font()->get_NameFarEast(), u"SimSun");
 }
 
 namespace gtest_test
@@ -1410,7 +1410,7 @@ void ExFont::NameAscii()
     builder->get_Font()->set_NameAscii(u"Calibri");
     
     // With no other font specified, the builder will also apply this font to all characters that it inserts.
-    ASSERT_EQ(u"Calibri", builder->get_Font()->get_Name());
+    ASSERT_EQ(builder->get_Font()->get_Name(), u"Calibri");
     
     // Specify a font to use for all characters outside of the ASCII range.
     // Ideally, this font should have a glyph for each required non-ASCII character code.
@@ -1426,10 +1426,10 @@ void ExFont::NameAscii()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.NameAscii.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ((u"Hello, Привет"), run->GetText().Trim());
-    ASSERT_EQ(u"Calibri", run->get_Font()->get_Name());
-    ASSERT_EQ(u"Calibri", run->get_Font()->get_NameAscii());
-    ASSERT_EQ(u"Courier New", run->get_Font()->get_NameOther());
+    ASSERT_EQ(run->GetText().Trim(), (u"Hello, Привет"));
+    ASSERT_EQ(run->get_Font()->get_Name(), u"Calibri");
+    ASSERT_EQ(run->get_Font()->get_NameAscii(), u"Calibri");
+    ASSERT_EQ(run->get_Font()->get_NameOther(), u"Courier New");
 }
 
 namespace gtest_test
@@ -1482,15 +1482,15 @@ void ExFont::ChangeStyle()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.ChangeStyle.docx"));
     System::SharedPtr<Aspose::Words::Run> docRun = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Text originally in \"Emphasis\" style", docRun->GetText().Trim());
-    ASSERT_EQ(StyleIdentifier::Strong, docRun->get_Font()->get_StyleIdentifier());
-    ASSERT_EQ(u"Strong", docRun->get_Font()->get_StyleName());
+    ASSERT_EQ(docRun->GetText().Trim(), u"Text originally in \"Emphasis\" style");
+    ASSERT_EQ(docRun->get_Font()->get_StyleIdentifier(), StyleIdentifier::Strong);
+    ASSERT_EQ(docRun->get_Font()->get_StyleName(), u"Strong");
     
     docRun = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"Text originally in \"Intense Emphasis\" style", docRun->GetText().Trim());
-    ASSERT_EQ(StyleIdentifier::Strong, docRun->get_Font()->get_StyleIdentifier());
-    ASSERT_EQ(u"Strong", docRun->get_Font()->get_StyleName());
+    ASSERT_EQ(docRun->GetText().Trim(), u"Text originally in \"Intense Emphasis\" style");
+    ASSERT_EQ(docRun->get_Font()->get_StyleIdentifier(), StyleIdentifier::Strong);
+    ASSERT_EQ(docRun->get_Font()->get_StyleName(), u"Strong");
 }
 
 namespace gtest_test
@@ -1571,10 +1571,10 @@ void ExFont::Style()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.Style.docx"));
     System::SharedPtr<Aspose::Words::Run> docRun = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"This text is in a custom style.", docRun->GetText().Trim());
-    ASSERT_EQ(u"MyStyle", docRun->get_Font()->get_StyleName());
+    ASSERT_EQ(docRun->GetText().Trim(), u"This text is in a custom style.");
+    ASSERT_EQ(docRun->get_Font()->get_StyleName(), u"MyStyle");
     ASSERT_FALSE(docRun->get_Font()->get_Style()->get_BuiltIn());
-    ASSERT_EQ(Underline::Double, docRun->get_Font()->get_Underline());
+    ASSERT_EQ(docRun->get_Font()->get_Underline(), Underline::Double);
 }
 
 namespace gtest_test
@@ -1610,10 +1610,10 @@ void ExFont::GetAvailableFonts()
     }
     //ExEnd
     
-    ASSERT_EQ(folderFontSource[0]->GetAvailableFonts()->get_Count(), System::IO::Directory::EnumerateFiles(get_FontsDir(), u"*.*", System::IO::SearchOption::AllDirectories)->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
+    ASSERT_EQ(System::IO::Directory::EnumerateFiles(get_FontsDir(), u"*.*", System::IO::SearchOption::AllDirectories)->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
     {
         return f.EndsWith(u".ttf") || f.EndsWith(u".otf");
-    }))) + 5);
+    }))) + 5, folderFontSource[0]->GetAvailableFonts()->get_Count());
 }
 
 namespace gtest_test
@@ -1636,7 +1636,7 @@ void ExFont::SetFontAutoColor()
     
     // If a run's Font object does not specify text color, it will automatically
     // select either black or white depending on the background color's color.
-    ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), builder->get_Font()->get_Color().ToArgb());
+    ASSERT_EQ(builder->get_Font()->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
     
     // The default color for text is black. If the color of the background is dark, black text will be difficult to see.
     // To solve this problem, the AutoColor property will display this text in white.
@@ -1644,7 +1644,7 @@ void ExFont::SetFontAutoColor()
     
     builder->Writeln(u"The text color automatically chosen for this run is white.");
     
-    ASSERT_EQ(System::Drawing::Color::get_White().ToArgb(), doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0)->get_Font()->get_AutoColor().ToArgb());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0)->get_Font()->get_AutoColor().ToArgb(), System::Drawing::Color::get_White().ToArgb());
     
     // If we change the background to a light color, black will be a more
     // suitable text color than white so that the auto color will display it in black.
@@ -1652,7 +1652,7 @@ void ExFont::SetFontAutoColor()
     
     builder->Writeln(u"The text color automatically chosen for this run is black.");
     
-    ASSERT_EQ(System::Drawing::Color::get_Black().ToArgb(), doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_AutoColor().ToArgb());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0)->get_Font()->get_AutoColor().ToArgb(), System::Drawing::Color::get_Black().ToArgb());
     
     doc->Save(get_ArtifactsDir() + u"Font.SetFontAutoColor.docx");
     //ExEnd
@@ -1660,15 +1660,15 @@ void ExFont::SetFontAutoColor()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Font.SetFontAutoColor.docx"));
     System::SharedPtr<Aspose::Words::Run> run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(0)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"The text color automatically chosen for this run is white.", run->GetText().Trim());
-    ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), run->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_DarkBlue().ToArgb(), run->get_Font()->get_Shading()->get_BackgroundPatternColor().ToArgb());
+    ASSERT_EQ(run->GetText().Trim(), u"The text color automatically chosen for this run is white.");
+    ASSERT_EQ(run->get_Font()->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+    ASSERT_EQ(run->get_Font()->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_DarkBlue().ToArgb());
     
     run = doc->get_FirstSection()->get_Body()->get_Paragraphs()->idx_get(1)->get_Runs()->idx_get(0);
     
-    ASSERT_EQ(u"The text color automatically chosen for this run is black.", run->GetText().Trim());
-    ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), run->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_LightBlue().ToArgb(), run->get_Font()->get_Shading()->get_BackgroundPatternColor().ToArgb());
+    ASSERT_EQ(run->GetText().Trim(), u"The text color automatically chosen for this run is black.");
+    ASSERT_EQ(run->get_Font()->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+    ASSERT_EQ(run->get_Font()->get_Shading()->get_BackgroundPatternColor().ToArgb(), System::Drawing::Color::get_LightBlue().ToArgb());
 }
 
 namespace gtest_test
@@ -1684,9 +1684,9 @@ TEST_F(ExFont, SetFontAutoColor)
 void ExFont::RemoveHiddenContentFromDocument()
 {
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Hidden content.docx"));
-    ASSERT_EQ(26, doc->GetChildNodes(NodeType::Paragraph, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Paragraph, true)->get_Count(), 26);
     //ExSkip
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Table, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 2);
     //ExSkip
     
     auto hiddenContentRemover = System::MakeObject<Aspose::Words::ApiExamples::ExFont::RemoveHiddenContentVisitor>();
@@ -1729,10 +1729,10 @@ void ExFont::DefaultFonts()
     
     // A blank document contains 3 default fonts. Each font in the document
     // will have a corresponding FontInfo object which contains details about that font.
-    ASSERT_EQ(3, doc->get_FontInfos()->get_Count());
+    ASSERT_EQ(doc->get_FontInfos()->get_Count(), 3);
     
     ASSERT_TRUE(doc->get_FontInfos()->Contains(u"Times New Roman"));
-    ASSERT_EQ(204, doc->get_FontInfos()->idx_get(u"Times New Roman")->get_Charset());
+    ASSERT_EQ(doc->get_FontInfos()->idx_get(u"Times New Roman")->get_Charset(), 204);
     
     ASSERT_TRUE(doc->get_FontInfos()->Contains(u"Symbol"));
     ASSERT_TRUE(doc->get_FontInfos()->Contains(u"Arial"));
@@ -1835,9 +1835,12 @@ void ExFont::GetFontInfoFromFile()
     }
     //ExEnd
     
-    ASPOSE_ASSERT_EQ(System::MakeArray<int32_t>({2, 15, 5, 2, 2, 2, 4, 3, 2, 4}), doc->get_FontInfos()->idx_get(u"Calibri")->get_Panose());
-    ASPOSE_ASSERT_EQ(System::MakeArray<int32_t>({2, 15, 3, 2, 2, 2, 4, 3, 2, 4}), doc->get_FontInfos()->idx_get(u"Calibri Light")->get_Panose());
-    ASPOSE_ASSERT_EQ(System::MakeArray<int32_t>({2, 2, 6, 3, 5, 4, 5, 2, 3, 4}), doc->get_FontInfos()->idx_get(u"Times New Roman")->get_Panose());
+    ASPOSE_ASSERT_EQ(doc->get_FontInfos()->idx_get(u"Calibri")->get_Panose(), System::MakeArray<int32_t>({2, 15, 5, 2, 
+        2, 2, 4, 3, 2, 4}));
+    ASPOSE_ASSERT_EQ(doc->get_FontInfos()->idx_get(u"Calibri Light")->get_Panose(), System::MakeArray<int32_t>({2, 15, 
+        3, 2, 2, 2, 4, 3, 2, 4}));
+    ASPOSE_ASSERT_EQ(doc->get_FontInfos()->idx_get(u"Times New Roman")->get_Panose(), System::MakeArray<int32_t>({2, 2, 
+        6, 3, 5, 4, 5, 2, 3, 4}));
 }
 
 namespace gtest_test
@@ -1860,10 +1863,10 @@ void ExFont::LineSpacing()
     
     // Set different fonts for the DocumentBuilder and verify their line spacing.
     builder->get_Font()->set_Name(u"Calibri");
-    ASPOSE_ASSERT_EQ(14.6484375, builder->get_Font()->get_LineSpacing());
+    ASPOSE_ASSERT_EQ(builder->get_Font()->get_LineSpacing(), 14.6484375);
     
     builder->get_Font()->set_Name(u"Times New Roman");
-    ASPOSE_ASSERT_EQ(13.798828125, builder->get_Font()->get_LineSpacing());
+    ASPOSE_ASSERT_EQ(builder->get_Font()->get_LineSpacing(), 13.798828125);
     //ExEnd
 }
 
@@ -1982,68 +1985,68 @@ void ExFont::ThemeFontsColors()
     font->set_ThemeFont(ThemeFont::Minor);
     font->set_ThemeColor(ThemeColor::Accent2);
     
-    ASSERT_EQ(ThemeFont::Minor, font->get_ThemeFont());
-    ASSERT_EQ(u"Algerian", font->get_Name());
+    ASSERT_EQ(font->get_ThemeFont(), ThemeFont::Minor);
+    ASSERT_EQ(font->get_Name(), u"Algerian");
     
-    ASSERT_EQ(ThemeFont::Minor, font->get_ThemeFontAscii());
-    ASSERT_EQ(u"Algerian", font->get_NameAscii());
+    ASSERT_EQ(font->get_ThemeFontAscii(), ThemeFont::Minor);
+    ASSERT_EQ(font->get_NameAscii(), u"Algerian");
     
-    ASSERT_EQ(ThemeFont::Minor, font->get_ThemeFontBi());
-    ASSERT_EQ(u"Andalus", font->get_NameBi());
+    ASSERT_EQ(font->get_ThemeFontBi(), ThemeFont::Minor);
+    ASSERT_EQ(font->get_NameBi(), u"Andalus");
     
-    ASSERT_EQ(ThemeFont::Minor, font->get_ThemeFontFarEast());
-    ASSERT_EQ(u"Aharoni", font->get_NameFarEast());
+    ASSERT_EQ(font->get_ThemeFontFarEast(), ThemeFont::Minor);
+    ASSERT_EQ(font->get_NameFarEast(), u"Aharoni");
     
-    ASSERT_EQ(ThemeFont::Minor, font->get_ThemeFontOther());
-    ASSERT_EQ(u"Algerian", font->get_NameOther());
+    ASSERT_EQ(font->get_ThemeFontOther(), ThemeFont::Minor);
+    ASSERT_EQ(font->get_NameOther(), u"Algerian");
     
-    ASSERT_EQ(ThemeColor::Accent2, font->get_ThemeColor());
-    ASPOSE_ASSERT_EQ(System::Drawing::Color::Empty, font->get_Color());
+    ASSERT_EQ(font->get_ThemeColor(), ThemeColor::Accent2);
+    ASPOSE_ASSERT_EQ(font->get_Color(), System::Drawing::Color::Empty);
     
     // There are several ways of reset them font and color.
     // 1 -  By setting ThemeFont.None/ThemeColor.None:
     font->set_ThemeFont(ThemeFont::None);
     font->set_ThemeColor(ThemeColor::None);
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFont());
-    ASSERT_EQ(u"Algerian", font->get_Name());
+    ASSERT_EQ(font->get_ThemeFont(), ThemeFont::None);
+    ASSERT_EQ(font->get_Name(), u"Algerian");
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFontAscii());
-    ASSERT_EQ(u"Algerian", font->get_NameAscii());
+    ASSERT_EQ(font->get_ThemeFontAscii(), ThemeFont::None);
+    ASSERT_EQ(font->get_NameAscii(), u"Algerian");
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFontBi());
-    ASSERT_EQ(u"Andalus", font->get_NameBi());
+    ASSERT_EQ(font->get_ThemeFontBi(), ThemeFont::None);
+    ASSERT_EQ(font->get_NameBi(), u"Andalus");
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFontFarEast());
-    ASSERT_EQ(u"Aharoni", font->get_NameFarEast());
+    ASSERT_EQ(font->get_ThemeFontFarEast(), ThemeFont::None);
+    ASSERT_EQ(font->get_NameFarEast(), u"Aharoni");
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFontOther());
-    ASSERT_EQ(u"Algerian", font->get_NameOther());
+    ASSERT_EQ(font->get_ThemeFontOther(), ThemeFont::None);
+    ASSERT_EQ(font->get_NameOther(), u"Algerian");
     
-    ASSERT_EQ(ThemeColor::None, font->get_ThemeColor());
-    ASPOSE_ASSERT_EQ(System::Drawing::Color::Empty, font->get_Color());
+    ASSERT_EQ(font->get_ThemeColor(), ThemeColor::None);
+    ASPOSE_ASSERT_EQ(font->get_Color(), System::Drawing::Color::Empty);
     
     // 2 -  By setting non-theme font/color names:
     font->set_Name(u"Arial");
     font->set_Color(System::Drawing::Color::get_Blue());
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFont());
-    ASSERT_EQ(u"Arial", font->get_Name());
+    ASSERT_EQ(font->get_ThemeFont(), ThemeFont::None);
+    ASSERT_EQ(font->get_Name(), u"Arial");
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFontAscii());
-    ASSERT_EQ(u"Arial", font->get_NameAscii());
+    ASSERT_EQ(font->get_ThemeFontAscii(), ThemeFont::None);
+    ASSERT_EQ(font->get_NameAscii(), u"Arial");
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFontBi());
-    ASSERT_EQ(u"Arial", font->get_NameBi());
+    ASSERT_EQ(font->get_ThemeFontBi(), ThemeFont::None);
+    ASSERT_EQ(font->get_NameBi(), u"Arial");
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFontFarEast());
-    ASSERT_EQ(u"Arial", font->get_NameFarEast());
+    ASSERT_EQ(font->get_ThemeFontFarEast(), ThemeFont::None);
+    ASSERT_EQ(font->get_NameFarEast(), u"Arial");
     
-    ASSERT_EQ(ThemeFont::None, font->get_ThemeFontOther());
-    ASSERT_EQ(u"Arial", font->get_NameOther());
+    ASSERT_EQ(font->get_ThemeFontOther(), ThemeFont::None);
+    ASSERT_EQ(font->get_NameOther(), u"Arial");
     
-    ASSERT_EQ(ThemeColor::None, font->get_ThemeColor());
-    ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), font->get_Color().ToArgb());
+    ASSERT_EQ(font->get_ThemeColor(), ThemeColor::None);
+    ASSERT_EQ(font->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
     //ExEnd
 }
 
@@ -2083,23 +2086,23 @@ void ExFont::CreateThemedStyle()
     
     auto run = System::ExplicitCast<Aspose::Words::Run>((System::ExplicitCast<Aspose::Words::Paragraph>(builder->get_CurrentParagraph()->get_PreviousSibling()))->get_FirstChild());
     
-    ASSERT_EQ(ThemeFont::Major, run->get_Font()->get_ThemeFont());
-    ASSERT_EQ(u"Times New Roman", run->get_Font()->get_Name());
+    ASSERT_EQ(run->get_Font()->get_ThemeFont(), ThemeFont::Major);
+    ASSERT_EQ(run->get_Font()->get_Name(), u"Times New Roman");
     
-    ASSERT_EQ(ThemeFont::Major, run->get_Font()->get_ThemeFontAscii());
-    ASSERT_EQ(u"Times New Roman", run->get_Font()->get_NameAscii());
+    ASSERT_EQ(run->get_Font()->get_ThemeFontAscii(), ThemeFont::Major);
+    ASSERT_EQ(run->get_Font()->get_NameAscii(), u"Times New Roman");
     
-    ASSERT_EQ(ThemeFont::Major, run->get_Font()->get_ThemeFontBi());
-    ASSERT_EQ(u"Times New Roman", run->get_Font()->get_NameBi());
+    ASSERT_EQ(run->get_Font()->get_ThemeFontBi(), ThemeFont::Major);
+    ASSERT_EQ(run->get_Font()->get_NameBi(), u"Times New Roman");
     
-    ASSERT_EQ(ThemeFont::Major, run->get_Font()->get_ThemeFontFarEast());
-    ASSERT_EQ(u"Times New Roman", run->get_Font()->get_NameFarEast());
+    ASSERT_EQ(run->get_Font()->get_ThemeFontFarEast(), ThemeFont::Major);
+    ASSERT_EQ(run->get_Font()->get_NameFarEast(), u"Times New Roman");
     
-    ASSERT_EQ(ThemeFont::Major, run->get_Font()->get_ThemeFontOther());
-    ASSERT_EQ(u"Times New Roman", run->get_Font()->get_NameOther());
+    ASSERT_EQ(run->get_Font()->get_ThemeFontOther(), ThemeFont::Major);
+    ASSERT_EQ(run->get_Font()->get_NameOther(), u"Times New Roman");
     
-    ASSERT_EQ(ThemeColor::Accent5, run->get_Font()->get_ThemeColor());
-    ASPOSE_ASSERT_EQ(System::Drawing::Color::Empty, run->get_Font()->get_Color());
+    ASSERT_EQ(run->get_Font()->get_ThemeColor(), ThemeColor::Accent5);
+    ASPOSE_ASSERT_EQ(run->get_Font()->get_Color(), System::Drawing::Color::Empty);
 }
 
 namespace gtest_test
@@ -2212,7 +2215,7 @@ void ExFont::NumberSpacing()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Fonts.NumberSpacing.docx"));
     
     run = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0);
-    ASSERT_EQ(NumSpacing::Proportional, run->get_Font()->get_NumberSpacing());
+    ASSERT_EQ(run->get_Font()->get_NumberSpacing(), NumSpacing::Proportional);
 }
 
 namespace gtest_test

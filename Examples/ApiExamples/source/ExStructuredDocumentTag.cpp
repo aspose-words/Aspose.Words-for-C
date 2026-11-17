@@ -12,7 +12,6 @@
 #include <system/func.h>
 #include <system/exceptions.h>
 #include <system/enumerator_adapter.h>
-#include <system/default.h>
 #include <system/date_time.h>
 #include <system/convert.h>
 #include <system/console.h>
@@ -20,6 +19,7 @@
 #include <system/collections/ienumerator.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
 #include <drawing/color.h>
@@ -132,9 +132,9 @@ void ExStructuredDocumentTag::RepeatingSection()
     
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>> tags = doc->GetChildNodes(NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>()->LINQ_ToList();
     
-    ASSERT_EQ(SdtType::RepeatingSection, tags->idx_get(0)->get_SdtType());
-    ASSERT_EQ(SdtType::RepeatingSectionItem, tags->idx_get(1)->get_SdtType());
-    ASSERT_EQ(SdtType::RichText, tags->idx_get(2)->get_SdtType());
+    ASSERT_EQ(tags->idx_get(0)->get_SdtType(), SdtType::RepeatingSection);
+    ASSERT_EQ(tags->idx_get(1)->get_SdtType(), SdtType::RepeatingSectionItem);
+    ASSERT_EQ(tags->idx_get(2)->get_SdtType(), SdtType::RichText);
     //ExEnd
 }
 
@@ -199,7 +199,7 @@ void ExStructuredDocumentTag::ApplyStyle()
     builder->InsertNode(sdtPlainText);
     builder->InsertNode(sdtRichText);
     
-    ASSERT_EQ(NodeType::StructuredDocumentTag, sdtPlainText->get_NodeType());
+    ASSERT_EQ(sdtPlainText->get_NodeType(), NodeType::StructuredDocumentTag);
     
     System::SharedPtr<Aspose::Words::NodeCollection> tags = doc->GetChildNodes(NodeType::StructuredDocumentTag, true);
     
@@ -209,8 +209,8 @@ void ExStructuredDocumentTag::ApplyStyle()
         
         std::cout << sdt->get_WordOpenXMLMinimal() << std::endl;
         
-        ASSERT_EQ(StyleIdentifier::Quote, sdt->get_Style()->get_StyleIdentifier());
-        ASSERT_EQ(u"Quote", sdt->get_StyleName());
+        ASSERT_EQ(sdt->get_Style()->get_StyleIdentifier(), StyleIdentifier::Quote);
+        ASSERT_EQ(sdt->get_StyleName(), u"Quote");
     }
     //ExEnd
 }
@@ -252,8 +252,8 @@ void ExStructuredDocumentTag::CheckBox()
     
     System::ArrayPtr<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>> tags = doc->GetChildNodes(NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>()->LINQ_ToArray();
     
-    ASPOSE_ASSERT_EQ(true, tags[0]->get_Checked());
-    ASSERT_EQ(System::String::Empty, tags[0]->get_XmlMapping()->get_StoreItemId());
+    ASPOSE_ASSERT_EQ(tags[0]->get_Checked(), true);
+    ASSERT_EQ(tags[0]->get_XmlMapping()->get_StoreItemId(), System::String::Empty);
 }
 
 namespace gtest_test
@@ -386,14 +386,14 @@ void ExStructuredDocumentTag::PlainText()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.PlainText.docx"));
     tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
     
-    ASSERT_EQ(u"My plain text", tag->get_Title());
-    ASSERT_EQ(System::Drawing::Color::get_Magenta().ToArgb(), tag->get_Color().ToArgb());
-    ASSERT_EQ(u"MyPlainTextSDT", tag->get_Tag());
+    ASSERT_EQ(tag->get_Title(), u"My plain text");
+    ASSERT_EQ(tag->get_Color().ToArgb(), System::Drawing::Color::get_Magenta().ToArgb());
+    ASSERT_EQ(tag->get_Tag(), u"MyPlainTextSDT");
     ASSERT_TRUE(tag->get_Id() > 0);
-    ASSERT_EQ(u"Arial", tag->get_ContentsFont()->get_Name());
-    ASSERT_EQ(u"Arial Black", tag->get_EndCharacterFont()->get_Name());
+    ASSERT_EQ(tag->get_ContentsFont()->get_Name(), u"Arial");
+    ASSERT_EQ(tag->get_EndCharacterFont()->get_Name(), u"Arial Black");
     ASSERT_TRUE(tag->get_Multiline());
-    ASSERT_EQ(SdtAppearance::Tags, tag->get_Appearance());
+    ASSERT_EQ(tag->get_Appearance(), SdtAppearance::Tags);
 }
 
 namespace gtest_test
@@ -444,10 +444,10 @@ void ExStructuredDocumentTag::IsTemporary(bool isTemporary)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.IsTemporary.docx"));
     
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::StructuredDocumentTag, true)->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> sdt)>>([&isTemporary](System::SharedPtr<Aspose::Words::Node> sdt) -> bool
+    ASSERT_EQ(doc->GetChildNodes(NodeType::StructuredDocumentTag, true)->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Node>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Node> sdt)>>([&isTemporary](System::SharedPtr<Aspose::Words::Node> sdt) -> bool
     {
         return (System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(sdt))->get_IsTemporary() == isTemporary;
-    }))));
+    }))), 2);
 }
 
 namespace gtest_test
@@ -510,7 +510,7 @@ void ExStructuredDocumentTag::PlaceholderBuildingBlock(bool isShowingPlaceholder
     
     // If "PlaceholderName" refers to an existing block in the parent document's glossary document,
     // we will be able to verify the building block via the "Placeholder" property.
-    ASPOSE_ASSERT_EQ(substituteBlock, tag->get_Placeholder());
+    ASPOSE_ASSERT_EQ(tag->get_Placeholder(), substituteBlock);
     
     // Set the "IsShowingPlaceholderText" property to "true" to treat the
     // structured document tag's current contents as placeholder text.
@@ -530,10 +530,10 @@ void ExStructuredDocumentTag::PlaceholderBuildingBlock(bool isShowingPlaceholder
     tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
     substituteBlock = System::ExplicitCast<Aspose::Words::BuildingBlocks::BuildingBlock>(doc->get_GlossaryDocument()->GetChild(NodeType::BuildingBlock, 0, true));
     
-    ASSERT_EQ(u"Custom Placeholder", substituteBlock->get_Name());
-    ASPOSE_ASSERT_EQ(isShowingPlaceholderText, tag->get_IsShowingPlaceholderText());
-    ASPOSE_ASSERT_EQ(substituteBlock, tag->get_Placeholder());
-    ASSERT_EQ(substituteBlock->get_Name(), tag->get_PlaceholderName());
+    ASSERT_EQ(substituteBlock->get_Name(), u"Custom Placeholder");
+    ASPOSE_ASSERT_EQ(tag->get_IsShowingPlaceholderText(), isShowingPlaceholderText);
+    ASPOSE_ASSERT_EQ(tag->get_Placeholder(), substituteBlock);
+    ASSERT_EQ(tag->get_PlaceholderName(), substituteBlock->get_Name());
 }
 
 namespace gtest_test
@@ -645,7 +645,7 @@ void ExStructuredDocumentTag::ListItemCollection()
     System::SharedPtr<Aspose::Words::Markup::SdtListItemCollection> listItems = tag->get_ListItems();
     listItems->Add(System::MakeObject<Aspose::Words::Markup::SdtListItem>(u"Value 1"));
     
-    ASSERT_EQ(listItems->idx_get(0)->get_DisplayText(), listItems->idx_get(0)->get_Value());
+    ASSERT_EQ(listItems->idx_get(0)->get_Value(), listItems->idx_get(0)->get_DisplayText());
     
     // Add 3 more list items. Initialize these items using a different constructor to the first item
     // to display strings that are different from their values.
@@ -653,12 +653,12 @@ void ExStructuredDocumentTag::ListItemCollection()
     listItems->Add(System::MakeObject<Aspose::Words::Markup::SdtListItem>(u"Item 3", u"Value 3"));
     listItems->Add(System::MakeObject<Aspose::Words::Markup::SdtListItem>(u"Item 4", u"Value 4"));
     
-    ASSERT_EQ(4, listItems->get_Count());
+    ASSERT_EQ(listItems->get_Count(), 4);
     
     // The drop-down list is displaying the first item. Assign a different list item to the "SelectedValue" to display it.
     listItems->set_SelectedValue(listItems->idx_get(3));
     
-    ASSERT_EQ(u"Value 4", listItems->get_SelectedValue()->get_Value());
+    ASSERT_EQ(listItems->get_SelectedValue()->get_Value(), u"Value 4");
     
     // Enumerate over the collection and print each element.
     {
@@ -675,7 +675,7 @@ void ExStructuredDocumentTag::ListItemCollection()
     // Remove the last list item.
     listItems->RemoveAt(3);
     
-    ASSERT_EQ(3, listItems->get_Count());
+    ASSERT_EQ(listItems->get_Count(), 3);
     
     // Since our drop-down control is set to display the removed item by default, give it an item to display which exists.
     listItems->set_SelectedValue(listItems->idx_get(1));
@@ -685,7 +685,7 @@ void ExStructuredDocumentTag::ListItemCollection()
     // Use the "Clear" method to empty the entire drop-down item collection at once.
     listItems->Clear();
     
-    ASSERT_EQ(0, listItems->get_Count());
+    ASSERT_EQ(listItems->get_Count(), 0);
     //ExEnd
 }
 
@@ -731,15 +731,15 @@ void ExStructuredDocumentTag::CreatingCustomXml()
     System::String xmlPartContent = u"<root><text>Hello world!</text></root>";
     System::SharedPtr<Aspose::Words::Markup::CustomXmlPart> xmlPart = doc->get_CustomXmlParts()->Add(xmlPartId, xmlPartContent);
     
-    ASPOSE_ASSERT_EQ(System::Text::Encoding::get_ASCII()->GetBytes(xmlPartContent), xmlPart->get_Data());
-    ASSERT_EQ(xmlPartId, xmlPart->get_Id());
+    ASPOSE_ASSERT_EQ(xmlPart->get_Data(), System::Text::Encoding::get_ASCII()->GetBytes(xmlPartContent));
+    ASSERT_EQ(xmlPart->get_Id(), xmlPartId);
     
     // Below are two ways to refer to XML parts.
     // 1 -  By an index in the custom XML part collection:
-    ASPOSE_ASSERT_EQ(xmlPart, doc->get_CustomXmlParts()->idx_get(0));
+    ASPOSE_ASSERT_EQ(doc->get_CustomXmlParts()->idx_get(0), xmlPart);
     
     // 2 -  By GUID:
-    ASPOSE_ASSERT_EQ(xmlPart, doc->get_CustomXmlParts()->GetById(xmlPartId));
+    ASPOSE_ASSERT_EQ(doc->get_CustomXmlParts()->GetById(xmlPartId), xmlPart);
     
     // Add an XML schema association.
     xmlPart->get_Schemas()->Add(u"http://www.w3.org/2001/XMLSchema");
@@ -749,7 +749,7 @@ void ExStructuredDocumentTag::CreatingCustomXml()
     xmlPartClone->set_Id(System::Guid::NewGuid().ToString(u"B"));
     doc->get_CustomXmlParts()->Add(xmlPartClone);
     
-    ASSERT_EQ(2, doc->get_CustomXmlParts()->get_Count());
+    ASSERT_EQ(doc->get_CustomXmlParts()->get_Count(), 2);
     
     // Iterate through the collection and print the contents of each part.
     {
@@ -766,7 +766,7 @@ void ExStructuredDocumentTag::CreatingCustomXml()
     // Use the "RemoveAt" method to remove the cloned part by index.
     doc->get_CustomXmlParts()->RemoveAt(1);
     
-    ASSERT_EQ(1, doc->get_CustomXmlParts()->get_Count());
+    ASSERT_EQ(doc->get_CustomXmlParts()->get_Count(), 1);
     
     // Clone the XML parts collection, and then use the "Clear" method to remove all its elements at once.
     System::SharedPtr<Aspose::Words::Markup::CustomXmlPartCollection> customXmlParts = doc->get_CustomXmlParts()->Clone();
@@ -786,18 +786,15 @@ void ExStructuredDocumentTag::CreatingCustomXml()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.CustomXml.docx"));
     xmlPart = doc->get_CustomXmlParts()->idx_get(0);
     
-    ASSERT_NO_THROW(static_cast<std::function<void()>>([&xmlPart]() -> void
-    {
-        System::Guid::Parse(xmlPart->get_Id());
-    })());
-    ASSERT_EQ(u"<root><text>Hello world!</text></root>", System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()));
-    ASSERT_EQ(u"http://www.w3.org/2001/XMLSchema", xmlPart->get_Schemas()->idx_get(0));
+    System::Guid::Parse(xmlPart->get_Id());
+    ASSERT_EQ(System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()), u"<root><text>Hello world!</text></root>");
+    ASSERT_EQ(xmlPart->get_Schemas()->idx_get(0), u"http://www.w3.org/2001/XMLSchema");
     
     tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
-    ASSERT_EQ(u"Hello world!", tag->GetText().Trim());
-    ASSERT_EQ(u"/root[1]/text[1]", tag->get_XmlMapping()->get_XPath());
-    ASSERT_EQ(System::String::Empty, tag->get_XmlMapping()->get_PrefixMappings());
-    ASSERT_EQ(xmlPart->get_DataChecksum(), tag->get_XmlMapping()->get_CustomXmlPart()->get_DataChecksum());
+    ASSERT_EQ(tag->GetText().Trim(), u"Hello world!");
+    ASSERT_EQ(tag->get_XmlMapping()->get_XPath(), u"/root[1]/text[1]");
+    ASSERT_EQ(tag->get_XmlMapping()->get_PrefixMappings(), System::String::Empty);
+    ASSERT_EQ(tag->get_XmlMapping()->get_CustomXmlPart()->get_DataChecksum(), xmlPart->get_DataChecksum());
 }
 
 namespace gtest_test
@@ -832,7 +829,7 @@ void ExStructuredDocumentTag::DataChecksum()
     std::cout << updatedChecksum << std::endl;
     
     // We changed the XmlPart of the tag, and the checksum was updated at runtime.
-    ASSERT_NE(checksum, updatedChecksum);
+    ASSERT_NE(updatedChecksum, checksum);
     //ExEnd
 }
 
@@ -863,7 +860,7 @@ void ExStructuredDocumentTag::XmlMapping()
     System::String xmlPartContent = u"<root><text>Text element #1</text><text>Text element #2</text></root>";
     System::SharedPtr<Aspose::Words::Markup::CustomXmlPart> xmlPart = doc->get_CustomXmlParts()->Add(xmlPartId, xmlPartContent);
     
-    ASSERT_EQ(u"<root><text>Text element #1</text><text>Text element #2</text></root>", System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()));
+    ASSERT_EQ(System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()), u"<root><text>Text element #1</text><text>Text element #2</text></root>");
     
     // Create a structured document tag that will display the contents of our CustomXmlPart.
     auto tag = System::MakeObject<Aspose::Words::Markup::StructuredDocumentTag>(doc, SdtType::PlainText, MarkupLevel::Block);
@@ -874,9 +871,9 @@ void ExStructuredDocumentTag::XmlMapping()
     tag->get_XmlMapping()->SetMapping(xmlPart, u"/root[1]/text[2]", u"xmlns:ns='http://www.w3.org/2001/XMLSchema'");
     
     ASSERT_TRUE(tag->get_XmlMapping()->get_IsMapped());
-    ASPOSE_ASSERT_EQ(xmlPart, tag->get_XmlMapping()->get_CustomXmlPart());
-    ASSERT_EQ(u"/root[1]/text[2]", tag->get_XmlMapping()->get_XPath());
-    ASSERT_EQ(u"xmlns:ns='http://www.w3.org/2001/XMLSchema'", tag->get_XmlMapping()->get_PrefixMappings());
+    ASPOSE_ASSERT_EQ(tag->get_XmlMapping()->get_CustomXmlPart(), xmlPart);
+    ASSERT_EQ(tag->get_XmlMapping()->get_XPath(), u"/root[1]/text[2]");
+    ASSERT_EQ(tag->get_XmlMapping()->get_PrefixMappings(), u"xmlns:ns='http://www.w3.org/2001/XMLSchema'");
     
     // Add the structured document tag to the document to display the content from our custom part.
     doc->get_FirstSection()->get_Body()->AppendChild<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>(tag);
@@ -886,16 +883,13 @@ void ExStructuredDocumentTag::XmlMapping()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.XmlMapping.docx"));
     xmlPart = doc->get_CustomXmlParts()->idx_get(0);
     
-    ASSERT_NO_THROW(static_cast<std::function<void()>>([&xmlPart]() -> void
-    {
-        System::Guid::Parse(xmlPart->get_Id());
-    })());
-    ASSERT_EQ(u"<root><text>Text element #1</text><text>Text element #2</text></root>", System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()));
+    System::Guid::Parse(xmlPart->get_Id());
+    ASSERT_EQ(System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()), u"<root><text>Text element #1</text><text>Text element #2</text></root>");
     
     tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
-    ASSERT_EQ(u"Text element #2", tag->GetText().Trim());
-    ASSERT_EQ(u"/root[1]/text[2]", tag->get_XmlMapping()->get_XPath());
-    ASSERT_EQ(u"xmlns:ns='http://www.w3.org/2001/XMLSchema'", tag->get_XmlMapping()->get_PrefixMappings());
+    ASSERT_EQ(tag->GetText().Trim(), u"Text element #2");
+    ASSERT_EQ(tag->get_XmlMapping()->get_XPath(), u"/root[1]/text[2]");
+    ASSERT_EQ(tag->get_XmlMapping()->get_PrefixMappings(), u"xmlns:ns='http://www.w3.org/2001/XMLSchema'");
 }
 
 namespace gtest_test
@@ -920,7 +914,7 @@ void ExStructuredDocumentTag::StructuredDocumentTagRangeStartXmlMapping()
     System::String xmlPartContent = u"<root><text>Text element #1</text><text>Text element #2</text></root>";
     System::SharedPtr<Aspose::Words::Markup::CustomXmlPart> xmlPart = doc->get_CustomXmlParts()->Add(xmlPartId, xmlPartContent);
     
-    ASSERT_EQ(u"<root><text>Text element #1</text><text>Text element #2</text></root>", System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()));
+    ASSERT_EQ(System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()), u"<root><text>Text element #1</text><text>Text element #2</text></root>");
     
     // Create a structured document tag that will display the contents of our CustomXmlPart in the document.
     auto sdtRangeStart = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, true));
@@ -936,14 +930,11 @@ void ExStructuredDocumentTag::StructuredDocumentTagRangeStartXmlMapping()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.StructuredDocumentTagRangeStartXmlMapping.docx"));
     xmlPart = doc->get_CustomXmlParts()->idx_get(0);
     
-    ASSERT_NO_THROW(static_cast<std::function<void()>>([&xmlPart]() -> void
-    {
-        System::Guid::Parse(xmlPart->get_Id());
-    })());
-    ASSERT_EQ(u"<root><text>Text element #1</text><text>Text element #2</text></root>", System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()));
+    System::Guid::Parse(xmlPart->get_Id());
+    ASSERT_EQ(System::Text::Encoding::get_UTF8()->GetString(xmlPart->get_Data()), u"<root><text>Text element #1</text><text>Text element #2</text></root>");
     
     sdtRangeStart = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, true));
-    ASSERT_EQ(u"/root[1]/text[2]", sdtRangeStart->get_XmlMapping()->get_XPath());
+    ASSERT_EQ(sdtRangeStart->get_XmlMapping()->get_XPath(), u"/root[1]/text[2]");
 }
 
 namespace gtest_test
@@ -985,8 +976,8 @@ void ExStructuredDocumentTag::CustomXmlSchemaCollection()
     schemas->Add(u"http://www.w3.org/2001/XMLSchema-instance");
     schemas->Add(u"http://schemas.microsoft.com/office/2006/metadata/contentType");
     
-    ASSERT_EQ(3, schemas->get_Count());
-    ASSERT_EQ(2, schemas->IndexOf(u"http://schemas.microsoft.com/office/2006/metadata/contentType"));
+    ASSERT_EQ(schemas->get_Count(), 3);
+    ASSERT_EQ(schemas->IndexOf(u"http://schemas.microsoft.com/office/2006/metadata/contentType"), 2);
     
     // Enumerate the schemas and print each element.
     {
@@ -1007,7 +998,7 @@ void ExStructuredDocumentTag::CustomXmlSchemaCollection()
     // 3 -  Use the "Clear" method to empty the collection at once.
     schemas->Clear();
     
-    ASSERT_EQ(0, schemas->get_Count());
+    ASSERT_EQ(schemas->get_Count(), 0);
     //ExEnd
 }
 
@@ -1031,7 +1022,7 @@ void ExStructuredDocumentTag::CustomXmlPartStoreItemIdReadOnly()
     // Structured document tags have IDs in the form of GUIDs.
     auto tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
     
-    ASSERT_EQ(u"{F3029283-4FF8-4DD2-9F31-395F19ACEE85}", tag->get_XmlMapping()->get_StoreItemId());
+    ASSERT_EQ(tag->get_XmlMapping()->get_StoreItemId(), u"{F3029283-4FF8-4DD2-9F31-395F19ACEE85}");
     //ExEnd
 }
 
@@ -1083,7 +1074,7 @@ void ExStructuredDocumentTag::ClearTextFromStructuredDocumentTags()
     doc->get_FirstSection()->get_Body()->AppendChild<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>(tag);
     
     // This structured document tag, which is in the form of a text box, already displays placeholder text.
-    ASSERT_EQ(u"Click here to enter text.", tag->GetText().Trim());
+    ASSERT_EQ(tag->GetText().Trim(), u"Click here to enter text.");
     ASSERT_TRUE(tag->get_IsShowingPlaceholderText());
     
     // Create a building block with text contents.
@@ -1099,7 +1090,7 @@ void ExStructuredDocumentTag::ClearTextFromStructuredDocumentTags()
     // the structured document tag to display the contents of the building block in place of the original default text.
     tag->set_PlaceholderName(u"My placeholder");
     
-    ASSERT_EQ(u"Custom placeholder text.", tag->GetText().Trim());
+    ASSERT_EQ(tag->GetText().Trim(), u"Custom placeholder text.");
     ASSERT_TRUE(tag->get_IsShowingPlaceholderText());
     
     // Edit the text of the structured document tag and hide the placeholder text.
@@ -1107,13 +1098,13 @@ void ExStructuredDocumentTag::ClearTextFromStructuredDocumentTags()
     run->set_Text(u"New text.");
     tag->set_IsShowingPlaceholderText(false);
     
-    ASSERT_EQ(u"New text.", tag->GetText().Trim());
+    ASSERT_EQ(tag->GetText().Trim(), u"New text.");
     
     // Use the "Clear" method to clear this structured document tag's contents and display the placeholder again.
     tag->Clear();
     
     ASSERT_TRUE(tag->get_IsShowingPlaceholderText());
-    ASSERT_EQ(u"Custom placeholder text.", tag->GetText().Trim());
+    ASSERT_EQ(tag->GetText().Trim(), u"Custom placeholder text.");
     //ExEnd
 }
 
@@ -1133,8 +1124,8 @@ void ExStructuredDocumentTag::AccessToBuildingBlockPropertiesFromDocPartObjSdt()
     
     auto docPartObjSdt = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 0, true));
     
-    ASSERT_EQ(SdtType::DocPartObj, docPartObjSdt->get_SdtType());
-    ASSERT_EQ(u"Table of Contents", docPartObjSdt->get_BuildingBlockGallery());
+    ASSERT_EQ(docPartObjSdt->get_SdtType(), SdtType::DocPartObj);
+    ASSERT_EQ(docPartObjSdt->get_BuildingBlockGallery(), u"Table of Contents");
 }
 
 namespace gtest_test
@@ -1153,11 +1144,11 @@ void ExStructuredDocumentTag::AccessToBuildingBlockPropertiesFromPlainTextSdt()
     
     auto plainTextSdt = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->GetChild(NodeType::StructuredDocumentTag, 1, true));
     
-    ASSERT_EQ(SdtType::PlainText, plainTextSdt->get_SdtType());
-    ASSERT_THROW(static_cast<std::function<void()>>([&plainTextSdt]() -> void
+    ASSERT_EQ(plainTextSdt->get_SdtType(), SdtType::PlainText);
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&plainTextSdt]() -> void
     {
         System::String _ = plainTextSdt->get_BuildingBlockGallery();
-    })(), System::InvalidOperationException) << "BuildingBlockType is only accessible for BuildingBlockGallery SDT type.";
+    }))(), System::InvalidOperationException) << "BuildingBlockType is only accessible for BuildingBlockGallery SDT type.";
 }
 
 namespace gtest_test
@@ -1189,9 +1180,9 @@ void ExStructuredDocumentTag::BuildingBlockCategories()
     
     buildingBlockSdt = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(doc->get_FirstSection()->get_Body()->GetChild(NodeType::StructuredDocumentTag, 0, true));
     
-    ASSERT_EQ(SdtType::BuildingBlockGallery, buildingBlockSdt->get_SdtType());
-    ASSERT_EQ(u"Table of Contents", buildingBlockSdt->get_BuildingBlockGallery());
-    ASSERT_EQ(u"Built-in", buildingBlockSdt->get_BuildingBlockCategory());
+    ASSERT_EQ(buildingBlockSdt->get_SdtType(), SdtType::BuildingBlockGallery);
+    ASSERT_EQ(buildingBlockSdt->get_BuildingBlockGallery(), u"Table of Contents");
+    ASSERT_EQ(buildingBlockSdt->get_BuildingBlockCategory(), u"Built-in");
 }
 
 namespace gtest_test
@@ -1282,19 +1273,19 @@ void ExStructuredDocumentTag::FillTableUsingRepeatingSectionItem()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.RepeatingSectionItem.docx"));
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>> tags = doc->GetChildNodes(NodeType::StructuredDocumentTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::StructuredDocumentTag>>()->LINQ_ToList();
     
-    ASSERT_EQ(u"/books[1]/book", tags->idx_get(0)->get_XmlMapping()->get_XPath());
-    ASSERT_EQ(System::String::Empty, tags->idx_get(0)->get_XmlMapping()->get_PrefixMappings());
+    ASSERT_EQ(tags->idx_get(0)->get_XmlMapping()->get_XPath(), u"/books[1]/book");
+    ASSERT_EQ(tags->idx_get(0)->get_XmlMapping()->get_PrefixMappings(), System::String::Empty);
     
-    ASSERT_EQ(System::String::Empty, tags->idx_get(1)->get_XmlMapping()->get_XPath());
-    ASSERT_EQ(System::String::Empty, tags->idx_get(1)->get_XmlMapping()->get_PrefixMappings());
+    ASSERT_EQ(tags->idx_get(1)->get_XmlMapping()->get_XPath(), System::String::Empty);
+    ASSERT_EQ(tags->idx_get(1)->get_XmlMapping()->get_PrefixMappings(), System::String::Empty);
     
-    ASSERT_EQ(u"/books[1]/book[1]/title[1]", tags->idx_get(2)->get_XmlMapping()->get_XPath());
-    ASSERT_EQ(System::String::Empty, tags->idx_get(2)->get_XmlMapping()->get_PrefixMappings());
+    ASSERT_EQ(tags->idx_get(2)->get_XmlMapping()->get_XPath(), u"/books[1]/book[1]/title[1]");
+    ASSERT_EQ(tags->idx_get(2)->get_XmlMapping()->get_PrefixMappings(), System::String::Empty);
     
-    ASSERT_EQ(u"/books[1]/book[1]/author[1]", tags->idx_get(3)->get_XmlMapping()->get_XPath());
-    ASSERT_EQ(System::String::Empty, tags->idx_get(3)->get_XmlMapping()->get_PrefixMappings());
+    ASSERT_EQ(tags->idx_get(3)->get_XmlMapping()->get_XPath(), u"/books[1]/book[1]/author[1]");
+    ASSERT_EQ(tags->idx_get(3)->get_XmlMapping()->get_PrefixMappings(), System::String::Empty);
     
-    ASSERT_EQ((System::String(u"Title\u0007Author\u0007\u0007") + u"Everyday Italian\u0007Giada De Laurentiis\u0007\u0007" + u"The C Programming Language\u0007Brian W. Kernighan, Dennis M. Ritchie\u0007\u0007" + u"Learning XML\u0007Erik T. Ray\u0007\u0007"), doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0)->GetText().Trim(), (System::String(u"Title\u0007Author\u0007\u0007") + u"Everyday Italian\u0007Giada De Laurentiis\u0007\u0007" + u"The C Programming Language\u0007Brian W. Kernighan, Dennis M. Ritchie\u0007\u0007" + u"Learning XML\u0007Erik T. Ray\u0007\u0007"));
 }
 
 namespace gtest_test
@@ -1362,11 +1353,11 @@ void ExStructuredDocumentTag::MultiSectionTags()
     auto rangeStartTag = System::AsCast<Aspose::Words::Markup::StructuredDocumentTagRangeStart>(doc->GetChildNodes(NodeType::StructuredDocumentTagRangeStart, true)->idx_get(0));
     auto rangeEndTag = System::AsCast<Aspose::Words::Markup::StructuredDocumentTagRangeEnd>(doc->GetChildNodes(NodeType::StructuredDocumentTagRangeEnd, true)->idx_get(0));
     
-    ASSERT_EQ(rangeStartTag->get_Id(), rangeEndTag->get_Id());
+    ASSERT_EQ(rangeEndTag->get_Id(), rangeStartTag->get_Id());
     //ExSkip
-    ASSERT_EQ(NodeType::StructuredDocumentTagRangeStart, rangeStartTag->get_NodeType());
+    ASSERT_EQ(rangeStartTag->get_NodeType(), NodeType::StructuredDocumentTagRangeStart);
     //ExSkip
-    ASSERT_EQ(NodeType::StructuredDocumentTagRangeEnd, rangeEndTag->get_NodeType());
+    ASSERT_EQ(rangeEndTag->get_NodeType(), NodeType::StructuredDocumentTagRangeEnd);
     //ExSkip
     
     std::cout << "StructuredDocumentTagRangeStart values:" << std::endl;
@@ -1446,35 +1437,23 @@ void ExStructuredDocumentTag::SdtRangeExtendedMethods()
     rangeStart->RemoveSelfOnly();
     
     rangeStart = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTagRangeStart>(doc->GetChild(NodeType::StructuredDocumentTagRangeStart, 0, false));
-    ASPOSE_ASSERT_EQ(nullptr, rangeStart);
+    ASPOSE_ASSERT_EQ(rangeStart, nullptr);
     
     auto rangeEnd = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTagRangeEnd>(doc->GetChild(NodeType::StructuredDocumentTagRangeEnd, 0, false));
     
-    ASPOSE_ASSERT_EQ(nullptr, rangeEnd);
-    ASSERT_EQ(u"StructuredDocumentTag element", doc->GetText().Trim());
+    ASPOSE_ASSERT_EQ(rangeEnd, nullptr);
+    ASSERT_EQ(doc->GetText().Trim(), u"StructuredDocumentTag element");
     
     rangeStart = InsertStructuredDocumentTagRanges(doc);
     
     System::SharedPtr<Aspose::Words::Node> paragraphNode = rangeStart->LINQ_LastOrDefault();
-    System::String actual = System::Default<System::String>();
-    System::SharedPtr<Aspose::Words::Node> condExpression = paragraphNode;
-    if (condExpression != nullptr)
-    {
-        actual = condExpression->GetText().Trim();
-    }
-    ASSERT_EQ(u"StructuredDocumentTag element", actual);
+    ASSERT_EQ(System::SafeInvoke(paragraphNode, [&](auto&& expr){return expr->GetText().Trim();}), u"StructuredDocumentTag element");
     
     // Removes ranged structured document tag and content inside.
     rangeStart->RemoveAllChildren();
     
     paragraphNode = rangeStart->LINQ_LastOrDefault();
-    System::String actual2 = System::Default<System::String>();
-    System::SharedPtr<Aspose::Words::Node> condExpression2 = paragraphNode;
-    if (condExpression2 != nullptr)
-    {
-        actual2 = condExpression2->GetText();
-    }
-    ASPOSE_ASSERT_EQ(nullptr, actual2);
+    ASPOSE_ASSERT_EQ(System::SafeInvoke(paragraphNode, [&](auto&& expr){return expr->GetText();}), nullptr);
 }
 
 namespace gtest_test
@@ -1505,14 +1484,14 @@ void ExStructuredDocumentTag::GetSdt()
     }
     
     sdt = structuredDocumentTags->GetById(1691867797);
-    ASSERT_EQ(1691867797, sdt->get_Id());
+    ASSERT_EQ(sdt->get_Id(), 1691867797);
     
-    ASSERT_EQ(5, structuredDocumentTags->get_Count());
+    ASSERT_EQ(structuredDocumentTags->get_Count(), 5);
     // Remove the structured document tag by Id.
     structuredDocumentTags->Remove(1691867797);
     // Remove the structured document tag at position 0.
     structuredDocumentTags->RemoveAt(0);
-    ASSERT_EQ(3, structuredDocumentTags->get_Count());
+    ASSERT_EQ(structuredDocumentTags->get_Count(), 3);
     //ExEnd
 }
 
@@ -1625,7 +1604,7 @@ void ExStructuredDocumentTag::IgnoreStructuredDocumentTags()
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"StructuredDocumentTag.IgnoreStructuredDocumentTags.docx"));
-    ASSERT_EQ(u"This document contains Structured Document Tags with text inside them\r\rRepeatingSection\rRichText\rreplacement", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"This document contains Structured Document Tags with text inside them\r\rRepeatingSection\rRichText\rreplacement");
 }
 
 namespace gtest_test
@@ -1710,7 +1689,7 @@ void ExStructuredDocumentTag::RemoveSelfOnly()
     
     // This collection provides a unified interface for accessing ranged and non-ranged structured tags.
     System::SharedPtr<System::Collections::Generic::IEnumerable<System::SharedPtr<Aspose::Words::Markup::IStructuredDocumentTag>>> sdts = doc->get_Range()->get_StructuredDocumentTags()->LINQ_ToList();
-    ASSERT_EQ(5, sdts->LINQ_Count());
+    ASSERT_EQ(sdts->LINQ_Count(), 5);
     
     // Here we can get child nodes from the common interface of ranged and non-ranged structured tags.
     for (auto&& sdt : System::IterateOver(sdts))
@@ -1722,7 +1701,7 @@ void ExStructuredDocumentTag::RemoveSelfOnly()
     }
     
     sdts = doc->get_Range()->get_StructuredDocumentTags()->LINQ_ToList();
-    ASSERT_EQ(0, sdts->LINQ_Count());
+    ASSERT_EQ(sdts->LINQ_Count(), 0);
     //ExEnd:RemoveSelfOnly
 }
 

@@ -101,9 +101,9 @@ void ExBorder::FontBorder()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Border.FontBorder.docx"));
     System::SharedPtr<Aspose::Words::Border> border = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Font()->get_Border();
     
-    ASSERT_EQ(System::Drawing::Color::get_Green().ToArgb(), border->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(2.5, border->get_LineWidth());
-    ASSERT_EQ(LineStyle::DashDotStroker, border->get_LineStyle());
+    ASSERT_EQ(border->get_Color().ToArgb(), System::Drawing::Color::get_Green().ToArgb());
+    ASPOSE_ASSERT_EQ(border->get_LineWidth(), 2.5);
+    ASSERT_EQ(border->get_LineStyle(), LineStyle::DashDotStroker);
 }
 
 namespace gtest_test
@@ -144,10 +144,10 @@ void ExBorder::ParagraphTopBorder()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Border.ParagraphTopBorder.docx"));
     System::SharedPtr<Aspose::Words::Border> border = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()->get_Top();
     
-    ASPOSE_ASSERT_EQ(4.0, border->get_LineWidth());
-    ASSERT_EQ(LineStyle::DashSmallGap, border->get_LineStyle());
-    ASSERT_EQ(ThemeColor::Accent1, border->get_ThemeColor());
-    ASSERT_NEAR(0.25, border->get_TintAndShade(), 0.01);
+    ASPOSE_ASSERT_EQ(border->get_LineWidth(), 4.0);
+    ASSERT_EQ(border->get_LineStyle(), LineStyle::DashSmallGap);
+    ASSERT_EQ(border->get_ThemeColor(), ThemeColor::Accent1);
+    ASSERT_NEAR(border->get_TintAndShade(), 0.25, 0.01);
 }
 
 namespace gtest_test
@@ -172,9 +172,9 @@ void ExBorder::ClearFormatting()
     // We can access the settings for the appearance of these borders via the paragraph format object.
     System::SharedPtr<Aspose::Words::BorderCollection> borders = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders();
     
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), borders->idx_get(0)->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(3.0, borders->idx_get(0)->get_LineWidth());
-    ASSERT_EQ(LineStyle::Single, borders->idx_get(0)->get_LineStyle());
+    ASSERT_EQ(borders->idx_get(0)->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
+    ASPOSE_ASSERT_EQ(borders->idx_get(0)->get_LineWidth(), 3.0);
+    ASSERT_EQ(borders->idx_get(0)->get_LineStyle(), LineStyle::Single);
     ASSERT_TRUE(borders->idx_get(0)->get_IsVisible());
     
     // We can remove a border at once by running the ClearFormatting method.
@@ -184,9 +184,9 @@ void ExBorder::ClearFormatting()
         border->ClearFormatting();
     }
     
-    ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), borders->idx_get(0)->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(0.0, borders->idx_get(0)->get_LineWidth());
-    ASSERT_EQ(LineStyle::None, borders->idx_get(0)->get_LineStyle());
+    ASSERT_EQ(borders->idx_get(0)->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+    ASPOSE_ASSERT_EQ(borders->idx_get(0)->get_LineWidth(), 0.0);
+    ASSERT_EQ(borders->idx_get(0)->get_LineStyle(), LineStyle::None);
     ASSERT_FALSE(borders->idx_get(0)->get_IsVisible());
     
     doc->Save(get_ArtifactsDir() + u"Border.ClearFormatting.docx");
@@ -196,9 +196,9 @@ void ExBorder::ClearFormatting()
     
     for (auto&& testBorder : System::IterateOver(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders()))
     {
-        ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), testBorder->get_Color().ToArgb());
-        ASPOSE_ASSERT_EQ(0.0, testBorder->get_LineWidth());
-        ASSERT_EQ(LineStyle::None, testBorder->get_LineStyle());
+        ASSERT_EQ(testBorder->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+        ASPOSE_ASSERT_EQ(testBorder->get_LineWidth(), 0.0);
+        ASSERT_EQ(testBorder->get_LineStyle(), LineStyle::None);
     }
 }
 
@@ -232,13 +232,13 @@ void ExBorder::SharedElements()
     // these paragraphs, their border collections share the same elements.
     System::SharedPtr<Aspose::Words::BorderCollection> firstParagraphBorders = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_ParagraphFormat()->get_Borders();
     System::SharedPtr<Aspose::Words::BorderCollection> secondParagraphBorders = builder->get_CurrentParagraph()->get_ParagraphFormat()->get_Borders();
-    ASSERT_EQ(6, firstParagraphBorders->get_Count());
+    ASSERT_EQ(firstParagraphBorders->get_Count(), 6);
     //ExSkip
     
     for (int32_t i = 0; i < firstParagraphBorders->get_Count(); i++)
     {
         ASSERT_TRUE(System::ObjectExt::Equals(firstParagraphBorders->idx_get(i), secondParagraphBorders->idx_get(i)));
-        ASSERT_EQ(System::ObjectExt::GetHashCode(firstParagraphBorders->idx_get(i)), System::ObjectExt::GetHashCode(secondParagraphBorders->idx_get(i)));
+        ASSERT_EQ(System::ObjectExt::GetHashCode(secondParagraphBorders->idx_get(i)), System::ObjectExt::GetHashCode(firstParagraphBorders->idx_get(i)));
         ASSERT_FALSE(firstParagraphBorders->idx_get(i)->get_IsVisible());
     }
     
@@ -252,7 +252,7 @@ void ExBorder::SharedElements()
     for (int32_t i = 0; i < firstParagraphBorders->get_Count(); i++)
     {
         ASSERT_FALSE(System::ObjectExt::Equals(firstParagraphBorders->idx_get(i), secondParagraphBorders->idx_get(i)));
-        ASSERT_NE(System::ObjectExt::GetHashCode(firstParagraphBorders->idx_get(i)), System::ObjectExt::GetHashCode(secondParagraphBorders->idx_get(i)));
+        ASSERT_NE(System::ObjectExt::GetHashCode(secondParagraphBorders->idx_get(i)), System::ObjectExt::GetHashCode(firstParagraphBorders->idx_get(i)));
         
         // Changing the appearance of an empty border makes it visible.
         ASSERT_TRUE(secondParagraphBorders->idx_get(i)->get_IsVisible());
@@ -266,12 +266,12 @@ void ExBorder::SharedElements()
     
     for (auto&& testBorder : System::IterateOver(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Borders()))
     {
-        ASSERT_EQ(LineStyle::None, testBorder->get_LineStyle());
+        ASSERT_EQ(testBorder->get_LineStyle(), LineStyle::None);
     }
     
     for (auto&& testBorder : System::IterateOver(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Borders()))
     {
-        ASSERT_EQ(LineStyle::DotDash, testBorder->get_LineStyle());
+        ASSERT_EQ(testBorder->get_LineStyle(), LineStyle::DotDash);
     }
 }
 
@@ -313,8 +313,8 @@ void ExBorder::HorizontalBorders()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Border.HorizontalBorders.docx"));
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    ASSERT_EQ(LineStyle::DashSmallGap, paragraphs->idx_get(0)->get_ParagraphFormat()->get_Borders()->idx_get(BorderType::Horizontal)->get_LineStyle());
-    ASSERT_EQ(LineStyle::DashSmallGap, paragraphs->idx_get(1)->get_ParagraphFormat()->get_Borders()->idx_get(BorderType::Horizontal)->get_LineStyle());
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Borders()->idx_get(BorderType::Horizontal)->get_LineStyle(), LineStyle::DashSmallGap);
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Borders()->idx_get(BorderType::Horizontal)->get_LineStyle(), LineStyle::DashSmallGap);
 }
 
 namespace gtest_test
@@ -364,9 +364,9 @@ void ExBorder::VerticalBorders()
     // A row format, and a cell's inner paragraph use different border settings.
     System::SharedPtr<Aspose::Words::Border> border = table->get_FirstRow()->get_FirstCell()->get_LastParagraph()->get_ParagraphFormat()->get_Borders()->get_Vertical();
     
-    ASSERT_EQ(System::Drawing::Color::Empty.ToArgb(), border->get_Color().ToArgb());
-    ASPOSE_ASSERT_EQ(0.0, border->get_LineWidth());
-    ASSERT_EQ(LineStyle::None, border->get_LineStyle());
+    ASSERT_EQ(border->get_Color().ToArgb(), System::Drawing::Color::Empty.ToArgb());
+    ASPOSE_ASSERT_EQ(border->get_LineWidth(), 0.0);
+    ASSERT_EQ(border->get_LineStyle(), LineStyle::None);
     
     doc->Save(get_ArtifactsDir() + u"Border.VerticalBorders.docx");
     //ExEnd
@@ -376,13 +376,13 @@ void ExBorder::VerticalBorders()
     
     for (auto&& row : System::IterateOver<Aspose::Words::Tables::Row>(table->GetChildNodes(NodeType::Row, true)))
     {
-        ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), row->get_RowFormat()->get_Borders()->get_Horizontal()->get_Color().ToArgb());
-        ASSERT_EQ(LineStyle::Dot, row->get_RowFormat()->get_Borders()->get_Horizontal()->get_LineStyle());
-        ASPOSE_ASSERT_EQ(2.0, row->get_RowFormat()->get_Borders()->get_Horizontal()->get_LineWidth());
+        ASSERT_EQ(row->get_RowFormat()->get_Borders()->get_Horizontal()->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
+        ASSERT_EQ(row->get_RowFormat()->get_Borders()->get_Horizontal()->get_LineStyle(), LineStyle::Dot);
+        ASPOSE_ASSERT_EQ(row->get_RowFormat()->get_Borders()->get_Horizontal()->get_LineWidth(), 2.0);
         
-        ASSERT_EQ(System::Drawing::Color::get_Blue().ToArgb(), row->get_RowFormat()->get_Borders()->get_Vertical()->get_Color().ToArgb());
-        ASSERT_EQ(LineStyle::Dot, row->get_RowFormat()->get_Borders()->get_Vertical()->get_LineStyle());
-        ASPOSE_ASSERT_EQ(2.0, row->get_RowFormat()->get_Borders()->get_Vertical()->get_LineWidth());
+        ASSERT_EQ(row->get_RowFormat()->get_Borders()->get_Vertical()->get_Color().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+        ASSERT_EQ(row->get_RowFormat()->get_Borders()->get_Vertical()->get_LineStyle(), LineStyle::Dot);
+        ASPOSE_ASSERT_EQ(row->get_RowFormat()->get_Borders()->get_Vertical()->get_LineWidth(), 2.0);
     }
 }
 

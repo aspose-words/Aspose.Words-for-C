@@ -19,6 +19,7 @@
 #include <system/exceptions.h>
 #include <system/console.h>
 #include <system/array.h>
+#include <system/action.h>
 #include <iostream>
 #include <functional>
 #include <Aspose.Words.Cpp/Model/Saving/SaveOutputParameters.h>
@@ -100,7 +101,7 @@ void ExHtmlFixedSaveOptions::TestResourceSavingCallback(System::SharedPtr<Aspose
 
 void ExHtmlFixedSaveOptions::TestHtmlFixedResourceFolder(System::SharedPtr<Aspose::Words::ApiExamples::ExHtmlFixedSaveOptions::ResourceUriPrinter> callback)
 {
-    ASSERT_EQ(16, System::Text::RegularExpressions::Regex::Matches(callback->GetText(), u"Resource #")->get_Count());
+    ASSERT_EQ(System::Text::RegularExpressions::Regex::Matches(callback->GetText(), u"Resource #")->get_Count(), 16);
 }
 
 namespace gtest_test
@@ -150,7 +151,7 @@ void ExHtmlFixedSaveOptions::UseEncoding()
     auto htmlFixedSaveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
     htmlFixedSaveOptions->set_Encoding(System::Text::Encoding::get_ASCII());
     
-    ASSERT_EQ(u"US-ASCII", htmlFixedSaveOptions->get_Encoding()->get_EncodingName());
+    ASSERT_EQ(htmlFixedSaveOptions->get_Encoding()->get_EncodingName(), u"US-ASCII");
     
     doc->Save(get_ArtifactsDir() + u"HtmlFixedSaveOptions.UseEncoding.html", htmlFixedSaveOptions);
     //ExEnd
@@ -271,18 +272,18 @@ void ExHtmlFixedSaveOptions::ExportEmbeddedFonts(bool exportEmbeddedFonts)
     if (exportEmbeddedFonts)
     {
         ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"@font-face { font-family:'Arial'; font-style:normal; font-weight:normal; src:local[(]'☺'[)], url[(].+[)] format[(]'woff'[)]; }")->get_Success());
-        ASSERT_EQ(0, System::IO::Directory::GetFiles(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedFonts")->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
+        ASSERT_EQ(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedFonts")->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
         {
             return f.EndsWith(u".woff");
-        }))));
+        }))), 0);
     }
     else
     {
         ASSERT_TRUE(System::Text::RegularExpressions::Regex::Match(outDocContents, u"@font-face { font-family:'Arial'; font-style:normal; font-weight:normal; src:local[(]'☺'[)], url[(]'font001[.]woff'[)] format[(]'woff'[)]; }")->get_Success());
-        ASSERT_EQ(2, System::IO::Directory::GetFiles(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedFonts")->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
+        ASSERT_EQ(System::IO::Directory::GetFiles(get_ArtifactsDir() + u"HtmlFixedSaveOptions.ExportEmbeddedFonts")->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
         {
             return f.EndsWith(u".woff");
-        }))));
+        }))), 2);
     }
     //ExEnd
 }
@@ -584,10 +585,10 @@ TEST_F(ExHtmlFixedSaveOptions, PageMargins)
 void ExHtmlFixedSaveOptions::PageMarginsException()
 {
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlFixedSaveOptions>();
-    ASSERT_THROW(static_cast<std::function<void()>>([&saveOptions]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&saveOptions]() -> void
     {
         saveOptions->set_PageMargins(-1);
-    })(), System::ArgumentException);
+    }))(), System::ArgumentException);
 }
 
 namespace gtest_test
@@ -708,10 +709,10 @@ void ExHtmlFixedSaveOptions::HtmlFixedResourceFolder()
     System::ArrayPtr<System::String> resourceFiles = System::IO::Directory::GetFiles(get_ArtifactsDir() + u"HtmlFixedResourceFolderAlias");
     
     ASSERT_FALSE(System::IO::Directory::Exists(get_ArtifactsDir() + u"HtmlFixedResourceFolder"));
-    ASSERT_EQ(6, resourceFiles->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
+    ASSERT_EQ(resourceFiles->LINQ_Count(static_cast<System::Func<System::String, bool>>(static_cast<std::function<bool(System::String f)>>([](System::String f) -> bool
     {
         return f.EndsWith(u".jpeg") || f.EndsWith(u".png") || f.EndsWith(u".css");
-    }))));
+    }))), 6);
     TestHtmlFixedResourceFolder(callback);
     //ExSkip
 }

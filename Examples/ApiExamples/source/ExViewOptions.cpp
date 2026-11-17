@@ -77,17 +77,17 @@ void ExViewOptions::SetZoomPercentage()
     doc->get_ViewOptions()->set_ViewType(ViewType::PageLayout);
     doc->get_ViewOptions()->set_ZoomPercent(50);
     
-    ASSERT_EQ(ZoomType::Custom, doc->get_ViewOptions()->get_ZoomType());
-    ASSERT_EQ(ZoomType::None, doc->get_ViewOptions()->get_ZoomType());
+    ASSERT_EQ(doc->get_ViewOptions()->get_ZoomType(), ZoomType::Custom);
+    ASSERT_EQ(doc->get_ViewOptions()->get_ZoomType(), ZoomType::None);
     
     doc->Save(get_ArtifactsDir() + u"ViewOptions.SetZoomPercentage.doc");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.SetZoomPercentage.doc"));
     
-    ASSERT_EQ(ViewType::PageLayout, doc->get_ViewOptions()->get_ViewType());
-    ASPOSE_ASSERT_EQ(50.0, doc->get_ViewOptions()->get_ZoomPercent());
-    ASSERT_EQ(ZoomType::None, doc->get_ViewOptions()->get_ZoomType());
+    ASSERT_EQ(doc->get_ViewOptions()->get_ViewType(), ViewType::PageLayout);
+    ASPOSE_ASSERT_EQ(doc->get_ViewOptions()->get_ZoomPercent(), 50.0);
+    ASSERT_EQ(doc->get_ViewOptions()->get_ZoomType(), ZoomType::None);
 }
 
 namespace gtest_test
@@ -124,7 +124,7 @@ void ExViewOptions::SetZoomType(Aspose::Words::Settings::ZoomType zoomType)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.SetZoomType.doc"));
     
-    ASSERT_EQ(zoomType, doc->get_ViewOptions()->get_ZoomType());
+    ASSERT_EQ(doc->get_ViewOptions()->get_ZoomType(), zoomType);
 }
 
 namespace gtest_test
@@ -179,7 +179,7 @@ void ExViewOptions::DisplayBackgroundShape(bool displayBackgroundShape)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.DisplayBackgroundShape.docx"));
     
-    ASPOSE_ASSERT_EQ(displayBackgroundShape, doc->get_ViewOptions()->get_DisplayBackgroundShape());
+    ASPOSE_ASSERT_EQ(doc->get_ViewOptions()->get_DisplayBackgroundShape(), displayBackgroundShape);
 }
 
 namespace gtest_test
@@ -242,7 +242,7 @@ void ExViewOptions::DisplayPageBoundaries(bool doNotDisplayPageBoundaries)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"ViewOptions.DisplayPageBoundaries.doc"));
     
-    ASPOSE_ASSERT_EQ(doNotDisplayPageBoundaries, doc->get_ViewOptions()->get_DoNotDisplayPageBoundaries());
+    ASPOSE_ASSERT_EQ(doc->get_ViewOptions()->get_DoNotDisplayPageBoundaries(), doNotDisplayPageBoundaries);
 }
 
 namespace gtest_test
@@ -287,7 +287,7 @@ void ExViewOptions::FormsDesign(bool useFormsDesign)
     
     doc->Save(get_ArtifactsDir() + u"ViewOptions.FormsDesign.xml");
     
-    ASPOSE_ASSERT_EQ(useFormsDesign, System::IO::File::ReadAllText(get_ArtifactsDir() + u"ViewOptions.FormsDesign.xml").Contains(u"<w:formsDesign />"));
+    ASPOSE_ASSERT_EQ(System::IO::File::ReadAllText(get_ArtifactsDir() + u"ViewOptions.FormsDesign.xml").Contains(u"<w:formsDesign />"), useFormsDesign);
     //ExEnd
 }
 

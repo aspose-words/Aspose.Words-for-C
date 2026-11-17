@@ -78,8 +78,6 @@ public:
     void CheckFileSignatures();
     void ExportGeneratorName();
     void ProgressCallback(Aspose::Words::SaveFormat saveFormat, System::String ext);
-    //ExEnd
-    void Zip64ModeOption();
     void DigitalSignature();
     void UpdateAmbiguousTextFont();
     

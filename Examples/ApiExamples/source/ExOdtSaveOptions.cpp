@@ -84,21 +84,21 @@ void ExOdtSaveOptions::Odt11Schema(bool exportToOdt11Specs)
     doc->Save(get_ArtifactsDir() + u"OdtSaveOptions.Odt11Schema.odt", saveOptions);
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"OdtSaveOptions.Odt11Schema.odt"));
-    ASSERT_EQ(Aspose::Words::MeasurementUnits::Centimeters, doc->get_LayoutOptions()->get_RevisionOptions()->get_MeasurementUnit());
+    ASSERT_EQ(doc->get_LayoutOptions()->get_RevisionOptions()->get_MeasurementUnit(), Aspose::Words::MeasurementUnits::Centimeters);
     //ExEnd
     
     if (exportToOdt11Specs)
     {
-        ASSERT_EQ(2, doc->get_Range()->get_FormFields()->get_Count());
-        ASSERT_EQ(FieldType::FieldFormTextInput, doc->get_Range()->get_FormFields()->idx_get(0)->get_Type());
-        ASSERT_EQ(FieldType::FieldFormCheckBox, doc->get_Range()->get_FormFields()->idx_get(1)->get_Type());
+        ASSERT_EQ(doc->get_Range()->get_FormFields()->get_Count(), 2);
+        ASSERT_EQ(doc->get_Range()->get_FormFields()->idx_get(0)->get_Type(), FieldType::FieldFormTextInput);
+        ASSERT_EQ(doc->get_Range()->get_FormFields()->idx_get(1)->get_Type(), FieldType::FieldFormCheckBox);
     }
     else
     {
-        ASSERT_EQ(3, doc->get_Range()->get_FormFields()->get_Count());
-        ASSERT_EQ(FieldType::FieldFormTextInput, doc->get_Range()->get_FormFields()->idx_get(0)->get_Type());
-        ASSERT_EQ(FieldType::FieldFormCheckBox, doc->get_Range()->get_FormFields()->idx_get(1)->get_Type());
-        ASSERT_EQ(FieldType::FieldFormDropDown, doc->get_Range()->get_FormFields()->idx_get(2)->get_Type());
+        ASSERT_EQ(doc->get_Range()->get_FormFields()->get_Count(), 3);
+        ASSERT_EQ(doc->get_Range()->get_FormFields()->idx_get(0)->get_Type(), FieldType::FieldFormTextInput);
+        ASSERT_EQ(doc->get_Range()->get_FormFields()->idx_get(1)->get_Type(), FieldType::FieldFormCheckBox);
+        ASSERT_EQ(doc->get_Range()->get_FormFields()->idx_get(2)->get_Type(), FieldType::FieldFormDropDown);
     }
 }
 
@@ -159,7 +159,7 @@ void ExOdtSaveOptions::Encrypt(Aspose::Words::SaveFormat saveFormat)
     // we will have to provide a LoadOptions object with the correct password to the loading constructor.
     doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"OdtSaveOptions.Encrypt" + extensionString, System::MakeObject<Aspose::Words::Loading::LoadOptions>(u"@sposeEncrypted_1145"));
     
-    ASSERT_EQ(u"Hello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world!");
     //ExEnd
 }
 

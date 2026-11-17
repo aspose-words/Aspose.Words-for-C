@@ -72,26 +72,26 @@ void ExSmartTag::TestCreate(System::SharedPtr<Aspose::Words::Document> doc)
 {
     auto smartTag = System::ExplicitCast<Aspose::Words::Markup::SmartTag>(doc->GetChild(NodeType::SmartTag, 0, true));
     
-    ASSERT_EQ(u"date", smartTag->get_Element());
-    ASSERT_EQ((u"May 29, 2019"), smartTag->GetText());
-    ASSERT_EQ(u"urn:schemas-microsoft-com:office:smarttags", smartTag->get_Uri());
+    ASSERT_EQ(smartTag->get_Element(), u"date");
+    ASSERT_EQ(smartTag->GetText(), (u"May 29, 2019"));
+    ASSERT_EQ(smartTag->get_Uri(), u"urn:schemas-microsoft-com:office:smarttags");
     
-    ASSERT_EQ(u"Day", smartTag->get_Properties()->idx_get(0)->get_Name());
-    ASSERT_EQ(System::String::Empty, smartTag->get_Properties()->idx_get(0)->get_Uri());
-    ASSERT_EQ(u"29", smartTag->get_Properties()->idx_get(0)->get_Value());
-    ASSERT_EQ(u"Month", smartTag->get_Properties()->idx_get(1)->get_Name());
-    ASSERT_EQ(System::String::Empty, smartTag->get_Properties()->idx_get(1)->get_Uri());
-    ASSERT_EQ(u"5", smartTag->get_Properties()->idx_get(1)->get_Value());
-    ASSERT_EQ(u"Year", smartTag->get_Properties()->idx_get(2)->get_Name());
-    ASSERT_EQ(System::String::Empty, smartTag->get_Properties()->idx_get(2)->get_Uri());
-    ASSERT_EQ(u"2019", smartTag->get_Properties()->idx_get(2)->get_Value());
+    ASSERT_EQ(smartTag->get_Properties()->idx_get(0)->get_Name(), u"Day");
+    ASSERT_EQ(smartTag->get_Properties()->idx_get(0)->get_Uri(), System::String::Empty);
+    ASSERT_EQ(smartTag->get_Properties()->idx_get(0)->get_Value(), u"29");
+    ASSERT_EQ(smartTag->get_Properties()->idx_get(1)->get_Name(), u"Month");
+    ASSERT_EQ(smartTag->get_Properties()->idx_get(1)->get_Uri(), System::String::Empty);
+    ASSERT_EQ(smartTag->get_Properties()->idx_get(1)->get_Value(), u"5");
+    ASSERT_EQ(smartTag->get_Properties()->idx_get(2)->get_Name(), u"Year");
+    ASSERT_EQ(smartTag->get_Properties()->idx_get(2)->get_Uri(), System::String::Empty);
+    ASSERT_EQ(smartTag->get_Properties()->idx_get(2)->get_Value(), u"2019");
     
     smartTag = System::ExplicitCast<Aspose::Words::Markup::SmartTag>(doc->GetChild(NodeType::SmartTag, 1, true));
     
-    ASSERT_EQ(u"stockticker", smartTag->get_Element());
-    ASSERT_EQ(u"MSFT", smartTag->GetText());
-    ASSERT_EQ(u"urn:schemas-microsoft-com:office:smarttags", smartTag->get_Uri());
-    ASSERT_EQ(0, smartTag->get_Properties()->get_Count());
+    ASSERT_EQ(smartTag->get_Element(), u"stockticker");
+    ASSERT_EQ(smartTag->GetText(), u"MSFT");
+    ASSERT_EQ(smartTag->get_Uri(), u"urn:schemas-microsoft-com:office:smarttags");
+    ASSERT_EQ(smartTag->get_Properties()->get_Count(), 0);
 }
 
 namespace gtest_test
@@ -169,11 +169,11 @@ void ExSmartTag::Create()
     doc->Save(get_ArtifactsDir() + u"SmartTag.Create.doc");
     
     // Use the "RemoveSmartTags" method to remove all smart tags from a document.
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::SmartTag, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::SmartTag, true)->get_Count(), 2);
     
     doc->RemoveSmartTags();
     
-    ASSERT_EQ(0, doc->GetChildNodes(NodeType::SmartTag, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::SmartTag, true)->get_Count(), 0);
     TestCreate(System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"SmartTag.Create.doc")));
     //ExSkip
 }
@@ -213,44 +213,44 @@ void ExSmartTag::Properties()
     // Smart tags may be nested, so this collection contains more.
     System::ArrayPtr<System::SharedPtr<Aspose::Words::Markup::SmartTag>> smartTags = doc->GetChildNodes(NodeType::SmartTag, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Markup::SmartTag>>()->LINQ_ToArray();
     
-    ASSERT_EQ(8, smartTags->get_Length());
+    ASSERT_EQ(smartTags->get_Length(), 8);
     
     // The "Properties" member of a smart tag contains its metadata, which will be different for each type of smart tag.
     // The properties of a "date"-type smart tag contain its year, month, and day.
     System::SharedPtr<Aspose::Words::Markup::CustomXmlPropertyCollection> properties = smartTags[7]->get_Properties();
     
-    ASSERT_EQ(4, properties->get_Count());
+    ASSERT_EQ(properties->get_Count(), 4);
     
     {
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::SharedPtr<Aspose::Words::Markup::CustomXmlProperty>>> enumerator = properties->GetEnumerator();
         while (enumerator->MoveNext())
         {
             std::cout << System::String::Format(u"Property name: {0}, value: {1}", enumerator->get_Current()->get_Name(), enumerator->get_Current()->get_Value()) << std::endl;
-            ASSERT_EQ(u"", enumerator->get_Current()->get_Uri());
+            ASSERT_EQ(enumerator->get_Current()->get_Uri(), u"");
         }
     }
     
     // We can also access the properties in various ways, such as a key-value pair.
     ASSERT_TRUE(properties->Contains(u"Day"));
-    ASSERT_EQ(u"22", properties->idx_get(u"Day")->get_Value());
-    ASSERT_EQ(u"2003", properties->idx_get(2)->get_Value());
-    ASSERT_EQ(1, properties->IndexOfKey(u"Month"));
+    ASSERT_EQ(properties->idx_get(u"Day")->get_Value(), u"22");
+    ASSERT_EQ(properties->idx_get(2)->get_Value(), u"2003");
+    ASSERT_EQ(properties->IndexOfKey(u"Month"), 1);
     
     // Below are three ways of removing elements from the properties collection.
     // 1 -  Remove by index:
     properties->RemoveAt(3);
     
-    ASSERT_EQ(3, properties->get_Count());
+    ASSERT_EQ(properties->get_Count(), 3);
     
     // 2 -  Remove by name:
     properties->Remove(u"Year");
     
-    ASSERT_EQ(2, properties->get_Count());
+    ASSERT_EQ(properties->get_Count(), 2);
     
     // 3 -  Clear the entire collection at once:
     properties->Clear();
     
-    ASSERT_EQ(0, properties->get_Count());
+    ASSERT_EQ(properties->get_Count(), 0);
     //ExEnd
 }
 

@@ -190,13 +190,13 @@ void ExComment::AddCommentWithReply()
     comment->AddReply(u"Joe Bloggs", u"J.B.", System::DateTime::get_Now(), u"New reply");
     
     // Comments and replies are both Comment nodes.
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Comment, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Comment, true)->get_Count(), 2);
     
     // Comments that do not reply to other comments are "top-level". They have no ancestor comments.
     ASSERT_TRUE(System::TestTools::IsNull(comment->get_Ancestor()));
     
     // Replies have an ancestor top-level comment.
-    ASPOSE_ASSERT_EQ(comment, comment->get_Replies()->idx_get(0)->get_Ancestor());
+    ASPOSE_ASSERT_EQ(comment->get_Replies()->idx_get(0)->get_Ancestor(), comment);
     
     doc->Save(get_ArtifactsDir() + u"Comment.AddCommentWithReply.docx");
     //ExEnd
@@ -204,11 +204,11 @@ void ExComment::AddCommentWithReply()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Comment.AddCommentWithReply.docx"));
     auto docComment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(NodeType::Comment, 0, true));
     
-    ASSERT_EQ(1, docComment->get_Count());
-    ASSERT_EQ(1, comment->get_Replies()->get_Count());
+    ASSERT_EQ(docComment->get_Count(), 1);
+    ASSERT_EQ(comment->get_Replies()->get_Count(), 1);
     
-    ASSERT_EQ(u"\u0005My comment.\r", docComment->GetText());
-    ASSERT_EQ(u"\u0005New reply\r", docComment->get_Replies()->idx_get(0)->GetText());
+    ASSERT_EQ(docComment->GetText(), u"\u0005My comment.\r");
+    ASSERT_EQ(docComment->get_Replies()->idx_get(0)->GetText(), u"\u0005New reply\r");
 }
 
 namespace gtest_test
@@ -233,7 +233,7 @@ void ExComment::PrintAllComments()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Comments.docx"));
     
     System::SharedPtr<Aspose::Words::NodeCollection> comments = doc->GetChildNodes(NodeType::Comment, true);
-    ASSERT_EQ(12, comments->get_Count());
+    ASSERT_EQ(comments->get_Count(), 12);
     //ExSkip
     
     // If a comment has no ancestor, it is a "top-level" comment as opposed to a reply-type comment.
@@ -282,18 +282,18 @@ void ExComment::RemoveCommentReplies()
     comment->AddReply(u"Joe Bloggs", u"J.B.", System::DateTime::get_Now(), u"New reply");
     comment->AddReply(u"Joe Bloggs", u"J.B.", System::DateTime::get_Now(), u"Another reply");
     
-    ASSERT_EQ(2, comment->get_Replies()->get_Count());
+    ASSERT_EQ(comment->get_Replies()->get_Count(), 2);
     
     // Below are two ways of removing replies from a comment.
     // 1 -  Use the "RemoveReply" method to remove replies from a comment individually:
     comment->RemoveReply(comment->get_Replies()->idx_get(0));
     
-    ASSERT_EQ(1, comment->get_Replies()->get_Count());
+    ASSERT_EQ(comment->get_Replies()->get_Count(), 1);
     
     // 2 -  Use the "RemoveAllReplies" method to remove all replies from a comment at once:
     comment->RemoveAllReplies();
     
-    ASSERT_EQ(0, comment->get_Replies()->get_Count());
+    ASSERT_EQ(comment->get_Replies()->get_Count(), 0);
     //ExEnd
 }
 
@@ -343,8 +343,8 @@ void ExComment::Done()
     comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChildNodes(NodeType::Comment, true)->idx_get(0));
     
     ASSERT_TRUE(comment->get_Done());
-    ASSERT_EQ(u"\u0005Fix the spelling error!", comment->GetText().Trim());
-    ASSERT_EQ(u"Hello world!", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text());
+    ASSERT_EQ(comment->GetText().Trim(), u"\u0005Fix the spelling error!");
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text(), u"Hello world!");
 }
 
 namespace gtest_test
@@ -412,7 +412,7 @@ void ExComment::UtcDateTime()
     
     comment = System::ExplicitCast<Aspose::Words::Comment>(doc->GetChild(NodeType::Comment, 0, true));
     // DateTimeUtc return data without milliseconds.
-    ASSERT_EQ(dateTime.ToUniversalTime().ToString(u"yyyy-MM-dd hh:mm:ss"), comment->get_DateTimeUtc().ToString(u"yyyy-MM-dd hh:mm:ss"));
+    ASSERT_EQ(comment->get_DateTimeUtc().ToString(u"yyyy-MM-dd hh:mm:ss"), dateTime.ToUniversalTime().ToString(u"yyyy-MM-dd hh:mm:ss"));
     //ExEnd:UtcDateTime
 }
 

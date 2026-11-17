@@ -52,7 +52,7 @@ RTTI_INFO_IMPL_HASH(708711941u, ::Aspose::Words::ApiExamples::ExXamlFixedSaveOpt
 
 void ExXamlFixedSaveOptions::TestResourceFolder(System::SharedPtr<Aspose::Words::ApiExamples::ExXamlFixedSaveOptions::ResourceUriPrinter> callback)
 {
-    ASSERT_EQ(15, callback->get_Resources()->get_Count());
+    ASSERT_EQ(callback->get_Resources()->get_Count(), 15);
     for (auto&& resource : callback->get_Resources())
     {
         ASSERT_TRUE(System::IO::File::Exists(resource.Split(System::MakeArray<char16_t>({u'\t'}))[1]));
@@ -99,7 +99,7 @@ void ExXamlFixedSaveOptions::ResourceFolder()
     // to modify how we save the document to the XAML save format.
     auto options = System::MakeObject<Aspose::Words::Saving::XamlFixedSaveOptions>();
     
-    ASSERT_EQ(SaveFormat::XamlFixed, options->get_SaveFormat());
+    ASSERT_EQ(options->get_SaveFormat(), SaveFormat::XamlFixed);
     
     // Use the "ResourcesFolder" property to assign a folder in the local file system into which
     // Aspose.Words will save all the document's linked resources, such as images and fonts.

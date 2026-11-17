@@ -178,7 +178,7 @@ void ExAI::ChangeDefaultUrl()
     model->set_Url(u"https://my.a.com/");
     //ExEnd:ChangeDefaultUrl
     
-    ASSERT_EQ(u"https://my.a.com/", model->get_Url());
+    ASSERT_EQ(model->get_Url(), u"https://my.a.com/");
 }
 
 namespace gtest_test
@@ -203,7 +203,7 @@ void ExAI::ChangeDefaultTimeout()
     model->set_Timeout(250000);
     //ExEnd:ChangeDefaultTimeout
     
-    ASSERT_EQ(250000, model->get_Timeout());
+    ASSERT_EQ(model->get_Timeout(), 250000);
 }
 
 namespace gtest_test

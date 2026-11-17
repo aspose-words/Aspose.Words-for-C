@@ -12,6 +12,7 @@
 #include <system/exceptions.h>
 #include <system/date_time.h>
 #include <system/array.h>
+#include <system/action.h>
 #include <functional>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Loading/LoadOptions.h>
@@ -80,13 +81,13 @@ void ExDigitalSignatureUtil::Load()
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatures = DigitalSignatureUtil::LoadSignatures(get_MyDir() + u"Digitally signed.docx");
     
     // If this collection is nonempty, then we can verify that the document is digitally signed.
-    ASSERT_EQ(1, digitalSignatures->get_Count());
+    ASSERT_EQ(digitalSignatures->get_Count(), 1);
     
     // 2 -  Load from a document from a FileStream:
     {
         System::SharedPtr<System::IO::Stream> stream = System::MakeObject<System::IO::FileStream>(get_MyDir() + u"Digitally signed.docx", System::IO::FileMode::Open);
         digitalSignatures = DigitalSignatureUtil::LoadSignatures(stream);
-        ASSERT_EQ(1, digitalSignatures->get_Count());
+        ASSERT_EQ(digitalSignatures->get_Count(), 1);
     }
     //ExEnd
 }
@@ -124,8 +125,8 @@ void ExDigitalSignatureUtil::Remove()
     }
     
     // Verify that both our output documents have no digital signatures.
-    ASSERT_EQ(0, DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromString.docx")->get_Count());
-    ASSERT_EQ(0, DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromStream.docx")->get_Count());
+    ASSERT_EQ(DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromString.docx")->get_Count(), 0);
+    ASSERT_EQ(DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.LoadAndRemove.FromStream.docx")->get_Count(), 0);
     //ExEnd
 }
 
@@ -143,7 +144,7 @@ void ExDigitalSignatureUtil::RemoveSignatures()
 {
     DigitalSignatureUtil::RemoveAllSignatures(get_MyDir() + u"Digitally signed.odt", get_ArtifactsDir() + u"DigitalSignatureUtil.RemoveSignatures.odt");
     
-    ASSERT_EQ(0, DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.RemoveSignatures.odt")->get_Count());
+    ASSERT_EQ(DigitalSignatureUtil::LoadSignatures(get_ArtifactsDir() + u"DigitalSignatureUtil.RemoveSignatures.odt")->get_Count(), 0);
 }
 
 namespace gtest_test
@@ -188,14 +189,14 @@ void ExDigitalSignatureUtil::SignDocument()
     {
         System::SharedPtr<System::IO::Stream> stream = System::MakeObject<System::IO::FileStream>(get_ArtifactsDir() + u"DigitalSignatureUtil.SignDocument.docx", System::IO::FileMode::Open);
         System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatures = DigitalSignatureUtil::LoadSignatures(stream);
-        ASSERT_EQ(1, digitalSignatures->get_Count());
+        ASSERT_EQ(digitalSignatures->get_Count(), 1);
         
         System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignature> signature = digitalSignatures->idx_get(0);
         
         ASSERT_TRUE(signature->get_IsValid());
-        ASSERT_EQ(DigitalSignatureType::XmlDsig, signature->get_SignatureType());
-        ASSERT_EQ(System::ObjectExt::ToString(signOptions->get_SignTime()), System::ObjectExt::ToString(signature->get_SignTime()));
-        ASSERT_EQ(u"My comment", signature->get_Comments());
+        ASSERT_EQ(signature->get_SignatureType(), DigitalSignatureType::XmlDsig);
+        ASSERT_EQ(System::ObjectExt::ToString(signature->get_SignTime()), System::ObjectExt::ToString(signOptions->get_SignTime()));
+        ASSERT_EQ(signature->get_Comments(), u"My comment");
     }
 }
 
@@ -234,13 +235,13 @@ void ExDigitalSignatureUtil::DecryptionPassword()
     
     // Open encrypted document from a file.
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::LoadOptions>(u"docPassword");
-    ASSERT_EQ(signOptions->get_DecryptionPassword(), loadOptions->get_Password());
+    ASSERT_EQ(loadOptions->get_Password(), signOptions->get_DecryptionPassword());
     
     // Check that encrypted document was successfully signed.
     auto signedDoc = System::MakeObject<Aspose::Words::Document>(outputFileName, loadOptions);
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> signatures = signedDoc->get_DigitalSignatures();
     
-    ASSERT_EQ(1, signatures->get_Count());
+    ASSERT_EQ(signatures->get_Count(), 1);
     ASSERT_TRUE(signatures->get_IsValid());
 }
 
@@ -290,10 +291,10 @@ void ExDigitalSignatureUtil::IncorrectDecryptionPassword()
     signOptions->set_SignTime(System::DateTime::get_Now());
     signOptions->set_DecryptionPassword(u"docPassword1");
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&signOptions, &outputFileName, &doc, &certificateHolder]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&signOptions, &outputFileName, &doc, &certificateHolder]() -> void
     {
         DigitalSignatureUtil::Sign(doc->get_OriginalFileName(), outputFileName, certificateHolder, signOptions);
-    })(), Aspose::Words::IncorrectPasswordException) << "The document password is incorrect.";
+    }))(), Aspose::Words::IncorrectPasswordException) << "The document password is incorrect.";
 }
 
 namespace gtest_test
@@ -313,10 +314,10 @@ void ExDigitalSignatureUtil::NoArgumentsForSing()
     signOptions->set_SignTime(System::DateTime::get_Now());
     signOptions->set_DecryptionPassword(System::String::Empty);
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&signOptions]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&signOptions]() -> void
     {
         DigitalSignatureUtil::Sign(System::String::Empty, System::String::Empty, nullptr, signOptions);
-    })(), System::ArgumentException);
+    }))(), System::ArgumentException);
 }
 
 namespace gtest_test
@@ -339,10 +340,10 @@ void ExDigitalSignatureUtil::NoCertificateForSign()
     signOptions->set_SignTime(System::DateTime::get_Now());
     signOptions->set_DecryptionPassword(u"docPassword");
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&signOptions, &outputFileName, &doc]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&signOptions, &outputFileName, &doc]() -> void
     {
         DigitalSignatureUtil::Sign(doc->get_OriginalFileName(), outputFileName, nullptr, signOptions);
-    })(), System::ArgumentNullException);
+    }))(), System::ArgumentNullException);
 }
 
 namespace gtest_test
@@ -409,14 +410,14 @@ void ExDigitalSignatureUtil::SignDocumentWithOptions()
     auto signedDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DigitalSignatureUtil.docx"));
     
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignature> signature = signedDoc->get_DigitalSignatures()->idx_get(0);
-    ASSERT_EQ(1, signedDoc->get_DigitalSignatures()->get_Count());
+    ASSERT_EQ(signedDoc->get_DigitalSignatures()->get_Count(), 1);
     ASSERT_TRUE(signature->get_IsValid());
-    ASSERT_EQ(u"10.0", signature->get_WindowsVersion());
-    ASSERT_EQ(u"16.0.19127", signature->get_ApplicationVersion());
-    ASSERT_EQ(u"16.0.19127/27", signature->get_OfficeVersion());
-    ASSERT_EQ(1024, signature->get_HorizontalResolution());
-    ASSERT_EQ(768, signature->get_VerticalResolution());
-    ASSERT_EQ(24, signature->get_ColorDepth());
+    ASSERT_EQ(signature->get_WindowsVersion(), u"10.0");
+    ASSERT_EQ(signature->get_ApplicationVersion(), u"16.0.19127");
+    ASSERT_EQ(signature->get_OfficeVersion(), u"16.0.19127/27");
+    ASSERT_EQ(signature->get_HorizontalResolution(), 1024);
+    ASSERT_EQ(signature->get_VerticalResolution(), 768);
+    ASSERT_EQ(signature->get_ColorDepth(), 24);
     //ExEnd:SignDocumentWithOptions
 }
 
@@ -455,19 +456,19 @@ void ExDigitalSignatureUtil::SignDocumentWithTimestamping()
     
     auto signedDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"DigitalSignatureUtil.Timestamped.docx"));
     
-    ASSERT_EQ(1, signedDoc->get_DigitalSignatures()->get_Count());
+    ASSERT_EQ(signedDoc->get_DigitalSignatures()->get_Count(), 1);
     ASSERT_TRUE(signedDoc->get_DigitalSignatures()->idx_get(0)->get_IsValid());
     
     // Verify timestamp settings are applied.
-    ASSERT_EQ(u"https://freetsa.org/tsr", signOptions->get_TimestampSettings()->get_ServerUrl());
-    ASSERT_EQ(u"JohnDoe", signOptions->get_TimestampSettings()->get_UserName());
-    ASSERT_EQ(u"MyPassword", signOptions->get_TimestampSettings()->get_Password());
-    ASPOSE_ASSERT_EQ(100.0, signOptions->get_TimestampSettings()->get_Timeout().get_TotalSeconds());
+    ASSERT_EQ(signOptions->get_TimestampSettings()->get_ServerUrl(), u"https://freetsa.org/tsr");
+    ASSERT_EQ(signOptions->get_TimestampSettings()->get_UserName(), u"JohnDoe");
+    ASSERT_EQ(signOptions->get_TimestampSettings()->get_Password(), u"MyPassword");
+    ASPOSE_ASSERT_EQ(signOptions->get_TimestampSettings()->get_Timeout().get_TotalSeconds(), 100.0);
     
     // Test with custom timeout.
     signOptions->set_TimestampSettings(System::MakeObject<Aspose::Words::DigitalSignatures::DigitalSignatureTimestampSettings>(u"https://freetsa.org/tsr", u"JohnDoe", u"MyPassword", System::TimeSpan::FromMinutes(30)));
     
-    ASPOSE_ASSERT_EQ(1800.0, signOptions->get_TimestampSettings()->get_Timeout().get_TotalSeconds());
+    ASPOSE_ASSERT_EQ(signOptions->get_TimestampSettings()->get_Timeout().get_TotalSeconds(), 1800.0);
     //ExEnd:SignDocumentWithTimestamping
 }
 

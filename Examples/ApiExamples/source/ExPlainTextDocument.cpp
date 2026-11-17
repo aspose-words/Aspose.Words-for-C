@@ -73,7 +73,7 @@ void ExPlainTextDocument::Load()
     
     auto plaintext = System::MakeObject<Aspose::Words::PlainTextDocument>(get_ArtifactsDir() + u"PlainTextDocument.Load.docx");
     
-    ASSERT_EQ(u"Hello world!", plaintext->get_Text().Trim());
+    ASSERT_EQ(plaintext->get_Text().Trim(), u"Hello world!");
     //ExEnd
 }
 
@@ -102,7 +102,7 @@ void ExPlainTextDocument::LoadFromStream()
         auto stream = System::MakeObject<System::IO::FileStream>(get_ArtifactsDir() + u"PlainTextDocument.LoadFromStream.docx", System::IO::FileMode::Open);
         auto plaintext = System::MakeObject<Aspose::Words::PlainTextDocument>(stream);
         
-        ASSERT_EQ(u"Hello world!", plaintext->get_Text().Trim());
+        ASSERT_EQ(plaintext->get_Text().Trim(), u"Hello world!");
     }
     //ExEnd
 }
@@ -136,7 +136,7 @@ void ExPlainTextDocument::LoadEncrypted()
     
     auto plaintext = System::MakeObject<Aspose::Words::PlainTextDocument>(get_ArtifactsDir() + u"PlainTextDocument.LoadEncrypted.docx", loadOptions);
     
-    ASSERT_EQ(u"Hello world!", plaintext->get_Text().Trim());
+    ASSERT_EQ(plaintext->get_Text().Trim(), u"Hello world!");
     //ExEnd
 }
 
@@ -172,7 +172,7 @@ void ExPlainTextDocument::LoadEncryptedUsingStream()
         auto stream = System::MakeObject<System::IO::FileStream>(get_ArtifactsDir() + u"PlainTextDocument.LoadFromStreamWithOptions.docx", System::IO::FileMode::Open);
         auto plaintext = System::MakeObject<Aspose::Words::PlainTextDocument>(stream, loadOptions);
         
-        ASSERT_EQ(u"Hello world!", plaintext->get_Text().Trim());
+        ASSERT_EQ(plaintext->get_Text().Trim(), u"Hello world!");
     }
     //ExEnd
 }
@@ -202,8 +202,8 @@ void ExPlainTextDocument::BuiltInProperties()
     
     auto plaintext = System::MakeObject<Aspose::Words::PlainTextDocument>(get_ArtifactsDir() + u"PlainTextDocument.BuiltInProperties.docx");
     
-    ASSERT_EQ(u"Hello world!", plaintext->get_Text().Trim());
-    ASSERT_EQ(u"John Doe", plaintext->get_BuiltInDocumentProperties()->get_Author());
+    ASSERT_EQ(plaintext->get_Text().Trim(), u"Hello world!");
+    ASSERT_EQ(plaintext->get_BuiltInDocumentProperties()->get_Author(), u"John Doe");
     //ExEnd
 }
 
@@ -232,8 +232,8 @@ void ExPlainTextDocument::CustomDocumentProperties()
     
     auto plaintext = System::MakeObject<Aspose::Words::PlainTextDocument>(get_ArtifactsDir() + u"PlainTextDocument.CustomDocumentProperties.docx");
     
-    ASSERT_EQ(u"Hello world!", plaintext->get_Text().Trim());
-    ASPOSE_ASSERT_EQ((u"123 Main St, London, UK"), plaintext->get_CustomDocumentProperties()->idx_get(u"Location of writing")->get_Value());
+    ASSERT_EQ(plaintext->get_Text().Trim(), u"Hello world!");
+    ASPOSE_ASSERT_EQ(plaintext->get_CustomDocumentProperties()->idx_get(u"Location of writing")->get_Value(), (u"123 Main St, London, UK"));
     //ExEnd
 }
 

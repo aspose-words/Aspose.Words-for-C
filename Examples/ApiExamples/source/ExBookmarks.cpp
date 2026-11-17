@@ -139,14 +139,14 @@ void ExBookmarks::Insert()
     builder->EndBookmark(u"My Bookmark");
     
     // Bookmarks are stored in this collection.
-    ASSERT_EQ(u"My Bookmark", doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Name());
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Name(), u"My Bookmark");
     
     doc->Save(get_ArtifactsDir() + u"Bookmarks.Insert.docx");
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Bookmarks.Insert.docx"));
     
-    ASSERT_EQ(u"My Bookmark", doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Name());
+    ASSERT_EQ(doc->get_Range()->get_Bookmarks()->idx_get(0)->get_Name(), u"My Bookmark");
 }
 
 namespace gtest_test
@@ -164,7 +164,7 @@ void ExBookmarks::CreateUpdateAndPrintBookmarks()
     // Create a document with three bookmarks, then use a custom document visitor implementation to print their contents.
     System::SharedPtr<Aspose::Words::Document> doc = CreateDocumentWithBookmarks(3);
     System::SharedPtr<Aspose::Words::BookmarkCollection> bookmarks = doc->get_Range()->get_Bookmarks();
-    ASSERT_EQ(3, bookmarks->get_Count());
+    ASSERT_EQ(bookmarks->get_Count(), 3);
     //ExSkip
     
     PrintAllBookmarkInfo(bookmarks);
@@ -219,12 +219,12 @@ void ExBookmarks::TableColumnBookmarks()
     System::SharedPtr<Aspose::Words::Bookmark> secondTableColumnBookmark = doc->get_Range()->get_Bookmarks()->idx_get(u"SecondTableColumnBookmark");
     
     ASSERT_TRUE(firstTableColumnBookmark->get_IsColumn());
-    ASSERT_EQ(1, firstTableColumnBookmark->get_FirstColumn());
-    ASSERT_EQ(3, firstTableColumnBookmark->get_LastColumn());
+    ASSERT_EQ(firstTableColumnBookmark->get_FirstColumn(), 1);
+    ASSERT_EQ(firstTableColumnBookmark->get_LastColumn(), 3);
     
     ASSERT_TRUE(secondTableColumnBookmark->get_IsColumn());
-    ASSERT_EQ(0, secondTableColumnBookmark->get_FirstColumn());
-    ASSERT_EQ(3, secondTableColumnBookmark->get_LastColumn());
+    ASSERT_EQ(secondTableColumnBookmark->get_FirstColumn(), 0);
+    ASSERT_EQ(secondTableColumnBookmark->get_LastColumn(), 3);
 }
 
 namespace gtest_test
@@ -264,7 +264,7 @@ void ExBookmarks::Remove()
     // This collection stores bookmarks.
     System::SharedPtr<Aspose::Words::BookmarkCollection> bookmarks = doc->get_Range()->get_Bookmarks();
     
-    ASSERT_EQ(5, bookmarks->get_Count());
+    ASSERT_EQ(bookmarks->get_Count(), 5);
     
     // There are several ways of removing bookmarks.
     // 1 -  Calling the bookmark's Remove method:
@@ -304,8 +304,8 @@ void ExBookmarks::Remove()
     bookmarks->Clear();
     
     // The text that was inside the bookmarks is still present in the document.
-    ASSERT_EQ(0, bookmarks->get_Count());
-    ASSERT_EQ(System::String(u"Text inside MyBookmark_1.\r") + u"Text inside MyBookmark_2.\r" + u"Text inside MyBookmark_3.\r" + u"Text inside MyBookmark_4.\r" + u"Text inside MyBookmark_5.", doc->GetText().Trim());
+    ASSERT_EQ(bookmarks->get_Count(), 0);
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"Text inside MyBookmark_1.\r") + u"Text inside MyBookmark_2.\r" + u"Text inside MyBookmark_3.\r" + u"Text inside MyBookmark_4.\r" + u"Text inside MyBookmark_5.");
     //ExEnd
 }
 

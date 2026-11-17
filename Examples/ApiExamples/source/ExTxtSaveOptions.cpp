@@ -6,12 +6,12 @@
 #include <system/test_tools/method_argument_tuple.h>
 #include <system/test_tools/compare.h>
 #include <system/io/file.h>
-#include <system/environment.h>
 #include <system/array.h>
 #include <cstdint>
 #include <Aspose.Words.Cpp/Model/Text/ParagraphFormat.h>
 #include <Aspose.Words.Cpp/Model/Text/Paragraph.h>
 #include <Aspose.Words.Cpp/Model/Text/ListFormat.h>
+#include <Aspose.Words.Cpp/Model/Text/ControlChar.h>
 #include <Aspose.Words.Cpp/Model/Tables/Table.h>
 #include <Aspose.Words.Cpp/Model/Tables/Row.h>
 #include <Aspose.Words.Cpp/Model/Tables/Cell.h>
@@ -103,7 +103,7 @@ void ExTxtSaveOptions::PageBreaks(bool forcePageBreaks)
     // the "Document" object will use them to split the body into pages.
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt"));
     
-    ASSERT_EQ(forcePageBreaks ? 3 : 1, doc->get_PageCount());
+    ASSERT_EQ(doc->get_PageCount(), forcePageBreaks ? 3 : 1);
     //ExEnd
     
     TestUtil::FileContainsString(forcePageBreaks ? System::String(u"Page 1\r\n\fPage 2\r\n\fPage 3\r\n\r\n") : System::String(u"Page 1\r\nPage 2\r\nPage 3\r\n\r\n"), get_ArtifactsDir() + u"TxtSaveOptions.PageBreaks.txt");
@@ -166,12 +166,12 @@ void ExTxtSaveOptions::AddBidiMarks(bool addBidiMarks)
     
     if (addBidiMarks)
     {
-        ASSERT_EQ(u"\ufeffHello world!‎\r\nשלום עולם!‏\r\nمرحبا بالعالم!‏\r\n\r\n", docText);
+        ASSERT_EQ(docText, u"\ufeffHello world!‎\r\nשלום עולם!‏\r\nمرحبا بالعالم!‏\r\n\r\n");
         ASSERT_TRUE(docText.Contains(u"\u200f"));
     }
     else
     {
-        ASSERT_EQ(u"\ufeffHello world!\r\nשלום עולם!\r\nمرحبا بالعالم!\r\n\r\n", docText);
+        ASSERT_EQ(docText, u"\ufeffHello world!\r\nשלום עולם!\r\nمرحبا بالعالم!\r\n\r\n");
         ASSERT_FALSE(docText.Contains(u"\u200f"));
     }
     //ExEnd
@@ -247,17 +247,19 @@ void ExTxtSaveOptions::ExportHeadersFooters(Aspose::Words::Saving::TxtExportHead
     
     System::String docText = System::IO::File::ReadAllText(get_ArtifactsDir() + u"TxtSaveOptions.ExportHeadersFooters.txt");
     
-    System::String newLine = System::Environment::get_NewLine();
+    // ControlChar.CrLf is used as a paragraph break by default in text formats.
+    // This can be configured using TxtSaveOptions.ParagraphBreak.
+    System::String newLine = ControlChar::CrLf();
     switch (txtExportHeadersFootersMode)
     {
         case TxtExportHeadersFootersMode::AllAtEnd:
-            ASSERT_EQ(System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine) + System::String::Format(u"Even header{0}{1}", newLine, newLine) + System::String::Format(u"Primary header{0}{1}", newLine, newLine) + System::String::Format(u"Even footer{0}{1}", newLine, newLine) + System::String::Format(u"Primary footer{0}{1}", newLine, newLine), docText);
+            ASSERT_EQ(docText, System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine) + System::String::Format(u"Even header{0}{1}", newLine, newLine) + System::String::Format(u"Primary header{0}{1}", newLine, newLine) + System::String::Format(u"Even footer{0}{1}", newLine, newLine) + System::String::Format(u"Primary footer{0}{1}", newLine, newLine));
             break;
         case TxtExportHeadersFootersMode::PrimaryOnly:
-            ASSERT_EQ(System::String::Format(u"Primary header{0}", newLine) + System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine) + System::String::Format(u"Primary footer{0}", newLine), docText);
+            ASSERT_EQ(docText, System::String::Format(u"Primary header{0}", newLine) + System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine) + System::String::Format(u"Primary footer{0}", newLine));
             break;
         case TxtExportHeadersFootersMode::None:
-            ASSERT_EQ(System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine), docText);
+            ASSERT_EQ(docText, System::String::Format(u"Page 1{0}", newLine) + System::String::Format(u"Page 2{0}", newLine) + System::String::Format(u"Page 3{0}", newLine));
             break;
     }
     //ExEnd
@@ -325,9 +327,12 @@ void ExTxtSaveOptions::TxtListIndentation()
     doc->Save(get_ArtifactsDir() + u"TxtSaveOptions.TxtListIndentation.txt", txtSaveOptions);
     
     System::String docText = System::IO::File::ReadAllText(get_ArtifactsDir() + u"TxtSaveOptions.TxtListIndentation.txt");
-    System::String newLine = System::Environment::get_NewLine();
     
-    ASSERT_EQ(System::String::Format(u"1. Item 1{0}", newLine) + System::String::Format(u"   a. Item 2{0}", newLine) + System::String::Format(u"      i. Item 3{0}", newLine), docText);
+    // ControlChar.CrLf is used as a paragraph break by default in text formats.
+    // This can be configured using TxtSaveOptions.ParagraphBreak.
+    System::String newLine = ControlChar::CrLf();
+    
+    ASSERT_EQ(docText, System::String::Format(u"1. Item 1{0}", newLine) + System::String::Format(u"   a. Item 2{0}", newLine) + System::String::Format(u"      i. Item 3{0}", newLine));
     //ExEnd
 }
 
@@ -374,14 +379,16 @@ void ExTxtSaveOptions::SimplifyListLabels(bool simplifyListLabels)
     
     System::String docText = System::IO::File::ReadAllText(get_ArtifactsDir() + u"TxtSaveOptions.SimplifyListLabels.txt");
     
-    System::String newLine = System::Environment::get_NewLine();
+    // ControlChar.CrLf is used as a paragraph break by default in text formats.
+    // This can be configured using TxtSaveOptions.ParagraphBreak.
+    System::String newLine = ControlChar::CrLf();
     if (simplifyListLabels)
     {
-        ASSERT_EQ(System::String::Format(u"* Item 1{0}", newLine) + System::String::Format(u"  > Item 2{0}", newLine) + System::String::Format(u"    + Item 3{0}", newLine) + System::String::Format(u"      - Item 4{0}", newLine) + System::String::Format(u"        o Item 5{0}", newLine), docText);
+        ASSERT_EQ(docText, System::String::Format(u"* Item 1{0}", newLine) + System::String::Format(u"  > Item 2{0}", newLine) + System::String::Format(u"    + Item 3{0}", newLine) + System::String::Format(u"      - Item 4{0}", newLine) + System::String::Format(u"        o Item 5{0}", newLine));
     }
     else
     {
-        ASSERT_EQ(System::String::Format(u"· Item 1{0}", newLine) + System::String::Format(u"o Item 2{0}", newLine) + System::String::Format(u"§ Item 3{0}", newLine) + System::String::Format(u"· Item 4{0}", newLine) + System::String::Format(u"o Item 5{0}", newLine), docText);
+        ASSERT_EQ(docText, System::String::Format(u"· Item 1{0}", newLine) + System::String::Format(u"o Item 2{0}", newLine) + System::String::Format(u"§ Item 3{0}", newLine) + System::String::Format(u"· Item 4{0}", newLine) + System::String::Format(u"o Item 5{0}", newLine));
     }
     //ExEnd
 }
@@ -432,7 +439,7 @@ void ExTxtSaveOptions::ParagraphBreak()
     // to modify how we save the document to plaintext.
     auto txtSaveOptions = System::MakeObject<Aspose::Words::Saving::TxtSaveOptions>();
     
-    ASSERT_EQ(SaveFormat::Text, txtSaveOptions->get_SaveFormat());
+    ASSERT_EQ(txtSaveOptions->get_SaveFormat(), SaveFormat::Text);
     
     // Set the "ParagraphBreak" to a custom value that we wish to put at the end of every paragraph.
     txtSaveOptions->set_ParagraphBreak(u" End of paragraph.\n\n\t");
@@ -441,7 +448,7 @@ void ExTxtSaveOptions::ParagraphBreak()
     
     System::String docText = System::IO::File::ReadAllText(get_ArtifactsDir() + u"TxtSaveOptions.ParagraphBreak.txt");
     
-    ASSERT_EQ(System::String(u"Paragraph 1. End of paragraph.\n\n\t") + u"Paragraph 2. End of paragraph.\n\n\t" + u"Paragraph 3. End of paragraph.\n\n\t", docText);
+    ASSERT_EQ(docText, System::String(u"Paragraph 1. End of paragraph.\n\n\t") + u"Paragraph 2. End of paragraph.\n\n\t" + u"Paragraph 3. End of paragraph.\n\n\t");
     //ExEnd
 }
 
@@ -471,20 +478,20 @@ void ExTxtSaveOptions::Encoding()
     auto txtSaveOptions = System::MakeObject<Aspose::Words::Saving::TxtSaveOptions>();
     
     // Verify that the "Encoding" property contains the appropriate encoding for our document's contents.
-    ASPOSE_ASSERT_EQ(System::Text::Encoding::get_UTF8(), txtSaveOptions->get_Encoding());
+    ASPOSE_ASSERT_EQ(txtSaveOptions->get_Encoding(), System::Text::Encoding::get_UTF8());
     
     doc->Save(get_ArtifactsDir() + u"TxtSaveOptions.Encoding.UTF8.txt", txtSaveOptions);
     
     System::String docText = System::Text::Encoding::get_UTF8()->GetString(System::IO::File::ReadAllBytes(get_ArtifactsDir() + u"TxtSaveOptions.Encoding.UTF8.txt"));
     
-    ASSERT_EQ(u"\ufeffÀ È Ì Ò Ù.\r\n", docText);
+    ASSERT_EQ(docText, u"\ufeffÀ È Ì Ò Ù.\r\n");
     
     // Using an unsuitable encoding may result in a loss of document contents.
     txtSaveOptions->set_Encoding(System::Text::Encoding::get_ASCII());
     doc->Save(get_ArtifactsDir() + u"TxtSaveOptions.Encoding.ASCII.txt", txtSaveOptions);
     docText = System::Text::Encoding::get_ASCII()->GetString(System::IO::File::ReadAllBytes(get_ArtifactsDir() + u"TxtSaveOptions.Encoding.ASCII.txt"));
     
-    ASSERT_EQ(u"? ? ? ? ?.\r\n", docText);
+    ASSERT_EQ(docText, u"? ? ? ? ?.\r\n");
     //ExEnd
 }
 
@@ -534,11 +541,11 @@ void ExTxtSaveOptions::PreserveTableLayout(bool preserveTableLayout)
     
     if (preserveTableLayout)
     {
-        ASSERT_EQ((System::String(u"Row 1, cell 1                                            Row 1, cell 2\r\n") + u"Row 2, cell 1                                            Row 2, cell 2\r\n\r\n"), docText);
+        ASSERT_EQ(docText, (System::String(u"Row 1, cell 1                                            Row 1, cell 2\r\n") + u"Row 2, cell 1                                            Row 2, cell 2\r\n\r\n"));
     }
     else
     {
-        ASSERT_EQ((System::String(u"Row 1, cell 1\r") + u"Row 1, cell 2\r" + u"Row 2, cell 1\r" + u"Row 2, cell 2\r\r\n"), docText);
+        ASSERT_EQ(docText, (System::String(u"Row 1, cell 1\r") + u"Row 1, cell 2\r" + u"Row 2, cell 1\r" + u"Row 2, cell 2\r\r\n"));
     }
     //ExEnd
 }

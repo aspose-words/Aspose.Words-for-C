@@ -104,7 +104,7 @@ void ExXpsSaveOptions::OutlineLevels()
     // to modify how that method converts the document to .XPS.
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::XpsSaveOptions>();
     
-    ASSERT_EQ(SaveFormat::Xps, saveOptions->get_SaveFormat());
+    ASSERT_EQ(saveOptions->get_SaveFormat(), SaveFormat::Xps);
     
     // The output XPS document will contain an outline, a table of contents that lists headings in the document body.
     // Clicking on an entry in this outline will take us to the location of its respective heading.
@@ -242,8 +242,8 @@ void ExXpsSaveOptions::XpsDigitalSignature()
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::XpsSaveOptions>();
     saveOptions->set_DigitalSignatureDetails(digitalSignatureDetails);
     
-    ASPOSE_ASSERT_EQ(certificateHolder, digitalSignatureDetails->get_CertificateHolder());
-    ASSERT_EQ(u"Some comments", digitalSignatureDetails->get_SignOptions()->get_Comments());
+    ASPOSE_ASSERT_EQ(digitalSignatureDetails->get_CertificateHolder(), certificateHolder);
+    ASSERT_EQ(digitalSignatureDetails->get_SignOptions()->get_Comments(), u"Some comments");
     
     doc->Save(get_ArtifactsDir() + u"XpsSaveOptions.XpsDigitalSignature.docx", saveOptions);
     //ExEnd:XpsDigitalSignature

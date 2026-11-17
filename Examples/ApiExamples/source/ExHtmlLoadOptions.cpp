@@ -122,11 +122,11 @@ void ExHtmlLoadOptions::SupportVml(bool supportVml)
     
     if (supportVml)
     {
-        ASSERT_EQ(ImageType::Jpeg, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
+        ASSERT_EQ((System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType(), ImageType::Jpeg);
     }
     else
     {
-        ASSERT_EQ(ImageType::Png, (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType());
+        ASSERT_EQ((System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_ImageData()->get_ImageType(), ImageType::Png);
     }
     //ExEnd
     
@@ -178,7 +178,7 @@ void ExHtmlLoadOptions::WebRequestTimeout()
     
     // When loading an Html document with resources externally linked by a web address URL,
     // Aspose.Words will abort web requests that fail to fetch the resources within this time limit, in milliseconds.
-    ASSERT_EQ(100000, options->get_WebRequestTimeout());
+    ASSERT_EQ(options->get_WebRequestTimeout(), 100000);
     
     // Set a WarningCallback that will record all warnings that occur during loading.
     auto warningCallback = System::MakeObject<Aspose::Words::ApiExamples::ExHtmlLoadOptions::ListDocumentWarnings>();
@@ -191,21 +191,21 @@ void ExHtmlLoadOptions::WebRequestTimeout()
     // Set an unreasonable timeout limit and try load the document again.
     options->set_WebRequestTimeout(0);
     auto doc = System::MakeObject<Aspose::Words::Document>(System::MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(html)), options);
-    ASSERT_EQ(2, warningCallback->Warnings()->get_Count());
+    ASSERT_EQ(warningCallback->Warnings()->get_Count(), 2);
     
     // A web request that fails to obtain an image within the time limit will still produce an image.
     // However, the image will be the red 'x' that commonly signifies missing images.
     auto imageShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
-    ASSERT_EQ(924, imageShape->get_ImageData()->get_ImageBytes()->get_Length());
+    ASSERT_EQ(imageShape->get_ImageData()->get_ImageBytes()->get_Length(), 924);
     
     // We can also configure a custom callback to pick up any warnings from timed out web requests.
-    ASSERT_EQ(WarningSource::Html, warningCallback->Warnings()->idx_get(0)->get_Source());
-    ASSERT_EQ(WarningType::DataLoss, warningCallback->Warnings()->idx_get(0)->get_WarningType());
-    ASSERT_EQ(System::String::Format(u"Couldn't load a resource from \'{0}\'.", imageUri), warningCallback->Warnings()->idx_get(0)->get_Description());
+    ASSERT_EQ(warningCallback->Warnings()->idx_get(0)->get_Source(), WarningSource::Html);
+    ASSERT_EQ(warningCallback->Warnings()->idx_get(0)->get_WarningType(), WarningType::DataLoss);
+    ASSERT_EQ(warningCallback->Warnings()->idx_get(0)->get_Description(), System::String::Format(u"Couldn't load a resource from \'{0}\'.", imageUri));
     
-    ASSERT_EQ(WarningSource::Html, warningCallback->Warnings()->idx_get(1)->get_Source());
-    ASSERT_EQ(WarningType::DataLoss, warningCallback->Warnings()->idx_get(1)->get_WarningType());
-    ASSERT_EQ(u"Image has been replaced with a placeholder.", warningCallback->Warnings()->idx_get(1)->get_Description());
+    ASSERT_EQ(warningCallback->Warnings()->idx_get(1)->get_Source(), WarningSource::Html);
+    ASSERT_EQ(warningCallback->Warnings()->idx_get(1)->get_WarningType(), WarningType::DataLoss);
+    ASSERT_EQ(warningCallback->Warnings()->idx_get(1)->get_Description(), u"Image has been replaced with a placeholder.");
     
     doc->Save(get_ArtifactsDir() + u"HtmlLoadOptions.WebRequestTimeout.docx");
 }
@@ -235,11 +235,11 @@ void ExHtmlLoadOptions::LoadHtmlFixed()
     loadOptions->set_WarningCallback(warningCallback);
     
     doc = System::MakeObject<Aspose::Words::Document>(get_ArtifactsDir() + u"HtmlLoadOptions.Fixed.html", loadOptions);
-    ASSERT_EQ(1, warningCallback->Warnings()->get_Count());
+    ASSERT_EQ(warningCallback->Warnings()->get_Count(), 1);
     
-    ASSERT_EQ(WarningSource::Html, warningCallback->Warnings()->idx_get(0)->get_Source());
-    ASSERT_EQ(WarningType::MajorFormattingLoss, warningCallback->Warnings()->idx_get(0)->get_WarningType());
-    ASSERT_EQ(u"The document is fixed-page HTML. Its structure may not be loaded correctly.", warningCallback->Warnings()->idx_get(0)->get_Description());
+    ASSERT_EQ(warningCallback->Warnings()->idx_get(0)->get_Source(), WarningSource::Html);
+    ASSERT_EQ(warningCallback->Warnings()->idx_get(0)->get_WarningType(), WarningType::MajorFormattingLoss);
+    ASSERT_EQ(warningCallback->Warnings()->idx_get(0)->get_Description(), u"The document is fixed-page HTML. Its structure may not be loaded correctly.");
 }
 
 namespace gtest_test
@@ -273,11 +273,11 @@ void ExHtmlLoadOptions::EncryptedHtml()
     // password using a HtmlLoadOptions object.
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::HtmlLoadOptions>(u"docPassword");
     
-    ASSERT_EQ(signOptions->get_DecryptionPassword(), loadOptions->get_Password());
+    ASSERT_EQ(loadOptions->get_Password(), signOptions->get_DecryptionPassword());
     
     auto doc = System::MakeObject<Aspose::Words::Document>(outputFileName, loadOptions);
     
-    ASSERT_EQ(u"Test encrypted document.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Test encrypted document.");
     //ExEnd
 }
 
@@ -304,7 +304,7 @@ void ExHtmlLoadOptions::BaseUri()
     // We can provide a base URI using an HtmlLoadOptions object.
     auto loadOptions = System::MakeObject<Aspose::Words::Loading::HtmlLoadOptions>(LoadFormat::Html, u"", get_ImageDir());
     
-    ASSERT_EQ(LoadFormat::Html, loadOptions->get_LoadFormat());
+    ASSERT_EQ(loadOptions->get_LoadFormat(), LoadFormat::Html);
     
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Missing image.html", loadOptions);
     
@@ -348,10 +348,10 @@ void ExHtmlLoadOptions::GetSelectAsSdt()
     auto tag = System::ExplicitCast<Aspose::Words::Markup::StructuredDocumentTag>(nodes->idx_get(0));
     //ExEnd
     
-    ASSERT_EQ(2, tag->get_ListItems()->get_Count());
+    ASSERT_EQ(tag->get_ListItems()->get_Count(), 2);
     
-    ASSERT_EQ(u"val1", tag->get_ListItems()->idx_get(0)->get_Value());
-    ASSERT_EQ(u"val2", tag->get_ListItems()->idx_get(1)->get_Value());
+    ASSERT_EQ(tag->get_ListItems()->idx_get(0)->get_Value(), u"val1");
+    ASSERT_EQ(tag->get_ListItems()->idx_get(1)->get_Value(), u"val2");
 }
 
 namespace gtest_test
@@ -375,10 +375,10 @@ void ExHtmlLoadOptions::GetInputAsFormField()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::MakeObject<System::IO::MemoryStream>(System::Text::Encoding::get_UTF8()->GetBytes(html)), htmlLoadOptions);
     System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(NodeType::FormField, true);
     
-    ASSERT_EQ(1, nodes->get_Count());
+    ASSERT_EQ(nodes->get_Count(), 1);
     
     auto formField = System::ExplicitCast<Aspose::Words::Fields::FormField>(nodes->idx_get(0));
-    ASSERT_EQ(u"Input value text", formField->get_Result());
+    ASSERT_EQ(formField->get_Result(), u"Input value text");
 }
 
 namespace gtest_test
@@ -488,7 +488,7 @@ void ExHtmlLoadOptions::FontFaceRules()
     loadOptions->set_SupportFontFaceRules(true);
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Html with FontFace.html", loadOptions);
     
-    ASSERT_EQ(u"Squarish Sans CT Regular", doc->get_FontInfos()->idx_get(0)->get_Name());
+    ASSERT_EQ(doc->get_FontInfos()->idx_get(0)->get_Name(), u"Squarish Sans CT Regular");
     //ExEnd:FontFaceRules
 }
 

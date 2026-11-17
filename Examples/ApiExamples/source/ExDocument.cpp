@@ -27,6 +27,7 @@
 #include <system/collections/ienumerator.h>
 #include <system/collections/ienumerable.h>
 #include <system/array.h>
+#include <system/action.h>
 #include <security/cryptography/x509_certificates/x509_certificate_2.h>
 #include <security/cryptography/x509_certificates/x500_distinguished_name.h>
 #include <iostream>
@@ -225,31 +226,31 @@ RTTI_INFO_IMPL_HASH(4178396843u, ::Aspose::Words::ApiExamples::ExDocument, ThisT
 
 void ExDocument::TestFontChangeViaCallback(System::String log)
 {
-    ASSERT_EQ(10, System::Text::RegularExpressions::Regex::Matches(log, u"insertion")->get_Count());
-    ASSERT_EQ(5, System::Text::RegularExpressions::Regex::Matches(log, u"removal")->get_Count());
+    ASSERT_EQ(System::Text::RegularExpressions::Regex::Matches(log, u"insertion")->get_Count(), 10);
+    ASSERT_EQ(System::Text::RegularExpressions::Regex::Matches(log, u"removal")->get_Count(), 5);
 }
 
 void ExDocument::TestDocPackageCustomParts(System::SharedPtr<Aspose::Words::Markup::CustomPartCollection> parts)
 {
-    ASSERT_EQ(3, parts->get_Count());
+    ASSERT_EQ(parts->get_Count(), 3);
     
-    ASSERT_EQ(u"/payload/payload_on_package.test", parts->idx_get(0)->get_Name());
-    ASSERT_EQ(u"mytest/somedata", parts->idx_get(0)->get_ContentType());
-    ASSERT_EQ(u"http://mytest.payload.internal", parts->idx_get(0)->get_RelationshipType());
-    ASPOSE_ASSERT_EQ(false, parts->idx_get(0)->get_IsExternal());
-    ASSERT_EQ(18, parts->idx_get(0)->get_Data()->get_Length());
+    ASSERT_EQ(parts->idx_get(0)->get_Name(), u"/payload/payload_on_package.test");
+    ASSERT_EQ(parts->idx_get(0)->get_ContentType(), u"mytest/somedata");
+    ASSERT_EQ(parts->idx_get(0)->get_RelationshipType(), u"http://mytest.payload.internal");
+    ASPOSE_ASSERT_EQ(parts->idx_get(0)->get_IsExternal(), false);
+    ASSERT_EQ(parts->idx_get(0)->get_Data()->get_Length(), 18);
     
-    ASSERT_EQ(u"http://www.aspose.com/Images/aspose-logo.jpg", parts->idx_get(1)->get_Name());
-    ASSERT_EQ(u"", parts->idx_get(1)->get_ContentType());
-    ASSERT_EQ(u"http://mytest.payload.external", parts->idx_get(1)->get_RelationshipType());
-    ASPOSE_ASSERT_EQ(true, parts->idx_get(1)->get_IsExternal());
-    ASSERT_EQ(0, parts->idx_get(1)->get_Data()->get_Length());
+    ASSERT_EQ(parts->idx_get(1)->get_Name(), u"http://www.aspose.com/Images/aspose-logo.jpg");
+    ASSERT_EQ(parts->idx_get(1)->get_ContentType(), u"");
+    ASSERT_EQ(parts->idx_get(1)->get_RelationshipType(), u"http://mytest.payload.external");
+    ASPOSE_ASSERT_EQ(parts->idx_get(1)->get_IsExternal(), true);
+    ASSERT_EQ(parts->idx_get(1)->get_Data()->get_Length(), 0);
     
-    ASSERT_EQ(u"http://www.aspose.com/Images/aspose-logo.jpg", parts->idx_get(2)->get_Name());
-    ASSERT_EQ(u"", parts->idx_get(2)->get_ContentType());
-    ASSERT_EQ(u"http://mytest.payload.external", parts->idx_get(2)->get_RelationshipType());
-    ASPOSE_ASSERT_EQ(true, parts->idx_get(2)->get_IsExternal());
-    ASSERT_EQ(0, parts->idx_get(2)->get_Data()->get_Length());
+    ASSERT_EQ(parts->idx_get(2)->get_Name(), u"http://www.aspose.com/Images/aspose-logo.jpg");
+    ASSERT_EQ(parts->idx_get(2)->get_ContentType(), u"");
+    ASSERT_EQ(parts->idx_get(2)->get_RelationshipType(), u"http://mytest.payload.external");
+    ASPOSE_ASSERT_EQ(parts->idx_get(2)->get_IsExternal(), true);
+    ASSERT_EQ(parts->idx_get(2)->get_Data()->get_Length(), 0);
 }
 
 namespace gtest_test
@@ -327,13 +328,13 @@ void ExDocument::Constructor()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
     // Loaded documents will have contents that we can access and edit.
-    ASSERT_EQ(u"Hello World!", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim(), u"Hello World!");
     
     // Some operations that need to occur during loading, such as using a password to decrypt a document,
     // can be done by passing a LoadOptions object when loading the document.
     doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Encrypted.docx", System::MakeObject<Aspose::Words::Loading::LoadOptions>(u"docPassword"));
     
-    ASSERT_EQ(u"Test encrypted document.", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim(), u"Test encrypted document.");
     //ExEnd
 }
 
@@ -356,7 +357,7 @@ void ExDocument::LoadFromStream()
         System::SharedPtr<System::IO::Stream> stream = System::IO::File::OpenRead(get_MyDir() + u"Document.docx");
         auto doc = System::MakeObject<Aspose::Words::Document>(stream);
         
-        ASSERT_EQ(u"Hello World!\r\rHello Word!\r\r\rHello World!", doc->GetText().Trim());
+        ASSERT_EQ(doc->GetText().Trim(), u"Hello World!\r\rHello Word!\r\r\rHello World!");
     }
     //ExEnd
 }
@@ -423,7 +424,7 @@ TEST_F(ExDocument, SaveToImageStream)
 void ExDocument::DetectMobiDocumentFormat()
 {
     System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Document.mobi");
-    ASSERT_EQ(info->get_LoadFormat(), LoadFormat::Mobi);
+    ASSERT_EQ(LoadFormat::Mobi, info->get_LoadFormat());
 }
 
 namespace gtest_test
@@ -458,8 +459,8 @@ void ExDocument::OpenFromStreamWithBaseUri()
         
         ASSERT_TRUE(shape->get_IsImage());
         ASSERT_FALSE(System::TestTools::IsNull(shape->get_ImageData()->get_ImageBytes()));
-        ASSERT_NEAR(32.0, ConvertUtil::PointToPixel(shape->get_Width()), 0.01);
-        ASSERT_NEAR(32.0, ConvertUtil::PointToPixel(shape->get_Height()), 0.01);
+        ASSERT_NEAR(ConvertUtil::PointToPixel(shape->get_Width()), 32.0, 0.01);
+        ASSERT_NEAR(ConvertUtil::PointToPixel(shape->get_Height()), 32.0, 0.01);
     }
     //ExEnd
 }
@@ -485,10 +486,10 @@ void ExDocument::LoadEncrypted()
     System::SharedPtr<Aspose::Words::Document> doc;
     
     // Aspose.Words throw an exception if we try to open an encrypted document without its password.
-    ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&doc]() -> void
     {
         doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Encrypted.docx"));
-    })(), Aspose::Words::IncorrectPasswordException);
+    }))(), Aspose::Words::IncorrectPasswordException);
     
     // When loading such a document, the password is passed to the document's constructor using a LoadOptions object.
     auto options = System::MakeObject<Aspose::Words::Loading::LoadOptions>(u"docPassword");
@@ -496,14 +497,14 @@ void ExDocument::LoadEncrypted()
     // There are two ways of loading an encrypted document with a LoadOptions object.
     // 1 -  Load the document from the local file system by filename:
     doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"Encrypted.docx", options);
-    ASSERT_EQ(u"Test encrypted document.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Test encrypted document.");
     //ExSkip
     
     // 2 -  Load the document from a stream:
     {
         System::SharedPtr<System::IO::Stream> stream = System::IO::File::OpenRead(get_MyDir() + u"Encrypted.docx");
         doc = System::MakeObject<Aspose::Words::Document>(stream, options);
-        ASSERT_EQ(u"Test encrypted document.", doc->GetText().Trim());
+        ASSERT_EQ(doc->GetText().Trim(), u"Test encrypted document.");
         //ExSkip
     }
     //ExEnd
@@ -530,8 +531,8 @@ void ExDocument::NotSupportedWarning()
     loadOptions->set_WarningCallback(warnings);
     auto doc = System::MakeObject<Aspose::Words::Document>(get_MyDir() + u"FB2 document.fb2", loadOptions);
     
-    ASSERT_EQ((u"The original file load format is FB2, which is not supported by Aspose.Words. The file is loaded as an XML document."), warnings->idx_get(0)->get_Description());
-    ASSERT_EQ(1, warnings->get_Count());
+    ASSERT_EQ(warnings->idx_get(0)->get_Description(), (u"The original file load format is FB2, which is not supported by Aspose.Words. The file is loaded as an XML document."));
+    ASSERT_EQ(warnings->get_Count(), 1);
     //ExEnd
 }
 
@@ -653,7 +654,7 @@ void ExDocument::SaveToStream()
         doc->Save(dstStream, SaveFormat::Docx);
         
         // Verify that the stream contains the document.
-        ASSERT_EQ(u"Hello World!\r\rHello Word!\r\r\rHello World!", System::MakeObject<Aspose::Words::Document>(dstStream)->GetText().Trim());
+        ASSERT_EQ(System::MakeObject<Aspose::Words::Document>(dstStream)->GetText().Trim(), u"Hello World!\r\rHello Word!\r\r\rHello World!");
     }
     //ExEnd
 }
@@ -714,7 +715,7 @@ void ExDocument::AppendDocument()
     // Append the source document to the destination document while preserving its formatting,
     // then save the source document to the local file system.
     dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting);
-    ASSERT_EQ(2, dstDoc->get_Sections()->get_Count());
+    ASSERT_EQ(dstDoc->get_Sections()->get_Count(), 2);
     //ExSkip
     
     dstDoc->Save(get_ArtifactsDir() + u"Document.AppendDocument.docx");
@@ -748,10 +749,10 @@ void ExDocument::AppendDocumentFromAutomation()
     {
         auto srcDoc = System::MakeObject<Aspose::Words::Document>();
         
-        ASSERT_THROW(static_cast<std::function<void()>>([]() -> void
+        ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([]() -> void
         {
             System::MakeObject<Aspose::Words::Document>(System::String(u"C:\\DetailsList.doc"));
-        })(), System::IO::FileNotFoundException);
+        }))(), System::IO::FileNotFoundException);
         
         // Append the source document at the end of the destination document.
         doc->AppendDocument(srcDoc, ImportFormatMode::UseDestinationStyles);
@@ -763,10 +764,10 @@ void ExDocument::AppendDocumentFromAutomation()
         // if this is the second document or above being appended.
         if (i > 1)
         {
-            ASSERT_THROW(static_cast<std::function<void()>>([&i, &doc]() -> void
+            ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&i, &doc]() -> void
             {
                 doc->get_Sections()->idx_get(i)->get_HeadersFooters()->LinkToPrevious(false);
-            })(), System::NullReferenceException);
+            }))(), System::NullReferenceException);
         }
     }
 }
@@ -789,7 +790,7 @@ void ExDocument::ImportList(bool isKeepSourceNumbering)
     auto srcDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List source.docx"));
     auto dstDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"List destination.docx"));
     
-    ASSERT_EQ(4, dstDoc->get_Lists()->get_Count());
+    ASSERT_EQ(dstDoc->get_Lists()->get_Count(), 4);
     
     auto options = System::MakeObject<Aspose::Words::ImportFormatOptions>();
     
@@ -802,7 +803,7 @@ void ExDocument::ImportList(bool isKeepSourceNumbering)
     dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting, options);
     dstDoc->UpdateListLabels();
     
-    ASSERT_EQ(isKeepSourceNumbering ? 5 : 4, dstDoc->get_Lists()->get_Count());
+    ASSERT_EQ(dstDoc->get_Lists()->get_Count(), isKeepSourceNumbering ? 5 : 4);
     //ExEnd
 }
 
@@ -854,7 +855,7 @@ void ExDocument::KeepSourceNumberingSameListIds()
     System::String paraText = dstDoc->get_Sections()->idx_get(1)->get_Body()->get_LastParagraph()->GetText();
     
     ASSERT_TRUE(paraText.StartsWith(u"13->13")) << (paraText);
-    ASSERT_EQ(u"1.", dstDoc->get_Sections()->idx_get(1)->get_Body()->get_LastParagraph()->get_ListLabel()->get_LabelString());
+    ASSERT_EQ(dstDoc->get_Sections()->idx_get(1)->get_Body()->get_LastParagraph()->get_ListLabel()->get_LabelString(), u"1.");
 }
 
 namespace gtest_test
@@ -910,9 +911,9 @@ void ExDocument::ForceCopyStyles()
     
     System::SharedPtr<Aspose::Words::ParagraphCollection> paras = dstDoc->get_Sections()->idx_get(1)->get_Body()->get_Paragraphs();
     
-    ASSERT_EQ(paras->idx_get(0)->get_ParagraphFormat()->get_Style()->get_Name(), u"MyStyle1_0");
-    ASSERT_EQ(paras->idx_get(1)->get_ParagraphFormat()->get_Style()->get_Name(), u"MyStyle2_0");
-    ASSERT_EQ(paras->idx_get(2)->get_ParagraphFormat()->get_Style()->get_Name(), u"MyStyle3");
+    ASSERT_EQ(u"MyStyle1_0", paras->idx_get(0)->get_ParagraphFormat()->get_Style()->get_Name());
+    ASSERT_EQ(u"MyStyle2_0", paras->idx_get(1)->get_ParagraphFormat()->get_Style()->get_Name());
+    ASSERT_EQ(u"MyStyle3", paras->idx_get(2)->get_ParagraphFormat()->get_Style()->get_Name());
     //ExEnd
 }
 
@@ -944,7 +945,7 @@ void ExDocument::AdjustSentenceAndWordSpacing()
     options->set_AdjustSentenceAndWordSpacing(true);
     builder->InsertDocument(srcDoc, ImportFormatMode::UseDestinationStyles, options);
     
-    ASSERT_EQ(u"Lorem ipsum. Dolor sit amet.", dstDoc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim());
+    ASSERT_EQ(dstDoc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim(), u"Lorem ipsum. Dolor sit amet.");
     //ExEnd
 }
 
@@ -984,13 +985,13 @@ void ExDocument::ValidateIndividualDocumentSignatures()
     }
     //ExEnd
     
-    ASSERT_EQ(1, doc->get_DigitalSignatures()->get_Count());
+    ASSERT_EQ(doc->get_DigitalSignatures()->get_Count(), 1);
     
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignature> digitalSig = doc->get_DigitalSignatures()->idx_get(0);
     
     ASSERT_TRUE(digitalSig->get_IsValid());
-    ASSERT_EQ(u"Test Sign", digitalSig->get_Comments());
-    ASSERT_EQ(u"XmlDsig", System::ObjectExt::ToString(digitalSig->get_SignatureType()));
+    ASSERT_EQ(digitalSig->get_Comments(), u"Test Sign");
+    ASSERT_EQ(System::ObjectExt::ToString(digitalSig->get_SignatureType()), u"XmlDsig");
     ASSERT_TRUE(digitalSig->get_CertificateHolder()->get_Certificate()->get_Subject().Contains(u"Aspose Pty Ltd"));
     ASSERT_TRUE(digitalSig->get_CertificateHolder()->get_Certificate()->get_IssuerName()->get_Name() != nullptr && digitalSig->get_CertificateHolder()->get_Certificate()->get_IssuerName()->get_Name().Contains(u"VeriSign"));
 }
@@ -1050,10 +1051,10 @@ void ExDocument::DigitalSignature()
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignatureCollection> digitalSignatureCollection = signedDoc->get_DigitalSignatures();
     
     ASSERT_TRUE(digitalSignatureCollection->get_IsValid());
-    ASSERT_EQ(1, digitalSignatureCollection->get_Count());
-    ASSERT_EQ(DigitalSignatureType::XmlDsig, digitalSignatureCollection->idx_get(0)->get_SignatureType());
-    ASSERT_EQ(u"CN=Morzal.Me", signedDoc->get_DigitalSignatures()->idx_get(0)->get_IssuerName());
-    ASSERT_EQ(u"CN=Morzal.Me", signedDoc->get_DigitalSignatures()->idx_get(0)->get_SubjectName());
+    ASSERT_EQ(digitalSignatureCollection->get_Count(), 1);
+    ASSERT_EQ(digitalSignatureCollection->idx_get(0)->get_SignatureType(), DigitalSignatureType::XmlDsig);
+    ASSERT_EQ(signedDoc->get_DigitalSignatures()->idx_get(0)->get_IssuerName(), u"CN=Morzal.Me");
+    ASSERT_EQ(signedDoc->get_DigitalSignatures()->idx_get(0)->get_SubjectName(), u"CN=Morzal.Me");
     //ExEnd
 }
 
@@ -1077,7 +1078,7 @@ void ExDocument::SignatureValue()
     for (auto&& digitalSignature : doc->get_DigitalSignatures())
     {
         System::String signatureValue = System::Convert::ToBase64String(digitalSignature->get_SignatureValue());
-        ASSERT_EQ(System::String(u"K1cVLLg2kbJRAzT5WK+m++G8eEO+l7S+5ENdjMxxTXkFzGUfvwxREuJdSFj9AbD") + u"MhnGvDURv9KEhC25DDF1al8NRVR71TF3CjHVZXpYu7edQS5/yLw/k5CiFZzCp1+MmhOdYPcVO+Fm" + u"+9fKr2iNLeyYB+fgEeZHfTqTFM2WwAqo=", signatureValue);
+        ASSERT_EQ(signatureValue, System::String(u"K1cVLLg2kbJRAzT5WK+m++G8eEO+l7S+5ENdjMxxTXkFzGUfvwxREuJdSFj9AbD") + u"MhnGvDURv9KEhC25DDF1al8NRVR71TF3CjHVZXpYu7edQS5/yLw/k5CiFZzCp1+MmhOdYPcVO+Fm" + u"+9fKr2iNLeyYB+fgEeZHfTqTFM2WwAqo=");
     }
     //ExEnd
 }
@@ -1104,9 +1105,9 @@ void ExDocument::AppendAllDocumentsInFolder()
     builder->Writeln(u"Template Document");
     builder->get_ParagraphFormat()->set_StyleIdentifier(StyleIdentifier::Normal);
     builder->Writeln(u"Some content here");
-    ASSERT_EQ(5, dstDoc->get_Styles()->get_Count());
+    ASSERT_EQ(dstDoc->get_Styles()->get_Count(), 5);
     //ExSkip
-    ASSERT_EQ(1, dstDoc->get_Sections()->get_Count());
+    ASSERT_EQ(dstDoc->get_Sections()->get_Count(), 1);
     //ExSkip
     
     // Append all unencrypted documents with the .doc extension
@@ -1130,8 +1131,8 @@ void ExDocument::AppendAllDocumentsInFolder()
     dstDoc->Save(get_ArtifactsDir() + u"Document.AppendAllDocumentsInFolder.doc");
     //ExEnd
     
-    ASSERT_EQ(7, dstDoc->get_Styles()->get_Count());
-    ASSERT_EQ(10, dstDoc->get_Sections()->get_Count());
+    ASSERT_EQ(dstDoc->get_Styles()->get_Count(), 7);
+    ASSERT_EQ(dstDoc->get_Sections()->get_Count(), 10);
 }
 
 namespace gtest_test
@@ -1155,14 +1156,14 @@ void ExDocument::JoinRunsWithSameFormatting()
     
     // If any number of these runs are adjacent with identical formatting,
     // then the document may be simplified.
-    ASSERT_EQ(317, doc->GetChildNodes(NodeType::Run, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Run, true)->get_Count(), 317);
     
     // Combine such runs with this method and verify the number of run joins that will take place.
-    ASSERT_EQ(121, doc->JoinRunsWithSameFormatting());
+    ASSERT_EQ(doc->JoinRunsWithSameFormatting(), 121);
     
     // The number of joins and the number of runs we have after the join
     // should add up the number of runs we had initially.
-    ASSERT_EQ(196, doc->GetChildNodes(NodeType::Run, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Run, true)->get_Count(), 196);
     //ExEnd
 }
 
@@ -1195,7 +1196,7 @@ void ExDocument::DefaultTabStop()
     //ExEnd
     
     doc = DocumentHelper::SaveOpen(doc);
-    ASPOSE_ASSERT_EQ(72, doc->get_DefaultTabStop());
+    ASPOSE_ASSERT_EQ(doc->get_DefaultTabStop(), 72);
 }
 
 namespace gtest_test
@@ -1222,8 +1223,8 @@ void ExDocument::CloneDocument()
     // but with a unique copy of each of the original document's nodes.
     System::SharedPtr<Aspose::Words::Document> clone = doc->Clone();
     
-    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->GetText(), clone->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text());
-    ASSERT_NE(System::ObjectExt::GetHashCode(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)), System::ObjectExt::GetHashCode(clone->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)));
+    ASSERT_EQ(clone->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->get_Text(), doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)->GetText());
+    ASSERT_NE(System::ObjectExt::GetHashCode(clone->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)), System::ObjectExt::GetHashCode(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs()->idx_get(0)));
     //ExEnd
 }
 
@@ -1249,10 +1250,10 @@ void ExDocument::DocumentGetTextToString()
     builder->InsertField(u"MERGEFIELD Field");
     
     // GetText will retrieve the visible text as well as field codes and special characters.
-    ASSERT_EQ(u"\u0013MERGEFIELD Field\u0014«Field»\u0015", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"\u0013MERGEFIELD Field\u0014«Field»\u0015");
     
     // ToString will give us the document's appearance if saved to a passed save format.
-    ASSERT_EQ(u"«Field»", doc->ToString(SaveFormat::Text).Trim());
+    ASSERT_EQ(doc->ToString(SaveFormat::Text).Trim(), u"«Field»");
     //ExEnd
 }
 
@@ -1277,7 +1278,7 @@ void ExDocument::ProtectUnprotect()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     doc->Protect(ProtectionType::ReadOnly, u"password");
     
-    ASSERT_EQ(ProtectionType::ReadOnly, doc->get_ProtectionType());
+    ASSERT_EQ(doc->get_ProtectionType(), ProtectionType::ReadOnly);
     
     // If we open this document with Microsoft Word intending to edit it,
     // we will need to apply the password to get through the protection.
@@ -1287,31 +1288,31 @@ void ExDocument::ProtectUnprotect()
     // We have not encrypted the document in any way, and we do not need the password to open and edit it programmatically.
     auto protectedDoc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.Protect.docx"));
     
-    ASSERT_EQ(ProtectionType::ReadOnly, protectedDoc->get_ProtectionType());
+    ASSERT_EQ(protectedDoc->get_ProtectionType(), ProtectionType::ReadOnly);
     
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(protectedDoc);
     builder->Writeln(u"Text added to a protected document.");
-    ASSERT_EQ(u"Text added to a protected document.", protectedDoc->get_Range()->get_Text().Trim());
+    ASSERT_EQ(protectedDoc->get_Range()->get_Text().Trim(), u"Text added to a protected document.");
     //ExSkip
     
     // There are two ways of removing protection from a document.
     // 1 - With no password:
     doc->Unprotect();
     
-    ASSERT_EQ(ProtectionType::NoProtection, doc->get_ProtectionType());
+    ASSERT_EQ(doc->get_ProtectionType(), ProtectionType::NoProtection);
     
     doc->Protect(ProtectionType::ReadOnly, u"NewPassword");
     
-    ASSERT_EQ(ProtectionType::ReadOnly, doc->get_ProtectionType());
+    ASSERT_EQ(doc->get_ProtectionType(), ProtectionType::ReadOnly);
     
     doc->Unprotect(u"WrongPassword");
     
-    ASSERT_EQ(ProtectionType::ReadOnly, doc->get_ProtectionType());
+    ASSERT_EQ(doc->get_ProtectionType(), ProtectionType::ReadOnly);
     
     // 2 - With the correct password:
     doc->Unprotect(u"NewPassword");
     
-    ASSERT_EQ(ProtectionType::NoProtection, doc->get_ProtectionType());
+    ASSERT_EQ(doc->get_ProtectionType(), ProtectionType::NoProtection);
     //ExEnd
 }
 
@@ -1335,32 +1336,32 @@ void ExDocument::DocumentEnsureMinimum()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     System::SharedPtr<Aspose::Words::NodeCollection> nodes = doc->GetChildNodes(NodeType::Any, true);
     
-    ASSERT_EQ(NodeType::Section, nodes->idx_get(0)->get_NodeType());
-    ASPOSE_ASSERT_EQ(doc, nodes->idx_get(0)->get_ParentNode());
+    ASSERT_EQ(nodes->idx_get(0)->get_NodeType(), NodeType::Section);
+    ASPOSE_ASSERT_EQ(nodes->idx_get(0)->get_ParentNode(), doc);
     
-    ASSERT_EQ(NodeType::Body, nodes->idx_get(1)->get_NodeType());
-    ASPOSE_ASSERT_EQ(nodes->idx_get(0), nodes->idx_get(1)->get_ParentNode());
+    ASSERT_EQ(nodes->idx_get(1)->get_NodeType(), NodeType::Body);
+    ASPOSE_ASSERT_EQ(nodes->idx_get(1)->get_ParentNode(), nodes->idx_get(0));
     
-    ASSERT_EQ(NodeType::Paragraph, nodes->idx_get(2)->get_NodeType());
-    ASPOSE_ASSERT_EQ(nodes->idx_get(1), nodes->idx_get(2)->get_ParentNode());
+    ASSERT_EQ(nodes->idx_get(2)->get_NodeType(), NodeType::Paragraph);
+    ASPOSE_ASSERT_EQ(nodes->idx_get(2)->get_ParentNode(), nodes->idx_get(1));
     
     // This is the minimal set of nodes that we need to be able to edit the document.
     // We will no longer be able to edit the document if we remove any of them.
     doc->RemoveAllChildren();
     
-    ASSERT_EQ(0, doc->GetChildNodes(NodeType::Any, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Any, true)->get_Count(), 0);
     
     // Call this method to make sure that the document has at least those three nodes so we can edit it again.
     doc->EnsureMinimum();
     
-    ASSERT_EQ(NodeType::Section, nodes->idx_get(0)->get_NodeType());
-    ASSERT_EQ(NodeType::Body, nodes->idx_get(1)->get_NodeType());
-    ASSERT_EQ(NodeType::Paragraph, nodes->idx_get(2)->get_NodeType());
+    ASSERT_EQ(nodes->idx_get(0)->get_NodeType(), NodeType::Section);
+    ASSERT_EQ(nodes->idx_get(1)->get_NodeType(), NodeType::Body);
+    ASSERT_EQ(nodes->idx_get(2)->get_NodeType(), NodeType::Paragraph);
     
     (System::ExplicitCast<Aspose::Words::Paragraph>(nodes->idx_get(2)))->get_Runs()->Add(System::MakeObject<Aspose::Words::Run>(doc, u"Hello world!"));
     //ExEnd
     
-    ASSERT_EQ(u"Hello world!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world!");
 }
 
 namespace gtest_test
@@ -1381,7 +1382,7 @@ void ExDocument::RemoveMacrosFromDocument()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Macro.docm"));
     
     ASSERT_TRUE(doc->get_HasMacros());
-    ASSERT_EQ(u"Project", doc->get_VbaProject()->get_Name());
+    ASSERT_EQ(doc->get_VbaProject()->get_Name(), u"Project");
     
     // Remove the document's VBA project, along with all its macros.
     doc->RemoveMacros();
@@ -1416,7 +1417,7 @@ void ExDocument::GetPageCount()
     builder->Write(u"Page 3");
     
     // Verify the expected page count of the document.
-    ASSERT_EQ(3, doc->get_PageCount());
+    ASSERT_EQ(doc->get_PageCount(), 3);
     
     // Getting the PageCount property invoked the document's page layout to calculate the value.
     // This operation will not need to be re-done when rendering the document to a fixed page save format,
@@ -1452,24 +1453,24 @@ void ExDocument::GetUpdatedPageProperties()
     builder->Write(System::String(u"Ut enim ad minim veniam, ") + u"quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
     
     // Aspose.Words does not track document metrics like these in real time.
-    ASSERT_EQ(0, doc->get_BuiltInDocumentProperties()->get_Characters());
-    ASSERT_EQ(0, doc->get_BuiltInDocumentProperties()->get_Words());
-    ASSERT_EQ(1, doc->get_BuiltInDocumentProperties()->get_Paragraphs());
-    ASSERT_EQ(1, doc->get_BuiltInDocumentProperties()->get_Lines());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Characters(), 0);
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Words(), 0);
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Paragraphs(), 1);
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Lines(), 1);
     
     // To get accurate values for three of these properties, we will need to update them manually.
     doc->UpdateWordCount();
     
-    ASSERT_EQ(196, doc->get_BuiltInDocumentProperties()->get_Characters());
-    ASSERT_EQ(36, doc->get_BuiltInDocumentProperties()->get_Words());
-    ASSERT_EQ(2, doc->get_BuiltInDocumentProperties()->get_Paragraphs());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Characters(), 196);
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Words(), 36);
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Paragraphs(), 2);
     
     // For the line count, we will need to call a specific overload of the updating method.
-    ASSERT_EQ(1, doc->get_BuiltInDocumentProperties()->get_Lines());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Lines(), 1);
     
     doc->UpdateWordCount(true);
     
-    ASSERT_EQ(4, doc->get_BuiltInDocumentProperties()->get_Lines());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Lines(), 4);
     //ExEnd
 }
 
@@ -1491,8 +1492,8 @@ void ExDocument::GetOriginalFileInfo()
     //ExSummary:Shows how to retrieve details of a document's load operation.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
-    ASSERT_EQ(get_MyDir() + u"Document.docx", doc->get_OriginalFileName());
-    ASSERT_EQ(LoadFormat::Docx, doc->get_OriginalLoadFormat());
+    ASSERT_EQ(doc->get_OriginalFileName(), get_MyDir() + u"Document.docx");
+    ASSERT_EQ(doc->get_OriginalLoadFormat(), LoadFormat::Docx);
     //ExEnd
 }
 
@@ -1513,7 +1514,7 @@ void ExDocument::FootnoteColumns()
     //ExFor:FootnoteOptions.Columns
     //ExSummary:Shows how to split the footnote section into a given number of columns.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Footnotes and endnotes.docx"));
-    ASSERT_EQ(0, doc->get_FootnoteOptions()->get_Columns());
+    ASSERT_EQ(doc->get_FootnoteOptions()->get_Columns(), 0);
     //ExSkip
     
     doc->get_FootnoteOptions()->set_Columns(2);
@@ -1522,7 +1523,7 @@ void ExDocument::FootnoteColumns()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.FootnoteColumns.docx"));
     
-    ASSERT_EQ(2, doc->get_FirstSection()->get_PageSetup()->get_FootnoteOptions()->get_Columns());
+    ASSERT_EQ(doc->get_FirstSection()->get_PageSetup()->get_FootnoteOptions()->get_Columns(), 2);
 }
 
 namespace gtest_test
@@ -1578,7 +1579,7 @@ void ExDocument::UpdateThumbnail()
     
     // 2 -  Use the first image found in the document:
     auto options = System::MakeObject<Aspose::Words::Rendering::ThumbnailGeneratingOptions>();
-    ASPOSE_ASSERT_EQ(System::Drawing::Size(600, 900), options->get_ThumbnailSize());
+    ASPOSE_ASSERT_EQ(options->get_ThumbnailSize(), System::Drawing::Size(600, 900));
     //ExSkip
     ASSERT_TRUE(options->get_GenerateFromFirstPage());
     //ExSkip
@@ -1624,10 +1625,10 @@ void ExDocument::HyphenationOptions()
     doc->Save(get_ArtifactsDir() + u"Document.HyphenationOptions.docx");
     //ExEnd
     
-    ASPOSE_ASSERT_EQ(true, doc->get_HyphenationOptions()->get_AutoHyphenation());
-    ASSERT_EQ(2, doc->get_HyphenationOptions()->get_ConsecutiveHyphenLimit());
-    ASSERT_EQ(720, doc->get_HyphenationOptions()->get_HyphenationZone());
-    ASPOSE_ASSERT_EQ(true, doc->get_HyphenationOptions()->get_HyphenateCaps());
+    ASPOSE_ASSERT_EQ(doc->get_HyphenationOptions()->get_AutoHyphenation(), true);
+    ASSERT_EQ(doc->get_HyphenationOptions()->get_ConsecutiveHyphenLimit(), 2);
+    ASSERT_EQ(doc->get_HyphenationOptions()->get_HyphenationZone(), 720);
+    ASPOSE_ASSERT_EQ(doc->get_HyphenationOptions()->get_HyphenateCaps(), true);
     
     ASSERT_TRUE(DocumentHelper::CompareDocs(get_ArtifactsDir() + u"Document.HyphenationOptions.docx", get_GoldsDir() + u"Document.HyphenationOptions Gold.docx"));
 }
@@ -1647,11 +1648,11 @@ void ExDocument::HyphenationOptionsDefaultValues()
     auto doc = System::MakeObject<Aspose::Words::Document>();
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASPOSE_ASSERT_EQ(false, doc->get_HyphenationOptions()->get_AutoHyphenation());
-    ASSERT_EQ(0, doc->get_HyphenationOptions()->get_ConsecutiveHyphenLimit());
-    ASSERT_EQ(360, doc->get_HyphenationOptions()->get_HyphenationZone());
+    ASPOSE_ASSERT_EQ(doc->get_HyphenationOptions()->get_AutoHyphenation(), false);
+    ASSERT_EQ(doc->get_HyphenationOptions()->get_ConsecutiveHyphenLimit(), 0);
+    ASSERT_EQ(doc->get_HyphenationOptions()->get_HyphenationZone(), 360);
     // 0.25 inch
-    ASPOSE_ASSERT_EQ(true, doc->get_HyphenationOptions()->get_HyphenateCaps());
+    ASPOSE_ASSERT_EQ(doc->get_HyphenationOptions()->get_HyphenateCaps(), true);
 }
 
 namespace gtest_test
@@ -1668,10 +1669,10 @@ void ExDocument::HyphenationZoneException()
 {
     auto doc = System::MakeObject<Aspose::Words::Document>();
     
-    ASSERT_THROW(static_cast<std::function<void()>>([&doc]() -> void
+    ASSERT_THROW(System::Action<>(static_cast<std::function<void()>>([&doc]() -> void
     {
         doc->get_HyphenationOptions()->set_HyphenationZone(0);
-    })(), System::ArgumentOutOfRangeException);
+    }))(), System::ArgumentOutOfRangeException);
 }
 
 namespace gtest_test
@@ -1691,10 +1692,10 @@ void ExDocument::OoxmlComplianceVersion()
     //ExSummary:Shows how to read a loaded document's Open Office XML compliance version.
     // The compliance version varies between documents created by different versions of Microsoft Word.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.doc"));
-    ASSERT_EQ(doc->get_Compliance(), OoxmlCompliance::Ecma376_2006);
+    ASSERT_EQ(OoxmlCompliance::Ecma376_2006, doc->get_Compliance());
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
-    ASSERT_EQ(doc->get_Compliance(), OoxmlCompliance::Iso29500_2008_Transitional);
+    ASSERT_EQ(OoxmlCompliance::Iso29500_2008_Transitional, doc->get_Compliance());
     //ExEnd
 }
 
@@ -1764,7 +1765,7 @@ void ExDocument::Cleanup()
     // Combined with the built-in styles, the document now has eight styles.
     // A custom style counts as "used" while applied to some part of the document,
     // which means that the four styles we added are currently unused.
-    ASSERT_EQ(8, doc->get_Styles()->get_Count());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 8);
     
     // Apply a custom character style, and then a custom list style. Doing so will mark the styles as "used".
     auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
@@ -1778,14 +1779,14 @@ void ExDocument::Cleanup()
     
     doc->Cleanup();
     
-    ASSERT_EQ(6, doc->get_Styles()->get_Count());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 6);
     
     // Removing every node that a custom style is applied to marks it as "unused" again.
     // Run the Cleanup method again to remove them.
     doc->get_FirstSection()->get_Body()->RemoveAllChildren();
     doc->Cleanup();
     
-    ASSERT_EQ(4, doc->get_Styles()->get_Count());
+    ASSERT_EQ(doc->get_Styles()->get_Count(), 4);
     //ExEnd
 }
 
@@ -1808,7 +1809,7 @@ void ExDocument::AutomaticallyUpdateStyles()
     
     // Microsoft Word documents by default come with an attached template called "Normal.dotm".
     // There is no default template for blank Aspose.Words documents.
-    ASSERT_EQ(System::String::Empty, doc->get_AttachedTemplate());
+    ASSERT_EQ(doc->get_AttachedTemplate(), System::String::Empty);
     
     // Attach a template, then set the flag to apply style changes
     // within the template to styles in our document.
@@ -1821,7 +1822,7 @@ void ExDocument::AutomaticallyUpdateStyles()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.AutomaticallyUpdateStyles.docx"));
     
     ASSERT_TRUE(doc->get_AutomaticallyUpdateStyles());
-    ASSERT_EQ(get_MyDir() + u"Business brochure.dotx", doc->get_AttachedTemplate());
+    ASSERT_EQ(doc->get_AttachedTemplate(), get_MyDir() + u"Business brochure.dotx");
     ASSERT_TRUE(System::IO::File::Exists(doc->get_AttachedTemplate()));
 }
 
@@ -1848,7 +1849,7 @@ void ExDocument::DefaultTemplate()
     // Enable automatic style updating, but do not attach a template document.
     doc->set_AutomaticallyUpdateStyles(true);
     
-    ASSERT_EQ(System::String::Empty, doc->get_AttachedTemplate());
+    ASSERT_EQ(doc->get_AttachedTemplate(), System::String::Empty);
     
     // Since there is no template document, the document had nowhere to track style changes.
     // Use a SaveOptions object to automatically set a template
@@ -1894,7 +1895,7 @@ void ExDocument::UseSubstitutions()
     
     doc->get_Range()->Replace(regex, u"$2 took money from $1", options);
     
-    ASSERT_EQ(doc->GetText(), u"Paul took money from Jason.\f");
+    ASSERT_EQ(u"Paul took money from Jason.\f", doc->GetText());
     //ExEnd
 }
 
@@ -1920,29 +1921,29 @@ void ExDocument::SetInvalidateFieldTypes()
     System::SharedPtr<Aspose::Words::Fields::Field> field = builder->InsertField(u"DATE", nullptr);
     
     // Aspose.Words automatically detects field types based on field codes.
-    ASSERT_EQ(FieldType::FieldDate, field->get_Type());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldDate);
     
     // Manually change the raw text of the field, which determines the field code.
     auto fieldText = System::ExplicitCast<Aspose::Words::Run>(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetChildNodes(NodeType::Run, true)->idx_get(0));
-    ASSERT_EQ(u"DATE", fieldText->get_Text());
+    ASSERT_EQ(fieldText->get_Text(), u"DATE");
     //ExSkip
     fieldText->set_Text(u"PAGE");
     
     // Changing the field code has changed this field to one of a different type,
     // but the field's type properties still display the old type.
-    ASSERT_EQ(u"PAGE", field->GetFieldCode());
-    ASSERT_EQ(FieldType::FieldDate, field->get_Type());
-    ASSERT_EQ(FieldType::FieldDate, field->get_Start()->get_FieldType());
-    ASSERT_EQ(FieldType::FieldDate, field->get_Separator()->get_FieldType());
-    ASSERT_EQ(FieldType::FieldDate, field->get_End()->get_FieldType());
+    ASSERT_EQ(field->GetFieldCode(), u"PAGE");
+    ASSERT_EQ(field->get_Type(), FieldType::FieldDate);
+    ASSERT_EQ(field->get_Start()->get_FieldType(), FieldType::FieldDate);
+    ASSERT_EQ(field->get_Separator()->get_FieldType(), FieldType::FieldDate);
+    ASSERT_EQ(field->get_End()->get_FieldType(), FieldType::FieldDate);
     
     // Update those properties with this method to display current value.
     doc->NormalizeFieldTypes();
     
-    ASSERT_EQ(FieldType::FieldPage, field->get_Type());
-    ASSERT_EQ(FieldType::FieldPage, field->get_Start()->get_FieldType());
-    ASSERT_EQ(FieldType::FieldPage, field->get_Separator()->get_FieldType());
-    ASSERT_EQ(FieldType::FieldPage, field->get_End()->get_FieldType());
+    ASSERT_EQ(field->get_Type(), FieldType::FieldPage);
+    ASSERT_EQ(field->get_Start()->get_FieldType(), FieldType::FieldPage);
+    ASSERT_EQ(field->get_Separator()->get_FieldType(), FieldType::FieldPage);
+    ASSERT_EQ(field->get_End()->get_FieldType(), FieldType::FieldPage);
     //ExEnd
 }
 
@@ -2117,7 +2118,7 @@ void ExDocument::DocPackageCustomParts()
     //ExSummary:Shows how to access a document's arbitrary custom parts collection.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Custom parts OOXML package.docx"));
     
-    ASSERT_EQ(2, doc->get_PackageCustomParts()->get_Count());
+    ASSERT_EQ(doc->get_PackageCustomParts()->get_Count(), 2);
     
     // Clone the second part, then add the clone to the collection.
     System::SharedPtr<Aspose::Words::Markup::CustomPart> clonedPart = doc->get_PackageCustomParts()->idx_get(1)->Clone();
@@ -2125,7 +2126,7 @@ void ExDocument::DocPackageCustomParts()
     TestDocPackageCustomParts(doc->get_PackageCustomParts());
     //ExSkip
     
-    ASSERT_EQ(3, doc->get_PackageCustomParts()->get_Count());
+    ASSERT_EQ(doc->get_PackageCustomParts()->get_Count(), 3);
     
     // Enumerate over the collection and print every part.
     {
@@ -2145,11 +2146,11 @@ void ExDocument::DocPackageCustomParts()
     // We can remove elements from this collection individually, or all at once.
     doc->get_PackageCustomParts()->RemoveAt(2);
     
-    ASSERT_EQ(2, doc->get_PackageCustomParts()->get_Count());
+    ASSERT_EQ(doc->get_PackageCustomParts()->get_Count(), 2);
     
     doc->get_PackageCustomParts()->Clear();
     
-    ASSERT_EQ(0, doc->get_PackageCustomParts()->get_Count());
+    ASSERT_EQ(doc->get_PackageCustomParts()->get_Count(), 0);
     //ExEnd
 }
 
@@ -2217,12 +2218,12 @@ void ExDocument::VersionsCount()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Versions.doc"));
     
     // We can read this property of a document, but we cannot preserve it while saving.
-    ASSERT_EQ(4, doc->get_VersionsCount());
+    ASSERT_EQ(doc->get_VersionsCount(), 4);
     
     doc->Save(get_ArtifactsDir() + u"Document.VersionsCount.doc");
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.VersionsCount.doc"));
     
-    ASSERT_EQ(0, doc->get_VersionsCount());
+    ASSERT_EQ(doc->get_VersionsCount(), 0);
     //ExEnd
 }
 
@@ -2271,7 +2272,7 @@ void ExDocument::WriteProtection()
     builder->MoveToDocumentEnd();
     builder->Writeln(u"Writing text in a protected document.");
     
-    ASSERT_EQ(System::String(u"Hello world! This document is protected.") + u"\rWriting text in a protected document.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"Hello world! This document is protected.") + u"\rWriting text in a protected document.");
     //ExEnd
     ASSERT_TRUE(doc->get_WriteProtection()->get_ReadOnlyRecommended());
     ASSERT_TRUE(doc->get_WriteProtection()->ValidatePassword(u"MyPassword"));
@@ -2313,10 +2314,10 @@ void ExDocument::RemovePersonalInformation(bool saveWithoutPersonalInfo)
     doc->Save(get_ArtifactsDir() + u"Document.RemovePersonalInformation.docx");
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.RemovePersonalInformation.docx"));
     
-    ASPOSE_ASSERT_EQ(saveWithoutPersonalInfo, doc->get_RemovePersonalInformation());
-    ASSERT_EQ(u"John Doe", doc->get_BuiltInDocumentProperties()->get_Author());
-    ASSERT_EQ(u"Placeholder Inc.", doc->get_BuiltInDocumentProperties()->get_Company());
-    ASSERT_EQ(u"John Doe", doc->get_Revisions()->idx_get(0)->get_Author());
+    ASPOSE_ASSERT_EQ(doc->get_RemovePersonalInformation(), saveWithoutPersonalInfo);
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Author(), u"John Doe");
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Company(), u"Placeholder Inc.");
+    ASSERT_EQ(doc->get_Revisions()->idx_get(0)->get_Author(), u"John Doe");
     //ExEnd
 }
 
@@ -2395,13 +2396,13 @@ void ExDocument::CopyTemplateStylesViaDocument()
     auto template_ = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Rendering.docx"));
     auto target = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Document.docx"));
     
-    ASSERT_EQ(18, template_->get_Styles()->get_Count());
+    ASSERT_EQ(template_->get_Styles()->get_Count(), 18);
     //ExSkip
-    ASSERT_EQ(12, target->get_Styles()->get_Count());
+    ASSERT_EQ(target->get_Styles()->get_Count(), 12);
     //ExSkip
     
     target->CopyStylesFromTemplate(template_);
-    ASSERT_EQ(22, target->get_Styles()->get_Count());
+    ASSERT_EQ(target->get_Styles()->get_Count(), 22);
     //ExSkip
     
     //ExEnd
@@ -2438,7 +2439,7 @@ void ExDocument::CopyTemplateStylesViaDocumentNew()
     style->get_Font()->set_Name(u"Courier New");
     style->get_Font()->set_Color(System::Drawing::Color::get_RoyalBlue());
     
-    ASSERT_EQ(7, template_->get_Styles()->get_Count());
+    ASSERT_EQ(template_->get_Styles()->get_Count(), 7);
     
     // Create a document which we will copy the styles to.
     auto target = System::MakeObject<Aspose::Words::Document>();
@@ -2448,7 +2449,7 @@ void ExDocument::CopyTemplateStylesViaDocumentNew()
     style->get_Font()->set_Name(u"Calibri");
     style->get_Font()->set_Color(System::Drawing::Color::get_Orange());
     
-    ASSERT_EQ(5, target->get_Styles()->get_Count());
+    ASSERT_EQ(target->get_Styles()->get_Count(), 5);
     
     // There are two ways of calling the method to copy all the styles from one document to another.
     // 1 -  Passing the template document object:
@@ -2456,15 +2457,15 @@ void ExDocument::CopyTemplateStylesViaDocumentNew()
     
     // Copying styles adds all styles from the template document to the target
     // and overwrites existing styles with the same name.
-    ASSERT_EQ(7, target->get_Styles()->get_Count());
+    ASSERT_EQ(target->get_Styles()->get_Count(), 7);
     
-    ASSERT_EQ(u"Courier New", target->get_Styles()->idx_get(u"TemplateStyle3")->get_Font()->get_Name());
-    ASSERT_EQ(System::Drawing::Color::get_RoyalBlue().ToArgb(), target->get_Styles()->idx_get(u"TemplateStyle3")->get_Font()->get_Color().ToArgb());
+    ASSERT_EQ(target->get_Styles()->idx_get(u"TemplateStyle3")->get_Font()->get_Name(), u"Courier New");
+    ASSERT_EQ(target->get_Styles()->idx_get(u"TemplateStyle3")->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_RoyalBlue().ToArgb());
     
     // 2 -  Passing the local system filename of a template document:
     target->CopyStylesFromTemplate(get_MyDir() + u"Rendering.docx");
     
-    ASSERT_EQ(21, target->get_Styles()->get_Count());
+    ASSERT_EQ(target->get_Styles()->get_Count(), 21);
     //ExEnd
 }
 
@@ -2506,7 +2507,7 @@ void ExDocument::ReadMacrosFromExistingDocument()
     
     System::SharedPtr<Aspose::Words::Vba::VbaModuleCollection> vbaModules = doc->get_VbaProject()->get_Modules();
     
-    ASSERT_EQ(vbaModules->LINQ_Count(), 3);
+    ASSERT_EQ(3, vbaModules->LINQ_Count());
     
     for (auto&& module_ : vbaModules)
     {
@@ -2521,16 +2522,16 @@ void ExDocument::ReadMacrosFromExistingDocument()
     vbaModules->Remove(vbaModules->idx_get(2));
     //ExEnd
     
-    ASSERT_EQ(u"AsposeVBAtest", vbaProject->get_Name());
-    ASSERT_EQ(2, vbaProject->get_Modules()->LINQ_Count());
-    ASSERT_EQ(1251, vbaProject->get_CodePage());
+    ASSERT_EQ(vbaProject->get_Name(), u"AsposeVBAtest");
+    ASSERT_EQ(vbaProject->get_Modules()->LINQ_Count(), 2);
+    ASSERT_EQ(vbaProject->get_CodePage(), 1251);
     ASSERT_FALSE(vbaProject->get_IsSigned());
     
-    ASSERT_EQ(u"ThisDocument", vbaModules->idx_get(0)->get_Name());
-    ASSERT_EQ(u"Your VBA code...", vbaModules->idx_get(0)->get_SourceCode());
+    ASSERT_EQ(vbaModules->idx_get(0)->get_Name(), u"ThisDocument");
+    ASSERT_EQ(vbaModules->idx_get(0)->get_SourceCode(), u"Your VBA code...");
     
-    ASSERT_EQ(u"Module1", vbaModules->idx_get(1)->get_Name());
-    ASSERT_EQ(u"Your VBA code...", vbaModules->idx_get(1)->get_SourceCode());
+    ASSERT_EQ(vbaModules->idx_get(1)->get_Name(), u"Module1");
+    ASSERT_EQ(vbaModules->idx_get(1)->get_SourceCode(), u"Your VBA code...");
 }
 
 namespace gtest_test
@@ -2556,12 +2557,12 @@ void ExDocument::SaveOutputParameters()
     // After we save a document, we can access the Internet Media Type (MIME type) of the newly created output document.
     System::SharedPtr<Aspose::Words::Saving::SaveOutputParameters> parameters = doc->Save(get_ArtifactsDir() + u"Document.SaveOutputParameters.doc");
     
-    ASSERT_EQ(u"application/msword", parameters->get_ContentType());
+    ASSERT_EQ(parameters->get_ContentType(), u"application/msword");
     
     // This property changes depending on the save format.
     parameters = doc->Save(get_ArtifactsDir() + u"Document.SaveOutputParameters.pdf");
     
-    ASSERT_EQ(u"application/pdf", parameters->get_ContentType());
+    ASSERT_EQ(parameters->get_ContentType(), u"application/pdf");
     //ExEnd
 }
 
@@ -2584,7 +2585,7 @@ void ExDocument::SubDocument()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Master document.docx"));
     
     System::SharedPtr<Aspose::Words::NodeCollection> subDocuments = doc->GetChildNodes(NodeType::SubDocument, true);
-    ASSERT_EQ(1, subDocuments->get_Count());
+    ASSERT_EQ(subDocuments->get_Count(), 1);
     //ExSkip
     
     // This node serves as a reference to an external document, and its contents cannot be accessed.
@@ -2677,32 +2678,32 @@ void ExDocument::CreateWebExtension()
     // Remove all web extension task panes at once like this.
     doc->get_WebExtensionTaskPanes()->Clear();
     
-    ASSERT_EQ(0, doc->get_WebExtensionTaskPanes()->get_Count());
+    ASSERT_EQ(doc->get_WebExtensionTaskPanes()->get_Count(), 0);
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.WebExtension.docx"));
     
     myScriptTaskPane = doc->get_WebExtensionTaskPanes()->idx_get(0);
-    ASSERT_EQ(TaskPaneDockState::Right, myScriptTaskPane->get_DockState());
+    ASSERT_EQ(myScriptTaskPane->get_DockState(), TaskPaneDockState::Right);
     ASSERT_TRUE(myScriptTaskPane->get_IsVisible());
-    ASPOSE_ASSERT_EQ(300.0, myScriptTaskPane->get_Width());
+    ASPOSE_ASSERT_EQ(myScriptTaskPane->get_Width(), 300.0);
     ASSERT_TRUE(myScriptTaskPane->get_IsLocked());
-    ASSERT_EQ(1, myScriptTaskPane->get_Row());
+    ASSERT_EQ(myScriptTaskPane->get_Row(), 1);
     
     webExtension = myScriptTaskPane->get_WebExtension();
-    ASSERT_EQ(System::String::Empty, webExtension->get_Id());
+    ASSERT_EQ(webExtension->get_Id(), System::String::Empty);
     
-    ASSERT_EQ(u"WA104380646", webExtension->get_Reference()->get_Id());
-    ASSERT_EQ(u"1.0.0.0", webExtension->get_Reference()->get_Version());
-    ASSERT_EQ(WebExtensionStoreType::OMEX, webExtension->get_Reference()->get_StoreType());
-    ASSERT_EQ(System::Globalization::CultureInfo::get_CurrentCulture()->get_Name(), webExtension->get_Reference()->get_Store());
-    ASSERT_EQ(0, webExtension->get_AlternateReferences()->get_Count());
+    ASSERT_EQ(webExtension->get_Reference()->get_Id(), u"WA104380646");
+    ASSERT_EQ(webExtension->get_Reference()->get_Version(), u"1.0.0.0");
+    ASSERT_EQ(webExtension->get_Reference()->get_StoreType(), WebExtensionStoreType::OMEX);
+    ASSERT_EQ(webExtension->get_Reference()->get_Store(), System::Globalization::CultureInfo::get_CurrentCulture()->get_Name());
+    ASSERT_EQ(webExtension->get_AlternateReferences()->get_Count(), 0);
     
-    ASSERT_EQ(u"MyScript", webExtension->get_Properties()->idx_get(0)->get_Name());
-    ASSERT_EQ(u"MyScript Math Sample", webExtension->get_Properties()->idx_get(0)->get_Value());
+    ASSERT_EQ(webExtension->get_Properties()->idx_get(0)->get_Name(), u"MyScript");
+    ASSERT_EQ(webExtension->get_Properties()->idx_get(0)->get_Value(), u"MyScript Math Sample");
     
-    ASSERT_EQ(u"MyScript", webExtension->get_Bindings()->idx_get(0)->get_Id());
-    ASSERT_EQ(WebExtensionBindingType::Text, webExtension->get_Bindings()->idx_get(0)->get_BindingType());
-    ASSERT_EQ(u"104380646", webExtension->get_Bindings()->idx_get(0)->get_AppRef());
+    ASSERT_EQ(webExtension->get_Bindings()->idx_get(0)->get_Id(), u"MyScript");
+    ASSERT_EQ(webExtension->get_Bindings()->idx_get(0)->get_BindingType(), WebExtensionBindingType::Text);
+    ASSERT_EQ(webExtension->get_Bindings()->idx_get(0)->get_AppRef(), u"104380646");
     
     ASSERT_FALSE(webExtension->get_IsFrozen());
     //ExEnd
@@ -2729,7 +2730,7 @@ void ExDocument::GetWebExtensionInfo()
     //ExSummary:Shows how to work with a document's collection of web extensions.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Web extension.docx"));
     
-    ASSERT_EQ(1, doc->get_WebExtensionTaskPanes()->get_Count());
+    ASSERT_EQ(doc->get_WebExtensionTaskPanes()->get_Count(), 1);
     
     // Print all properties of the document's web extension.
     System::SharedPtr<Aspose::Words::WebExtensions::WebExtensionPropertyCollection> webExtensionPropertyCollection = doc->get_WebExtensionTaskPanes()->idx_get(0)->get_WebExtension()->get_Properties();
@@ -2745,7 +2746,7 @@ void ExDocument::GetWebExtensionInfo()
     // Remove the web extension.
     doc->get_WebExtensionTaskPanes()->Remove(0);
     
-    ASSERT_EQ(0, doc->get_WebExtensionTaskPanes()->get_Count());
+    ASSERT_EQ(doc->get_WebExtensionTaskPanes()->get_Count(), 0);
     //ExEnd
 }
 
@@ -2831,7 +2832,7 @@ void ExDocument::TextWatermark()
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.TextWatermark.docx"));
     
-    ASSERT_EQ(WatermarkType::Text, doc->get_Watermark()->get_Type());
+    ASSERT_EQ(doc->get_Watermark()->get_Type(), WatermarkType::Text);
 }
 
 namespace gtest_test
@@ -2875,7 +2876,7 @@ void ExDocument::ImageWatermark()
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.ImageWatermark.docx"));
-    ASSERT_EQ(WatermarkType::Image, doc->get_Watermark()->get_Type());
+    ASSERT_EQ(doc->get_Watermark()->get_Type(), WatermarkType::Image);
 }
 
 namespace gtest_test
@@ -2910,7 +2911,7 @@ void ExDocument::ImageWatermarkStream()
     //ExEnd:ImageWatermarkStream
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.ImageWatermarkStream.docx"));
-    ASSERT_EQ(WatermarkType::Image, doc->get_Watermark()->get_Type());
+    ASSERT_EQ(doc->get_Watermark()->get_Type(), WatermarkType::Image);
 }
 
 namespace gtest_test
@@ -2947,8 +2948,8 @@ void ExDocument::SpellingAndGrammarErrors(bool showErrors)
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.SpellingAndGrammarErrors.docx"));
     
-    ASPOSE_ASSERT_EQ(showErrors, doc->get_ShowGrammaticalErrors());
-    ASPOSE_ASSERT_EQ(showErrors, doc->get_ShowSpellingErrors());
+    ASPOSE_ASSERT_EQ(doc->get_ShowGrammaticalErrors(), showErrors);
+    ASPOSE_ASSERT_EQ(doc->get_ShowSpellingErrors(), showErrors);
 }
 
 namespace gtest_test
@@ -3014,7 +3015,7 @@ void ExDocument::ExtractPages()
     //ExEnd
     
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Document.ExtractPages.docx"));
-    ASSERT_EQ(doc->get_PageCount(), 2);
+    ASSERT_EQ(2, doc->get_PageCount());
 }
 
 namespace gtest_test
@@ -3128,12 +3129,12 @@ void ExDocument::Frameset()
     // Document contains several frames with links to other documents.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Frameset.docx"));
     
-    ASSERT_EQ(3, doc->get_Frameset()->get_ChildFramesets()->get_Count());
+    ASSERT_EQ(doc->get_Frameset()->get_ChildFramesets()->get_Count(), 3);
     // We can check the default URL (a web page URL or local document) or if the frame is an external resource.
-    ASSERT_EQ(u"https://file-examples-com.github.io/uploads/2017/02/file-sample_100kB.docx", doc->get_Frameset()->get_ChildFramesets()->idx_get(0)->get_ChildFramesets()->idx_get(0)->get_FrameDefaultUrl());
+    ASSERT_EQ(doc->get_Frameset()->get_ChildFramesets()->idx_get(0)->get_ChildFramesets()->idx_get(0)->get_FrameDefaultUrl(), u"https://file-examples-com.github.io/uploads/2017/02/file-sample_100kB.docx");
     ASSERT_TRUE(doc->get_Frameset()->get_ChildFramesets()->idx_get(0)->get_ChildFramesets()->idx_get(0)->get_IsFrameLinkToFile());
     
-    ASSERT_EQ(u"Document.docx", doc->get_Frameset()->get_ChildFramesets()->idx_get(1)->get_FrameDefaultUrl());
+    ASSERT_EQ(doc->get_Frameset()->get_ChildFramesets()->idx_get(1)->get_FrameDefaultUrl(), u"Document.docx");
     ASSERT_FALSE(doc->get_Frameset()->get_ChildFramesets()->idx_get(1)->get_IsFrameLinkToFile());
     
     // Change properties for one of our frames.
@@ -3143,7 +3144,7 @@ void ExDocument::Frameset()
     
     doc = DocumentHelper::SaveOpen(doc);
     
-    ASSERT_EQ(u"https://github.com/aspose-words/Aspose.Words-for-.NET/blob/master/Examples/Data/Absolute%20position%20tab.docx", doc->get_Frameset()->get_ChildFramesets()->idx_get(0)->get_ChildFramesets()->idx_get(0)->get_FrameDefaultUrl());
+    ASSERT_EQ(doc->get_Frameset()->get_ChildFramesets()->idx_get(0)->get_ChildFramesets()->idx_get(0)->get_FrameDefaultUrl(), u"https://github.com/aspose-words/Aspose.Words-for-.NET/blob/master/Examples/Data/Absolute%20position%20tab.docx");
     ASSERT_FALSE(doc->get_Frameset()->get_ChildFramesets()->idx_get(0)->get_ChildFramesets()->idx_get(0)->get_IsFrameLinkToFile());
 }
 
@@ -3160,7 +3161,7 @@ TEST_F(ExDocument, Frameset)
 void ExDocument::OpenAzw()
 {
     System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Azw3 document.azw3");
-    ASSERT_EQ(info->get_LoadFormat(), LoadFormat::Azw3);
+    ASSERT_EQ(LoadFormat::Azw3, info->get_LoadFormat());
     
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Azw3 document.azw3"));
     ASSERT_TRUE(doc->GetText().Contains(u"Hachette Book Group USA"));
@@ -3179,7 +3180,7 @@ TEST_F(ExDocument, OpenAzw)
 void ExDocument::OpenEpub()
 {
     System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Epub document.epub");
-    ASSERT_EQ(info->get_LoadFormat(), LoadFormat::Epub);
+    ASSERT_EQ(LoadFormat::Epub, info->get_LoadFormat());
     
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Epub document.epub"));
     ASSERT_TRUE(doc->GetText().Contains(u"Down the Rabbit-Hole"));
@@ -3198,7 +3199,7 @@ TEST_F(ExDocument, OpenEpub)
 void ExDocument::OpenXml()
 {
     System::SharedPtr<Aspose::Words::FileFormatInfo> info = FileFormatUtil::DetectFileFormat(get_MyDir() + u"Mail merge data - Customers.xml");
-    ASSERT_EQ(info->get_LoadFormat(), LoadFormat::Xml);
+    ASSERT_EQ(LoadFormat::Xml, info->get_LoadFormat());
     
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Mail merge data - Purchase order.xml"));
     ASSERT_TRUE(doc->GetText().Contains(u"Ellen Adams\r123 Maple Street"));
@@ -3234,7 +3235,7 @@ void ExDocument::MoveToStructuredDocumentTag()
     builder->MoveToStructuredDocumentTag(tag, 1);
     builder->Write(u" New text.");
     
-    ASSERT_EQ(u"R New text.ichText", tag->GetText().Trim());
+    ASSERT_EQ(tag->GetText().Trim(), u"R New text.ichText");
     
     // 3 -  Move to the end of the second structured document tag.
     builder->MoveToStructuredDocumentTag(1, -1);
@@ -3270,12 +3271,12 @@ void ExDocument::IncludeTextboxesFootnotesEndnotesInStat()
     // By default option is set to 'false'.
     doc->UpdateWordCount();
     // Words count without textboxes, footnotes and endnotes.
-    ASSERT_EQ(2, doc->get_BuiltInDocumentProperties()->get_Words());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Words(), 2);
     
     doc->set_IncludeTextboxesFootnotesEndnotesInStat(true);
     doc->UpdateWordCount();
     // Words count with textboxes, footnotes and endnotes.
-    ASSERT_EQ(4, doc->get_BuiltInDocumentProperties()->get_Words());
+    ASSERT_EQ(doc->get_BuiltInDocumentProperties()->get_Words(), 4);
     //ExEnd
 }
 
@@ -3356,13 +3357,13 @@ void ExDocument::InsertDocumentInline()
     dstDoc->InsertNode(System::MakeObject<Aspose::Words::BookmarkEnd>(dstDoc->get_Document(), u"src_place"));
     dstDoc->Write(u" after");
     
-    ASSERT_EQ(u"Before  after", dstDoc->get_Document()->GetText().TrimEnd(System::MakeObject<System::Array<char16_t>>(0)));
+    ASSERT_EQ(dstDoc->get_Document()->GetText().TrimEnd(System::MakeObject<System::Array<char16_t>>(0)), u"Before  after");
     
     // Insert source document into destination inline.
     dstDoc->MoveToBookmark(u"src_place");
     dstDoc->InsertDocumentInline(srcDoc->get_Document(), ImportFormatMode::UseDestinationStyles, System::MakeObject<Aspose::Words::ImportFormatOptions>());
     
-    ASSERT_EQ(u"Before [src content] after", dstDoc->get_Document()->GetText().TrimEnd(System::MakeObject<System::Array<char16_t>>(0)));
+    ASSERT_EQ(dstDoc->get_Document()->GetText().TrimEnd(System::MakeObject<System::Array<char16_t>>(0)), u"Before [src content] after");
     //ExEnd:InsertDocumentInline
 }
 
@@ -3519,10 +3520,10 @@ void ExDocument::RemoveBlankPages()
     //ExFor:Document.RemoveBlankPages
     //ExSummary:Shows how to remove blank pages from the document.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Blank pages.docx"));
-    ASSERT_EQ(2, doc->get_PageCount());
+    ASSERT_EQ(doc->get_PageCount(), 2);
     doc->RemoveBlankPages();
     doc->UpdatePageLayout();
-    ASSERT_EQ(1, doc->get_PageCount());
+    ASSERT_EQ(doc->get_PageCount(), 1);
     //ExEnd
 }
 
@@ -3554,7 +3555,7 @@ void ExDocument::ExtractPagesWithOptions()
     System::SharedPtr<Aspose::Words::Document> extractedDoc1 = doc->ExtractPages(1, 1);
     extractedDoc1->Save(get_ArtifactsDir() + u"Document.ExtractPagesWithOptions.Default.docx");
     
-    ASSERT_EQ(1, extractedDoc1->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(extractedDoc1->get_Range()->get_Fields()->get_Count(), 1);
     //ExSkip
     
     // Altered behavior:
@@ -3569,7 +3570,7 @@ void ExDocument::ExtractPagesWithOptions()
     extractedDoc2->Save(get_ArtifactsDir() + u"Document.ExtractPagesWithOptions.Options.docx");
     //ExEnd:ExtractPagesWithOptions
     
-    ASSERT_EQ(2, extractedDoc2->get_Range()->get_Fields()->get_Count());
+    ASSERT_EQ(extractedDoc2->get_Range()->get_Fields()->get_Count(), 2);
 }
 
 namespace gtest_test
@@ -3597,7 +3598,7 @@ void ExDocument::AppendDocumentWithNewPage()
     options->set_AppendDocumentWithNewPage(false);
     dstDoc->AppendDocument(srcDoc, ImportFormatMode::KeepSourceFormatting, options);
     
-    ASSERT_EQ(SectionStart::Continuous, dstDoc->get_Sections()->idx_get(1)->get_PageSetup()->get_SectionStart());
+    ASSERT_EQ(dstDoc->get_Sections()->idx_get(1)->get_PageSetup()->get_SectionStart(), SectionStart::Continuous);
     //ExEnd:AppendDocumentWithNewPage
 }
 

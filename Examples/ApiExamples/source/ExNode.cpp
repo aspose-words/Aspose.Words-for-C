@@ -52,13 +52,13 @@ RTTI_INFO_IMPL_HASH(718260281u, ::Aspose::Words::ApiExamples::ExNode::NodeChangi
 
 void ExNode::NodeChangingPrinter::NodeInserting(System::SharedPtr<Aspose::Words::NodeChangingArgs> args)
 {
-    ASSERT_EQ(NodeChangingAction::Insert, args->get_Action());
-    ASPOSE_ASSERT_EQ(nullptr, args->get_OldParent());
+    ASSERT_EQ(args->get_Action(), NodeChangingAction::Insert);
+    ASPOSE_ASSERT_EQ(args->get_OldParent(), nullptr);
 }
 
 void ExNode::NodeChangingPrinter::NodeInserted(System::SharedPtr<Aspose::Words::NodeChangingArgs> args)
 {
-    ASSERT_EQ(NodeChangingAction::Insert, args->get_Action());
+    ASSERT_EQ(args->get_Action(), NodeChangingAction::Insert);
     ASSERT_FALSE(System::TestTools::IsNull(args->get_NewParent()));
     
     std::cout << "Inserted node:" << std::endl;
@@ -75,12 +75,12 @@ void ExNode::NodeChangingPrinter::NodeInserted(System::SharedPtr<Aspose::Words::
 
 void ExNode::NodeChangingPrinter::NodeRemoving(System::SharedPtr<Aspose::Words::NodeChangingArgs> args)
 {
-    ASSERT_EQ(NodeChangingAction::Remove, args->get_Action());
+    ASSERT_EQ(args->get_Action(), NodeChangingAction::Remove);
 }
 
 void ExNode::NodeChangingPrinter::NodeRemoved(System::SharedPtr<Aspose::Words::NodeChangingArgs> args)
 {
-    ASSERT_EQ(NodeChangingAction::Remove, args->get_Action());
+    ASSERT_EQ(args->get_Action(), NodeChangingAction::Remove);
     ASSERT_TRUE(System::TestTools::IsNull(args->get_NewParent()));
     
     std::cout << System::String::Format(u"Removed node: {0} ({1})", args->get_Node()->get_NodeType(), System::ObjectExt::GetHashCode(args->get_Node())) << std::endl;
@@ -189,13 +189,13 @@ void ExNode::CloneCompositeNode()
     System::SharedPtr<Aspose::Words::Node> cloneWithChildren = System::ExplicitCast<Aspose::Words::Node>(para)->Clone(true);
     
     ASSERT_TRUE((System::ExplicitCast<Aspose::Words::CompositeNode>(cloneWithChildren))->get_HasChildNodes());
-    ASSERT_EQ(u"Hello world!", cloneWithChildren->GetText().Trim());
+    ASSERT_EQ(cloneWithChildren->GetText().Trim(), u"Hello world!");
     
     // 2 -  Create a clone of a node just by itself without any children.
     System::SharedPtr<Aspose::Words::Node> cloneWithoutChildren = System::ExplicitCast<Aspose::Words::Node>(para)->Clone(false);
     
     ASSERT_FALSE((System::ExplicitCast<Aspose::Words::CompositeNode>(cloneWithoutChildren))->get_HasChildNodes());
-    ASSERT_EQ(System::String::Empty, cloneWithoutChildren->GetText().Trim());
+    ASSERT_EQ(cloneWithoutChildren->GetText().Trim(), System::String::Empty);
     //ExEnd
 }
 
@@ -223,10 +223,10 @@ void ExNode::GetParentNode()
     
     // The paragraph is the parent node of the run node. We can trace this lineage
     // all the way to the document node, which is the root of the document's node tree.
-    ASPOSE_ASSERT_EQ(para, run->get_ParentNode());
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body(), para->get_ParentNode());
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection(), doc->get_FirstSection()->get_Body()->get_ParentNode());
-    ASPOSE_ASSERT_EQ(doc, doc->get_FirstSection()->get_ParentNode());
+    ASPOSE_ASSERT_EQ(run->get_ParentNode(), para);
+    ASPOSE_ASSERT_EQ(para->get_ParentNode(), doc->get_FirstSection()->get_Body());
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_ParentNode(), doc->get_FirstSection());
+    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_ParentNode(), doc);
     //ExEnd
 }
 
@@ -257,8 +257,8 @@ void ExNode::OwnerDocument()
     // we can attach it as a child only if both nodes have the same owner document.
     // The owner document is the document we passed to the node's constructor.
     // We have not attached this paragraph to the document, so the document does not contain its text.
-    ASPOSE_ASSERT_EQ(para->get_Document(), doc);
-    ASSERT_EQ(System::String::Empty, doc->GetText().Trim());
+    ASPOSE_ASSERT_EQ(doc, para->get_Document());
+    ASSERT_EQ(doc->GetText().Trim(), System::String::Empty);
     
     // Since the document owns this paragraph, we can apply one of its styles to the paragraph's contents.
     para->get_ParagraphFormat()->set_Style(doc->get_Styles()->idx_get(u"Heading 1"));
@@ -266,11 +266,11 @@ void ExNode::OwnerDocument()
     // Add this node to the document, and then verify its contents.
     doc->get_FirstSection()->get_Body()->AppendChild<System::SharedPtr<Aspose::Words::Paragraph>>(para);
     
-    ASPOSE_ASSERT_EQ(doc->get_FirstSection()->get_Body(), para->get_ParentNode());
-    ASSERT_EQ(u"Hello world!", doc->GetText().Trim());
+    ASPOSE_ASSERT_EQ(para->get_ParentNode(), doc->get_FirstSection()->get_Body());
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world!");
     //ExEnd
     
-    ASPOSE_ASSERT_EQ(doc, para->get_Document());
+    ASPOSE_ASSERT_EQ(para->get_Document(), doc);
     ASSERT_FALSE(System::TestTools::IsNull(para->get_ParentNode()));
 }
 
@@ -316,7 +316,7 @@ void ExNode::ChildNodesEnumerate()
     // and print any runs or shapes that we find within.
     System::SharedPtr<Aspose::Words::NodeCollection> children = paragraph->GetChildNodes(NodeType::Any, false);
     
-    ASSERT_EQ(3, paragraph->GetChildNodes(NodeType::Any, false)->get_Count());
+    ASSERT_EQ(paragraph->GetChildNodes(NodeType::Any, false)->get_Count(), 3);
     
     for (auto&& child : System::IterateOver(children))
     {
@@ -331,7 +331,7 @@ void ExNode::ChildNodesEnumerate()
                 auto childShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(child);
                 std::cout << "Shape:" << std::endl;
                 std::cout << System::String::Format(u"\t{0}, {1}x{2}", childShape->get_ShapeType(), childShape->get_Width(), childShape->get_Height()) << std::endl;
-                ASSERT_EQ(100, shape->get_CustomNodeId());
+                ASSERT_EQ(shape->get_CustomNodeId(), 100);
                 break;
             }
             default:
@@ -340,8 +340,8 @@ void ExNode::ChildNodesEnumerate()
     }
     //ExEnd
     
-    ASSERT_EQ(NodeType::Run, paragraph->GetChild(NodeType::Run, 0, true)->get_NodeType());
-    ASSERT_EQ(u"Hello world! Hello again!", doc->GetText().Trim());
+    ASSERT_EQ(paragraph->GetChild(NodeType::Run, 0, true)->get_NodeType(), NodeType::Run);
+    ASSERT_EQ(doc->GetText().Trim(), u"Hello world! Hello again!");
 }
 
 namespace gtest_test
@@ -385,7 +385,7 @@ void ExNode::RemoveNodes()
     //ExSummary:Shows how to remove all child nodes of a specific type from a composite node.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Tables.docx"));
     
-    ASSERT_EQ(2, doc->GetChildNodes(NodeType::Table, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 2);
     
     System::SharedPtr<Aspose::Words::Node> curNode = doc->get_FirstSection()->get_Body()->get_FirstChild();
     
@@ -404,7 +404,7 @@ void ExNode::RemoveNodes()
         curNode = nextNode;
     }
     
-    ASSERT_EQ(0, doc->GetChildNodes(NodeType::Table, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Table, true)->get_Count(), 0);
     //ExEnd
 }
 
@@ -462,25 +462,17 @@ void ExNode::TypedAccess()
     
     System::SharedPtr<Aspose::Words::Tables::TableCollection> tables = doc->get_FirstSection()->get_Body()->get_Tables();
     
-    ASSERT_EQ(5, tables->idx_get(0)->get_Rows()->get_Count());
-    ASSERT_EQ(4, tables->idx_get(1)->get_Rows()->get_Count());
+    ASSERT_EQ(tables->idx_get(0)->get_Rows()->get_Count(), 5);
+    ASSERT_EQ(tables->idx_get(1)->get_Rows()->get_Count(), 4);
     
     for (auto&& table : System::IterateOver(tables->LINQ_OfType<System::SharedPtr<Aspose::Words::Tables::Table>>()))
     {
-        System::SharedPtr<Aspose::Words::Tables::Row> condExpression = table->get_FirstRow();
-        if (condExpression != nullptr)
-        {
-            condExpression->Remove();
-        }
-        System::SharedPtr<Aspose::Words::Tables::Row> condExpression2 = table->get_LastRow();
-        if (condExpression2 != nullptr)
-        {
-            condExpression2->Remove();
-        }
+        System::SafeInvoke(table->get_FirstRow(), [&](auto&& expr){return expr->Remove();});
+        System::SafeInvoke(table->get_LastRow(), [&](auto&& expr){return expr->Remove();});
     }
     
-    ASSERT_EQ(3, tables->idx_get(0)->get_Rows()->get_Count());
-    ASSERT_EQ(2, tables->idx_get(1)->get_Rows()->get_Count());
+    ASSERT_EQ(tables->idx_get(0)->get_Rows()->get_Count(), 3);
+    ASSERT_EQ(tables->idx_get(1)->get_Rows()->get_Count(), 2);
     //ExEnd
 }
 
@@ -519,7 +511,7 @@ void ExNode::RemoveChild()
     }
     
     // The section we removed was the first one, leaving the document with only the second.
-    ASSERT_EQ(u"Section 2 text.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Section 2 text.");
     //ExEnd
 }
 
@@ -560,11 +552,11 @@ void ExNode::RemoveSmartTagsFromCompositeNode()
     //ExSummary:Removes all smart tags from descendant nodes of a composite node.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Smart tags.doc"));
     
-    ASSERT_EQ(8, doc->GetChildNodes(NodeType::SmartTag, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::SmartTag, true)->get_Count(), 8);
     
     doc->RemoveSmartTags();
     
-    ASSERT_EQ(0, doc->GetChildNodes(NodeType::SmartTag, true)->get_Count());
+    ASSERT_EQ(doc->GetChildNodes(NodeType::SmartTag, true)->get_Count(), 0);
     //ExEnd
 }
 
@@ -588,7 +580,7 @@ void ExNode::GetIndexOfNode()
     System::SharedPtr<Aspose::Words::Body> body = doc->get_FirstSection()->get_Body();
     
     // Retrieve the index of the last paragraph in the body of the first section.
-    ASSERT_EQ(24, body->GetChildNodes(NodeType::Any, false)->IndexOf(body->get_LastParagraph()));
+    ASSERT_EQ(body->GetChildNodes(NodeType::Any, false)->IndexOf(body->get_LastParagraph()), 24);
     //ExEnd
 }
 
@@ -614,13 +606,13 @@ void ExNode::ConvertNodeToHtmlWithDefaultOptions()
     
     // When we call the ToString method using the html SaveFormat overload,
     // it converts the node's contents to their raw html representation.
-    ASSERT_EQ(System::String(u"<p style=\"margin-top:0pt; margin-bottom:8pt; line-height:108%; font-size:12pt\">") + u"<span style=\"font-family:'Times New Roman'\">Hello World!</span>" + u"</p>", node->ToString(SaveFormat::Html));
+    ASSERT_EQ(node->ToString(SaveFormat::Html), System::String(u"<p style=\"margin-top:0pt; margin-bottom:8pt; line-height:108%; font-size:12pt\">") + u"<span style=\"font-family:'Times New Roman'\">Hello World!</span>" + u"</p>");
     
     // We can also modify the result of this conversion using a SaveOptions object.
     auto saveOptions = System::MakeObject<Aspose::Words::Saving::HtmlSaveOptions>();
     saveOptions->set_ExportRelativeFontSize(true);
     
-    ASSERT_EQ(System::String(u"<p style=\"margin-top:0pt; margin-bottom:8pt; line-height:108%\">") + u"<span style=\"font-family:'Times New Roman'\">Hello World!</span>" + u"</p>", node->ToString(saveOptions));
+    ASSERT_EQ(node->ToString(saveOptions), System::String(u"<p style=\"margin-top:0pt; margin-bottom:8pt; line-height:108%\">") + u"<span style=\"font-family:'Times New Roman'\">Hello World!</span>" + u"</p>");
     //ExEnd
 }
 
@@ -643,7 +635,7 @@ void ExNode::TypedNodeCollectionToArray()
     
     System::ArrayPtr<System::SharedPtr<Aspose::Words::Paragraph>> paras = doc->get_FirstSection()->get_Body()->get_Paragraphs()->ToArray();
     
-    ASSERT_EQ(22, paras->get_Length());
+    ASSERT_EQ(paras->get_Length(), 22);
     //ExEnd
 }
 
@@ -740,20 +732,20 @@ void ExNode::NodeCollection()
     // which then appears in the parent Paragraph's RunCollection.
     System::SharedPtr<Aspose::Words::RunCollection> runs = doc->get_FirstSection()->get_Body()->get_FirstParagraph()->get_Runs();
     
-    ASSERT_EQ(2, runs->get_Count());
+    ASSERT_EQ(runs->get_Count(), 2);
     
     // We can also insert a node into the RunCollection manually.
     auto newRun = System::MakeObject<Aspose::Words::Run>(doc, u"Run 3. ");
     runs->Insert(3, newRun);
     
     ASSERT_TRUE(runs->Contains(newRun));
-    ASSERT_EQ(u"Run 1. Run 2. Run 3.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Run 1. Run 2. Run 3.");
     
     // Access individual runs and remove them to remove their text from the document.
     System::SharedPtr<Aspose::Words::Run> run = runs->idx_get(1);
     runs->Remove(run);
     
-    ASSERT_EQ(u"Run 1. Run 3.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Run 1. Run 3.");
     ASSERT_FALSE(System::TestTools::IsNull(run));
     ASSERT_FALSE(runs->Contains(run));
     //ExEnd

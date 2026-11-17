@@ -79,21 +79,21 @@ void ExDigitalSignatureCollection::GetEnumerator()
     }
     //ExEnd
     
-    ASSERT_EQ(1, digitalSignatures->get_Count());
+    ASSERT_EQ(digitalSignatures->get_Count(), 1);
     
     System::SharedPtr<Aspose::Words::DigitalSignatures::DigitalSignature> signature = digitalSignatures->idx_get(0);
     
     ASSERT_TRUE(signature->get_IsValid());
-    ASSERT_EQ(DigitalSignatureType::XmlDsig, signature->get_SignatureType());
-    ASSERT_EQ(u"12/23/2010 02:14:40 AM", signature->get_SignTime().ToString(u"MM/dd/yyyy hh:mm:ss tt"));
-    ASSERT_EQ(u"Test Sign", signature->get_Comments());
+    ASSERT_EQ(signature->get_SignatureType(), DigitalSignatureType::XmlDsig);
+    ASSERT_EQ(signature->get_SignTime().ToString(u"MM/dd/yyyy hh:mm:ss tt"), u"12/23/2010 02:14:40 AM");
+    ASSERT_EQ(signature->get_Comments(), u"Test Sign");
     
-    ASSERT_EQ(signature->get_IssuerName(), signature->get_CertificateHolder()->get_Certificate()->get_IssuerName()->get_Name());
-    ASSERT_EQ(signature->get_SubjectName(), signature->get_CertificateHolder()->get_Certificate()->get_SubjectName()->get_Name());
+    ASSERT_EQ(signature->get_CertificateHolder()->get_Certificate()->get_IssuerName()->get_Name(), signature->get_IssuerName());
+    ASSERT_EQ(signature->get_CertificateHolder()->get_Certificate()->get_SubjectName()->get_Name(), signature->get_SubjectName());
     
-    ASSERT_EQ((System::String(u"CN=VeriSign Class 3 Code Signing 2009-2 CA, ") + u"OU=Terms of use at https://www.verisign.com/rpa (c)09, " + u"OU=VeriSign Trust Network, " + u"O=\"VeriSign, Inc.\", " + u"C=US"), signature->get_IssuerName());
+    ASSERT_EQ(signature->get_IssuerName(), (System::String(u"CN=VeriSign Class 3 Code Signing 2009-2 CA, ") + u"OU=Terms of use at https://www.verisign.com/rpa (c)09, " + u"OU=VeriSign Trust Network, " + u"O=\"VeriSign, Inc.\", " + u"C=US"));
     
-    ASSERT_EQ((System::String(u"CN=Aspose Pty Ltd, ") + u"OU=Digital ID Class 3 - Microsoft Software Validation v2, " + u"O=Aspose Pty Ltd, " + u"L=Lane Cove, " + u"S=New South Wales, " + u"C=AU"), signature->get_SubjectName());
+    ASSERT_EQ(signature->get_SubjectName(), (System::String(u"CN=Aspose Pty Ltd, ") + u"OU=Digital ID Class 3 - Microsoft Software Validation v2, " + u"O=Aspose Pty Ltd, " + u"L=Lane Cove, " + u"S=New South Wales, " + u"C=AU"));
 }
 
 namespace gtest_test

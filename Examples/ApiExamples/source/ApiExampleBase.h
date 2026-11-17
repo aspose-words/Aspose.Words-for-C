@@ -67,6 +67,11 @@ public:
     void OneTimeSetUp();
     void SetUp();
     void OneTimeTearDown();
+    /// <summary>
+    /// Determine if environment is Linux.
+    /// </summary>
+    /// <returns>True if being executed on Linux, false otherwise.</returns>
+    static bool IsRunningOnLinux();
     static void SetUnlimitedLicense();
     /// <summary>
     /// Returns the code-base directory.

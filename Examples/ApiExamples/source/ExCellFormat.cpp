@@ -101,10 +101,10 @@ void ExCellFormat::VerticalMerge()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"CellFormat.VerticalMerge.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(CellMerge::First, table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_CellFormat()->get_VerticalMerge());
-    ASSERT_EQ(CellMerge::Previous, table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->get_CellFormat()->get_VerticalMerge());
-    ASSERT_EQ(u"Text in merged cells.", table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim(System::MakeArray<char16_t>({u'\a'})));
-    ASSERT_NE(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText(), table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->GetText());
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_CellFormat()->get_VerticalMerge(), CellMerge::First);
+    ASSERT_EQ(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->get_CellFormat()->get_VerticalMerge(), CellMerge::Previous);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim(System::MakeArray<char16_t>({u'\a'})), u"Text in merged cells.");
+    ASSERT_NE(table->get_Rows()->idx_get(1)->get_Cells()->idx_get(0)->GetText(), table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText());
 }
 
 namespace gtest_test
@@ -153,9 +153,9 @@ void ExCellFormat::HorizontalMerge()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"CellFormat.HorizontalMerge.docx"));
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     
-    ASSERT_EQ(1, table->get_Rows()->idx_get(0)->get_Cells()->get_Count());
-    ASSERT_EQ(CellMerge::None, table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_CellFormat()->get_HorizontalMerge());
-    ASSERT_EQ(u"Text in merged cells.", table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim(System::MakeArray<char16_t>({u'\a'})));
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->get_Count(), 1);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->get_CellFormat()->get_HorizontalMerge(), CellMerge::None);
+    ASSERT_EQ(table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0)->GetText().Trim(System::MakeArray<char16_t>({u'\a'})), u"Text in merged cells.");
 }
 
 namespace gtest_test
@@ -193,10 +193,10 @@ void ExCellFormat::Padding()
     System::SharedPtr<Aspose::Words::Tables::Table> table = doc->get_FirstSection()->get_Body()->get_Tables()->idx_get(0);
     System::SharedPtr<Aspose::Words::Tables::Cell> cell = table->get_Rows()->idx_get(0)->get_Cells()->idx_get(0);
     
-    ASPOSE_ASSERT_EQ(5, cell->get_CellFormat()->get_LeftPadding());
-    ASPOSE_ASSERT_EQ(10, cell->get_CellFormat()->get_TopPadding());
-    ASPOSE_ASSERT_EQ(40, cell->get_CellFormat()->get_RightPadding());
-    ASPOSE_ASSERT_EQ(50, cell->get_CellFormat()->get_BottomPadding());
+    ASPOSE_ASSERT_EQ(cell->get_CellFormat()->get_LeftPadding(), 5);
+    ASPOSE_ASSERT_EQ(cell->get_CellFormat()->get_TopPadding(), 10);
+    ASPOSE_ASSERT_EQ(cell->get_CellFormat()->get_RightPadding(), 40);
+    ASPOSE_ASSERT_EQ(cell->get_CellFormat()->get_BottomPadding(), 50);
 }
 
 namespace gtest_test

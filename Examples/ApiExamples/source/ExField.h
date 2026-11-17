@@ -80,9 +80,9 @@ class ExField : public ApiExampleBase
     
 public:
 
-    class OleDbFieldDatabaseProvider : public IFieldDatabaseProvider
+    class SqliteFieldDatabaseProvider : public IFieldDatabaseProvider
     {
-        typedef OleDbFieldDatabaseProvider ThisType;
+        typedef SqliteFieldDatabaseProvider ThisType;
         typedef IFieldDatabaseProvider BaseType;
         
         typedef ::System::BaseTypesInfo<BaseType> ThisTypeBaseTypesInfo;

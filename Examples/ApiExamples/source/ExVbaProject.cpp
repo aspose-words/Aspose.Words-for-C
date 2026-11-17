@@ -123,19 +123,19 @@ void ExVbaProject::CreateNewVbaProject()
     
     project = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"VbaProject.CreateVBAMacros.docm"))->get_VbaProject();
     
-    ASSERT_EQ(u"Aspose.Project", project->get_Name());
+    ASSERT_EQ(project->get_Name(), u"Aspose.Project");
     
     System::SharedPtr<Aspose::Words::Vba::VbaModuleCollection> modules = doc->get_VbaProject()->get_Modules();
     
-    ASSERT_EQ(2, modules->get_Count());
+    ASSERT_EQ(modules->get_Count(), 2);
     
-    ASSERT_EQ(u"ThisDocument", modules->idx_get(0)->get_Name());
-    ASSERT_EQ(VbaModuleType::DocumentModule, modules->idx_get(0)->get_Type());
+    ASSERT_EQ(modules->idx_get(0)->get_Name(), u"ThisDocument");
+    ASSERT_EQ(modules->idx_get(0)->get_Type(), VbaModuleType::DocumentModule);
     ASSERT_TRUE(System::TestTools::IsNull(modules->idx_get(0)->get_SourceCode()));
     
-    ASSERT_EQ(u"Aspose.Module", modules->idx_get(1)->get_Name());
-    ASSERT_EQ(VbaModuleType::ProceduralModule, modules->idx_get(1)->get_Type());
-    ASSERT_EQ(u"New source code", modules->idx_get(1)->get_SourceCode());
+    ASSERT_EQ(modules->idx_get(1)->get_Name(), u"Aspose.Module");
+    ASSERT_EQ(modules->idx_get(1)->get_Type(), VbaModuleType::ProceduralModule);
+    ASSERT_EQ(modules->idx_get(1)->get_SourceCode(), u"New source code");
 }
 
 namespace gtest_test
@@ -172,16 +172,16 @@ void ExVbaProject::CloneVbaProject()
     
     System::SharedPtr<Aspose::Words::Vba::VbaProject> originalVbaProject = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"VbaProject.CloneVbaProject.docm"))->get_VbaProject();
     
-    ASSERT_EQ(copyVbaProject->get_Name(), originalVbaProject->get_Name());
-    ASSERT_EQ(copyVbaProject->get_CodePage(), originalVbaProject->get_CodePage());
-    ASPOSE_ASSERT_EQ(copyVbaProject->get_IsSigned(), originalVbaProject->get_IsSigned());
-    ASSERT_EQ(copyVbaProject->get_Modules()->get_Count(), originalVbaProject->get_Modules()->get_Count());
+    ASSERT_EQ(originalVbaProject->get_Name(), copyVbaProject->get_Name());
+    ASSERT_EQ(originalVbaProject->get_CodePage(), copyVbaProject->get_CodePage());
+    ASPOSE_ASSERT_EQ(originalVbaProject->get_IsSigned(), copyVbaProject->get_IsSigned());
+    ASSERT_EQ(originalVbaProject->get_Modules()->get_Count(), copyVbaProject->get_Modules()->get_Count());
     
     for (int32_t i = 0; i < originalVbaProject->get_Modules()->get_Count(); i++)
     {
-        ASSERT_EQ(copyVbaProject->get_Modules()->idx_get(i)->get_Name(), originalVbaProject->get_Modules()->idx_get(i)->get_Name());
-        ASSERT_EQ(copyVbaProject->get_Modules()->idx_get(i)->get_Type(), originalVbaProject->get_Modules()->idx_get(i)->get_Type());
-        ASSERT_EQ(copyVbaProject->get_Modules()->idx_get(i)->get_SourceCode(), originalVbaProject->get_Modules()->idx_get(i)->get_SourceCode());
+        ASSERT_EQ(originalVbaProject->get_Modules()->idx_get(i)->get_Name(), copyVbaProject->get_Modules()->idx_get(i)->get_Name());
+        ASSERT_EQ(originalVbaProject->get_Modules()->idx_get(i)->get_Type(), copyVbaProject->get_Modules()->idx_get(i)->get_Type());
+        ASSERT_EQ(originalVbaProject->get_Modules()->idx_get(i)->get_SourceCode(), copyVbaProject->get_Modules()->idx_get(i)->get_SourceCode());
     }
 }
 
@@ -201,7 +201,7 @@ void ExVbaProject::RemoveVbaReference()
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"VBA project.docm"));
     
     System::SharedPtr<Aspose::Words::Vba::VbaReferenceCollection> references = doc->get_VbaProject()->get_References();
-    ASSERT_EQ(5, references->get_Count());
+    ASSERT_EQ(references->get_Count(), 5);
     
     for (int32_t i = references->get_Count() - 1; i >= 0; i--)
     {
@@ -213,10 +213,10 @@ void ExVbaProject::RemoveVbaReference()
             references->RemoveAt(i);
         }
     }
-    ASSERT_EQ(4, references->get_Count());
+    ASSERT_EQ(references->get_Count(), 4);
     
     references->Remove(references->idx_get(1));
-    ASSERT_EQ(3, references->get_Count());
+    ASSERT_EQ(references->get_Count(), 3);
     
     doc->Save(get_ArtifactsDir() + u"VbaProject.RemoveVbaReference.docm");
 }

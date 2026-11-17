@@ -10,6 +10,7 @@
 #include <system/linq/enumerable.h>
 #include <system/func.h>
 #include <system/exceptions.h>
+#include <system/environment.h>
 #include <system/enumerator_adapter.h>
 #include <system/details/object_builder.h>
 #include <system/date_time.h>
@@ -231,7 +232,7 @@ void ExRange::InsertDocument(System::SharedPtr<Aspose::Words::Node> insertionDes
 
 void ExRange::TestInsertDocumentAtReplace(System::SharedPtr<Aspose::Words::Document> doc)
 {
-    ASSERT_EQ(System::String(u"1) At text that can be identified by regex:\rHello World!\r") + u"2) At a MERGEFIELD:\r\u0013 MERGEFIELD  Document_1  \\* MERGEFORMAT \u0014«Document_1»\u0015\r" + u"3) At a bookmark:", doc->get_FirstSection()->get_Body()->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->GetText().Trim(), System::String(u"1) At text that can be identified by regex:\rHello World!\r") + u"2) At a MERGEFIELD:\r\u0013 MERGEFIELD  Document_1  \\* MERGEFORMAT \u0014«Document_1»\u0015\r" + u"3) At a bookmark:");
 }
 
 namespace gtest_test
@@ -279,8 +280,8 @@ void ExRange::Replace()
     // Perform a find-and-replace operation on our document's contents and verify the number of replacements that took place.
     int32_t replacementCount = doc->get_Range()->Replace(u"_FullName_", u"John Doe");
     
-    ASSERT_EQ(1, replacementCount);
-    ASSERT_EQ((u"Greetings, John Doe!"), doc->GetText().Trim());
+    ASSERT_EQ(replacementCount, 1);
+    ASSERT_EQ(doc->GetText().Trim(), (u"Greetings, John Doe!"));
     //ExEnd
 }
 
@@ -315,7 +316,7 @@ void ExRange::ReplaceMatchCase(bool matchCase)
     
     doc->get_Range()->Replace(u"Ruby", u"Jade", options);
     
-    ASSERT_EQ(matchCase ? System::String(u"Jade bought a ruby necklace.") : System::String(u"Jade bought a Jade necklace."), doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), matchCase ? System::String(u"Jade bought a ruby necklace.") : System::String(u"Jade bought a Jade necklace."));
     //ExEnd
 }
 
@@ -367,7 +368,7 @@ void ExRange::ReplaceFindWholeWordsOnly(bool findWholeWordsOnly)
     
     doc->get_Range()->Replace(u"Jackson", u"Louis", options);
     
-    ASSERT_EQ(findWholeWordsOnly ? System::String(u"Louis will meet you in Jacksonville.") : System::String(u"Louis will meet you in Louisville."), doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), findWholeWordsOnly ? System::String(u"Louis will meet you in Jacksonville.") : System::String(u"Louis will meet you in Louisville."));
     //ExEnd
 }
 
@@ -428,7 +429,7 @@ void ExRange::IgnoreDeleted(bool ignoreTextInsideDeleteRevisions)
     
     doc->get_Range()->Replace(u"Hello", u"Greetings", options);
     
-    ASSERT_EQ(ignoreTextInsideDeleteRevisions ? System::String(u"Greetings world!\rHello again!") : System::String(u"Greetings world!\rGreetings again!"), doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), ignoreTextInsideDeleteRevisions ? System::String(u"Greetings world!\rHello again!") : System::String(u"Greetings world!\rGreetings again!"));
     //ExEnd
 }
 
@@ -487,7 +488,7 @@ void ExRange::IgnoreInserted(bool ignoreTextInsideInsertRevisions)
     
     doc->get_Range()->Replace(u"Hello", u"Greetings", options);
     
-    ASSERT_EQ(ignoreTextInsideInsertRevisions ? System::String(u"Greetings world!\rHello again!") : System::String(u"Greetings world!\rGreetings again!"), doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), ignoreTextInsideInsertRevisions ? System::String(u"Greetings world!\rHello again!") : System::String(u"Greetings world!\rGreetings again!"));
     //ExEnd
 }
 
@@ -540,7 +541,7 @@ void ExRange::IgnoreFields(bool ignoreTextInsideFields)
     
     doc->get_Range()->Replace(u"Hello", u"Greetings", options);
     
-    ASSERT_EQ(ignoreTextInsideFields ? System::String(u"Greetings world!\r\u0013QUOTE\u0014Hello again!\u0015") : System::String(u"Greetings world!\r\u0013QUOTE\u0014Greetings again!\u0015"), doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), ignoreTextInsideFields ? System::String(u"Greetings world!\r\u0013QUOTE\u0014Hello again!\u0015") : System::String(u"Greetings world!\r\u0013QUOTE\u0014Greetings again!\u0015"));
     //ExEnd
 }
 
@@ -588,7 +589,7 @@ void ExRange::IgnoreFieldCodes(bool ignoreFieldCodes)
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"T"), u"*", options);
     std::cout << doc->GetText() << std::endl;
     
-    ASSERT_EQ(ignoreFieldCodes ? System::String(u"\u0013INCLUDETEXT\u0014*est I*!\u0015") : System::String(u"\u0013INCLUDE*EX*\u0014*est I*!\u0015"), doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), ignoreFieldCodes ? System::String(u"\u0013INCLUDETEXT\u0014*est I*!\u0015") : System::String(u"\u0013INCLUDE*EX*\u0014*est I*!\u0015"));
     //ExEnd
 }
 
@@ -648,12 +649,12 @@ void ExRange::IgnoreFootnote(bool isIgnoreFootnotes)
     
     for (auto&& para : System::IterateOver<Aspose::Words::Paragraph>(paragraphs))
     {
-        ASSERT_EQ(u"Replaced Lorem ipsum", para->get_Runs()->idx_get(0)->get_Text());
+        ASSERT_EQ(para->get_Runs()->idx_get(0)->get_Text(), u"Replaced Lorem ipsum");
     }
     
     System::SharedPtr<System::Collections::Generic::List<System::SharedPtr<Aspose::Words::Notes::Footnote>>> footnotes = doc->GetChildNodes(NodeType::Footnote, true)->LINQ_Cast<System::SharedPtr<Aspose::Words::Notes::Footnote>>()->LINQ_ToList();
-    ASSERT_EQ(isIgnoreFootnotes ? System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.") : System::String(u"Replaced Lorem ipsum dolor sit amet, consectetur adipiscing elit."), footnotes->idx_get(0)->ToString(SaveFormat::Text).Trim());
-    ASSERT_EQ(isIgnoreFootnotes ? System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.") : System::String(u"Replaced Lorem ipsum dolor sit amet, consectetur adipiscing elit."), footnotes->idx_get(1)->ToString(SaveFormat::Text).Trim());
+    ASSERT_EQ(footnotes->idx_get(0)->ToString(SaveFormat::Text).Trim(), isIgnoreFootnotes ? System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.") : System::String(u"Replaced Lorem ipsum dolor sit amet, consectetur adipiscing elit."));
+    ASSERT_EQ(footnotes->idx_get(1)->ToString(SaveFormat::Text).Trim(), isIgnoreFootnotes ? System::String(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.") : System::String(u"Replaced Lorem ipsum dolor sit amet, consectetur adipiscing elit."));
 }
 
 namespace gtest_test
@@ -698,7 +699,7 @@ void ExRange::IgnoreShapes()
     auto findReplaceOptions = System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>();
     findReplaceOptions->set_IgnoreShapes(true);
     builder->get_Document()->get_Range()->Replace(u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.", u"Lorem ipsum dolor sit amet, consectetur adipiscing elit.", findReplaceOptions);
-    ASSERT_EQ((u"Lorem ipsum dolor sit amet, consectetur adipiscing elit."), builder->get_Document()->GetText().Trim());
+    ASSERT_EQ(builder->get_Document()->GetText().Trim(), (u"Lorem ipsum dolor sit amet, consectetur adipiscing elit."));
     //ExEnd
 }
 
@@ -728,14 +729,14 @@ void ExRange::UpdateFieldsInRange()
     doc->get_BuiltInDocumentProperties()->set_Category(u"MyCategory");
     
     // If we update the value of a document property, we will need to update all the DOCPROPERTY fields to display it.
-    ASSERT_EQ(System::String::Empty, doc->get_Range()->get_Fields()->idx_get(0)->get_Result());
-    ASSERT_EQ(System::String::Empty, doc->get_Range()->get_Fields()->idx_get(1)->get_Result());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_Result(), System::String::Empty);
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->get_Result(), System::String::Empty);
     
     // Update all the fields that are in the range of the first section.
     doc->get_FirstSection()->get_Range()->UpdateFields();
     
-    ASSERT_EQ(u"MyCategory", doc->get_Range()->get_Fields()->idx_get(0)->get_Result());
-    ASSERT_EQ(System::String::Empty, doc->get_Range()->get_Fields()->idx_get(1)->get_Result());
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(0)->get_Result(), u"MyCategory");
+    ASSERT_EQ(doc->get_Range()->get_Fields()->idx_get(1)->get_Result(), System::String::Empty);
     //ExEnd
 }
 
@@ -788,7 +789,7 @@ void ExRange::ReplaceWithRegex()
     
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"gr(a|e)y"), u"lavender");
     
-    ASSERT_EQ((u"I decided to get the curtains in lavender, ideal for the lavender-accented room."), doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), (u"I decided to get the curtains in lavender, ideal for the lavender-accented room."));
     //ExEnd
 }
 
@@ -818,9 +819,10 @@ void ExRange::ReplaceWithCallback()
     
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"New York City|NYC"), u"Washington", options);
     
-    ASSERT_EQ(System::String(u"Our new location in (Old value:\"New York City\") Washington is opening tomorrow. ") + u"Hope to see all our (Old value:\"NYC\") Washington-based customers at the opening!", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"Our new location in (Old value:\"New York City\") Washington is opening tomorrow. ") + u"Hope to see all our (Old value:\"NYC\") Washington-based customers at the opening!");
     
-    ASSERT_EQ(System::String(u"\"New York City\" converted to \"Washington\" 20 characters into a Run node.\r\n") + u"\"NYC\" converted to \"Washington\" 42 characters into a Run node.", logger->GetLog().Trim());
+    System::String newLine = System::Environment::get_NewLine();
+    ASSERT_EQ(logger->GetLog().Trim(), System::String::Format(u"\"New York City\" converted to \"Washington\" 20 characters into a Run node.{0}", newLine) + u"\"NYC\" converted to \"Washington\" 42 characters into a Run node.");
 }
 
 namespace gtest_test
@@ -854,12 +856,12 @@ void ExRange::ConvertNumbersToHexadecimal()
     
     std::cout << numberHexer->GetLog() << std::endl;
     
-    ASSERT_EQ(4, replacementCount);
-    ASSERT_EQ((System::String(u"Numbers that the find-and-replace operation will convert to hexadecimal and highlight:\r") + u"0x7B, 0x1C8, 0x315 and 0x43E3."), doc->GetText().Trim());
-    ASSERT_EQ(4, doc->GetChildNodes(NodeType::Run, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Run>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Run>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Run> r)>>([](System::SharedPtr<Aspose::Words::Run> r) -> bool
+    ASSERT_EQ(replacementCount, 4);
+    ASSERT_EQ(doc->GetText().Trim(), (System::String(u"Numbers that the find-and-replace operation will convert to hexadecimal and highlight:\r") + u"0x7B, 0x1C8, 0x315 and 0x43E3."));
+    ASSERT_EQ(doc->GetChildNodes(NodeType::Run, true)->LINQ_OfType<System::SharedPtr<Aspose::Words::Run>>()->LINQ_Count(static_cast<System::Func<System::SharedPtr<Aspose::Words::Run>, bool>>(static_cast<std::function<bool(System::SharedPtr<Aspose::Words::Run> r)>>([](System::SharedPtr<Aspose::Words::Run> r) -> bool
     {
         return r->get_Font()->get_HighlightColor().ToArgb() == System::Drawing::Color::get_LightGray().ToArgb();
-    }))));
+    }))), 4);
 }
 
 namespace gtest_test
@@ -887,9 +889,9 @@ void ExRange::ApplyParagraphFormat()
     
     System::SharedPtr<Aspose::Words::ParagraphCollection> paragraphs = doc->get_FirstSection()->get_Body()->get_Paragraphs();
     
-    ASSERT_EQ(ParagraphAlignment::Left, paragraphs->idx_get(0)->get_ParagraphFormat()->get_Alignment());
-    ASSERT_EQ(ParagraphAlignment::Left, paragraphs->idx_get(1)->get_ParagraphFormat()->get_Alignment());
-    ASSERT_EQ(ParagraphAlignment::Left, paragraphs->idx_get(2)->get_ParagraphFormat()->get_Alignment());
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Left);
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Left);
+    ASSERT_EQ(paragraphs->idx_get(2)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Left);
     
     // We can use a "FindReplaceOptions" object to modify the find-and-replace process.
     auto options = System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>();
@@ -901,11 +903,11 @@ void ExRange::ApplyParagraphFormat()
     // Replace every full stop that is right before a paragraph break with an exclamation point.
     int32_t count = doc->get_Range()->Replace(u".&p", u"!&p", options);
     
-    ASSERT_EQ(2, count);
-    ASSERT_EQ(ParagraphAlignment::Right, paragraphs->idx_get(0)->get_ParagraphFormat()->get_Alignment());
-    ASSERT_EQ(ParagraphAlignment::Left, paragraphs->idx_get(1)->get_ParagraphFormat()->get_Alignment());
-    ASSERT_EQ(ParagraphAlignment::Right, paragraphs->idx_get(2)->get_ParagraphFormat()->get_Alignment());
-    ASSERT_EQ(System::String(u"Every paragraph that ends with a full stop like this one will be right aligned!\r") + u"This one will not!\r" + u"This one also will!", doc->GetText().Trim());
+    ASSERT_EQ(count, 2);
+    ASSERT_EQ(paragraphs->idx_get(0)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Right);
+    ASSERT_EQ(paragraphs->idx_get(1)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Left);
+    ASSERT_EQ(paragraphs->idx_get(2)->get_ParagraphFormat()->get_Alignment(), ParagraphAlignment::Right);
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"Every paragraph that ends with a full stop like this one will be right aligned!\r") + u"This one will not!\r" + u"This one also will!");
     //ExEnd
 }
 
@@ -933,14 +935,14 @@ void ExRange::DeleteSelection()
     builder->InsertBreak(BreakType::SectionBreakContinuous);
     builder->Write(u"Section 2.");
     
-    ASSERT_EQ(u"Section 1. \fSection 2.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), u"Section 1. \fSection 2.");
     
     // Remove the first section entirely by removing all the nodes
     // within its range, including the section itself.
     doc->get_Sections()->idx_get(0)->get_Range()->Delete();
     
-    ASSERT_EQ(1, doc->get_Sections()->get_Count());
-    ASSERT_EQ(u"Section 2.", doc->GetText().Trim());
+    ASSERT_EQ(doc->get_Sections()->get_Count(), 1);
+    ASSERT_EQ(doc->GetText().Trim(), u"Section 2.");
     //ExEnd
 }
 
@@ -965,7 +967,7 @@ void ExRange::RangesGetText()
     
     builder->Write(u"Hello world!");
     
-    ASSERT_EQ(u"Hello world!", doc->get_Range()->get_Text().Trim());
+    ASSERT_EQ(doc->get_Range()->get_Text().Trim(), u"Hello world!");
     //ExEnd
 }
 
@@ -1019,7 +1021,7 @@ void ExRange::UseLegacyOrder(bool useLegacyOrder)
         expected = System::BuildObject<System::Collections::Generic::List<System::String>>()
             .Add({u"[tag 1]", u"[tag 2]", u"[tag 3]"}).Get();
     }
-    ASPOSE_ASSERT_EQ(expected, callback->get_Matches());
+    ASPOSE_ASSERT_EQ(callback->get_Matches(), expected);
 }
 
 namespace gtest_test
@@ -1071,7 +1073,7 @@ void ExRange::UseSubstitutions(bool useSubstitutions)
     auto regex = System::MakeObject<System::Text::RegularExpressions::Regex>(u"([A-z]+) sold a ([A-z]+) to ([A-z]+)");
     doc->get_Range()->Replace(regex, u"$3 bought a $2 from $1", options);
     
-    ASSERT_EQ(useSubstitutions ? System::String(u"Paul bought a car from John.\rJoe bought a house from Jane.") : System::String(u"$3 bought a $2 from $1.\r$3 bought a $2 from $1."), doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), useSubstitutions ? System::String(u"Paul bought a car from John.\rJoe bought a house from Jane.") : System::String(u"$3 bought a $2 from $1.\r$3 bought a $2 from $1."));
     //ExEnd
 }
 
@@ -1154,15 +1156,17 @@ void ExRange::Direction(Aspose::Words::Replacing::FindReplaceDirection findRepla
     
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"Match \\d*"), u"Replacement", options);
     
-    ASSERT_EQ(System::String(u"Replacement.\r") + u"Replacement.\r" + u"Replacement.\r" + u"Replacement.", doc->GetText().Trim());
+    ASSERT_EQ(doc->GetText().Trim(), System::String(u"Replacement.\r") + u"Replacement.\r" + u"Replacement.\r" + u"Replacement.");
     
     switch (findReplaceDirection)
     {
         case FindReplaceDirection::Forward:
-            ASPOSE_ASSERT_EQ(System::MakeArray<System::String>({u"Match 1", u"Match 2", u"Match 3", u"Match 4"}), callback->get_Matches());
+            ASPOSE_ASSERT_EQ(callback->get_Matches(), System::MakeArray<System::String>({u"Match 1", u"Match 2", 
+                u"Match 3", u"Match 4"}));
             break;
         case FindReplaceDirection::Backward:
-            ASPOSE_ASSERT_EQ(System::MakeArray<System::String>({u"Match 4", u"Match 3", u"Match 2", u"Match 1"}), callback->get_Matches());
+            ASPOSE_ASSERT_EQ(callback->get_Matches(), System::MakeArray<System::String>({u"Match 4", u"Match 3", 
+                u"Match 2", u"Match 1"}));
             break;
     }
 }
@@ -1208,8 +1212,8 @@ void ExRange::MatchEndNode()
     options->set_ReplacingCallback(replacingCallback);
     
     doc->get_Range()->Replace(System::MakeObject<System::Text::RegularExpressions::Regex>(u"1[\\s\\S]*3"), u"X", options);
-    ASSERT_EQ(u"1", replacingCallback->get_StartNodeText());
-    ASSERT_EQ(u"3", replacingCallback->get_EndNodeText());
+    ASSERT_EQ(replacingCallback->get_StartNodeText(), u"1");
+    ASSERT_EQ(replacingCallback->get_EndNodeText(), u"3");
 }
 
 namespace gtest_test
@@ -1230,7 +1234,7 @@ void ExRange::IgnoreOfficeMath(bool isIgnoreOfficeMath)
     //ExSummary:Shows how to find and replace text within OfficeMath.
     auto doc = System::MakeObject<Aspose::Words::Document>(System::String(get_MyDir() + u"Office math.docx"));
     
-    ASSERT_EQ(u"i+b-c≥iM+bM-cM", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim());
+    ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim(), u"i+b-c≥iM+bM-cM");
     
     auto options = System::MakeObject<Aspose::Words::Replacing::FindReplaceOptions>();
     options->set_IgnoreOfficeMath(isIgnoreOfficeMath);
@@ -1238,11 +1242,11 @@ void ExRange::IgnoreOfficeMath(bool isIgnoreOfficeMath)
     
     if (isIgnoreOfficeMath)
     {
-        ASSERT_EQ(u"i+b-c≥iM+bM-cM", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim());
+        ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim(), u"i+b-c≥iM+bM-cM");
     }
     else
     {
-        ASSERT_EQ(u"i+x-c≥iM+xM-cM", doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim());
+        ASSERT_EQ(doc->get_FirstSection()->get_Body()->get_FirstParagraph()->GetText().Trim(), u"i+x-c≥iM+xM-cM");
     }
     //ExEnd:IgnoreOfficeMath
 }

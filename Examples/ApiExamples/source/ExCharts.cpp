@@ -29,6 +29,8 @@
 #include <Aspose.Words.Cpp/Model/Drawing/ShapeTextOrientation.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Shape.h>
 #include <Aspose.Words.Cpp/Model/Drawing/PresetTexture.h>
+#include <Aspose.Words.Cpp/Model/Drawing/GradientVariant.h>
+#include <Aspose.Words.Cpp/Model/Drawing/GradientStyle.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Fill.h>
 #include <Aspose.Words.Cpp/Model/Drawing/DashStyle.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Charts/LegendPosition.h>
@@ -43,6 +45,7 @@
 #include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartSeriesGroupCollection.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartSeriesGroup.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartSeriesCollection.h>
+#include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartPlotArea.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartNumberFormat.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartMultilevelValue.h>
 #include <Aspose.Words.Cpp/Model/Drawing/Charts/ChartMarker.h>
@@ -123,7 +126,7 @@ void ExCharts::ApplyDataPoints(System::SharedPtr<Aspose::Words::Drawing::Charts:
         point->get_Marker()->set_Symbol(markerSymbol);
         point->get_Marker()->set_Size(dataPointSize);
         
-        ASSERT_EQ(i, point->get_Index());
+        ASSERT_EQ(point->get_Index(), i);
     }
 }
 
@@ -132,7 +135,7 @@ System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> ExCharts::AppendChart(S
     System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(chartType, width, height);
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = chartShape->get_Chart();
     chart->get_Series()->Clear();
-    EXPECT_EQ(0, chart->get_Series()->get_Count());
+    EXPECT_EQ(chart->get_Series()->get_Count(), 0);
     //ExSkip
     
     return chart;
@@ -207,12 +210,12 @@ void ExCharts::ChartTitle()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.ChartTitle.docx"));
     chartShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASSERT_EQ(ShapeType::NonPrimitive, chartShape->get_ShapeType());
+    ASSERT_EQ(chartShape->get_ShapeType(), ShapeType::NonPrimitive);
     ASSERT_TRUE(chartShape->get_HasChart());
     
     title = chartShape->get_Chart()->get_Title();
     
-    ASSERT_EQ(u"My Chart", title->get_Text());
+    ASSERT_EQ(title->get_Text(), u"My Chart");
     ASSERT_TRUE(title->get_Overlay());
     ASSERT_TRUE(title->get_Show());
 }
@@ -266,7 +269,7 @@ void ExCharts::DataLabelNumberFormat()
     
     ASSERT_TRUE(series->get_HasDataLabels());
     ASSERT_TRUE(series->get_DataLabels()->get_ShowValue());
-    ASSERT_EQ((u"\"US$\" #,##0.000\"M\""), series->get_DataLabels()->get_NumberFormat()->get_FormatCode());
+    ASSERT_EQ(series->get_DataLabels()->get_NumberFormat()->get_FormatCode(), (u"\"US$\" #,##0.000\"M\""));
 }
 
 namespace gtest_test
@@ -335,7 +338,7 @@ void ExCharts::AxisProperties()
     xAxis->get_TickLabels()->set_IsAutoSpacing(false);
     xAxis->set_TickMarkSpacing(1);
     
-    ASPOSE_ASSERT_EQ(doc, xAxis->get_Document());
+    ASPOSE_ASSERT_EQ(xAxis->get_Document(), doc);
     
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartAxis> yAxis = chart->get_AxisY();
     yAxis->set_CategoryType(AxisCategoryType::Automatic);
@@ -359,30 +362,30 @@ void ExCharts::AxisProperties()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.AxisProperties.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
     
-    ASSERT_EQ(AxisCategoryType::Category, chart->get_AxisX()->get_CategoryType());
-    ASSERT_EQ(AxisCrosses::Minimum, chart->get_AxisX()->get_Crosses());
+    ASSERT_EQ(chart->get_AxisX()->get_CategoryType(), AxisCategoryType::Category);
+    ASSERT_EQ(chart->get_AxisX()->get_Crosses(), AxisCrosses::Minimum);
     ASSERT_FALSE(chart->get_AxisX()->get_ReverseOrder());
-    ASSERT_EQ(AxisTickMark::Inside, chart->get_AxisX()->get_MajorTickMark());
-    ASSERT_EQ(AxisTickMark::Cross, chart->get_AxisX()->get_MinorTickMark());
-    ASPOSE_ASSERT_EQ(1.0, chart->get_AxisX()->get_MajorUnit());
-    ASPOSE_ASSERT_EQ(0.5, chart->get_AxisX()->get_MinorUnit());
-    ASSERT_EQ(50, chart->get_AxisX()->get_TickLabels()->get_Offset());
-    ASSERT_EQ(AxisTickLabelPosition::Low, chart->get_AxisX()->get_TickLabels()->get_Position());
+    ASSERT_EQ(chart->get_AxisX()->get_MajorTickMark(), AxisTickMark::Inside);
+    ASSERT_EQ(chart->get_AxisX()->get_MinorTickMark(), AxisTickMark::Cross);
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_MajorUnit(), 1.0);
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_MinorUnit(), 0.5);
+    ASSERT_EQ(chart->get_AxisX()->get_TickLabels()->get_Offset(), 50);
+    ASSERT_EQ(chart->get_AxisX()->get_TickLabels()->get_Position(), AxisTickLabelPosition::Low);
     ASSERT_FALSE(chart->get_AxisX()->get_TickLabels()->get_IsAutoSpacing());
-    ASSERT_EQ(1, chart->get_AxisX()->get_TickMarkSpacing());
+    ASSERT_EQ(chart->get_AxisX()->get_TickMarkSpacing(), 1);
     ASSERT_TRUE(chart->get_AxisX()->get_Format()->get_IsDefined());
     
-    ASSERT_EQ(AxisCategoryType::Category, chart->get_AxisY()->get_CategoryType());
-    ASSERT_EQ(AxisCrosses::Maximum, chart->get_AxisY()->get_Crosses());
+    ASSERT_EQ(chart->get_AxisY()->get_CategoryType(), AxisCategoryType::Category);
+    ASSERT_EQ(chart->get_AxisY()->get_Crosses(), AxisCrosses::Maximum);
     ASSERT_TRUE(chart->get_AxisY()->get_ReverseOrder());
-    ASSERT_EQ(AxisTickMark::Inside, chart->get_AxisY()->get_MajorTickMark());
-    ASSERT_EQ(AxisTickMark::Cross, chart->get_AxisY()->get_MinorTickMark());
-    ASPOSE_ASSERT_EQ(100.0, chart->get_AxisY()->get_MajorUnit());
-    ASPOSE_ASSERT_EQ(20.0, chart->get_AxisY()->get_MinorUnit());
-    ASSERT_EQ(AxisTickLabelPosition::NextToAxis, chart->get_AxisY()->get_TickLabels()->get_Position());
-    ASSERT_EQ(ParagraphAlignment::Center, chart->get_AxisY()->get_TickLabels()->get_Alignment());
-    ASSERT_EQ(System::Drawing::Color::get_Red().ToArgb(), chart->get_AxisY()->get_TickLabels()->get_Font()->get_Color().ToArgb());
-    ASSERT_EQ(1, chart->get_AxisY()->get_TickLabels()->get_Spacing());
+    ASSERT_EQ(chart->get_AxisY()->get_MajorTickMark(), AxisTickMark::Inside);
+    ASSERT_EQ(chart->get_AxisY()->get_MinorTickMark(), AxisTickMark::Cross);
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_MajorUnit(), 100.0);
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_MinorUnit(), 20.0);
+    ASSERT_EQ(chart->get_AxisY()->get_TickLabels()->get_Position(), AxisTickLabelPosition::NextToAxis);
+    ASSERT_EQ(chart->get_AxisY()->get_TickLabels()->get_Alignment(), ParagraphAlignment::Center);
+    ASSERT_EQ(chart->get_AxisY()->get_TickLabels()->get_Font()->get_Color().ToArgb(), System::Drawing::Color::get_Red().ToArgb());
+    ASSERT_EQ(chart->get_AxisY()->get_TickLabels()->get_Spacing(), 1);
     ASSERT_TRUE(chart->get_AxisY()->get_Format()->get_IsDefined());
 }
 
@@ -494,24 +497,24 @@ void ExCharts::DateTimeValues()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.DateTimeValues.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
     
-    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(System::DateTime(2017, 11, 5).ToOADate()), chart->get_AxisX()->get_Scaling()->get_Minimum());
-    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(System::DateTime(2017, 12, 3)), chart->get_AxisX()->get_Scaling()->get_Maximum());
-    ASSERT_EQ(AxisTimeUnit::Days, chart->get_AxisX()->get_BaseTimeUnit());
-    ASPOSE_ASSERT_EQ(7.0, chart->get_AxisX()->get_MajorUnit());
-    ASPOSE_ASSERT_EQ(1.0, chart->get_AxisX()->get_MinorUnit());
-    ASSERT_EQ(AxisTickMark::Cross, chart->get_AxisX()->get_MajorTickMark());
-    ASSERT_EQ(AxisTickMark::Outside, chart->get_AxisX()->get_MinorTickMark());
-    ASPOSE_ASSERT_EQ(true, chart->get_AxisX()->get_HasMajorGridlines());
-    ASPOSE_ASSERT_EQ(true, chart->get_AxisX()->get_HasMinorGridlines());
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_Scaling()->get_Minimum(), System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(System::DateTime(2017, 11, 5).ToOADate()));
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_Scaling()->get_Maximum(), System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(System::DateTime(2017, 12, 3)));
+    ASSERT_EQ(chart->get_AxisX()->get_BaseTimeUnit(), AxisTimeUnit::Days);
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_MajorUnit(), 7.0);
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_MinorUnit(), 1.0);
+    ASSERT_EQ(chart->get_AxisX()->get_MajorTickMark(), AxisTickMark::Cross);
+    ASSERT_EQ(chart->get_AxisX()->get_MinorTickMark(), AxisTickMark::Outside);
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_HasMajorGridlines(), true);
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_HasMinorGridlines(), true);
     
-    ASSERT_EQ(AxisTickLabelPosition::High, chart->get_AxisY()->get_TickLabels()->get_Position());
-    ASPOSE_ASSERT_EQ(100.0, chart->get_AxisY()->get_MajorUnit());
-    ASPOSE_ASSERT_EQ(50.0, chart->get_AxisY()->get_MinorUnit());
-    ASSERT_EQ(AxisBuiltInUnit::Hundreds, chart->get_AxisY()->get_DisplayUnit()->get_Unit());
-    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(100)), chart->get_AxisY()->get_Scaling()->get_Minimum());
-    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(700)), chart->get_AxisY()->get_Scaling()->get_Maximum());
-    ASPOSE_ASSERT_EQ(true, chart->get_AxisY()->get_HasMajorGridlines());
-    ASPOSE_ASSERT_EQ(true, chart->get_AxisY()->get_HasMinorGridlines());
+    ASSERT_EQ(chart->get_AxisY()->get_TickLabels()->get_Position(), AxisTickLabelPosition::High);
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_MajorUnit(), 100.0);
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_MinorUnit(), 50.0);
+    ASSERT_EQ(chart->get_AxisY()->get_DisplayUnit()->get_Unit(), AxisBuiltInUnit::Hundreds);
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_Scaling()->get_Minimum(), System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(100)));
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_Scaling()->get_Maximum(), System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(700)));
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_HasMajorGridlines(), true);
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_HasMinorGridlines(), true);
 }
 
 namespace gtest_test
@@ -600,7 +603,7 @@ void ExCharts::SetNumberFormatToChartAxis()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.SetNumberFormatToChartAxis.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
     
-    ASSERT_EQ((u"#,##0"), chart->get_AxisY()->get_NumberFormat()->get_FormatCode());
+    ASSERT_EQ(chart->get_AxisY()->get_NumberFormat()->get_FormatCode(), (u"#,##0"));
 }
 
 namespace gtest_test
@@ -726,7 +729,7 @@ void ExCharts::DataLabelsBubbleChart()
     ASSERT_TRUE(dataLabels->get_ShowBubbleSize());
     ASSERT_TRUE(dataLabels->get_ShowCategoryName());
     ASSERT_TRUE(dataLabels->get_ShowSeriesName());
-    ASSERT_EQ(u" & ", dataLabels->get_Separator());
+    ASSERT_EQ(dataLabels->get_Separator(), u" & ");
 }
 
 namespace gtest_test
@@ -779,7 +782,7 @@ void ExCharts::DataLabelsPieChart()
     ASSERT_TRUE(dataLabels->get_ShowLegendKey());
     ASSERT_TRUE(dataLabels->get_ShowPercentage());
     ASSERT_TRUE(dataLabels->get_ShowValue());
-    ASSERT_EQ(u"; ", dataLabels->get_Separator());
+    ASSERT_EQ(dataLabels->get_Separator(), u"; ");
 }
 
 namespace gtest_test
@@ -800,17 +803,17 @@ void ExCharts::DataLabels()
     System::SharedPtr<Aspose::Words::Drawing::Shape> chartShape = builder->InsertChart(ChartType::Line, static_cast<double>(400), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = chartShape->get_Chart();
     
-    ASSERT_EQ(3, chart->get_Series()->get_Count());
-    ASSERT_EQ(u"Series 1", chart->get_Series()->idx_get(0)->get_Name());
-    ASSERT_EQ(u"Series 2", chart->get_Series()->idx_get(1)->get_Name());
-    ASSERT_EQ(u"Series 3", chart->get_Series()->idx_get(2)->get_Name());
+    ASSERT_EQ(chart->get_Series()->get_Count(), 3);
+    ASSERT_EQ(chart->get_Series()->idx_get(0)->get_Name(), u"Series 1");
+    ASSERT_EQ(chart->get_Series()->idx_get(1)->get_Name(), u"Series 2");
+    ASSERT_EQ(chart->get_Series()->idx_get(2)->get_Name(), u"Series 3");
     
     // Apply data labels to every series in the chart.
     // These labels will appear next to each data point in the graph and display its value.
     for (auto&& series : System::IterateOver(chart->get_Series()))
     {
         ApplyDataLabels(series, 4, u"000.0", u", ");
-        ASSERT_EQ(4, series->get_DataLabels()->get_Count());
+        ASSERT_EQ(series->get_DataLabels()->get_Count(), 4);
     }
     
     // Change the separator string for every data label in a series.
@@ -818,7 +821,7 @@ void ExCharts::DataLabels()
         System::SharedPtr<System::Collections::Generic::IEnumerator<System::SharedPtr<Aspose::Words::Drawing::Charts::ChartDataLabel>>> enumerator = chart->get_Series()->idx_get(0)->get_DataLabels()->GetEnumerator();
         while (enumerator->MoveNext())
         {
-            ASSERT_EQ((u", "), enumerator->get_Current()->get_Separator());
+            ASSERT_EQ(enumerator->get_Current()->get_Separator(), (u", "));
             enumerator->get_Current()->set_Separator(u" & ");
         }
     }
@@ -853,10 +856,10 @@ void ExCharts::ChartDataPoint()
     System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(ChartType::Line, static_cast<double>(500), static_cast<double>(350));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
-    ASSERT_EQ(3, chart->get_Series()->get_Count());
-    ASSERT_EQ(u"Series 1", chart->get_Series()->idx_get(0)->get_Name());
-    ASSERT_EQ(u"Series 2", chart->get_Series()->idx_get(1)->get_Name());
-    ASSERT_EQ(u"Series 3", chart->get_Series()->idx_get(2)->get_Name());
+    ASSERT_EQ(chart->get_Series()->get_Count(), 3);
+    ASSERT_EQ(chart->get_Series()->idx_get(0)->get_Name(), u"Series 1");
+    ASSERT_EQ(chart->get_Series()->idx_get(1)->get_Name(), u"Series 2");
+    ASSERT_EQ(chart->get_Series()->idx_get(2)->get_Name(), u"Series 3");
     
     // Emphasize the chart's data points by making them appear as diamond shapes.
     for (auto&& series : System::IterateOver(chart->get_Series()))
@@ -910,8 +913,8 @@ void ExCharts::PieChartExplosion()
     System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(ChartType::Pie, static_cast<double>(500), static_cast<double>(350));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
-    ASSERT_EQ(1, chart->get_Series()->get_Count());
-    ASSERT_EQ(u"Sales", chart->get_Series()->idx_get(0)->get_Name());
+    ASSERT_EQ(chart->get_Series()->get_Count(), 1);
+    ASSERT_EQ(chart->get_Series()->idx_get(0)->get_Name(), u"Sales");
     
     // "Slices" of a pie chart may be moved away from the center by a distance via the respective data point's Explosion attribute.
     // Add a data point to the first portion of the pie chart and move it away from the center by 10 points.
@@ -929,8 +932,8 @@ void ExCharts::PieChartExplosion()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.PieChartExplosion.docx"));
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
     
-    ASSERT_EQ(10, series->get_DataPoints()->idx_get(0)->get_Explosion());
-    ASSERT_EQ(40, series->get_DataPoints()->idx_get(1)->get_Explosion());
+    ASSERT_EQ(series->get_DataPoints()->idx_get(0)->get_Explosion(), 10);
+    ASSERT_EQ(series->get_DataPoints()->idx_get(1)->get_Explosion(), 40);
 }
 
 namespace gtest_test
@@ -957,8 +960,8 @@ void ExCharts::Bubble3D()
     System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(ChartType::Bubble3D, static_cast<double>(500), static_cast<double>(350));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
-    ASSERT_EQ(1, chart->get_Series()->get_Count());
-    ASSERT_EQ(u"Y-Values", chart->get_Series()->idx_get(0)->get_Name());
+    ASSERT_EQ(chart->get_Series()->get_Count(), 1);
+    ASSERT_EQ(chart->get_Series()->idx_get(0)->get_Name(), u"Y-Values");
     ASSERT_TRUE(chart->get_Series()->idx_get(0)->get_Bubble3D());
     
     // Apply a data label to each bubble that displays its diameter.
@@ -1009,8 +1012,8 @@ void ExCharts::ChartSeriesCollection()
     chart->get_Series()->Add(u"Series 2", categories, System::MakeArray<double>({64.2, 79.5, 94.0}));
     
     // Categories are distributed along the X-axis, and values are distributed along the Y-axis.
-    ASSERT_EQ(ChartAxisType::Category, chart->get_AxisX()->get_Type());
-    ASSERT_EQ(ChartAxisType::Value, chart->get_AxisY()->get_Type());
+    ASSERT_EQ(chart->get_AxisX()->get_Type(), ChartAxisType::Category);
+    ASSERT_EQ(chart->get_AxisY()->get_Type(), ChartAxisType::Value);
     
     // 2 -  Area chart with dates distributed along the X-axis:
     chart = AppendChart(builder, ChartType::Area, 500, 300);
@@ -1022,8 +1025,8 @@ void ExCharts::ChartSeriesCollection()
     // and the values added to this series will create data points.
     chart->get_Series()->Add(u"Series 1", dates, System::MakeArray<double>({15.8, 21.5, 22.9, 28.7, 33.1}));
     
-    ASSERT_EQ(ChartAxisType::Category, chart->get_AxisX()->get_Type());
-    ASSERT_EQ(ChartAxisType::Value, chart->get_AxisY()->get_Type());
+    ASSERT_EQ(chart->get_AxisX()->get_Type(), ChartAxisType::Category);
+    ASSERT_EQ(chart->get_AxisY()->get_Type(), ChartAxisType::Value);
     
     // 3 -  2D scatter plot:
     chart = AppendChart(builder, ChartType::Scatter, 500, 300);
@@ -1036,8 +1039,8 @@ void ExCharts::ChartSeriesCollection()
     chart->get_Series()->Add(u"Series 2", System::MakeArray<double>({2.6, 7.3, 4.5, 6.6, 2.1, 9.3, 0.7, 3.3}), System::MakeArray<double>({
         7.1, 6.6, 3.5, 7.8, 7.7, 9.5, 1.3, 4.6}));
     
-    ASSERT_EQ(ChartAxisType::Value, chart->get_AxisX()->get_Type());
-    ASSERT_EQ(ChartAxisType::Value, chart->get_AxisY()->get_Type());
+    ASSERT_EQ(chart->get_AxisX()->get_Type(), ChartAxisType::Value);
+    ASSERT_EQ(chart->get_AxisY()->get_Type(), ChartAxisType::Value);
     
     // 4 -  Bubble chart:
     chart = AppendChart(builder, ChartType::Bubble, 500, 300);
@@ -1082,7 +1085,7 @@ void ExCharts::ChartSeriesCollectionModify()
     // Four clusters of three columns will represent this data.
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> chartData = chart->get_Series();
     
-    ASSERT_EQ(3, chartData->get_Count());
+    ASSERT_EQ(chartData->get_Count(), 3);
     
     // Print the name of every series in the chart.
     {
@@ -1099,9 +1102,9 @@ void ExCharts::ChartSeriesCollectionModify()
     // We can add a series with new values for existing categories.
     // This chart will now contain four clusters of four columns.
     chart->get_Series()->Add(u"Series 4", categories, System::MakeArray<double>({4.4, 7.0, 3.5, 2.1}));
-    ASSERT_EQ(4, chartData->get_Count());
+    ASSERT_EQ(chartData->get_Count(), 4);
     //ExSkip
-    ASSERT_EQ(u"Series 4", chartData->idx_get(3)->get_Name());
+    ASSERT_EQ(chartData->idx_get(3)->get_Name(), u"Series 4");
     //ExSkip
     
     // A chart series can also be removed by index, like this.
@@ -1112,16 +1115,16 @@ void ExCharts::ChartSeriesCollectionModify()
     {
         return s->get_Name() == u"Series 3";
     }))));
-    ASSERT_EQ(3, chartData->get_Count());
+    ASSERT_EQ(chartData->get_Count(), 3);
     //ExSkip
-    ASSERT_EQ(u"Series 4", chartData->idx_get(2)->get_Name());
+    ASSERT_EQ(chartData->idx_get(2)->get_Name(), u"Series 4");
     //ExSkip
     
     // We can also clear all the chart's data at once with this method.
     // When creating a new chart, this is the way to wipe all the demo data
     // before we can begin working on a blank chart.
     chartData->Clear();
-    ASSERT_EQ(0, chartData->get_Count());
+    ASSERT_EQ(chartData->get_Count(), 0);
     //ExSkip
     
     //ExEnd
@@ -1173,9 +1176,9 @@ void ExCharts::AxisScaling()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.AxisScaling.docx"));
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
     
-    ASSERT_EQ(AxisScaleType::Linear, chart->get_AxisX()->get_Scaling()->get_Type());
-    ASSERT_EQ(AxisScaleType::Logarithmic, chart->get_AxisY()->get_Scaling()->get_Type());
-    ASPOSE_ASSERT_EQ(20.0, chart->get_AxisY()->get_Scaling()->get_LogBase());
+    ASSERT_EQ(chart->get_AxisX()->get_Scaling()->get_Type(), AxisScaleType::Linear);
+    ASSERT_EQ(chart->get_AxisY()->get_Scaling()->get_Type(), AxisScaleType::Logarithmic);
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_Scaling()->get_LogBase(), 20.0);
 }
 
 namespace gtest_test
@@ -1246,18 +1249,18 @@ void ExCharts::AxisBound()
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart();
     
     ASSERT_FALSE(chart->get_AxisX()->get_Scaling()->get_Minimum()->get_IsAuto());
-    ASPOSE_ASSERT_EQ(0.0, chart->get_AxisX()->get_Scaling()->get_Minimum()->get_Value());
-    ASPOSE_ASSERT_EQ(10.0, chart->get_AxisX()->get_Scaling()->get_Maximum()->get_Value());
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_Scaling()->get_Minimum()->get_Value(), 0.0);
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_Scaling()->get_Maximum()->get_Value(), 10.0);
     
     ASSERT_FALSE(chart->get_AxisY()->get_Scaling()->get_Minimum()->get_IsAuto());
-    ASPOSE_ASSERT_EQ(0.0, chart->get_AxisY()->get_Scaling()->get_Minimum()->get_Value());
-    ASPOSE_ASSERT_EQ(10.0, chart->get_AxisY()->get_Scaling()->get_Maximum()->get_Value());
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_Scaling()->get_Minimum()->get_Value(), 0.0);
+    ASPOSE_ASSERT_EQ(chart->get_AxisY()->get_Scaling()->get_Maximum()->get_Value(), 10.0);
     
     chart = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 1, true)))->get_Chart();
     
     ASSERT_FALSE(chart->get_AxisX()->get_Scaling()->get_Minimum()->get_IsAuto());
-    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(System::DateTime(1980, 1, 1)), chart->get_AxisX()->get_Scaling()->get_Minimum());
-    ASPOSE_ASSERT_EQ(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(System::DateTime(1990, 1, 1)), chart->get_AxisX()->get_Scaling()->get_Maximum());
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_Scaling()->get_Minimum(), System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(System::DateTime(1980, 1, 1)));
+    ASPOSE_ASSERT_EQ(chart->get_AxisX()->get_Scaling()->get_Maximum(), System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(System::DateTime(1990, 1, 1)));
     
     ASSERT_TRUE(chart->get_AxisY()->get_Scaling()->get_Minimum()->get_IsAuto());
 }
@@ -1287,10 +1290,10 @@ void ExCharts::ChartLegend()
     System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(ChartType::Line, static_cast<double>(450), static_cast<double>(300));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
-    ASSERT_EQ(3, chart->get_Series()->get_Count());
-    ASSERT_EQ(u"Series 1", chart->get_Series()->idx_get(0)->get_Name());
-    ASSERT_EQ(u"Series 2", chart->get_Series()->idx_get(1)->get_Name());
-    ASSERT_EQ(u"Series 3", chart->get_Series()->idx_get(2)->get_Name());
+    ASSERT_EQ(chart->get_Series()->get_Count(), 3);
+    ASSERT_EQ(chart->get_Series()->idx_get(0)->get_Name(), u"Series 1");
+    ASSERT_EQ(chart->get_Series()->idx_get(1)->get_Name(), u"Series 2");
+    ASSERT_EQ(chart->get_Series()->idx_get(2)->get_Name(), u"Series 3");
     
     // Move the chart's legend to the top right corner.
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartLegend> legend = chart->get_Legend();
@@ -1307,7 +1310,7 @@ void ExCharts::ChartLegend()
     legend = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Legend();
     
     ASSERT_TRUE(legend->get_Overlay());
-    ASSERT_EQ(LegendPosition::TopRight, legend->get_Position());
+    ASSERT_EQ(legend->get_Position(), LegendPosition::TopRight);
 }
 
 namespace gtest_test
@@ -1332,10 +1335,10 @@ void ExCharts::AxisCross()
     System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(ChartType::Column, static_cast<double>(450), static_cast<double>(250));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
-    ASSERT_EQ(3, chart->get_Series()->get_Count());
-    ASSERT_EQ(u"Series 1", chart->get_Series()->idx_get(0)->get_Name());
-    ASSERT_EQ(u"Series 2", chart->get_Series()->idx_get(1)->get_Name());
-    ASSERT_EQ(u"Series 3", chart->get_Series()->idx_get(2)->get_Name());
+    ASSERT_EQ(chart->get_Series()->get_Count(), 3);
+    ASSERT_EQ(chart->get_Series()->idx_get(0)->get_Name(), u"Series 1");
+    ASSERT_EQ(chart->get_Series()->idx_get(1)->get_Name(), u"Series 2");
+    ASSERT_EQ(chart->get_Series()->idx_get(2)->get_Name(), u"Series 3");
     
     // For column charts, the Y-axis crosses at zero by default,
     // which means that columns for all values below zero point down to represent negative values.
@@ -1352,8 +1355,8 @@ void ExCharts::AxisCross()
     axis = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_AxisX();
     
     ASSERT_TRUE(axis->get_AxisBetweenCategories());
-    ASSERT_EQ(AxisCrosses::Custom, axis->get_Crosses());
-    ASPOSE_ASSERT_EQ(3.0, axis->get_CrossesAt());
+    ASSERT_EQ(axis->get_Crosses(), AxisCrosses::Custom);
+    ASPOSE_ASSERT_EQ(axis->get_CrossesAt(), 3.0);
 }
 
 namespace gtest_test
@@ -1386,8 +1389,8 @@ void ExCharts::AxisDisplayUnit()
     System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(ChartType::Scatter, static_cast<double>(450), static_cast<double>(250));
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
-    ASSERT_EQ(1, chart->get_Series()->get_Count());
-    ASSERT_EQ(u"Y-Values", chart->get_Series()->idx_get(0)->get_Name());
+    ASSERT_EQ(chart->get_Series()->get_Count(), 1);
+    ASSERT_EQ(chart->get_Series()->idx_get(0)->get_Name(), u"Y-Values");
     
     // Set the minor tick marks of the Y-axis to point away from the plot area,
     // and the major tick marks to cross the axis.
@@ -1419,8 +1422,8 @@ void ExCharts::AxisDisplayUnit()
     axis->get_Scaling()->set_Maximum(System::MakeObject<Aspose::Words::Drawing::Charts::AxisBound>(static_cast<double>(30)));
     axis->get_TickLabels()->set_Alignment(ParagraphAlignment::Right);
     
-    ASSERT_EQ(1, axis->get_TickLabels()->get_Spacing());
-    ASPOSE_ASSERT_EQ(doc, axis->get_DisplayUnit()->get_Document());
+    ASSERT_EQ(axis->get_TickLabels()->get_Spacing(), 1);
+    ASPOSE_ASSERT_EQ(axis->get_DisplayUnit()->get_Document(), doc);
     
     // Set the tick labels to display their value in millions.
     axis->get_DisplayUnit()->set_Unit(AxisBuiltInUnit::Millions);
@@ -1428,7 +1431,7 @@ void ExCharts::AxisDisplayUnit()
     // We can set a more specific value by which tick labels will display their values.
     // This statement is equivalent to the one above.
     axis->get_DisplayUnit()->set_CustomUnit(1000000);
-    ASSERT_EQ(AxisBuiltInUnit::Custom, axis->get_DisplayUnit()->get_Unit());
+    ASSERT_EQ(axis->get_DisplayUnit()->get_Unit(), AxisBuiltInUnit::Custom);
     //ExSkip
     
     doc->Save(get_ArtifactsDir() + u"Charts.AxisDisplayUnit.docx");
@@ -1437,29 +1440,29 @@ void ExCharts::AxisDisplayUnit()
     doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.AxisDisplayUnit.docx"));
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     
-    ASPOSE_ASSERT_EQ(450.0, shape->get_Width());
-    ASPOSE_ASSERT_EQ(250.0, shape->get_Height());
+    ASPOSE_ASSERT_EQ(shape->get_Width(), 450.0);
+    ASPOSE_ASSERT_EQ(shape->get_Height(), 250.0);
     
     axis = shape->get_Chart()->get_AxisX();
     
-    ASSERT_EQ(AxisTickMark::Inside, axis->get_MajorTickMark());
-    ASSERT_EQ(AxisTickMark::Inside, axis->get_MinorTickMark());
-    ASPOSE_ASSERT_EQ(10.0, axis->get_MajorUnit());
-    ASPOSE_ASSERT_EQ(-10.0, axis->get_Scaling()->get_Minimum()->get_Value());
-    ASPOSE_ASSERT_EQ(30.0, axis->get_Scaling()->get_Maximum()->get_Value());
-    ASSERT_EQ(1, axis->get_TickLabels()->get_Spacing());
-    ASSERT_EQ(ParagraphAlignment::Right, axis->get_TickLabels()->get_Alignment());
-    ASSERT_EQ(AxisBuiltInUnit::Custom, axis->get_DisplayUnit()->get_Unit());
-    ASPOSE_ASSERT_EQ(1000000.0, axis->get_DisplayUnit()->get_CustomUnit());
+    ASSERT_EQ(axis->get_MajorTickMark(), AxisTickMark::Inside);
+    ASSERT_EQ(axis->get_MinorTickMark(), AxisTickMark::Inside);
+    ASPOSE_ASSERT_EQ(axis->get_MajorUnit(), 10.0);
+    ASPOSE_ASSERT_EQ(axis->get_Scaling()->get_Minimum()->get_Value(), -10.0);
+    ASPOSE_ASSERT_EQ(axis->get_Scaling()->get_Maximum()->get_Value(), 30.0);
+    ASSERT_EQ(axis->get_TickLabels()->get_Spacing(), 1);
+    ASSERT_EQ(axis->get_TickLabels()->get_Alignment(), ParagraphAlignment::Right);
+    ASSERT_EQ(axis->get_DisplayUnit()->get_Unit(), AxisBuiltInUnit::Custom);
+    ASPOSE_ASSERT_EQ(axis->get_DisplayUnit()->get_CustomUnit(), 1000000.0);
     
     axis = shape->get_Chart()->get_AxisY();
     
-    ASSERT_EQ(AxisTickMark::Cross, axis->get_MajorTickMark());
-    ASSERT_EQ(AxisTickMark::Outside, axis->get_MinorTickMark());
-    ASPOSE_ASSERT_EQ(10.0, axis->get_MajorUnit());
-    ASPOSE_ASSERT_EQ(1.0, axis->get_MinorUnit());
-    ASPOSE_ASSERT_EQ(-10.0, axis->get_Scaling()->get_Minimum()->get_Value());
-    ASPOSE_ASSERT_EQ(20.0, axis->get_Scaling()->get_Maximum()->get_Value());
+    ASSERT_EQ(axis->get_MajorTickMark(), AxisTickMark::Cross);
+    ASSERT_EQ(axis->get_MinorTickMark(), AxisTickMark::Outside);
+    ASPOSE_ASSERT_EQ(axis->get_MajorUnit(), 10.0);
+    ASPOSE_ASSERT_EQ(axis->get_MinorUnit(), 1.0);
+    ASPOSE_ASSERT_EQ(axis->get_Scaling()->get_Minimum()->get_Value(), -10.0);
+    ASPOSE_ASSERT_EQ(axis->get_Scaling()->get_Maximum()->get_Value(), 20.0);
 }
 
 namespace gtest_test
@@ -2144,10 +2147,10 @@ void ExCharts::ChartFormat()
     shape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     chart = shape->get_Chart();
     
-    ASSERT_EQ(System::Drawing::Color::get_DarkSlateGray().ToArgb(), chart->get_Format()->get_Fill()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_LightGoldenrodYellow().ToArgb(), chart->get_Title()->get_Format()->get_Fill()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_LightGoldenrodYellow().ToArgb(), chart->get_AxisX()->get_Title()->get_Format()->get_Fill()->get_Color().ToArgb());
-    ASSERT_EQ(System::Drawing::Color::get_LightGoldenrodYellow().ToArgb(), chart->get_Legend()->get_Format()->get_Fill()->get_Color().ToArgb());
+    ASSERT_EQ(chart->get_Format()->get_Fill()->get_Color().ToArgb(), System::Drawing::Color::get_DarkSlateGray().ToArgb());
+    ASSERT_EQ(chart->get_Title()->get_Format()->get_Fill()->get_Color().ToArgb(), System::Drawing::Color::get_LightGoldenrodYellow().ToArgb());
+    ASSERT_EQ(chart->get_AxisX()->get_Title()->get_Format()->get_Fill()->get_Color().ToArgb(), System::Drawing::Color::get_LightGoldenrodYellow().ToArgb());
+    ASSERT_EQ(chart->get_Legend()->get_Format()->get_Fill()->get_Color().ToArgb(), System::Drawing::Color::get_LightGoldenrodYellow().ToArgb());
 }
 
 namespace gtest_test
@@ -2198,7 +2201,7 @@ void ExCharts::SecondaryAxis()
     newSeriesGroup->get_AxisY()->get_Title()->set_Show(true);
     newSeriesGroup->get_AxisY()->get_Title()->set_Text(u"Secondary Y axis");
     
-    ASSERT_EQ(ChartSeriesType::Line, newSeriesGroup->get_SeriesType());
+    ASSERT_EQ(newSeriesGroup->get_SeriesType(), ChartSeriesType::Line);
     
     // Add a series to the new series group.
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series3 = newSeriesGroup->get_Series()->Add(u"Series of secondary series group", categories, System::MakeArray<double>({13, 11, 16}));
@@ -2780,9 +2783,9 @@ void ExCharts::FormatCode()
     System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> seriesCollection = chart->get_Series();
     for (auto&& seriesProperties : System::IterateOver(seriesCollection))
     {
-        ASSERT_EQ((u"#,##0.0#"), seriesProperties->get_XValues()->get_FormatCode());
-        ASSERT_EQ((u"#,##0.0#;[Red]\\-#,##0.0#"), seriesProperties->get_YValues()->get_FormatCode());
-        ASSERT_EQ((u"#,##0.0#"), seriesProperties->get_BubbleSizes()->get_FormatCode());
+        ASSERT_EQ(seriesProperties->get_XValues()->get_FormatCode(), (u"#,##0.0#"));
+        ASSERT_EQ(seriesProperties->get_YValues()->get_FormatCode(), (u"#,##0.0#;[Red]\\-#,##0.0#"));
+        ASSERT_EQ(seriesProperties->get_BubbleSizes()->get_FormatCode(), (u"#,##0.0#"));
     }
 }
 
@@ -3028,7 +3031,7 @@ void ExCharts::SetChartStyle()
     System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
     
     // Get the chart style.
-    ASSERT_EQ(ChartStyle::Black, chart->get_Style());
+    ASSERT_EQ(chart->get_Style(), ChartStyle::Black);
     //ExEnd
 }
 
@@ -3073,10 +3076,10 @@ void ExCharts::TitleOrientation()
     chartShape = System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true));
     chart = chartShape->get_Chart();
     
-    ASSERT_EQ(ShapeTextOrientation::Horizontal, chart->get_Title()->get_Orientation());
-    ASSERT_EQ(90, chart->get_Title()->get_Rotation());
-    ASSERT_EQ(ShapeTextOrientation::Horizontal, chart->get_AxisX()->get_Title()->get_Orientation());
-    ASSERT_EQ(-90, chart->get_AxisX()->get_Title()->get_Rotation());
+    ASSERT_EQ(chart->get_Title()->get_Orientation(), ShapeTextOrientation::Horizontal);
+    ASSERT_EQ(chart->get_Title()->get_Rotation(), 90);
+    ASSERT_EQ(chart->get_AxisX()->get_Title()->get_Orientation(), ShapeTextOrientation::Horizontal);
+    ASSERT_EQ(chart->get_AxisX()->get_Title()->get_Rotation(), -90);
 }
 
 namespace gtest_test
@@ -3085,6 +3088,119 @@ namespace gtest_test
 TEST_F(ExCharts, TitleOrientation)
 {
     s_instance->TitleOrientation();
+}
+
+} // namespace gtest_test
+
+void ExCharts::ChartSeriesAndDataPointIsTotal()
+{
+    //ExStart:ChartSeriesAndDataPointIsTotal
+    //GistId:13ac22ab31bbd694d29ab4db2a496206
+    //ExFor:ChartSeries.IsTotal(Int32)
+    //ExFor:ChartDataPoint.IsTotal
+    //ExSummary:Shows how to determine whether a data point is a total in a waterfall chart.
+    auto doc = System::MakeObject<Aspose::Words::Document>();
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
+    
+    // Insert a Waterfall chart.
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(ChartType::Waterfall, static_cast<double>(450), static_cast<double>(450));
+    System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
+    chart->get_Title()->set_Text(u"New Zealand GDP");
+    
+    // Delete default generated series.
+    chart->get_Series()->Clear();
+    
+    // Add a series where the start value, the subtotal and the final value are totals.
+    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeries> series = chart->get_Series()->Add(u"New Zealand GDP", System::MakeArray<System::String>({u"2018", u"2019 growth", u"2020 growth", u"2020", u"2021 growth", u"2022 growth", u"2022"}), System::MakeArray<double>({100, 0.57, -0.25, 100.32, 20.22, -2.92, 117.62}), System::MakeArray<bool>({true, false, false, true, false, false, true}));
+    
+    // Print the type of each data point.
+    for (int32_t i = 0; i < series->get_YValues()->get_Count(); i++)
+    {
+        if (series->IsTotal(i))
+        {
+            std::cout << System::String::Format(u"Data point {0} is Subtotal", i) << std::endl;
+        }
+        else if (series->get_YValues()->idx_get(i)->get_DoubleValue() > 0)
+        {
+            std::cout << System::String::Format(u"Data point {0} is Increase", i) << std::endl;
+        }
+        else
+        {
+            std::cout << System::String::Format(u"Data point {0} is Decrease", i) << std::endl;
+        }
+    }
+    
+    // The same flag is available on the data point itself.
+    std::cout << System::String::Format(u"Data point 3 is total: {0}", series->get_DataPoints()->idx_get(3)->get_IsTotal()) << std::endl;
+    
+    doc->Save(get_ArtifactsDir() + u"Charts.ChartSeriesAndDataPointIsTotal.docx");
+    //ExEnd:ChartSeriesAndDataPointIsTotal
+    
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.ChartSeriesAndDataPointIsTotal.docx"));
+    series = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_Series()->idx_get(0);
+    
+    System::ArrayPtr<bool> expectedTotals = System::MakeArray<bool>({true, false, false, true, false, false, true});
+    for (int32_t i = 0; i < expectedTotals->get_Length(); i++)
+    {
+        ASPOSE_ASSERT_EQ(series->IsTotal(i), expectedTotals[i]);
+        ASPOSE_ASSERT_EQ(series->get_DataPoints()->idx_get(i)->get_IsTotal(), expectedTotals[i]);
+    }
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExCharts, ChartSeriesAndDataPointIsTotal)
+{
+    s_instance->ChartSeriesAndDataPointIsTotal();
+}
+
+} // namespace gtest_test
+
+void ExCharts::PlotAreaFormat()
+{
+    //ExStart:PlotAreaFormat
+    //GistId:13ac22ab31bbd694d29ab4db2a496206
+    //ExFor:ChartPlotArea
+    //ExFor:Chart.PlotArea
+    //ExFor:ChartPlotArea.Format
+    //ExSummary:Shows how to set fill and line formatting for the plot area of a chart.
+    auto doc = System::MakeObject<Aspose::Words::Document>();
+    auto builder = System::MakeObject<Aspose::Words::DocumentBuilder>(doc);
+    
+    System::SharedPtr<Aspose::Words::Drawing::Shape> shape = builder->InsertChart(ChartType::Column, static_cast<double>(432), static_cast<double>(252));
+    System::SharedPtr<Aspose::Words::Drawing::Charts::Chart> chart = shape->get_Chart();
+    
+    // Delete default generated series and add our own.
+    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartSeriesCollection> seriesColl = chart->get_Series();
+    seriesColl->Clear();
+    auto categories = System::MakeArray<System::String>({u"Category 1", u"Category 2"});
+    seriesColl->Add(u"Series 1", categories, System::MakeArray<double>({1, 2}));
+    seriesColl->Add(u"Series 2", categories, System::MakeArray<double>({3, 4}));
+    
+    // Fill the plot area with a gradient and outline it with a thin blue line.
+    System::SharedPtr<Aspose::Words::Drawing::Charts::ChartPlotArea> plotArea = chart->get_PlotArea();
+    plotArea->get_Format()->get_Fill()->OneColorGradient(System::Drawing::Color::get_LightBlue(), GradientStyle::DiagonalUp, GradientVariant::Variant2, static_cast<double>(1));
+    plotArea->get_Format()->get_Stroke()->set_ForeColor(System::Drawing::Color::get_Blue());
+    plotArea->get_Format()->get_Stroke()->set_Weight(0.25);
+    
+    doc->Save(get_ArtifactsDir() + u"Charts.PlotAreaFormat.docx");
+    //ExEnd:PlotAreaFormat
+    
+    doc = System::MakeObject<Aspose::Words::Document>(System::String(get_ArtifactsDir() + u"Charts.PlotAreaFormat.docx"));
+    plotArea = (System::ExplicitCast<Aspose::Words::Drawing::Shape>(doc->GetChild(NodeType::Shape, 0, true)))->get_Chart()->get_PlotArea();
+    
+    ASSERT_EQ(plotArea->get_Format()->get_Fill()->get_GradientStyle(), GradientStyle::DiagonalUp);
+    ASSERT_EQ(plotArea->get_Format()->get_Stroke()->get_ForeColor().ToArgb(), System::Drawing::Color::get_Blue().ToArgb());
+    ASPOSE_ASSERT_EQ(plotArea->get_Format()->get_Stroke()->get_Weight(), 0.25);
+}
+
+namespace gtest_test
+{
+
+TEST_F(ExCharts, PlotAreaFormat)
+{
+    s_instance->PlotAreaFormat();
 }
 
 } // namespace gtest_test
